@@ -1,4 +1,4 @@
-# Blockly
+# Blockly 20 Hour Curriculum
 
 Blockly is a web-based, graphical programming editor. Users can drag blocks together to build an application. No typing required. Credit goes to these awesome [developers](https://code.google.com/p/blockly/wiki/Credits#Engineers) and a small army of [translators](https://code.google.com/p/blockly/wiki/Credits#Translators).
 
