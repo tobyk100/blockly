@@ -34,4 +34,4 @@ This repository contains the source code for the [Blockly](https://code.google.c
   1. See the effect by running `cat .git/config` before and after the above command.
 2. Fetch the repo now called 'svn': `git svn fetch svn`, this will take a couple minutes.
 4. Checkout a local branch which tracks the remote svn branch: `git checkout -b trunk git-svn`
-5. You can now treat your local branch `trunk` like any other git branch. To fetch further revisions from the svn repo use `git svn fetch`.
+5. You can now treat your local branch `trunk` like any other git branch. To fetch further revisions from the svn repo use `git svn fetch` and then `git merge git-svn`.
