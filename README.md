@@ -9,11 +9,12 @@ This repository contains the source code for the [Blockly](https://code.google.c
 
 ## To Contribute
 
+
+https://help.github.com/articles/set-up-git
+
 ### Quickstart
 
-#### First, helpful links
-1.
-2.
+
 
 1. Fork this repository (see upper right of page).
 2. Clone your new repo `git clone https://github.com/<username>/blockly.git`
