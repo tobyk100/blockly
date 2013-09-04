@@ -11,13 +11,17 @@ This repository contains the source code for the [Blockly](https://code.google.c
 
 ### Quickstart
 
+#### First, helpful links
+1.
+2.
+
 1. Fork this repository (see upper right of page).
 2. Clone your new repo `git clone https://github.com/<username>/blockly.git`
-3. Initialize the local repository: `git init`
+3. Change directory to the newly cloned repo with `cd blockly`
 4. Add this repo as a remote: `git remote add codedotorg https://github.com/code-dot-org/blockly.git`
 5. [Hack]
 6. Merge in most up-to-date changes, repeat as needed:
-  1. `git fetch codedotorg mooc`
+  1. `git fetch codedotorg`
   2. `git merge codedotorg/mooc`
 7. Push changes to your fork, repeat as desired.
 8. Initiate pull request on your fork's page, targeting this repository.
