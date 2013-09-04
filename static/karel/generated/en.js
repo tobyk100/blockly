@@ -191,22 +191,22 @@ mazepage.startBlocks = function(opt_data, opt_ignored, opt_ijData) {
         output += '<block type="maze_moveForward" x="70" y="70"></block>';
         break;
       case 3:
-        output += '<block type="maze_pickUpBall" x="70" y="70"></block>';
+        output += '<block type="maze_moveForward" x="70" y="70"></block>';
         break;
       case 4:
-        output += '<block type="maze_turn" x="70" y="70"><title name="DIR">turnRight</title></block>';
+        output += '<block type="maze_untilBlocked" x="70" y="70"></block>';
         break;
       case 5:
         output += '<block type="maze_moveForward" x="70" y="70"></block>';
         break;
       case 6:
-        output += '<block type="maze_moveForward" x="70" y="70"></block>';
+        output += '<block type="maze_pickUpBall" x="70" y="70"></block>';
         break;
       case 7:
-        output += '<block type="maze_moveForward" x="70" y="70"></block>';
+        output += '<block type="maze_turn" x="70" y="70"><title name="DIR">turnRight</title></block>';
         break;
       case 8:
-        output += '<block type="maze_untilBlocked" x="70" y="70"></block>';
+        output += '<block type="maze_moveForward" x="70" y="70"></block>';
         break;
       case 9:
         output += '<block type="maze_moveForward" x="70" y="70"></block>';
@@ -214,7 +214,7 @@ mazepage.startBlocks = function(opt_data, opt_ignored, opt_ijData) {
       case 10:
         output += '<block type="maze_untilBlocked" x="70" y="70"></block>';
         break;
-      case 10:
+      case 11:
         output += '<block type="maze_untilBlocked" x="70" y="70"></block>';
         break;
     }
