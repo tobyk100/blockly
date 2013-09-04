@@ -65,31 +65,31 @@ page1.hints = function(opt_data, opt_ignored, opt_ijData) {
       output += 'Move the farmer to the hole and fill it with two shovelfuls of dirt.';
       break;
     case 3:
-      output += 'Make the farmer remove all the piles of dirt, using as few blocks as possible.';
+      output += 'Tell the farmer how many shovelfuls of dirt to remove.';
       break;
     case 4:
-      output += 'Move the farmer to the hole and make them fill it until it is even.';
+      output += 'Tell the farmer to fill in all the holes. Each hole needs 5 shovelfuls of dirt.';
       break;
     case 5:
-      output += 'Make the farmer fill in the hole. Check out the new option in the dropdown menu on the while block.';
-      break;
-    case 6:
-      output += 'Make the farmer remove all the piles, using as few blocks as possible.';
-      break;
-    case 7:
-      output += 'From this level on, the outside becomes dark and now the farmer can\'t tell how large the pile is. This means one of the options on the while loop has been taken away. Tell the farmer how many shovelfuls of dirt to remove.';
-      break;
-    case 8:
-      output += 'It\'s still dark outside. Tell the farmer to fill in all the holes. Each hole needs 5 shovelfuls of dirt.';
-      break;
-    case 9:
       output += 'Remove the 4 the piles.';
       break;
+    case 6:
+      output += 'Make the farmer remove all the piles of dirt, using as few blocks as possible.';
+      break;
+    case 7:
+      output += 'Move the farmer to the hole and make them fill it until it is even.';
+      break;
+    case 8:
+      output += 'Make the farmer fill in the hole. Check out the new option in the dropdown menu on the while block.';
+      break;
+    case 9:
+      output += 'Make the farmer remove all the piles, using as few blocks as possible.';
+      break;
     case 10:
-      output += 'Move the farmer along the field. If there is a pile, remove it.';
+      output += 'The outside becomes dark and now the farmer can\'t tell how large the pile is. This means one of the options on the while loop has been taken away. Move the farmer along the field. If there is a pile, remove it.';
       break;
     case 11:
-      output += 'Move the farmer along the field. If there is a pile, remove it, and if there is a hole, fill it in.';
+      output += 'It\'s still dark outside. Move the farmer along the field. If there is a pile, remove it, and if there is a hole, fill it in.';
       break;
   }
   return output;
@@ -97,7 +97,7 @@ page1.hints = function(opt_data, opt_ignored, opt_ijData) {
 
 
 page1.toolbox = function(opt_data, opt_ignored, opt_ijData) {
-  return '<block type="maze_moveForward"></block><block type="maze_turn"><title name="DIR">turnLeft</title></block><block type="maze_turn"><title name="DIR">turnRight</title></block><block type="maze_pickUpBall"></block>' + ((opt_ijData.level > 1) ? '<block type="maze_putDownBall"></block>' + ((opt_ijData.level > 6) ? '<block type="controls_repeat"></block><block type="maze_untilBlocked"></block>' + ((opt_ijData.level > 9) ? '<block type="maze_if"></block>' : '') : '') + ((opt_ijData.level == 3 || opt_ijData.level == 4) ? '<block type="maze_whileNotClear"></block>' : '') + ((opt_ijData.level == 5 || opt_ijData.level == 6) ? '<block type="maze_untilBlockedOrNotClear"></block>' : '') : '');
+  return '<block type="maze_moveForward"></block><block type="maze_turn"><title name="DIR">turnLeft</title></block><block type="maze_turn"><title name="DIR">turnRight</title></block><block type="maze_pickUpBall"></block>' + ((opt_ijData.level > 1) ? '<block type="maze_putDownBall"></block>' + ((opt_ijData.level > 2) ? '<block type="controls_repeat"></block>' + ((opt_ijData.level > 9) ? '<block type="maze_if"></block>' : '') : '') + ((opt_ijData.level == 4 || opt_ijData.level == 5 || opt_ijData.level == 10 || opt_ijData.level == 11) ? '<block type="maze_untilBlocked"></block>' : '') + ((opt_ijData.level > 5 && opt_ijData.level < 10) ? '<block type="maze_untilBlockedOrNotClear"></block>' : '') : '');
 };
 
 ;
@@ -108,7 +108,7 @@ if (typeof mazepage == 'undefined') { var mazepage = {}; }
 
 
 mazepage.start = function(opt_data, opt_ignored, opt_ijData) {
-  var output = '<div id="start_blocks" style="display:none">' + mazepage.startBlocks(null, null, opt_ijData) + '</div><div id="MSG" style="display: none"><span id="moveForward">move forward</span><span id="putDownBall">fill 1</span><span id="putDown5">put down 5</span><span id="pickUpBall">remove 1</span><span id="while">while</span><span id="ballsPresent">current spot has a pile of dirt</span><span id="holesPresent">current spot has a hole</span><span id="turnLeft">turn left</span><span id="turnRight">turn right</span><span id="doCode">do</span><span id="elseCode">else</span><span id="pathAhead">path ahead</span><span id="pathLeft">path to the left</span><span id="pathRight">path to the right</span><span id="noPathAhead">path is blocked</span><span id="noPathLeft">no path to the left</span><span id="noPathRight">no path to the right</span><span id="repeatUntilBlocked">while path is not blocked</span><span id="repeatUntilFinish">repeat until finish</span><span id="repeatWhileCurrentNotClear">while</span><span id="moveForwardTooltip">Move me forward one space.</span><span id="q4wrong">No - Try tracking my direction while following the program.</span><span id="q4right">That\'s right! Good job.</span><span id="q5wrong">No - Try tracking my direction while following the program.</span><span id="q5right">You got it right!</span><span id="q10wrong">No - Try tracking my direction while following the program.</span><span id="q10right">That\'s right!</span><span id="turnTooltip">Turns me left or right by 90 degrees.</span><span id="ifTooltip">If there is a path in the specified direction, then do some actions.</span><span id="ifelseTooltip">If there is a path in the specified direction, then do the first block of actions. Otherwise, do the second block of actions.</span><span id="whileTooltip">Repeat the enclosed actions until finish point is reached.</span><span id="capacity0">You have<span id=\'capacityNumber\'>0</span> blocks left.</span><span id="capacity1">You have <span id=\'capacityNumber\'>1</span> block left.</span><span id="capacity2">You have <span id=\'capacityNumber\'>%1</span> blocks left.</span><span id="nextLevel">Congratulations! You have completed this level.</span><span id="finalLevel">Congratulations! You have solved the final level.</span><span id="oneTopBlock">On this level, you need to stack together all of the blocks in the white workspace.</span><span id="putdownTower">put down tower</span><span id="pickupTower">pickup tower</span></div><div id="COMMON_MSG" style="display: none"><span id="httpRequestError">There was a problem with the request.</span><span id="linkAlert">Share your blocks with this link:\\n\\n%1</span><span id="hashError">Sorry, \'%1\' doesn\'t correspond with any saved Blockly file.</span><span id="xmlError">Could not load your saved file.  Perhaps it was created with a different version of Blockly?</span></div><table width="100%" ' + apps.menu({menu: opt_ijData.menu}, null, opt_ijData) + '><tr><td><h1><span id="title"><a href="../index.html">Blockly</a> : Farmer</span> &nbsp; ';
+  var output = '<div id="start_blocks" style="display:none">' + mazepage.startBlocks(null, null, opt_ijData) + '</div><div id="MSG" style="display: none"><span id="moveForward">move forward</span><span id="putDownBall">fill 1</span><span id="putDown5">put down 5</span><span id="pickUpBall">remove 1</span><span id="while">while</span><span id="ballsPresent">there is a pile</span><span id="holesPresent">there is a hole</span><span id="turnLeft">turn left</span><span id="turnRight">turn right</span><span id="doCode">do</span><span id="elseCode">else</span><span id="pathAhead">path ahead</span><span id="pathLeft">path to the left</span><span id="pathRight">path to the right</span><span id="noPathAhead">path is blocked</span><span id="noPathLeft">no path to the left</span><span id="noPathRight">no path to the right</span><span id="repeatUntilBlocked">while path ahead</span><span id="repeatUntilFinish">repeat until finish</span><span id="repeatWhileCurrentNotClear">while</span><span id="moveForwardTooltip">Move me forward one space.</span><span id="q4wrong">No - Try tracking my direction while following the program.</span><span id="q4right">That\'s right! Good job.</span><span id="q5wrong">No - Try tracking my direction while following the program.</span><span id="q5right">You got it right!</span><span id="q10wrong">No - Try tracking my direction while following the program.</span><span id="q10right">That\'s right!</span><span id="turnTooltip">Turns me left or right by 90 degrees.</span><span id="ifTooltip">If there is a path in the specified direction, then do some actions.</span><span id="ifelseTooltip">If there is a path in the specified direction, then do the first block of actions. Otherwise, do the second block of actions.</span><span id="whileTooltip">Repeat the enclosed actions until finish point is reached.</span><span id="capacity0">You have<span id=\'capacityNumber\'>0</span> blocks left.</span><span id="capacity1">You have <span id=\'capacityNumber\'>1</span> block left.</span><span id="capacity2">You have <span id=\'capacityNumber\'>%1</span> blocks left.</span><span id="nextLevel">Congratulations! You have completed this level.</span><span id="finalLevel">Congratulations! You have solved the final level.</span><span id="oneTopBlock">On this level, you need to stack together all of the blocks in the white workspace.</span><span id="putdownTower">put down tower</span><span id="pickupTower">pickup tower</span></div><div id="COMMON_MSG" style="display: none"><span id="httpRequestError">There was a problem with the request.</span><span id="linkAlert">Share your blocks with this link:\\n\\n%1</span><span id="hashError">Sorry, \'%1\' doesn\'t correspond with any saved Blockly file.</span><span id="xmlError">Could not load your saved file.  Perhaps it was created with a different version of Blockly?</span></div><table width="100%" ' + apps.menu({menu: opt_ijData.menu}, null, opt_ijData) + '><tr><td><h1><span id="title"><a href="../index.html">Blockly</a> : Farmer</span> &nbsp; ';
   var iLimit303 = opt_ijData.maxLevel + 1;
   for (var i303 = 1; i303 < iLimit303; i303++) {
     output += ' ' + ((i303 == opt_ijData.level) ? (i303 > 9) ? '<span class="selected doubleDigit tab">' + soy.$$escapeHtml(i303) + '</span>' : '<span class="selected singleDigit tab">' + soy.$$escapeHtml(i303) + '</span>' : (i303 < opt_ijData.level) ? '<a class="tab previous" href="?page=' + soy.$$escapeHtml(opt_ijData.page) + '&lang=' + soy.$$escapeHtml(opt_ijData.lang) + '&level=' + soy.$$escapeHtml(i303) + '&skin=' + soy.$$escapeHtml(opt_ijData.skin) + '">' + soy.$$escapeHtml(i303) + '</a>' : '<a class="tab" href="?page=' + soy.$$escapeHtml(opt_ijData.page) + '&lang=' + soy.$$escapeHtml(opt_ijData.lang) + '&level=' + soy.$$escapeHtml(i303) + '&skin=' + soy.$$escapeHtml(opt_ijData.skin) + '">' + soy.$$escapeHtml(i303) + '</a>');

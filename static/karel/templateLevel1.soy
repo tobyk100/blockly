@@ -13,44 +13,43 @@
         Move the farmer to the hole and fill it with two shovelfuls of dirt.
       {/msg}
     {case 3}
+      {msg meaning="Maze.instructions7" desc="TODO"}
+        Tell the farmer how many shovelfuls of dirt to remove.
+      {/msg}
+    {case 4}
+      {msg meaning="Maze.instructions8" desc="TODO"}
+        Tell the farmer to fill in all the holes. Each
+        hole needs 5 shovelfuls of dirt.
+      {/msg}
+    {case 5}
+      {msg meaning="Maze.instructions9" desc="TODO"}
+        Remove the 4 the piles.
+      {/msg}
+    {case 6}
       {msg meaning="Maze.instructions3" desc="TODO"}
         Make the farmer remove all the piles of dirt, using as few blocks as possible.
       {/msg}
-    {case 4}
+    {case 7}
       {msg meaning="Maze.instructions4" desc="TODO"}
         Move the farmer to the hole and make them fill it until it is even.
       {/msg}
-    {case 5}
+    {case 8}
       {msg meaning="Maze.instructions5" desc="TODO"}
         Make the farmer fill in the hole. Check out the new option in the dropdown
         menu on the while block.
       {/msg}
-    {case 6}
+    {case 9}
       {msg meaning="Maze.instructions6" desc="TODO"}
         Make the farmer remove all the piles, using as few blocks as possible.
       {/msg}
-    {case 7}
-      {msg meaning="Maze.instructions7" desc="TODO"}
-        From this level on, the outside becomes dark and now the farmer can't tell how large the pile is.
-        This means one of the options on the while loop has been taken away. Tell
-        the farmer how many shovelfuls of dirt to remove.
-      {/msg}
-    {case 8}
-      {msg meaning="Maze.instructions8" desc="TODO"}
-        It's still dark outside. Tell the farmer to fill in all the holes. Each
-        hole needs 5 shovelfuls of dirt.
-      {/msg}
-    {case 9}
-      {msg meaning="Maze.instructions9" desc="TODO"}
-        Remove the 4 the piles.
-      {/msg}
     {case 10}
       {msg meaning="Maze.instructions10" desc="TODO"}
-        Move the farmer along the field. If there is a pile, remove it.
+        The outside becomes dark and now the farmer can't tell how large the pile is.
+        This means one of the options on the while loop has been taken away. Move the farmer along the field. If there is a pile, remove it.
       {/msg}
     {case 11}
       {msg meaning="Maze.instructions10" desc="TODO"}
-        Move the farmer along the field. If there is a pile, remove it, and if there
+        It's still dark outside. Move the farmer along the field. If there is a pile, remove it, and if there
         is a hole, fill it in.
       {/msg}
   {/switch}
@@ -65,19 +64,18 @@
   <block type="maze_pickUpBall"></block>
   {if $ij.level > 1}
     <block type="maze_putDownBall"></block>
-    {if $ij.level > 6}
+    {if $ij.level > 2}
       <block type="controls_repeat"></block>
-      <block type="maze_untilBlocked"></block>
       {if $ij.level > 9}
         <block type="maze_if"></block>
       {/if}
     {/if}
-    {if $ij.level == 3 or $ij.level == 4}
-      <block type="maze_whileNotClear"></block>
+    {if $ij.level == 4 or $ij.level == 5 or $ij.level == 10 or $ij.level == 11}
+      <block type="maze_untilBlocked"></block>
     {/if}
-    {if $ij.level == 5 or $ij.level == 6}
+    {if $ij.level > 5 and $ij.level < 10}
       <block type="maze_untilBlockedOrNotClear"></block>
     {/if}
-  {/if}
+    {/if}
 {/template}
 {/namespace}
