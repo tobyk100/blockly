@@ -28,6 +28,11 @@ apps.ok = function(opt_data, opt_ignored, opt_ijData) {
   return '<div class="farSide" style="padding: 1ex 3ex 0"><button class="secondary" onclick="BlocklyApps.hideDialog(true)">OK</button></div>';
 };
 
+
+apps.menu = function(opt_data, opt_ignored, opt_ijData) {
+  return (! opt_data.menu) ? ' class="hide" ' : '';
+};
+
 ;
 // This file was automatically generated from template.soy.
 // Please don't edit this file by hand.
@@ -42,8 +47,8 @@ birdpage.messages = function(opt_data, opt_ignored, opt_ijData) {
 
 birdpage.start = function(opt_data, opt_ignored, opt_ijData) {
   var output = birdpage.messages(null, null, opt_ijData) + '<table width="100%"><tr><td><h1><span id="title"><a href="../index.html">Blockly</a> : Bird</span> &nbsp; ';
-  for (var i131 = 1; i131 < 11; i131++) {
-    output += ' ' + ((i131 == opt_ijData.level) ? '<span class="tab" id="selected">' + soy.$$escapeHtml(i131) + '</span>' : (i131 < opt_ijData.level) ? '<a class="tab previous" href="?lang=' + soy.$$escapeHtml(opt_ijData.lang) + '&level=' + soy.$$escapeHtml(i131) + '">' + soy.$$escapeHtml(i131) + '</a>' : '<a class="tab" href="?lang=' + soy.$$escapeHtml(opt_ijData.lang) + '&level=' + soy.$$escapeHtml(i131) + '">' + soy.$$escapeHtml(i131) + '</a>');
+  for (var i135 = 1; i135 < 11; i135++) {
+    output += ' ' + ((i135 == opt_ijData.level) ? '<span class="tab" id="selected">' + soy.$$escapeHtml(i135) + '</span>' : (i135 < opt_ijData.level) ? '<a class="tab previous" href="?lang=' + soy.$$escapeHtml(opt_ijData.lang) + '&level=' + soy.$$escapeHtml(i135) + '">' + soy.$$escapeHtml(i135) + '</a>' : '<a class="tab" href="?lang=' + soy.$$escapeHtml(opt_ijData.lang) + '&level=' + soy.$$escapeHtml(i135) + '">' + soy.$$escapeHtml(i135) + '</a>');
   }
   output += '</h1></td><td class="farSide"><select id="languageMenu" onchange="BlocklyApps.changeLanguage();"></select></td></tr></table><div id="visualization"><svg xmlns="http://www.w3.org/2000/svg" version="1.1" id="svgBird" width="400px" height="400px"></svg></div><table width="400"><tr><td style="width: 190px; text-align: center; vertical-align: top;"><button class="notext" title="See generated JavaScript code. " onclick="BlocklyApps.showCode(this);"><img src="../media/1x1.gif" class="code icon21"></button><button id="linkButton" class="notext" title="Save and link to blocks." onclick="BlocklyStorage.link();"><img src="../media/1x1.gif" class="link icon21"></button></td><td><button id="runButton" class="primary" onclick="Bird.runButtonClick();" title="Makes the player do what the blocks say."><img src="../media/1x1.gif" class="run icon21"> Run Program</button><button id="resetButton" class="primary" onclick="Bird.resetButtonClick();" style="display: none" title="Put the player back at the start of the level."><img src="../media/1x1.gif" class="stop icon21"> Reset</button></td></tr></table><script type="text/javascript" src="../blockly_compressed.js"><\/script><script type="text/javascript" src="../javascript_compressed.js"><\/script><script type="text/javascript" src="../' + soy.$$escapeHtml(opt_ijData.langSrc) + '"><\/script><script type="text/javascript" src="blocks.js"><\/script>' + birdpage.toolbox(null, null, opt_ijData) + '<div id="blockly"></div>' + apps.dialog(null, null, opt_ijData) + apps.codeDialog(null, null, opt_ijData) + apps.storageDialog(null, null, opt_ijData) + '<div id="dialogDone" class="dialogHiddenContent"><div id="dialogDoneText" style="font-size: large; margin: 1em;"></div><div id="dialogDoneButtons" class="farSide" style="padding: 1ex 3ex 0"></div></div>';
   return output;
