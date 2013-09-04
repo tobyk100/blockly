@@ -41,7 +41,7 @@
       something is true'"}while{/msg}</span>
     <span id="ballsPresent">{msg meaning="Maze.ballsPresent" desc="Indicates
       the presence of at least one ball, as in 'he brought a ball, there
-      are now balls present'"}current spot has a mound{/msg}</span>
+      are now balls present'"}current spot has a pile of dirt{/msg}</span>
     <span id="holesPresent">{msg meaning="Maze.holesPresent" desc="Indicates
       the lack of any balls, as in 'she took the last ball, there
       are now no balls present'"}current spot has a hole{/msg}</span>
@@ -826,7 +826,7 @@
  * @param shovelfuls
  */
 {template .fillShovelfuls}
-  <block type="procedures_defnoreturn" x="20" y="200">
+  <block type="procedures_defnoreturn" x="20" y="200" editable=false>
     <mutation></mutation>
     <title name="NAME">fill {$shovelfuls}</title>
     <statement name="STACK">
