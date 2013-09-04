@@ -193,7 +193,10 @@ Blockly.Language.maze_whileNotClear = {
   init: function() {
     this.setColour(120);
     this.appendDummyInput()
-        .appendTitle(new Blockly.FieldDropdown(this.DIRECTIONS), 'DIR');
+        .appendTitle(BlocklyApps.getMsg('repeatWhileCurrentNotClear'))
+        .appendTitle(new Blockly.FieldImage(Maze.SKIN.ball, 15, 20))
+        .appendTitle('or')
+        .appendTitle(new Blockly.FieldImage('-' + Maze.SKIN.ball, 15, 20));
     this.appendStatementInput('DO').appendTitle(BlocklyApps.getMsg('doCode'));
     this.setPreviousStatement(true);
     this.setNextStatement(true);
@@ -213,17 +216,12 @@ Blockly.JavaScript.maze_whileNotClear = function() {
   return 'while (' + argument + ') {\n' + branch + '}\n';
 };
 
-Blockly.Language.maze_whileNotClear.DIRECTIONS = [
-     [BlocklyApps.getMsg('repeatWhileCurrentNotClear'),
-      'currentPositionNotClear']
-];
-
 Blockly.Language.maze_untilBlocked = {
   helpUrl: 'http://code.google.com/p/blockly/wiki/Repeat',
   init: function() {
     this.setColour(120);
     this.appendDummyInput()
-        .appendTitle(new Blockly.FieldDropdown(this.DIRECTIONS), 'DIR');
+        .appendTitle(BlocklyApps.getMsg('repeatUntilBlocked'));
     this.appendStatementInput('DO').appendTitle(BlocklyApps.getMsg('doCode'));
     this.setPreviousStatement(true);
     this.setNextStatement(true);
@@ -242,11 +240,6 @@ Blockly.JavaScript.maze_untilBlocked = function() {
   console.log('while (' + argument + ') {\n' + branch + '}\n');
   return 'while (' + argument + ') {\n' + branch + '}\n';
 };
-
-Blockly.Language.maze_untilBlocked.DIRECTIONS = [
-     [BlocklyApps.getMsg('repeatUntilBlocked'), 'isPathForward']
-];
-
 
 Blockly.Language.maze_untilBlockedOrNotClear = {
   helpUrl: 'http://code.google.com/p/blockly/wiki/Repeat',
@@ -274,7 +267,7 @@ Blockly.JavaScript.maze_untilBlockedOrNotClear = function() {
 };
 
 Blockly.Language.maze_untilBlockedOrNotClear.DIRECTIONS = [
-     [BlocklyApps.getMsg('repeatWhileCurrentNotClear'),
+     [BlocklyApps.getMsg('repeatWhileCurrentNotClear') + ' pile or hole',
       'currentPositionNotClear'],
      [BlocklyApps.getMsg('repeatUntilBlocked'), 'isPathForward']
 ];
