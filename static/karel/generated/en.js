@@ -11,7 +11,7 @@ page2.hints = function(opt_data, opt_ignored, opt_ijData) {
       output += 'Try using the given blocks to remove all the piles on the ground.';
       break;
     case 2:
-      output += 'You are now given a new function block, fill 5, in the Functions category. It will fill 5 shovelfuls to a hole. Use it to make the farmer fill in the hole.';
+      output += 'You are now given a new function block, "fill 5", in the Functions category. It will fill 5 shovelfuls to a hole. Use it to make the farmer fill in the hole.';
       break;
     case 3:
       output += 'Use the function block to make the farmer fill in all the holes.';
@@ -20,19 +20,19 @@ page2.hints = function(opt_data, opt_ignored, opt_ijData) {
       output += 'Define a new function that fills a hole which needs 7 shovelfuls to make the farmer fill in all the holes.';
       break;
     case 5:
-      output += 'Create a new function, remove 3, that removes 3 shovelfuls from a pile, and use it to help the farmer level out all the piles.';
+      output += 'Create a new function, "remove 3", that removes 3 shovelfuls from a pile, and use it to help the farmer level out all the piles.';
       break;
     case 6:
-      output += 'Use the new functions, remove tower and fill tower, to level out the piles and fill in the holes.';
+      output += 'Use the new functions, "remove tower" and "fill tower", to level out the piles and fill in the holes.';
       break;
     case 7:
-      output += 'Create a new function, jump hurdle and remove 1, that helps the farmer jump the hurdle and remove 1 shovelful from a pile, and use it.';
+      output += 'Create a new function, "jump hurdle and remove 1", that helps the farmer jump the hurdle and remove 1 shovelful from a pile, and use it.';
       break;
     case 8:
-      output += 'Use the function, jump hurdle and remove 1, to help the farmer jump the row of hurdles.';
+      output += 'Use the function, "jump hurdle and remove 1", to help the farmer jump the row of hurdles.';
       break;
     case 9:
-      output += 'Use the function, remove 1 and jump hurdle, to make the farmer level out the piles. Notice the difference between the given function in the current level and the function in the last level.';
+      output += 'Use the function, "remove 1 and jump hurdle", to make the farmer level out the piles. Notice the difference between the given function in the current level and the function in the last level.';
       break;
   }
   return output;
