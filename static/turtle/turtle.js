@@ -654,7 +654,9 @@ Turtle.animate = function() {
   if (!tuple) {
     document.getElementById('spinner').style.visibility = 'hidden';
     Blockly.mainWorkspace.highlightBlock(null);
-    Turtle.checkAnswer();
+    if (BlocklyApps.LEVEL != BlocklyApps.MAX_LEVEL) {
+      Turtle.checkAnswer();
+    }
     return;
   }
   var command = tuple.shift();
