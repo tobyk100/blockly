@@ -12,24 +12,24 @@ This repository contains the source code for the [Blockly](https://code.google.c
 ### First, helpful links
 
 1. [Web based tutorial](http://try.github.io/levels/1/challenges/1)
-2. [Set up](https://help.github.com/articles/set-up-git)
-3. [Create a repo](https://help.github.com/articles/create-a-repo)
-4. [Forking](https://help.github.com/articles/fork-a-repo)
-5. [Pull Requests](https://help.github.com/articles/using-pull-requests)
+2. [Create a repo](https://help.github.com/articles/create-a-repo)
+3. [Forking](https://help.github.com/articles/fork-a-repo)
+4. [Pull Requests](https://help.github.com/articles/using-pull-requests)
 
 ### Quickstart
 
-1. Fork this repository (see upper right of page).
-2. Clone your new repo `git clone https://github.com/<username>/blockly.git`
-3. Change directory to the newly cloned repo with `cd blockly`
-4. Add this repo as a remote: `git remote add codedotorg https://github.com/code-dot-org/blockly.git`
-5. [Hack]
-6. Merge in most up-to-date changes, repeat as needed:
+1. [Install and set up git](https://help.github.com/articles/set-up-git)
+2. Fork this repository (see upper right of page).
+3. Clone your new repo `git clone https://github.com/<username>/blockly.git`
+4. Change directory to the newly cloned repo with `cd blockly`
+5. Add this repo as a remote: `git remote add codedotorg https://github.com/code-dot-org/blockly.git`
+6. [Hack]
+7. Merge in most up-to-date changes, repeat as needed:
   1. `git fetch codedotorg`
   2. `git merge codedotorg/mooc`
-7. Push changes to your fork, repeat as desired.
-8. Initiate pull request on your fork's page, targeting this repository.
-9. Find the pull request you initiated and assign it to someone. This requires that you are a collaborator on the project.
+8. Push changes to your fork, repeat as desired.
+9. Initiate pull request on your fork's page, targeting this repository.
+10. Find the pull request you initiated and assign it to someone. This requires that you are a collaborator on the project.
 
 ### Additional Tips
 
