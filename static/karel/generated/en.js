@@ -77,7 +77,7 @@ page1.hints = function(opt_data, opt_ignored, opt_ijData) {
       output += 'Make the farmer remove all the mounds, using as few blocks as possible.';
       break;
     case 7:
-      output += 'It\'s dark outside and now the farmer can\'t tell how large the mound is. This means one of the options on the while loop has been taken away. Tell the farmer how many shovelfuls of dirt to remove.';
+      output += 'From this level on, the outside becomes dark and now the farmer can\'t tell how large the mound is. This means one of the options on the while loop has been taken away. Tell the farmer how many shovelfuls of dirt to remove.';
       break;
     case 8:
       output += 'It\'s still dark outside. Tell the farmer to fill in all the holes. Each hole needs 5 shovelfuls of dirt.';
@@ -86,6 +86,9 @@ page1.hints = function(opt_data, opt_ignored, opt_ijData) {
       output += 'Remove the 4 the mounds.';
       break;
     case 10:
+      output += 'Move the farmer along the field. If there is a mound, remove it.';
+      break;
+    case 11:
       output += 'Move the farmer along the field. If there is a mound, remove it, and if there is a hole, fill it in.';
       break;
   }
@@ -94,7 +97,7 @@ page1.hints = function(opt_data, opt_ignored, opt_ijData) {
 
 
 page1.toolbox = function(opt_data, opt_ignored, opt_ijData) {
-  return '<block type="maze_moveForward"></block><block type="maze_turn"><title name="DIR">turnLeft</title></block><block type="maze_turn"><title name="DIR">turnRight</title></block><block type="maze_pickUpBall"></block>' + ((opt_ijData.level > 1) ? '<block type="maze_putDownBall"></block>' + ((opt_ijData.level > 6) ? '<block type="controls_repeat"></block>' + ((opt_ijData.level > 8) ? '<block type="maze_untilBlockedOrNotClear"></block>' + ((opt_ijData.level > 9) ? '<block type="maze_if"></block>' : '') : '') : '') + ((opt_ijData.level == 3 || opt_ijData.level == 4) ? '<block type="maze_whileNotClear"></block>' : '') + ((opt_ijData.level == 7 || opt_ijData.level == 8) ? '<block type="maze_untilBlocked"></block>' : '') + ((opt_ijData.level == 5 || opt_ijData.level == 6) ? '<block type="maze_untilBlockedOrNotClear"></block>' : '') : '');
+  return '<block type="maze_moveForward"></block><block type="maze_turn"><title name="DIR">turnLeft</title></block><block type="maze_turn"><title name="DIR">turnRight</title></block><block type="maze_pickUpBall"></block>' + ((opt_ijData.level > 1) ? '<block type="maze_putDownBall"></block>' + ((opt_ijData.level > 6) ? '<block type="controls_repeat"></block><block type="maze_untilBlocked"></block>' + ((opt_ijData.level > 9) ? '<block type="maze_if"></block>' : '') : '') + ((opt_ijData.level == 3 || opt_ijData.level == 4) ? '<block type="maze_whileNotClear"></block>' : '') + ((opt_ijData.level == 5 || opt_ijData.level == 6) ? '<block type="maze_untilBlockedOrNotClear"></block>' : '') : '');
 };
 
 ;
@@ -106,9 +109,9 @@ if (typeof mazepage == 'undefined') { var mazepage = {}; }
 
 mazepage.start = function(opt_data, opt_ignored, opt_ijData) {
   var output = '<div id="start_blocks" style="display:none">' + mazepage.startBlocks(null, null, opt_ijData) + '</div><div id="MSG" style="display: none"><span id="moveForward">move forward</span><span id="putDownBall">fill 1</span><span id="putDown5">put down 5</span><span id="pickUpBall">remove 1</span><span id="while">while</span><span id="ballsPresent">current spot has a mound</span><span id="holesPresent">current spot has a hole</span><span id="turnLeft">turn left</span><span id="turnRight">turn right</span><span id="doCode">do</span><span id="elseCode">else</span><span id="pathAhead">path ahead</span><span id="pathLeft">path to the left</span><span id="pathRight">path to the right</span><span id="noPathAhead">path is blocked</span><span id="noPathLeft">no path to the left</span><span id="noPathRight">no path to the right</span><span id="repeatUntilBlocked">while path is not blocked</span><span id="repeatUntilFinish">repeat until finish</span><span id="repeatWhileCurrentNotClear">while</span><span id="moveForwardTooltip">Move me forward one space.</span><span id="q4wrong">No - Try tracking my direction while following the program.</span><span id="q4right">That\'s right! Good job.</span><span id="q5wrong">No - Try tracking my direction while following the program.</span><span id="q5right">You got it right!</span><span id="q10wrong">No - Try tracking my direction while following the program.</span><span id="q10right">That\'s right!</span><span id="turnTooltip">Turns me left or right by 90 degrees.</span><span id="ifTooltip">If there is a path in the specified direction, then do some actions.</span><span id="ifelseTooltip">If there is a path in the specified direction, then do the first block of actions. Otherwise, do the second block of actions.</span><span id="whileTooltip">Repeat the enclosed actions until finish point is reached.</span><span id="capacity0">You have<span id=\'capacityNumber\'>0</span> blocks left.</span><span id="capacity1">You have <span id=\'capacityNumber\'>1</span> block left.</span><span id="capacity2">You have <span id=\'capacityNumber\'>%1</span> blocks left.</span><span id="nextLevel">Congratulations! You have completed this level.</span><span id="finalLevel">Congratulations! You have solved the final level.</span><span id="oneTopBlock">On this level, you need to stack together all of the blocks in the white workspace.</span><span id="putdownTower">put down tower</span><span id="pickupTower">pickup tower</span></div><div id="COMMON_MSG" style="display: none"><span id="httpRequestError">There was a problem with the request.</span><span id="linkAlert">Share your blocks with this link:\\n\\n%1</span><span id="hashError">Sorry, \'%1\' doesn\'t correspond with any saved Blockly file.</span><span id="xmlError">Could not load your saved file.  Perhaps it was created with a different version of Blockly?</span></div><table width="100%" ' + apps.menu({menu: opt_ijData.menu}, null, opt_ijData) + '><tr><td><h1><span id="title"><a href="../index.html">Blockly</a> : Farmer</span> &nbsp; ';
-  var iLimit306 = opt_ijData.maxLevel + 1;
-  for (var i306 = 1; i306 < iLimit306; i306++) {
-    output += ' ' + ((i306 == opt_ijData.level) ? (i306 > 9) ? '<span class="selected doubleDigit tab">' + soy.$$escapeHtml(i306) + '</span>' : '<span class="selected singleDigit tab">' + soy.$$escapeHtml(i306) + '</span>' : (i306 < opt_ijData.level) ? '<a class="tab previous" href="?page=' + soy.$$escapeHtml(opt_ijData.page) + '&lang=' + soy.$$escapeHtml(opt_ijData.lang) + '&level=' + soy.$$escapeHtml(i306) + '&skin=' + soy.$$escapeHtml(opt_ijData.skin) + '">' + soy.$$escapeHtml(i306) + '</a>' : '<a class="tab" href="?page=' + soy.$$escapeHtml(opt_ijData.page) + '&lang=' + soy.$$escapeHtml(opt_ijData.lang) + '&level=' + soy.$$escapeHtml(i306) + '&skin=' + soy.$$escapeHtml(opt_ijData.skin) + '">' + soy.$$escapeHtml(i306) + '</a>');
+  var iLimit303 = opt_ijData.maxLevel + 1;
+  for (var i303 = 1; i303 < iLimit303; i303++) {
+    output += ' ' + ((i303 == opt_ijData.level) ? (i303 > 9) ? '<span class="selected doubleDigit tab">' + soy.$$escapeHtml(i303) + '</span>' : '<span class="selected singleDigit tab">' + soy.$$escapeHtml(i303) + '</span>' : (i303 < opt_ijData.level) ? '<a class="tab previous" href="?page=' + soy.$$escapeHtml(opt_ijData.page) + '&lang=' + soy.$$escapeHtml(opt_ijData.lang) + '&level=' + soy.$$escapeHtml(i303) + '&skin=' + soy.$$escapeHtml(opt_ijData.skin) + '">' + soy.$$escapeHtml(i303) + '</a>' : '<a class="tab" href="?page=' + soy.$$escapeHtml(opt_ijData.page) + '&lang=' + soy.$$escapeHtml(opt_ijData.lang) + '&level=' + soy.$$escapeHtml(i303) + '&skin=' + soy.$$escapeHtml(opt_ijData.skin) + '">' + soy.$$escapeHtml(i303) + '</a>');
   }
   output += '</h1></td><td class="farSide"><select id="languageMenu" onchange="BlocklyApps.changeLanguage();"></select> &nbsp; <button id="pegmanButton" onmousedown="Maze.showPegmanMenu();"><img src="../media/1x1.gif"><span>&#x25BE;</span></button></td></tr></table><div id="levelFeedback"><div style="padding-bottom: 0.7ex;"><br><textarea id="levelFeedbackText" rows=3 cols=40 style="resize: none; border: 0; text-align: center; overflow: hidden; font-size: 16pt; font-family: Arial;">';
   if (opt_ijData.page == 1) {
@@ -139,6 +142,9 @@ mazepage.start = function(opt_data, opt_ignored, opt_ijData) {
         output += 'Can you find a solution using only 4 blocks? Try using one of the green loop blocks.';
         break;
       case 10:
+        output += 'Can you find a solution using 4 blocks? Try including an if block.';
+        break;
+      case 11:
         output += 'Can you find a solution using 6 blocks? Try including 2 if blocks.';
         break;
     }
@@ -206,7 +212,10 @@ mazepage.startBlocks = function(opt_data, opt_ignored, opt_ijData) {
         output += '<block type="maze_moveForward" x="70" y="70"></block>';
         break;
       case 10:
-        output += '<block type="maze_untilBlockedOrNotClear" x="70" y="70"></block>';
+        output += '<block type="maze_untilBlocked" x="70" y="70"></block>';
+        break;
+      case 10:
+        output += '<block type="maze_untilBlocked" x="70" y="70"></block>';
         break;
     }
   } else {
