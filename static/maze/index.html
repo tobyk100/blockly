@@ -10,7 +10,7 @@
   <script type="text/javascript" src="../common.js"></script>
   <script type="text/javascript" src="maze.js"></script>
   <script type="text/javascript">
-    if (BlocklyApps.MODE_ID == 2) {
+    if (BlocklyApps.MODE == BlocklyApps.MODE_ENUM.ADAPTIVE) {
       BlocklyApps.MAX_LEVEL = 18;
       BlocklyApps.LEVEL =
         BlocklyApps.getNumberParamFromUrl('level', 1, BlocklyApps.MAX_LEVEL);
@@ -25,7 +25,7 @@
          level: BlocklyApps.LEVEL,
          menu: BlocklyApps.DISPLAY_NAV,
          skin: BlocklyApps.SKIN_ID,
-         mode: BlocklyApps.MODE_ID,
+         mode: BlocklyApps.MODE,
          langSrc: BlocklyApps.LANGUAGES[BlocklyApps.LANG][2]}));
   </script>
 </body>
