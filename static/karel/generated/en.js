@@ -26,13 +26,13 @@ page2.hints = function(opt_data, opt_ignored, opt_ijData) {
       output += 'Use the new functions, "fill 8" and "remove 8", to level out the pile and fill in the hole.';
       break;
     case 7:
-      output += 'Create a new function, "avoid the cow and remove 1", that helps the farmer jump the hurdle and remove 1 shovelful from a pile, and use it.';
+      output += 'Create a new function, "avoid the cow and remove 1", that helps the farmer avoid the cow and remove 1 shovelful from a pile, and use it.';
       break;
     case 8:
-      output += 'Use the function, "avoid the cow and remove 1", to help the farmer jump the row of hurdles.';
+      output += 'Use the function, "avoid the cow and remove 1", to help the farmer avoid the row of cows.';
       break;
     case 9:
-      output += 'Use the function, "remove 1 and avoid the cow", to make the farmer level out the piles. Notice the difference between the given function in the current level and the function in the last level.';
+      output += 'Use the function, "remove 1 and avoid the cow", to make the farmer level out the piles. Notice that remove 1 shoveful of dirt is now done before avoiding the cow in this level.';
       break;
   }
   return output;

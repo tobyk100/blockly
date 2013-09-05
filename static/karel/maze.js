@@ -60,7 +60,8 @@ Maze.SKINS = [
     background: 'bg.png',
     graph: false,
     look: '#000',
-    ball: 'check.png'
+    ball: 'check.png',
+    obstacle: 'cow.png'
   }/*,
   {
     sprite: 'astro.png',
@@ -101,6 +102,7 @@ Maze.SquareType = {
   OPEN: 1,
   START: 2,
   FINISH: 3,
+  OBSTACLE: 4,
   STARTANDFINISH: 5
 };
 
@@ -245,9 +247,12 @@ Maze.drawMap = function() {
   // Draw the tiles making up the maze map.
 
   // Return a value of '0' if the specified square is wall or out of bounds,
-  // '1' otherwise (empty, start, finish).
+  // '1' otherwise (empty, obstacle, start, finish).
   var normalize = function(x, y) {
     if (x < 0 || x >= Maze.COLS || y < 0 || y >= Maze.ROWS) {
+      return '0';
+    }
+    if (Maze.map[y][x] == Maze.SquareType.OBSTACLE) {
       return '0';
     }
     return (Maze.map[y][x] == Maze.SquareType.WALL) ? '0' : '1';
@@ -320,6 +325,26 @@ Maze.drawMap = function() {
   pegmanIcon.setAttribute('width', Maze.PEGMAN_WIDTH * 21); // 49 * 21 = 1029
   pegmanIcon.setAttribute('clip-path', 'url(#pegmanClipPath)');
   svg.appendChild(pegmanIcon);
+
+  // Add obstacles.
+  for (var y = 0; y < Maze.ROWS; y++) {
+    for (var x = 0; x < Maze.COLS; x++) {
+      if (Maze.map[y][x] == Maze.SquareType.OBSTACLE) {
+        var obsIcon = document.createElementNS(Blockly.SVG_NS, 'image');
+        obsIcon.setAttribute('height', 50);
+        obsIcon.setAttribute('width', 42);
+        obsIcon.setAttributeNS(
+          'http://www.w3.org/1999/xlink', 'xlink:href', Maze.SKIN.obstacle);
+        obsIcon.setAttribute('x',
+                             Maze.SQUARE_SIZE * (x + 0.5)
+                             - obsIcon.getAttribute('width') / 2);
+        obsIcon.setAttribute('y',
+                             Maze.SQUARE_SIZE * (y + 0.6)
+                             - obsIcon.getAttribute('height'))
+        svg.appendChild(obsIcon);
+      }
+    }
+  }
 };
 
 /**
