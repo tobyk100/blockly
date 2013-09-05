@@ -399,8 +399,7 @@
       </div>
     </div>
   </div>
-  </div>
-
+  <div id="play-area">
   <div id="visualization">
     <div id="hintBubble">
       <div id="hint">
@@ -587,7 +586,7 @@
     </div>
   </div>
 
-  <table width="400" style="padding-top: 10px;">
+  <table id="gameButtons" width="400" style="padding-top: 10px;">
     <tr>
       <td style="width: 190px; text-align: center; vertical-align: top;">
         <button class="notext" title="{msg meaning="Maze.codeTooltip"
@@ -630,6 +629,7 @@
   <script type="text/javascript" src="{$ij.baseUrl}maze/blocks.js"></script>
   {call .toolbox /}
   <div id="blockly"></div>
+</div>
 
   {call apps.dialog /}
   {call apps.codeDialog /}

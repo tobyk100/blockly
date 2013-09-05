@@ -703,7 +703,6 @@ Maze.init = function() {
     var svg = document.getElementById('svgMaze');
 
     blocklyDiv.style.top = top + 'px';
-    blocklyDiv.style.left = rtl ? '10px' : (svg.clientWidth + 20) + 'px';
 
     blocklyDiv.style.width = (window.innerWidth - svg.clientWidth - 40) + 'px';
     blocklyDiv.style.height = (window.innerHeight - top - 20 +

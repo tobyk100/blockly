@@ -4,6 +4,12 @@ body {
   margin-top: 0;
 }
 
+#visualization {
+  position: relative;
+  top: 10px;
+  float: left;
+}
+
 #svgMaze {
   border: solid 1px #DBDBDB;
 }
@@ -122,4 +128,10 @@ html[dir="RTL"] #pegmanButton>span {
 }
 .hide {
   display: none;
+}
+#blockly {
+  margin-left: 415px;
+}
+#gameButtons {
+  clear: left;
 }
