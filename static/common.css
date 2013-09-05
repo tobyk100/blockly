@@ -17,7 +17,8 @@ html[dir="RTL"] .farSide {
   text-align: left;
 }
 #blockly {
-  position: absolute;
+  position: fixed;
+  bottom: 10px;
   box-shadow: 7px 7px 10px #888;
 }
 #visualization {

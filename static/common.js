@@ -708,10 +708,10 @@ BlocklyApps.NUM_REQUIRED_BLOCKS_TO_FLAG = undefined;
 
 /**
  * Indicates whether or not the default display menu is used.
- * @type {boolean=}
+ * @type {boolean=} Convert to bool.
  */
 BlocklyApps.DISPLAY_NAV = BlocklyApps.getStringParamFromUrl('menu', 'true');
-BlocklyApps.DISPLAY_NAV = BlocklyApps.DISPLAY_NAV === 'true';  // Convert to bool.
+BlocklyApps.DISPLAY_NAV = BlocklyApps.DISPLAY_NAV === 'true';
 
 /**
  * This allows the server to override the standard next level redirect.
@@ -781,9 +781,9 @@ BlocklyApps.TestResults = {
  */
 BlocklyApps.InterTypes = {
   NONE: 0,
-  PRE: 1,          //Show interstitial when the page loads.
-  POST: 2,         //Show interstitial when the level is complete.
-}
+  PRE: 1,          // Show interstitial when the page loads.
+  POST: 2          // Show interstitial when the level is complete.
+};
 
 /**
  * Updates the document's 'capacity' element's innerHTML with a message
@@ -1052,7 +1052,7 @@ BlocklyApps.report = function(app, id, level, result, program) {
       if (redirect) {
         BlocklyApps.nextLevelUrl = redirect;
       }
-    }
+    };
     httpRequest.open('POST', BlocklyApps.REPORT_URL);
     httpRequest.setRequestHeader('Content-Type',
         'application/x-www-form-urlencoded');
@@ -1109,7 +1109,7 @@ BlocklyApps.hideFeedback = function() {
  * @param {string} identifier 'q' + reinforcement level number +
  *     'r' or 'w' (right or wrong answer).
  */
-BlocklyApps.showReinfHelp = function(reinfLevel, identifier) {
+BlocklyApps.showReinfQuizFeedback = function(reinfLevel, identifier) {
   var qNum = reinfLevel;
   var responseType = identifier.charAt(identifier.length - 1);
   document.getElementById('reinfQuizFeedback').style.display = 'block';
@@ -1156,10 +1156,6 @@ BlocklyApps.goToNextLevelOrReset = function(gotoNext, level, skinId) {
 /**
  * Show the close dialog buttons depending on the state of the level.
  * @param {number} feedbackType The results of block tests.
- *   Continue button if == BlocklyApps.ALL_PASS.
- *   Try Again and Continue buttons if == BlocklyApps.TOO_MANY_BLOCKS_FAIL.
- *   Try Again button if == BlocklyApps.MISSING_BLOCK_FAIL.
- *   OK button if == BlocklyApps.NO_TESTS_RUN.
  */
 BlocklyApps.displayCloseDialogButtons = function(feedbackType) {
   var continueButton = document.getElementById('continueButton');
@@ -1288,7 +1284,6 @@ BlocklyApps.resetButtonClick = function() {
 /**
  * Show the help pop-up.
  * @param {boolean} animate Animate the pop-up opening.
- * @param {number} level The current level.
  * @param {number} feedbackType If defined, the results of end of level tests.
  */
 BlocklyApps.showHelp = function(animate, feedbackType) {
