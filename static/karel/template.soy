@@ -634,11 +634,17 @@
         <block type="procedures_defnoreturn" x="300" y="200" editable=false
           deletable=false>
           <mutation></mutation>
-          <title name="NAME">fill 7</title>
+          <title name="NAME">remove 7</title>
         </block>
       {case 5}
       {case 6}
-        <block type="procedures_defnoreturn" x="20" y="200" editable=false
+        {call .fillShovelfuls}
+          {param shovelfuls: 8 /}
+        {/call}
+        {call .removeShovelfuls}
+          {param shovelfuls: 8 /}
+        {/call}
+ /*       <block type="procedures_defnoreturn" x="20" y="200" editable=false
           deletable=false>
           <mutation></mutation>
           <title name="NAME">remove tower</title>
@@ -737,13 +743,22 @@
               </next>
             </block>
           </statement>
-        </block>
+        </block> */
       {case 7}
+        <block type="procedures_callnoreturn" x="20" y="70" editable=false
+          deletable=false>
+          <mutation name="avoid the cow"></mutation>
+        </block>
+        <block type="procedures_defnoreturn" x="20" y="200" editable=false
+          deletable=false>
+          <mutation></mutation>
+          <title name="NAME">avoid the cow</title>
+        </block>
       {case 8}
         <block type="procedures_defnoreturn" x="20" y="200" editable=false
           deletable=false>
           <mutation></mutation>
-          <title name="NAME">jump hurdle and remove 1</title>
+          <title name="NAME">avoid the cow and remove 1</title>
           <statement name="STACK">
             <block type="maze_turn" editable=false deletable=false>
               <title name="DIR">turnLeft</title>
@@ -796,7 +811,7 @@
         <block type="procedures_defnoreturn" x="20" y="200" editable=false
           deletable=false>
           <mutation></mutation>
-          <title name="NAME">remove 1 and jump hurdle</title>
+          <title name="NAME">remove 1 and avoid the cow</title>
           <statement name="STACK">
             <block type="maze_pickUpBall" editable=false deletable=false>
               <next>
@@ -862,6 +877,26 @@
         <title name="TIMES">{$shovelfuls}</title>
         <statement name="DO">
           <block type="maze_putDownBall" editable=false deletable=false></block>
+        </statement>
+       </block>
+    </statement>
+  </block>
+{/template}
+
+/**
+ * Template to create function for removing in shovels.
+ * @param shovelfuls
+ */
+{template .removeShovelfuls}
+  <block type="procedures_defnoreturn" x="300" y="200" editable=false
+    deletable=false>
+    <mutation></mutation>
+    <title name="NAME">remove {$shovelfuls}</title>
+    <statement name="STACK">
+      <block type="controls_repeat" editable=false deletable=false>
+        <title name="TIMES">{$shovelfuls}</title>
+        <statement name="DO">
+          <block type="maze_pickUpBall" editable=false deletable=false></block>
         </statement>
        </block>
     </statement>

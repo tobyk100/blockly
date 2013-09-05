@@ -17,22 +17,22 @@ page2.hints = function(opt_data, opt_ignored, opt_ijData) {
       output += 'Use the function block to make the farmer fill in all the holes.';
       break;
     case 4:
-      output += 'Define a new function that fills a hole which needs 7 shovelfuls to make the farmer fill in all the holes.';
+      output += 'Define a new function that removes a pile which needs 7 shovelfuls to make the farmer remove in all the piles.';
       break;
     case 5:
       output += 'Create a new function, "remove 3", that removes 3 shovelfuls from a pile, and use it to help the farmer level out all the piles.';
       break;
     case 6:
-      output += 'Use the new functions, "remove tower" and "fill tower", to level out the piles and fill in the holes.';
+      output += 'Use the new functions, "fill 8" and "remove 8", to level out the pile and fill in the hole.';
       break;
     case 7:
-      output += 'Create a new function, "jump hurdle and remove 1", that helps the farmer jump the hurdle and remove 1 shovelful from a pile, and use it.';
+      output += 'Create a new function, "avoid the cow and remove 1", that helps the farmer jump the hurdle and remove 1 shovelful from a pile, and use it.';
       break;
     case 8:
-      output += 'Use the function, "jump hurdle and remove 1", to help the farmer jump the row of hurdles.';
+      output += 'Use the function, "avoid the cow and remove 1", to help the farmer jump the row of hurdles.';
       break;
     case 9:
-      output += 'Use the function, "remove 1 and jump hurdle", to make the farmer level out the piles. Notice the difference between the given function in the current level and the function in the last level.';
+      output += 'Use the function, "remove 1 and avoid the cow", to make the farmer level out the piles. Notice the difference between the given function in the current level and the function in the last level.';
       break;
   }
   return output;
@@ -227,20 +227,21 @@ mazepage.startBlocks = function(opt_data, opt_ignored, opt_ijData) {
         output += mazepage.fillShovelfuls({shovelfuls: 5}, null, opt_ijData);
         break;
       case 4:
-        output += mazepage.fillShovelfuls({shovelfuls: 5}, null, opt_ijData) + '<block type="procedures_defnoreturn" x="300" y="200" editable=false deletable=false><mutation></mutation><title name="NAME">fill 7</title></block>';
+        output += mazepage.fillShovelfuls({shovelfuls: 5}, null, opt_ijData) + '<block type="procedures_defnoreturn" x="300" y="200" editable=false deletable=false><mutation></mutation><title name="NAME">remove 7</title></block>';
         break;
       case 5:
         break;
       case 6:
-        output += '<block type="procedures_defnoreturn" x="20" y="200" editable=false deletable=false><mutation></mutation><title name="NAME">remove tower</title><statement name="STACK"><block type="maze_turn" editable=false deletable=false><title name="DIR">turnLeft</title><next><block type="controls_repeat" editable=false deletable=false><title name="TIMES">3</title><statement name="DO"><block type="maze_pickUpBall" editable=false deletable=false><next><block type="maze_moveForward" editable=false deletable=false></block></next></block></statement><next><block type="maze_turn" editable=false deletable=false><title name="DIR">turnRight</title><next><block type="maze_turn" editable=false deletable=false><title name="DIR">turnRight</title><next><block type="controls_repeat" editable=false deletable=false><title name="TIMES">3</title><statement name="DO"><block type="maze_moveForward" editable=false deletable=false></block></statement><next><block type="maze_turn" editable=false deletable=false><title name="DIR">turnLeft</title></block></next></block></next></block></next></block></next></block></next></block></statement></block><block type="procedures_defnoreturn" x="300" y="200" editable=false deletable=false><mutation></mutation><title name="NAME">fill tower</title><statement name="STACK"><block type="maze_turn" editable=false deletable=false><title name="DIR">turnLeft</title><next><block type="controls_repeat" editable=false deletable=false><title name="TIMES">3</title><statement name="DO"><block type="maze_putDownBall" editable=false deletable=false><next><block type="maze_moveForward" editable=false deletable=false></block></next></block></statement><next><block type="maze_turn" editable=false deletable=false><title name="DIR">turnRight</title><next><block type="maze_turn" editable=false deletable=false><title name="DIR">turnRight</title><next><block type="controls_repeat" editable=false deletable=false><title name="TIMES">3</title><statement name="DO"><block type="maze_moveForward" editable=false deletable=false></block></statement><next><block type="maze_turn" editable=false deletable=false><title name="DIR">turnLeft</title></block></next></block></next></block></next></block></next></block></next></block></statement></block>';
+        output += mazepage.fillShovelfuls({shovelfuls: 8}, null, opt_ijData) + mazepage.removeShovelfuls({shovelfuls: 8}, null, opt_ijData);
         break;
       case 7:
+        output += '<block type="procedures_callnoreturn" x="20" y="70" editable=false deletable=false><mutation name="avoid the cow"></mutation></block><block type="procedures_defnoreturn" x="20" y="200" editable=false deletable=false><mutation></mutation><title name="NAME">avoid the cow</title></block>';
         break;
       case 8:
-        output += '<block type="procedures_defnoreturn" x="20" y="200" editable=false deletable=false><mutation></mutation><title name="NAME">jump hurdle and remove 1</title><statement name="STACK"><block type="maze_turn" editable=false deletable=false><title name="DIR">turnLeft</title><next><block type="maze_moveForward" editable=false deletable=false><next><block type="maze_turn" editable=false deletable=false><title name="DIR">turnRight</title><next><block type="maze_moveForward" editable=false deletable=false><next><block type="maze_moveForward" editable=false deletable=false><next><block type="maze_turn" editable=false deletable=false><title name="DIR">turnRight</title><next><block type="maze_moveForward" editable=false deletable=false><next><block type="maze_pickUpBall" editable=false deletable=false><next><block type="maze_turn" editable=false deletable=false><title name="DIR">turnLeft</title></block></next></block></next></block></next></block></next></block></next></block></next></block></next></block></next></block></statement></block>';
+        output += '<block type="procedures_defnoreturn" x="20" y="200" editable=false deletable=false><mutation></mutation><title name="NAME">avoid the cow and remove 1</title><statement name="STACK"><block type="maze_turn" editable=false deletable=false><title name="DIR">turnLeft</title><next><block type="maze_moveForward" editable=false deletable=false><next><block type="maze_turn" editable=false deletable=false><title name="DIR">turnRight</title><next><block type="maze_moveForward" editable=false deletable=false><next><block type="maze_moveForward" editable=false deletable=false><next><block type="maze_turn" editable=false deletable=false><title name="DIR">turnRight</title><next><block type="maze_moveForward" editable=false deletable=false><next><block type="maze_pickUpBall" editable=false deletable=false><next><block type="maze_turn" editable=false deletable=false><title name="DIR">turnLeft</title></block></next></block></next></block></next></block></next></block></next></block></next></block></next></block></next></block></statement></block>';
         break;
       case 9:
-        output += '<block type="procedures_defnoreturn" x="20" y="200" editable=false deletable=false><mutation></mutation><title name="NAME">remove 1 and jump hurdle</title><statement name="STACK"><block type="maze_pickUpBall" editable=false deletable=false><next><block type="maze_turn" editable=false deletable=false><title name="DIR">turnLeft</title><next><block type="maze_moveForward" editable=false deletable=false><next><block type="maze_turn" editable=false deletable=false><title name="DIR">turnRight</title><next><block type="maze_moveForward" editable=false deletable=false><next><block type="maze_moveForward" editable=false deletable=false><next><block type="maze_turn" editable=false deletable=false><title name="DIR">turnRight</title><next><block type="maze_moveForward" editable=false deletable=false><next><block type="maze_turn" editable=false deletable=false><title name="DIR">turnLeft</title></block></next></block></next></block></next></block></next></block></next></block></next></block></next></block></next></block></statement></block>';
+        output += '<block type="procedures_defnoreturn" x="20" y="200" editable=false deletable=false><mutation></mutation><title name="NAME">remove 1 and avoid the cow</title><statement name="STACK"><block type="maze_pickUpBall" editable=false deletable=false><next><block type="maze_turn" editable=false deletable=false><title name="DIR">turnLeft</title><next><block type="maze_moveForward" editable=false deletable=false><next><block type="maze_turn" editable=false deletable=false><title name="DIR">turnRight</title><next><block type="maze_moveForward" editable=false deletable=false><next><block type="maze_moveForward" editable=false deletable=false><next><block type="maze_turn" editable=false deletable=false><title name="DIR">turnRight</title><next><block type="maze_moveForward" editable=false deletable=false><next><block type="maze_turn" editable=false deletable=false><title name="DIR">turnLeft</title></block></next></block></next></block></next></block></next></block></next></block></next></block></next></block></next></block></statement></block>';
         break;
     }
   }
@@ -250,6 +251,11 @@ mazepage.startBlocks = function(opt_data, opt_ignored, opt_ijData) {
 
 mazepage.fillShovelfuls = function(opt_data, opt_ignored, opt_ijData) {
   return '<block type="procedures_defnoreturn" x="20" y="200" editable=false deletable=false><mutation></mutation><title name="NAME">fill ' + soy.$$escapeHtml(opt_data.shovelfuls) + '</title><statement name="STACK"><block type="controls_repeat" editable=false deletable=false><title name="TIMES">' + soy.$$escapeHtml(opt_data.shovelfuls) + '</title><statement name="DO"><block type="maze_putDownBall" editable=false deletable=false></block></statement></block></statement></block>';
+};
+
+
+mazepage.removeShovelfuls = function(opt_data, opt_ignored, opt_ijData) {
+  return '<block type="procedures_defnoreturn" x="300" y="200" editable=false deletable=false><mutation></mutation><title name="NAME">remove ' + soy.$$escapeHtml(opt_data.shovelfuls) + '</title><statement name="STACK"><block type="controls_repeat" editable=false deletable=false><title name="TIMES">' + soy.$$escapeHtml(opt_data.shovelfuls) + '</title><statement name="DO"><block type="maze_pickUpBall" editable=false deletable=false></block></statement></block></statement></block>';
 };
 
 
