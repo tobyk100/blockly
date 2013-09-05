@@ -9,18 +9,24 @@ This repository contains the source code for the [Blockly](https://code.google.c
 
 ## To Contribute
 
+
+https://help.github.com/articles/set-up-git
+
 ### Quickstart
 
+
+
 1. Fork this repository (see upper right of page).
-2. Clone your new repo `git clone https://github.com/<username>/blockly.git`.
-2. Add this repo as a remote: `git remote add codedotorg https://github.com/code-dot-org/blockly.git`
-3. [Hack]
-4. Merge in most up-to-date changes, repeat as needed:
-  1. `git fetch codedotorg master`
-  2. `git merge codedotorg/master`
-4. Push changes to your fork, repeat as desired.
-5. Initiate pull request on your fork's page, targeting this repository.
-6. Find the pull request you initiated and assign it to someone. This requires that you are a collaborator on the project.
+2. Clone your new repo `git clone https://github.com/<username>/blockly.git`
+3. Change directory to the newly cloned repo with `cd blockly`
+4. Add this repo as a remote: `git remote add codedotorg https://github.com/code-dot-org/blockly.git`
+5. [Hack]
+6. Merge in most up-to-date changes, repeat as needed:
+  1. `git fetch codedotorg`
+  2. `git merge codedotorg/mooc`
+7. Push changes to your fork, repeat as desired.
+8. Initiate pull request on your fork's page, targeting this repository.
+9. Find the pull request you initiated and assign it to someone. This requires that you are a collaborator on the project.
 
 ### Additional Tips
 
