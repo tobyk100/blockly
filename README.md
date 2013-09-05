@@ -16,7 +16,7 @@ This repository contains the source code for the [Blockly](https://code.google.c
 3. [Forking](https://help.github.com/articles/fork-a-repo)
 4. [Pull Requests](https://help.github.com/articles/using-pull-requests)
 
-### Quickstart
+### Quick Start
 
 1. [Install and set up git](https://help.github.com/articles/set-up-git)
 2. Fork this repository (see upper right of page).
