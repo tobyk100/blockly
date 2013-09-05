@@ -175,19 +175,6 @@ Blockly.JavaScript.maze_ifElse = function() {
 Blockly.Language.maze_ifElse.DIRECTIONS =
     Blockly.Language.maze_if.DIRECTIONS;
 
-/* Blockly.Language.maze_untilBlocked = {
-  helpUrl: 'http://code.google.com/p/blockly/wiki/Repeat',
-  init: function() {
-    this.setColour(120);
-    this.appendDummyInput()
-        .appendTitle(BlocklyApps.getMsg('repeatUntil'));
-    this.appendStatementInput('DO').appendTitle(BlocklyApps.getMsg('doCode'));
-    this.setPreviousStatement(true);
-    this.setNextStatement(true);
-    this.setTooltip(BlocklyApps.getMsg('whileTooltip'));
-  }
-}; */
-
 Blockly.Language.maze_whileNotClear = {
   helpUrl: 'http://code.google.com/p/blockly/wiki/Repeat',
   init: function() {

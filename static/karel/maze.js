@@ -872,7 +872,9 @@ Maze.displayPegman = function(x, y, d) {
   clipRect.setAttribute('y', pegmanIcon.getAttribute('y'));
 };
 
-// Nan's
+/**
+ * Schedule to put down a ball at pegman's current position.
+ */
 Maze.schedulePutDownBall = function() {
   var x = Maze.pegmanX;
   var y = Maze.pegmanY;
@@ -912,7 +914,12 @@ Maze.schedulePutDownBall = function() {
   }
 };
 
-// Set the image based on the number of balls in the location.
+/**
+ * Set the image based on the number of balls in the location.
+ * @param ballIcon Ball icon that shows the number of balls at location [y,x].
+ * @param {number} x Horizontal grid (or fraction thereof).
+ * @param {number} y Vertical grid (or fraction thereof).
+ */
 Maze.setBallImage = function(ballIcon, x, y) {
   if (Maze.balls_[y][x] > 10) {
     ballIcon.setAttributeNS(
@@ -927,7 +934,9 @@ Maze.setBallImage = function(ballIcon, x, y) {
   }
 };
 
-// Nan's
+/**
+ * Schedule to put down a bll at pegman's current location.
+ */ 
 Maze.schedulePickUpBall = function() {
   var x = Maze.pegmanX;
   var y = Maze.pegmanY;
@@ -1237,9 +1246,9 @@ Maze.isPath = function(direction, id) {
   return square !== Maze.SquareType.WALL && square !== undefined;
 };
 
-// Nan's
 /**
  * Attempt to put down the ball marker.
+ * @param {string} id ID of block that triggered this action.
  */
 Maze.putDownBall = function(id) {
     BlocklyApps.log.push(['putdown', id]);
@@ -1251,6 +1260,7 @@ Maze.putDownBall = function(id) {
 
 /**
  * Attempt to pick up the ball marker.
+ * @param {string} id ID of block that triggered this action.
  */
 Maze.pickUpBall = function(id) {
     BlocklyApps.log.push(['pickup', id]);
