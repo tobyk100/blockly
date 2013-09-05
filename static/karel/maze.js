@@ -336,11 +336,11 @@ Maze.drawMap = function() {
         obsIcon.setAttributeNS(
           'http://www.w3.org/1999/xlink', 'xlink:href', Maze.SKIN.obstacle);
         obsIcon.setAttribute('x',
-                             Maze.SQUARE_SIZE * (x + 0.5)
-                             - obsIcon.getAttribute('width') / 2);
+                             Maze.SQUARE_SIZE * (x + 0.5) -
+                             obsIcon.getAttribute('width') / 2);
         obsIcon.setAttribute('y',
-                             Maze.SQUARE_SIZE * (y + 0.6)
-                             - obsIcon.getAttribute('height'))
+                             Maze.SQUARE_SIZE * (y + 0.6) -
+                             obsIcon.getAttribute('height'));
         svg.appendChild(obsIcon);
       }
     }
@@ -574,23 +574,6 @@ Maze.reset = function(first) {
       ++ballId;
     }
   }
-
-  // Nan's
-  // Move the finish ball marker icons into position.
-  /* var ballId = 0;
-  for (var y = 0; y < Maze.ROWS; y++) {
-    for (var x = 0; x < Maze.COLS; x++) {
-      if (Maze.finish_ball_map[y][x] > 0) {
-        var ballIcon = document.getElementById('finish_ball' + ballId);
-        ballIcon.setAttribute('x', Maze.SQUARE_SIZE * (x + 0.5) -
-                              ballIcon.getAttribute('width') / 2);
-        ballIcon.setAttribute('y', Maze.SQUARE_SIZE * (y + 0.6) -
-                              ballIcon.getAttribute('height'));
-      }
-      ++ballId;
-    }
-  } */
-
 };
 
 /**
@@ -942,7 +925,7 @@ Maze.setBallImage = function(ballIcon, x, y) {
       'http://www.w3.org/1999/xlink', 'xlink:href',
       Maze.balls_[y][x] + Maze.SKIN.ball);
   }
-}
+};
 
 // Nan's
 Maze.schedulePickUpBall = function() {
