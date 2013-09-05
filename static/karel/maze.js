@@ -331,8 +331,8 @@ Maze.drawMap = function() {
     for (var x = 0; x < Maze.COLS; x++) {
       if (Maze.map[y][x] == Maze.SquareType.OBSTACLE) {
         var obsIcon = document.createElementNS(Blockly.SVG_NS, 'image');
-        obsIcon.setAttribute('height', 50);
-        obsIcon.setAttribute('width', 42);
+        obsIcon.setAttribute('height', 40);
+        obsIcon.setAttribute('width', 40);
         obsIcon.setAttributeNS(
           'http://www.w3.org/1999/xlink', 'xlink:href', Maze.SKIN.obstacle);
         obsIcon.setAttribute('x',
