@@ -109,12 +109,11 @@ BlocklyApps.LANG = undefined;
 BlocklyApps.LANGUAGES = undefined;
 
 /**
- * Common startup tasks for all apps.
+ * Set language attribute, direction, and menu contents.
+ * This only creates a language menu if the document includes an element
+ * named 'languageMenu'.
  */
-BlocklyApps.init = function() {
-  // Set the page title with the content of the H1 title.
-  document.title = document.getElementById('title').textContent;
-
+BlocklyApps.initLanguages = function() {
   // Set the HTML's language and direction.
   // document.dir fails in Mozilla, use document.body.parentNode.dir instead.
   // https://bugzilla.mozilla.org/show_bug.cgi?id=151407
@@ -123,30 +122,44 @@ BlocklyApps.init = function() {
       BlocklyApps.LANGUAGES[BlocklyApps.LANG][1]);
   document.head.parentElement.setAttribute('lang', BlocklyApps.LANG);
 
-  // Sort languages alphabetically.
-  var languages = [];
-  for (var lang in BlocklyApps.LANGUAGES) {
-    languages.push(BlocklyApps.LANGUAGES[lang].concat(lang));
-  }
-  var comp = function(a, b) {
-    // Sort based on first argument ('English', 'Русский', '简体字', etc).
-    if (a[0] > b[0]) return 1;
-    if (a[0] < b[0]) return -1;
-    return 0;
-  };
-  languages.sort(comp);
-  // Populate the language selection menu.
   var languageMenu = document.getElementById('languageMenu');
-  languageMenu.options.length = 0;
-  for (var i = 0; i < languages.length; i++) {
-    var tuple = languages[i];
-    var lang = tuple[tuple.length - 1];
-    var option = new Option(tuple[0], lang);
-    if (lang == BlocklyApps.LANG) {
-      option.selected = true;
+  if (languageMenu) {
+    // Sort languages alphabetically.
+    var languages = [];
+    for (var lang in BlocklyApps.LANGUAGES) {
+      languages.push(BlocklyApps.LANGUAGES[lang].concat(lang));
     }
-    languageMenu.options.add(option);
+    var comp = function(a, b) {
+      // Sort based on first argument ('English', 'Русский', '简体字', etc).
+      if (a[0] > b[0]) return 1;
+      if (a[0] < b[0]) return -1;
+      return 0;
+    };
+    languages.sort(comp);
+    // Populate the language selection menu.
+    languageMenu.options.length = 0;
+    for (var i = 0; i < languages.length; i++) {
+      var tuple = languages[i];
+      var lang = tuple[tuple.length - 1];
+      var option = new Option(tuple[0], lang);
+      if (lang == BlocklyApps.LANG) {
+        option.selected = true;
+      }
+      languageMenu.options.add(option);
+    }
   }
+};
+
+
+/**
+ * Common startup tasks for all apps.
+ */
+BlocklyApps.init = function() {
+  // Set the page title with the content of the H1 title.
+  document.title = document.getElementById('title').textContent;
+
+  // Set language-related attributes and variables.
+  BlocklyApps.initLanguages();
 
   // Disable the link button if page isn't backed by App Engine storage.
   var linkButton = document.getElementById('linkButton');
