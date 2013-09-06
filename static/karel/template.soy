@@ -637,106 +637,6 @@
         {call .removeShovelfuls}
           {param shovelfuls: 8 /}
         {/call}
- /*       <block type="procedures_defnoreturn" x="20" y="200" editable=false
-          deletable=false>
-          <mutation></mutation>
-          <title name="NAME">remove tower</title>
-          <statement name="STACK">
-            <block type="maze_turn" editable=false deletable=false>
-              <title name="DIR">turnLeft</title>
-              <next>
-                <block type="controls_repeat" editable=false deletable=false>
-                  <title name="TIMES">3</title>
-                  <statement name="DO">
-                    <block type="maze_pickUpBall" editable=false
-                      deletable=false>
-                      <next>
-                        <block type="maze_moveForward" editable=false
-                          deletable=false></block>
-                      </next>
-                    </block>
-                  </statement>
-                  <next>
-                    <block type="maze_turn" editable=false deletable=false>
-                      <title name="DIR">turnRight</title>
-                      <next>
-                        <block type="maze_turn" editable=false deletable=false>
-                          <title name="DIR">turnRight</title>
-                          <next>
-                            <block type="controls_repeat" editable=false
-                              deletable=false>
-                              <title name="TIMES">3</title>
-                              <statement name="DO">
-                                <block type="maze_moveForward" editable=false
-                                  deletable=false></block>
-                              </statement>
-                              <next>
-                                <block type="maze_turn" editable=false
-                                  deletable=false>
-                                  <title name="DIR">turnLeft</title>
-                                </block>
-                              </next>
-                            </block>
-                          </next>
-                        </block>
-                      </next>
-                    </block>
-                  </next>
-                </block>
-              </next>
-            </block>
-          </statement>
-        </block>
-        <block type="procedures_defnoreturn" x="300" y="200" editable=false
-          deletable=false>
-          <mutation></mutation>
-          <title name="NAME">fill tower</title>
-          <statement name="STACK">
-            <block type="maze_turn" editable=false deletable=false>
-              <title name="DIR">turnLeft</title>
-              <next>
-                <block type="controls_repeat" editable=false deletable=false>
-                  <title name="TIMES">3</title>
-                  <statement name="DO">
-                    <block type="maze_putDownBall" editable=false
-                      deletable=false>
-                      <next>
-                        <block type="maze_moveForward" editable=false
-                          deletable=false></block>
-                      </next>
-                    </block>
-                  </statement>
-                  <next>
-                    <block type="maze_turn" editable=false deletable=false>
-                      <title name="DIR">turnRight</title>
-                      <next>
-                        <block type="maze_turn" editable=false deletable=false>
-                          <title name="DIR">turnRight</title>
-                          <next>
-                            <block type="controls_repeat" editable=false
-                              deletable=false>
-                              <title name="TIMES">3</title>
-                              <statement name="DO">
-                                <block type="maze_moveForward" editable=false
-                                  deletable=false></block>
-                              </statement>
-                              <next>
-                                <block type="maze_turn" editable=false
-                                  deletable=false>
-                                  <title name="DIR">turnLeft</title>
-                                </block>
-                              </next>
-                            </block>
-                          </next>
-                        </block>
-                      </next>
-                    </block>
-                  </next>
-                </block>
-              </next>
-            </block>
-          </statement>
-        </block> */
       {case 7}
         <block type="procedures_callnoreturn" x="20" y="70" editable=false
           deletable=false>
@@ -840,6 +740,108 @@
                                       </next>
                                     </block>
                                   </next>
+                                </block>
+                              </next>
+                            </block>
+                          </next>
+                        </block>
+                      </next>
+                    </block>
+                  </next>
+                </block>
+              </next>
+            </block>
+          </statement>
+        </block>
+      {case 10}
+      {case 11, 12}
+        <block type="procedures_defnoreturn" x="20" y="200" editable=false
+          deletable=false>
+          <mutation></mutation>
+          <title name="NAME">remove piles</title>
+          <statement name="STACK">
+            <block type="maze_turn" editable=false deletable=false>
+              <title name="DIR">turnLeft</title>
+              <next>
+                <block type="controls_repeat" editable=false deletable=false>
+                  <title name="TIMES">4</title>
+                  <statement name="DO">
+                    <block type="maze_pickUpBall" editable=false
+                      deletable=false>
+                      <next>
+                        <block type="maze_moveForward" editable=false
+                          deletable=false></block>
+                      </next>
+                    </block>
+                  </statement>
+                  <next>
+                    <block type="maze_turn" editable=false deletable=false>
+                      <title name="DIR">turnRight</title>
+                      <next>
+                        <block type="maze_turn" editable=false deletable=false>
+                          <title name="DIR">turnRight</title>
+                          <next>
+                            <block type="controls_repeat" editable=false
+                              deletable=false>
+                              <title name="TIMES">4</title>
+                              <statement name="DO">
+                                <block type="maze_moveForward" editable=false
+                                  deletable=false></block>
+                              </statement>
+                              <next>
+                                <block type="maze_turn" editable=false
+                                  deletable=false>
+                                  <title name="DIR">turnLeft</title>
+                                </block>
+                              </next>
+                            </block>
+                          </next>
+                        </block>
+                      </next>
+                    </block>
+                  </next>
+                </block>
+              </next>
+            </block>
+          </statement>
+        </block>
+        <block type="procedures_defnoreturn" x="300" y="200" editable=false
+          deletable=false>
+          <mutation></mutation>
+          <title name="NAME">fill piles</title>
+          <statement name="STACK">
+            <block type="maze_turn" editable=false deletable=false>
+              <title name="DIR">turnLeft</title>
+              <next>
+                <block type="controls_repeat" editable=false deletable=false>
+                  <title name="TIMES">2</title>
+                  <statement name="DO">
+                    <block type="maze_putDownBall" editable=false
+                      deletable=false>
+                      <next>
+                        <block type="maze_moveForward" editable=false
+                          deletable=false></block>
+                      </next>
+                    </block>
+                  </statement>
+                  <next>
+                    <block type="maze_turn" editable=false deletable=false>
+                      <title name="DIR">turnRight</title>
+                      <next>
+                        <block type="maze_turn" editable=false deletable=false>
+                          <title name="DIR">turnRight</title>
+                          <next>
+                            <block type="controls_repeat" editable=false
+                              deletable=false>
+                              <title name="TIMES">2</title>
+                              <statement name="DO">
+                                <block type="maze_moveForward" editable=false
+                                  deletable=false></block>
+                              </statement>
+                              <next>
+                                <block type="maze_turn" editable=false
+                                  deletable=false>
+                                  <title name="DIR">turnLeft</title>
                                 </block>
                               </next>
                             </block>
