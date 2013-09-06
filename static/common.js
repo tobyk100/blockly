@@ -721,7 +721,7 @@ BlocklyApps.NUM_REQUIRED_BLOCKS_TO_FLAG = undefined;
 
 /**
  * Indicates whether or not the default display menu is used.
- * @type {boolean=} Convert to bool.
+ * @type {boolean} Convert to bool.
  */
 BlocklyApps.DISPLAY_NAV = BlocklyApps.getStringParamFromUrl('menu', 'true');
 BlocklyApps.DISPLAY_NAV = BlocklyApps.DISPLAY_NAV === 'true';
