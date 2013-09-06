@@ -685,6 +685,7 @@ BlocklyApps.MAX_MODE = undefined;
 
 /**
  * Enumeration of the modes the tutorial can be in (normal or adaptive).
+ * @enum {number}
  */
 BlocklyApps.MODE_ENUM = {
   NORMAL: 1,
