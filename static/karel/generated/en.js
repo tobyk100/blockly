@@ -8,25 +8,25 @@ page2.hints = function(opt_data, opt_ignored, opt_ijData) {
   var output = '';
   switch (opt_ijData.level) {
     case 1:
-      output += 'Try using the given blocks to remove all the piles on the ground.';
+      output += 'Try using the blocks to help me remove all the piles on the ground.';
       break;
     case 2:
-      output += 'You are now given a new function block, "fill 5", in the Functions category. It will fill 5 shovelfuls to a hole. Use it to make the farmer fill in the hole.';
+      output += 'Use the new function block called "fill 5" to help me fill in this hole.';
       break;
     case 3:
-      output += 'Use the function block to make the farmer fill in all the holes.';
+      output += 'Use the function block to make me fill in all the holes.';
       break;
     case 4:
-      output += 'Define a new function that removes a pile which needs 7 shovelfuls to make the farmer remove in all the piles.';
+      output += 'Define a new function that removes 7 shovelfuls. Then use it to write a program that helps me remove all the piles.';
       break;
     case 5:
-      output += 'Create a new function, "remove 3", that removes 3 shovelfuls from a pile, and use it to help the farmer level out all the piles.';
+      output += 'Create a new function that removes 3 shovelfuls from a pile, and use it to help me level out all the piles.';
       break;
     case 6:
-      output += 'Use the new functions, "fill 8" and "remove 8", to level out the pile and fill in the hole.';
+      output += 'Use the new functions, "fill 8" and "remove 8", to help me level out the pile and fill in the hole.';
       break;
     case 7:
-      output += 'Create a new function, "avoid the cow and remove 1", that helps the farmer avoid the cow and remove 1 shovelful from a pile, and use it.';
+      output += 'There\'s a cow in my field! Write a new function, "avoid the cow and remove 1", that helps me avoid the cow and remove 1 shovelful from a pile, and use it.';
       break;
     case 8:
       output += 'Use the function, "avoid the cow and remove 1", to help the farmer avoid the row of cows.';
@@ -59,37 +59,37 @@ page1.hints = function(opt_data, opt_ignored, opt_ijData) {
   var output = '';
   switch (opt_ijData.level) {
     case 1:
-      output += 'Help the farmer flatten the field so they can plant their crops. Move the farmer to the pile of dirt and remove it.';
+      output += 'Help me flatten the field on my farm so it\'s ready for planting. Move me to the pile of dirt to remove it.';
       break;
     case 2:
-      output += 'Move the farmer to the hole and fill it with two shovelfuls of dirt.';
+      output += 'Move me to the hole and fill it with two shovelfuls of dirt.';
       break;
     case 3:
-      output += 'Tell the farmer how many shovelfuls of dirt to remove.';
+      output += 'Move me to the pile of dirt and tell me how many shovelfuls to remove using as few blocks as possible.';
       break;
     case 4:
-      output += 'Tell the farmer to fill in all the holes. Each hole needs 5 shovelfuls of dirt.';
+      output += 'Make me fill in all the holes. Each hole needs 5 shovelfuls of dirt.';
       break;
     case 5:
-      output += 'Remove the 4 the piles.';
+      output += 'Make me remove the 4 piles.';
       break;
     case 6:
-      output += 'Make the farmer remove all the piles of dirt, using as few blocks as possible.';
+      output += 'Make me remove all the piles of dirt, using as few blocks as possible. Check out the new option in the dropdown menu on the while block.';
       break;
     case 7:
-      output += 'Move the farmer to the hole and make them fill it until it is even.';
+      output += 'I don\'t know how many shovelfuls of dirt this hole needs. Write a program that makes me fill it until it\'s even.';
       break;
     case 8:
-      output += 'Make the farmer fill in the hole. Check out the new option in the dropdown menu on the while block.';
+      output += 'Make me fill in the hole at the end of the field, using as few blocks as possible.';
       break;
     case 9:
-      output += 'Make the farmer remove all the piles, using as few blocks as possible.';
+      output += 'Make me remove all the piles, using as few blocks as possible.';
       break;
     case 10:
-      output += 'The outside becomes dark and now the farmer can\'t tell how large the pile is. This means one of the options on the while loop has been taken away. Move the farmer along the field. If there is a pile, remove it.';
+      output += 'It\'s nighttime, and I can\'t tell how large the piles are. Now I don\'t have all the options I used to have on the while block. Move me along the field, and if there is a pile, remove it.';
       break;
     case 11:
-      output += 'It\'s still dark outside. Move the farmer along the field. If there is a pile, remove it, and if there is a hole, fill it in.';
+      output += 'It\'s still dark outside. Move me along the field. If there is a pile, remove it, and if there is a hole, fill it in.';
       break;
   }
   return output;
@@ -235,7 +235,7 @@ mazepage.startBlocks = function(opt_data, opt_ignored, opt_ijData) {
         output += mazepage.fillShovelfuls({shovelfuls: 8}, null, opt_ijData) + mazepage.removeShovelfuls({shovelfuls: 8}, null, opt_ijData);
         break;
       case 7:
-        output += '<block type="procedures_callnoreturn" x="20" y="70" editable=false deletable=false><mutation name="avoid the cow"></mutation></block><block type="procedures_defnoreturn" x="20" y="200" editable=false deletable=false><mutation></mutation><title name="NAME">avoid the cow</title></block>';
+        output += '<block type="procedures_callnoreturn" x="20" y="70" editable=false deletable=false><mutation name="avoid the cow and remove 1"></mutation></block><block type="procedures_defnoreturn" x="20" y="200" editable=false deletable=false><mutation></mutation><title name="NAME">avoid the cow and remove 1</title></block>';
         break;
       case 8:
         output += '<block type="procedures_defnoreturn" x="20" y="200" editable=false deletable=false><mutation></mutation><title name="NAME">avoid the cow and remove 1</title><statement name="STACK"><block type="maze_turn" editable=false deletable=false><title name="DIR">turnLeft</title><next><block type="maze_moveForward" editable=false deletable=false><next><block type="maze_turn" editable=false deletable=false><title name="DIR">turnRight</title><next><block type="maze_moveForward" editable=false deletable=false><next><block type="maze_moveForward" editable=false deletable=false><next><block type="maze_turn" editable=false deletable=false><title name="DIR">turnRight</title><next><block type="maze_moveForward" editable=false deletable=false><next><block type="maze_pickUpBall" editable=false deletable=false><next><block type="maze_turn" editable=false deletable=false><title name="DIR">turnLeft</title></block></next></block></next></block></next></block></next></block></next></block></next></block></next></block></next></block></statement></block>';
