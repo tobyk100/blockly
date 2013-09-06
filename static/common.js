@@ -389,6 +389,7 @@ BlocklyApps.hideDialog = function(opt_animate) {
     content.className += ' dialogHiddenContent';
     document.body.appendChild(content);
   }
+  BlocklyApps.hideInterstitial();
 };
 
 /**
@@ -552,9 +553,10 @@ BlocklyApps.dialogKeyDown_ = function(e) {
  * @private
  */
 BlocklyApps.congratulationsKeyDown_ = function(e) {
-  if (e.keyCode == 13 ||
-      e.keyCode == 27 ||
-      e.keyCode == 32) {
+  if (e.keyCode == 13 || // Enter key.
+      e.keyCode == 27 || // Escape key.
+      e.keyCode == 32    // Space key.
+      ) {
     BlocklyApps.hideDialog(true);
     e.stopPropagation();
     e.preventDefault();
@@ -650,8 +652,7 @@ BlocklyApps.importPrettify = function() {
 };
 
 
-// The following properties get their non-default values set by the
-// application.
+// The following properties get their non-default values set by the application.
 
 /**
  * The page number, or a false value if the app doesn't use pages.
@@ -719,11 +720,13 @@ BlocklyApps.REQUIRED_BLOCKS = undefined;
 BlocklyApps.NUM_REQUIRED_BLOCKS_TO_FLAG = undefined;
 
 /**
- * Indicates whether or not the default display menu is used.
- * @type {boolean=}
+ * Indicates whether or not the default navigation menu is used.
+ * This allows for hiding the navigation menu and using some other means of
+ * navigation.
+ * @type {boolean}
  */
-BlocklyApps.DISPLAY_NAV = BlocklyApps.getStringParamFromUrl('menu', 'true');
-BlocklyApps.DISPLAY_NAV = BlocklyApps.DISPLAY_NAV === 'true';  // Convert to bool.
+BlocklyApps.DISPLAY_NAV = BlocklyApps.getStringParamFromUrl('menu', 'true') ===
+    'true';
 
 /**
  * This allows the server to override the standard next level redirect.
@@ -769,6 +772,7 @@ BlocklyApps.LEVEL_ID = Math.random();
  * EMPTY_BLOCKS_FAIL can only occur if BlocklyApps.CHECK_FOR_EMPTY_BLOCKS true.
  */
 BlocklyApps.TestResults = {
+  NO_TESTS_RUN: -1,          // Default.
   EMPTY_BLOCK_FAIL: 1,       // 0 stars.
   MISSING_BLOCK_FAIL: 2,     // 1 star.
   TOO_FEW_BLOCKS_FAIL: 3,    // 0 stars.
@@ -777,6 +781,23 @@ BlocklyApps.TestResults = {
   OTHER_1_STAR_FAIL: 6,      // Application-specific 1-star failure.
   OTHER_2_STAR_FAIL: 7,      // Application-specific 2-star failure.
   ALL_PASS: 0                // 3 stars.
+};
+
+/**
+ * The interstital setting for each level defined in the application.
+ * See BlocklyApps.InterTypes for options.
+ * @type {!Array=}
+ */
+ BlocklyApps.INTERSTITIALS = undefined;
+
+/**
+ * The way interstitials can be displayed. The values are used for bitwise
+ * comparisons, so mutually exclusive choices must be different powers of two.
+ */
+BlocklyApps.InterTypes = {
+  NONE: 0,
+  PRE: 1,          // Show interstitial when the page loads.
+  POST: 2          // Show interstitial when the level is complete.
 };
 
 /**
@@ -808,9 +829,13 @@ BlocklyApps.updateCapacity = function() {
  * Display feedback based on test results.
  */
 BlocklyApps.displayFeedback = function() {
+  BlocklyApps.hideFeedback();
   var feedbackType = BlocklyApps.getTestResults();
   BlocklyApps.setErrorFeedback(feedbackType);
-  BlocklyApps.showDialogAndFeedback(feedbackType);
+  document.getElementById('helpButton').removeAttribute('disabled');
+  BlocklyApps.prepareFeedback(feedbackType);
+  BlocklyApps.displayCloseDialogButtons(feedbackType);
+  BlocklyApps.showHelp(true, feedbackType);
 };
 
 /**
@@ -929,10 +954,10 @@ BlocklyApps.getTestResults = function() {
 
 /**
  * Show stars based on the degree of completion and if the level is complete.
- * @param {number} testResult The number of stars to display.
+ * @param {number} numStars The number of stars to display.
  */
-BlocklyApps.displayStars = function(testResult) {
-  document.getElementById('star' + testResult).style.display = 'block';
+BlocklyApps.displayStars = function(numStars) {
+  document.getElementById('star' + numStars).style.display = 'block';
 };
 
 /**
@@ -957,12 +982,13 @@ BlocklyApps.setErrorFeedback = function(feedbackType) {
       document.getElementById('tooFewBlocksError').style.display = 'list-item';
       break;
     case BlocklyApps.TestResults.LEVEL_INCOMPLETE_FAIL:
-      document.getElementById('levelIncompleteError').style.display = 'list-item';
+      document.getElementById('levelIncompleteError')
+          .style.display = 'list-item';
       break;
 
     // For completing level, user gets at least one star.
     case BlocklyApps.TestResults.OTHER_1_STAR_FAIL:
-      document.getElementById('star1').style.display = 'block';
+      BlocklyApps.displayStars(1);
       break;
     // One star for failing to use required blocks.
     case BlocklyApps.TestResults.MISSING_BLOCK_FAIL:
@@ -1041,7 +1067,7 @@ BlocklyApps.report = function(app, id, level, result, program) {
       if (redirect) {
         BlocklyApps.nextLevelUrl = redirect;
       }
-    }
+    };
     httpRequest.open('POST', BlocklyApps.REPORT_URL);
     httpRequest.setRequestHeader('Content-Type',
         'application/x-www-form-urlencoded');
@@ -1056,56 +1082,25 @@ BlocklyApps.report = function(app, id, level, result, program) {
 };
 
 /**
- * Show dialog at the end of a level and display feedback.
+ * Prepare feedback to display after the user's program has finished running.
  * @param {number} feedbackType A constant property of BlocklyApps.TestResults.
  */
-BlocklyApps.showDialogAndFeedback = function(feedbackType) {
+BlocklyApps.prepareFeedback = function(feedbackType) {
   // Determine colour and buttons.
   var feedbackText = document.getElementById('levelFeedbackText');
-  var showContinueButton = false;
   if (feedbackType == BlocklyApps.TestResults.ALL_PASS) {
     feedbackText.style.color = 'green';
     feedbackText.style.textAlign = 'center';
+    document.getElementById('hintTitle').style.display = 'none';
     if (BlocklyApps.LEVEL < BlocklyApps.MAX_LEVEL) {
       document.getElementById('nextLevelMsg').style.display = 'list-item';
     } else {
       document.getElementById('finalLevelMsg').style.display = 'list-item';
     }
-    showContinueButton = true;
-    document.getElementById('continueButton').style.display = 'inline';
-    document.getElementById('tryAgainButton').style.display = 'none';
   } else {
     feedbackText.style.color = 'red';
     feedbackText.style.textAlign = 'left';
     document.getElementById('hintTitle').style.display = 'inline';
-    document.getElementById('tryAgainButton').style.display = 'inline';
-    if (feedbackType == BlocklyApps.TestResults.TOO_MANY_BLOCKS_FAIL ||
-        feedbackType == BlocklyApps.TestResults.OTHER_2_STAR_FAIL) {
-      showContinueButton = true;
-    }
-  }
-
-  // Create modal dialog.
-  var style = {
-    width: '40%',
-    left: '10%',
-    top: '5em'
-  };
-  var levelFeedback = document.getElementById('levelFeedback');
-  if (showContinueButton) {
-    document.getElementById('continueButton').style.display = 'inline';
-    BlocklyApps.showDialog(levelFeedback, null, false, true, style,
-        function() {
-          document.body.removeEventListener('keydown',
-              BlocklyApps.congratulationsKeyDown_, true);
-          });
-    document.body.addEventListener('keydown',
-        BlocklyApps.congratulationsKeyDown_, true);
-  } else {
-    BlocklyApps.showDialog(levelFeedback,
-                           null, false, true, style,
-                           BlocklyApps.stopDialogKeyDown);
-    BlocklyApps.startDialogKeyDown();
   }
   feedbackText.style.display = 'block';
 };
@@ -1124,15 +1119,15 @@ BlocklyApps.hideFeedback = function() {
 };
 
 /**
- * Show the help pop-up for reinf levels so we can set text appropriately.
+ * Show feedback on a quiz interstitial question.
  * @param {number} reinfLevel Level number the quiz is displayed on.
  * @param {string} identifier 'q' + reinforcement level number +
  *     'r' or 'w' (right or wrong answer).
  */
-BlocklyApps.showReinfHelp = function(reinfLevel, identifier) {
+BlocklyApps.showReinfQuizFeedback = function(reinfLevel, identifier) {
   var qNum = reinfLevel;
   var responseType = identifier.charAt(identifier.length - 1);
-  document.getElementById('reinfDone').style.display = 'block';
+  document.getElementById('reinfQuizFeedback').style.display = 'block';
   var textColor;
   var responseType;
   if (responseType == 'w') {
@@ -1148,6 +1143,90 @@ BlocklyApps.showReinfHelp = function(reinfLevel, identifier) {
   var textDiv = document.getElementById('reinfFeedbackText');
   textDiv.style.color = textColor;
   textDiv.value = BlocklyApps.getMsg('q' + qNum + responseType);
+};
+
+/**
+ * If the level is done, either show an interstitial or go to the next level.
+ * Otherwise close the dialog and reset so the user can try again.
+ * @param {boolean} gotoNext true to continue to next level,
+ *     false to try level again.
+ * @param {number} level The current level.
+ * @param {number} skinId The maximum level.
+ */
+BlocklyApps.goToNextLevelOrReset = function(gotoNext, level, skinId) {
+  if (gotoNext) {
+    var interstitial = document.getElementById('interstitial').style.display;
+    if (interstitial == 'none' &&
+        BlocklyApps.INTERSTITIALS & BlocklyApps.InterTypes.POST) {
+      BlocklyApps.showInterstitial();
+    } else {
+      BlocklyApps.hideDialog(false);
+      BlocklyApps.createURLAndOpenNextLevel();
+    }
+  } else {
+    BlocklyApps.hideDialog(true);
+  }
+};
+
+/**
+ * Show the close dialog buttons depending on the state of the level.
+ * @param {number} feedbackType The results of block tests.
+ */
+BlocklyApps.displayCloseDialogButtons = function(feedbackType) {
+  var continueButton = document.getElementById('continueButton');
+  var tryAgainButton = document.getElementById('tryAgainButton');
+  var returnToLevelButton = document.getElementById('returnToLevelButton');
+  switch (feedbackType) {
+    case BlocklyApps.TestResults.ALL_PASS:
+      continueButton.style.display = 'inline';
+      tryAgainButton.style.display = 'none';
+      returnToLevelButton.style.display = 'none';
+      break;
+    case BlocklyApps.TestResults.TOO_MANY_BLOCKS_FAIL:
+    case BlocklyApps.TestResults.OTHER_2_STAR_FAIL:
+      continueButton.style.display = 'inline';
+      tryAgainButton.style.display = 'inline';
+      returnToLevelButton.style.display = 'none';
+      break;
+    case BlocklyApps.TestResults.MISSING_BLOCK_FAIL:
+    case BlocklyApps.TestResults.OTHER_1_STAR_FAIL:
+      tryAgainButton.style.display = 'inline';
+      continueButton.style.display = 'none';
+      returnToLevelButton.style.display = 'none';
+      break;
+    default:
+      returnToLevelButton.style.display = 'block';
+      continueButton.style.display = 'none';
+      tryAgainButton.style.display = 'none';
+  }
+};
+
+/**
+ * Show the interstitial content.
+ */
+BlocklyApps.showInterstitial = function() {
+  if (BlocklyApps.levelComplete) {
+    if (BlocklyApps.INTERSTITIALS & BlocklyApps.InterTypes.POST) {
+      if (document.querySelector('.quiz')) {
+        document.getElementById('continueButton').setAttribute('disabled',
+                                                               'disabled');
+        document.getElementById('tryAgainButton').style.display = 'none';
+        var preInterArray = document.querySelectorAll('.preInter');
+        for (var r = 0, preInter; preInter = preInterArray[r]; r++) {
+          preInter.style.display = 'none';
+        }
+        var postInterArray = document.querySelectorAll('.postInter');
+        for (var s = 0, postInter; postInter = postInterArray[s]; s++) {
+          postInter.style.display = 'block';
+        }
+      } else {
+        document.getElementById('reinfQuizFeedback').style.display = 'none';
+      }
+      document.getElementById('interstitial').style.display = 'block';
+    }
+  } else if (BlocklyApps.INTERSTITIALS & BlocklyApps.InterTypes.PRE) {
+    document.getElementById('interstitial').style.display = 'block';
+  }
 };
 
 /**
@@ -1183,6 +1262,13 @@ BlocklyApps.displayInterstitialOrCloseModalDialog = function(gotoNext) {
 };
 
 /**
+ * Hide the interstitial content.
+ */
+BlocklyApps.hideInterstitial = function() {
+  document.getElementById('interstitial').style.display = 'none';
+};
+
+/**
  * Construct the URL and go to the next level.
  */
 BlocklyApps.createURLAndOpenNextLevel = function() {
@@ -1211,13 +1297,39 @@ BlocklyApps.resetButtonClick = function() {
 };
 
 /**
+ * Show the help pop-up.
+ * @param {boolean} animate Animate the pop-up opening.
+ * @param {number} feedbackType If defined, the results of end of level tests.
+ */
+BlocklyApps.showHelp = function(animate, feedbackType) {
+  feedbackType = typeof feedbackType !== 'undefined' ?
+      feedbackType : BlocklyApps.NO_TESTS_RUN;
+  var help = document.getElementById('help');
+  var button = document.getElementById('helpButton');
+  var style = {
+    width: '50%',
+    right: '25%',
+    top: '3em'
+  };
+  var reinfMSG = document.getElementById('reinfMsg').innerHTML.match(/\S/);
+  var interstitial = document.getElementById('interstitial').style.display;
+  if (reinfMSG && interstitial == 'none') {
+    BlocklyApps.showInterstitial();
+  }
+  BlocklyApps.displayCloseDialogButtons(feedbackType);
+  BlocklyApps.showDialog(help, button, animate, true, style,
+        BlocklyApps.stopDialogKeyDown);
+  BlocklyApps.startDialogKeyDown();
+};
+
+/**
  * If there is an interstitial iframe, create a URL for the video stored in
  * Google Drive and add it as the iframe source.
  * @param {string} videoId A Google Drive video ID.
  */
 BlocklyApps.addVideoIframeSrc = function(videoId) {
   var videoIframe = document.getElementById('interstitial')
-      .getElementsByTagName('iframe')[0];
+      .querySelector('.video');
   if (videoIframe) {
     var videoUrl = 'https://docs.google.com/file/d/' + videoId + '/preview';
     videoIframe.src = videoUrl;

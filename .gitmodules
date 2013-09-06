@@ -1,0 +1,6 @@
+[submodule "closure"]
+	path = closure
+	url = https://code.google.com/p/closure-library/
+[submodule "trunk"]
+	path = trunk
+	url = https://github.com/code-dot-org/blockly-trunk.git

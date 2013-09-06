@@ -65,6 +65,18 @@ BlocklyApps.LEVEL =
 BlocklyApps.CHECK_FOR_EMPTY_BLOCKS = true;
 BlocklyApps.IDEAL_BLOCK_NUM = [undefined, //  0.
   2, 5, 2, 5, 4, 4, 4, 6, 6, 5][BlocklyApps.LEVEL];
+BlocklyApps.INTERSTITIALS = [undefined, // 0.
+   [BlocklyApps.InterTypes.PRE],
+   [BlocklyApps.InterTypes.POST],
+   [BlocklyApps.InterTypes.PRE],
+   [BlocklyApps.InterTypes.NONE],
+   [BlocklyApps.InterTypes.PRE | BlocklyApps.InterTypes.POST],
+   [BlocklyApps.InterTypes.PRE],
+   [BlocklyApps.InterTypes.NONE],
+   [BlocklyApps.InterTypes.NONE],
+   [BlocklyApps.InterTypes.PRE | BlocklyApps.InterTypes.POST],
+   [BlocklyApps.InterTypes.NONE]][BlocklyApps.LEVEL];
+
 // Blocks that are expected to be used on each level.
 BlocklyApps.REQUIRED_BLOCKS = [undefined, // 0.
   ['moveForward'],
@@ -116,7 +128,7 @@ Maze.SKINS = [
     sprite: 'mouse.png',
     tiles: 'tiles_mouse.png',
     marker: 'marker_mouse.png',
-    background:'bg_mouse.png',
+    background: 'bg_mouse.png',
     graph: false,
     look: '#fff'
   },
@@ -140,9 +152,9 @@ Maze.SKIN = Maze.SKINS[BlocklyApps.SKIN_ID];
  * 'null' is used because IE8 does not like trailing commas in arrays, and it is
  *     used throughout the array for consistency.
  */
-Maze.VIDEO_ID = [undefined, null, '0BybP3F7DhXrUU2FCODdJdXRKVTQ', null,
-    '0BybP3F7DhXrUSFRhMnBGLUVPZTA', null, null, null, null, null,
-    null][BlocklyApps.LEVEL];
+Maze.VIDEO_ID = [undefined, '0BybP3F7DhXrUSFRhMnBGLUVPZTA', null,
+    '0BybP3F7DhXrUU2FCODdJdXRKVTQ', null, '0BybP3F7DhXrUSFRhMnBGLUVPZTA', null,
+    null, null, null, null][BlocklyApps.LEVEL];
 
 /**
  * Milliseconds between each animation frame.
@@ -559,9 +571,22 @@ Maze.init = function() {
 
   BlocklyApps.reset(true);
   Blockly.addChangeListener(function() {BlocklyApps.updateCapacity()});
+
+  if (BlocklyApps.INTERSTITIALS & BlocklyApps.InterTypes.PRE) {
+    if (Maze.VIDEO_ID) {
+      BlocklyApps.addVideoIframeSrc(Maze.VIDEO_ID);
+    }
+    BlocklyApps.showHelp(false, undefined);
+  } else {
+    document.getElementById('helpButton').setAttribute('disabled', 'disabled');
+  }
 };
 
-window.addEventListener('load', Maze.init);
+if (window.location.pathname.match(/readonly.html$/)) {
+  window.addEventListener('load', BlocklyApps.initReadonly);
+} else {
+  window.addEventListener('load', Maze.init);
+}
 
 /**
  * Reload with a different Pegman skin.
@@ -738,12 +763,11 @@ Maze.execute = function() {
   * Fast animation if execution is successful.  Slow otherwise.
   */
   var successfulSpeed;
-  var level = Maze.Level;
-  if (level == 1) {
+  if (BlocklyApps.LEVEL == 1) {
     successfulSpeed = 150;
-  } else if (level <= 3) {
+  } else if (BlocklyApps.LEVEL <= 3) {
     successfulSpeed = 100;
-  } else if (level <= 5) {
+  } else if (BlocklyApps.LEVEL <= 5) {
     successfulSpeed = 80;
   } else {
     successfulSpeed = 60;
@@ -1167,16 +1191,6 @@ Maze.setIdealBlockMessage = function() {
   var idealNumMsg = document.getElementById('idealNumberMessage');
   var idealNumText = document.createTextNode(Maze.IDEAL_BLOCK_NUM);
   idealNumMsg.appendChild(idealNumText);
-};
-
-/**
- * Wait until all other resources on the page have finished loading before
- *     loading the iframe video.
- */
-window.onload = function() {
-  if (Maze.VIDEO_ID) {
-    BlocklyApps.addVideoIframeSrc(Maze.VIDEO_ID);
-  }
 };
 
 /**
