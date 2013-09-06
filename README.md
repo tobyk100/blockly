@@ -37,8 +37,7 @@ Maze, Turtle, and Karel. Each app has the following:
 
 The apps depend on two more objects:
 
-- Blockly
-  - Blockly is defined in static/blockly\_compressed.js. To see the source code
+- **Blockly**, defined in static/blockly\_compressed.js. To see the source code
     for Blockly visit the Google Code
     [repo](https://code.google.com/p/blockly/).  This github repo does not
     contain the source code for blockly\_compressed.js, you can consider it a
@@ -48,8 +47,7 @@ The apps depend on two more objects:
     [repo](https://code.google.com/p/blockly/). In summary, the apps depend on
     common.js, which depends on blockly\_compressed.js, which depends on Google
     Closure.
-- BlocklyApps.
-  - Defined in static/common.js 
+- **BlocklyApps**, defined in static/common.js 
 
 ## To Contribute
 
