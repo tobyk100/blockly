@@ -6,7 +6,7 @@
   {switch $ij.level}
     {case 1}
       {msg meaning="Maze.instructions1" desc="TODO"}
-        Help the farmer flatten the field so they can plant their crops. Move the farmer to the mound of dirt and remove it.
+        Help the farmer flatten the field so they can plant their crops. Move the farmer to the pile of dirt and remove it.
       {/msg}
     {case 2}
       {msg meaning="Maze.instructions2" desc="TODO"}
@@ -14,7 +14,7 @@
       {/msg}
     {case 3}
       {msg meaning="Maze.instructions3" desc="TODO"}
-        Make the farmer remove all the mounds, using as few blocks as possible.
+        Make the farmer remove all the piles of dirt, using as few blocks as possible.
       {/msg}
     {case 4}
       {msg meaning="Maze.instructions4" desc="TODO"}
@@ -27,11 +27,11 @@
       {/msg}
     {case 6}
       {msg meaning="Maze.instructions6" desc="TODO"}
-        Make the farmer remove all the mounds, using as few blocks as possible.
+        Make the farmer remove all the piles, using as few blocks as possible.
       {/msg}
     {case 7}
       {msg meaning="Maze.instructions7" desc="TODO"}
-        It's dark outside and now the farmer can't tell how large the mound is.
+        From this level on, the outside becomes dark and now the farmer can't tell how large the pile is.
         This means one of the options on the while loop has been taken away. Tell
         the farmer how many shovelfuls of dirt to remove.
       {/msg}
@@ -42,11 +42,15 @@
       {/msg}
     {case 9}
       {msg meaning="Maze.instructions9" desc="TODO"}
-        Remove the 4 the mounds.
+        Remove the 4 the piles.
       {/msg}
     {case 10}
       {msg meaning="Maze.instructions10" desc="TODO"}
-        Move the farmer along the field. If there is a mound, remove it, and if there
+        Move the farmer along the field. If there is a pile, remove it.
+      {/msg}
+    {case 11}
+      {msg meaning="Maze.instructions10" desc="TODO"}
+        Move the farmer along the field. If there is a pile, remove it, and if there
         is a hole, fill it in.
       {/msg}
   {/switch}
@@ -63,18 +67,13 @@
     <block type="maze_putDownBall"></block>
     {if $ij.level > 6}
       <block type="controls_repeat"></block>
-      {if $ij.level > 8}
-        <block type="maze_untilBlockedOrNotClear"></block>
-        {if $ij.level > 9}
-          <block type="maze_if"></block>
-        {/if}
+      <block type="maze_untilBlocked"></block>
+      {if $ij.level > 9}
+        <block type="maze_if"></block>
       {/if}
     {/if}
     {if $ij.level == 3 or $ij.level == 4}
       <block type="maze_whileNotClear"></block>
-    {/if}
-    {if $ij.level == 7 or $ij.level == 8}
-      <block type="maze_untilBlocked"></block>
     {/if}
     {if $ij.level == 5 or $ij.level == 6}
       <block type="maze_untilBlockedOrNotClear"></block>

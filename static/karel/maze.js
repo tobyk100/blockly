@@ -40,7 +40,7 @@ document.write('<script type="text/javascript" src="generated/' +
 
 Maze.MAX_REINF = 0;
 Maze.PAGE = BlocklyApps.getNumberParamFromUrl('page', 1, 2);
-Maze.MAX_LEVEL = [undefined, 10, 9][Maze.PAGE];
+Maze.MAX_LEVEL = [undefined, 11, 9][Maze.PAGE];
 Maze.LEVEL = BlocklyApps.getNumberParamFromUrl('level', 1, Maze.MAX_LEVEL);
 Maze.REINF = BlocklyApps.getNumberParamFromUrl('reinf', 1, Maze.MAX_REINF);
 
@@ -732,7 +732,13 @@ Maze.animate = function() {
       break;
   }
 
-  Maze.pidList.push(window.setTimeout(Maze.animate, Maze.stepSpeed * 5));
+  // Speeding up specific levels
+  if ((Maze.PAGE == 1 && Maze.LEVEL == 8) ||
+      (Maze.PAGE == 2 && (Maze.LEVEL == 3 || Maze.LEVEL == 4))) {
+    Maze.pidList.push(window.setTimeout(Maze.animate, Maze.stepSpeed * 2));
+  } else {
+    Maze.pidList.push(window.setTimeout(Maze.animate, Maze.stepSpeed * 5));
+  }
 };
 
 
