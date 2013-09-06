@@ -4,8 +4,20 @@ Blockly is a web-based, graphical programming editor. Users can drag blocks toge
 
 This repository contains the source code for the [Blockly](https://code.google.com/p/blockly/) based 20 hour curriculum and Hour of Code. Information about Blockly can be found in the [wiki](https://code.google.com/p/blockly/w/list).
 
+- [Installation](#installation)
+- [Project Layout](#project-layout)
 - [Contribute to Blockly](#to-contribute)
 - [Merge trunk from Google Code](#merge-trunk)
+
+## Installation
+
+1. `git clone https://github.com/code-dot-org/blockly.git`
+2. To host the apps locally run app.yaml with appengine gui or [dev_appserver.py](https://developers.google.com/appengine/downloads).
+  - Note: The apps can be run as static html files by navigating your browser to the index.html file found in each app's directory.
+3. You only need to rebuild an app if you change a template (.soy) file. There is a block comment at the top of each template file with build instructions.
+
+## Project Layout
+There are various apps in the static/ directory, including Maze, Turtle, and Karel. Each app has an index.html file, where you can find the javascript dependencies. Each app has an <app>.js file -- containing game dynamics and graphics rendering -- and a template.soy [Closure Template](https://developers.google.com/closure/templates/). The apps each define an object literal, e.g. Maze = {}, and these objects depend on two more objects, Blockly and BlocklyApps. BlocklyApps is defined in static/common.js and Blockly is defined in static/blockly\_compressed.js. To see the source code for Blockly visit the Google Code [repo](https://code.google.com/p/blockly/). This github repo does not contain the source code for blockly\_compressed.js, you can consider it a black box with documentation and source code at Google Code. Blockly uses the [Google Closure Library](https://developers.google.com/closure/) and the build script for the Closure Compiler is at the Google Code [repo](https://code.google.com/p/blockly/). In summary, the apps depend on common.js, which depends on blockly\_compressed.js, which depends on Google Closure.
 
 ## To Contribute
 
