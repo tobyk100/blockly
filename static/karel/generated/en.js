@@ -26,13 +26,22 @@ page2.hints = function(opt_data, opt_ignored, opt_ijData) {
       output += 'Use the new functions, "fill 8" and "remove 8", to help me level out the pile and fill in the hole.';
       break;
     case 7:
-      output += 'There\'s a cow in my field! Write a new function, "avoid the cow and remove 1", that helps me avoid the cow and remove 1 shovelful from a pile, and use it.';
+      output += 'There\'s a cow in my field! Write a new function that helps me avoid the cow and remove the pile.';
       break;
     case 8:
-      output += 'Use the function, "avoid the cow and remove 1", to help the farmer avoid the row of cows.';
+      output += 'Use the function, "avoid the cow and remove 1", to help me remove all the piles.';
       break;
     case 9:
-      output += 'Use the function, "remove 1 and avoid the cow", to make the farmer level out the piles. Notice that remove 1 shoveful of dirt is now done before avoiding the cow in this level.';
+      output += 'Use the new function, "remove 1 and avoid the cow", to make me level out the piles.';
+      break;
+    case 10:
+      output += 'Try using the blocks to help me remove all the piles and fill in all the holes on the ground.';
+      break;
+    case 11:
+      output += 'Use one of the new functions to help me remove all of the piles on the ground with as few blocks as possible.';
+      break;
+    case 12:
+      output += 'Move me across the field, and use the functions to help me remove all the piles and fill all the holes.';
       break;
   }
   return output;
@@ -68,10 +77,10 @@ page1.hints = function(opt_data, opt_ignored, opt_ijData) {
       output += 'Move me to the pile of dirt and tell me how many shovelfuls to remove using as few blocks as possible.';
       break;
     case 4:
-      output += 'Make me fill in all the holes. Each hole needs 5 shovelfuls of dirt.';
+      output += 'Make me remove the 4 piles.';
       break;
     case 5:
-      output += 'Make me remove the 4 piles.';
+      output += 'Make me fill in all the holes. Each hole needs 5 shovelfuls of dirt.';
       break;
     case 6:
       output += 'Make me remove all the piles of dirt, using as few blocks as possible. Check out the new option in the dropdown menu on the while block.';
@@ -97,7 +106,7 @@ page1.hints = function(opt_data, opt_ignored, opt_ijData) {
 
 
 page1.toolbox = function(opt_data, opt_ignored, opt_ijData) {
-  return '<block type="maze_moveForward"></block><block type="maze_turn"><title name="DIR">turnLeft</title></block><block type="maze_turn"><title name="DIR">turnRight</title></block><block type="maze_pickUpBall"></block>' + ((opt_ijData.level > 1) ? '<block type="maze_putDownBall"></block>' + ((opt_ijData.level > 2) ? '<block type="controls_repeat"></block>' + ((opt_ijData.level > 9) ? '<block type="maze_if"></block>' : '') : '') + ((opt_ijData.level == 4 || opt_ijData.level == 5 || opt_ijData.level == 10 || opt_ijData.level == 11) ? '<block type="maze_untilBlocked"></block>' : '') + ((opt_ijData.level > 5 && opt_ijData.level < 10) ? '<block type="maze_untilBlockedOrNotClear"></block>' : '') : '');
+  return '<block type="maze_moveForward"></block><block type="maze_turn"><title name="DIR">turnLeft</title></block><block type="maze_turn"><title name="DIR">turnRight</title></block><block type="maze_pickUpBall"></block>' + ((opt_ijData.level > 1) ? '<block type="maze_putDownBall"></block>' + ((opt_ijData.level > 2) ? '<block type="controls_repeat"></block>' + ((opt_ijData.level > 9) ? '<block type="maze_if"></block>' : '') : '') + ((opt_ijData.level == 5 || opt_ijData.level == 10 || opt_ijData.level == 11) ? '<block type="maze_untilBlocked"></block>' : '') + ((opt_ijData.level > 5 && opt_ijData.level < 10) ? '<block type="maze_untilBlockedOrNotClear"></block>' : '') : '');
 };
 
 ;
@@ -109,9 +118,9 @@ if (typeof mazepage == 'undefined') { var mazepage = {}; }
 
 mazepage.start = function(opt_data, opt_ignored, opt_ijData) {
   var output = '<div id="start_blocks" style="display:none">' + mazepage.startBlocks(null, null, opt_ijData) + '</div><div id="MSG" style="display: none"><span id="moveForward">move forward</span><span id="putDownBall">fill 1</span><span id="putDown5">put down 5</span><span id="pickUpBall">remove 1</span><span id="while">while</span><span id="ballsPresent">there is a pile</span><span id="holesPresent">there is a hole</span><span id="turnLeft">turn left</span><span id="turnRight">turn right</span><span id="doCode">do</span><span id="elseCode">else</span><span id="pathAhead">path ahead</span><span id="pathLeft">path to the left</span><span id="pathRight">path to the right</span><span id="noPathAhead">path is blocked</span><span id="noPathLeft">no path to the left</span><span id="noPathRight">no path to the right</span><span id="repeatUntilBlocked">while path ahead</span><span id="repeatUntilFinish">repeat until finish</span><span id="repeatWhileCurrentNotClear">while</span><span id="moveForwardTooltip">Move me forward one space.</span><span id="q4wrong">No - Try tracking my direction while following the program.</span><span id="q4right">That\'s right! Good job.</span><span id="q5wrong">No - Try tracking my direction while following the program.</span><span id="q5right">You got it right!</span><span id="q10wrong">No - Try tracking my direction while following the program.</span><span id="q10right">That\'s right!</span><span id="turnTooltip">Turns me left or right by 90 degrees.</span><span id="ifTooltip">If there is a path in the specified direction, then do some actions.</span><span id="ifelseTooltip">If there is a path in the specified direction, then do the first block of actions. Otherwise, do the second block of actions.</span><span id="whileTooltip">Repeat the enclosed actions until finish point is reached.</span><span id="capacity0">You have<span id=\'capacityNumber\'>0</span> blocks left.</span><span id="capacity1">You have <span id=\'capacityNumber\'>1</span> block left.</span><span id="capacity2">You have <span id=\'capacityNumber\'>%1</span> blocks left.</span><span id="nextLevel">Congratulations! You have completed this level.</span><span id="finalLevel">Congratulations! You have solved the final level.</span><span id="oneTopBlock">On this level, you need to stack together all of the blocks in the white workspace.</span><span id="putdownTower">put down tower</span><span id="pickupTower">pickup tower</span></div><table width="100%" ' + apps.menu({menu: opt_ijData.menu}, null, opt_ijData) + '><tr><td><h1><span id="title"><a href="../index.html">Blockly</a> : Farmer&nbsp;&nbsp;' + soy.$$escapeHtml(opt_ijData.page) + '</span> &nbsp; ';
-  var iLimit293 = opt_ijData.maxLevel + 1;
-  for (var i293 = 1; i293 < iLimit293; i293++) {
-    output += ' ' + ((i293 == opt_ijData.level) ? (i293 > 9) ? '<span class="selected doubleDigit tab">' + soy.$$escapeHtml(i293) + '</span>' : '<span class="selected singleDigit tab">' + soy.$$escapeHtml(i293) + '</span>' : (i293 < opt_ijData.level) ? '<a class="tab previous" href="?page=' + soy.$$escapeHtml(opt_ijData.page) + '&lang=' + soy.$$escapeHtml(opt_ijData.lang) + '&level=' + soy.$$escapeHtml(i293) + '&skin=' + soy.$$escapeHtml(opt_ijData.skin) + '">' + soy.$$escapeHtml(i293) + '</a>' : '<a class="tab" href="?page=' + soy.$$escapeHtml(opt_ijData.page) + '&lang=' + soy.$$escapeHtml(opt_ijData.lang) + '&level=' + soy.$$escapeHtml(i293) + '&skin=' + soy.$$escapeHtml(opt_ijData.skin) + '">' + soy.$$escapeHtml(i293) + '</a>');
+  var iLimit302 = opt_ijData.maxLevel + 1;
+  for (var i302 = 1; i302 < iLimit302; i302++) {
+    output += ' ' + ((i302 == opt_ijData.level) ? (i302 > 9) ? '<span class="selected doubleDigit tab">' + soy.$$escapeHtml(i302) + '</span>' : '<span class="selected singleDigit tab">' + soy.$$escapeHtml(i302) + '</span>' : (i302 < opt_ijData.level) ? '<a class="tab previous" href="?page=' + soy.$$escapeHtml(opt_ijData.page) + '&lang=' + soy.$$escapeHtml(opt_ijData.lang) + '&level=' + soy.$$escapeHtml(i302) + '&skin=' + soy.$$escapeHtml(opt_ijData.skin) + '">' + soy.$$escapeHtml(i302) + '</a>' : '<a class="tab" href="?page=' + soy.$$escapeHtml(opt_ijData.page) + '&lang=' + soy.$$escapeHtml(opt_ijData.lang) + '&level=' + soy.$$escapeHtml(i302) + '&skin=' + soy.$$escapeHtml(opt_ijData.skin) + '">' + soy.$$escapeHtml(i302) + '</a>');
   }
   output += '</h1></td><td class="farSide"><select id="languageMenu" onchange="BlocklyApps.changeLanguage();"></select> &nbsp; <button id="pegmanButton" onmousedown="Maze.showPegmanMenu();"><img src="../media/1x1.gif"><span>&#x25BE;</span></button></td></tr></table><div id="levelFeedback"><div style="padding-bottom: 0.7ex;"><br><textarea id="levelFeedbackText" rows=3 cols=40 style="resize: none; border: 0; text-align: center; overflow: hidden; font-size: 16pt; font-family: Arial;">';
   if (opt_ijData.page == 1) {
@@ -194,10 +203,10 @@ mazepage.startBlocks = function(opt_data, opt_ignored, opt_ijData) {
         output += '<block type="maze_moveForward" x="70" y="70"></block>';
         break;
       case 4:
-        output += '<block type="maze_untilBlocked" x="70" y="70"></block>';
+        output += '<block type="maze_moveForward" x="70" y="70"></block>';
         break;
       case 5:
-        output += '<block type="maze_moveForward" x="70" y="70"></block>';
+        output += '<block type="maze_untilBlocked" x="70" y="70"></block>';
         break;
       case 6:
         output += '<block type="maze_pickUpBall" x="70" y="70"></block>';
