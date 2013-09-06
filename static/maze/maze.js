@@ -704,7 +704,11 @@ Maze.init = function() {
 
     blocklyDiv.style.top = top + 'px';
 
-    blocklyDiv.style.width = (window.innerWidth - svg.clientWidth - 40) + 'px';
+    var blocklyDivParent = blocklyDiv.parentNode;
+    var parentStyle = window.getComputedStyle(blocklyDivParent);
+    var parentWidth = parseInt(parentStyle.width);
+
+    blocklyDiv.style.width = (parentWidth - svg.clientWidth - 40) + 'px';
     blocklyDiv.style.height = (window.innerHeight - top - 20 +
         window.scrollY) + 'px';
   };
