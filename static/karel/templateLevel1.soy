@@ -70,9 +70,14 @@
     {if $ij.level == 5 or $ij.level == 10 or $ij.level == 11}
       <block type="maze_untilBlocked"></block>
     {/if}
-    {if $ij.level > 5 and $ij.level < 10}
+    {if $ij.level > 5 and $ij.level < 8}
       <block type="maze_untilBlockedOrNotClear"></block>
     {/if}
+    {if $ij.level == 8 or $ij.level == 9}
+      <block type="maze_untilBlockedOrNotClear">
+        <title name="DIR">isPathForward</title>
+      </block>
     {/if}
+  {/if}
 {/template}
 {/namespace}
