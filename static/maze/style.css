@@ -4,28 +4,14 @@ body {
   margin-top: 0;
 }
 
-#visualization {
-  position: relative;
-  top: 10px;
-}
-
 #svgMaze {
   border: solid 1px #DBDBDB;
 }
-
 #pegman_bubble {
   position: relative;
   top: -1px;
   margin-left: 20px;
   margin-right: 20px;
-}
-#reinfbubble {
-  width: 435px;
-  padding: 7px;
-  border: 1px solid #CCB;
-  border-radius: 15px;
-  background-color: #ff7;
-  display: block;
 }
 #reinfmsg {
   font-weight: bold;
@@ -51,58 +37,17 @@ body {
 }
 
 /* Buttons */
-// This differs from common.css.
-button {
-  margin: 5px;
-  margin-right: 12px;
-  margin-left: 0;
-  padding: 10px;
-  border-radius: 5px;
-  border: 1px solid #ddd;
-  background-color: #eee;
-  font-size: large;
-  color: #000;
-}
-button.launch {
-  border: 1px solid #0DA38A;
-  background-color: #0DA38A;
-  color: #fff;
-  font-size: large;
-  /* Can't use "text-align: start" due to IE. */
-  text-align: left;
-  min-width: 96px;
-}
-html[dir="RTL"] button.launch {
-  text-align: right;
-}
-button.launch>img {
-  opacity: 1;
-  vertical-align: text-bottom;
-}
-button:active {
-  border: 1px solid blue !important;
-}
-button:hover, .buttonHover {
-  box-shadow: 2px 2px 5px #888;
-}
-button>img {
-  opacity: 0.6;
-}
 button.disabled, button[disabled=disabled] {
   border: 1px solid #C7C7C7;
   background-color: #C7C7C7;
   box-shadow: none;
 }
-input[type="radio"] {
-  margin-left: 40px;
-  margin-right: 10px;
+#helpButton {
+  margin: 5px 0;
+  height: 40px;
 }
 #languageMenu {
-  vertical-align: top;
-  margin-top: 12px;
-}
-.notext {
-  font-size: 10%;
+  display: none;
 }
 
 /* Sprited icons. */
@@ -132,6 +77,7 @@ input[type="radio"] {
   margin: 0 5px;
   position: relative;
   font-size: large;
+  top: 7px;
 }
 #pegmanButton:active {
   border: 1px solid #ddd !important;
