@@ -239,6 +239,7 @@ mazepage.startBlocks = function(opt_data, opt_ignored, opt_ijData) {
         output += mazepage.fillShovelfuls({shovelfuls: 5}, null, opt_ijData) + '<block type="procedures_defnoreturn" x="300" y="200" editable=false deletable=false><mutation></mutation><title name="NAME">remove 7</title></block>';
         break;
       case 5:
+        output += '<block type="procedures_defnoreturn" x="20" y="200" editable=false deletable=false><mutation></mutation><title name="NAME">remove 3</title></block>';
         break;
       case 6:
         output += mazepage.fillShovelfuls({shovelfuls: 8}, null, opt_ijData) + mazepage.removeShovelfuls({shovelfuls: 8}, null, opt_ijData);
