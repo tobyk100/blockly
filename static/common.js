@@ -689,7 +689,7 @@ BlocklyApps.MAX_MODE = undefined;
  */
 BlocklyApps.MODE_ENUM = {
   NORMAL: 1,
-  ADAPTIVE: 2,   
+  ADAPTIVE: 2
 };
 
 /**
