@@ -696,7 +696,7 @@ BlocklyApps.LANG = undefined;
 /**
  * Whether to alert user to empty blocks, short-circuiting all other tests.
  */
-BlocklyApps.CHECK_FOR_EMPTY_BLOCKS = true;
+BlocklyApps.CHECK_FOR_EMPTY_BLOCKS = undefined;
 
 /**
  * The ideal number of blocks to solve this level.  Users only get 2
