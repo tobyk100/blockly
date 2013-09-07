@@ -63,12 +63,12 @@
       following the program.{/msg}</span>
     <span id="q5right">{msg meaning="Maze.q5right" desc="Congratulating the user
       on correctly answering the question."}That's right!{/msg}</span>
-    <span id="q9wrong">{msg meaning="Maze.q10wrong" desc="tracking is suggesting
+    <span id="q9wrong">{msg meaning="Maze.q9wrong" desc="tracking is suggesting
       to the user that they should follow each instruction and follow how that
       will affect the movement. A 'program' is a set of instructions that tell
       the computer what to do next."}No - Try tracking my direction while
       following the program.{/msg}</span>
-    <span id="q9right">{msg meaning="Maze.q10right" desc="Congratulating the
+    <span id="q9right">{msg meaning="Maze.q9right" desc="Congratulating the
       user on correctly answering the question."}That's right!{/msg}</span>
     <span id="turnTooltip">{msg meaning="Maze.turnTooltip" desc="tooltip
       (pop-up help) - Pegman is the humanoid icon used in Google Maps.
@@ -206,7 +206,9 @@
           {msg meaning="BlocklyApps.emptyBlocksErrorMsg" desc="alert - This
             error message is displayed when the user has added blocks with
             nothing nested inside them (e.g. repeat or if blocks)."}Remove
-            unused empty blocks.{/msg}</li>
+            empty blocks.{/msg}</li>
+        <li id="missingBlocksError" class="feedback" style="display: none">
+          {msg meaning="Maze.missingBlocksErrorMsg" desc="TODO"}Try one or more of the blocks below to solve this level.{/msg}</li>
         <li id="tooManyBlocksError" class="feedback" style="display: none">
           {msg meaning="Maze.tooManyBlocksMsg" desc="alert - This is displayed
             when the user has used more blocks than is necessary."}This level

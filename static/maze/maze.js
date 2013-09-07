@@ -77,19 +77,64 @@ BlocklyApps.INTERSTITIALS = [undefined, // 0.
    [BlocklyApps.InterTypes.PRE | BlocklyApps.InterTypes.POST],
    [BlocklyApps.InterTypes.NONE]][BlocklyApps.LEVEL];
 
-// Blocks that are expected to be used on each level.
+/** 
+ * Blocks that are expected to be used on each level.
+ * The block will be displayed as feedback in the order below.
+ * 'test' is the string that will be searched for in the code.
+ * 'type' is the type of block to be generated as feedback.
+ * 'params' are optional and create a more specific block of the given type.
+ */
 BlocklyApps.REQUIRED_BLOCKS = [undefined, // 0.
-  ['moveForward'],
-  ['moveForward', 'turnLeft', 'turnRight'],
-  ['moveForward', 'while'],
-  ['moveForward', 'while', 'turn'],
-  ['isPathLeft', 'turnLeft', 'while'],
-  ['isPathLeft', 'turnLeft', 'while'],
-  ['isPathRight', 'turnRight', 'while'],
-  ['isPathLeft', 'isPathRight', 'turn', 'while'],
-  ['isPathForward', 'else', 'while'],
-  ['isPathForward', 'else', 'while']][BlocklyApps.LEVEL];
-BlocklyApps.NUM_REQUIRED_BLOCKS_TO_FLAG = 1;
+  // Level 1.
+  [{'test': 'moveForward', 'type': 'maze_moveForward'}],
+  // Level 2.
+  [{'test': 'moveForward', 'type': 'maze_moveForward'}, 
+   {'test': 'turnLeft', 'type': 'maze_turn', 'params': {'DIR': 'turnLeft'}},
+   {'test': 'turnRight', 'type': 'maze_turn', 'params': {'DIR': 'turnRight'}}],
+  // Level 3.
+  [{'test': 'while', 'type': 'maze_forever'},
+   {'test': 'moveForward', 'type': 'maze_moveForward'}],
+  // Level 4.
+  [{'test': 'while', 'type': 'maze_forever'},
+   {'test': 'turnLeft', 'type': 'maze_turn', 'params': {'DIR': 'turnLeft'}},
+   {'test': 'turnRight', 'type': 'maze_turn', 'params': {'DIR': 'turnRight'}},
+   {'test': 'moveForward', 'type': 'maze_moveForward'}],
+  // Level 5.
+  [{'test': 'while', 'type': 'maze_forever'},
+   {'test': 'isPathLeft', 'type': 'maze_if', 'params': {'DIR': 'isPathLeft'}},
+   {'test': 'turnLeft', 'type': 'maze_turn', 'params': {'DIR': 'turnLeft'}},
+   {'test': 'moveForward', 'type': 'maze_moveForward'}],
+  // Level 6.
+  [{'test': 'while', 'type': 'maze_forever'},
+   {'test': 'isPathLeft', 'type': 'maze_if', 'params': {'DIR': 'isPathLeft'}},
+   {'test': 'turnLeft', 'type': 'maze_turn', 'params': {'DIR': 'turnLeft'}},
+   {'test': 'moveForward', 'type': 'maze_moveForward'}],
+  // Level 7.
+  [{'test': 'while', 'type': 'maze_forever'},
+   {'test': 'isPathRight', 'type': 'maze_if', 'params': {'DIR': 'isPathRight'}},
+   {'test': 'moveForward', 'type': 'maze_moveForward'}],
+  // Level 8.
+  [{'test': 'while', 'type': 'maze_forever'},
+   {'test': 'isPathRight', 'type': 'maze_if', 'params': {'DIR': 'isPathRight'}},
+   {'test': 'isPathLeft', 'type': 'maze_if', 'params': {'DIR': 'isPathLeft'}},
+   {'test': 'turnLeft', 'type': 'maze_turn', 'params': {'DIR': 'turnLeft'}},
+   {'test': 'turnRight', 'type': 'maze_turn', 'params': {'DIR': 'turnRight'}},
+   {'test': 'moveForward', 'type': 'maze_moveForward'}],
+  // Level 9.
+  [{'test': 'while', 'type': 'maze_forever'},
+   {'test': 'isPathForward', 'type': 'maze_ifElse',
+                             'params': {'DIR': 'isPathForward'}},
+   {'test': 'turnLeft', 'type': 'maze_turn', 'params': {'DIR': 'turnLeft'}},
+   {'test': 'moveForward', 'type': 'maze_moveForward'}],
+  // Level 10.
+  [{'test': 'while', 'type': 'maze_forever'},
+   {'test': 'isPathForward', 'type': 'maze_ifElse',
+                             'params': {'DIR': 'isPathForward'}},
+   {'test': 'turnRight', 'type': 'maze_turn', 'params': {'DIR': 'turnRight'}},
+   {'test': 'moveForward', 'type': 'maze_moveForward'}]][BlocklyApps.LEVEL];
+
+//The number of blocks to show as feedback.
+BlocklyApps.NUM_REQUIRED_BLOCKS_TO_FLAG = 10;
 
 Maze.SKINS = [
   // sprite: A 1029x51 set of 21 avatar images.
