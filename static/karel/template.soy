@@ -704,60 +704,6 @@
           </statement>
         </block>
       {case 9}
-        <block type="procedures_defnoreturn" x="20" y="200" editable=false
-          deletable=false>
-          <mutation></mutation>
-          <title name="NAME">remove 1 and avoid the cow</title>
-          <statement name="STACK">
-            <block type="maze_pickUpBall" editable=false deletable=false>
-              <next>
-                <block type="maze_turn" editable=false deletable=false>
-                  <title name="DIR">turnLeft</title>
-                  <next>
-                    <block type="maze_moveForward" editable=false
-                      deletable=false>
-                      <next>
-                        <block type="maze_turn" editable=false deletable=false>
-                          <title name="DIR">turnRight</title>
-                          <next>
-                            <block type="maze_moveForward" editable=false
-                              deletable=false>
-                              <next>
-                                <block type="maze_moveForward" editable=false
-                                  deletable=false>
-                                  <next>
-                                    <block type="maze_turn" editable=false
-                                      deletable=false>
-                                      <title name="DIR">turnRight</title>
-                                      <next>
-                                        <block type="maze_moveForward"
-                                          editable=false deletable=false>
-                                          <next>
-                                            <block type="maze_turn"
-                                              editable=false deletable=false>
-                                              <title name="DIR">turnLeft
-                                              </title>
-                                            </block>
-                                          </next>
-                                        </block>
-                                      </next>
-                                    </block>
-                                  </next>
-                                </block>
-                              </next>
-                            </block>
-                          </next>
-                        </block>
-                      </next>
-                    </block>
-                  </next>
-                </block>
-              </next>
-            </block>
-          </statement>
-        </block>
-      {case 10}
-      {case 11}
         <block type="maze_if" x="20" y="70">
           <title name="DIR">ballsPresent</title>
         </block>
@@ -814,7 +760,7 @@
         <block type="procedures_defnoreturn" x="300" y="200" editable=false
           deletable=false>
           <mutation></mutation>
-          <title name="NAME">fill piles</title>
+          <title name="NAME">fill holes</title>
           <statement name="STACK">
             <block type="maze_turn" editable=false deletable=false>
               <title name="DIR">turnLeft</title>
@@ -861,7 +807,7 @@
             </block>
           </statement>
         </block>
-      {case 12}
+      {case 10}
         <block type="procedures_defnoreturn" x="20" y="200" editable=false
           deletable=false>
           <mutation></mutation>
@@ -949,6 +895,59 @@
                                 <block type="maze_turn" editable=false
                                   deletable=false>
                                   <title name="DIR">turnLeft</title>
+                                </block>
+                              </next>
+                            </block>
+                          </next>
+                        </block>
+                      </next>
+                    </block>
+                  </next>
+                </block>
+              </next>
+            </block>
+          </statement>
+        </block>
+      {case 11}
+        <block type="procedures_defnoreturn" x="20" y="200" editable=false
+          deletable=false>
+          <mutation></mutation>
+          <title name="NAME">remove 1 and avoid the cow</title>
+          <statement name="STACK">
+            <block type="maze_pickUpBall" editable=false deletable=false>
+              <next>
+                <block type="maze_turn" editable=false deletable=false>
+                  <title name="DIR">turnLeft</title>
+                  <next>
+                    <block type="maze_moveForward" editable=false
+                      deletable=false>
+                      <next>
+                        <block type="maze_turn" editable=false deletable=false>
+                          <title name="DIR">turnRight</title>
+                          <next>
+                            <block type="maze_moveForward" editable=false
+                              deletable=false>
+                              <next>
+                                <block type="maze_moveForward" editable=false
+                                  deletable=false>
+                                  <next>
+                                    <block type="maze_turn" editable=false
+                                      deletable=false>
+                                      <title name="DIR">turnRight</title>
+                                      <next>
+                                        <block type="maze_moveForward"
+                                          editable=false deletable=false>
+                                          <next>
+                                            <block type="maze_turn"
+                                              editable=false deletable=false>
+                                              <title name="DIR">turnLeft
+                                              </title>
+                                            </block>
+                                          </next>
+                                        </block>
+                                      </next>
+                                    </block>
+                                  </next>
                                 </block>
                               </next>
                             </block>

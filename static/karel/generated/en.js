@@ -8,7 +8,7 @@ page2.hints = function(opt_data, opt_ignored, opt_ijData) {
   var output = '';
   switch (opt_ijData.level) {
     case 1:
-      output += 'Try using the blocks to help me remove all the piles on the ground.';
+      output += 'Try using the blocks to help me remove all the piles and fill in all the holes on the ground.';
       break;
     case 2:
       output += 'Use the new function block called "fill 5" to help me fill in this hole.';
@@ -32,16 +32,13 @@ page2.hints = function(opt_data, opt_ignored, opt_ijData) {
       output += 'Use the function, "avoid the cow and remove 1", to help me remove all the piles.';
       break;
     case 9:
-      output += 'Use the new function, "remove 1 and avoid the cow", to make me level out the piles.';
-      break;
-    case 10:
-      output += 'Try using the blocks to help me remove all the piles and fill in all the holes on the ground.';
-      break;
-    case 11:
       output += 'Use one of the new functions to help me remove all of the piles on the ground with as few blocks as possible.';
       break;
-    case 12:
+    case 10:
       output += 'Move me across the field, and use the functions to help me remove all the piles and fill all the holes.';
+      break;
+    case 11:
+      output += 'Use the new function, "remove 1 and avoid the cow", to make me level out the piles.';
       break;
   }
   return output;
@@ -118,9 +115,9 @@ if (typeof mazepage == 'undefined') { var mazepage = {}; }
 
 mazepage.start = function(opt_data, opt_ignored, opt_ijData) {
   var output = '<div id="start_blocks" style="display:none">' + mazepage.startBlocks(null, null, opt_ijData) + '</div><div id="MSG" style="display: none"><span id="moveForward">move forward</span><span id="putDownBall">fill 1</span><span id="putDown5">put down 5</span><span id="pickUpBall">remove 1</span><span id="while">while</span><span id="ballsPresent">there is a pile</span><span id="holesPresent">there is a hole</span><span id="turnLeft">turn left</span><span id="turnRight">turn right</span><span id="doCode">do</span><span id="elseCode">else</span><span id="pathAhead">path ahead</span><span id="pathLeft">path to the left</span><span id="pathRight">path to the right</span><span id="noPathAhead">path is blocked</span><span id="noPathLeft">no path to the left</span><span id="noPathRight">no path to the right</span><span id="repeatUntilBlocked">while path ahead</span><span id="repeatUntilFinish">repeat until finish</span><span id="repeatWhileCurrentNotClear">while</span><span id="moveForwardTooltip">Move me forward one space.</span><span id="q4wrong">No - Try tracking my direction while following the program.</span><span id="q4right">That\'s right! Good job.</span><span id="q5wrong">No - Try tracking my direction while following the program.</span><span id="q5right">You got it right!</span><span id="q10wrong">No - Try tracking my direction while following the program.</span><span id="q10right">That\'s right!</span><span id="turnTooltip">Turns me left or right by 90 degrees.</span><span id="ifTooltip">If there is a path in the specified direction, then do some actions.</span><span id="ifelseTooltip">If there is a path in the specified direction, then do the first block of actions. Otherwise, do the second block of actions.</span><span id="whileTooltip">Repeat the enclosed actions until finish point is reached.</span><span id="capacity0">You have<span id=\'capacityNumber\'>0</span> blocks left.</span><span id="capacity1">You have <span id=\'capacityNumber\'>1</span> block left.</span><span id="capacity2">You have <span id=\'capacityNumber\'>%1</span> blocks left.</span><span id="nextLevel">Congratulations! You have completed this level.</span><span id="finalLevel">Congratulations! You have solved the final level.</span><span id="oneTopBlock">On this level, you need to stack together all of the blocks in the white workspace.</span><span id="putdownTower">put down tower</span><span id="pickupTower">pickup tower</span></div><table width="100%" ' + apps.menu({menu: opt_ijData.menu}, null, opt_ijData) + '><tr><td><h1><span id="title"><a href="../index.html">Blockly</a> : Farmer&nbsp;&nbsp;' + soy.$$escapeHtml(opt_ijData.page) + '</span> &nbsp; ';
-  var iLimit305 = opt_ijData.maxLevel + 1;
-  for (var i305 = 1; i305 < iLimit305; i305++) {
-    output += ' ' + ((i305 == opt_ijData.level) ? (i305 > 9) ? '<span class="selected doubleDigit tab">' + soy.$$escapeHtml(i305) + '</span>' : '<span class="selected singleDigit tab">' + soy.$$escapeHtml(i305) + '</span>' : (i305 < opt_ijData.level) ? '<a class="tab previous" href="?page=' + soy.$$escapeHtml(opt_ijData.page) + '&lang=' + soy.$$escapeHtml(opt_ijData.lang) + '&level=' + soy.$$escapeHtml(i305) + '&skin=' + soy.$$escapeHtml(opt_ijData.skin) + '">' + soy.$$escapeHtml(i305) + '</a>' : '<a class="tab" href="?page=' + soy.$$escapeHtml(opt_ijData.page) + '&lang=' + soy.$$escapeHtml(opt_ijData.lang) + '&level=' + soy.$$escapeHtml(i305) + '&skin=' + soy.$$escapeHtml(opt_ijData.skin) + '">' + soy.$$escapeHtml(i305) + '</a>');
+  var iLimit302 = opt_ijData.maxLevel + 1;
+  for (var i302 = 1; i302 < iLimit302; i302++) {
+    output += ' ' + ((i302 == opt_ijData.level) ? (i302 > 9) ? '<span class="selected doubleDigit tab">' + soy.$$escapeHtml(i302) + '</span>' : '<span class="selected singleDigit tab">' + soy.$$escapeHtml(i302) + '</span>' : (i302 < opt_ijData.level) ? '<a class="tab previous" href="?page=' + soy.$$escapeHtml(opt_ijData.page) + '&lang=' + soy.$$escapeHtml(opt_ijData.lang) + '&level=' + soy.$$escapeHtml(i302) + '&skin=' + soy.$$escapeHtml(opt_ijData.skin) + '">' + soy.$$escapeHtml(i302) + '</a>' : '<a class="tab" href="?page=' + soy.$$escapeHtml(opt_ijData.page) + '&lang=' + soy.$$escapeHtml(opt_ijData.lang) + '&level=' + soy.$$escapeHtml(i302) + '&skin=' + soy.$$escapeHtml(opt_ijData.skin) + '">' + soy.$$escapeHtml(i302) + '</a>');
   }
   output += '</h1></td><td class="farSide"><select id="languageMenu" onchange="BlocklyApps.changeLanguage();"></select> &nbsp; <button id="pegmanButton" onmousedown="Maze.showPegmanMenu();"><img src="../media/1x1.gif"><span>&#x25BE;</span></button></td></tr></table><div id="levelFeedback"><div style="padding-bottom: 0.7ex;"><br><textarea id="levelFeedbackText" rows=3 cols=40 style="resize: none; border: 0; text-align: center; overflow: hidden; font-size: 16pt; font-family: Arial;">';
   if (opt_ijData.page == 1) {
@@ -130,25 +127,25 @@ mazepage.start = function(opt_data, opt_ignored, opt_ijData) {
         output += 'You could solve this level with fewer blocks. Can you find a solution with fewer blocks?';
         break;
       case 3:
-        output += 'There is a solution using only 3 blocks. Can you find it? Try using the while block.';
-        break;
-      case 4:
-        output += 'Can you use the while block to complete the level with only 4 blocks?';
-        break;
-      case 5:
-        output += 'There is a solution using only 3 blocks. Can you find it? Did you try the new option on the while block?';
-        break;
-      case 6:
-        output += 'Could you use two while blocks to complete this level with fewer total blocks?';
-        break;
-      case 7:
         output += 'There is a solution using only 3 blocks. Can you find it? Did you using the repeat block?';
         break;
-      case 8:
+      case 4:
+        output += 'Can you find a solution using only 4 blocks? Try using one of the green loop blocks.';
+        break;
+      case 5:
         output += 'Can you find a solution using 4 blocks? Try putting a loop inside of another loop. Remember, loop blocks are green.';
         break;
+      case 6:
+        output += 'There is a solution using only 3 blocks. Can you find it? Did you try the new option on the while block?';
+        break;
+      case 7:
+        output += 'Can you use the while block to complete the level with only 4 blocks?';
+        break;
+      case 8:
+        output += 'There is a solution using only 3 blocks. Can you find it?za';
+        break;
       case 9:
-        output += 'Can you find a solution using only 4 blocks? Try using one of the green loop blocks.';
+        output += 'Could you use two while blocks to complete this level with fewer total blocks?';
         break;
       case 10:
         output += 'Can you find a solution using 4 blocks? Try including an if block.';
@@ -251,15 +248,13 @@ mazepage.startBlocks = function(opt_data, opt_ignored, opt_ijData) {
         output += '<block type="procedures_defnoreturn" x="20" y="200" editable=false deletable=false><mutation></mutation><title name="NAME">avoid the cow and remove 1</title><statement name="STACK"><block type="maze_turn" editable=false deletable=false><title name="DIR">turnLeft</title><next><block type="maze_moveForward" editable=false deletable=false><next><block type="maze_turn" editable=false deletable=false><title name="DIR">turnRight</title><next><block type="maze_moveForward" editable=false deletable=false><next><block type="maze_moveForward" editable=false deletable=false><next><block type="maze_turn" editable=false deletable=false><title name="DIR">turnRight</title><next><block type="maze_moveForward" editable=false deletable=false><next><block type="maze_pickUpBall" editable=false deletable=false><next><block type="maze_turn" editable=false deletable=false><title name="DIR">turnLeft</title></block></next></block></next></block></next></block></next></block></next></block></next></block></next></block></next></block></statement></block>';
         break;
       case 9:
-        output += '<block type="procedures_defnoreturn" x="20" y="200" editable=false deletable=false><mutation></mutation><title name="NAME">remove 1 and avoid the cow</title><statement name="STACK"><block type="maze_pickUpBall" editable=false deletable=false><next><block type="maze_turn" editable=false deletable=false><title name="DIR">turnLeft</title><next><block type="maze_moveForward" editable=false deletable=false><next><block type="maze_turn" editable=false deletable=false><title name="DIR">turnRight</title><next><block type="maze_moveForward" editable=false deletable=false><next><block type="maze_moveForward" editable=false deletable=false><next><block type="maze_turn" editable=false deletable=false><title name="DIR">turnRight</title><next><block type="maze_moveForward" editable=false deletable=false><next><block type="maze_turn" editable=false deletable=false><title name="DIR">turnLeft</title></block></next></block></next></block></next></block></next></block></next></block></next></block></next></block></next></block></statement></block>';
-        break;
-      case 10:
-        break;
-      case 11:
         output += '<block type="maze_if" x="20" y="70"><title name="DIR">ballsPresent</title></block><block type="procedures_defnoreturn" x="20" y="200" editable=false deletable=false><mutation></mutation><title name="NAME">remove piles</title><statement name="STACK"><block type="maze_turn" editable=false deletable=false><title name="DIR">turnLeft</title><next><block type="controls_repeat" editable=false deletable=false><title name="TIMES">4</title><statement name="DO"><block type="maze_pickUpBall" editable=false deletable=false><next><block type="maze_moveForward" editable=false deletable=false></block></next></block></statement><next><block type="maze_turn" editable=false deletable=false><title name="DIR">turnRight</title><next><block type="maze_turn" editable=false deletable=false><title name="DIR">turnRight</title><next><block type="controls_repeat" editable=false deletable=false><title name="TIMES">4</title><statement name="DO"><block type="maze_moveForward" editable=false deletable=false></block></statement><next><block type="maze_turn" editable=false deletable=false><title name="DIR">turnLeft</title></block></next></block></next></block></next></block></next></block></next></block></statement></block><block type="procedures_defnoreturn" x="300" y="200" editable=false deletable=false><mutation></mutation><title name="NAME">fill piles</title><statement name="STACK"><block type="maze_turn" editable=false deletable=false><title name="DIR">turnLeft</title><next><block type="controls_repeat" editable=false deletable=false><title name="TIMES">2</title><statement name="DO"><block type="maze_putDownBall" editable=false deletable=false><next><block type="maze_moveForward" editable=false deletable=false></block></next></block></statement><next><block type="maze_turn" editable=false deletable=false><title name="DIR">turnRight</title><next><block type="maze_turn" editable=false deletable=false><title name="DIR">turnRight</title><next><block type="controls_repeat" editable=false deletable=false><title name="TIMES">2</title><statement name="DO"><block type="maze_moveForward" editable=false deletable=false></block></statement><next><block type="maze_turn" editable=false deletable=false><title name="DIR">turnLeft</title></block></next></block></next></block></next></block></next></block></next></block></statement></block>';
         break;
-      case 12:
+      case 10:
         output += '<block type="procedures_defnoreturn" x="20" y="200" editable=false deletable=false><mutation></mutation><title name="NAME">remove piles</title><statement name="STACK"><block type="maze_turn" editable=false deletable=false><title name="DIR">turnLeft</title><next><block type="controls_repeat" editable=false deletable=false><title name="TIMES">4</title><statement name="DO"><block type="maze_pickUpBall" editable=false deletable=false><next><block type="maze_moveForward" editable=false deletable=false></block></next></block></statement><next><block type="maze_turn" editable=false deletable=false><title name="DIR">turnRight</title><next><block type="maze_turn" editable=false deletable=false><title name="DIR">turnRight</title><next><block type="controls_repeat" editable=false deletable=false><title name="TIMES">4</title><statement name="DO"><block type="maze_moveForward" editable=false deletable=false></block></statement><next><block type="maze_turn" editable=false deletable=false><title name="DIR">turnLeft</title></block></next></block></next></block></next></block></next></block></next></block></statement></block><block type="procedures_defnoreturn" x="300" y="200" editable=false deletable=false><mutation></mutation><title name="NAME">fill piles</title><statement name="STACK"><block type="maze_turn" editable=false deletable=false><title name="DIR">turnLeft</title><next><block type="controls_repeat" editable=false deletable=false><title name="TIMES">2</title><statement name="DO"><block type="maze_putDownBall" editable=false deletable=false><next><block type="maze_moveForward" editable=false deletable=false></block></next></block></statement><next><block type="maze_turn" editable=false deletable=false><title name="DIR">turnRight</title><next><block type="maze_turn" editable=false deletable=false><title name="DIR">turnRight</title><next><block type="controls_repeat" editable=false deletable=false><title name="TIMES">2</title><statement name="DO"><block type="maze_moveForward" editable=false deletable=false></block></statement><next><block type="maze_turn" editable=false deletable=false><title name="DIR">turnLeft</title></block></next></block></next></block></next></block></next></block></next></block></statement></block>';
+        break;
+      case 11:
+        output += '<block type="procedures_defnoreturn" x="20" y="200" editable=false deletable=false><mutation></mutation><title name="NAME">remove 1 and avoid the cow</title><statement name="STACK"><block type="maze_pickUpBall" editable=false deletable=false><next><block type="maze_turn" editable=false deletable=false><title name="DIR">turnLeft</title><next><block type="maze_moveForward" editable=false deletable=false><next><block type="maze_turn" editable=false deletable=false><title name="DIR">turnRight</title><next><block type="maze_moveForward" editable=false deletable=false><next><block type="maze_moveForward" editable=false deletable=false><next><block type="maze_turn" editable=false deletable=false><title name="DIR">turnRight</title><next><block type="maze_moveForward" editable=false deletable=false><next><block type="maze_turn" editable=false deletable=false><title name="DIR">turnLeft</title></block></next></block></next></block></next></block></next></block></next></block></next></block></next></block></next></block></statement></block>';
         break;
     }
   }
