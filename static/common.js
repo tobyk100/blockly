@@ -696,7 +696,7 @@ BlocklyApps.LANG = undefined;
 /**
  * Whether to alert user to empty blocks, short-circuiting all other tests.
  */
-BlocklyApps.CHECK_FOR_EMPTY_BLOCKS = undefined;
+BlocklyApps.CHECK_FOR_EMPTY_BLOCKS = true;
 
 /**
  * The ideal number of blocks to solve this level.  Users only get 2
@@ -988,7 +988,7 @@ BlocklyApps.setErrorFeedback = function(feedbackType) {
 
     // For completing level, user gets at least one star.
     case BlocklyApps.TestResults.OTHER_1_STAR_FAIL:
-      BlocklyApps.displayStars(1);
+        BlocklyApps.displayStars(1);
       break;
     // One star for failing to use required blocks.
     case BlocklyApps.TestResults.MISSING_BLOCK_FAIL:
@@ -1292,7 +1292,7 @@ BlocklyApps.showHelp = function(animate, feedbackType) {
   var help = document.getElementById('help');
   var button = document.getElementById('helpButton');
   var style = {
-    width: '50%',
+    width: '70%',
     right: '25%',
     top: '3em'
   };
@@ -1345,12 +1345,17 @@ BlocklyApps.setTextForElement = function(id, text) {
  */
 BlocklyApps.generateXMLForBlocks = function(blockArray) {
   var blockXMLString = '';
-  var blockX = 150;
-  var blockY = 20;
+  var blockX = 0;
+  var blockY = 0;
+  var blockXPadding = 200;
+  var blockYPadding = 90;
+  var blocksPerLine = 2;
+  var iframeHeight = parseInt(document.getElementById('feedbackBlocks')
+          .style.height.slice(0,-2));
   for (var i = 0, block; block = blockArray[i]; i++) {
     if (block && i < BlocklyApps.NUM_REQUIRED_BLOCKS_TO_FLAG) {
       blockXMLString += '%3Cblock' + '%20type%3D%22' +
-          block['type'] + '%22%20x%3D%22' + (blockX * i).toString() +
+          block['type'] + '%22%20x%3D%22' + blockX.toString() +
           '%22%20y%3D%22' + blockY + '%22%3E';
       if (block['params']) {
         var titleNames = Object.keys(block['params']);
@@ -1360,10 +1365,16 @@ BlocklyApps.generateXMLForBlocks = function(blockArray) {
         }
       }
       blockXMLString += '%3C%2Fblock%3E';
-    } else {  //Number of blocks to display reached.
-      break;
+      if ((i + 1) % blocksPerLine == 0) {
+        blockY += blockYPadding;
+        iframeHeight += blockYPadding;
+        blockX = 0;
+      } else {
+        blockX += blockXPadding;
+      }
     }
+    document.getElementById('feedbackBlocks').style.height =
+        iframeHeight + 'px';
   }
-  console.log(blockXMLString);
   return blockXMLString;
 };
