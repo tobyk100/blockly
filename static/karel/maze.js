@@ -740,7 +740,10 @@ Maze.animate = function() {
 
   // Speeding up specific levels
   if ((Maze.PAGE == 1 && (Maze.LEVEL == 5 || Maze.LEVEL == 7)) ||
-      (Maze.PAGE == 2 && (Maze.LEVEL == 3 || Maze.LEVEL == 4))) {
+      (Maze.PAGE == 2 && (Maze.LEVEL == 1 || Maze.LEVEL == 3 ||
+                          Maze.LEVEL == 4 || Maze.LEVEL == 8 ||
+                          Maze.LEVEL == 9 || Maze.LEVEL == 10 ||
+                          Maze.LEVEL == 11))) {
     Maze.pidList.push(window.setTimeout(Maze.animate, Maze.stepSpeed * 2));
   } else {
     Maze.pidList.push(window.setTimeout(Maze.animate, Maze.stepSpeed * 5));
