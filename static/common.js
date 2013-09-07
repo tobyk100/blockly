@@ -988,7 +988,7 @@ BlocklyApps.setErrorFeedback = function(feedbackType) {
 
     // For completing level, user gets at least one star.
     case BlocklyApps.TestResults.OTHER_1_STAR_FAIL:
-        BlocklyApps.displayStars(1);
+      BlocklyApps.displayStars(1);
       break;
     // One star for failing to use required blocks.
     case BlocklyApps.TestResults.MISSING_BLOCK_FAIL:
