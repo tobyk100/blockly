@@ -8,7 +8,7 @@ Maze.pageOneIdeal = [
 ];
 
 Maze.pageTwoIdeal = [
-  undefined, Infinity, 5, 7, 12, 8, 24, 10, 12, 24, 26, 15
+  undefined, Infinity, 5, 7, 12, 8, 10, 10, 12, 24, 26, 15
 ];
 
 Maze.idealBlocks = [undefined, Maze.pageOneIdeal, Maze.pageTwoIdeal];

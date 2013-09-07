@@ -160,16 +160,31 @@ mazepage.start = function(opt_data, opt_ignored, opt_ijData) {
         output += 'Use only the blocks you need to get to complete the level.';
         break;
       case 2:
+        output += 'Can you find a solution using 2 additional blocks? Try using the given function(s).';
+        break;
       case 3:
-      case 6:
-      case 8:
-      case 9:
-        output += 'Try using the given function(s).';
+        output += 'Can you find a solution using 3 additional blocks? Try using the given function(s) inside a while block.';
         break;
       case 4:
+        output += 'Could you use fewer blocks? Try defining your own function and using it inside one of the loop blocks.';
+        break;
       case 5:
+        output += 'Could you use fewer blocks? Try defining your own function and using it inside one of the loop block.';
+        break;
+      case 6:
+        output += 'Can you find a solution using 4 additional blocks? Try using the given function(s).';
+        break;
       case 7:
-        output += 'Try defining your own function and use it.';
+        output += 'Can you find a solution by adding 8 additional blocks in the "avoid the cow and remove 1" block?';
+        break;
+      case 8:
+        output += 'Can you find a solution using 2 additional blocks? Try using the given function(s) inside one of the loop blocks.';
+        break;
+      case 9:
+        output += 'Can you find a solution using 4 additional blocks? Try including an if block.';
+        break;
+      case 10:
+        output += 'Can you find a solution using fewer blocks? Try including two if blocks.';
         break;
     }
   }
