@@ -77,7 +77,7 @@ BlocklyApps.INTERSTITIALS = [undefined, // 0.
    [BlocklyApps.InterTypes.PRE | BlocklyApps.InterTypes.POST],
    [BlocklyApps.InterTypes.NONE]][BlocklyApps.LEVEL];
 
-/** 
+/**
  * Blocks that are expected to be used on each level.
  * The block will be displayed as feedback in the order below.
  * 'test' is the string that will be searched for in the code.
@@ -88,7 +88,7 @@ BlocklyApps.REQUIRED_BLOCKS = [undefined, // 0.
   // Level 1.
   [{'test': 'moveForward', 'type': 'maze_moveForward'}],
   // Level 2.
-  [{'test': 'moveForward', 'type': 'maze_moveForward'}, 
+  [{'test': 'moveForward', 'type': 'maze_moveForward'},
    {'test': 'turnLeft', 'type': 'maze_turn', 'params': {'DIR': 'turnLeft'}},
    {'test': 'turnRight', 'type': 'maze_turn', 'params': {'DIR': 'turnRight'}}],
   // Level 3.

@@ -1292,7 +1292,7 @@ BlocklyApps.showHelp = function(animate, feedbackType) {
   var help = document.getElementById('help');
   var button = document.getElementById('helpButton');
   var style = {
-    width: '70%',
+    width: '50%',
     right: '25%',
     top: '3em'
   };
@@ -1348,10 +1348,10 @@ BlocklyApps.generateXMLForBlocks = function(blockArray) {
   var blockX = 0;
   var blockY = 0;
   var blockXPadding = 200;
-  var blockYPadding = 90;
+  var blockYPadding = 120;
   var blocksPerLine = 2;
   var iframeHeight = parseInt(document.getElementById('feedbackBlocks')
-          .style.height.slice(0,-2));
+          .style.height.slice(0, -2));
   for (var i = 0, block; block = blockArray[i]; i++) {
     if (block && i < BlocklyApps.NUM_REQUIRED_BLOCKS_TO_FLAG) {
       blockXMLString += '%3Cblock' + '%20type%3D%22' +
@@ -1361,7 +1361,7 @@ BlocklyApps.generateXMLForBlocks = function(blockArray) {
         var titleNames = Object.keys(block['params']);
         for (var k = 0, name; name = titleNames[k]; k++) {
           blockXMLString += '%3Ctitle%20name%3D%22' + name +
-             '%22%3E' + block['params'][name] + '%3C%2Ftitle%3E'
+             '%22%3E' + block['params'][name] + '%3C%2Ftitle%3E';
         }
       }
       blockXMLString += '%3C%2Fblock%3E';
