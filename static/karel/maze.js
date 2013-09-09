@@ -744,7 +744,7 @@ Maze.animate = function() {
                           Maze.LEVEL == 4 || Maze.LEVEL == 8 ||
                           Maze.LEVEL == 9 || Maze.LEVEL == 10 ||
                           Maze.LEVEL == 11))) {
-    Maze.pidList.push(window.setTimeout(Maze.animate, Maze.stepSpeed * 2));
+    Maze.pidList.push(window.setTimeout(Maze.animate, Maze.stepSpeed * 3));
   } else {
     Maze.pidList.push(window.setTimeout(Maze.animate, Maze.stepSpeed * 5));
   }
