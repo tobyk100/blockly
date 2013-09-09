@@ -1350,7 +1350,8 @@ BlocklyApps.generateXMLForBlocks = function(blockArray) {
   var blockXPadding = 200;
   var blockYPadding = 120;
   var blocksPerLine = 2;
-  var iframeHeight = document.getElementById('feedbackBlocks').style.height;
+  var iframeHeight = parseInt(document.getElementById('feedbackBlocks')
+          .style.height);
   for (var i = 0, block; block = blockArray[i]; i++) {
     if (block && i < BlocklyApps.NUM_REQUIRED_BLOCKS_TO_FLAG) {
       blockXMLString += '%3Cblock' + '%20type%3D%22' +
