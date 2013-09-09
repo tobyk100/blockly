@@ -65,6 +65,10 @@
     <block type="maze_putDownBall"></block>
   </category>
   {call .addProcedures /}
+  <category name="{msg meaning="Karel.catControl" desc="TODO"}Loops{/msg}">
+    <block type="maze_untilBlocked"></block>
+    <block type="controls_repeat"></block>
+  </category>
 {/template}
 /**
  * Add the procedures category to the toolbox.
@@ -87,17 +91,6 @@
     <category name="{msg meaning="Karel.catCondition" desc="TODO"}Conditionals{/msg}">
       <block type="maze_if"></block>
       <block type="maze_ifElse"></block>
-    </category>
-  {/if}
-  {if $ij.level < 9}
-    <category name="{msg meaning="Karel.catControl" desc="TODO"}Loops{/msg}">
-      <block type="maze_untilBlocked"></block>
-      <block type="controls_repeat"></block>
-    </category>
-  {else}
-    <category name="{msg meaning="Karel.catControl" desc="TODO"}Loops{/msg}">
-      <block type="maze_untilBlockedOrNotClear"></block>
-      <block type="controls_repeat"></block>
     </category>
   {/if}
 {/template}
