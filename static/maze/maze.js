@@ -725,7 +725,7 @@ Maze.ResultType = {
  */
 Maze.execute = function() {
   BlocklyApps.log = [];
-  BlocklyApps.ticks = 1000;
+  BlocklyApps.ticks = 50 * BlocklyApps.LEVEL;
   var code = Blockly.Generator.workspaceToCode('JavaScript');
   Maze.result = Maze.ResultType.UNSET;
 
@@ -797,7 +797,11 @@ Maze.animate = function() {
   if (!action) {
     BlocklyApps.highlight(null);
     BlocklyApps.levelComplete = (Maze.result == Maze.ResultType.SUCCESS);
-    window.setTimeout(BlocklyApps.displayFeedback, 1000);
+    if (Maze.result == Maze.ResultType.TIMEOUT) {
+      BlocklyApps.displayFeedback();
+    } else {
+      window.setTimeout(BlocklyApps.displayFeedback, 1000);
+    }
     return;
   }
 
