@@ -6,47 +6,50 @@
   {switch $ij.level}
     {case 1}
       {msg meaning="Karel.instructions2_1" desc="TODO"}
-        Try using the given blocks to remove all the piles on the ground.
+        Try using the blocks to help me remove all the piles and fill in all the holes on the ground.
       {/msg}
     {case 2}
       {msg meaning="Karel.instructions2_2" desc="TODO"}
-        You are now given a new function block, "fill 5", in the Functions
-        category. It will fill 5 shovelfuls to a hole. Use it to make the
-        farmer fill in the hole.
+        Use the new function block called "fill 5" to help me fill in this hole.
       {/msg}
     {case 3}
       {msg meaning="Karel.instructions2_3" desc="TODO"}
-        Use the function block to make the farmer fill in all the holes.
+        Use the function block to make me fill in all the holes.
       {/msg}
     {case 4}
       {msg meaning="Karel.instructions2_4" desc="TODO"}
-        Define a new function that removes a pile which needs 7 shovelfuls to make
-        the farmer remove in all the piles.
+        Define a new function that removes 7 shovelfuls. Then use it to write a program that helps me remove all the piles.
       {/msg}
     {case 5}
       {msg meaning="Karel.instructions2_5" desc="TODO"}
-        Create a new function, "remove 3", that removes 3 shovelfuls from a pile,
-        and use it to help the farmer level out all the piles.
+        Create a new function that removes 3 shovelfuls from a pile,
+        and use it to help me level out all the piles.
       {/msg}
     {case 6}
       {msg meaning="Karel.instructions2_6" desc="TODO"}
-        Use the new functions, "fill 8" and "remove 8", to level out the
+        Use the new functions, "fill 8" and "remove 8", to help me level out the
         pile and fill in the hole.
       {/msg}
     {case 7}
       {msg meaning="Karel.instructions2_7" desc="TODO"}
-        Create a new function, "avoid the cow and remove 1", that helps the farmer
-        avoid the cow and remove 1 shovelful from a pile, and use it.
+        There's a cow in my field! Write a new function that helps me avoid the cow and remove the pile.
       {/msg}
     {case 8}
       {msg meaning="Karel.instructions2_8" desc="TODO"}
-        Use the function, "avoid the cow and remove 1", to help the farmer avoid the
-        row of cows.
+        Use the function, "avoid the cow and remove 1", to help me remove all the piles.
       {/msg}
     {case 9}
       {msg meaning="Karel.instructions2_9" desc="TODO"}
-        Use the function, "remove 1 and avoid the cow", to make the farmer level out
-        the piles. Notice that remove 1 shoveful of dirt is now done before avoiding the cow in this level.
+        Use one of the new functions to help me remove all of the piles on the ground with as few blocks as possible.
+      {/msg}
+    {case 10}
+      {msg meaning="Karel.instructions2_10" desc="TODO"}
+        Move me across the field, and use the functions to help me remove all the piles and fill all the holes.
+      {/msg}
+    {case 11}
+      {msg meaning="Karel.instructions2_11" desc="TODO"}
+        Use the new function, "remove 1 and avoid the cow", to make me level out
+        the piles.
       {/msg}
   {/switch}
 {/template}
@@ -80,7 +83,7 @@
     <category name="{msg meaning="Karel.catCondition" desc="TODO"}Conditionals{/msg}">
       <block type="maze_if"></block>
     </category>
-  {elseif $ij.level == 9}
+  {elseif $ij.level > 8}
     <category name="{msg meaning="Karel.catCondition" desc="TODO"}Conditionals{/msg}">
       <block type="maze_if"></block>
       <block type="maze_ifElse"></block>

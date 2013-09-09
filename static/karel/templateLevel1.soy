@@ -6,51 +6,48 @@
   {switch $ij.level}
     {case 1}
       {msg meaning="Karel.instructions1_1" desc="TODO"}
-        Help the farmer flatten the field so they can plant their crops. Move the farmer to the pile of dirt and remove it.
+        Help me flatten the field on my farm so it's ready for planting. Move me to the pile of dirt to remove it.
       {/msg}
     {case 2}
       {msg meaning="Karel.instructions1_2" desc="TODO"}
-        Move the farmer to the hole and fill it with two shovelfuls of dirt.
+        Move me to the hole and fill it with two shovelfuls of dirt.
       {/msg}
     {case 3}
       {msg meaning="Karel.instructions1_3" desc="TODO"}
-        Tell the farmer how many shovelfuls of dirt to remove.
+        Move me to the pile of dirt and tell me how many shovelfuls to remove using as few blocks as possible.
       {/msg}
     {case 4}
       {msg meaning="Karel.instructions1_4" desc="TODO"}
-        Tell the farmer to fill in all the holes. Each
-        hole needs 5 shovelfuls of dirt.
+        Make me remove the 4 piles.
       {/msg}
     {case 5}
       {msg meaning="Karel.instructions1_5" desc="TODO"}
-        Remove the 4 the piles.
+        Make me fill in all the holes. Each
+        hole needs 5 shovelfuls of dirt.
       {/msg}
     {case 6}
       {msg meaning="Karel.instructions1_6" desc="TODO"}
-        Make the farmer remove all the piles of dirt, using as few blocks as possible.
+        Make me remove all the piles of dirt, using as few blocks as possible. Check out the new option in the dropdown menu on the while block.
       {/msg}
     {case 7}
       {msg meaning="Karel.instructions1_7" desc="TODO"}
-        Move the farmer to the hole and make them fill it until it is even.
+        I don't know how many shovelfuls of dirt this hole needs. Write a program that makes me fill it until it's even.
       {/msg}
     {case 8}
       {msg meaning="Karel.instructions1_8" desc="TODO"}
-        Make the farmer fill in the hole. Check out the new option in the dropdown
-        menu on the while block.
+        Make me fill in the hole at the end of the field, using as few blocks as possible.
       {/msg}
     {case 9}
       {msg meaning="Karel.instructions1_9" desc="TODO"}
-        Make the farmer remove all the piles, using as few blocks as possible.
+        Make me remove all the piles, using as few blocks as possible.
       {/msg}
     {case 10}
       {msg meaning="Karel.instructions1_10" desc="TODO"}
-        The outside becomes dark and now the farmer can't tell how large the pile is.
-        This means one of the options on the while loop has been taken away. Move the farmer along the field. If there is a pile, remove it.
+        It's nighttime, and I can't tell how large the piles are. Now I don't have all the options I used to have on the while block. Move me along the field, and if there is a pile, remove it.
       {/msg}
     {case 11}
       {msg meaning="Karel.instructions1_11" desc="TODO"}
-        It's still dark outside. Move the farmer along the field. If there is a pile, remove it, and if there
-        is a hole, fill it in.
+        It's still dark outside. Move me along the field. If there is a pile, remove it, and if there is a hole, fill it in.
       {/msg}
   {/switch}
 {/template}
@@ -70,12 +67,17 @@
         <block type="maze_if"></block>
       {/if}
     {/if}
-    {if $ij.level == 4 or $ij.level == 5 or $ij.level == 10 or $ij.level == 11}
+    {if $ij.level == 5 or $ij.level == 10 or $ij.level == 11}
       <block type="maze_untilBlocked"></block>
     {/if}
-    {if $ij.level > 5 and $ij.level < 10}
+    {if $ij.level > 5 and $ij.level < 8}
       <block type="maze_untilBlockedOrNotClear"></block>
     {/if}
+    {if $ij.level == 8 or $ij.level == 9}
+      <block type="maze_untilBlockedOrNotClear">
+        <title name="DIR">isPathForward</title>
+      </block>
     {/if}
+  {/if}
 {/template}
 {/namespace}
