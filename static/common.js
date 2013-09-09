@@ -905,13 +905,13 @@ BlocklyApps.getMissingRequiredBlocks = function() {
          i < BlocklyApps.REQUIRED_BLOCKS.length &&
              missingBlocks.length < BlocklyApps.NUM_REQUIRED_BLOCKS_TO_FLAG;
          i++) {
-      var test = BlocklyApps.REQUIRED_BLOCKS[i];
+      var test = BlocklyApps.REQUIRED_BLOCKS[i]['test'];
       if (typeof test == 'string') {
         if (!code) {
           code = Blockly.Generator.workspaceToCode('JavaScript');
         }
         if (code.indexOf(test) == -1) {
-          missingBlocks.push(test);
+          missingBlocks.push(BlocklyApps.REQUIRED_BLOCKS[i]);
         }
       } else if (typeof test == 'function') {
         if (!blocks.some(test)) {
@@ -1015,27 +1015,12 @@ BlocklyApps.setErrorFeedback = function(feedbackType) {
       // For each error type in the array, display the corresponding error.
       var missingBlocks = BlocklyApps.getMissingRequiredBlocks();
       if (missingBlocks.length) {
-        for (var e = 0; e < missingBlocks.length; e++) {
-          var bError = missingBlocks[e];
-          var lastNum = bError in BlocklyApps.errorVersionMap_ ?
-              BlocklyApps.errorVersionMap_[bError] : 0;
-          // Try getting more advanced version of error message than last time.
-          var blockErrorElement = document.getElementById(bError + 'Error' +
-              (lastNum + 1));
-          if (blockErrorElement) {
-            // If successful, increment version number.
-            BlocklyApps.errorVersionMap_[bError] = lastNum + 1;
-          } else if (lastNum != 0) {
-            // If more advanced version doesn't exist, try previous version.
-            blockErrorElement = document.getElementById(bError + 'Error' +
-                lastNum);
-          }
-          if (blockErrorElement) {
-            blockErrorElement.style.display = 'list-item';
-          } else {
-            console.error('Missing hint: ' + bError + 'Error' + lastNum);
-          }
-        }
+        document.getElementById('missingBlocksError')
+            .style.display = 'list-item';
+        document.getElementById('feedbackBlocks').src =
+            'readonly.html?lang={$ij.lang}&xml=' +
+            BlocklyApps.generateXMLForBlocks(missingBlocks);
+        document.getElementById('feedbackBlocks').style.display = 'block';
       }
       BlocklyApps.displayStars(1);
       break;
@@ -1370,4 +1355,46 @@ BlocklyApps.setTextForElement = function(id, text) {
     element.appendChild(document.createTextNode(text));
   }
   return element;
+};
+
+/**
+ * Creates the XML for blocks to be displayed in a read only frame.
+ * Each block has an x coordinate blockX * i.
+ * @param {Array} blockArray An array of blocks to display (with optional args).
+ * @return {string} blockXMLString The generated string of XML.
+ */
+BlocklyApps.generateXMLForBlocks = function(blockArray) {
+  var blockXMLString = '';
+  var blockX = 0;
+  var blockY = 0;
+  var blockXPadding = 200;
+  var blockYPadding = 120;
+  var blocksPerLine = 2;
+  var iframeHeight = parseInt(document.getElementById('feedbackBlocks')
+          .style.height.slice(0, -2));
+  for (var i = 0, block; block = blockArray[i]; i++) {
+    if (block && i < BlocklyApps.NUM_REQUIRED_BLOCKS_TO_FLAG) {
+      blockXMLString += '%3Cblock' + '%20type%3D%22' +
+          block['type'] + '%22%20x%3D%22' + blockX.toString() +
+          '%22%20y%3D%22' + blockY + '%22%3E';
+      if (block['params']) {
+        var titleNames = Object.keys(block['params']);
+        for (var k = 0, name; name = titleNames[k]; k++) {
+          blockXMLString += '%3Ctitle%20name%3D%22' + name +
+             '%22%3E' + block['params'][name] + '%3C%2Ftitle%3E';
+        }
+      }
+      blockXMLString += '%3C%2Fblock%3E';
+      if ((i + 1) % blocksPerLine == 0) {
+        blockY += blockYPadding;
+        iframeHeight += blockYPadding;
+        blockX = 0;
+      } else {
+        blockX += blockXPadding;
+      }
+    }
+    document.getElementById('feedbackBlocks').style.height =
+        iframeHeight + 'px';
+  }
+  return blockXMLString;
 };
