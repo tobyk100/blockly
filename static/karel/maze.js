@@ -60,7 +60,8 @@ Maze.SKINS = [
     background: 'bg.png',
     graph: false,
     look: '#000',
-    ball: 'check.png'
+    ball: 'check.png',
+    obstacle: 'cow.png'
   }/*,
   {
     sprite: 'astro.png',
@@ -101,6 +102,7 @@ Maze.SquareType = {
   OPEN: 1,
   START: 2,
   FINISH: 3,
+  OBSTACLE: 4,
   STARTANDFINISH: 5
 };
 
@@ -245,9 +247,12 @@ Maze.drawMap = function() {
   // Draw the tiles making up the maze map.
 
   // Return a value of '0' if the specified square is wall or out of bounds,
-  // '1' otherwise (empty, start, finish).
+  // '1' otherwise (empty, obstacle, start, finish).
   var normalize = function(x, y) {
     if (x < 0 || x >= Maze.COLS || y < 0 || y >= Maze.ROWS) {
+      return '0';
+    }
+    if (Maze.map[y][x] == Maze.SquareType.OBSTACLE) {
       return '0';
     }
     return (Maze.map[y][x] == Maze.SquareType.WALL) ? '0' : '1';
@@ -320,6 +325,26 @@ Maze.drawMap = function() {
   pegmanIcon.setAttribute('width', Maze.PEGMAN_WIDTH * 21); // 49 * 21 = 1029
   pegmanIcon.setAttribute('clip-path', 'url(#pegmanClipPath)');
   svg.appendChild(pegmanIcon);
+
+  // Add obstacles.
+  for (var y = 0; y < Maze.ROWS; y++) {
+    for (var x = 0; x < Maze.COLS; x++) {
+      if (Maze.map[y][x] == Maze.SquareType.OBSTACLE) {
+        var obsIcon = document.createElementNS(Blockly.SVG_NS, 'image');
+        obsIcon.setAttribute('height', 40);
+        obsIcon.setAttribute('width', 40);
+        obsIcon.setAttributeNS(
+          'http://www.w3.org/1999/xlink', 'xlink:href', Maze.SKIN.obstacle);
+        obsIcon.setAttribute('x',
+                             Maze.SQUARE_SIZE * (x + 0.5) -
+                             obsIcon.getAttribute('width') / 2);
+        obsIcon.setAttribute('y',
+                             Maze.SQUARE_SIZE * (y + 0.6) -
+                             obsIcon.getAttribute('height'));
+        svg.appendChild(obsIcon);
+      }
+    }
+  }
 };
 
 /**
@@ -537,9 +562,7 @@ Maze.reset = function(first) {
       if (Maze.balls_[y][x] !== 0 ) {
         ballIcon = document.createElementNS(Blockly.SVG_NS, 'image');
         ballIcon.setAttribute('id', 'ball' + ballId);
-        ballIcon.setAttributeNS(
-            'http://www.w3.org/1999/xlink', 'xlink:href',
-            Maze.balls_[y][x] + Maze.SKIN.ball);
+        Maze.setBallImage(ballIcon, x, y);
         ballIcon.setAttribute('height', 50);
         ballIcon.setAttribute('width', 42);
         svg.insertBefore(ballIcon, pegmanIcon);
@@ -551,23 +574,6 @@ Maze.reset = function(first) {
       ++ballId;
     }
   }
-
-  // Nan's
-  // Move the finish ball marker icons into position.
-  /* var ballId = 0;
-  for (var y = 0; y < Maze.ROWS; y++) {
-    for (var x = 0; x < Maze.COLS; x++) {
-      if (Maze.finish_ball_map[y][x] > 0) {
-        var ballIcon = document.getElementById('finish_ball' + ballId);
-        ballIcon.setAttribute('x', Maze.SQUARE_SIZE * (x + 0.5) -
-                              ballIcon.getAttribute('width') / 2);
-        ballIcon.setAttribute('y', Maze.SQUARE_SIZE * (y + 0.6) -
-                              ballIcon.getAttribute('height'));
-      }
-      ++ballId;
-    }
-  } */
-
 };
 
 /**
@@ -733,7 +739,7 @@ Maze.animate = function() {
   }
 
   // Speeding up specific levels
-  if ((Maze.PAGE == 1 && Maze.LEVEL == 8) ||
+  if ((Maze.PAGE == 1 && (Maze.LEVEL == 4 || Maze.LEVEL == 7)) ||
       (Maze.PAGE == 2 && (Maze.LEVEL == 3 || Maze.LEVEL == 4))) {
     Maze.pidList.push(window.setTimeout(Maze.animate, Maze.stepSpeed * 2));
   } else {
@@ -866,7 +872,9 @@ Maze.displayPegman = function(x, y, d) {
   clipRect.setAttribute('y', pegmanIcon.getAttribute('y'));
 };
 
-// Nan's
+/**
+ * Schedule to put down a ball at pegman's current position.
+ */
 Maze.schedulePutDownBall = function() {
   var x = Maze.pegmanX;
   var y = Maze.pegmanY;
@@ -877,8 +885,7 @@ Maze.schedulePutDownBall = function() {
     // There is already a ball at the position
     ballIcon = document.getElementById('ball' + ballId);
     ++Maze.balls_[y][x];
-    ballIcon.setAttributeNS('http://www.w3.org/1999/xlink', 'xlink:href',
-                            Maze.balls_[y][x] + Maze.SKIN.ball);
+    Maze.setBallImage(ballIcon, x, y);
     ballIcon.setAttribute('x', Maze.SQUARE_SIZE * (x + 0.5) -
                           ballIcon.getAttribute('width') / 2);
     ballIcon.setAttribute('y', Maze.SQUARE_SIZE * (y + 0.6) -
@@ -893,8 +900,7 @@ Maze.schedulePutDownBall = function() {
     svg.insertBefore(ballIcon, pegmanIcon);
 
     ++Maze.balls_[y][x];
-    ballIcon.setAttributeNS('http://www.w3.org/1999/xlink', 'xlink:href',
-                            Maze.balls_[y][x] + Maze.SKIN.ball);
+    Maze.setBallImage(ballIcon, x, y);
     ballIcon.setAttribute('x', Maze.SQUARE_SIZE * (x + 0.5) -
                           ballIcon.getAttribute('width') / 2);
     ballIcon.setAttribute('y', Maze.SQUARE_SIZE * (y + 0.6) -
@@ -908,7 +914,29 @@ Maze.schedulePutDownBall = function() {
   }
 };
 
-// Nan's
+/**
+ * Set the image based on the number of balls in the location.
+ * @param ballIcon Ball icon that shows the number of balls at location [y,x].
+ * @param {number} x Horizontal grid (or fraction thereof).
+ * @param {number} y Vertical grid (or fraction thereof).
+ */
+Maze.setBallImage = function(ballIcon, x, y) {
+  if (Maze.balls_[y][x] > 10) {
+    ballIcon.setAttributeNS(
+      'http://www.w3.org/1999/xlink', 'xlink:href', Maze.SKIN.ball);
+  } else if (Maze.balls_[y][x] < -10) {
+    ballIcon.setAttributeNS(
+      'http://www.w3.org/1999/xlink', 'xlink:href', '-' + Maze.SKIN.ball);
+  } else {
+    ballIcon.setAttributeNS(
+      'http://www.w3.org/1999/xlink', 'xlink:href',
+      Maze.balls_[y][x] + Maze.SKIN.ball);
+  }
+};
+
+/**
+ * Schedule to put down a bll at pegman's current location.
+ */ 
 Maze.schedulePickUpBall = function() {
   var x = Maze.pegmanX;
   var y = Maze.pegmanY;
@@ -919,8 +947,7 @@ Maze.schedulePickUpBall = function() {
     // The ballIcon should still exist after picking up a ball
     Maze.balls_[y][x] = Maze.balls_[y][x] - 1;
     ballIcon = document.getElementById('ball' + ballId);
-    ballIcon.setAttributeNS('http://www.w3.org/1999/xlink', 'xlink:href',
-                            Maze.balls_[y][x] + Maze.SKIN.ball);
+    Maze.setBallImage(ballIcon, x, y);
   } else if (Maze.balls_[y][x] == 0) {
     // Create ballIcon
     Maze.balls_[y][x] = Maze.balls_[y][x] - 1;
@@ -931,8 +958,7 @@ Maze.schedulePickUpBall = function() {
     ballIcon.setAttribute('width', 42);
     svg.insertBefore(ballIcon, pegmanIcon);
 
-    ballIcon.setAttributeNS('http://www.w3.org/1999/xlink', 'xlink:href',
-                            Maze.balls_[y][x] + Maze.SKIN.ball);
+    Maze.setBallImage(ballIcon, x, y);
     ballIcon.setAttribute('x', Maze.SQUARE_SIZE * (x + 0.5) -
                           ballIcon.getAttribute('width') / 2);
     ballIcon.setAttribute('y', Maze.SQUARE_SIZE * (y + 0.6) -
@@ -1220,9 +1246,9 @@ Maze.isPath = function(direction, id) {
   return square !== Maze.SquareType.WALL && square !== undefined;
 };
 
-// Nan's
 /**
  * Attempt to put down the ball marker.
+ * @param {string} id ID of block that triggered this action.
  */
 Maze.putDownBall = function(id) {
     BlocklyApps.log.push(['putdown', id]);
@@ -1234,6 +1260,7 @@ Maze.putDownBall = function(id) {
 
 /**
  * Attempt to pick up the ball marker.
+ * @param {string} id ID of block that triggered this action.
  */
 Maze.pickUpBall = function(id) {
     BlocklyApps.log.push(['pickup', id]);

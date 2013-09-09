@@ -597,7 +597,7 @@ Maze.changePegman = function(newSkin) {
   window.location = window.location.protocol + '//' +
       window.location.host + window.location.pathname +
       '?lang=' + BlocklyApps.LANG + '&level=' + BlocklyApps.LEVEL +
-      '&skin=' + newSkin + '&mode=' + BlocklyApps.MODE_ID;
+      '&skin=' + newSkin + '&mode=' + BlocklyApps.MODE;
 };
 
 /**
@@ -1199,5 +1199,5 @@ Maze.setIdealBlockMessage = function() {
  * maze with additional levels.
  */
 BlocklyApps.MAX_MODE = 2;
-BlocklyApps.MODE_ID =
+BlocklyApps.MODE =
     BlocklyApps.getNumberParamFromUrl('mode', 1, BlocklyApps.MAX_MODE);

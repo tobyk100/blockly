@@ -679,6 +679,26 @@ BlocklyApps.MAX_LEVEL = undefined;
 BlocklyApps.SKIN_ID = undefined;
 
 /**
+ * The maximum number of the mode.
+ * @type {number}
+ */
+BlocklyApps.MAX_MODE = undefined;
+
+/**
+ * Enumeration of the modes the tutorial can be in (normal or adaptive).
+ * @enum {number}
+ */
+BlocklyApps.MODE_ENUM = {
+  NORMAL: 1,
+  ADAPTIVE: 2
+};
+
+/**
+ * The mode of the tutorial.
+ */
+BlocklyApps.MODE = undefined;
+
+/**
  * Languages supported by the application.  Keys should be in ISO 639 format.
  * @type {!Array.<!Array.<string>>}
  */
@@ -1282,7 +1302,7 @@ BlocklyApps.createURLAndOpenNextLevel = function() {
       '&level=' + (BlocklyApps.LEVEL + 1) +
       // TODO: Fix hack used to temporarily keep turtle interstitials working.
       (BlocklyApps.SKIN_ID ? '&skin=' + BlocklyApps.SKIN_ID : '&reinf=1') +
-      (BlocklyApps.MODE_ID ? '&mode=' + BlocklyApps.MODE_ID : '');
+      (BlocklyApps.MODE ? '&mode=' + BlocklyApps.MODE : '');
   }
 };
 
