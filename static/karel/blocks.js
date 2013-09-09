@@ -135,9 +135,9 @@ Blockly.JavaScript.maze_if = function() {
 
 Blockly.Language.maze_if.DIRECTIONS = [
      [BlocklyApps.getMsg('ballsPresent'), 'ballsPresent'],
-     [BlocklyApps.getMsg('holesPresent'), 'holesPresent'],
-     [BlocklyApps.getMsg('pathAhead'), 'isPathForward'],
-     [BlocklyApps.getMsg('noPathAhead'), 'noPathForward']
+     [BlocklyApps.getMsg('holesPresent'), 'holesPresent']
+//     [BlocklyApps.getMsg('pathAhead'), 'isPathForward'],
+//     [BlocklyApps.getMsg('noPathAhead'), 'noPathForward']
 ];
 
 
