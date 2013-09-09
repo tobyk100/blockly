@@ -129,9 +129,6 @@ html[dir="RTL"] #pegmanButton>span {
 .hide {
   display: none;
 }
-#blockly {
-  margin-left: 415px;
-}
 #gameButtons {
   clear: left;
 }

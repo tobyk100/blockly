@@ -20,6 +20,7 @@ html[dir="RTL"] .farSide {
   position: fixed;
   bottom: 10px;
   box-shadow: 7px 7px 10px #888;
+  margin-left: 415px;
 }
 #visualization {
   position: relative;
