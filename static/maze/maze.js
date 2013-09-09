@@ -55,8 +55,8 @@ BlocklyApps.LANGUAGES = {
 };
 BlocklyApps.LANG = BlocklyApps.getLang();
 
-document.write('<script type="text/javascript" src="' + BlocklyApps.BASE_URL + 'maze/generated/' +
-    BlocklyApps.LANG + '.js"></script>\n');
+document.write('<script type="text/javascript" src="' + BlocklyApps.BASE_URL +
+    'maze/generated/' + BlocklyApps.LANG + '.js"></script>\n');
 
 /**
  * Constants for cardinal directions.  Subsequent code assumes these are
@@ -702,6 +702,11 @@ Maze.init = function() {
     var top = visualization.offsetTop;
     var svg = document.getElementById('svgMaze');
 
+    blocklyDiv.style.top = top + 'px';
+
+    var blocklyDivParent = blocklyDiv.parentNode;
+    var parentStyle = window.getComputedStyle(blocklyDivParent);
+    var parentWidth = parseInt(parentStyle.width);
     blocklyDiv.style.top = top + 'px';
 
     var blocklyDivParent = blocklyDiv.parentNode;
