@@ -225,3 +225,5 @@ BlocklyApps.REQUIRED_BLOCKS = [undefined, // 0.
   ['isPathRight', 'turnRight', 'while'],
   ['isPathForward', 'else', 'while'],
   ['isPathForward', 'else', 'while']][BlocklyApps.LEVEL];
+
+BlocklyApps.INTERSTITIALS = undefined;
