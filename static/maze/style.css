@@ -5,6 +5,7 @@ body {
 }
 
 #visualization {
+  margin-bottom: 10px;
   position: relative;
   top: 10px;
   float: left;
