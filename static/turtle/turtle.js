@@ -452,7 +452,7 @@ Turtle.visible = true;
  * Initialize Blockly and the turtle.  Called on page load.
  */
 Turtle.init = function() {
-  if (Turtle.REINF) {
+  if (BlocklyApps.REINF) {
     return;
   }
   BlocklyApps.init();
