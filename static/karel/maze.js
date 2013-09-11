@@ -44,8 +44,6 @@ Maze.MAX_LEVEL = [undefined, 11, 10][Maze.PAGE];
 Maze.LEVEL = BlocklyApps.getNumberParamFromUrl('level', 1, Maze.MAX_LEVEL);
 Maze.REINF = BlocklyApps.getNumberParamFromUrl('reinf', 1, Maze.MAX_REINF);
 
-Maze.idealBlockNum = Maze.idealBlocks[Maze.PAGE][Maze.LEVEL];
-
 Maze.SKINS = [
   // sprite: A 1029x51 set of 21 avatar images.
   // tiles: A 250x200 set of 20 map images.
@@ -106,10 +104,15 @@ Maze.SquareType = {
   STARTANDFINISH: 5
 };
 
-Maze.map = Maze.levels[Maze.PAGE][Maze.LEVEL];
-Maze.initialBallMap = Maze.initialBalls[Maze.PAGE][Maze.LEVEL];
-Maze.finalBallMap = Maze.finalBalls[Maze.PAGE][Maze.LEVEL];
-Maze.startDirection = Maze.startDirections[Maze.PAGE][Maze.LEVEL];
+/**
+ * Load level configuration.
+ */
+var level = LevelConfig.pages[Maze.PAGE].levels[Maze.LEVEL];
+Maze.map = level.map;
+Maze.idealBlockNum = level.ideal;
+Maze.initialBallMap = level.initialBalls;
+Maze.finalBallMap = level.finalBalls;
+Maze.startDirection = level.startDirection;
 
 Maze.map.unshift([0, 0, 0, 0, 0, 0, 0, 0]);
 Maze.initialBallMap.unshift([0, 0, 0, 0, 0, 0, 0, 0]);
