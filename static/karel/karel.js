@@ -416,26 +416,12 @@ Maze.init = function() {
   Blockly.JavaScript.INFINITE_LOOP_TRAP = '  BlocklyApps.checkTimeout(%1);\n';
   Maze.drawMap();
 
-  var blocklyDiv = document.getElementById('blockly');
-  var visualization = document.getElementById('visualization');
-  var onresize = function(e) {
-    var top = visualization.offsetTop;
-    blocklyDiv.style.top = top + 'px';
-
-    var blocklyDivParent = blocklyDiv.parentNode;
-    var parentStyle = window.getComputedStyle(blocklyDivParent);
-    var parentWidth = parseInt(parentStyle.width);
-
-    blocklyDiv.style.width = (parentWidth - 440) + 'px';
-    blocklyDiv.style.height = (window.innerHeight - top - 20 +
-        window.scrollY) + 'px';
-  };
   window.addEventListener('scroll', function() {
-      onresize();
+      BlocklyApps.onResize();
       Blockly.fireUiEvent(window, 'resize');
     });
-  window.addEventListener('resize', onresize);
-  onresize();
+  window.addEventListener('resize', BlocklyApps.onResize);
+  BlocklyApps.onResize();
   Blockly.svgResize();
 
   // Locate the start and finish squares.

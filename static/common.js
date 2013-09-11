@@ -261,6 +261,25 @@ BlocklyApps.changeLanguage = function() {
       window.location.host + window.location.pathname + search;
 };
 
+BlocklyApps.onResize = function(e) {
+  var blocklyDiv = document.getElementById('blockly');
+  var visualization = document.getElementById('visualization');
+  var top = visualization.offsetTop;
+  var scrollY = window.scrollY;
+  blocklyDiv.style.top = Math.max(top, scrollY) + 'px';
+
+  var blocklyDivParent = blocklyDiv.parentNode;
+  var parentStyle = window.getComputedStyle ?
+                    window.getComputedStyle(blocklyDivParent) :
+                    blocklyDivParent.currentStyle.width;  // IE
+  var parentWidth = parseInt(parentStyle.width);
+  var parentHeight = window.innerHeight - parseInt(blocklyDiv.style.top) +
+    scrollY - 20;
+
+  blocklyDiv.style.width = (parentWidth - 440) + 'px';
+  blocklyDiv.style.height = parentHeight + 'px';
+};
+
 /**
  * Highlight the block (or clear highlighting).
  * @param {?string} id ID of block that triggered this action.
