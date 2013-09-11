@@ -192,9 +192,10 @@ input[type="radio"] {
   display: none;
 }
 .video {
-  width: 560px;
+  width: 94%;
   height: 315px;
-  margin-left: 50px;
+  margin-left: 3%;
+  margin-right: 3%;
 }
 .stars {
   display: none;
