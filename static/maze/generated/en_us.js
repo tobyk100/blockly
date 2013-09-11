@@ -107,7 +107,7 @@ mazepage.start = function(opt_data, opt_ignored, opt_ijData) {
         break;
     }
   }
-  output += '<div id="reinfQuizFeedback" style="display: none;"><div style="padding-bottom: 0.7ex; text-align: center;"><textarea id="reinfFeedbackText" rows=2 cols=40 style="resize: none; border: none; text-align: center; overflow: hidden; font-size: 16pt; font-family: Arial;"></textarea></div></div></div><br><div id="returnToLevelButton" style="display: none;">' + apps.ok(null, null, opt_ijData) + '</div><div style="text-align: center"><button id="tryAgainButton" class="launch" style="display: none" onclick="BlocklyApps.goToNextLevelOrReset(false);">Try again</button><button id="continueButton" class="launch" style="display: none" onclick="BlocklyApps.goToNextLevelOrReset(true);">Continue</button></div></div></div><div id="play-area"><div id="visualization"><div id="hintBubble"><div id="hint">';
+  output += '<div id="reinfQuizFeedback" style="display: none;"><div style="padding-bottom: 0.7ex; text-align: center;"><textarea id="reinfFeedbackText" rows=2 cols=40 style="resize: none; border: none; text-align: center; overflow: hidden; font-size: 16pt; font-family: Arial;"></textarea></div></div></div><br><div id="returnToLevelButton" style="display: none;">' + apps.ok(null, null, opt_ijData) + '</div><div style="text-align: center"><button id="tryAgainButton" class="launch" style="display: none" onclick="BlocklyApps.goToNextLevelOrReset(false);">Try again</button><button id="continueButton" class="launch" style="display: none" onclick="BlocklyApps.goToNextLevelOrReset(true);">Continue</button></div></div></div><div id="visualization"><div id="hintBubble"><div id="hint">';
   if (opt_ijData.mode == 1) {
     switch (opt_ijData.level) {
       case 1:
