@@ -52,25 +52,27 @@ mazepage.start = function(opt_data, opt_ignored, opt_ijData) {
     output += ' ' + ((i268 == opt_ijData.level) ? (i268 > (opt_ijData.mode == 2 ? 19 : 11) - 2) ? '<span class="selected doubleDigit tab">' + soy.$$escapeHtml(i268) + '</span>' : '<span class="selected tab">' + soy.$$escapeHtml(i268) + '</span>' : (i268 < opt_ijData.level) ? '<a class="tab previous" href="?lang=' + soy.$$escapeHtml(opt_ijData.lang) + '&level=' + soy.$$escapeHtml(i268) + '&skin=' + soy.$$escapeHtml(opt_ijData.skin) + '&mode=' + soy.$$escapeHtml(opt_ijData.mode) + '">' + soy.$$escapeHtml(i268) + '</a>' : '<a class="tab" href="?lang=' + soy.$$escapeHtml(opt_ijData.lang) + '&level=' + soy.$$escapeHtml(i268) + '&skin=' + soy.$$escapeHtml(opt_ijData.skin) + '&mode=' + soy.$$escapeHtml(opt_ijData.mode) + '">' + soy.$$escapeHtml(i268) + '</a>');
   }
   output += '</h1></td><td class="farSide">&nbsp;&nbsp;<button id="helpButton" onclick="BlocklyApps.showHelp(true, ' + soy.$$escapeHtml(opt_ijData.level) + ', false);">Help</button>&nbsp;&nbsp;<button id="pegmanButton" onmousedown="Maze.showPegmanMenu();"><img src="../media/1x1.gif"><span>&#x25BE;</span></button></td></tr></table>' + apps.dialog(null, null, opt_ijData) + apps.codeDialog(null, null, opt_ijData) + apps.storageDialog(null, null, opt_ijData) + '<div id="help" class="dialogHiddenContent"><div style="padding-bottom: 0.7ex;"><br><img class="stars feedback" id="star1" src="../star1.png"><img class="stars feedback" id="star2" src="../star2.png"><img class="stars feedback" id="star3" src="../star3.png"><ul id="levelFeedbackText"><span id="hintTitle" class="feedback" style="display: none; margin-left: -30px">fooHints:</span><li id="nextLevelMsg" style="display: none; margin-left: -40px;">Congratulations! You have completed this level.</li><li id="finalLevelMsg" style="display: none; margin-left: -40px;">Congratulations! You have solved the final level.</li><li id="emptyBlocksError" class="feedback" style="display: none">Remove empty blocks.</li><li id="missingBlocksError" class="feedback" style="display: none">Try oneo r more of the blocks below to solve this level.</li><li id="tooManyBlocksError" class="feedback" style="display: none">This level can be solved with <span id="idealNumberMessage"></span> blocks.</li><li id="tooFewBlocksError" class="feedback" style="display: none">You are using all of the necessary types of blocks, but try using more  of these types of blocks to complete this level.</li><li id="levelIncompleteError" class="feedback" style="display: none">You are using all of the necessary types of blocks but not in the right way.</li></ul><iframe id="feedbackBlocks" class="feedback" style="margin-left: 50px; height: 80px; width: 500px; border: none; display: none;" src=""></iframe><div id="interstitial" style="display: none;"><div style="margin-left: 50px;"><div id="reinfbubble"><span id="reinfMsg">';
-  switch (opt_ijData.level) {
-    case 1:
-      output += '<span class="preInter">Watch the video below and learn how to use blocks to make me move.</span>';
-      break;
-    case 2:
-      output += '<span class="postInter">Which direction am I facing after this program ends?</span>';
-      break;
-    case 3:
-      output += 'A repeat block repeats the blocks inside it until I reach the red marker.';
-      break;
-    case 5:
-      output += '<span class="preInter">Here is an \'if\' block: I will turn in a particular direction if there is a path in that direction. For example if there is a path to the left, I will turn left.</span><span class="postInter">We can place \'if\' blocks inside \'repeat\' blocks. Where am I when this program ends? Click on the correct picture below.</span>';
-      break;
-    case 6:
-      output += '<strong>Remember:</strong><ul><li>\'repeat\' blocks perform an action multiple times without additional blocks.</li><li>\'if\' blocks check if there is a path in a certain direction.</li></ul>';
-      break;
-    case 9:
-      output += '<span class="preInter">Here is an \'if-else\' block: I move forward if there is a path ahead, otherwise I turn left.</span><span class="postInter">Will the blocks below move me to the red marker?</span>';
-      break;
+  if (opt_ijData.mode == 1) {
+    switch (opt_ijData.level) {
+      case 1:
+        output += '<span class="preInter">Watch the video below and learn how to use blocks to make me move.</span>';
+        break;
+      case 2:
+        output += '<span class="postInter">Which direction am I facing after this program ends?</span>';
+        break;
+      case 3:
+        output += 'A repeat block repeats the blocks inside it until I reach the red marker.';
+        break;
+      case 5:
+        output += '<span class="preInter">Here is an \'if\' block: I will turn in a particular direction if there is a path in that direction. For example if there is a path to the left, I will turn left.</span><span class="postInter">We can place \'if\' blocks inside \'repeat\' blocks. Where am I when this program ends? Click on the correct picture below.</span>';
+        break;
+      case 6:
+        output += '<strong>Remember:</strong><ul><li>\'repeat\' blocks perform an action multiple times without additional blocks.</li><li>\'if\' blocks check if there is a path in a certain direction.</li></ul>';
+        break;
+      case 9:
+        output += '<span class="preInter">Here is an \'if-else\' block: I move forward if there is a path ahead, otherwise I turn left.</span><span class="postInter">Will the blocks below move me to the red marker?</span>';
+        break;
+    }
   }
   output += '</span></div><img id="pegman_bubble" height=42 width=55 src="pegman_bubble.png"></div>';
   if (opt_ijData.mode == 1) {
