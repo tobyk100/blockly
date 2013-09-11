@@ -455,9 +455,6 @@ Maze.drawMap = function() {
     if (x < 0 || x >= Maze.COLS || y < 0 || y >= Maze.ROWS) {
       return '0';
     }
-    if (Maze.map[y][x] == Maze.SquareType.OBSTACLE) {
-      return '1';
-    }
     return (Maze.map[y][x] == Maze.SquareType.WALL) ? '0' : '1';
   };
 
@@ -843,7 +840,7 @@ Maze.execute = function() {
         Maze.stepSpeed = 80;
       } else {
         Maze.stepSpeed = 60;
-      }      
+      }
     } else if (e === false) {
       Maze.result = Maze.ResultType.ERROR;
       Maze.stepSpeed = 150;
