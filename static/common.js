@@ -561,7 +561,7 @@ BlocklyApps.congratulationsKeyDown_ = function(e) {
     e.stopPropagation();
     e.preventDefault();
     if (e.keyCode != 27) {
-      BlocklyApps.displayInterstitialOrCloseModalDialog(
+      BlocklyApps.goToNextLevelOrReset(
           true, BlocklyApps.LEVEL, BlocklyApps.SKIN);
     }
   }
@@ -1229,38 +1229,6 @@ BlocklyApps.showInterstitial = function() {
     }
   } else if (BlocklyApps.INTERSTITIALS & BlocklyApps.InterTypes.PRE) {
     document.getElementById('interstitial').style.display = 'block';
-  }
-};
-
-/**
- * @param {boolean} gotoNext true to continue to next level/interstitial,
- *     false to try level again.
- */
-BlocklyApps.displayInterstitialOrCloseModalDialog = function(gotoNext) {
-  if (gotoNext) {
-    var element = document.getElementById('reinfMsg');
-    if (element) {
-      var reinfMsg = element.innerHTML.match(/\S/);
-      var interstitial = document.getElementById('interstitial').style.display;
-      if (reinfMsg && interstitial == 'none') {
-        BlocklyApps.hideFeedback();
-        if (document.querySelector('.quiz')) {
-          document.getElementById('continueButton').setAttribute('disabled',
-                                                               'disabled');
-        } else {
-          document.getElementById('reinfDone').style.display = 'none';
-          document.getElementById('continueButton').style.display = 'inline';
-        }
-        document.getElementById('interstitial').style.display = 'block';
-        document.getElementById('tryAgainButton').style.display = 'none';
-        return;
-      }
-    }
-    BlocklyApps.hideDialog();
-    BlocklyApps.createURLAndOpenNextLevel();
-  } else {
-    BlocklyApps.hideDialog();
-    BlocklyApps.resetButtonClick();
   }
 };
 

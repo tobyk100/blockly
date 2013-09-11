@@ -211,54 +211,56 @@
         <div style="margin-left: 50px;">
           <div id="reinfbubble">
             <span id="reinfMsg">
-              {switch $ij.level}
-                {case 1}
-                <span class="preInter">{msg meaning="Maze.reinfMsg1" desc="instructions - introduction
-                    to the Maze tutorial."}Watch the video
-                    below and learn how to use blocks to make me move.{/msg}</span>
-                {case 2}
-                  <span class="postInter">{msg meaning="Maze.reinfMsg3" desc="instructions - program'
-                    refers to a series of instructions that tell the computer
-                    what to do next."}Which direction am I facing after this
-                    program ends?{/msg}</span>
-                {case 3}
-                  {msg meaning="Maze.reinfMsg2"
-                    desc="instructions - 'block' refers to a child's stackable
-                    toys. A 'repeat' block is used to repeat blocks over and
-                    over. The red marker is the goal to be reached in the
-                    maze."}A repeat block repeats the blocks inside it until I
-                    reach the red marker.{/msg}
-                {case 5}
-                  <span class="preInter">{msg meaning="Maze.reinfMsg4" desc="instructions - An example
-                    of an 'if' block is if there is a path to the left, turn
-                    left."}Here is an 'if' block: I will turn in a particular direction if there is a
-                    path in that direction. For example if there is a path to the left, I will turn left.{/msg}</span>
-                  <span class="postInter">{msg meaning="Maze.reinfMsg5" desc="instructions - An example
-                    of an 'if' block is if there is a path to the left, turn left.
-                    A 'repeat' block is used to repeat blocks over and over.
-                    'program' refers to a series of instructions that tell the
-                    computer what to do next."}We can place 'if' blocks inside
-                    'repeat' blocks. Where am I when this program ends?
-                    Click on the correct picture below.{/msg}</span>
-                {case 6}
-                  {msg meaning="Maze.reinfMsg6" desc="instructions - A 'repeat'
-                    block is used to repeat blocks over and over. "}<strong>Remember:</strong>
-                    <ul>
-                      <li>'repeat' blocks perform an action multiple times without additional
-                    blocks.</li>
-                      <li>'if' blocks check if there is a path in a certain direction.</li>
-                    </ul>{/msg}
-                {case 9}
-                  <span class="preInter">{msg meaning="Maze.reinfMsg8" desc="instructions - An example of
-                    an 'if-else' block is if there is a path ahead move forward,
-                    else turn left."}Here is an 'if-else' block: I move forward if
-                    there is a path ahead, otherwise I turn left.{/msg}</span>
-                  <span class="postInter">{msg meaning="Maze.reinfMsg9" desc="instructions - 'block'
-                    refers to a child's stackable toys. A 'repeat' block is used
-                    to repeat blocks over and over. The red marker is the goal to
-                    be reached in the maze."}Will the blocks below move me to the
-                    red marker?{/msg}</span>
-              {/switch}
+              {if $ij.mode == 1}
+                {switch $ij.level}
+                  {case 1}
+                  <span class="preInter">{msg meaning="Maze.reinfMsg1" desc="instructions - introduction
+                      to the Maze tutorial."}Watch the video
+                      below and learn how to use blocks to make me move.{/msg}</span>
+                 {case 2}
+                    <span class="postInter">{msg meaning="Maze.reinfMsg3" desc="instructions - program'
+                      refers to a series of instructions that tell the computer
+                      what to do next."}Which direction am I facing after this
+                      program ends?{/msg}</span>
+                  {case 3}
+                    {msg meaning="Maze.reinfMsg2"
+                      desc="instructions - 'block' refers to a child's stackable
+                      toys. A 'repeat' block is used to repeat blocks over and
+                      over. The red marker is the goal to be reached in the
+                      maze."}A repeat block repeats the blocks inside it until I
+                      reach the red marker.{/msg}
+                  {case 5}
+                    <span class="preInter">{msg meaning="Maze.reinfMsg4" desc="instructions - An example
+                      of an 'if' block is if there is a path to the left, turn
+                      left."}Here is an 'if' block: I will turn in a particular direction if there is a
+                      path in that direction. For example if there is a path to the left, I will turn left.{/msg}</span>
+                    <span class="postInter">{msg meaning="Maze.reinfMsg5" desc="instructions - An example
+                      of an 'if' block is if there is a path to the left, turn left.
+                      A 'repeat' block is used to repeat blocks over and over.
+                      'program' refers to a series of instructions that tell the
+                      computer what to do next."}We can place 'if' blocks inside
+                      'repeat' blocks. Where am I when this program ends?
+                      Click on the correct picture below.{/msg}</span>
+                  {case 6}
+                    {msg meaning="Maze.reinfMsg6" desc="instructions - A 'repeat'
+                      block is used to repeat blocks over and over. "}<strong>Remember:</strong>
+                      <ul>
+                        <li>'repeat' blocks perform an action multiple times without additional
+                      blocks.</li>
+                        <li>'if' blocks check if there is a path in a certain direction.</li>
+                      </ul>{/msg}
+                  {case 9}
+                    <span class="preInter">{msg meaning="Maze.reinfMsg8" desc="instructions - An example of
+                      an 'if-else' block is if there is a path ahead move forward,
+                      else turn left."}Here is an 'if-else' block: I move forward if
+                      there is a path ahead, otherwise I turn left.{/msg}</span>
+                    <span class="postInter">{msg meaning="Maze.reinfMsg9" desc="instructions - 'block'
+                      refers to a child's stackable toys. A 'repeat' block is used
+                      to repeat blocks over and over. The red marker is the goal to
+                      be reached in the maze."}Will the blocks below move me to the
+                      red marker?{/msg}</span>
+               {/switch}
+              {/if}
             </span>
           </div>
           <img id="pegman_bubble" height=42 width=55 src="pegman_bubble.png">
@@ -266,89 +268,93 @@
         /**
          * Show image and/or video below avatar for these reinf levels.
          */
-        {switch $ij.level}
-          {case 1}
-              <iframe class="video" src=""></iframe>
-          {case 2}
-            <p class="postInter" style="border: 2px solid black; width: 470px; margin-left: 20px;">
-              <img src="dirs.png" style="margin-left: 30px; padding-bottom: 4px;">
-              <img src="dirs2.png">
-              <iframe style="height: 133px; width: 170px; border: none;" src="readonly.html?lang={$ij.lang}&xml=%3Cblock%20type%3D%22maze_turn%22%20x%3D%2226%22%20y%3D%2222%22%3E%3Ctitle%20name%3D%22DIR%22%3EturnLeft%3C%2Ftitle%3E%3Cnext%3E%3Cblock%20type%3D%22maze_turn%22%3E%3Ctitle%20name%3D%22DIR%22%3EturnLeft%3C%2Ftitle%3E%3Cnext%3E%3Cblock%20type%3D%22maze_turn%22%3E%3Ctitle%20name%3D%22DIR%22%3EturnRight%3C%2Ftitle%3E%3Cnext%3E%3Cblock%20type%3D%22maze_turn%22%3E%3Ctitle%20name%3D%22DIR%22%3EturnLeft%3C%2Ftitle%3E%3C%2Fblock%3E%3C%2Fnext%3E%3C%2Fblock%3E%3C%2Fnext%3E%3C%2Fblock%3E%3C%2Fnext%3E%3C%2Fblock%3E"></iframe></p>
-          {case 3}
-            <p class="preInter">
-              <iframe style="height: 110px; width: 180px; border: none; margin-left: 110px;" src="readonly.html?lang={$ij.lang}&xml=%3Cblock%20type%3D%22maze_forever%22%20x%3D%2220%22%20y%3D%2222%22%3E%3Cstatement%20name%3D%22DO%22%3E%3Cblock%20type%3D%22maze_moveForward%22%3E%3C%2Fblock%3E%3C%2Fstatement%3E%3C%2Fblock%3E""></iframe><br>
-              <iframe class="video" src=""></iframe></p>
-          {case 5}
-            <p class="preInter">
-              <iframe style="height: 110px; width: 180px; border: none; margin-left: 60px;" src="readonly.html?lang={$ij.lang}&xml=%3Cblock%20type%3D%22maze_if%22%20x%3D%2215%22%20y%3D%2214%22%3E%3Ctitle%20name%3D%22DIR%22%3EisPathLeft%3C%2Ftitle%3E%3Cstatement%20name%3D%22DO%22%3E%3Cblock%20type%3D%22maze_turn%22%3E%3Ctitle%20name%3D%22DIR%22%3EturnLeft%3C%2Ftitle%3E%3C%2Fblock%3E%3C%2Fstatement%3E%3C%2Fblock%3E"></iframe><br>
-              <iframe class="video" src=""></iframe></p>
-            <p class="postInter" style="border: 2px solid black; width: 530px; margin-left: 30px;">
-              <img style="margin-top: 10px; margin-left: 20px;" src="repeat_block2.png">
-              <iframe style="height: 180px; width: 230px; border: none; margin-left: 60px;" src="readonly.html?lang={$ij.lang}&xml=%3Cblock%20type%3D%22maze_forever%22%20x%3D%2210%22%20y%3D%2212%22%3E%3Cstatement%20name%3D%22DO%22%3E%3Cblock%20type%3D%22maze_if%22%3E%3Ctitle%20name%3D%22DIR%22%3EisPathRight%3C%2Ftitle%3E%3Cstatement%20name%3D%22DO%22%3E%3Cblock%20type%3D%22maze_turn%22%3E%3Ctitle%20name%3D%22DIR%22%3EturnRight%3C%2Ftitle%3E%3C%2Fblock%3E%3C%2Fstatement%3E%3Cnext%3E%3Cblock%20type%3D%22maze_moveForward%22%3E%3C%2Fblock%3E%3C%2Fnext%3E%3C%2Fblock%3E%3C%2Fstatement%3E%3C%2Fblock%3E"></iframe><br></p>
-          {case 9}
-            <p class="preInter">
-              <iframe style="height: 133px; width: 170px; border: none; margin-left: 60px;" src="readonly.html?lang={$ij.lang}&xml=%3Cblock%20type%3D%22maze_ifElse%22%20x%3D%226%22%20y%3D%2216%22%3E%3Ctitle%20name%3D%22DIR%22%3EisPathForward%3C%2Ftitle%3E%3Cstatement%20name%3D%22DO%22%3E%3Cblock%20type%3D%22maze_moveForward%22%3E%3C%2Fblock%3E%3C%2Fstatement%3E%3Cstatement%20name%3D%22ELSE%22%3E%3Cblock%20type%3D%22maze_turn%22%3E%3Ctitle%20name%3D%22DIR%22%3EturnLeft%3C%2Ftitle%3E%3C%2Fblock%3E%3C%2Fstatement%3E%3C%2Fblock%3E"></iframe></p>
-            <p class="postInter">
-              <img style="margin-left: 40px; height: 300px;"
-               src="ifelse.png">
-               <iframe style="height: 300px; width: 290px; border: none;" src="readonly.html?lang={$ij.lang}&xml=%3Cblock%20type%3D%22maze_ifElse%22%20x%3D%2222%22%20y%3D%2221%22%3E%3Ctitle%20name%3D%22DIR%22%3EisPathForward%3C%2Ftitle%3E%3Cstatement%20name%3D%22DO%22%3E%3Cblock%20type%3D%22maze_moveForward%22%3E%3C%2Fblock%3E%3C%2Fstatement%3E%3Cstatement%20name%3D%22ELSE%22%3E%3Cblock%20type%3D%22maze_ifElse%22%3E%3Ctitle%20name%3D%22DIR%22%3EisPathLeft%3C%2Ftitle%3E%3Cstatement%20name%3D%22DO%22%3E%3Cblock%20type%3D%22maze_turn%22%3E%3Ctitle%20name%3D%22DIR%22%3EturnLeft%3C%2Ftitle%3E%3C%2Fblock%3E%3C%2Fstatement%3E%3Cstatement%20name%3D%22ELSE%22%3E%3Cblock%20type%3D%22maze_if%22%3E%3Ctitle%20name%3D%22DIR%22%3EisPathRight%3C%2Ftitle%3E%3Cstatement%20name%3D%22DO%22%3E%3Cblock%20type%3D%22maze_turn%22%3E%3Ctitle%20name%3D%22DIR%22%3EturnRight%3C%2Ftitle%3E%3Cnext%3E%3Cblock%20type%3D%22maze_moveForward%22%3E%3C%2Fblock%3E%3C%2Fnext%3E%3C%2Fblock%3E%3C%2Fstatement%3E%3C%2Fblock%3E%3C%2Fstatement%3E%3C%2Fblock%3E%3C%2Fstatement%3E%3C%2Fblock%3E"></iframe></p>
-        {/switch}
+        {if $ij.mode == 1}
+          {switch $ij.level}
+            {case 1}
+                <iframe class="video" src=""></iframe>
+            {case 2}
+              <p class="postInter" style="border: 2px solid black; width: 470px; margin-left: 20px;">
+                <img src="dirs.png" style="margin-left: 30px; padding-bottom: 4px;">
+                <img src="dirs2.png">
+                <iframe style="height: 133px; width: 170px; border: none;" src="readonly.html?lang={$ij.lang}&xml=%3Cblock%20type%3D%22maze_turn%22%20x%3D%2226%22%20y%3D%2222%22%3E%3Ctitle%20name%3D%22DIR%22%3EturnLeft%3C%2Ftitle%3E%3Cnext%3E%3Cblock%20type%3D%22maze_turn%22%3E%3Ctitle%20name%3D%22DIR%22%3EturnLeft%3C%2Ftitle%3E%3Cnext%3E%3Cblock%20type%3D%22maze_turn%22%3E%3Ctitle%20name%3D%22DIR%22%3EturnRight%3C%2Ftitle%3E%3Cnext%3E%3Cblock%20type%3D%22maze_turn%22%3E%3Ctitle%20name%3D%22DIR%22%3EturnLeft%3C%2Ftitle%3E%3C%2Fblock%3E%3C%2Fnext%3E%3C%2Fblock%3E%3C%2Fnext%3E%3C%2Fblock%3E%3C%2Fnext%3E%3C%2Fblock%3E"></iframe></p>
+            {case 3}
+              <p class="preInter">
+                <iframe style="height: 110px; width: 180px; border: none; margin-left: 110px;" src="readonly.html?lang={$ij.lang}&xml=%3Cblock%20type%3D%22maze_forever%22%20x%3D%2220%22%20y%3D%2222%22%3E%3Cstatement%20name%3D%22DO%22%3E%3Cblock%20type%3D%22maze_moveForward%22%3E%3C%2Fblock%3E%3C%2Fstatement%3E%3C%2Fblock%3E""></iframe><br>
+                <iframe class="video" src=""></iframe></p>
+            {case 5}
+              <p class="preInter">
+                <iframe style="height: 110px; width: 180px; border: none; margin-left: 60px;" src="readonly.html?lang={$ij.lang}&xml=%3Cblock%20type%3D%22maze_if%22%20x%3D%2215%22%20y%3D%2214%22%3E%3Ctitle%20name%3D%22DIR%22%3EisPathLeft%3C%2Ftitle%3E%3Cstatement%20name%3D%22DO%22%3E%3Cblock%20type%3D%22maze_turn%22%3E%3Ctitle%20name%3D%22DIR%22%3EturnLeft%3C%2Ftitle%3E%3C%2Fblock%3E%3C%2Fstatement%3E%3C%2Fblock%3E"></iframe><br>
+                <iframe class="video" src=""></iframe></p>
+              <p class="postInter" style="border: 2px solid black; width: 530px; margin-left: 30px;">
+                <img style="margin-top: 10px; margin-left: 20px;" src="repeat_block2.png">
+                <iframe style="height: 180px; width: 230px; border: none; margin-left: 60px;" src="readonly.html?lang={$ij.lang}&xml=%3Cblock%20type%3D%22maze_forever%22%20x%3D%2210%22%20y%3D%2212%22%3E%3Cstatement%20name%3D%22DO%22%3E%3Cblock%20type%3D%22maze_if%22%3E%3Ctitle%20name%3D%22DIR%22%3EisPathRight%3C%2Ftitle%3E%3Cstatement%20name%3D%22DO%22%3E%3Cblock%20type%3D%22maze_turn%22%3E%3Ctitle%20name%3D%22DIR%22%3EturnRight%3C%2Ftitle%3E%3C%2Fblock%3E%3C%2Fstatement%3E%3Cnext%3E%3Cblock%20type%3D%22maze_moveForward%22%3E%3C%2Fblock%3E%3C%2Fnext%3E%3C%2Fblock%3E%3C%2Fstatement%3E%3C%2Fblock%3E"></iframe><br></p>
+            {case 9}
+              <p class="preInter">
+                <iframe style="height: 133px; width: 170px; border: none; margin-left: 60px;" src="readonly.html?lang={$ij.lang}&xml=%3Cblock%20type%3D%22maze_ifElse%22%20x%3D%226%22%20y%3D%2216%22%3E%3Ctitle%20name%3D%22DIR%22%3EisPathForward%3C%2Ftitle%3E%3Cstatement%20name%3D%22DO%22%3E%3Cblock%20type%3D%22maze_moveForward%22%3E%3C%2Fblock%3E%3C%2Fstatement%3E%3Cstatement%20name%3D%22ELSE%22%3E%3Cblock%20type%3D%22maze_turn%22%3E%3Ctitle%20name%3D%22DIR%22%3EturnLeft%3C%2Ftitle%3E%3C%2Fblock%3E%3C%2Fstatement%3E%3C%2Fblock%3E"></iframe></p>
+             <p class="postInter">
+                <img style="margin-left: 40px; height: 300px;"
+                 src="ifelse.png">
+                 <iframe style="height: 300px; width: 290px; border: none;" src="readonly.html?lang={$ij.lang}&xml=%3Cblock%20type%3D%22maze_ifElse%22%20x%3D%2222%22%20y%3D%2221%22%3E%3Ctitle%20name%3D%22DIR%22%3EisPathForward%3C%2Ftitle%3E%3Cstatement%20name%3D%22DO%22%3E%3Cblock%20type%3D%22maze_moveForward%22%3E%3C%2Fblock%3E%3C%2Fstatement%3E%3Cstatement%20name%3D%22ELSE%22%3E%3Cblock%20type%3D%22maze_ifElse%22%3E%3Ctitle%20name%3D%22DIR%22%3EisPathLeft%3C%2Ftitle%3E%3Cstatement%20name%3D%22DO%22%3E%3Cblock%20type%3D%22maze_turn%22%3E%3Ctitle%20name%3D%22DIR%22%3EturnLeft%3C%2Ftitle%3E%3C%2Fblock%3E%3C%2Fstatement%3E%3Cstatement%20name%3D%22ELSE%22%3E%3Cblock%20type%3D%22maze_if%22%3E%3Ctitle%20name%3D%22DIR%22%3EisPathRight%3C%2Ftitle%3E%3Cstatement%20name%3D%22DO%22%3E%3Cblock%20type%3D%22maze_turn%22%3E%3Ctitle%20name%3D%22DIR%22%3EturnRight%3C%2Ftitle%3E%3Cnext%3E%3Cblock%20type%3D%22maze_moveForward%22%3E%3C%2Fblock%3E%3C%2Fnext%3E%3C%2Fblock%3E%3C%2Fstatement%3E%3C%2Fblock%3E%3C%2Fstatement%3E%3C%2Fblock%3E%3C%2Fstatement%3E%3C%2Fblock%3E"></iframe></p>
+         {/switch}
+        {/if}
 
         /**
          * Multiple choice question.
          */
 
-        {switch $ij.level}
-          {case 2}
-            <p class="quiz postInter">
-              <input type="radio" name="q2" id="q21"
-                onclick="BlocklyApps.showReinfQuizFeedback({$ij.level}, 'q2w')">
-                <label for="q21" style="font-weight: bold">
-                {msg meaning="Maze.dirN" desc="An abbreviation of the direction
-                  North"}N{/msg}
+        {if $ij.mode == 1}
+          {switch $ij.level}
+            {case 2}
+              <p class="quiz postInter">
+                <input type="radio" name="q2" id="q21"
+                  onclick="BlocklyApps.showReinfQuizFeedback({$ij.level}, 'q2w')">
+                  <label for="q21" style="font-weight: bold">
+                  {msg meaning="Maze.dirN" desc="An abbreviation of the direction
+                    North"}N{/msg}
+                  </label><br>
+                <input type="radio" name="q2" id="q22"
+                  onclick="BlocklyApps.showReinfQuizFeedback({$ij.level}, 'q2w')">
+                  <label for="q22" style="font-weight: bold">
+                    {msg meaning="Maze.dirE" desc="An abbreviation of the direction
+                      East"}E{/msg}
+                  </label><br>
+                <input type="radio" name="q2" id="q23"
+                  onclick="BlocklyApps.showReinfQuizFeedback({$ij.level}, 'q2w')">
+                  <label for="q23" style="font-weight: bold">
+                    {msg meaning="Maze.dirS" desc="An abbreviation of the direction
+                      North"}S{/msg}
+                  </label><br>
+                <input type="radio" name="q2" id="q24"
+                  onclick="BlocklyApps.showReinfQuizFeedback({$ij.level}, 'q2r')">
+                  <label for="q24" style="font-weight: bold">
+                    {msg meaning="Maze.dirW" desc="An abbreviation of the direction
+                      West"}W{/msg}
+                  </label><br>
+             </p>
+            {case 5}
+              <p class="quiz postInter" style="margin-left: 115px; margin-bottom: 20px;">
+                <img style="margin-left: 50px;" src="repeat_blocka1.png"
+                  onclick="BlocklyApps.showReinfQuizFeedback({$ij.level}, 'q5w')">
+                <img style="margin-left: 50px;" src="repeat_blocka2.png"
+                  onclick="BlocklyApps.showReinfQuizFeedback({$ij.level}, 'q5r')">
+                <img style="margin-left: 50px;" src="repeat_blocka3.png"
+                  onclick="BlocklyApps.showReinfQuizFeedback({$ij.level}, 'q5w')">
+              </p>
+            {case 9}
+              <p class="quiz postInter">
+                <input type="radio" name="q9" id="q91"
+                  onClick="BlocklyApps.showReinfQuizFeedback({$ij.level}, 'q9r')">
+                <label for="q91" style="font-weight: bold">{msg meaning="Maze.yes"
+                  desc="Yes indicates that this option is correct."}Yes{/msg}
                 </label><br>
-              <input type="radio" name="q2" id="q22"
-                onclick="BlocklyApps.showReinfQuizFeedback({$ij.level}, 'q2w')">
-                <label for="q22" style="font-weight: bold">
-                  {msg meaning="Maze.dirE" desc="An abbreviation of the direction
-                    East"}E{/msg}
-                </label><br>
-              <input type="radio" name="q2" id="q23"
-                onclick="BlocklyApps.showReinfQuizFeedback({$ij.level}, 'q2w')">
-                <label for="q23" style="font-weight: bold">
-                  {msg meaning="Maze.dirS" desc="An abbreviation of the direction
-                    North"}S{/msg}
-                </label><br>
-              <input type="radio" name="q2" id="q24"
-                onclick="BlocklyApps.showReinfQuizFeedback({$ij.level}, 'q2r')">
-                <label for="q24" style="font-weight: bold">
-                  {msg meaning="Maze.dirW" desc="An abbreviation of the direction
-                    West"}W{/msg}
-                </label><br>
-            </p>
-          {case 5}
-            <p class="quiz postInter" style="margin-left: 115px; margin-bottom: 20px;">
-              <img style="margin-left: 50px;" src="repeat_blocka1.png"
-                onclick="BlocklyApps.showReinfQuizFeedback({$ij.level}, 'q5w')">
-              <img style="margin-left: 50px;" src="repeat_blocka2.png"
-                onclick="BlocklyApps.showReinfQuizFeedback({$ij.level}, 'q5r')">
-              <img style="margin-left: 50px;" src="repeat_blocka3.png"
-                onclick="BlocklyApps.showReinfQuizFeedback({$ij.level}, 'q5w')">
-            </p>
-          {case 9}
-            <p class="quiz postInter">
-              <input type="radio" name="q9" id="q91"
-                onClick="BlocklyApps.showReinfQuizFeedback({$ij.level}, 'q9r')">
-              <label for="q91" style="font-weight: bold">{msg meaning="Maze.yes"
-                desc="Yes indicates that this option is correct."}Yes{/msg}
-              </label><br>
-              <input type="radio" name="q9" id="q92"
-                onClick="BlocklyApps.showReinfQuizFeedback({$ij.level}, 'q9w')">
-              <label for="q92" style="font-weight: bold">
-                {msg meaning="Maze.no" desc="No indicates that this option is
-                   incorrect."}No{/msg}
-            </p>
-        {/switch}
+                <input type="radio" name="q9" id="q92"
+                  onClick="BlocklyApps.showReinfQuizFeedback({$ij.level}, 'q9w')">
+                <label for="q92" style="font-weight: bold">
+                  {msg meaning="Maze.no" desc="No indicates that this option is
+                     incorrect."}No{/msg}
+              </p>
+          {/switch}
+        {/if}
         /**
          * Reinforcement quiz feedback.
          */

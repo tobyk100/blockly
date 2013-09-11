@@ -148,6 +148,8 @@ Maze.SKINS = [
     tiles: 'tiles_pegman.png',
     marker: 'marker.png',
     background: false,
+    // TODO: Need to update to the associated obstacles
+    obstacle: 'cat.png',
     graph: false,
     look: '#000'
   },
@@ -156,6 +158,8 @@ Maze.SKINS = [
     tiles: 'tiles_astro.png',
     marker: 'marker.png',
     background: 'bg_astro.jpg',
+    // TODO: Need to update to the associated obstacles
+    obstacle: 'cat.png',
     // Coma star cluster, photo by George Hatfield, used with permission.
     graph: false,
     look: '#fff'
@@ -165,6 +169,8 @@ Maze.SKINS = [
     tiles: 'tiles_panda.png',
     marker: 'mkr_sunflower.png',
     background: 'board_pvz.png',
+    // TODO: Need to update to the associated obstacles
+    obstacle: 'cat.png',
     // Coma star cluster, photo by George Hatfield, used with permission.
     graph: false,
     look: '#fff'
@@ -174,6 +180,8 @@ Maze.SKINS = [
     tiles: 'tiles_mouse.png',
     marker: 'marker_mouse.png',
     background: 'bg_mouse.png',
+    // TODO: Need to update to the associated obstacles
+    obstacle: 'cat.png',
     graph: false,
     look: '#fff'
   },
@@ -182,6 +190,8 @@ Maze.SKINS = [
     tiles: 'tiles_panda.png',
     marker: 'marker.png',
     background: 'bg_panda.jpg',
+    // TODO: Need to update to the associated obstacles
+    obstacle: 'cat.png',
     // Spring canopy, photo by Rupert Fleetingly, CC licensed for reuse.
     graph: false,
     look: '#000'
@@ -215,7 +225,8 @@ Maze.SquareType = {
   WALL: 0,
   OPEN: 1,
   START: 2,
-  FINISH: 3
+  FINISH: 3,
+  OBSTACLE: 4
 };
 
 // The maze square constants defined above are inlined here
@@ -354,7 +365,18 @@ Maze.DirectionType = {
 /**
  * Starting direction.
  */
-Maze.startDirection = Maze.DirectionType.EAST;
+Maze.startDirection = [
+  Maze.DirectionType.EAST,
+  Maze.DirectionType.EAST,
+  Maze.DirectionType.EAST,
+  Maze.DirectionType.EAST,
+  Maze.DirectionType.EAST,
+  Maze.DirectionType.EAST,
+  Maze.DirectionType.EAST,
+  Maze.DirectionType.EAST,
+  Maze.DirectionType.EAST,
+  Maze.DirectionType.EAST,
+][BlocklyApps.LEVEL];
 
 /**
  * PIDs of animation tasks currently executing.
@@ -439,7 +461,7 @@ Maze.drawMap = function() {
   // Draw the tiles making up the maze map.
 
   // Return a value of '0' if the specified square is wall or out of bounds,
-  // '1' otherwise (empty, start, finish).
+  // '1' otherwise (empty, obstacle, start, finish).
   var normalize = function(x, y) {
     if (x < 0 || x >= Maze.COLS || y < 0 || y >= Maze.ROWS) {
       return '0';
@@ -523,6 +545,26 @@ Maze.drawMap = function() {
   pegmanIcon.setAttribute('width', Maze.PEGMAN_WIDTH * 21); // 49 * 21 = 1029
   pegmanIcon.setAttribute('clip-path', 'url(#pegmanClipPath)');
   svg.appendChild(pegmanIcon);
+
+  // Add obstacles.
+  for (var y = 0; y < Maze.ROWS; y++) {
+    for (var x = 0; x < Maze.COLS; x++) {
+      if (Maze.map[y][x] == Maze.SquareType.OBSTACLE) {
+        var obsIcon = document.createElementNS(Blockly.SVG_NS, 'image');
+        obsIcon.setAttribute('height', 40);
+        obsIcon.setAttribute('width', 40);
+        obsIcon.setAttributeNS(
+          'http://www.w3.org/1999/xlink', 'xlink:href', Maze.SKIN.obstacle);
+        obsIcon.setAttribute('x',
+                             Maze.SQUARE_SIZE * (x + 0.5) -
+                             obsIcon.getAttribute('width') / 2);
+        obsIcon.setAttribute('y',
+                             Maze.SQUARE_SIZE * (y + 0.6) -
+                             obsIcon.getAttribute('height'));
+        svg.appendChild(obsIcon);
+      }
+    }
+  }
 };
 
 /**
@@ -809,7 +851,7 @@ Maze.execute = function() {
         Maze.stepSpeed = 80;
       } else {
         Maze.stepSpeed = 60;
-      }      
+      }
     } else if (e === false) {
       Maze.result = Maze.ResultType.ERROR;
       Maze.stepSpeed = 150;
@@ -1238,7 +1280,9 @@ Maze.isPath = function(direction, id) {
   if (id) {
     BlocklyApps.log.push([command, id]);
   }
-  return square !== Maze.SquareType.WALL && square !== undefined;
+  return square !== Maze.SquareType.WALL &&
+        square !== Maze.SquareType.OBSTACLE &&
+        square !== undefined;
 };
 
 /**
