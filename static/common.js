@@ -846,12 +846,16 @@ BlocklyApps.updateCapacity = function() {
 // Methods for determining and displaying feedback.
 
 /**
- * Display feedback based on test results.
+ * Display feedback based on test results.  The test results can be
+ * explicitly provied so a specific application (namely Turtle) can generate
+ * test results in its own way and display feedback.
+ * @param {?number} opt_feedbackType Test results (a constant property of
+ *     BlocklyApps.TestResults).
  */
-BlocklyApps.displayFeedback = function() {
-  var feedbackType = BlocklyApps.getTestResults();
+BlocklyApps.displayFeedback = function(opt_feedbackType) {
+  var feedbackType = opt_feedbackType || BlocklyApps.getTestResults();
+  BlocklyApps.hideFeedback();
   BlocklyApps.setErrorFeedback(feedbackType);
-  document.getElementById('helpButton').removeAttribute('disabled');
   BlocklyApps.prepareFeedback(feedbackType);
   BlocklyApps.displayCloseDialogButtons(feedbackType);
   BlocklyApps.showHelp(true, feedbackType);
@@ -990,7 +994,6 @@ BlocklyApps.errorVersionMap_ = {};
  *     typically produced by BlocklyApps.getTestResults().
  */
 BlocklyApps.setErrorFeedback = function(feedbackType) {
-  BlocklyApps.hideFeedback();
   switch (feedbackType) {
     // Give hint, not stars, for empty block or not finishing level.
     case BlocklyApps.TestResults.EMPTY_BLOCK_FAIL:
@@ -1007,6 +1010,8 @@ BlocklyApps.setErrorFeedback = function(feedbackType) {
     // For completing level, user gets at least one star.
     case BlocklyApps.TestResults.OTHER_1_STAR_FAIL:
       BlocklyApps.displayStars(1);
+      document.getElementById('appSpecificOneStarFeedback')
+            .style.display = 'list-item';
       break;
     // One star for failing to use required blocks but only if level completed.
     case BlocklyApps.TestResults.MISSING_BLOCK_FAIL:
@@ -1027,15 +1032,18 @@ BlocklyApps.setErrorFeedback = function(feedbackType) {
 
     // Two stars for using too many blocks.
     case BlocklyApps.TestResults.TOO_MANY_BLOCKS_FAIL:
+      BlocklyApps.displayStars(2);
       BlocklyApps.setTextForElement(
           'tooManyBlocksError',
           BlocklyApps.getMsg('numBlocksNeeded').replace(
               '%1', BlocklyApps.IDEAL_BLOCK_NUM).replace(
                   '%2', BlocklyApps.getNumBlocksUsed())).style.display =
                       'list-item';
-      // Fall through...
+      break;
     case BlocklyApps.TestResults.OTHER_2_STAR_FAIL:
       BlocklyApps.displayStars(2);
+      document.getElementById('appSpecificTwoStarFeedback')
+            .style.display = 'list-item';
       break;
 
     // Three stars!
@@ -1088,6 +1096,8 @@ BlocklyApps.report = function(app, id, level, result, program) {
 
 /**
  * Prepare feedback to display after the user's program has finished running.
+ * Specifically, set colours and buttons of feedback added through
+ * BlocklyApps.displayFeedback();
  * @param {number} feedbackType A constant property of BlocklyApps.TestResults.
  */
 BlocklyApps.prepareFeedback = function(feedbackType) {
@@ -1277,6 +1287,8 @@ BlocklyApps.showHelp = function(animate, feedbackType) {
       feedbackType : BlocklyApps.NO_TESTS_RUN;
   var help = document.getElementById('help');
   var button = document.getElementById('helpButton');
+  button.removeAttribute('disabled');
+
   var style = {
     width: '50%',
     right: '25%',

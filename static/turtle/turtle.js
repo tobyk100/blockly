@@ -164,7 +164,7 @@ Turtle.setBlocklyAppConstants = function() {
 
   var MOVE_INLINE = {test: 'moveForward', type: 'draw_move_inline'};
   var TURN_INLINE = {test: 'turnRight', type: 'draw_turn_inline'};
-  var SET_COLOUR_PICKER = {test: 'penColour(#',
+  var SET_COLOUR_PICKER = {test: 'penColour(\'#',
     type: 'draw_colour',
     value: ['COLOUR', '<block type="colour_picker"></block>']};
   var SET_COLOUR_RANDOM = {test: 'penColour(colourRandom',
@@ -892,24 +892,20 @@ Turtle.checkAnswer = function() {
       feedbackType == BlocklyApps.TestResults.ALL_PASS) {
     // Only check and mention colour if there is no more serious problem.
     var colourResult = Turtle.checkRequiredColours();
-    if (colourResult != Turtle.ColourResults.OK) {
-      var message;
-      if (colourResult == Turtle.ColourResults.EXTRA) {
-        message = BlocklyApps.getMsg('extraColours');
-      } else {
-        feedbackType = BlocklyApps.TestResults.OTHER_1_STAR_FAIL;
-        if (colourResult == Turtle.ColourResults.FORBIDDEN_DEFAULT) {
-          message = BlocklyApps.getMsg('notBlackColour');
-        } else if (colourResult == Turtle.ColourResults.TOO_FEW) {
-          message = BlocklyApps.getMsg('tooFewColours');
-          message = message.replace('%1', Turtle.REQUIRED_COLOURS);
-          message = message.replace('%2', Turtle.coloursUsed.length);
-        } else if (typeof colourResult == 'string') {
-          message = BlocklyApps.getMsg('wrongColour').replace('%1', colourResult);
-        }
+    if (colourResult != Turtle.ColourResults.OK &&
+	colourResult != Turtle.ColourResults.EXTRA) {
+      var message = '';
+      feedbackType = BlocklyApps.TestResults.OTHER_1_STAR_FAIL;
+      if (colourResult == Turtle.ColourResults.FORBIDDEN_DEFAULT) {
+        message = BlocklyApps.getMsg('notBlackColour');
+      } else if (colourResult == Turtle.ColourResults.TOO_FEW) {
+        message = BlocklyApps.getMsg('tooFewColours');
+        message = message.replace('%1', Turtle.REQUIRED_COLOURS);
+        message = message.replace('%2', Turtle.coloursUsed.length);
+      } else if (typeof colourResult == 'string') {
+        message = BlocklyApps.getMsg('wrongColour').replace('%1', colourResult);
       }
-      BlocklyApps.setTextForElement('colourFeedback', message).style.display =
-          'list-item';
+      BlocklyApps.setTextForElement('appSpecificOneStarFeedback', message);
     }
   }
 
