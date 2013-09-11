@@ -636,3 +636,15 @@ Maze.pageTwoFinalBalls = [
 ];
 
 Maze.finalBalls = [undefined, Maze.pageOneFinalBalls, Maze.pageTwoFinalBalls];
+
+Maze.pageOneStartDirections = [
+  undefined, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1
+];
+
+Maze.pageTwoStartDirections = [
+  undefined, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1
+];
+
+Maze.startDirections = [
+  undefined, Maze.pageOneStartDirections, Maze.pageTwoStartDirections
+];

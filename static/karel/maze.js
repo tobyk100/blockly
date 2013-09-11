@@ -109,6 +109,7 @@ Maze.SquareType = {
 Maze.map = Maze.levels[Maze.PAGE][Maze.LEVEL];
 Maze.initialBallMap = Maze.initialBalls[Maze.PAGE][Maze.LEVEL];
 Maze.finalBallMap = Maze.finalBalls[Maze.PAGE][Maze.LEVEL];
+Maze.startDirection = Maze.startDirections[Maze.PAGE][Maze.LEVEL];
 
 Maze.map.unshift([0, 0, 0, 0, 0, 0, 0, 0]);
 Maze.initialBallMap.unshift([0, 0, 0, 0, 0, 0, 0, 0]);
@@ -153,11 +154,6 @@ Maze.DirectionType = {
   SOUTH: 2,
   WEST: 3
 };
-
-/**
- * Starting direction.
- */
-Maze.startDirection = Maze.DirectionType.EAST;
 
 /**
  * PIDs of animation tasks currently executing.
