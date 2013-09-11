@@ -1332,7 +1332,7 @@ BlocklyApps.setTextForElement = function(id, text) {
  * @return {string} blockXMLString The generated string of XML.
  */
 BlocklyApps.generateXMLForBlocks = function(blockArray) {
-  var blockXMLString = '';
+  var blockXMLString = [];
   var blockX = 0;
   var blockY = 0;
   var blockXPadding = 200;
@@ -1342,17 +1342,16 @@ BlocklyApps.generateXMLForBlocks = function(blockArray) {
           .style.height);
   for (var i = 0, block; block = blockArray[i]; i++) {
     if (block && i < BlocklyApps.NUM_REQUIRED_BLOCKS_TO_FLAG) {
-      blockXMLString += '%3Cblock' + '%20type%3D%22' +
-          block['type'] + '%22%20x%3D%22' + blockX.toString() +
-          '%22%20y%3D%22' + blockY + '%22%3E';
+      blockXMLString.push('<block', ' type="', block['type'], '" x= "',
+                          blockX.toString(), '" y="', blockY, '">');
       if (block['params']) {
         var titleNames = Object.keys(block['params']);
         for (var k = 0, name; name = titleNames[k]; k++) {
-          blockXMLString += '%3Ctitle%20name%3D%22' + name +
-             '%22%3E' + block['params'][name] + '%3C%2Ftitle%3E';
+          blockXMLString.push('<title name="', name, '">',
+                              block['params'][name], '</title>');
         }
       }
-      blockXMLString += '%3C%2Fblock%3E';
+      blockXMLString.push('</block>');
       if ((i + 1) % blocksPerLine == 0) {
         blockY += blockYPadding;
         iframeHeight += blockYPadding;
@@ -1364,5 +1363,5 @@ BlocklyApps.generateXMLForBlocks = function(blockArray) {
     document.getElementById('feedbackBlocks').style.height =
         iframeHeight + 'px';
   }
-  return blockXMLString;
+  return encodeURIComponent(blockXMLString.join(''));
 };
