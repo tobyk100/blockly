@@ -1329,32 +1329,33 @@ BlocklyApps.setTextForElement = function(id, text) {
  * Creates the XML for blocks to be displayed in a read only frame.
  * Each block has an x coordinate blockX * i.
  * @param {Array} blockArray An array of blocks to display (with optional args).
- * @return {string} blockXMLString The generated string of XML.
+ * @return {string} The generated string of XML.
  */
 BlocklyApps.generateXMLForBlocks = function(blockArray) {
-  var blockXMLString = [];
+  var blockXMLStrings = [];
   var blockX = 0;
   var blockY = 0;
   var blockXPadding = 200;
   var blockYPadding = 120;
+  var iframePadding = 50;
   var blocksPerLine = 2;
   var iframeHeight = parseInt(document.getElementById('feedbackBlocks')
           .style.height);
   for (var i = 0, block; block = blockArray[i]; i++) {
     if (block && i < BlocklyApps.NUM_REQUIRED_BLOCKS_TO_FLAG) {
-      blockXMLString.push('<block', ' type="', block['type'], '" x= "',
+      blockXMLStrings.push('<block', ' type="', block['type'], '" x= "',
                           blockX.toString(), '" y="', blockY, '">');
       if (block['params']) {
         var titleNames = Object.keys(block['params']);
         for (var k = 0, name; name = titleNames[k]; k++) {
-          blockXMLString.push('<title name="', name, '">',
+          blockXMLStrings.push('<title name="', name, '">',
                               block['params'][name], '</title>');
         }
       }
-      blockXMLString.push('</block>');
+      blockXMLStrings.push('</block>');
       if ((i + 1) % blocksPerLine == 0) {
         blockY += blockYPadding;
-        iframeHeight += blockYPadding;
+        iframeHeight += iframePadding;
         blockX = 0;
       } else {
         blockX += blockXPadding;
@@ -1363,5 +1364,5 @@ BlocklyApps.generateXMLForBlocks = function(blockArray) {
     document.getElementById('feedbackBlocks').style.height =
         iframeHeight + 'px';
   }
-  return encodeURIComponent(blockXMLString.join(''));
+  return encodeURIComponent(blockXMLStrings.join(''));
 };
