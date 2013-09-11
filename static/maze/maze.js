@@ -354,7 +354,18 @@ Maze.DirectionType = {
 /**
  * Starting direction.
  */
-Maze.startDirection = Maze.DirectionType.EAST;
+Maze.startDirection = [
+  Maze.DirectionType.EAST,
+  Maze.DirectionType.EAST,
+  Maze.DirectionType.EAST,
+  Maze.DirectionType.EAST,
+  Maze.DirectionType.EAST,
+  Maze.DirectionType.EAST,
+  Maze.DirectionType.EAST,
+  Maze.DirectionType.EAST,
+  Maze.DirectionType.EAST,
+  Maze.DirectionType.EAST,
+][BlocklyApps.LEVEL];
 
 /**
  * PIDs of animation tasks currently executing.
