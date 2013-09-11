@@ -1148,12 +1148,12 @@
     </div>
     <div style="text-align: center">
       <button id="tryAgainButton" class="launch" style="display: none"
-        onclick="BlocklyApps.displayInterstitialOrCloseModalDialog(false);">
+        onclick="BlocklyApps.goToNextLevelOrReset(false, {$ij.level}, {$ij.skin});">
         {msg meaning="Turtle.tryAgain" desc="button - Closes the dialog and
           stays on the current level"}Try again{/msg}
       </button>
       <button id="continueButton" class="launch" style="display: none"
-        onclick="BlocklyApps.displayInterstitialOrCloseModalDialog(true, {$ij.level}, {$ij.skin});">
+        onclick="BlocklyApps.goToNextLevelOrReset(true, {$ij.level}, {$ij.skin});">
           {msg meaning="Turtle.continue" desc="button - Closes the dialog and
             continues to the next level"}Continue{/msg}
       </button>
