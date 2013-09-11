@@ -22,11 +22,6 @@
         <note priority="1" from="description">instructions - program' refers to a series of instructions that tell the computer what to do next.</note>
         <note priority="1" from="meaning">Maze.reinfMsg3</note>
       </trans-unit>
-      <trans-unit id="130267860098928138" datatype="html">
-        <source>Use an 'if-else' block to go straight if there is a path ahead and turn if there is no path ahead.</source>
-        <note priority="1" from="description">alert - If blocks only run the statements inside them if the statement is true. Straight indicates that they should continue in the direction they were going.</note>
-        <note priority="1" from="meaning">Maze.ifError2Msg-10</note>
-      </trans-unit>
       <trans-unit id="144914298205682744" datatype="html">
         <source>no path to the right</source>
         <note priority="1" from="description">condensed form of 'if there is a no path to the right', as in: 'if no path to the right, turn right'.</note>
@@ -36,6 +31,11 @@
         <source>pen up</source>
         <note priority="1" from="description">TODO</note>
         <note priority="1" from="meaning">Turtle.penUp</note>
+      </trans-unit>
+      <trans-unit id="227288626954131611" datatype="html">
+        <source>Could you use fewer blocks? Try defining your own function and using it inside one of the loop blocks.</source>
+        <note priority="1" from="description">TODO</note>
+        <note priority="1" from="meaning">Karel.hint2_4</note>
       </trans-unit>
       <trans-unit id="243004437121520865" datatype="html">
         <source>else</source>
@@ -47,20 +47,25 @@
         <note priority="1" from="description">TODO</note>
         <note priority="1" from="meaning">Turtle.heightParameter</note>
       </trans-unit>
+      <trans-unit id="271859688095231445" datatype="html">
+        <source>Create a new function that removes 3 shovelfuls from a pile, and use it to help me level out all the piles.</source>
+        <note priority="1" from="description">TODO</note>
+        <note priority="1" from="meaning">Karel.instructions2_5</note>
+      </trans-unit>
       <trans-unit id="295126337553066153" datatype="html">
         <source>pen down</source>
         <note priority="1" from="description">TODO</note>
         <note priority="1" from="meaning">Turtle.penDown</note>
       </trans-unit>
+      <trans-unit id="301005848168874563" datatype="html">
+        <source>Here is an 'if-else' block: I move forward if there is a path ahead, otherwise I turn left.</source>
+        <note priority="1" from="description">instructions - An example of an 'if-else' block is if there is a path ahead move forward, else turn left.</note>
+        <note priority="1" from="meaning">Maze.reinfMsg8</note>
+      </trans-unit>
       <trans-unit id="304227982281877910" datatype="html">
         <source>Using "draw a square" as an example, add an input named "length" to "draw a triangle".  Then, draw triangles in different colors around the animals.</source>
         <note priority="1" from="description">TODO</note>
         <note priority="1" from="meaning">Turtle.instructions3_6</note>
-      </trans-unit>
-      <trans-unit id="320339161097045081" datatype="html">
-        <source>Make the farmer remove all the piles, using as few blocks as possible.</source>
-        <note priority="1" from="description">TODO</note>
-        <note priority="1" from="meaning">Karel.instructions1_9</note>
       </trans-unit>
       <trans-unit id="320660831584776468" datatype="html">
         <source>This level can be solved with %1 blocks.  You used %2.</source>
@@ -77,6 +82,11 @@
         <note priority="1" from="description">TODO</note>
         <note priority="1" from="meaning">Turtle.instructions3_7</note>
       </trans-unit>
+      <trans-unit id="388541572179212146" datatype="html">
+        <source>It's nighttime, and I can't tell how large the piles are. Now I don't have all the options I used to have on the while block. Move me along the field, and if there is a pile, remove it.</source>
+        <note priority="1" from="description">TODO</note>
+        <note priority="1" from="meaning">Karel.instructions1_10</note>
+      </trans-unit>
       <trans-unit id="390084050358184874" datatype="html">
         <source>A small change to the blocks from the previous maze will solve this level.</source>
         <note priority="1" from="description">instructions - 'blocks' refers to a child's building blocks</note>
@@ -86,11 +96,6 @@
         <source>From the "Variables" category, get the "counter" block, and use it as the "length" input to "draw a square".</source>
         <note priority="1" from="description">TODO</note>
         <note priority="1" from="meaning">Turtle.getCounterError2Msg-p2-l6</note>
-      </trans-unit>
-      <trans-unit id="405366980639276236" datatype="html">
-        <source>Drag and snap the 'repeat' block around all of your blocks.</source>
-        <note priority="1" from="description">alert - This is displayed when the user has not used a repeat block when it is required for this level and they have attempted the leve more than once</note>
-        <note priority="1" from="meaning">Maze.whileError2Msg-10</note>
       </trans-unit>
       <trans-unit id="410978130615297857" datatype="html">
         <source>You'll need to move me in order to draw anything.</source>
@@ -127,6 +132,11 @@
         <note priority="1" from="description">TODO</note>
         <note priority="1" from="meaning">Turtle.instructions3_10</note>
       </trans-unit>
+      <trans-unit id="511535435235111626" datatype="html">
+        <source>Help me flatten the field on my farm so it's ready for planting. Move me to the pile of dirt to remove it.</source>
+        <note priority="1" from="description">TODO</note>
+        <note priority="1" from="meaning">Karel.instructions1_1</note>
+      </trans-unit>
       <trans-unit id="514758953227426343" datatype="html">
         <source>Show me</source>
         <note priority="1" from="description">TODO</note>
@@ -142,15 +152,20 @@
         <note priority="1" from="description">TODO</note>
         <note priority="1" from="meaning">Turtle.moveTooltip</note>
       </trans-unit>
-      <trans-unit id="633628399895730363" datatype="html">
-        <source>Use the 'turn right' block when I need to turn to the right.</source>
-        <note priority="1" from="description">alert - This is displayed when the user has not used a turn left or turn right block when it is required for this level.</note>
-        <note priority="1" from="meaning">Maze.turnRightError1Msg-2</note>
+      <trans-unit id="614565985458201541" datatype="html">
+        <source>Use the function block to make me fill in all the holes.</source>
+        <note priority="1" from="description">TODO</note>
+        <note priority="1" from="meaning">Karel.instructions2_3</note>
       </trans-unit>
-      <trans-unit id="665668890055713032" datatype="html">
-        <source>That's right! Good job.</source>
-        <note priority="1" from="description">Congratulating the user on correctly answering the question.</note>
-        <note priority="1" from="meaning">Maze.q10right</note>
+      <trans-unit id="647788441440746219" datatype="html">
+        <source>Make me fill in all the holes. Each hole needs 5 shovelfuls of dirt.</source>
+        <note priority="1" from="description">TODO</note>
+        <note priority="1" from="meaning">Karel.instructions1_5</note>
+      </trans-unit>
+      <trans-unit id="662393348385954208" datatype="html">
+        <source>There's a cow in my field! Write a new function that helps me avoid the cow and remove the pile.</source>
+        <note priority="1" from="description">TODO</note>
+        <note priority="1" from="meaning">Karel.instructions2_7</note>
       </trans-unit>
       <trans-unit id="678880373522538302" datatype="html">
         <source>You are using all of the necessary types of blocks, but try using more of these types of blocks to complete this level.</source>
@@ -196,6 +211,16 @@
         <source>fill 1</source>
         <note priority="1" from="description">verb - imperative or infinitive for a person putting down a ball.</note>
         <note priority="1" from="meaning">Karel.putDownBall</note>
+      </trans-unit>
+      <trans-unit id="826924223964705002" datatype="html">
+        <source>Can you use the while block to complete the level with only 4 blocks?</source>
+        <note priority="1" from="description">hint - A 'repeat' block is used to repeat blocks over and over. The red marker is the goal to be reached in the maze.</note>
+        <note priority="1" from="meaning">Karel.hint1_7</note>
+      </trans-unit>
+      <trans-unit id="835698657432741186" datatype="html">
+        <source>I don't know how many shovelfuls of dirt this hole needs. Write a program that makes me fill it until it's even.</source>
+        <note priority="1" from="description">TODO</note>
+        <note priority="1" from="meaning">Karel.instructions1_7</note>
       </trans-unit>
       <trans-unit id="857707012901609467" datatype="html">
         <source>This level can be solved with %1 blocks.</source>
@@ -247,21 +272,6 @@
         <note priority="1" from="description">TODO</note>
         <note priority="1" from="meaning">Turtle.moveForward</note>
       </trans-unit>
-      <trans-unit id="1027897208834345843" datatype="html">
-        <source>There is a solution using only 3 blocks. Can you find it? Did you try the new option on the while block?</source>
-        <note priority="1" from="description">TODO</note>
-        <note priority="1" from="meaning">Karel.hint1_5</note>
-      </trans-unit>
-      <trans-unit id="1080656346121581223" datatype="html">
-        <source>Remove the 4 the piles.</source>
-        <note priority="1" from="description">TODO</note>
-        <note priority="1" from="meaning">Karel.instructions1_5</note>
-      </trans-unit>
-      <trans-unit id="1081305406023359249" datatype="html">
-        <source>Use an 'if-else' block to go straight if there is a path ahead and turn if there is no path ahead.</source>
-        <note priority="1" from="description">alert - If blocks only run the statements inside them if the statement is true. Straight indicates that they should continue in the direction they were going.</note>
-        <note priority="1" from="meaning">Maze.ifError2Msg-9</note>
-      </trans-unit>
       <trans-unit id="1088860343795162652" datatype="html">
         <source>You need a "count with" block to give the counter values from 25 through 60.</source>
         <note priority="1" from="description">TODO</note>
@@ -297,21 +307,6 @@
         <note priority="1" from="description">instructions - 'turn left' refers to rotating in place a quarter circle counter-clockwise. An example of an 'if' block is: 'if there is a path to the left, turn left'.</note>
         <note priority="1" from="meaning">Maze.instructions5_m1</note>
       </trans-unit>
-      <trans-unit id="1224868187339402797" datatype="html">
-        <source>There is a solution using only 3 blocks. Can you find it? Try using the while block.</source>
-        <note priority="1" from="description">hint - A 'repeat' block is used to repeat blocks over and over. The red marker is the goal to be reached in the maze.</note>
-        <note priority="1" from="meaning">Karel.hint1_3</note>
-      </trans-unit>
-      <trans-unit id="1239965085645093551" datatype="html">
-        <source>Could you use two while blocks to complete this level with fewer total blocks?</source>
-        <note priority="1" from="description">hint - A 'repeat' block is used to repeat blocks over and over. The red marker is the goal to be reached in the maze.</note>
-        <note priority="1" from="meaning">Karel.hint1_6</note>
-      </trans-unit>
-      <trans-unit id="1263841512086758342" datatype="html">
-        <source>Drag and snap the 'turn right' block inside an 'if' block.</source>
-        <note priority="1" from="description">alert - This is displayed when the user has not used a turn left or turn right block when it is required for this leve and they have attempted the leve more than once.</note>
-        <note priority="1" from="meaning">Maze.turnError2Msg-7</note>
-      </trans-unit>
       <trans-unit id="1269926501111815369" datatype="html">
         <source>Modify this program with the "counter" block (found in the Variables category) to draw the same series of squares with fewer blocks than on the previous level.</source>
         <note priority="1" from="description">TODO</note>
@@ -321,6 +316,11 @@
         <source>repeat until finish</source>
         <note priority="1" from="description">verb - imperative or infinitive to repeat the following commands.  The phrase is followed by the symbol denoting the end of the maze.</note>
         <note priority="1" from="meaning">Karel.repeatUntilFinish</note>
+      </trans-unit>
+      <trans-unit id="1314824175498929624" datatype="html">
+        <source>Try one or more of the blocks below to solve this level.</source>
+        <note priority="1" from="description">TODO</note>
+        <note priority="1" from="meaning">Maze.missingBlocksErrorMsg</note>
       </trans-unit>
       <trans-unit id="1319674777140835969" datatype="html">
         <source>The "set color" and "random color" blocks give you random (unpredictable) colors.</source>
@@ -337,35 +337,35 @@
         <note priority="1" from="description">button - Closes the dialog and continues to the next level</note>
         <note priority="1" from="meaning">Karel.continue</note>
       </trans-unit>
+      <trans-unit id="1403216201183693124" datatype="html">
+        <source>Can you find a solution using 2 blocks? Try using the given function(s).</source>
+        <note priority="1" from="description">TODO</note>
+        <note priority="1" from="meaning">Karel.hint2_2</note>
+      </trans-unit>
       <trans-unit id="1436544508617099405" datatype="html">
         <source>To use your "draw a triangle" function, open the "Functions" category and pull out a "draw a triangle" block.</source>
         <note priority="1" from="description">TODO</note>
         <note priority="1" from="meaning">Turtle.drawATriangleError2Msg-p3</note>
+      </trans-unit>
+      <trans-unit id="1446396878836001668" datatype="html">
+        <source>Make me fill in the hole at the end of the field, using as few blocks as possible.</source>
+        <note priority="1" from="description">TODO</note>
+        <note priority="1" from="meaning">Karel.instructions1_8</note>
       </trans-unit>
       <trans-unit id="1455178279506102440" datatype="html">
         <source>Reach the goal using only five blocks.</source>
         <note priority="1" from="description">instructions - the goal is reaching the end point in a maze; 'block' refers to a child's building block.</note>
         <note priority="1" from="meaning">Maze.instructions11_m2</note>
       </trans-unit>
-      <trans-unit id="1463997692028486247" datatype="html">
-        <source>An 'if-else' block will run the else statement when the 'if' statement is not true.</source>
-        <note priority="1" from="description">alert - This is displayed when the user has not used an if-else block when it is required for this level and they have attempted the level more than once</note>
-        <note priority="1" from="meaning">Maze.elseError2Msg-10</note>
-      </trans-unit>
       <trans-unit id="1485071260870460183" datatype="html">
         <source>You need the "counter" block to draw lines of different lengths.</source>
         <note priority="1" from="description">TODO</note>
         <note priority="1" from="meaning">Turtle.getCounterError1Msg-p2-l7</note>
       </trans-unit>
-      <trans-unit id="1488297183839170057" datatype="html">
-        <source>Notice the repetition in the path? Try using the 'repeat' block which repeats the sequence of blocks inside it until, the player reaches the finish.</source>
-        <note priority="1" from="description">alert - This is displayed when the user has not used a repeat block when it is required for this level.</note>
-        <note priority="1" from="meaning">Maze.whileError1Msg-4</note>
-      </trans-unit>
-      <trans-unit id="1489626071354523353" datatype="html">
-        <source>The 'move forward' block moves one block forward.</source>
-        <note priority="1" from="description">alert - This error message is displayed when the user has not used at least one of the move forward blocks that is required for this level.</note>
-        <note priority="1" from="meaning">BlocklyApps.moveForwardError1Msg-3</note>
+      <trans-unit id="1509846721669566156" datatype="html">
+        <source>Can you find a solution using 4 blocks? Try putting a loop inside of another loop. Remember, loop blocks are green.</source>
+        <note priority="1" from="description">hint - A 'repeat' block is used to repeat blocks over and over.</note>
+        <note priority="1" from="meaning">Karel.hint1_5</note>
       </trans-unit>
       <trans-unit id="1512215546838972550" datatype="html">
         <source>You can get the "draw a snowman" block from the "Functions" category.</source>
@@ -376,11 +376,6 @@
         <source>path to the right</source>
         <note priority="1" from="description">condensed form of 'if there is a path to the right', as in: 'if path to the right, turn right'.</note>
         <note priority="1" from="meaning">Karel.pathRight</note>
-      </trans-unit>
-      <trans-unit id="1579389590780544473" datatype="html">
-        <source>Can you find a solution using 4 blocks? Try putting a loop inside of another loop. Remember, loop blocks are green.</source>
-        <note priority="1" from="description">hint - A 'repeat' block is used to repeat blocks over and over.</note>
-        <note priority="1" from="meaning">Karel.hint1_8</note>
       </trans-unit>
       <trans-unit id="1608455486645200520" datatype="html">
         <source>You added an input to "draw a triangle".  Now you need to change its name to "length".</source>
@@ -437,11 +432,6 @@
         <note priority="1" from="description">TODO</note>
         <note priority="1" from="meaning">Turtle.defineAnythingErrorMsg2</note>
       </trans-unit>
-      <trans-unit id="1842527379626225771" datatype="html">
-        <source>Drag and snap the 'repeat' block around the 'move forward' block.</source>
-        <note priority="1" from="description">alert - This is displayed when the user has not used a repeat block when it is required for this level and they have attempted the leve more than once</note>
-        <note priority="1" from="meaning">Maze.whileError2Msg-3</note>
-      </trans-unit>
       <trans-unit id="1851166057196506938" datatype="html">
         <source>No - Try tracking my direction while following the program.</source>
         <note priority="1" from="description">tracking is suggesting to the user that they should follow each instruction and follow how that will affect the movement. A 'program' is a set of instructions that tell the computer what to do next.</note>
@@ -466,16 +456,6 @@
         <source>You have<x id="START_SPAN"/>0<x id="END_SPAN"/> blocks left.</source>
         <note priority="1" from="description">warning - No more blocks may be added until some are removed.  Do not alter the portions between pointy brackets (&lt; and &gt;), although you may move them within the phrase and replace 0 with one or more words.</note>
         <note priority="1" from="meaning">Karel.capacity0</note>
-      </trans-unit>
-      <trans-unit id="1930468456904745685" datatype="html">
-        <source>You are now given a new function block, "fill 5", in the Functions category. It will fill 5 shovelfuls to a hole. Use it to make the farmer fill in the hole.</source>
-        <note priority="1" from="description">TODO</note>
-        <note priority="1" from="meaning">Karel.instructions2_2</note>
-      </trans-unit>
-      <trans-unit id="1951097211675671385" datatype="html">
-        <source>Help the farmer flatten the field so they can plant their crops. Move the farmer to the pile of dirt and remove it.</source>
-        <note priority="1" from="description">TODO</note>
-        <note priority="1" from="meaning">Karel.instructions1_1</note>
       </trans-unit>
       <trans-unit id="2027826841571701243" datatype="html">
         <source>What should I do to follow the path?</source>
@@ -502,16 +482,6 @@
         <note priority="1" from="description">condensed form of 'if there is a path to the left', as in: 'if path to the left, turn left'.</note>
         <note priority="1" from="meaning">Maze.pathLeft</note>
       </trans-unit>
-      <trans-unit id="2151380998080431883" datatype="html">
-        <source>Use the 'if' block to turn left if there is a path to the left.</source>
-        <note priority="1" from="description">alert - If blocks only run the statements inside them if the statement is true.</note>
-        <note priority="1" from="meaning">Maze.ifPathLeftError1Msg-8</note>
-      </trans-unit>
-      <trans-unit id="2158075608000547693" datatype="html">
-        <source>An 'if-else' block will run the else statement when the if statement is not true."</source>
-        <note priority="1" from="description">alert - This is displayed when the user has not used an if-else block when it is required for this level.</note>
-        <note priority="1" from="meaning">Maze.elseError1Msg-9</note>
-      </trans-unit>
       <trans-unit id="2194902007208446636" datatype="html">
         <source>Save and link to blocks.</source>
         <note priority="1" from="description">tooltip (pop-up help) for button; pressing the button causes the user's program to be saved and for a URL to be provided for retrieving it.  The word 'blocks' is as in children's toy blocks.</note>
@@ -522,15 +492,10 @@
         <note priority="1" from="description">TODO</note>
         <note priority="1" from="meaning">Turtle.houseDefWithHeightParameterErrorMsg2</note>
       </trans-unit>
-      <trans-unit id="2212925892131703681" datatype="html">
-        <source>Place a 'turn left' block inside the 'if' block to turn left if there is a path to the left.</source>
-        <note priority="1" from="description">alert - This is displayed when the user has not used an if block when it is required for this level.</note>
-        <note priority="1" from="meaning">Maze.ifPathLeftError2Msg-8</note>
-      </trans-unit>
-      <trans-unit id="2213026838310362300" datatype="html">
-        <source>Define a new function that removes a pile which needs 7 shovelfuls to make the farmer remove in all the piles.</source>
+      <trans-unit id="2217723091646625095" datatype="html">
+        <source>Can you find a solution by adding 8 blocks in the "avoid the cow and remove 1" block?</source>
         <note priority="1" from="description">TODO</note>
-        <note priority="1" from="meaning">Karel.instructions2_4</note>
+        <note priority="1" from="meaning">Karel.hint2_7</note>
       </trans-unit>
       <trans-unit id="2225530758220824313" datatype="html">
         <source>do</source>
@@ -577,11 +542,6 @@
         <note priority="1" from="description">alert - A request to retrieve a stored program does not have a valid URL. %1 is the invalid portion of the URL.</note>
         <note priority="1" from="meaning">Apps.hashError</note>
       </trans-unit>
-      <trans-unit id="2587716177475816715" datatype="html">
-        <source>Drag and snap the 'turn left' block inside an 'if' block.</source>
-        <note priority="1" from="description">alert - This is displayed when the user has not used a turn left or turn right block when it is required for this leve and they have attempted the leve more than once.</note>
-        <note priority="1" from="meaning">Maze.turnError2Msg-5</note>
-      </trans-unit>
       <trans-unit id="2599109327728834397" datatype="html">
         <source>Reset</source>
         <note priority="1" from="description">TODO</note>
@@ -606,16 +566,6 @@
         <source>Congratulations! Are you ready to proceed to level %1?</source>
         <note priority="1" from="description">alert - This is displayed when the user solves the level, inviting them to precede to the next level of difficulty.  %1 is an integer greater than 1.</note>
         <note priority="1" from="meaning">Bird.nextLevel</note>
-      </trans-unit>
-      <trans-unit id="2635705725995493982" datatype="html">
-        <source>Here is an if block: I will turn left if there is a path to the left.</source>
-        <note priority="1" from="description">instructions - An example of an 'if' block is if there is a path to the left, turn left.</note>
-        <note priority="1" from="meaning">Maze.reinfMsg4</note>
-      </trans-unit>
-      <trans-unit id="2636700704150048115" datatype="html">
-        <source>Place a 'turn right' block inside the 'if' block to turn right if there is a path to the right.</source>
-        <note priority="1" from="description">alert - This is displayed when the user has not used an if block when it is required for this level.</note>
-        <note priority="1" from="meaning">Maze.ifPathRightError2Msg-8</note>
       </trans-unit>
       <trans-unit id="2644808704881231557" datatype="html">
         <source>Loops</source>
@@ -642,6 +592,11 @@
         <note priority="1" from="description">An abbreviation of the direction North</note>
         <note priority="1" from="meaning">Karel.dirS</note>
       </trans-unit>
+      <trans-unit id="2762549004539079372" datatype="html">
+        <source>Try using the blocks to help me remove all the piles and fill in all the holes on the ground.</source>
+        <note priority="1" from="description">TODO</note>
+        <note priority="1" from="meaning">Karel.instructions2_1</note>
+      </trans-unit>
       <trans-unit id="2765665419557326891" datatype="html">
         <source>Draw whatever you want.  One idea is experimenting with different types of spirals.  What happens if you change the turn amount, rather than the move amount?  TODO: Add starting blocks.</source>
         <note priority="1" from="description">TODO</note>
@@ -651,6 +606,11 @@
         <source>turn right</source>
         <note priority="1" from="description">verb - imperative or infinitive for a person turning his head and body one quarter rotation clockwise. Prefer a translation that has text in common with the translation of 'turn left'.  See [[Translating:Blockly#Drop-Down_Menus]].</note>
         <note priority="1" from="meaning">Maze.turnRight</note>
+      </trans-unit>
+      <trans-unit id="2825528106134845336" datatype="html">
+        <source>No - Try tracking my direction while following the program.</source>
+        <note priority="1" from="description">tracking is suggesting to the user that they should follow each instruction and follow how that will affect the movement. A 'program' is a set of instructions that tell the computer what to do next.</note>
+        <note priority="1" from="meaning">Maze.q9wrong</note>
       </trans-unit>
       <trans-unit id="2835206376100898481" datatype="html">
         <source>Computers have limited memory. Reach the end of this path using only two blocks.</source>
@@ -667,31 +627,6 @@
         <note priority="1" from="description">TODO</note>
         <note priority="1" from="meaning">Turtle.triangleDefErrorMsg1</note>
       </trans-unit>
-      <trans-unit id="2896942921664896329" datatype="html">
-        <source>Here is an 'if-else' block: I move forward if there is a path ahead, but I turn left if not.</source>
-        <note priority="1" from="description">instructions - An example of an 'if-else' block is if there is a path ahead move forward, else turn left.</note>
-        <note priority="1" from="meaning">Maze.reinfMsg8</note>
-      </trans-unit>
-      <trans-unit id="2897620992245608975" datatype="html">
-        <source>Use the function, "avoid the cow and remove 1", to help the farmer avoid the row of cows.</source>
-        <note priority="1" from="description">TODO</note>
-        <note priority="1" from="meaning">Karel.instructions2_8</note>
-      </trans-unit>
-      <trans-unit id="2909245302146526816" datatype="html">
-        <source>Notice the repetition in the path? Try using the 'repeat' block which repeats the sequence of blocks inside it until, the player reaches the finish.</source>
-        <note priority="1" from="description">alert - This is displayed when the user has not used a repeat block when it is required for this level.</note>
-        <note priority="1" from="meaning">Maze.whileError1Msg-3</note>
-      </trans-unit>
-      <trans-unit id="2976924067305581883" datatype="html">
-        <source>That's right! Good job.</source>
-        <note priority="1" from="description">Congratulating the user on correctly answering the question.</note>
-        <note priority="1" from="meaning">Maze.q3right</note>
-      </trans-unit>
-      <trans-unit id="3018612821800428208" datatype="html">
-        <source>Use both a 'turn left' and a 'turn right' block on this level.</source>
-        <note priority="1" from="description">alert - This is displayed when the user has not used a turn left or turn right block when it is required for this level.</note>
-        <note priority="1" from="meaning">Maze.turnError1Msg-4</note>
-      </trans-unit>
       <trans-unit id="3042157832321644942" datatype="html">
         <source>An 'if' condition will do something only if the condition is true.  Try turning right if there is a path to the right.</source>
         <note priority="1" from="description">instructions - an example of an 'if' block is: 'if there is a path to the left, turn left'.</note>
@@ -701,11 +636,6 @@
         <source>draw a square</source>
         <note priority="1" from="description">TODO</note>
         <note priority="1" from="meaning">Turtle.drawASquare</note>
-      </trans-unit>
-      <trans-unit id="3074832073384811747" datatype="html">
-        <source>Use the 'turn left' block when I need to turn to the left.</source>
-        <note priority="1" from="description">alert - This is displayed when the user has not used a turn left or turn right block when it is required for this level.</note>
-        <note priority="1" from="meaning">Maze.turnLeftError1Msg-9</note>
       </trans-unit>
       <trans-unit id="3104186656897426489" datatype="html">
         <source> W</source>
@@ -727,15 +657,10 @@
         <note priority="1" from="description">TODO</note>
         <note priority="1" from="meaning">Turtle.getCounterError1Msg-p3</note>
       </trans-unit>
-      <trans-unit id="3197183652056148242" datatype="html">
-        <source>Tell the farmer how many shovelfuls of dirt to remove.</source>
-        <note priority="1" from="description">TODO</note>
-        <note priority="1" from="meaning">Karel.instructions1_3</note>
-      </trans-unit>
-      <trans-unit id="3238517157236143181" datatype="html">
-        <source>Try using the given blocks to remove all the piles on the ground.</source>
-        <note priority="1" from="description">TODO</note>
-        <note priority="1" from="meaning">Karel.instructions2_1</note>
+      <trans-unit id="3223726278708627011" datatype="html">
+        <source>Remove empty blocks.</source>
+        <note priority="1" from="description">alert - This error message is displayed when the user has added blocks with nothing nested inside them (e.g. repeat or if blocks).</note>
+        <note priority="1" from="meaning">BlocklyApps.emptyBlocksErrorMsg</note>
       </trans-unit>
       <trans-unit id="3240270778677373214" datatype="html">
         <source>You got it!</source>
@@ -767,30 +692,15 @@
         <note priority="1" from="description">condensed form of 'if there is a path ahead', as in: 'if path ahead, go forward'.</note>
         <note priority="1" from="meaning">Maze.pathAhead</note>
       </trans-unit>
-      <trans-unit id="3319307248667758098" datatype="html">
-        <source>It's still dark outside. Move the farmer along the field. If there is a pile, remove it, and if there is a hole, fill it in.</source>
-        <note priority="1" from="description">TODO</note>
-        <note priority="1" from="meaning">Karel.instructions1_11</note>
-      </trans-unit>
       <trans-unit id="3361011873644589927" datatype="html">
         <source>You need the "counter" block to draw snowmen of different heights.</source>
         <note priority="1" from="description">TODO</note>
         <note priority="1" from="meaning">Turtle.getCounterError1Msg-p2-l9</note>
       </trans-unit>
-      <trans-unit id="3365633750878844870" datatype="html">
-        <source>Place a turn left block inside the 'if' block to turn left if there is a path to the left.</source>
-        <note priority="1" from="description">alert - This is displayed when the user has not used an if block when it is required for this level.</note>
-        <note priority="1" from="meaning">Maze.ifError2Msg-5</note>
-      </trans-unit>
       <trans-unit id="3389423800139214515" datatype="html">
         <source>See if you can draw these green glasses.</source>
         <note priority="1" from="description">TODO</note>
         <note priority="1" from="meaning">Turtle.instructions1_7</note>
-      </trans-unit>
-      <trans-unit id="3419819664785271000" datatype="html">
-        <source>Can you use the while block to complete the level with only 4 blocks?</source>
-        <note priority="1" from="description">hint - A 'repeat' block is used to repeat blocks over and over. The red marker is the goal to be reached in the maze.</note>
-        <note priority="1" from="meaning">Karel.hint1_4</note>
       </trans-unit>
       <trans-unit id="3429416367000404237" datatype="html">
         <source>Open the Loops category, and drag out a "count with" block. Have it count from 110 to 70 by 10.</source>
@@ -842,6 +752,11 @@
         <note priority="1" from="description">hint - A 'repeat' block is used to repeat blocks over and over.</note>
         <note priority="1" from="meaning">Karel.hint1_11</note>
       </trans-unit>
+      <trans-unit id="3639152755537095722" datatype="html">
+        <source>Use the function, "avoid the cow and remove 1", to help me remove all the piles.</source>
+        <note priority="1" from="description">TODO</note>
+        <note priority="1" from="meaning">Karel.instructions2_8</note>
+      </trans-unit>
       <trans-unit id="3642603709514258121" datatype="html">
         <source>Turns the turtle right by the specified angle.</source>
         <note priority="1" from="description">TODO</note>
@@ -852,20 +767,10 @@
         <note priority="1" from="description">TODO</note>
         <note priority="1" from="meaning">Turtle.moveForwardError2Msg</note>
       </trans-unit>
-      <trans-unit id="3740753418683045245" datatype="html">
-        <source>Use the function, "remove 1 and avoid the cow", to make the farmer level out the piles. Notice that remove 1 shoveful of dirt is now done before avoiding the cow in this level.</source>
-        <note priority="1" from="description">TODO</note>
-        <note priority="1" from="meaning">Karel.instructions2_9</note>
-      </trans-unit>
       <trans-unit id="3771855446538103843" datatype="html">
         <source>Oops.  You seem to have deleted or renamed the provided "draw a house" function.  Reload the page to get it back.</source>
         <note priority="1" from="description">TODO</note>
         <note priority="1" from="meaning">Turtle.defineDrawAHouseErrorMsg1-l7</note>
-      </trans-unit>
-      <trans-unit id="3782325951862907326" datatype="html">
-        <source>Use the if block to turn left if there is a path to the left.</source>
-        <note priority="1" from="description">alert - If blocks only run the statements inside them if the statement is true.</note>
-        <note priority="1" from="meaning">Maze.ifError1Msg-5</note>
       </trans-unit>
       <trans-unit id="3784721066365313721" datatype="html">
         <source>Repeat the enclosed actions until finish point is reached.</source>
@@ -877,10 +782,20 @@
         <note priority="1" from="description">button - Closes the dialog and stays on the current level</note>
         <note priority="1" from="meaning">Maze.tryAgain</note>
       </trans-unit>
+      <trans-unit id="3845396636292035869" datatype="html">
+        <source>Help</source>
+        <note priority="1" from="description">The label on a button the user can press for help.\n{lb}{lb}Identical|Help{rb}{rb}</note>
+        <note priority="1" from="meaning">BlocklyApps.help</note>
+      </trans-unit>
       <trans-unit id="3846752408201513826" datatype="html">
         <source>Try to reach the end of this path using only two repeat blocks.</source>
         <note priority="1" from="description">instructions - 'path' refers to a path through a maze, and 'block' refers to a child's building block.</note>
         <note priority="1" from="meaning">Maze.instructions7_m2</note>
+      </trans-unit>
+      <trans-unit id="3861275221935187198" datatype="html">
+        <source>That's right!</source>
+        <note priority="1" from="description">Congratulating the user on correctly answering the question.</note>
+        <note priority="1" from="meaning">Maze.q3right</note>
       </trans-unit>
       <trans-unit id="3869139555508242409" datatype="html">
         <source>I will have to turn right when I cannot go straight. Use an 'if' block to see if their is a path in another direction.</source>
@@ -907,6 +822,11 @@
         <note priority="1" from="description">condensed form of 'if there is a no path ahead', as in: 'if no path ahead, go forward'.</note>
         <note priority="1" from="meaning">Karel.noPathAhead</note>
       </trans-unit>
+      <trans-unit id="3936141318735699010" datatype="html">
+        <source>There is a solution using only 3 blocks. Can you find it? Did you try the new option on the while block?</source>
+        <note priority="1" from="description">hint - A 'repeat' block is used to repeat blocks over and over. The red marker is the goal to be reached in the maze.</note>
+        <note priority="1" from="meaning">Karel.hint1_6</note>
+      </trans-unit>
       <trans-unit id="3955830168312699055" datatype="html">
         <source>From the current code, the turtle doesn't know that you want to draw a square. Pull out a "draw a square" block from the Functions category.</source>
         <note priority="1" from="description">TODO</note>
@@ -931,6 +851,11 @@
         <source>Continue</source>
         <note priority="1" from="description">button - Closes the dialog and continues to the next level</note>
         <note priority="1" from="meaning">Turtle.continue</note>
+      </trans-unit>
+      <trans-unit id="4038729554513968964" datatype="html">
+        <source>That's right!</source>
+        <note priority="1" from="description">Congratulating the user on correctly answering the question.</note>
+        <note priority="1" from="meaning">Maze.q9right</note>
       </trans-unit>
       <trans-unit id="4050999966626457535" datatype="html">
         <source>there is a pile</source>
@@ -967,11 +892,6 @@
         <note priority="1" from="description">TODO</note>
         <note priority="1" from="meaning">Turtle.instructions2_2</note>
       </trans-unit>
-      <trans-unit id="4254063609714443923" datatype="html">
-        <source>Drag and snap a 'turn' block under a 'move forward' block when I need to change directions.</source>
-        <note priority="1" from="description">alert - This is displayed when the user has not used a turn left or turn right block when it is required for this leve and they have attempted the leve more than once.</note>
-        <note priority="1" from="meaning">Maze.turnError2Msg-4</note>
-      </trans-unit>
       <trans-unit id="4294783477990312138" datatype="html">
         <source>move backward by</source>
         <note priority="1" from="description">TODO</note>
@@ -987,35 +907,30 @@
         <note priority="1" from="description">Congratulating the user on correctly answering the question.</note>
         <note priority="1" from="meaning">Karel.q5right</note>
       </trans-unit>
-      <trans-unit id="4342380404500902001" datatype="html">
-        <source>Use the 'turn right' block when I need to turn to the right.</source>
-        <note priority="1" from="description">alert - This is displayed when the user has not used a turn left or turn right block when it is required for this level.</note>
-        <note priority="1" from="meaning">Maze.turnError1Msg-7</note>
-      </trans-unit>
-      <trans-unit id="4362459350077054174" datatype="html">
-        <source>The 'move forward' block moves one block forward.</source>
-        <note priority="1" from="description">alert - This error message is displayed when the user has not used at least one of the move forward blocks that is required for this level.</note>
-        <note priority="1" from="meaning">BlocklyApps.moveForwardError1Msg-5</note>
-      </trans-unit>
-      <trans-unit id="4379891442923486274" datatype="html">
-        <source>Drag and snap a 'move forward' block below a turn block so I can move in the new direction.</source>
-        <note priority="1" from="description">alert - This error message is displayed when the user has not used at least one of the move forward blocks that is required for this level and they have attempted the level more than once.</note>
-        <note priority="1" from="meaning">BlocklyApps.moveForwardError2Msg-7</note>
-      </trans-unit>
-      <trans-unit id="4392134384604259240" datatype="html">
-        <source>Drag and snap the 'turn right' block under a 'move forward' block when I need to turn to the right.</source>
-        <note priority="1" from="description">alert - This is displayed when the user has not used a turn left or turn right block when it is required for this leve and they have attempted the level more than once.</note>
-        <note priority="1" from="meaning">Maze.turnRightError2Msg-2</note>
-      </trans-unit>
-      <trans-unit id="4412054759611234361" datatype="html">
-        <source>The outside becomes dark and now the farmer can't tell how large the pile is. This means one of the options on the while loop has been taken away. Move the farmer along the field. If there is a pile, remove it.</source>
+      <trans-unit id="4371937298187029166" datatype="html">
+        <source>Can you find a solution using 3 blocks? Try using the given function(s) inside a while block.</source>
         <note priority="1" from="description">TODO</note>
-        <note priority="1" from="meaning">Karel.instructions1_10</note>
+        <note priority="1" from="meaning">Karel.hint2_3</note>
+      </trans-unit>
+      <trans-unit id="4396755987596871156" datatype="html">
+        <source>It's still dark outside. Move me along the field. If there is a pile, remove it, and if there is a hole, fill it in.</source>
+        <note priority="1" from="description">TODO</note>
+        <note priority="1" from="meaning">Karel.instructions1_11</note>
+      </trans-unit>
+      <trans-unit id="4415678893021929841" datatype="html">
+        <source>Use the new function, "remove 1 and avoid the cow", to make me level out the piles.</source>
+        <note priority="1" from="description">TODO</note>
+        <note priority="1" from="meaning">Karel.instructions2_11</note>
       </trans-unit>
       <trans-unit id="4450982325178778764" datatype="html">
         <source>Now that you created a "draw a house" function, you need to call it.</source>
         <note priority="1" from="description">TODO</note>
         <note priority="1" from="meaning">Turtle.drawAHouseError1Msg</note>
+      </trans-unit>
+      <trans-unit id="4451667761105342733" datatype="html">
+        <source>Define a new function that removes 7 shovelfuls. Then use it to write a program that helps me remove all the piles.</source>
+        <note priority="1" from="description">TODO</note>
+        <note priority="1" from="meaning">Karel.instructions2_4</note>
       </trans-unit>
       <trans-unit id="4466869966303893630" datatype="html">
         <source>jump backward by</source>
@@ -1027,11 +942,6 @@
         <note priority="1" from="description">TODO</note>
         <note priority="1" from="meaning">Turtle.gotoNext</note>
       </trans-unit>
-      <trans-unit id="4500005371973498194" datatype="html">
-        <source>Use the new functions, "fill 8" and "remove 8", to level out the pile and fill in the hole.</source>
-        <note priority="1" from="description">TODO</note>
-        <note priority="1" from="meaning">Karel.instructions2_6</note>
-      </trans-unit>
       <trans-unit id="4502337278497104660" datatype="html">
         <source>Each "set color" block sets the color of everything I draw after it until the next "set color" block.</source>
         <note priority="1" from="description">TODO</note>
@@ -1042,30 +952,25 @@
         <note priority="1" from="description">block text - Experiencing a desire or need for food.</note>
         <note priority="1" from="meaning">Bird.hungry</note>
       </trans-unit>
-      <trans-unit id="4511023450678639506" datatype="html">
-        <source>Use an 'if-else' block to go straight if there is a path ahead and turn if there is no path ahead.</source>
-        <note priority="1" from="description">alert - If blocks only run the statements inside them if the statement is true. Straight indicates that they should continue in the direction they were going.</note>
-        <note priority="1" from="meaning">Maze.ifError1Msg-9</note>
-      </trans-unit>
-      <trans-unit id="4512152497035161615" datatype="html">
-        <source>Repeat blocks allow me to do an action multiple times without additional blocks. 'if' blocks allow me to do an action based on my surroundings.</source>
-        <note priority="1" from="description">instructions - A 'repeat' block is used to repeat blocks over and over. </note>
-        <note priority="1" from="meaning">Maze.reinfMsg6</note>
-      </trans-unit>
       <trans-unit id="4536361039378989928" datatype="html">
         <source>Loops</source>
         <note priority="1" from="description">TODO</note>
         <note priority="1" from="meaning">Turtle.catControl</note>
       </trans-unit>
-      <trans-unit id="4536846293173781211" datatype="html">
-        <source>Use the 'turn left' block when I need to turn to the left.</source>
-        <note priority="1" from="description">alert - This is displayed when the user has not used a turn left or turn right block when it is required for this level.</note>
-        <note priority="1" from="meaning">Maze.turnError1Msg-5</note>
-      </trans-unit>
       <trans-unit id="4542091680501997160" datatype="html">
         <source>Use the "repeat" block to draw 3 squares of size 100, each 120 degrees apart, in random colors.</source>
         <note priority="1" from="description">TODO</note>
         <note priority="1" from="meaning">Turtle.instructions2_3</note>
+      </trans-unit>
+      <trans-unit id="4558854102588819977" datatype="html">
+        <source>Can you find a solution using only 4 blocks? Try using one of the green loop blocks.</source>
+        <note priority="1" from="description">TODO</note>
+        <note priority="1" from="meaning">Karel.hint1_4</note>
+      </trans-unit>
+      <trans-unit id="4587493155338925060" datatype="html">
+        <source><x id="START_STRONG"/>Remember:<x id="END_STRONG"/><x id="START_UNORDERED_LIST"/><x id="START_ITEM"/>'repeat' blocks perform an action multiple times without additional blocks.<x id="END_ITEM"/><x id="START_ITEM"/>'if' blocks check if there is a path in a certain direction.<x id="END_ITEM"/><x id="END_UNORDERED_LIST"/></source>
+        <note priority="1" from="description">instructions - A 'repeat' block is used to repeat blocks over and over. </note>
+        <note priority="1" from="meaning">Maze.reinfMsg6</note>
       </trans-unit>
       <trans-unit id="4620014288495568335" datatype="html">
         <source>Bird</source>
@@ -1097,6 +1002,11 @@
         <note priority="1" from="description">alert - The user has not completed the level, is using all of the necessary types of blocks, but needs more of these types of blocks to complete the level.</note>
         <note priority="1" from="meaning">Turtle.tooFewBlocksMsg</note>
       </trans-unit>
+      <trans-unit id="4709750626480130936" datatype="html">
+        <source>There is a solution using only 3 blocks. Can you find it? Did you using the repeat block?</source>
+        <note priority="1" from="description">hint - A 'repeat' block is used to repeat blocks over and over.</note>
+        <note priority="1" from="meaning">Karel.hint1_3</note>
+      </trans-unit>
       <trans-unit id="4720767904170811699" datatype="html">
         <source>Try again</source>
         <note priority="1" from="description">button - Closes the dialog and stays on the current level</note>
@@ -1106,6 +1016,11 @@
         <source>You need to create a function.</source>
         <note priority="1" from="description">TODO</note>
         <note priority="1" from="meaning">Turtle.defineAnythingErrorMsg1</note>
+      </trans-unit>
+      <trans-unit id="4732731109682389752" datatype="html">
+        <source>Move me to the pile of dirt and tell me how many shovelfuls to remove using as few blocks as possible.</source>
+        <note priority="1" from="description">TODO</note>
+        <note priority="1" from="meaning">Karel.instructions1_3</note>
       </trans-unit>
       <trans-unit id="4750733923757450011" datatype="html">
         <source>If-else blocks will do one thing or the other.</source>
@@ -1126,11 +1041,6 @@
         <source>Use a "turn" block.</source>
         <note priority="1" from="description">TODO</note>
         <note priority="1" from="meaning">Turtle.turnError2Msg</note>
-      </trans-unit>
-      <trans-unit id="4770299713414939360" datatype="html">
-        <source>Drag and snap the 'repeat' block around the other blocks.</source>
-        <note priority="1" from="description">alert - This is displayed when the user has not used a repeat block when it is required for this level and they have attempted the leve more than once</note>
-        <note priority="1" from="meaning">Maze.whileError2Msg-5</note>
       </trans-unit>
       <trans-unit id="4782149863250976860" datatype="html">
         <source>path ahead</source>
@@ -1237,35 +1147,15 @@
         <note priority="1" from="description">TODO</note>
         <note priority="1" from="meaning">Turtle.wrongAnswer</note>
       </trans-unit>
-      <trans-unit id="5341333732043478937" datatype="html">
-        <source>Drag and snap a 'move forward' block below a 'turn' block so I can move in the new direction.</source>
-        <note priority="1" from="description">alert - This error message is displayed when the user has not used at least one of the move forward blocks that is required for this level and they have attempted the level more than once.</note>
-        <note priority="1" from="meaning">BlocklyApps.moveForwardError2Msg-4</note>
-      </trans-unit>
-      <trans-unit id="5342732371477554861" datatype="html">
-        <source>Drag and snap the 'repeat' block around all of your blocks.</source>
-        <note priority="1" from="description">alert - This is displayed when the user has not used a repeat block when it is required for this level and they have attempted the leve more than once</note>
-        <note priority="1" from="meaning">Maze.whileError2Msg-9</note>
+      <trans-unit id="5343570361110533566" datatype="html">
+        <source>Can you find a solution using fewer blocks? Try including two if blocks.</source>
+        <note priority="1" from="description">TODO</note>
+        <note priority="1" from="meaning">Karel.hint2_10</note>
       </trans-unit>
       <trans-unit id="5391382062551588177" datatype="html">
         <source>Save and link to blocks.</source>
         <note priority="1" from="description">tooltip - Clicking on this button will cause the current program to be saved and for a URL to be shown to later retrieve it.</note>
         <note priority="1" from="meaning">Apps.linkTooltip</note>
-      </trans-unit>
-      <trans-unit id="5422073363432381698" datatype="html">
-        <source>Try defining your own function and use it.</source>
-        <note priority="1" from="description">hint - A 'repeat' block is used to repeat blocks over and over.</note>
-        <note priority="1" from="meaning">Karel.hint2_4</note>
-      </trans-unit>
-      <trans-unit id="5431964878988642632" datatype="html">
-        <source>Use an 'if-else' block to go straight if there is a path ahead and turn if there is no path ahead.</source>
-        <note priority="1" from="description">alert - If blocks only run the statements inside them if the statement is true. Straight indicates that they should continue in the direction they were going.</note>
-        <note priority="1" from="meaning">Maze.ifError1Msg-10</note>
-      </trans-unit>
-      <trans-unit id="5442092000327071589" datatype="html">
-        <source>No - Try tracking my direction while following the program.</source>
-        <note priority="1" from="description">tracking is suggesting to the user that they should follow each instruction and follow how that will affect the movement. A 'program' is a set of instructions that tell the computer what to do next.</note>
-        <note priority="1" from="meaning">Maze.q10wrong</note>
       </trans-unit>
       <trans-unit id="5453838756748900405" datatype="html">
         <source>On this level, you need to stack together all of the blocks in the white workspace.</source>
@@ -1277,11 +1167,6 @@
         <note priority="1" from="description">TODO</note>
         <note priority="1" from="meaning">Turtle.catVariables</note>
       </trans-unit>
-      <trans-unit id="5472676874145505858" datatype="html">
-        <source>Make the farmer remove all the piles of dirt, using as few blocks as possible.</source>
-        <note priority="1" from="description">TODO</note>
-        <note priority="1" from="meaning">Karel.instructions1_6</note>
-      </trans-unit>
       <trans-unit id="5477072746213052175" datatype="html">
         <source>Draw triangular fences around the cats and a square fence around the cow.  Tip: Test the program as you go along.</source>
         <note priority="1" from="description">TODO</note>
@@ -1292,11 +1177,6 @@
         <note priority="1" from="description">TODO</note>
         <note priority="1" from="meaning">Turtle.drawASquareError2Msg-p2</note>
       </trans-unit>
-      <trans-unit id="5512589549347470658" datatype="html">
-        <source>Create a new function, "avoid the cow and remove 1", that helps the farmer avoid the cow and remove 1 shovelful from a pile, and use it.</source>
-        <note priority="1" from="description">TODO</note>
-        <note priority="1" from="meaning">Karel.instructions2_7</note>
-      </trans-unit>
       <trans-unit id="5516352830551153056" datatype="html">
         <source>Draw a triangle and then a square to draw an envelope.</source>
         <note priority="1" from="description">TODO</note>
@@ -1304,7 +1184,7 @@
       </trans-unit>
       <trans-unit id="5529440814691185505" datatype="html">
         <source>Use only the blocks you need to get to complete the level.</source>
-        <note priority="1" from="description">hint - 'block' refers to a child's stackable toys.</note>
+        <note priority="1" from="description">TODO</note>
         <note priority="1" from="meaning">Karel.hint2_1</note>
       </trans-unit>
       <trans-unit id="5532942470899034153" datatype="html">
@@ -1322,6 +1202,16 @@
         <note priority="1" from="description">TODO</note>
         <note priority="1" from="meaning">Turtle.instructions3_4</note>
       </trans-unit>
+      <trans-unit id="5632419774153665014" datatype="html">
+        <source>Can you find a solution using 4 blocks? Try using the given function(s).</source>
+        <note priority="1" from="description">TODO</note>
+        <note priority="1" from="meaning">Karel.hint2_6</note>
+      </trans-unit>
+      <trans-unit id="5658777069008500316" datatype="html">
+        <source>Use one of the new functions to help me remove all of the piles on the ground with as few blocks as possible.</source>
+        <note priority="1" from="description">TODO</note>
+        <note priority="1" from="meaning">Karel.instructions2_9</note>
+      </trans-unit>
       <trans-unit id="5669566230124297065" datatype="html">
         <source>while path ahead</source>
         <note priority="1" from="description">verb - imperative or infinitive to repeat the following commands.  The phrase is followed by the symbol denoting the end of the maze.</note>
@@ -1331,6 +1221,11 @@
         <source>You need a "draw a triangle" block to let the turtle know you want it to draw a triangle.</source>
         <note priority="1" from="description">TODO</note>
         <note priority="1" from="meaning">Turtle.drawATriangleError1Msg-p3</note>
+      </trans-unit>
+      <trans-unit id="5672757975804035474" datatype="html">
+        <source>Use the new functions, "fill 8" and "remove 8", to help me level out the pile and fill in the hole.</source>
+        <note priority="1" from="description">TODO</note>
+        <note priority="1" from="meaning">Karel.instructions2_6</note>
       </trans-unit>
       <trans-unit id="5683971278191761396" datatype="html">
         <source>Your "draw a triangle" function needs a "length" input. Click on the blue "+" next to "to draw a triangle", drag in an input, and name it "length".</source>
@@ -1346,11 +1241,6 @@
         <source>Turtle 2</source>
         <note priority="1" from="description">brief title - Specifies that this is Blockly's '''Turtle 2''' tutorial.</note>
         <note priority="1" from="meaning">Turtle.turtle2</note>
-      </trans-unit>
-      <trans-unit id="5721810436507489056" datatype="html">
-        <source>Drag a 'move forward' block from the toolbox to the workspace.</source>
-        <note priority="1" from="description">alert - This error message is displayed when the user has not used at least one of the move forward blocks that is required for this level and they have attempted the level more than once.</note>
-        <note priority="1" from="meaning">BlocklyApps.moveForwardError2Msg-2</note>
       </trans-unit>
       <trans-unit id="5729392237036335843" datatype="html">
         <source>See generated JavaScript code.</source>
@@ -1372,20 +1262,10 @@
         <note priority="1" from="description">TODO</note>
         <note priority="1" from="meaning">Turtle.forError2Msg-p2-l7</note>
       </trans-unit>
-      <trans-unit id="5802734208231974760" datatype="html">
-        <source>An 'if-else' block will run the else statement when the if statement is not true."</source>
-        <note priority="1" from="description">alert - This is displayed when the user has not used an if-else block when it is required for this level.</note>
-        <note priority="1" from="meaning">Maze.elseError1Msg-10</note>
-      </trans-unit>
       <trans-unit id="5803514418162480510" datatype="html">
         <source>Procedures</source>
         <note priority="1" from="description">category - Blocks related to [http://en.wikipedia.org/wiki/Subroutine defining or using procedures/functions].</note>
         <note priority="1" from="meaning">Apps.catProcedures</note>
-      </trans-unit>
-      <trans-unit id="5816526988699741530" datatype="html">
-        <source>Make the farmer fill in the hole. Check out the new option in the dropdown menu on the while block.</source>
-        <note priority="1" from="description">TODO</note>
-        <note priority="1" from="meaning">Karel.instructions1_8</note>
       </trans-unit>
       <trans-unit id="5820593249319089549" datatype="html">
         <source>Figure out what number to replace the question marks with to draw a circle.</source>
@@ -1396,6 +1276,11 @@
         <source>See generated JavaScript code.</source>
         <note priority="1" from="description">tooltip (pop-up help) for button; pressing the button causes a program in the JavaScript computer language to be displayed, based on the program created by the user.</note>
         <note priority="1" from="meaning">Apps.codeTooltip</note>
+      </trans-unit>
+      <trans-unit id="5850143700221065216" datatype="html">
+        <source>Watch the video below and learn how to use blocks to make me move.</source>
+        <note priority="1" from="description">instructions - introduction to the Maze tutorial.</note>
+        <note priority="1" from="meaning">Maze.reinfMsg1</note>
       </trans-unit>
       <trans-unit id="5877438069945295867" datatype="html">
         <source>Open the Variables category, and drag a "length" block into the "move forward" block.</source>
@@ -1422,35 +1307,20 @@
         <note priority="1" from="description">verb - imperative or infinitive preceding one or more commands to a person.</note>
         <note priority="1" from="meaning">Maze.doCode</note>
       </trans-unit>
-      <trans-unit id="5971548713041244144" datatype="html">
-        <source>Use the function block to make the farmer fill in all the holes.</source>
-        <note priority="1" from="description">TODO</note>
-        <note priority="1" from="meaning">Karel.instructions2_3</note>
-      </trans-unit>
-      <trans-unit id="5984955015400135862" datatype="html">
-        <source>Notice the repetition in the path? Try using the 'repeat' block which repeats the sequence of blocks inside it until, the player reaches the finish.</source>
-        <note priority="1" from="description">alert - This is displayed when the user has not used a repeat block when it is required for this level.</note>
-        <note priority="1" from="meaning">Maze.whileError1Msg-9</note>
-      </trans-unit>
       <trans-unit id="6005707509822211432" datatype="html">
         <source>move forward</source>
         <note priority="1" from="description">verb - imperative or infinitive for a person moving (walking) in the direction he/she is facing.</note>
         <note priority="1" from="meaning">Karel.moveForward</note>
       </trans-unit>
-      <trans-unit id="6009799388024171547" datatype="html">
-        <source>Create a new function, "remove 3", that removes 3 shovelfuls from a pile, and use it to help the farmer level out all the piles.</source>
-        <note priority="1" from="description">TODO</note>
-        <note priority="1" from="meaning">Karel.instructions2_5</note>
-      </trans-unit>
-      <trans-unit id="6018461217226431532" datatype="html">
-        <source>Drag and snap the 'turn left' block inside the 'if-else' block.</source>
-        <note priority="1" from="description">alert - This is displayed when the user has not used a turn left or turn right block when it is required for this leve and they have attempted the level more than once.</note>
-        <note priority="1" from="meaning">Maze.turnLeftError2Msg-9</note>
-      </trans-unit>
       <trans-unit id="6042489320809216081" datatype="html">
         <source>If there is a path in the specified direction, then do some actions.</source>
         <note priority="1" from="description">tooltip (pop-up help) - 'path' refers to a path through a maze. </note>
         <note priority="1" from="meaning">Karel.ifTooltip</note>
+      </trans-unit>
+      <trans-unit id="6063060740727772843" datatype="html">
+        <source>Use the new function block called "fill 5" to help me fill in this hole.</source>
+        <note priority="1" from="description">TODO</note>
+        <note priority="1" from="meaning">Karel.instructions2_2</note>
       </trans-unit>
       <trans-unit id="6078028329780496695" datatype="html">
         <source>turn left by</source>
@@ -1467,10 +1337,10 @@
         <note priority="1" from="description">TODO</note>
         <note priority="1" from="meaning">Turtle.drawASquareError1Msg-p2</note>
       </trans-unit>
-      <trans-unit id="6149188403952767584" datatype="html">
-        <source>Notice the repetition in the path? Try using the 'repeat' block which repeats the sequence of blocks inside it until, the player reaches the finish.</source>
-        <note priority="1" from="description">alert - This is displayed when the user has not used a repeat block when it is required for this level.</note>
-        <note priority="1" from="meaning">Maze.whileError1Msg-5</note>
+      <trans-unit id="6165004760147466146" datatype="html">
+        <source>Here is an 'if' block: I will turn in a particular direction if there is a path in that direction. For example if there is a path to the left, I will turn left.</source>
+        <note priority="1" from="description">instructions - An example of an 'if' block is if there is a path to the left, turn left.</note>
+        <note priority="1" from="meaning">Maze.reinfMsg4</note>
       </trans-unit>
       <trans-unit id="6167520316579602442" datatype="html">
         <source>Use the 'if-else' block to help me get out of the maze!</source>
@@ -1496,11 +1366,6 @@
         <source>Share your blocks with this link:\n\n%1</source>
         <note priority="1" from="description">alert - After the user has pressed a button to save his/her program, this provides the URL (%1) to retrieve the program.  The characters '\n\n' indicate that a blank line will be displayed before the URL (in English).  Leave those in unless you move %1 to the beginning or middle of the text, in which case you should use your judgment about where blank lines would be most useful.</note>
         <note priority="1" from="meaning">Apps.linkAlert</note>
-      </trans-unit>
-      <trans-unit id="6222816978041580358" datatype="html">
-        <source>Can you find a solution using only 4 blocks? Try using one of the green loop blocks.</source>
-        <note priority="1" from="description">TODO</note>
-        <note priority="1" from="meaning">Karel.hint1_9</note>
       </trans-unit>
       <trans-unit id="6267174283715529752" datatype="html">
         <source>Put "draw a house" in the light purple area of the "to do something" block you dragged out.</source>
@@ -1547,11 +1412,6 @@
         <note priority="1" from="description">TODO</note>
         <note priority="1" from="meaning">Turtle.squareCallWithParameterErrorMsg2</note>
       </trans-unit>
-      <trans-unit id="6471563709747411281" datatype="html">
-        <source>The 'move forward' block moves one space forward.</source>
-        <note priority="1" from="description">alert - This error message is displayed when the user has not used at least one of the move forward blocks that is required for this level.</note>
-        <note priority="1" from="meaning">BlocklyApps.moveForwardError1Msg-2</note>
-      </trans-unit>
       <trans-unit id="6491926390857975299" datatype="html">
         <source>There was a problem with the request.</source>
         <note priority="1" from="description">alert - The URL is invalid or a server error occurred.  This message will be followed by technical information useful to engineers trying to understand the problem.</note>
@@ -1571,11 +1431,6 @@
         <source>Draw three snowmen 150 dots tall in different colors, 100 dots apart.  Use the new "draw a snowman" function and "jump forward" block.</source>
         <note priority="1" from="description">TODO</note>
         <note priority="1" from="meaning">Turtle.instructions2_8</note>
-      </trans-unit>
-      <trans-unit id="6523406022526462660" datatype="html">
-        <source>That's right! Good job.</source>
-        <note priority="1" from="description">Congratulating the user on correctly answering the question.</note>
-        <note priority="1" from="meaning">Maze.q5right</note>
       </trans-unit>
       <trans-unit id="6533409555866489852" datatype="html">
         <source>Reset</source>
@@ -1597,36 +1452,6 @@
         <note priority="1" from="description">TODO</note>
         <note priority="1" from="meaning">Turtle.triangleCallWithVariableParameterErrorMsg1</note>
       </trans-unit>
-      <trans-unit id="6680809228269426356" datatype="html">
-        <source>Drag a 'move forward' block from the toolbox to the workspace.</source>
-        <note priority="1" from="description">alert - This error message is displayed when the user has not used at least one of the move forward blocks that is required for this level and they have attempted the level more than once.</note>
-        <note priority="1" from="meaning">BlocklyApps.moveForwardError2Msg-1</note>
-      </trans-unit>
-      <trans-unit id="6704780518123898830" datatype="html">
-        <source>Drag and snap the 'repeat' block around the other blocks.</source>
-        <note priority="1" from="description">alert - This is displayed when the user has not used a repeat block when it is required for this level and they have attempted the leve more than once</note>
-        <note priority="1" from="meaning">Maze.whileError2Msg-7</note>
-      </trans-unit>
-      <trans-unit id="6753413574185009651" datatype="html">
-        <source>Try using the given function(s).</source>
-        <note priority="1" from="description">hint - 'block' refers to a child's stackable toys.</note>
-        <note priority="1" from="meaning">Karel.hint2_2</note>
-      </trans-unit>
-      <trans-unit id="6789289332323082816" datatype="html">
-        <source>Notice the repetition in the path? Try using the 'repeat' block which repeats the sequence of blocks inside it until, the player reaches the finish.</source>
-        <note priority="1" from="description">alert - This is displayed when the user has not used a repeat block when it is required for this level.</note>
-        <note priority="1" from="meaning">Maze.whileError1Msg-7</note>
-      </trans-unit>
-      <trans-unit id="6796740430186642317" datatype="html">
-        <source>Tell the farmer to fill in all the holes. Each hole needs 5 shovelfuls of dirt.</source>
-        <note priority="1" from="description">TODO</note>
-        <note priority="1" from="meaning">Karel.instructions1_4</note>
-      </trans-unit>
-      <trans-unit id="6796815239128983214" datatype="html">
-        <source>Use the 'turn left' block when I need to turn to the left.</source>
-        <note priority="1" from="description">alert - This is displayed when the user has not used a turn left or turn right block when it is required for this level.</note>
-        <note priority="1" from="meaning">Maze.turnLeftError1Msg-2</note>
-      </trans-unit>
       <trans-unit id="6857002184840337600" datatype="html">
         <source>I'll need to turn in order to draw this picture.</source>
         <note priority="1" from="description">TODO</note>
@@ -1642,10 +1467,10 @@
         <note priority="1" from="description">TODO</note>
         <note priority="1" from="meaning">Turtle.turnRight</note>
       </trans-unit>
-      <trans-unit id="6928064523292821066" datatype="html">
-        <source>Move the farmer to the hole and make them fill it until it is even.</source>
+      <trans-unit id="6961885717405359269" datatype="html">
+        <source>Make me remove the 4 piles.</source>
         <note priority="1" from="description">TODO</note>
-        <note priority="1" from="meaning">Karel.instructions1_7</note>
+        <note priority="1" from="meaning">Karel.instructions1_4</note>
       </trans-unit>
       <trans-unit id="6974877659202820695" datatype="html">
         <source>Conditionals</source>
@@ -1707,10 +1532,15 @@
         <note priority="1" from="description">variable name - Default [https://code.google.com/p/blockly/wiki/Variables variable] representing a [https://code.google.com/p/blockly/wiki/Lists list].  This should be a single word, preferably short.</note>
         <note priority="1" from="meaning">Apps.listVariable</note>
       </trans-unit>
-      <trans-unit id="7370391979767494507" datatype="html">
-        <source>Drag and snap a 'move forward' block below a 'turn' block so I can move in the new direction.</source>
-        <note priority="1" from="description">alert - This error message is displayed when the user has not used at least one of the move forward blocks that is required for this level and they have attempted the level more than once.</note>
-        <note priority="1" from="meaning">BlocklyApps.moveForwardError2Msg-5</note>
+      <trans-unit id="7388270388391736213" datatype="html">
+        <source>Move me across the field, and use the functions to help me remove all the piles and fill all the holes.</source>
+        <note priority="1" from="description">TODO</note>
+        <note priority="1" from="meaning">Karel.instructions2_10</note>
+      </trans-unit>
+      <trans-unit id="7407757177156067975" datatype="html">
+        <source>That's right!</source>
+        <note priority="1" from="description">Congratulating the user on correctly answering the question.</note>
+        <note priority="1" from="meaning">Maze.q5right</note>
       </trans-unit>
       <trans-unit id="7431547268749431251" datatype="html">
         <source>Now change the code to draw 36 squares, each 10 degrees apart.</source>
@@ -1742,6 +1572,11 @@
         <note priority="1" from="description">instructions - 'path' refers to a path through a maze, and 'block' refers to a child's building block.</note>
         <note priority="1" from="meaning">Maze.instructions5_m2</note>
       </trans-unit>
+      <trans-unit id="7689400048197260467" datatype="html">
+        <source>Make me remove all the piles, using as few blocks as possible.</source>
+        <note priority="1" from="description">TODO</note>
+        <note priority="1" from="meaning">Karel.instructions1_9</note>
+      </trans-unit>
       <trans-unit id="7740915719993711156" datatype="html">
         <source>Your picture is the wrong color.  For this level, it needs to be %1.</source>
         <note priority="1" from="description">TODO</note>
@@ -1752,10 +1587,10 @@
         <note priority="1" from="description">TODO</note>
         <note priority="1" from="meaning">Turtle.getCounterError2Msg-p2-l7</note>
       </trans-unit>
-      <trans-unit id="7764947727258988402" datatype="html">
-        <source>The 'move forward' block moves one space forward.</source>
-        <note priority="1" from="description">alert - This error message is displayed when the user has not used at least one of the move forward blocks that is required for this level.</note>
-        <note priority="1" from="meaning">BlocklyApps.moveForwardError1Msg-1</note>
+      <trans-unit id="7805730108407717734" datatype="html">
+        <source>There is a solution using only 3 blocks. Can you find it?za</source>
+        <note priority="1" from="description">TODO</note>
+        <note priority="1" from="meaning">Karel.hint1_8</note>
       </trans-unit>
       <trans-unit id="7828848175932035894" datatype="html">
         <source>No</source>
@@ -1767,16 +1602,6 @@
         <note priority="1" from="description">button - Closes the dialog and continues to the next level</note>
         <note priority="1" from="meaning">Maze.continue</note>
       </trans-unit>
-      <trans-unit id="7858114380603546054" datatype="html">
-        <source>There is a solution using only 3 blocks. Can you find it? Did you using the repeat block?</source>
-        <note priority="1" from="description">hint - A 'repeat' block is used to repeat blocks over and over.</note>
-        <note priority="1" from="meaning">Karel.hint1_7</note>
-      </trans-unit>
-      <trans-unit id="7858413390660988150" datatype="html">
-        <source>Drag and snap the 'turn left' block under a 'move forward' block when I need to turn to the left.</source>
-        <note priority="1" from="description">alert - This is displayed when the user has not used a turn left or turn right block when it is required for this leve and they have attempted the level more than once.</note>
-        <note priority="1" from="meaning">Maze.turnLeftError2Msg-2</note>
-      </trans-unit>
       <trans-unit id="7862783498529930828" datatype="html">
         <source>turn left</source>
         <note priority="1" from="description">verb - imperative or infinitive for a person turning his head and body one quarter rotation counter-clockwise.  Prefer a translation that has text in common with the translation of 'turn right'.  See [[Translating:Blockly#Drop-Down_Menus]].</note>
@@ -1786,6 +1611,11 @@
         <source>Lists</source>
         <note priority="1" from="description">category - Blocks related to [https://code.google.com/p/blockly/wiki/Lists lists].</note>
         <note priority="1" from="meaning">Apps.catLists</note>
+      </trans-unit>
+      <trans-unit id="7902410796604636335" datatype="html">
+        <source>Could you use fewer blocks? Try defining your own function and using it inside one of the loop block.</source>
+        <note priority="1" from="description">TODO</note>
+        <note priority="1" from="meaning">Karel.hint2_5</note>
       </trans-unit>
       <trans-unit id="7916832332058433887" datatype="html">
         <source>Try to reach the end of this path using only three blocks.</source>
@@ -1827,20 +1657,25 @@
         <note priority="1" from="description">block text - Conjunction meaning 'otherwise', introducing commands to be performed if a previous condition was not true, as in 'if x&gt;3, do this, else do that'.  See [https://code.google.com/p/blockly/wiki/IfElse#If-Else_blocks].</note>
         <note priority="1" from="meaning">Bird.elseCode</note>
       </trans-unit>
+      <trans-unit id="8169126390389631773" datatype="html">
+        <source>Can you find a solution using 4 blocks? Try including an if block.</source>
+        <note priority="1" from="description">TODO</note>
+        <note priority="1" from="meaning">Karel.hint2_9</note>
+      </trans-unit>
       <trans-unit id="8194173010046025493" datatype="html">
         <source>You have <x id="START_SPAN"/>%1<x id="END_SPAN"/> blocks left.</source>
         <note priority="1" from="description">warning - Only %1 more blocks may be used, where %1 is an integer greater than 1.  Do not alter the portions between pointy brackets (&lt; and &gt;), although you may move them within the phrase.</note>
         <note priority="1" from="meaning">Maze.capacity2</note>
       </trans-unit>
+      <trans-unit id="8233180769854710662" datatype="html">
+        <source>Make me remove all the piles of dirt, using as few blocks as possible. Check out the new option in the dropdown menu on the while block.</source>
+        <note priority="1" from="description">TODO</note>
+        <note priority="1" from="meaning">Karel.instructions1_6</note>
+      </trans-unit>
       <trans-unit id="8285768475184396675" datatype="html">
         <source>Try again</source>
         <note priority="1" from="description">button - Closes the dialog and stays on the current level</note>
         <note priority="1" from="meaning">Turtle.tryAgain</note>
-      </trans-unit>
-      <trans-unit id="8288823753639791641" datatype="html">
-        <source>Move the farmer to the hole and fill it with two shovelfuls of dirt.</source>
-        <note priority="1" from="description">TODO</note>
-        <note priority="1" from="meaning">Karel.instructions1_2</note>
       </trans-unit>
       <trans-unit id="8318979339055620562" datatype="html">
         <source>Draw anything you want. Some ideas are a stick figure, snowflake, or spiral.  You could also try out the new "set width" block.  Have fun!</source>
@@ -1856,11 +1691,6 @@
         <source>Reload the page to get back the "to draw a triangle" block.</source>
         <note priority="1" from="description">TODO</note>
         <note priority="1" from="meaning">Turtle.triangleDefErrorMsg2</note>
-      </trans-unit>
-      <trans-unit id="8371973651335551327" datatype="html">
-        <source>Use the 'if' block to turn right if there is a path to the right.</source>
-        <note priority="1" from="description">alert - If blocks only run the statements inside them if the statement is true.</note>
-        <note priority="1" from="meaning">Maze.ifPathRightError1Msg-8</note>
       </trans-unit>
       <trans-unit id="8380965510044188233" datatype="html">
         <source>What should I do to follow the path?</source>
@@ -1912,6 +1742,11 @@
         <note priority="1" from="description">TODO</note>
         <note priority="1" from="meaning">Turtle.catProcedures</note>
       </trans-unit>
+      <trans-unit id="8579234885497641539" datatype="html">
+        <source>Could you use two while blocks to complete this level with fewer total blocks?</source>
+        <note priority="1" from="description">hint - A 'repeat' block is used to repeat blocks over and over. The red marker is the goal to be reached in the maze.</note>
+        <note priority="1" from="meaning">Karel.hint1_9</note>
+      </trans-unit>
       <trans-unit id="8582408810273452213" datatype="html">
         <source>set color</source>
         <note priority="1" from="description">TODO</note>
@@ -1937,25 +1772,20 @@
         <note priority="1" from="description">TODO</note>
         <note priority="1" from="meaning">Turtle.drawAHouseNotDefined8</note>
       </trans-unit>
-      <trans-unit id="8666938251879629365" datatype="html">
-        <source>Drag and snap the 'repeat' block around the other blocks.</source>
-        <note priority="1" from="description">alert - This is displayed when the user has not used a repeat block when it is required for this level and they have attempted the leve more than once</note>
-        <note priority="1" from="meaning">Maze.whileError2Msg-4</note>
-      </trans-unit>
       <trans-unit id="8669528399059881976" datatype="html">
         <source>You need to complete levels 7 and 8 before doing this level.</source>
         <note priority="1" from="description">TODO</note>
         <note priority="1" from="meaning">Turtle.drawAHouseNotDefined9</note>
       </trans-unit>
+      <trans-unit id="8681810675525840996" datatype="html">
+        <source>Move me to the hole and fill it with two shovelfuls of dirt.</source>
+        <note priority="1" from="description">TODO</note>
+        <note priority="1" from="meaning">Karel.instructions1_2</note>
+      </trans-unit>
       <trans-unit id="8682553848590484654" datatype="html">
         <source>CS First</source>
         <note priority="1" from="description">The project name. 'CS' is an abbreviation for Computer Science. 'First' refers to the project's goal of introducing students to programming as early as possible in their life.</note>
         <note priority="1" from="meaning">Apps.projectMessage</note>
-      </trans-unit>
-      <trans-unit id="8735232363317301898" datatype="html">
-        <source>The 'move forward' block moves one block forward.</source>
-        <note priority="1" from="description">alert - This error message is displayed when the user has not used at least one of the move forward blocks that is required for this level.</note>
-        <note priority="1" from="meaning">BlocklyApps.moveForwardError1Msg-4</note>
       </trans-unit>
       <trans-unit id="8749025810731513897" datatype="html">
         <source>Congratulations! You have solved the final level.</source>
@@ -1982,30 +1812,20 @@
         <note priority="1" from="description">TODO</note>
         <note priority="1" from="meaning">Turtle.instructions3_8</note>
       </trans-unit>
-      <trans-unit id="8835098453345456476" datatype="html">
-        <source>Notice the repetition in the path? Try using the 'repeat' block which repeats the sequence of blocks inside it until, the player reaches the finish.</source>
-        <note priority="1" from="description">alert - This is displayed when the user has not used a repeat block when it is required for this level.</note>
-        <note priority="1" from="meaning">Maze.whileError1Msg-10</note>
-      </trans-unit>
       <trans-unit id="8845471850980427029" datatype="html">
         <source>The amount to move forward should depend on the input "length".</source>
         <note priority="1" from="description">TODO</note>
         <note priority="1" from="meaning">Turtle.moveByLengthMsg1</note>
       </trans-unit>
-      <trans-unit id="8853291758011014735" datatype="html">
-        <source>The 'move forward' block moves one block forward.</source>
-        <note priority="1" from="description">alert - This error message is displayed when the user has not used at least one of the move forward blocks that is required for this level.</note>
-        <note priority="1" from="meaning">BlocklyApps.moveForwardError1Msg-7</note>
-      </trans-unit>
-      <trans-unit id="8879656456320259201" datatype="html">
-        <source>Drag a 'move forward' block from the toolbox to the workspace.</source>
-        <note priority="1" from="description">alert - This error message is displayed when the user has not used at least one of the move forward blocks that is required for this level and they have attempted the level more than once.</note>
-        <note priority="1" from="meaning">BlocklyApps.moveForwardError2Msg-3</note>
-      </trans-unit>
       <trans-unit id="8913109889120470164" datatype="html">
         <source> E</source>
         <note priority="1" from="description">An abbreviation of the direction East</note>
         <note priority="1" from="meaning">Karel.dirE</note>
+      </trans-unit>
+      <trans-unit id="8928262773877552345" datatype="html">
+        <source>Can you find a solution using 2 blocks? Try using the given function(s) inside one of the loop blocks.</source>
+        <note priority="1" from="description">TODO</note>
+        <note priority="1" from="meaning">Karel.hint2_8</note>
       </trans-unit>
       <trans-unit id="8932595450551335067" datatype="html">
         <source>Will the blocks below move me to the red marker?</source>
@@ -2026,11 +1846,6 @@
         <source>Makes the turtle (green circle and arrow) visible or invisible.</source>
         <note priority="1" from="description">TODO</note>
         <note priority="1" from="meaning">Turtle.turtleVisibilityTooltip</note>
-      </trans-unit>
-      <trans-unit id="9063602502454927574" datatype="html">
-        <source>An 'if-else' block will run the else statement when the if statement is not true."</source>
-        <note priority="1" from="description">alert - This is displayed when the user has not used an if-else block when it is required for this level and they have attempted the level more than once</note>
-        <note priority="1" from="meaning">Maze.elseError2Msg-9</note>
       </trans-unit>
       <trans-unit id="9068460194411820247" datatype="html">
         <source>What should I do to follow the path?</source>
