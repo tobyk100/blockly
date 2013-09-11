@@ -5,7 +5,7 @@ if (typeof apps == 'undefined') { var apps = {}; }
 
 
 apps.messages = function(opt_data, opt_ignored, opt_ijData) {
-  return '<div style="display: none"><span id="subtitle">a visual programming environment</span><span id="blocklyMessage">Blockly</span><span id="codeTooltip">See generated JavaScript code. </span><span id="linkTooltip">Save and link to blocks.</span><span id="runTooltip">Run the program defined by the blocks in the \\nworkspace. </span><span id="runProgram">Run Program</span><span id="resetProgram">Reset</span><span id="dialogOk">OK</span><span id="dialogCancel">Cancel</span><span id="catLogic">Logic</span><span id="catLoops">Loops</span><span id="catMath">Math</span><span id="catText">Text</span><span id="catLists">Lists</span><span id="catColour">Colour</span><span id="catVariables">Variables</span><span id="catProcedures">Procedures</span><span id="httpRequestError">There was a problem with the request.</span><span id="linkAlert">Share your blocks with this link:\n\n%1</span><span id="hashError">Sorry, \'%1\' doesn\'t correspond with any saved program.</span><span id="xmlError">Could not load your saved file.  Perhaps it was created with a different version of Blockly?</span><span id="listVariable">list</span><span id="textVariable">text</span></div>';
+  return '<div style="display: none"><span id="subtitle">a visual programming environment</span><span id="blocklyMessage">Blockly</span><span id="projectMessage">CS First</span><span id="codeTooltip">See generated JavaScript code. </span><span id="linkTooltip">Save and link to blocks.</span><span id="runTooltip">Run the program defined by the blocks in the \\nworkspace. </span><span id="runProgram">Run Program</span><span id="resetProgram">Reset</span><span id="dialogOk">OK</span><span id="dialogCancel">Cancel</span><span id="help">Help</span><span id="catLogic">Logic</span><span id="catLoops">Loops</span><span id="catMath">Math</span><span id="catText">Text</span><span id="catLists">Lists</span><span id="catColour">Colour</span><span id="catVariables">Variables</span><span id="catProcedures">Procedures</span><span id="httpRequestError">There was a problem with the request.</span><span id="linkAlert">Share your blocks with this link:\n\n%1</span><span id="hashError">Sorry, \'%1\' doesn\'t correspond with any saved program.</span><span id="xmlError">Could not load your saved file.  Perhaps it was created with a different version of Blockly?</span><span id="hintTitle">Hint:</span><span id="emptyBlocksErrorMessage">Remove empty blocks.</span><span id="tooFewBlocksMsg">You are using all of the necessary types of blocks, but try using more  of these types of blocks to complete this level.</span><span id="tooManyBlocksMsg">This level can be solved with <span id="idealNumberMessage"></span> blocks.</span><span id="missingBlocksErrorMsg">Try one or more of the blocks below to solve this level.</span><span id="levelIncompleteError">You are using all of the necessary types of blocks but not in the right way.</span><span id="nextLevelMsg">Congratulations! You have completed this level.</span><span id="finalLevelMsg">Congratulations! You have solved the final level.</span><span id="listVariable">list</span><span id="textVariable">text</span></div>';
 };
 
 
@@ -40,6 +40,21 @@ apps.menu = function(opt_data, opt_ignored, opt_ijData) {
 if (typeof turtlepage == 'undefined') { var turtlepage = {}; }
 
 
+turtlepage.preText = function(opt_data, opt_ignored, opt_ijData) {
+  return '<span class="preInter"><div id="reinfbubble"><span id="reinfMsg">' + soy.$$escapeHtml(opt_data.text) + '</span><img id="turtle" height=45 width=130 src="turtle.png"></div></span>';
+};
+
+
+turtlepage.prePicture = function(opt_data, opt_ignored, opt_ijData) {
+  return '<span class="preInter"><div id="reinfbubble"><span id="reinfMsg">' + soy.$$escapeHtml(opt_data.text) + '</span></div><img id="turtle" height=45 width=130 src="turtle.png"><table><tr><br></tr><tr><td><img src="' + soy.$$escapeHtml(opt_data.image) + '"></td></tr><tr height=40><br><br></tr></table></span>';
+};
+
+
+turtlepage.preAnimation = function(opt_data, opt_ignored, opt_ijData) {
+  return '<span class="preInter"><div id="reinfbubble"><span id="reinfMsg">' + soy.$$escapeHtml(opt_data.text) + '</span></div><img id="turtle" height=45 width=130 src="turtle.png"><p><button id="showButton" style="display: inline" class="launch" onclick="this.style.display = \'none\'; document.getElementById(\'animation\').style.display=\'inline\'; document.getElementById(\'continueButton\').style.display=\'inline\';">Show me</button></p><div id="animation" style="display: none"><table><tr><td><img src="' + soy.$$escapeHtml(opt_data.image) + '"></td></tr></table></div></span>';
+};
+
+
 turtlepage.polygon = function(opt_data, opt_ignored, opt_ijData) {
   return '<block type="procedures_defnoreturn" ' + opt_data.modifiers + '><mutation>' + ((opt_data.length == 0) ? '<arg name="length"></arg>' : '') + '</mutation><title name="NAME">' + opt_data.title + '</title><statement name="STACK"><block type="controls_repeat" ' + opt_data.modifiers + '><title name="TIMES">' + opt_data.sides + '</title><statement name="DO"><block type="draw_move" ' + opt_data.modifiers + '><value name="VALUE">' + ((opt_data.length == 0) ? '<block type="variables_get_length"></block>' : '<block type="math_number" ' + opt_data.modifiers + '><title name="NUM">' + opt_data.length + '</title></block>') + '</value><next><block type="draw_turn" ' + opt_data.modifiers + '><value name="VALUE"><block type="math_number" ' + opt_data.modifiers + '><title name="NUM">' + 360 / opt_data.sides + '</title></block></value></block></next></block></statement></block></statement></block>';
 };
@@ -51,43 +66,31 @@ turtlepage.messages = function(opt_data, opt_ignored, opt_ijData) {
 
 
 turtlepage.showInterstitials = function(opt_data, opt_ignored, opt_ijData) {
-  var output = (opt_ijData.reinf[0]) ? '<div id="bubble"><div id="interstitial"><b>' + soy.$$escapeHtml(opt_ijData.reinf[0]) + '</b></div></div><img id="turtle" height=45 width=130 src="turtle.png">' : '';
-  switch (opt_ijData.reinf[1]) {
-    case 'picture':
-      output += '<table><tr><br></tr><tr><td><img src="' + soy.$$escapeHtml(opt_ijData.reinf[2]) + '"></td></tr><tr height=40><br><br></tr></table>';
+  var output = '<div id="interstitial" style="display: none;"><div style="margin-left: 50px;">';
+  switch (opt_ijData.level) {
+    case 2:
+      output += turtlepage.prePicture({text: 'I can draw in different colors.  Choose what color you would like me to use with the "set color" block.  Blocks for changing color don\'t count to your block count used for scoring, so go wild!', image: 'set-colour.png'}, null, opt_ijData);
       break;
-    case 'picture-table':
-      output += '<table>';
-      var tupleList253 = opt_ijData.reinf[2];
-      var tupleListLen253 = tupleList253.length;
-      for (var tupleIndex253 = 0; tupleIndex253 < tupleListLen253; tupleIndex253++) {
-        var tupleData253 = tupleList253[tupleIndex253];
-        output += '<tr height="100" valign="middle"><td><img src="' + soy.$$escapeHtml(tupleData253[1]) + '"></td><td>' + soy.$$escapeHtml(tupleData253[0]) + '</td></tr>';
-      }
-      output += '</table>';
+    case 3:
+      output += turtlepage.preAnimation({text: 'Tired of dragging and dropping?  Let the "repeat" block do the work for you.', image: 'repeat-intro.gif'}, null, opt_ijData);
       break;
-    case 'quiz':
-      output += '<table><tr><td colspan=' + soy.$$escapeHtml(opt_ijData.reinf[2][0]) + '><img src="p' + soy.$$escapeHtml(opt_ijData.page) + '-l' + soy.$$escapeHtml(opt_ijData.level) + '-q.png"></td></tr><tr>';
-      var iLimit269 = opt_ijData.reinf[2][0] + 1;
-      for (var i269 = 1; i269 < iLimit269; i269++) {
-        output += '<td><img src="p' + soy.$$escapeHtml(opt_ijData.page) + '-l' + soy.$$escapeHtml(opt_ijData.level) + '-a' + soy.$$escapeHtml(i269) + '.png" class="answer" onclick="alert(' + ((i269 == opt_ijData.reinf[2][1]) ? '\'You got it!\'); document.getElementById(\'continueButton\').style.display = \'inline\';' : '\'Wrong!  Try again.\');') + '"></td>';
-      }
-      output += '</tr></table>';
+    case 4:
+      output += turtlepage.prePicture({text: 'Do you like surprises?  Use the "random color" block to let me pick the color.', image: 'random-colour.png'}, null, opt_ijData);
       break;
-    case 'animations':
-      output += '<p><button id="showButton" style="display: inline" class="launch" onclick="this.style.display = \'none\'; document.getElementById(\'animation\').style.display=\'inline\'; document.getElementById(\'continueButton\').style.display=\'inline\';">Show me</button></p><div id="animation" style="display: none"><table><tr>';
-      var fileList295 = opt_ijData.reinf[2];
-      var fileListLen295 = fileList295.length;
-      for (var fileIndex295 = 0; fileIndex295 < fileListLen295; fileIndex295++) {
-        var fileData295 = fileList295[fileIndex295];
-        output += '<td><img src="' + soy.$$escapeHtml(fileData295) + '"></td>';
-      }
-      output += '</tr></table></div>';
+    case 5:
+      output += turtlepage.preText({text: 'Did you know you can copy and paste a block?'}, null, opt_ijData);
       break;
-    case 'special':
+    case 6:
+      output += turtlepage.preText({text: 'I can move backward, not just forward.'}, null, opt_ijData);
+      break;
+    case 8:
+      output += turtlepage.prePicture({text: 'Do you ever get tired of waiting for me?  You can make me move faster (or slower) with the speed slider.', image: 'slider.gif'}, null, opt_ijData);
+      break;
+    case 10:
+      output += turtlepage.prePicture({text: 'Congratulations on completing this tutorial.  Just for fun, here\'s a new block that changes how wide of lines I draw.  We\'ve been using a default width of 5.', image: 'set-width.png'}, null, opt_ijData);
       break;
   }
-  output += '<button id="continueButton" style="display: ' + ((opt_ijData.reinf[1] == 'quiz' || opt_ijData.reinf[1] == 'animations') ? 'none' : 'inline') + '" class="launch" onclick="Turtle.continueButtonClick();">Continue</button>';
+  output += '</div></div>';
   return output;
 };
 
@@ -127,10 +130,10 @@ turtlepage.startBlocks = function(opt_data, opt_ignored, opt_ijData) {
     } else if (opt_ijData.level == 6) {
       output += '<block type="controls_for_counter" inline="true" x="20" y="20"><title name="VAR">counter</title><value name="FROM"><block type="math_number"><title name="NUM">' + ((opt_ijData.level == 6) ? '50' : '10') + '</title></block></value><value name="TO"><block type="math_number"><title name="NUM">' + ((opt_ijData.level == 6) ? '90' : '100') + '</title></block></value><value name="BY"><block type="math_number"><title name="NUM">10</title></block></value><statement name="DO"><block type="draw_a_square" inline="true"><value name="VALUE"><block type="math_number"><title name="NUM">10</title></block></value></block></statement></block>';
     } else if (opt_ijData.level == 7) {
-      for (var i365 = 25; i365 < 61; i365 += 5) {
-        output += '<block type="draw_move" ' + ((i365 == 25) ? 'x="300" y="100"' : '') + ' inline="false" editable="false" disabled="true"><title name="DIR">moveForward</title><value name="VALUE"><block type="math_number" disabled="true"><title name="NUM">' + soy.$$escapeHtml(i365) + '</title></block></value><next><block type="draw_turn" inline="false" editable="false" disabled="true"><title name="DIR">turnRight</title><value name="VALUE"><block type="math_number" disabled="true"><title name="NUM">90</title></block></value><next>';
+      for (var i395 = 25; i395 < 61; i395 += 5) {
+        output += '<block type="draw_move" ' + ((i395 == 25) ? 'x="300" y="100"' : '') + ' inline="false" editable="false" disabled="true"><title name="DIR">moveForward</title><value name="VALUE"><block type="math_number" disabled="true"><title name="NUM">' + soy.$$escapeHtml(i395) + '</title></block></value><next><block type="draw_turn" inline="false" editable="false" disabled="true"><title name="DIR">turnRight</title><value name="VALUE"><block type="math_number" disabled="true"><title name="NUM">90</title></block></value><next>';
       }
-      for (var i373 = 5; i373 < 25; i373 += 5) {
+      for (var i403 = 5; i403 < 25; i403 += 5) {
         output += '</block></next></block></next>';
       }
     } else if (opt_ijData.level == 8 || opt_ijData.level == 9) {
@@ -257,103 +260,37 @@ turtlepage.showInstructions = function(opt_data, opt_ignored, opt_ijData) {
 
 
 turtlepage.start = function(opt_data, opt_ignored, opt_ijData) {
-  var output = turtlepage.messages(null, null, opt_ijData) + turtlepage.startBlocks(null, null, opt_ijData) + '<script type="text/javascript" src="../blockly_compressed.js"><\/script><script type="text/javascript" src="../javascript_compressed.js"><\/script><script type="text/javascript" src="../' + soy.$$escapeHtml(opt_ijData.langSrc) + '"><\/script><script type="text/javascript" src="blocks.js"><\/script>';
-  if (opt_ijData.reinf) {
-    output += turtlepage.showInterstitials(null, null, opt_ijData);
-  } else {
-    output += '<script type="text/javascript" src="../slider.js"><\/script><script type="text/javascript" src="answers.js"><\/script><table ' + apps.menu({menu: opt_ijData.menu}, null, opt_ijData) + ' width="100%" style="padding-top: 1em;"><tr><td><h1><span id="title"><a href="https://sites.google.com/site/computersciencefirst/">CS First</a> : ';
-    switch (opt_ijData.page) {
-      case 1:
-        output += 'Turtle 1';
-        break;
-      case 2:
-        output += 'Turtle 2';
-        break;
-      case 3:
-        output += 'Turtle 3';
-        break;
-    }
-    output += '</span> &nbsp; ';
-    for (var i574 = 1; i574 < 11; i574++) {
-      output += ' ' + ((i574 == opt_ijData.level) ? (i574 > 9) ? '<span class="selected doubleDigit tab">' + soy.$$escapeHtml(i574) + '</span>' : '<span class="selected tab">' + soy.$$escapeHtml(i574) + '</span>' : (i574 < opt_ijData.level) ? '<a class="tab previous" href="?lang=' + soy.$$escapeHtml(opt_ijData.lang) + '&page=' + soy.$$escapeHtml(opt_ijData.page) + '&level=' + soy.$$escapeHtml(i574) + '">' + soy.$$escapeHtml(i574) + '</a>' : '<a class="tab" href="?lang=' + soy.$$escapeHtml(opt_ijData.lang) + '&page=' + soy.$$escapeHtml(opt_ijData.page) + '&level=' + soy.$$escapeHtml(i574) + '">' + soy.$$escapeHtml(i574) + '</a>');
-    }
-    output += '</h1></td><td class="farSide"></td></tr></table><div id="bubble"><div id="prompt">' + turtlepage.showInstructions(null, null, opt_ijData) + '</div></div><div id="blockCount"></div><div id="visualization"><canvas id="scratch" width="400" height="400" style="display: none"></canvas><canvas id="answer" width="400" height="400" style="display: none"></canvas><canvas id="images" width="400" height="400" style="display: none"></canvas><canvas id="display" width="400" height="400"></canvas></div><table style="padding-top: 1em;" width=400><tr><td style="width: 190px; text-align: center"><svg id="slider" xmlns="http://www.w3.org/2000/svg" xmlns:svg="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" width="150" height="50"><!-- Slow icon. --><clipPath id="slowClipPath"><rect width=26 height=12 x=5 y=14 /></clipPath><image xlink:href="icons.png" height=42 width=84 x=-21 y=-10 clip-path="url(#slowClipPath)" /><!-- Fast icon. --><clipPath id="fastClipPath"><rect width=26 height=16 x=120 y=10 /></clipPath><image xlink:href="icons.png" height=42 width=84 x=120 y=-11 clip-path="url(#fastClipPath)" /></svg></td><td style="width: 15px;"><img id="spinner" style="visibility: hidden;" src="loading.gif" height=15 width=15></td><td style="width: 190px; text-align: center"><button id="runButton" class="launch" onclick="Turtle.runButtonClick();"><img src="../media/1x1.gif" class="run icon21">Run</button><button id="resetButton" class="launch" onclick="BlocklyApps.resetButtonClick();" style="display: none"><img src="../media/1x1.gif" class="stop icon21">Reset</button></td></tr></table><div id="toolbarDiv"><button title="See generated JavaScript code. " onclick="BlocklyApps.showCode(this);"><img src=\'../media/1x1.gif\' class="code icon21"></button><button id="linkButton" title="See generated JavaScript code. " onclick="BlocklyStorage.link();"><img src=\'../media/1x1.gif\' class="link icon21"></button></div>' + turtlepage.toolbox(null, null, opt_ijData) + '<div id="blockly"></div>';
+  var output = turtlepage.messages(null, null, opt_ijData) + turtlepage.startBlocks(null, null, opt_ijData) + '<script type="text/javascript" src="../blockly_compressed.js"><\/script><script type="text/javascript" src="../javascript_compressed.js"><\/script><script type="text/javascript" src="../' + soy.$$escapeHtml(opt_ijData.langSrc) + '"><\/script><script type="text/javascript" src="blocks.js"><\/script><script type="text/javascript" src="../slider.js"><\/script><script type="text/javascript" src="answers.js"><\/script><table width="100%" ' + apps.menu({menu: opt_ijData.menu}, null, opt_ijData) + ' style="border-bottom: 1px solid #DBDBDB;"><tr><td><h1><span id="title"><a href="https://sites.google.com/site/computersciencefirst/">CS First</a> : ';
+  switch (opt_ijData.page) {
+    case 1:
+      output += 'Turtle 1';
+      break;
+    case 2:
+      output += 'Turtle 2';
+      break;
+    case 3:
+      output += 'Turtle 3';
+      break;
   }
-  output += turtlepage.feedback(null, null, opt_ijData) + '<div id="shadow"></div>' + apps.dialog(null, null, opt_ijData) + apps.codeDialog(null, null, opt_ijData) + apps.storageDialog(null, null, opt_ijData);
+  output += '</span> &nbsp; ';
+  for (var i599 = 1; i599 < 11; i599++) {
+    output += ' ' + ((i599 == opt_ijData.level) ? (i599 > 9) ? '<span class="selected doubleDigit tab">' + soy.$$escapeHtml(i599) + '</span>' : '<span class="selected tab">' + soy.$$escapeHtml(i599) + '</span>' : (i599 < opt_ijData.level) ? '<a class="tab previous" href="?lang=' + soy.$$escapeHtml(opt_ijData.lang) + '&page=' + soy.$$escapeHtml(opt_ijData.page) + '&level=' + soy.$$escapeHtml(i599) + '">' + soy.$$escapeHtml(i599) + '</a>' : '<a class="tab" href="?lang=' + soy.$$escapeHtml(opt_ijData.lang) + '&page=' + soy.$$escapeHtml(opt_ijData.page) + '&level=' + soy.$$escapeHtml(i599) + '">' + soy.$$escapeHtml(i599) + '</a>');
+  }
+  output += '</h1></td><td class="farSide"><button id="helpButton" onclick="BlocklyApps.showHelp(true, ' + soy.$$escapeHtml(opt_ijData.level) + ', false);">Help</button></td></tr></table><div id="bubble"><div id="prompt">' + turtlepage.showInstructions(null, null, opt_ijData) + '</div></div><div id="blockCount"></div><div id="visualization"><canvas id="scratch" width="400" height="400" style="display: none"></canvas><canvas id="answer" width="400" height="400" style="display: none"></canvas><canvas id="images" width="400" height="400" style="display: none"></canvas><canvas id="display" width="400" height="400"></canvas></div><table style="padding-top: 1em;" width=400><tr><td style="width: 190px; text-align: center"><svg id="slider" xmlns="http://www.w3.org/2000/svg" xmlns:svg="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" width="150" height="50"><!-- Slow icon. --><clipPath id="slowClipPath"><rect width=26 height=12 x=5 y=14 /></clipPath><image xlink:href="icons.png" height=42 width=84 x=-21 y=-10 clip-path="url(#slowClipPath)" /><!-- Fast icon. --><clipPath id="fastClipPath"><rect width=26 height=16 x=120 y=10 /></clipPath><image xlink:href="icons.png" height=42 width=84 x=120 y=-11 clip-path="url(#fastClipPath)" /></svg></td><td style="width: 15px;"><img id="spinner" style="visibility: hidden;" src="loading.gif" height=15 width=15></td><td style="width: 190px; text-align: center"><button id="runButton" class="launch" onclick="Turtle.runButtonClick();"><img src="../media/1x1.gif" class="run icon21">Run</button><button id="resetButton" class="launch" onclick="BlocklyApps.resetButtonClick();" style="display: none"><img src="../media/1x1.gif" class="stop icon21">Reset</button></td></tr></table><div id="toolbarDiv"><button title="See generated JavaScript code. " onclick="BlocklyApps.showCode(this);"><img src=\'../media/1x1.gif\' class="code icon21"></button><button id="linkButton" title="See generated JavaScript code. " onclick="BlocklyStorage.link();"><img src=\'../media/1x1.gif\' class="link icon21"></button></div>' + turtlepage.toolbox(null, null, opt_ijData) + '<div id="blockly"></div>' + turtlepage.feedback(null, null, opt_ijData);
   return output;
 };
 
 
 turtlepage.feedback = function(opt_data, opt_ignored, opt_ijData) {
-  var output = '<div id="levelFeedback" class="dialogHiddenContent"><div style="padding-bottom: 0.7ex;"><br><ul id="levelFeedbackText"><img class="stars feedback" id="star1" src="../star1.png"><img class="stars feedback" id="star2" src="../star2.png"><img class="stars feedback" id="star3" src="../star3.png"><span id="hintTitle" class="feedback" style="display: none; margin-left: -30px">Hint:</span><li id="nextLevelMsg" style="display: none; margin-left: -40px;">Congratulations! You have completed this level.</li><li id="finalLevelMsg" style="display: none; margin-left: -40px;">Congratulations! You have solved the final level.</li><li id="moveForwardError1" class="feedback" style="display: none">You\'ll need to move me forward in order to draw anything.</li><li id="moveForwardError2" class="feedback" style="display: none">You need to use the "move forward" block.</li><li id="moveError1" class="feedback" style="display: none">You\'ll need to move me in order to draw anything.</li><li id="moveError2" class="feedback" style="display: none">You need to use the "move" block.</li><li id="turnRightError1" class="feedback" style="display: none">I\'ll need to turn in order to draw this picture.</li><li id="turnRightError2" class="feedback" style="display: none">I\'ll need to turn right by 90 degrees to draw this picture.</li><li id="turnError1" class="feedback" style="display: none">I\'ll need to turn in order to draw this picture.</li><li id="turnError2" class="feedback" style="display: none">Use a "turn" block.</li><li id="repeatError1" class="feedback" style="display: none">The "repeat" block saves you from having to repeat yourself.</li><li id="repeatError2" class="feedback" style="display: none">You need to use a "repeat" block.</li><li id="colour_randomError1" class="feedback" style="display: none">The "set color" and "random color" blocks give you random (unpredictable) colors.</li><li id="colour_randomError2" class="feedback" style="display: none">Pull out the "set color" block that contains a "random color" block, and put it in the appropriate place.</li><li id="penColourError1" class="feedback" style="display: none">To change the color I draw, use the "set color" block.</li><li id="penColourError2" class="feedback" style="display: none">Each "set color" block sets the color of everything I draw after it until the next "set color" block.</li><li id="forError1" class="feedback" style="display: none">';
-  if (opt_ijData.page == 2) {
-    switch (opt_ijData.level) {
-      case 6:
-        output += 'Reload this level to get the "count with" block back.';
-        break;
-      case 7:
-        output += 'You need a "count with" block to give the counter values from 25 through 60.';
-        break;
-      case 9:
-        output += 'You need a "count with" block to give the counter values from 110 down to 70.';
-        break;
-    }
-  } else if (opt_ijData.page == 3 && opt_ijData.level == 9) {
-    output += 'You need to use a "count with" block on this level.';
-  }
-  output += '</li><li id="forError2" class="feedback" style="display: none">';
-  if (opt_ijData.page == 2) {
-    switch (opt_ijData.level) {
-      case 6:
-        output += 'Reload this level to get the "count with" block back.';
-        break;
-      case 7:
-        output += 'Open the Loops category, and drag out a "count with" block.';
-        break;
-      case 9:
-        output += 'Open the Loops category, and drag out a "count with" block. Have it count from 110 to 70 by 10.';
-        break;
-    }
-  } else if (opt_ijData.page == 3 && opt_ijData.level == 9) {
-    output += 'You need to open the "Loops" drawer and pull out a "count with" block to count from 50 to 150 by 50s.';
-  }
-  output += '</li><li id="get_counterError1" class="feedback" style="display: none">';
-  if (opt_ijData.page == 2) {
-    switch (opt_ijData.level) {
-      case 6:
-        output += 'You need the "counter" block to draw squares of different lengths.';
-        break;
-      case 7:
-        output += 'You need the "counter" block to draw lines of different lengths.';
-        break;
-      case 9:
-        output += 'You need the "counter" block to draw snowmen of different heights.';
-        break;
-    }
-  } else if (opt_ijData.page == 3) {
-    output += 'You need the "counter" block to draw houses of different heights.';
-  }
-  output += '</li><li id="get_counterError2" class="feedback" style="display: none">';
-  if (opt_ijData.page == 2) {
-    switch (opt_ijData.level) {
-      case 6:
-        output += 'From the "Variables" category, get the "counter" block, and use it as the "length" input to "draw a square".';
-        break;
-      case 7:
-        output += 'From the "Variables" category, get the "counter" block, and use it as the input to the "move forward" block.';
-        break;
-      case 9:
-        output += 'From the "Variables" category, get the "counter" block, and use it as the input to the "draw a snowman" block.';
-        break;
-    }
-  } else if (opt_ijData.page == 3) {
-    output += 'From the "Variables" category, get the "counter" block, and use it as the input to the "draw a house" block.';
-  }
-  output += '</li><li id="draw_a_snowmanError1" class="feedback" style="display: none">You need to use the "draw a snowman" block.</li><li id="draw_a_snowmanError2" class="feedback" style="display: none">You can get the "draw a snowman" block from the "Functions" category.</li><li id="jumpError1" class="feedback" style="display: none">The "jump forward" block moves the turtle without drawing anything.</li><li id="jumpError2" class="feedback" style="display: none">Open the Actions category to Get the "jump forward" block, and use it to move the turtle between each snowman.</li><li id="draw_a_squareError1" class="feedback" style="display: none">In this tutorial, to draw a square, use the new "draw a square" function.</li><li id="draw_a_squareError2" class="feedback" style="display: none">Open the Functions category and get a "draw a square" block.</li><li id="callDrawASquareError1" class="feedback" style="display:none">The shown code tells the turtle <em>how</em> to draw a square but not to draw a square.  You need to pull out a "draw a square" block from the Functions category.</li><li id="callDrawASquareError2" class="feedback" style="display:none">From the current code, the turtle doesn\'t know that you want to draw a square. Pull out a "draw a square" block from the Functions category.</li><li id="callDrawATriangleError1" class="feedback" style="display:none">You need a "draw a triangle" block to let the turtle know you want it to draw a triangle.</li><li id="callDrawATriangleError2" class="feedback" style="display:none">To use your "draw a triangle" function, open the "Functions" category and pull out a "draw a triangle" block.</li><li id="defineDrawATriangleError1" class="feedback" style="display: none">Oops.  It looks like you no longer have a block to tell the turtle how to draw a triangle.  Try reloading the page.</li><li id="defineDrawATriangleError2" class="feedback" style="display: none">Reload the page to get back the "to draw a triangle" block.</li><li id="defineAnythingError1" class="feedback" style="display: none">You need to create a function.</li><li id="defineAnythingError2" class="feedback" style="display: none">Open the Functions category, and pull out a "do something" block, and fill it in.</li><li id="defineDrawAHouseError1" class="feedback" style="display: none">' + ((opt_ijData.page == 3) ? (opt_ijData.level == 5) ? 'The function you create must be named "draw a house".' : (opt_ijData.level == 7) ? 'Oops.  You seem to have deleted or renamed the provided "draw a house" function.  Reload the page to get it back.' : '' : '') + '</li>' + ((opt_ijData.page == 3 && opt_ijData.level == 5) ? '<li id="defineDrawAHouseError2" class="feedback" style="display: none">Put "draw a house" in the light purple area of the "to do something" block you dragged out.</li>' : '') + '<li id="callDrawAHouseError1" class="feedback" style="display:none">Now that you created a "draw a house" function, you need to call it.</li><li id="callDrawAHouseError2" class="feedback" style="display:none">Open the Functions category, and pull out a "draw a house" block.</li><li id="callDrawAHouseWithParameterError1" class="feedback" style="display:none">You need to provide an input when you use the "draw a house" block.</li><li id="callDrawAHouseWithParameterError2" class="feedback" style="display:none">Open the "Math" block, pull out a number block, and add the block to your "draw a house" block.  Don\'t forget to change the value from 0.</li><li id="defineDrawATriangleWithParameterError1" class="feedback" style="display: none">You need to add a "length" input to your function definition. The first step is clicking on the blue "+" next to "to draw a triangle".</li><li id="defineDrawATriangleWithParameterError2" class="feedback" style="display: none">Your "draw a triangle" function needs a "length" input. Click on the blue "+" next to "to draw a triangle", drag in an input, and name it "length".</li><li id="defineDrawATriangleWithLengthParameterError1" class="feedback" style="display: none">You added an input to "draw a triangle".  Now you need to change its name to "length".</li><li id="defineDrawATriangleWithLengthParameterError2" class="feedback" style="display: none">Click on the blue "+" next to "to draw a triangle" and change the name of the input to "length".</li><li id="defineDrawAHouseWithParameterError1" class="feedback" style="display: none">You need to add a "height" input to your function definition. The first step is clicking on the blue "+" next to "to draw a house".</li><li id="defineDrawAHouseWithParameterError2" class="feedback" style="display: none">Your "draw a house" function needs a "height" input. Click on the blue "+" next to "to draw a house", drag in an input, and name it "height".</li><li id="defineDrawAHouseWithHeightParameterError1" class="feedback" style="display: none">You added an input to "draw a house".  Now you need to change its name to "height".</li><li id="defineDrawAHouseWithHeightParameterError2" class="feedback" style="display: none">Click on the blue "+" next to "to draw a house" and change the name of the input to "height".</li><li id="moveByLengthError1" class="feedback" style="display: none">The amount to move forward should depend on the input "length".</li><li id="moveByLengthError2" class="feedback" style="display: none">Open the Variables category, and drag a "length" block into the "move forward" block.</li><li id="callDrawATriangleWithNumericParameterError1" class="feedback" style="display: none">When using the "draw a triangle" block, you need to provide an input that says how big the triangle should be.</li><li id="callDrawATriangleWithNumericParameterError2" class="feedback" style="display: none">Open the Math category, and pull out a number block.  Change its value and plug it into the "draw a triangle" block to say how big the first triangle should be.</li><li id="callDrawASquareWithVariableParameterError1" class="feedback" style="display: none">You need to tell "draw a square" that its length should be the height of the house.</li><li id="callDrawASquareWithVariableParameterError2" class="feedback" style="display: none">The "length" input to "draw a square" should be the "height" variable.</li><li id="callDrawATriangleWithVariableParameterError1" class="feedback" style="display: none">The "length" input to the "draw a triangle" block within "to draw a house" should depend on the height of the house.</li><li id="callDrawATriangleWithNumericParameterError2" class="feedback" style="display: none">The "length" input to "draw a triangle" should be the "height" variable.</li><li id="colourFeedback" class="feedback" style="display: none"></li><li id="emptyBlocksError" class="feedback" style="display: none">Remove unused empty blocks.</li><li id="tooFewBlocksError" class="feedback" style="display: none">You are using all of the necessary types of blocks, but you\'ll need more blocks to complete this level.</li><li id="tooManyBlocksError" class="feedback" style="display: none"></li><li id="levelIncompleteError" class="feedback" style="display: none">You are using all of the necessary types of blocks but not in the right way.</li></div><div style="text-align: center"><button id="tryAgainButton" class="launch" style="display: none" onclick="BlocklyApps.displayInterstitialOrCloseModalDialog(false);">Try again</button><button id="continueButton" class="launch" style="display: none" onclick="BlocklyApps.displayInterstitialOrCloseModalDialog(true, ' + soy.$$escapeHtml(opt_ijData.level) + ', ' + soy.$$escapeHtml(opt_ijData.skin) + ');">Continue</button></div></div>';
-  return output;
+  return apps.dialog(null, null, opt_ijData) + apps.codeDialog(null, null, opt_ijData) + apps.storageDialog(null, null, opt_ijData) + '<div id="help" class="dialogHiddenContent"><div style="padding-bottom: 0.7ex;"><br><img class="stars feedback" id="star1" src="../star1.png"><img class="stars feedback" id="star2" src="../star2.png"><img class="stars feedback" id="star3" src="../star3.png"><ul id="levelFeedbackText"><span id="hintTitle" class="feedback" style="display: none; margin-left: -30px">Hints:</span><li id="nextLevelMsg" style="display: none; margin-left: -40px;">Congratulations! You have completed this level.</li><li id="finalLevelMsg" style="display: none; margin-left: -40px;">Congratulations! You have solved the final level.</li><li id="emptyBlocksError" class="feedback" style="display: none">Remove empty blocks.</li><li id="missingBlocksError" class="feedback" style="display: none">Try one or more of the blocks below to solve this level.</li><li id="tooManyBlocksError" class="feedback" style="display: none">This level can be solved with <span id="idealNumberMessage"></span> blocks.</li><li id="tooFewBlocksError" class="feedback" style="display: none">You are using all of the necessary types of blocks, but try using more  of these types of blocks to complete this level.</li><li id="levelIncompleteError" class="feedback" style="display: none">You are using all of the necessary types of blocks but not in the right way.</li></ul><iframe id="feedbackBlocks" class="feedback" style="margin-left: 50px; height: 80px; width: 500px; border: none; display: none;" src=""></iframe>' + turtlepage.showInterstitials(null, null, opt_ijData) + '</div><div id="returnToLevelButton" style="display: none;">' + apps.ok(null, null, opt_ijData) + '</div><div style="text-align: center"><button id="tryAgainButton" class="launch" style="display: none" onclick="BlocklyApps.goToNextLevelOrReset(false);">Try again</button><button id="continueButton" class="launch" style="display: none" onclick="BlocklyApps.goToNextLevelOrReset(true);">Continue</button></div></div>';
 };
 
 
 turtlepage.toolbox = function(opt_data, opt_ignored, opt_ijData) {
   return '<xml id="toolbox" style="display: none;">' + ((opt_ijData.page == 1) ? '<block type="draw_move_inline"></block>"><block type="draw_turn_inline' + ((opt_ijData.level <= 8) ? '_restricted' : '') + '"><title name="VALUE">90</title></block>' + ((opt_ijData.level >= 2) ? '<block type="draw_colour"><value name="COLOUR"><block type="colour_picker"></block></value></block>' : '') + ((opt_ijData.level >= 4) ? '<block type="draw_colour"><value name="COLOUR"><block type="colour_random"></block></value></block>' : '') + ((opt_ijData.level >= 3) ? '<block type="controls_repeat"><title name="TIMES">4</title></block>' : '') + ((opt_ijData.level == 10) ? '<block type="draw_width" inline="false" x="158" y="67"><value name="WIDTH"><block type="math_number"><title name="NUM">1</title></block></value></block>' : '') : (opt_ijData.page == 2 || opt_ijData.page == 3) ? '<category name="Actions"><block type="draw_move"><value name="VALUE"><block type="math_number"><title name="NUM">100</title></block></value></block>' + ((opt_ijData.page == 2 && opt_ijData.level >= 8) ? '<block type="jump"><value name="VALUE"><block type="math_number"><title name="NUM">50</title></block></value></block>' : '') + '<block type="draw_turn"><value name="VALUE"><block type="math_number"><title name="NUM">90</title></block></value></block></category><category name="Color"><block type="draw_colour"><value name="COLOUR"><block type="colour_picker"></block></value></block><block type="draw_colour"><value name="COLOUR"><block type="colour_random"></block></value></block></category>' + ((opt_ijData.page == 2 && opt_ijData.level >= 2) ? '<category name="Functions"><block type="draw_a_square" inline="true"><value name="VALUE"><block type="math_number"><title name="NUM">100</title></block></value></block>' + ((opt_ijData.level >= 8) ? '<block type="draw_a_snowman" inline="true"><value name="VALUE"><block type="math_number"><title name="NUM">100</title></block></value></block>' : '') + '</category>' : (opt_ijData.page == 3) ? (opt_ijData.level == 1) ? '<category name="Functions"><block type="procedures_callnoreturn"><mutation name="draw a circle"></mutation></block><block type="procedures_callnoreturn"><mutation name="draw a square"></mutation></block></category>' : '<category name="Functions" custom="PROCEDURE"></category>' : '') + '<category name="Loops">' + ((opt_ijData.page == 2 && opt_ijData.level >= 5 || opt_ijData.page == 3 && opt_ijData.level >= 9) ? '<block type="controls_for_counter"><value name="FROM"><block type="math_number"><title name="NUM">1</title></block></value><value name="TO"><block type="math_number"><title name="NUM">100</title></block></value><value name="BY"><block type="math_number"><title name="NUM">10</title></block></value></block>' : '') + '<block type="controls_repeat"><title name="TIMES">4</title></block></category><category name="Math"><block type="math_number"></block>' + ((opt_ijData.level == 10) ? '<block type="math_arithmetic" inline="true"></block><block type="math_random_int"><value name="FROM"><block type="math_number"><title name="NUM">1</title></block></value><value name="TO"><block type="math_number"><title name="NUM">100</title></block></value></block><block type="math_random_float"></block>' : '') + '</category>' + ((opt_ijData.page == 2 && opt_ijData.level >= 6) ? '<category name="Variables"><block type="variables_get_counter"></block></category>' : (opt_ijData.page == 3 && opt_ijData.level >= 6) ? '<category name="Variables">' + ((opt_ijData.level >= 9) ? '<block type="variables_get_counter"></block>' : '') + ((opt_ijData.level >= 7) ? '<block type="variables_get_height"></block>' : '') + ((opt_ijData.level == 6 || opt_ijData.level == 10) ? '<block type="variables_get_length"></block>' : '') + '</category>' : '') : '') + '</xml>';
+};
+
+
+turtlepage.readonly = function(opt_data, opt_ignored, opt_ijData) {
+  return turtlepage.messages(null, null, opt_ijData) + '<script type="text/javascript" src="../blockly_compressed.js"><\/script><script type="text/javascript" src="../' + soy.$$escapeHtml(opt_ijData.langSrc) + '"><\/script><script type="text/javascript" src="blocks.js"><\/script><div id="blockly"></div>';
 };

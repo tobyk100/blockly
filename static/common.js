@@ -197,8 +197,8 @@ BlocklyApps.initReadonly = function() {
 
   // Add the blocks.
   var xml = BlocklyApps.getStringParamFromUrl('xml', '');
-  xml = Blockly.Xml.textToDom('<xml>' + xml + '</xml>');
-  Blockly.Xml.domToWorkspace(Blockly.mainWorkspace, xml);
+  var parsed_xml = Blockly.Xml.textToDom('<xml>' + xml + '</xml>');
+  Blockly.Xml.domToWorkspace(Blockly.mainWorkspace, parsed_xml);
 };
 
 /**
@@ -849,7 +849,6 @@ BlocklyApps.updateCapacity = function() {
  * Display feedback based on test results.
  */
 BlocklyApps.displayFeedback = function() {
-  BlocklyApps.hideFeedback();
   var feedbackType = BlocklyApps.getTestResults();
   BlocklyApps.setErrorFeedback(feedbackType);
   document.getElementById('helpButton').removeAttribute('disabled');
@@ -915,8 +914,7 @@ BlocklyApps.getMissingRequiredBlocks = function() {
         }
       } else if (typeof test == 'function') {
         if (!blocks.some(test)) {
-          // Remove trailing underscore if present.
-          missingBlocks.push(test.name.replace(/_$/, ''));
+          missingBlocks.push(BlocklyApps.REQUIRED_BLOCKS[i]);
         }
       }
     }
@@ -1010,7 +1008,7 @@ BlocklyApps.setErrorFeedback = function(feedbackType) {
     case BlocklyApps.TestResults.OTHER_1_STAR_FAIL:
       BlocklyApps.displayStars(1);
       break;
-    // One star for failing to use required blocks.
+    // One star for failing to use required blocks but only if level completed.
     case BlocklyApps.TestResults.MISSING_BLOCK_FAIL:
       // For each error type in the array, display the corresponding error.
       var missingBlocks = BlocklyApps.getMissingRequiredBlocks();
@@ -1022,7 +1020,9 @@ BlocklyApps.setErrorFeedback = function(feedbackType) {
             BlocklyApps.generateXMLForBlocks(missingBlocks);
         document.getElementById('feedbackBlocks').style.display = 'block';
       }
-      BlocklyApps.displayStars(1);
+      if (BlocklyApps.levelComplete) {
+	  BlocklyApps.displayStars(1);
+      }
       break;
 
     // Two stars for using too many blocks.
@@ -1155,10 +1155,8 @@ BlocklyApps.showReinfQuizFeedback = function(reinfLevel, identifier) {
  * Otherwise close the dialog and reset so the user can try again.
  * @param {boolean} gotoNext true to continue to next level,
  *     false to try level again.
- * @param {number} level The current level.
- * @param {number} skinId The maximum level.
  */
-BlocklyApps.goToNextLevelOrReset = function(gotoNext, level, skinId) {
+BlocklyApps.goToNextLevelOrReset = function(gotoNext) {
   if (gotoNext) {
     var interstitial = document.getElementById('interstitial').style.display;
     if (interstitial == 'none' &&
@@ -1316,10 +1314,12 @@ BlocklyApps.showHelp = function(animate, feedbackType) {
     right: '25%',
     top: '3em'
   };
-  var reinfMSG = document.getElementById('reinfMsg').innerHTML.match(/\S/);
-  var interstitial = document.getElementById('interstitial').style.display;
-  if (reinfMSG && interstitial == 'none') {
-    BlocklyApps.showInterstitial();
+  if (document.getElementById('reinfMsg')) {
+    var reinfMSG = document.getElementById('reinfMsg').innerHTML.match(/\S/);
+    var interstitial = document.getElementById('interstitial').style.display;
+    if (reinfMSG && interstitial == 'none') {
+      BlocklyApps.showInterstitial();
+    }
   }
   BlocklyApps.displayCloseDialogButtons(feedbackType);
   BlocklyApps.showDialog(help, button, animate, true, style,
@@ -1358,8 +1358,7 @@ BlocklyApps.setTextForElement = function(id, text) {
 };
 
 /**
- * Creates the XML for blocks to be displayed in a read only frame.
- * Each block has an x coordinate blockX * i.
+ * Creates the XML for blocks to be displayed in a read-only frame.
  * @param {Array} blockArray An array of blocks to display (with optional args).
  * @return {string} blockXMLString The generated string of XML.
  */
@@ -1383,6 +1382,10 @@ BlocklyApps.generateXMLForBlocks = function(blockArray) {
           blockXMLString += '%3Ctitle%20name%3D%22' + name +
              '%22%3E' + block['params'][name] + '%3C%2Ftitle%3E';
         }
+      }
+      if (block['value']) {
+        blockXMLString += '<value name="' + block['value'][0] +
+	    '">' + block['value'][1] + '</value>';
       }
       blockXMLString += '%3C%2Fblock%3E';
       if ((i + 1) % blocksPerLine == 0) {

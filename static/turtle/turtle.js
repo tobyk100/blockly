@@ -162,8 +162,18 @@ Turtle.setBlocklyAppConstants = function() {
     return block.type == 'variables_get_counter';
   }
 
+  var MOVE_INLINE = {test: 'moveForward', type: 'draw_move_inline'};
+  var TURN_INLINE = {test: 'turnRight', type: 'draw_turn_inline'};
+  var SET_COLOUR_PICKER = {test: 'penColour(#',
+    type: 'draw_colour',
+    value: ['COLOUR', '<block type="colour_picker"></block>']};
+  var SET_COLOUR_RANDOM = {test: 'penColour(colourRandom',
+    type: 'draw_colour',
+    value: ['COLOUR', '<block type="colour_random"></block>']};
+
   /**
    * Information about level-specific requirements.  Each entry consists of:
+   * - type of interstitial, if any.
    * - the ideal number of blocks.
    * - an array of required blocks.
    * - required colours.
@@ -174,23 +184,36 @@ Turtle.setBlocklyAppConstants = function() {
     // Page 1.
     [undefined,  // Level 0.
      // Level 1: El.
-     [3, ['moveForward', 'turnRight']],
+     [BlocklyApps.InterTypes.NONE, 3, [MOVE_INLINE, TURN_INLINE]],
      // Level 2: Square (without repeat).
-     [7, ['penColour', 'turn', 'move'], 4],
+     [BlocklyApps.InterTypes.PRE,
+      7, [MOVE_INLINE, TURN_INLINE, SET_COLOUR_PICKER], 4],
      // Level 3: Square (with repeat).
-     [3, ['turn', 'move', repeat_]],
+     [BlocklyApps.InterTypes.PRE,
+      3,
+      [MOVE_INLINE, TURN_INLINE,
+       {test: repeat_, type: 'controls_repeat', params: {'TIMES': '4'}}]], 
      // Level 4: Triangle.
-     [3, ['turn', 'move'], 3],
+     [BlocklyApps.InterTypes.PRE, 3, [TURN_INLINE, MOVE_INLINE], 3],
      // Level 5: Envelope.
-     [6, ['turn', 'move']],
+     [BlocklyApps.InterTypes.PRE, 6, [TURN_INLINE, MOVE_INLINE]],
      // Level 6: triangle and square.
-     [6, ['turn', 'move']],
+     [BlocklyApps.InterTypes.PRE, 6, [TURN_INLINE, MOVE_INLINE]],
      // Level 7: glasses.
-     [8, ['penColour', repeat_, 'turn', 'move'], Turtle.Colours.GREEN],
+     [BlocklyApps.InterTypes.NONE,
+      8,
+      [TURN_INLINE, MOVE_INLINE, SET_COLOUR_PICKER],
+      Turtle.Colours.GREEN],
      // Level 8: spikes.
-     [4, ['penColour', 'colour_random', 'move', 'turn'], 8],
+     [BlocklyApps.InterTypes.PRE,
+      4,
+      [MOVE_INLINE, TURN_INLINE, SET_COLOUR_RANDOM],
+      8],
      // Level 9: circle.
-     [3, [repeat_, 'move', 'turn']]],
+     [BlocklyApps.InterTypes.NONE, 3, []],
+     // Level 10: playground.
+     [BlocklyApps.InterTypes.PRE, Infinity, []]],
+
     // Page 2.
     [undefined,  // Level 0.
      // Level 1: Square.
@@ -265,18 +288,15 @@ Turtle.setBlocklyAppConstants = function() {
   BlocklyApps.PAGE = BlocklyApps.getNumberParamFromUrl('page', 1, 3);
   BlocklyApps.LEVEL =
       BlocklyApps.getNumberParamFromUrl('level', 1, BlocklyApps.MAX_LEVEL);
-  Turtle.REINF =
-      BlocklyApps.getNumberParamFromUrl('reinf', 0, BlocklyApps.MAX_LEVEL);
 
-  if (BlocklyApps.LEVEL != BlocklyApps.MAX_LEVEL &&
-      BLOCK_DATA[BlocklyApps.PAGE]) {
-    BlocklyApps.IDEAL_BLOCK_NUM =
-        BLOCK_DATA[BlocklyApps.PAGE][BlocklyApps.LEVEL][0];
-    BlocklyApps.REQUIRED_BLOCKS =
-        BLOCK_DATA[BlocklyApps.PAGE][BlocklyApps.LEVEL][1];
-    Turtle.REQUIRED_COLOURS =
-        BLOCK_DATA[BlocklyApps.PAGE][BlocklyApps.LEVEL][2];
-  }
+  BlocklyApps.INTERSTITIALS =
+      BLOCK_DATA[BlocklyApps.PAGE][BlocklyApps.LEVEL][0];
+  BlocklyApps.IDEAL_BLOCK_NUM =
+      BLOCK_DATA[BlocklyApps.PAGE][BlocklyApps.LEVEL][1];
+  BlocklyApps.REQUIRED_BLOCKS =
+      BLOCK_DATA[BlocklyApps.PAGE][BlocklyApps.LEVEL][2];
+  Turtle.REQUIRED_COLOURS =
+      BLOCK_DATA[BlocklyApps.PAGE][BlocklyApps.LEVEL][3];
 };
 Turtle.setBlocklyAppConstants();
 
@@ -406,9 +426,19 @@ Turtle.init = function() {
 
   // Lazy-load the syntax-highlighting.
   window.setTimeout(BlocklyApps.importPrettify, 1);
+
+  if (BlocklyApps.INTERSTITIALS & BlocklyApps.InterTypes.PRE) {
+    BlocklyApps.showHelp(false, undefined);
+  } else {
+    document.getElementById('helpButton').setAttribute('disabled', 'disabled');
+  }
 };
 
-window.addEventListener('load', Turtle.init);
+if (window.location.pathname.match(/readonly.html$/)) {
+  window.addEventListener('load', BlocklyApps.initReadonly);
+} else {
+  window.addEventListener('load', Turtle.init);
+}
 
 /**
  * Add count of blocks used, not counting colour blocks.
@@ -836,7 +866,6 @@ Turtle.checkAnswer = function() {
   }
   BlocklyApps.levelComplete = Turtle.isCorrect(delta);
   var feedbackType = BlocklyApps.getTestResults();
-  BlocklyApps.setErrorFeedback(feedbackType);
 
   BlocklyApps.report('turtle', BlocklyApps.LEVEL_ID, BlocklyApps.LEVEL,
                      BlocklyApps.levelComplete,
@@ -884,7 +913,7 @@ Turtle.checkAnswer = function() {
     }
   }
 
-  BlocklyApps.showDialogAndFeedback(feedbackType);
+  BlocklyApps.displayFeedback(feedbackType);
 };
 
 /**

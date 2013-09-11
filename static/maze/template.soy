@@ -131,10 +131,7 @@
         <h1>
           <span id="title">
             <a href="https://sites.google.com/site/computersciencefirst/">
-              {msg meaning="Apps.projectMessage" desc="The project name. 'CS'
-              is an abbreviation for Computer Science. 'First' refers to the
-              project's goal of introducing students to programming as
-              early as possible in their life."}CS First{/msg}</a>
+              {msg meaning="Apps.projectMessage" desc="IBID"}CS First{/msg}</a>
             {sp}:{sp}
             {msg meaning="Maze.maze" desc="brief title - Specifies that this is Blockly's '''Maze''' tutorial."}
               Maze
@@ -160,13 +157,10 @@
         </h1>
       </td>
       <td class="farSide">
-        <select id="languageMenu" onchange="BlocklyApps.changeLanguage();"></select>
+//        <select id="languageMenu" onchange="BlocklyApps.changeLanguage();"></select>
         &nbsp;&nbsp;
         <button id="helpButton" onclick="BlocklyApps.showHelp(true, {$ij.level}, false);">
-          {{msg meaning="BlocklyApps.help"
-               desc="The label on a button the user can press for help.\n{lb}{lb}Identical|Help{rb}{rb}"}}
-            Help
-          {{/msg}}
+          {msg meaning="Apps.help" desc="IBID"}Help{/msg}
         </button>
         &nbsp;&nbsp;
         <button id="pegmanButton" onmousedown="Maze.showPegmanMenu();">
@@ -189,42 +183,23 @@
       <img class="stars feedback" id="star2" src="../star2.png">
       <img class="stars feedback" id="star3" src="../star3.png">
       <ul id="levelFeedbackText">
-        <span id="hintTitle" class="feedback" style="display: none; margin-left: -30px">{msg
-          meaning="Maze.hintTitle" desc="title - this indicates to the user that
-          what follows are ways to improve and/or fix their code."}Hint:{/msg}
-        </span>
+        <span id="hintTitle" class="feedback" style="display: none; margin-left: -30px">foo{msg meaning="Apps.hintTitle" desc="IBID"}{/msg}Hints:</span>
         <li id="nextLevelMsg" style="display: none; margin-left: -40px;">{msg
-          meaning="Maze.nextLevel" desc="alert - This is displayed when
-          the user solves the maze, inviting them to precede to the next
-          level of difficulty."}Congratulations! You have completed this
-          level.{/msg}</li>
+          meaning="Apps.nextLevel" desc="IBID"}Congratulations! You have completed this level.{/msg}</li>
         <li id="finalLevelMsg" style="display: none; margin-left: -40px;">{msg
-          meaning="Maze.finalLevelMsg" desc="alert - This is displayed when
+          meaning="Apps.finalLevelMsg" desc="alert - This is displayed when
           the user solves the most difficult level."}Congratulations! You
           have solved the final level.{/msg}</li>
         <li id="emptyBlocksError" class="feedback" style="display: none">
-          {msg meaning="BlocklyApps.emptyBlocksErrorMsg" desc="alert - This
-            error message is displayed when the user has added blocks with
-            nothing nested inside them (e.g. repeat or if blocks)."}Remove
-            empty blocks.{/msg}</li>
+          {msg meaning="Apps.emptyBlocksErrorMsg" desc="IBID"}Remove empty blocks.{/msg}</li>
         <li id="missingBlocksError" class="feedback" style="display: none">
-          {msg meaning="Maze.missingBlocksErrorMsg" desc="TODO"}Try one or more of the blocks below to solve this level.{/msg}</li>
+          {msg meaning="Apps.missingBlocksErrorMsg" desc="IBID"}Try oneo r more of the blocks below to solve this level.{/msg}</li>
         <li id="tooManyBlocksError" class="feedback" style="display: none">
-          {msg meaning="Maze.tooManyBlocksMsg" desc="alert - This is displayed
-            when the user has used more blocks than is necessary."}This level
-            can be solved with <span id="idealNumberMessage"></span> blocks.
-          {/msg}</li>
-        <li id="tooManyBlocksError" class="feedback" style="display: none"></li>
+          {msg meaning="Apps.tooManyBlocksMsg" desc="IBID"}This level can be solved with <span id="idealNumberMessage"></span> blocks.{/msg}</li>
         <li id="tooFewBlocksError" class="feedback" style="display: none">
-          {msg meaning="Maze.tooFewBlocksMsg" desc="alert - The user has not
-            completed the level, is using all of the necessary types of blocks,
-            but needs more of these types of blocks to complete the level."}You
-            are using all of the necessary types of blocks, but try using more
-            of these types of blocks to complete this level.{/msg}</li>
+          {msg meaning="Apps.tooFewBlocksMsg" desc="IBID"}You are using all of the necessary types of blocks, but try using more  of these types of blocks to complete this level.{/msg}</li>
         <li id="levelIncompleteError" class="feedback" style="display: none">
-          {msg meaning="Maze.levelIncompleteError" desc="TODO"}
-            You are using all of the necessary types of blocks but not in
-            the right way.{/msg}</li>
+          {msg meaning="Apps.levelIncompleteError" desc="IBID"}You are using all of the necessary types of blocks but not in the right way.{/msg}</li>
       </ul>  // feedbackText
       <iframe id="feedbackBlocks" class="feedback" style="margin-left: 50px;
         height: 80px; width: 500px; border: none; display: none;" src=""></iframe>
@@ -393,12 +368,12 @@
       <div id="returnToLevelButton" style="display: none;">{call apps.ok /}</div>
       <div style="text-align: center">
         <button id="tryAgainButton" class="launch" style="display: none"
-          onclick="BlocklyApps.goToNextLevelOrReset(false, {$ij.level}, {$ij.skin});">
+          onclick="BlocklyApps.goToNextLevelOrReset(false);">
           {msg meaning="Maze.tryAgain" desc="button - Closes the dialog and
             stays on the current level"}Try again{/msg}
         </button>
         <button id="continueButton" class="launch" style="display: none"
-          onclick="BlocklyApps.goToNextLevelOrReset(true, {$ij.level}, {$ij.skin});">
+          onclick="BlocklyApps.goToNextLevelOrReset(true);">
             {msg meaning="Maze.continue" desc="button - Closes the dialog and
               continues to the next level"}Continue{/msg}
         </button>
