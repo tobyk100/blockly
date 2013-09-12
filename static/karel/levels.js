@@ -14,6 +14,9 @@ var LevelConfig = {
         // Level 1
         {
           'ideal': 5,
+          'scale': {
+            'snapRadius': 2.0
+          },
           'map': [
             [ 1, 1, 1, 1, 1, 1, 1, 1 ],
             [ 1, 1, 1, 1, 1, 1, 1, 1 ],
@@ -158,6 +161,9 @@ var LevelConfig = {
         // Level 5
         {
           'ideal': 5,
+          'scale': {
+            'stepSpeed': 3
+          },
           'map': [
             [ 1, 1, 1, 1, 1, 1, 1, 1 ],
             [ 1, 1, 1, 1, 1, 1, 1, 1 ],
@@ -230,6 +236,9 @@ var LevelConfig = {
         // Level 7
         {
           'ideal': 4,
+          'scale': {
+            'stepSpeed': 3
+          },
           'map': [
             [ 1, 1, 1, 1, 1, 1, 1, 1 ],
             [ 1, 1, 1, 1, 1, 1, 1, 1 ],
@@ -419,6 +428,9 @@ var LevelConfig = {
         // Level 1
         {
           'ideal': null,
+          'scale': {
+            'stepSpeed': 3
+          },
           'map': [
             [ 1, 1, 1, 1, 1, 1, 1, 1 ],
             [ 1, 1, 1, 1, 1, 1, 1, 1 ],
@@ -491,6 +503,9 @@ var LevelConfig = {
         // Level 3
         {
           'ideal': 7,
+          'scale': {
+            'stepSpeed': 3
+          },
           'map': [
             [ 1, 1, 1, 1, 1, 1, 1, 1 ],
             [ 1, 1, 1, 1, 1, 1, 1, 1 ],
@@ -527,6 +542,9 @@ var LevelConfig = {
         // Level 4
         {
           'ideal': 12,
+          'scale': {
+            'stepSpeed': 3
+          },
           'map': [
             [ 1, 1, 1, 1, 1, 1, 1, 1 ],
             [ 1, 1, 1, 1, 1, 1, 1, 1 ],
@@ -671,6 +689,9 @@ var LevelConfig = {
         // Level 8
         {
           'ideal': 12,
+          'scale': {
+            'stepSpeed': 3
+          },
           'map': [
             [ 1, 1, 1, 1, 1, 1, 1, 1 ],
             [ 1, 1, 1, 1, 1, 1, 1, 1 ],
@@ -707,6 +728,9 @@ var LevelConfig = {
         // Level 9
         {
           'ideal': 24,
+          'scale': {
+            'stepSpeed': 3
+          },
           'map': [
             [ 1, 1, 1, 1, 1, 1, 1, 1 ],
             [ 1, 1, 1, 1, 1, 1, 1, 1 ],
@@ -743,6 +767,9 @@ var LevelConfig = {
         // Level 10
         {
           'ideal': 26,
+          'scale': {
+            'stepSpeed': 3
+          },
           'map': [
             [ 1, 1, 1, 1, 1, 1, 1, 1 ],
             [ 1, 1, 1, 1, 1, 1, 1, 1 ],
@@ -779,6 +806,9 @@ var LevelConfig = {
         // Level 11
         {
           'ideal': 15,
+          'scale': {
+            'stepSpeed': 3
+          },
           'map': [
             [ 1, 1, 1, 1, 1, 1, 1, 1 ],
             [ 1, 1, 1, 1, 1, 1, 1, 1 ],

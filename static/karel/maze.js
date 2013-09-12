@@ -114,6 +114,17 @@ Maze.initialBallMap = level.initialBalls;
 Maze.finalBallMap = level.finalBalls;
 Maze.startDirection = level.startDirection;
 
+// Default Scalings
+Maze.scale = {
+  'snapRadius': 1,
+  'stepSpeed': 5
+};
+
+// Override scalars.
+for (var key in level.scale) {
+  Maze.scale[key] = level.scale[key];
+}
+
 Maze.map.unshift([0, 0, 0, 0, 0, 0, 0, 0]);
 Maze.initialBallMap.unshift([0, 0, 0, 0, 0, 0, 0, 0]);
 Maze.finalBallMap.unshift([0, 0, 0, 0, 0, 0, 0, 0]);
@@ -393,9 +404,7 @@ Maze.init = function() {
        trashcan: true});
   Blockly.loadAudio_(['maze/win.mp3', 'maze/win.ogg'], 'win');
   Blockly.loadAudio_(['maze/whack.mp3', 'maze/whack.ogg'], 'whack');
-  if (Maze.LEVEL == 1) {
-    Blockly.SNAP_RADIUS *= 2;
-  }
+  Blockly.SNAP_RADIUS *= Maze.scale.snapRadius;
 
   Blockly.JavaScript.INFINITE_LOOP_TRAP = '  BlocklyApps.checkTimeout(%1);\n';
   Maze.drawMap();
@@ -738,15 +747,8 @@ Maze.animate = function() {
   }
 
   // Speeding up specific levels
-  if ((Maze.PAGE == 1 && (Maze.LEVEL == 5 || Maze.LEVEL == 7)) ||
-      (Maze.PAGE == 2 && (Maze.LEVEL == 1 || Maze.LEVEL == 3 ||
-                          Maze.LEVEL == 4 || Maze.LEVEL == 8 ||
-                          Maze.LEVEL == 9 || Maze.LEVEL == 10 ||
-                          Maze.LEVEL == 11))) {
-    Maze.pidList.push(window.setTimeout(Maze.animate, Maze.stepSpeed * 3));
-  } else {
-    Maze.pidList.push(window.setTimeout(Maze.animate, Maze.stepSpeed * 5));
-  }
+  var scaledStepSpeed = Maze.stepSpeed * Maze.scale.stepSpeed;
+  Maze.pidList.push(window.setTimeout(Maze.animate, scaledStepSpeed));
 };
 
 
