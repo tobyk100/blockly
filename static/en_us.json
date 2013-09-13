@@ -1,7 +1,7 @@
 {
     "@metadata": {
         "author": "Ellen Spertus <ellen.spertus@gmail.com>",
-        "lastupdated": "2013-09-11 15:55:56.668433",
+        "lastupdated": "2013-09-13 16:01:55.042774",
         "locale": "en_us",
         "messagedocumentation" : "qqq"
     },
@@ -184,9 +184,9 @@
     "Turtle.inter3_2-pre": "Here's how the &quot;draw a square&quot; block was created.  On this level, you'll create your own &quot;draw a triangle&quot; block.",
     "Turtle.inter3_2-post": "Congratulations on adding a new block!  That's a huge step for a programmer.  Dividing big tasks into bite-sized pieces is what makes large programs possible.",
     "Turtle.inter3_5-pre": "The new blocks that you define can be used just like the built-in blocks, including being used within another block definition...",
-    "Turtle.inter3_6-pre": "Let me show you how the input was added to &quot;draw a square&quot;.  You'll need to know this for this level, where you'll add an input to &quot;draw a triangle",
+    "Turtle.inter3_6-pre": "Let me show you how the input was added to &quot;draw a square&quot;.  You'll need to know this for this level, where you'll add an input to &quot;draw a triangle&quot;.",
     "Turtle.inter3_8-pre": "It can be useful for a function to put the turtle at a good ending position, to help with building up bigger pictures.",
-    "Turtle.inter3_9-pre": "You now know how to control the turtle, use loops (&quot;repeat&quot; and &quot;count from&quot;), and write and use functions.  Congratulations on becoming a programmer!",
+    "Turtle.inter3_9-post": "You now know how to control the turtle, use loops (&quot;repeat&quot; and &quot;count from&quot;), and write and use functions.  Congratulations on becoming a programmer!",
     "Turtle.instructions1_1": "I'm a turtle with chalk on my belly. Stack up blocks and press &quot;Run Program&quot; to make me draw the shown picture.",
     "Turtle.instructions1_2": "Draw a square, making each side a different color.",
     "Turtle.instructions1_3": "Make a square using only 3 blocks.  (Remember that blocks to set color are free.)",
@@ -223,7 +223,7 @@
     "Turtle.runProgram": "Run",
     "Turtle.resetProgram": "Reset",
     "Turtle.codeTooltip": "See generated JavaScript code.",
-    "Apps.tooMuchWorkError": "You made me do too much work.  Could you try a smaller number?",
+    "Apps.tooMuchWorkError": "You made me do a lot of work!  Could you try repeating fewer times?",
     "Turtle.tryAgain": "Try again",
     "Turtle.continue": "Continue",
     "Turtle.catTurtle": "Actions",

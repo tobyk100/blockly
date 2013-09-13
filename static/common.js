@@ -726,8 +726,20 @@ BlocklyApps.CHECK_FOR_EMPTY_BLOCKS = undefined;
 BlocklyApps.IDEAL_BLOCK_NUM = undefined;
 
 /**
- * An array of both (1) strings that must be found in the generated code
- * and (2) functions checking for required blocks.
+ * An array of dictionaries representing required blocks.  Keys are:
+ * - test (required): A test whether the block is present, either:
+ *   - A string, in which case the string is searched for in the generated code.
+ *   - A single-argument function is called on each user-added block
+ *     individually.  If any call returns true, the block is deemed present.
+ *     "User-added" blocks are ones that are neither disabled or undeletable.
+ * - type (required): The type of block to be produced for display to the user
+ *   if the test failed.
+ * - titles (optional): A dictionary, where, for each KEY-VALUE pair, this is
+ *   added to the block definition: <title name="KEY">VALUE</title>.
+ * - value (optional): A dictionary, where, for each KEY-VALUE pair, this is
+ *   added to the block definition: <value name="KEY">VALUE</value>
+ * - extra (optional): A string that should be blacked between the "block"
+ *   start and end tags.
  * @type {!Array=}
  */
 BlocklyApps.REQUIRED_BLOCKS = undefined;
@@ -1226,16 +1238,16 @@ BlocklyApps.showInterstitial = function() {
         document.getElementById('continueButton').setAttribute('disabled',
                                                                'disabled');
         document.getElementById('tryAgainButton').style.display = 'none';
-        var preInterArray = document.querySelectorAll('.preInter');
-        for (var r = 0, preInter; preInter = preInterArray[r]; r++) {
-          preInter.style.display = 'none';
-        }
-        var postInterArray = document.querySelectorAll('.postInter');
-        for (var s = 0, postInter; postInter = postInterArray[s]; s++) {
-          postInter.style.display = 'block';
-        }
       } else if (document.getElementById('reinfQuizFeedback')) {
         document.getElementById('reinfQuizFeedback').style.display = 'none';
+      }
+      var preInterArray = document.querySelectorAll('.preInter');
+      for (var r = 0, preInter; preInter = preInterArray[r]; r++) {
+        preInter.style.display = 'none';
+      }
+      var postInterArray = document.querySelectorAll('.postInter');
+      for (var s = 0, postInter; postInter = postInterArray[s]; s++) {
+          postInter.style.display = 'block';
       }
       document.getElementById('interstitial').style.display = 'block';
     }
@@ -1357,11 +1369,11 @@ BlocklyApps.generateXMLForBlocks = function(blockArray) {
     if (block && i < BlocklyApps.NUM_REQUIRED_BLOCKS_TO_FLAG) {
       blockXMLString += '<block type="' + block['type'] + '" x="' +
 	      blockX.toString() + '" y="' + blockY + '">';
-      if (block['params']) {
-        var titleNames = Object.keys(block['params']);
+      if (block['titles']) {
+        var titleNames = Object.keys(block['titles']);
         for (var k = 0, name; name = titleNames[k]; k++) {
           blockXMLString += '<title name="' + name + '">' +
-		  block['params'][name] + '</title>';
+		  block['titles'][name] + '</title>';
         }
       }
       if (block['value']) {
