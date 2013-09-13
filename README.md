@@ -19,10 +19,8 @@ of Code. Information about Blockly can be found in the
 ## Installation
 
 1. `git clone https://github.com/code-dot-org/blockly.git`
-2. To host the apps locally run app.yaml with appengine gui or
-   [dev\_appserver.py](https://developers.google.com/appengine/downloads).
-  - Note: The apps can be run as static html files by navigating your browser
-    to the index.html file found in each app's directory.
+2. Run an app by navigating your browser to the index.html
+   file found in each app's directory.
 3. You only need to rebuild an app if you change a template (.soy) file. There
    is a block comment at the top of each template file with build instructions.
 
