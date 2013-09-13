@@ -1098,10 +1098,12 @@ BlocklyApps.setErrorFeedback = function(feedbackType) {
 
 /**
  * Where to report back information about the user program.
+ * Undefined if no server given to report to.
  */
 
-BlocklyApps.REPORT_URL = BlocklyApps.getStringParamFromUrl('callback_url',
-    '/report');
+BlocklyApps.REPORT_URL = BlocklyApps.getStringParamFromUrl('callback_url');
+
+BlocklyApps.REPORT = undefined;
 
 /**
  * Report back to the server, if available.
@@ -1112,30 +1114,38 @@ BlocklyApps.REPORT_URL = BlocklyApps.getStringParamFromUrl('callback_url',
  * @param {string} program The user program, which will get URL-encoded.
  */
 BlocklyApps.report = function(app, id, level, result, program) {
-  // Allow for reporting on any hosting service running http(s).
-  if (window.location.protocol.indexOf('http') > -1) {
-    var httpRequest = new XMLHttpRequest();
-    // Check reponse from server for a redirect, this way a smart server
-    // can override default level switching behavior for adaptive learning.
-    httpRequest.onload = function() {
-      var response = JSON.parse(httpRequest.responseText);
-      var redirect = response['redirect'];
-      if (redirect) {
-        BlocklyApps.nextLevelUrl = redirect;
-      }
-    };
-    httpRequest.open('POST', BlocklyApps.REPORT_URL);
-    httpRequest.setRequestHeader('Content-Type',
-        'application/x-www-form-urlencoded');
-    httpRequest.send('app=' + app +
-        '&id=' + id +
-        '&level=' + level +
-        '&result=' + result +
-        '&attempt=' + 1 +  // TODO(toby): implement
-        '&time=' + 1 +  // TODO(toby): implement
-        '&program=' + encodeURIComponent(program));
-  }
+  BlocklyApps.REPORT = {
+    'app': app,
+    'id': id,
+    'level': level,
+    'result': result,
+    'attempt': 1,  // TODO(toby): implement
+    'time': 1,  // TODO(toby): implement
+    'program': encodeURIComponent(program)
+  };
 };
+BlocklyApps.reportAndRedirect = function() {
+  var httpRequest = new XMLHttpRequest();
+  httpRequest.onload = function() {
+    var response = JSON.parse(httpRequest.responseText);
+    var redirect = response['redirect'];
+    if (redirect) {
+      window.location.href = BlocklyApps.nextLevelUrl;
+      BlocklyApps.nextLevelUrl = redirect;
+    }
+  };
+  httpRequest.open('POST', BlocklyApps.REPORT_URL);
+  httpRequest.setRequestHeader('Content-Type',
+      'application/x-www-form-urlencoded');
+  var query = [];
+  for (var key in BlocklyApps.REPORT) {
+    query.push(key + '=' + BlocklyApps.REPORT[key]);
+  }
+  query = query.join('&');
+  httpRequest.send(query);
+};
+
+BlocklyApps.reportAndRedirect
 
 /**
  * Prepare feedback to display after the user's program has finished running.
@@ -1296,8 +1306,8 @@ BlocklyApps.hideInterstitial = function() {
  * Construct the URL and go to the next level.
  */
 BlocklyApps.createURLAndOpenNextLevel = function() {
-  if (BlocklyApps.nextLevelUrl) {
-    window.top.location.href = BlocklyApps.nextLevelUrl;
+  if (BlocklyApps.REPORT_URL) {  // Ask the server where to go next.
+    BlocklyApps.reportAndRedirect();
   } else {
     window.location = window.location.protocol + '//' +
       window.location.host + window.location.pathname +
