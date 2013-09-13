@@ -69,107 +69,264 @@ Turtle.REQUIRED_COLOURS = null;
  */
 Turtle.PROCEDURE_CALL_TEMPLATE_ = 'procedures_callnoreturn[^e]*e="%1"'
 
-Turtle.setBlocklyAppConstants = function() {
+/**
+ * Creates a required block specification for defining a function with an
+ * argument.  Unlike the other functions to create required blocks, this
+ * is defined outside of Turtle.setBlocklyAppConstants because it is accessed
+ * when checking for a procedure on levels 8-9 of Turtle 3.
+ * @param {string} func_name The name of the function.
+ * @param {string} arg_name The name of the single argument.
+ * @return A required block specification that tests for a call of the
+ *     specified function with the specified argument name.  If not present,
+ *     this contains the information to create such a block for display.
+ */
+var Turtle.define_with_arg_ = function(func_name, arg_name) {
+    return {
+      test: function(block) {
+	return block.type == 'procedures_defnoreturn' &&
+	    block.getTitleValue('NAME') == func_name &&
+	    block.arguments_ && block.arguments_.length &&
+	    block.arguments_[0] == arg_name;
+      },
+      type: 'procedures_defnoreturn',
+      params: {'NAME': func_name},
+      child: '<mutation><arg name="' + arg_name + '"></arg>'
+    };
+  }
+
+
+/**
+ * Sets BlocklyApp constants that depend on the page and level.
+ * This encapsulates many functions used for BlocklyApps.REQUIRED_BLOCKS.
+ * In the future, some of these may be moved to common.js.
+ */
+Turtle.setBlocklyAppConstants_ = function() {
   // These functions are used within BlocklyApps.REQUIRED_BLOCKS.
-  // They must not be anonymous, since there names are used for
-  // generating HTML IDs.
-  function repeat_(block) {
+  function repeat(block) {
     return block.type == 'controls_repeat';
   }
-  function callDrawASquare_(block) {
+  function turn(block) {
+    return block.type.indexOf('draw_turn') == 0;
+  }
+  function getCounter(block) {
+    return block.type == 'variables_get_counter';
+  }
+
+  // This tests for and creates a draw_a_square block on page 2.
+  function draw_a_square(number) {
+    return {test: 'draw_a_square',
+	    type: 'draw_a_square',
+	    value: ['VALUE', makeMathNumber(number)]};
+  }
+
+  // This tests for and creates a draw_a_snowman block on page 2.
+  function draw_a_snowman(number) {
+    return {test: 'draw_a_snowman',
+	    type: 'draw_a_snowman',
+	    value: ['VALUE', makeMathNumber(number)]};
+  }
+
+  function for_(block) {
+    return block.type == 'controls_for_counter';
+  }
+
+  function call(name) {
+    return {test: function(block) {
+      return block.type == 'procedures_callnoreturn' &&
+	  block.getTitleValue('NAME') == name;},
+	    type: 'procedures_callnoreturn',
+	    params: {'NAME': name}};
+  }
+
+  function define(name) {
+    return {test: function(block) {
+      return block.type == 'procedures_defnoreturn' &&
+	  block.getTitleValue('NAME') == name;},
+	    type: 'procedures_defnoreturn',
+	    params: {'NAME': name}};
+  }
+
+  function call_with_arg(func_name, arg_name) {
+    return {test: function(block) {
+      return block.type == 'procedures_callnoreturn' &&
+	  block.getTitleValue('NAME') == func_name;},
+	    type: 'procedures_callnoreturn',
+	    child: '<mutation name="' + func_name + '"><arg name="' + arg_name +
+	    '"></arg></mutation>'
+	   };
+  }
+
+  // All of the functions starting with "call" or "define" should be used
+  // on page 3 only, since what appear to be function calls on page 2
+  // are really inlined code.
+  function callDrawASquare(block) {
     return block.type == 'procedures_callnoreturn' &&
         block.getProcedureCall() == 'draw a square';
   }
-  function callDrawASquareWithParameter_(block) {
-    return callDrawASquare_(block) &&
+  function callDrawASquareWithParameter(block) {
+    return callDrawASquare(block) &&
         block.arguments_ && block.arguments_.length == 1 &&
         block.getInputTargetBlock('ARG0');
   }
-  function callDrawASquareWithVariableParameter_(block) {
-    return callDrawASquareWithParameter_(block) &&
+  function callDrawASquareWithVariableParameter(block) {
+    return callDrawASquareWithParameter(block) &&
         block.getInputTargetBlock('ARG0').type == 'variables_get_height';
   }
-  function callDrawATriangle_(block) {
+  function callDrawATriangle(block) {
     return block.type == 'procedures_callnoreturn' &&
         block.getProcedureCall() == 'draw a triangle';
   }
-  function callDrawATriangleWithParameter_(block) {
-    return callDrawATriangle_(block) &&
+  function callDrawATriangleWithParameter(block) {
+    return callDrawATriangle(block) &&
         block.arguments_ && block.arguments_.length == 1 &&
         block.getInputTargetBlock('ARG0');
   }
-  function callDrawATriangleWithNumericParameter_(block) {
-    return callDrawATriangleWithParameter_(block) &&
+  function callDrawATriangleWithNumericParameter(block) {
+    return callDrawATriangleWithParameter(block) &&
         block.getInputTargetBlock('ARG0').type == 'math_number';
   }
-  function callDrawATriangleWithVariableParameter_(block) {
-    return callDrawATriangleWithParameter_(block) &&
+  function callDrawATriangleWithVariableParameter(block) {
+    return callDrawATriangleWithParameter(block) &&
         block.getInputTargetBlock('ARG0').type == 'variables_get_height';
   }
-  function callDrawAHouse_(block) {
+  function callDrawAHouse(block) {
     return block.type == 'procedures_callnoreturn' &&
         block.getProcedureCall() == 'draw a house';
   }
-  function callDrawAHouseWithParameter_(block) {
-    return callDrawAHouse_(block) &&
+  function callDrawAHouseWithParameter(block) {
+    return callDrawAHouse(block) &&
         block.arguments_ && block.arguments_.length == 1 &&
         block.getInputTargetBlock('ARG0');
   }
-  function defineAnything_(block) {
+  function defineAnything(block) {
     return block.type == 'procedures_defnoreturn';
   }
-  function defineDrawATriangle_(block) {
+  function defineDrawATriangle(block) {
     return block.type == 'procedures_defnoreturn' &&
         block.getProcedureDef() &&
         block.getProcedureDef()[0] == 'draw a triangle';
   }
-  function defineDrawATriangleWithParameter_(block) {
-    return defineDrawATriangle_(block) &&
+  function defineDrawATriangleWithParameter(block) {
+    return defineDrawATriangle(block) &&
         block.arguments_.length == 1;
   }
-  function defineDrawATriangleWithLengthParameter_(block) {
-    return defineDrawATriangleWithParameter_(block) &&
+  function defineDrawATriangleWithLengthParameter(block) {
+    return defineDrawATriangleWithParameter(block) &&
         block.arguments_[0] == 'length';
   }
-  function defineDrawAHouse_(block) {
+  function defineDrawAHouse(block) {
     return block.type == 'procedures_defnoreturn' &&
         block.getProcedureDef() &&
         block.getProcedureDef()[0] == 'draw a house';
   }
-  function defineDrawAHouseWithParameter_(block) {
-    return defineDrawAHouse_(block) &&
+  function defineDrawAHouseWithParameter(block) {
+    return defineDrawAHouse(block) &&
         block.arguments_.length == 1;
   }
-  function defineDrawAHouseWithHeightParameter_(block) {
-    return defineDrawAHouseWithParameter_(block) &&
+  function defineDrawAHouseWithHeightParameter(block) {
+    return defineDrawAHouseWithParameter(block) &&
         block.arguments_[0] == 'height';
   }
-  function move_(block) {
-    return block.type.indexOf('draw_move') == 0;
-  }
-  function moveByLength_(block) {
-    return move_(block) &&
-        block.getInputTargetBlock('VALUE') &&
-        block.getInputTargetBlock('VALUE').type == 'variables_get_length';
-  }
-  function turn_(block) {
-    return block.type.indexOf('draw_turn') == 0;
-  }
-  function for_(block) {
-    return block.type == 'controls_for_counter';
-  }
-  function get_counter_(block) {
-    return block.type == 'variables_get_counter';
-  }
 
+  // These versions have the distance inlined.
   var MOVE_INLINE = {test: 'moveForward', type: 'draw_move_inline'};
-  var TURN_INLINE = {test: 'turnRight', type: 'draw_turn_inline'};
+  var MOVE_BACKWARD_INLINE = {test: 'moveBackward', type: 'draw_move_inline', params: {'DIR': 'moveBackward'}};
+
   var SET_COLOUR_PICKER = {test: 'penColour(\'#',
     type: 'draw_colour',
     value: ['COLOUR', '<block type="colour_picker"></block>']};
-  var SET_COLOUR_RANDOM = {test: 'penColour(colourRandom',
+  var SET_COLOUR_RANDOM = {test: 'penColour(colour_random',
     type: 'draw_colour',
     value: ['COLOUR', '<block type="colour_random"></block>']};
+
+  /**
+   * Generate a test for a turnRight of the specified number of degrees.
+   * If not, this constructs a draw_turn_inline_restricted (right), which is
+   * which is used on levels 1-8 of page 1, with the provided number of degrees.
+   * @param {number|string} degrees The required number of degrees.
+   * @return {Object} A required blocks dictionary.
+   */
+  var turn_right_restricted = function(degrees) {
+    return {test: 'turnRight(' + degrees,
+	    type: 'draw_turn_inline_restricted',
+	    params: {'VALUE': degrees}};
+  };
+
+  /**
+   * Generate a test for a turnRight of the specified number of degrees.
+   * If not, this constructs a draw_turn (right) with the specified
+   * degree count.
+   * @param {number|string} degrees The required number of degrees.
+   * @return {Object} A required blocks dictionary.
+   */
+  var turn_right = function(degrees) {
+    return {test: function(block) {
+      return block.type == 'draw_turn' &&
+	  Blockly.JavaScript.valueToCode(
+	    block, 'VALUE', Blockly.JavaScript.ORDER_NONE) == degrees;
+      },
+	    type: 'draw_turn',
+	    value: ['VALUE', '<block type="math_number"><title name="NUM">' +
+                    degrees + '</title></block>']};
+  };
+
+  /**
+   * Generate a test for a turnLeft.  If not present, this constructs a
+   * draw_turn (left) with the specified degree count.
+   * @param {number|string} degrees The required number of degrees.
+   * @return {Object} A required blocks dictionary.
+   */
+  var turn_left = function(degrees) {
+    return {test: function(block) {
+      return block.type == 'draw_turn' &&
+	  block.getTitleValue('DIR') == 'turnLeft';},
+	    type: 'draw_turn',
+	    params: {'DIR': 'turnLeft'},
+	    value: ['VALUE', '<block type="math_number"><title name="NUM">' +
+                    degrees + '</title></block>']};
+  };
+
+  var makeMathNumber = function(number) {
+      return '<block type="math_number"><title name="NUM">' +
+            number + '</title></block>'
+  };
+
+  /**
+   * Generate a test/type for a move forward.  If none is present, this
+   * generates a draw_move with the given distance.
+   * degree count.
+   * @param {number|string} distance The suggested move forward amount.
+   * @return {Object} A required blocks dictionary.
+   */
+  var move = function(distance) {
+    return {test: function(block) {return block.type == 'draw_move';},
+	    type: 'draw_move',
+	    value: ['VALUE', makeMathNumber(distance)]};
+  };
+
+  /**
+   * Generate a test/type for a repeat loop.  This does not test for the
+   * specified repeat count but includes it in the suggested block.
+   * @param {number|string} count The suggested repeat count.
+   * @return {Object} A required blocks dictionary.
+   */
+  var repeat = function(count) {
+    // This checks for a controls_repeat block rather than looking for 'for',
+    // since the latter may be generated by page 2's draw_a_square.
+    return {test: function(block) {return block.type == 'controls_repeat';},
+	    type: 'controls_repeat', params: {'TIMES': count}};
+  };
+
+  /**
+   * Generates a test/type for a simple block that does not have any
+   * parameters or values.
+   * @param {string} block_type The block type.
+   * @return {Object} A required blocks dictionary.
+   */
+  var simple_block = function(block_type) {
+    return {test: function(block) {return block.type == block_type;},
+	    type: block_type};
+  };
 
   /**
    * Information about level-specific requirements.  Each entry consists of:
@@ -184,31 +341,34 @@ Turtle.setBlocklyAppConstants = function() {
     // Page 1.
     [undefined,  // Level 0.
      // Level 1: El.
-     [BlocklyApps.InterTypes.NONE, 3, [MOVE_INLINE, TURN_INLINE]],
+     [BlocklyApps.InterTypes.NONE, 3, [MOVE_INLINE, turn_right_restricted(90)]],
      // Level 2: Square (without repeat).
      [BlocklyApps.InterTypes.PRE,
-      7, [MOVE_INLINE, TURN_INLINE, SET_COLOUR_PICKER], 4],
+      7, [MOVE_INLINE, turn_right_restricted(90), SET_COLOUR_PICKER], 4],
      // Level 3: Square (with repeat).
      [BlocklyApps.InterTypes.PRE,
       3,
-      [MOVE_INLINE, TURN_INLINE,
-       {test: repeat_, type: 'controls_repeat', params: {'TIMES': '4'}}]], 
+      [MOVE_INLINE, turn_right_restricted(90), repeat(4)]],
      // Level 4: Triangle.
-     [BlocklyApps.InterTypes.PRE, 3, [TURN_INLINE, MOVE_INLINE], 3],
+     [BlocklyApps.InterTypes.PRE,
+      3,
+      [MOVE_INLINE, repeat(3),
+       {test: 'turnRight', type: 'draw_turn_inline', params: {'VALUE': '???'}},
+       SET_COLOUR_RANDOM],
+      3],
      // Level 5: Envelope.
-     [BlocklyApps.InterTypes.PRE, 6, [TURN_INLINE, MOVE_INLINE]],
+     [BlocklyApps.InterTypes.PRE, 6,
+      [repeat(3), turn_right_restricted(120), MOVE_INLINE]],
      // Level 6: triangle and square.
-     [BlocklyApps.InterTypes.PRE, 6, [TURN_INLINE, MOVE_INLINE]],
+     [BlocklyApps.InterTypes.PRE, 6, 
+      [repeat(3), turn_right_restricted(120), MOVE_INLINE, MOVE_BACKWARD_INLINE]],
      // Level 7: glasses.
      [BlocklyApps.InterTypes.NONE,
       8,
-      [TURN_INLINE, MOVE_INLINE, SET_COLOUR_PICKER],
+      [turn_right_restricted(90), MOVE_INLINE, SET_COLOUR_PICKER, MOVE_BACKWARD_INLINE],
       Turtle.Colours.GREEN],
      // Level 8: spikes.
-     [BlocklyApps.InterTypes.PRE,
-      4,
-      [MOVE_INLINE, TURN_INLINE, SET_COLOUR_RANDOM],
-      8],
+     [BlocklyApps.InterTypes.PRE, 4, [repeat(8)], 8],
      // Level 9: circle.
      [BlocklyApps.InterTypes.NONE, 3, []],
      // Level 10: playground.
@@ -217,64 +377,85 @@ Turtle.setBlocklyAppConstants = function() {
     // Page 2.
     [undefined,  // Level 0.
      // Level 1: Square.
-     [5, ['penColour', repeat_, 'turn', 'move'], 1],
+     [BlocklyApps.InterTypes.PRE, 5,
+      [repeat(4), turn_right(90), move(100), SET_COLOUR_PICKER], 1],
      // Level 2: Small green square.
-     [2, ['penColour', 'draw_a_square'], Turtle.Colours.GREEN],
+     [BlocklyApps.InterTypes.PRE, 2,
+      [draw_a_square('??'), SET_COLOUR_PICKER],
+      Turtle.Colours.GREEN],
      // Level 3: Three squares.
-     [5, ['colour_random', repeat_, 'turn']],
+     [BlocklyApps.InterTypes.PRE, 5,
+      [repeat(3), draw_a_square(100), turn_right(120), SET_COLOUR_RANDOM]],
      // Level 4: 36 squares.
-     [5, ['colour_random']],
+     [BlocklyApps.InterTypes.PRE, 5, []],
      // Level 5: Different size squares.
-     [10, ['draw_a_square']],
+     [BlocklyApps.InterTypes.PRE, 10, [draw_a_square('??')]],
      // Level 6: For-loop squares.
-     [6, ['for', get_counter_, 'draw_a_square']],
+     [BlocklyApps.InterTypes.PRE, 6,
+      // This is not displayed properly.
+      [simple_block('variables_get_counter')]],
      // Level 7: Boxy spiral.
-     [8, ['for', get_counter_, 'move']],
+     [BlocklyApps.InterTypes.PRE, 8,
+      [simple_block('controls_for_counter'), move('??'),
+       simple_block('variables_get_counter'), turn_right(90)]],
      // Level 8: Three snowmen.
-     [9, ['draw_a_snowman', 'turn', 'jump', 'move'], 3],
+     [BlocklyApps.InterTypes.PRE, 9,
+      [draw_a_snowman(150), turn_right(90), turn_left(90),
+       {test: 'jump', type: 'jump', value: ['VALUE', makeMathNumber(100)]},
+       simple_block('jump'), simple_block('draw_colour')],
+      3],
      // Level 9: Snowman family.
-     [12, ['draw_a_snowman', 'for', 'jump', get_counter_]]],
-
+     [BlocklyApps.InterTypes.PRE, 12,
+      [draw_a_snowman('??'), simple_block('controls_for_counter'),
+       simple_block('variables_get_counter'),
+       turn_right(90), turn_left(90),
+       {test: 'jump', type: 'jump', value: ['VALUE', makeMathNumber(60)]}]],
+     // Level 10: playground.
+     [BlocklyApps.InterTypes.NONE, Infinity, []]
+    ],
     // Page 3.
     // This page uses procedures instead of strings to check for required
     // blocks to avoid matching undeletable code in starting blocks.
     [undefined,  // Level 0.
      // Level 1: Call 'draw a square'.
-     // The semicolon distinguishes the call from the definition.
-     [1, [callDrawASquare_]],
+     [BlocklyApps.InterTypes.PRE, 1, [call('draw a square')]],
      // Level 2: Create "draw a triangle".
-     [7, [defineDrawATriangle_, move_, turn_, repeat_,
-          callDrawATriangle_]],
+     [BlocklyApps.InterTypes.PRE | BlocklyApps.InterTypes.POST,
+      7,
+      [move(100), turn_right(120), repeat(3), call('draw a triangle')]],
      // Level 3: Fence the animals.
-     [7, [callDrawATriangle_, move_, callDrawASquare_]],
+     [BlocklyApps.InterTypes.NONE, 7,
+      [call('draw a triangle'), move(100), call('draw a square')]],
      // Level 4: House the lion.
-     [6, [callDrawASquare_, move_, turn_, callDrawATriangle_]],
+     [BlocklyApps.InterTypes.NONE, 6,
+      [call('draw a square'), move(100), turn_right(30), call('draw a triangle')]],
      // Level 5: Create "draw a house".
-     [8, [defineAnything_, defineDrawAHouse_, callDrawASquare_, move_, turn_,
-          callDrawATriangle_, callDrawAHouse_]],
+     [BlocklyApps.InterTypes.PRE, 8,
+      [define('draw a house'), call('draw a square'), move(100), turn_right(30),
+       call('draw a triangle'), call('draw a house')]],
      // Level 6: Add parameter to "draw a triangle".
-     [13,
-      [defineDrawATriangle_,
-       defineDrawATriangleWithParameter_,
-       defineDrawATriangleWithLengthParameter_,
-       moveByLength_,
-       callDrawATriangle_,
-       callDrawATriangleWithNumericParameter_,
-      'penColour'],
+     [BlocklyApps.InterTypes.PRE, 13,
+      [define_with_arg_('draw a triangle', 'length'),
+       simple_block('variables_get_length'),
+       call_with_arg('draw a triangle', 'length')],
       2],
      // Level 7: Add parameter to "draw a house".
-     [13,
-      [defineDrawAHouse_,
-       defineDrawAHouseWithParameter_,
-       defineDrawAHouseWithHeightParameter_,
-       callDrawASquareWithVariableParameter_,
-       callDrawATriangleWithVariableParameter_,
-       callDrawAHouse_,
-       callDrawAHouseWithParameter_]],
+     [BlocklyApps.InterTypes.NONE, 13,
+      [define_with_arg_('draw a house', 'height'),
+       call_with_arg('draw a square', 'length'),
+       call_with_arg('draw a triangle', 'length'),
+       simple_block('variables_get_height'),
+       call_with_arg('draw a house', 'height')]],
      // Level 8: Draw houses.
-     [27, []],
+     [BlocklyApps.InterTypes.PRE, 27, []],
      // Level 9: Draw houses with for loop.
-     [27, [for_, get_counter_], 3]
+     [BlocklyApps.InterTypes.POST, 27,
+      [simple_block('controls_for_counter'),
+       simple_block('variables_get_counter'),
+       SET_COLOUR_RANDOM],
+      3],
+     // Level 10: playground.
+     [BlocklyApps.InterTypes.NONE, Infinity, []]
     ]
   ];
 
@@ -387,7 +568,7 @@ Turtle.init = function() {
         var dom = Blockly.Xml.textToDom(xml);
         Blockly.Xml.domToWorkspace(Blockly.mainWorkspace, dom);
         if (!BlocklyApps.getUserBlocks_().some(
-            defineDrawAHouseWithHeightParameter_)) {
+	  define_with_arg_('draw a house', 'height')['test'])) {
           window.alert(BlocklyApps.getMsg('notReadyForLevel'));
         }
       }
@@ -864,7 +1045,11 @@ Turtle.checkAnswer = function() {
       delta++;
     }
   }
-  BlocklyApps.levelComplete = Turtle.isCorrect(delta);
+  
+  // Allow some number of pixels to be off, but be stricter
+  // for certain levels.
+  BlocklyApps.levelComplete = Turtle.isCorrect(delta,
+      BlocklyApps.PAGE == 1 && BlocklyApps.LEVEL == 9 ? 10 : 150);
   var feedbackType = BlocklyApps.getTestResults();
 
   BlocklyApps.report('turtle', BlocklyApps.LEVEL_ID, BlocklyApps.LEVEL,
@@ -890,22 +1075,32 @@ Turtle.checkAnswer = function() {
 
   } else if (feedbackType == BlocklyApps.TestResults.TOO_MANY_BLOCKS_FAIL ||
       feedbackType == BlocklyApps.TestResults.ALL_PASS) {
-    // Only check and mention colour if there is no more serious problem.
-    var colourResult = Turtle.checkRequiredColours();
-    if (colourResult != Turtle.ColourResults.OK &&
-	colourResult != Turtle.ColourResults.EXTRA) {
-      var message = '';
-      feedbackType = BlocklyApps.TestResults.OTHER_1_STAR_FAIL;
-      if (colourResult == Turtle.ColourResults.FORBIDDEN_DEFAULT) {
-        message = BlocklyApps.getMsg('notBlackColour');
-      } else if (colourResult == Turtle.ColourResults.TOO_FEW) {
-        message = BlocklyApps.getMsg('tooFewColours');
-        message = message.replace('%1', Turtle.REQUIRED_COLOURS);
-        message = message.replace('%2', Turtle.coloursUsed.length);
-      } else if (typeof colourResult == 'string') {
-        message = BlocklyApps.getMsg('wrongColour').replace('%1', colourResult);
+    // Check that they didn't use a crazy large repeat value when drawing a
+    // circle.  This complains if the limit doesn't start with 3.
+    // Note that this level does not use colour, so no need to check for that.
+    if (BlocklyApps.PAGE == 1 && BlocklyApps.LEVEL == 9) {
+      var code = Blockly.Generator.workspaceToCode('JavaScript');
+      if (code.indexOf('count < 3') == -1) {
+          feedbackType = BlocklyApps.TestResults.OTHER_2_STAR_FAIL;
       }
-      BlocklyApps.setTextForElement('appSpecificOneStarFeedback', message);
+    } else {
+      // Only check and mention colour if there is no more serious problem.
+      var colourResult = Turtle.checkRequiredColours();
+      if (colourResult != Turtle.ColourResults.OK &&
+        colourResult != Turtle.ColourResults.EXTRA) {
+        var message = '';
+        feedbackType = BlocklyApps.TestResults.OTHER_1_STAR_FAIL;
+        if (colourResult == Turtle.ColourResults.FORBIDDEN_DEFAULT) {
+          message = BlocklyApps.getMsg('notBlackColour');
+        } else if (colourResult == Turtle.ColourResults.TOO_FEW) {
+          message = BlocklyApps.getMsg('tooFewColours');
+          message = message.replace('%1', Turtle.REQUIRED_COLOURS);
+          message = message.replace('%2', Turtle.coloursUsed.length);
+        } else if (typeof colourResult == 'string') {
+          message = BlocklyApps.getMsg('wrongColour').replace('%1', colourResult);
+        }
+        BlocklyApps.setTextForElement('appSpecificOneStarFeedback', message);
+      }
     }
   }
 

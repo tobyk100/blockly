@@ -185,7 +185,7 @@ BlocklyApps.init = function() {
 /**
  * Initialize Blockly for a readonly iframe.  Called on page load.
  * XML argument may be generated from the console with:
- * encodeURIComponent(Blockly.Xml.domToText(Blockly.Xml.workspaceToDom(Blockly.mainWorkspace)).slice(5, -6))
+ * Blockly.Xml.domToText(Blockly.Xml.workspaceToDom(Blockly.mainWorkspace)).slice(5, -6)
  */
 BlocklyApps.initReadonly = function() {
   var rtl = BlocklyApps.LANGUAGES[BlocklyApps.LANG][1] == 'rtl';
@@ -920,6 +920,8 @@ BlocklyApps.getMissingRequiredBlocks = function() {
         if (!blocks.some(test)) {
           missingBlocks.push(BlocklyApps.REQUIRED_BLOCKS[i]);
         }
+      } else {
+        window.alert('Bad test: ' + test);
       }
     }
   }
@@ -1232,7 +1234,7 @@ BlocklyApps.showInterstitial = function() {
         for (var s = 0, postInter; postInter = postInterArray[s]; s++) {
           postInter.style.display = 'block';
         }
-      } else {
+      } else if (document.getElementById('reinfQuizFeedback')) {
         document.getElementById('reinfQuizFeedback').style.display = 'none';
       }
       document.getElementById('interstitial').style.display = 'block';
@@ -1344,7 +1346,7 @@ BlocklyApps.setTextForElement = function(id, text) {
  */
 BlocklyApps.generateXMLForBlocks = function(blockArray) {
   var blockXMLString = '';
-  var blockX = 0;
+  var blockX = 10;  // Prevent left output plugs from being cut off.
   var blockY = 0;
   var blockXPadding = 200;
   var blockYPadding = 120;
@@ -1353,21 +1355,23 @@ BlocklyApps.generateXMLForBlocks = function(blockArray) {
           .style.height);
   for (var i = 0, block; block = blockArray[i]; i++) {
     if (block && i < BlocklyApps.NUM_REQUIRED_BLOCKS_TO_FLAG) {
-      blockXMLString += '%3Cblock' + '%20type%3D%22' +
-          block['type'] + '%22%20x%3D%22' + blockX.toString() +
-          '%22%20y%3D%22' + blockY + '%22%3E';
+      blockXMLString += '<block type="' + block['type'] + '" x="' +
+	      blockX.toString() + '" y="' + blockY + '">';
       if (block['params']) {
         var titleNames = Object.keys(block['params']);
         for (var k = 0, name; name = titleNames[k]; k++) {
-          blockXMLString += '%3Ctitle%20name%3D%22' + name +
-             '%22%3E' + block['params'][name] + '%3C%2Ftitle%3E';
+          blockXMLString += '<title name="' + name + '">' +
+		  block['params'][name] + '</title>';
         }
       }
       if (block['value']) {
         blockXMLString += '<value name="' + block['value'][0] +
 	    '">' + block['value'][1] + '</value>';
       }
-      blockXMLString += '%3C%2Fblock%3E';
+      if (block['child']) {
+	blockXMLString += block['child'];
+      }
+      blockXMLString += '</block>';
       if ((i + 1) % blocksPerLine == 0) {
         blockY += blockYPadding;
         iframeHeight += blockYPadding;
@@ -1379,5 +1383,5 @@ BlocklyApps.generateXMLForBlocks = function(blockArray) {
     document.getElementById('feedbackBlocks').style.height =
         iframeHeight + 'px';
   }
-  return blockXMLString;
+  return encodeURIComponent(blockXMLString);
 };

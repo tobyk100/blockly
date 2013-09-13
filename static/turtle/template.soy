@@ -21,10 +21,10 @@
   <span class="{$class}Inter">
     <div id="reinfbubble">
       <span id="reinfMsg">{$text}</span>
-      <img id="turtle" height=45 width=130 src="turtle.png">
     </div>
+    <img id="turtle" height=45 width=130 src="turtle.png">
   </span>
-{/template}	  
+{/template}       
 
 /**
  * Display text and a picture.
@@ -43,7 +43,7 @@
       <tr height=40><br><br></tr>
     </table>
   </span>
-{/template}	  
+{/template}       
 
 /**
  * Display text and animation.
@@ -90,7 +90,7 @@
           <block type="draw_move" {$modifiers}>
             <value name="VALUE">
               {if $length == 0}
-                <block type="variables_get_length"></block>
+                <block type="variables_get_length" {$modifiers}></block>
               {else}
                 <block type="math_number" {$modifiers}>
                   <title name="NUM">{$length}</title>
@@ -196,122 +196,123 @@
             {call .prePicture}
               {param text}{msg meaning="Turtle.inter1_2-pre" desc="interstitial"}I can draw in different colors.  Choose what color you would like me to use with the "set color" block.  Blocks for changing color don't count to your block count used for scoring, so go wild!{/msg}{/param}
               {param image}set-colour.png{/param}
-  	  {/call}
-  	{case 3}  // Before repeat.
-  	  {call .preAnimation}
+          {/call}
+        {case 3}  // Before repeat.
+          {call .preAnimation}
               {param text}{msg meaning="Turtle.inter1_3-pre" desc="interstitial"}Tired of dragging and dropping?  Let the "repeat" block do the work for you.{/msg}{/param}
               {param image}repeat-intro.gif{/param}
-  	  {/call}
-  	{case 4}  // Before triangle.
-  	  {call .prePicture}
+          {/call}
+        {case 4}  // Before triangle.
+          {call .prePicture}
               {param text}{msg meaning="Turtle.inter1_4-pre" desc="interstitial"}Do you like surprises?  Use the "random color" block to let me pick the color.{/msg}{/param}
               {param image}random-colour.png{/param}
-  	  {/call}
-  	{case 5}  // Before overlapping square and triangle.
-  	  {call .interText}
-  	    {param text}{msg meaning="Turtle.inter1_5-pre" desc="interstitial"}Did you know you can copy and paste a block?{/msg}{/param}
-	    {param class:pre/}
-  	  {/call}
-  	{case 6}  // Before envelope (turned square and triangle).
-  	  {call .interText}
-  	    {param text}{msg meaning="Turtle.inter1_6-pre" desc="interstitial"}I can move backward, not just forward.{/msg}{/param}
-	    {param class:pre/}
-  	  {/call}
-  	{case 8}  // Before spikes.
-  	  {call .prePicture}
-  	    {param text}{msg meaning="Turtle.inter1_8-pre" desc="interstitial"}Do you ever get tired of waiting for me?  You can make me move faster (or slower) with the speed slider.{/msg}{/param}
-  	    {param image}slider.gif{/param}
-  	  {/call}
-  	{case 10}  // Before playground (10).
-  	  {call .prePicture}
-  	    {param text}{msg meaning="Turtle.inter1_10-pre" desc="interstitial"}Congratulations on completing this tutorial.  Just for fun, here's a new block that changes how wide of lines I draw.  We've been using a default width of 5.{/msg}{/param}
-  	    {param image}set-width.png{/param}
-  	  {/call}
+          {/call}
+        {case 5}  // Before overlapping square and triangle.
+          {call .interText}
+            {param text}{msg meaning="Turtle.inter1_5-pre" desc="interstitial"}Did you know you can copy and paste a block?{/msg}{/param}
+            {param class}pre{/param}
+          {/call}
+        {case 6}  // Before envelope (turned square and triangle).
+          {call .interText}
+            {param text}{msg meaning="Turtle.inter1_6-pre" desc="interstitial"}I can move backward, not just forward.{/msg}{/param}
+            {param class}pre{/param}
+          {/call}
+        {case 8}  // Before spikes.
+          {call .prePicture}
+            {param text}{msg meaning="Turtle.inter1_8-pre" desc="interstitial"}Do you ever get tired of waiting for me?  You can make me move faster (or slower) with the speed slider.{/msg}{/param}
+            {param image}slider.gif{/param}
+          {/call}
+        {case 10}  // Before playground (10).
+          {call .prePicture}
+            {param text}{msg meaning="Turtle.inter1_10-pre" desc="interstitial"}Congratulations on completing this tutorial.  Just for fun, here's a new block that changes how wide of lines I draw.  We've been using a default width of 5.{/msg}{/param}
+            {param image}set-width.png{/param}
+          {/call}
         {/switch}
       {elseif $ij.page == 2}
         {switch $ij.level}
           {case 1}  // Before drawing a square.
             {call .interText}
               {param text}{msg meaning="Turtle.inter2_1-pre" desc="interstitial"}To make room for new blocks, we've put the blocks into categories.  You may have to look around for your old favorite blocks, but they're all there.{/msg}{/param}
-	    {param class:pre/}
+            {param class}pre{/param}
             {/call}
           {case 2}  // Before use of "draw a square".
             {call .interText}
               {param text}{msg meaning="Turtle.inter2_2-pre" desc="interstitial"}We've added a new category for "Functions", a powerful new type of block.{/msg}{/param}
-              {param class:pre/}
+              {param class}pre{/param}
             {/call}
           {case 3}  // Before drawing of 3 squares
             {call .interText}
               {param text}{msg meaning="Turtle.inter2_3-pre" desc="interstitial"}Wondering why it's better to use "repeat" than copying and pasting the blocks three times?  See why on the next level{/msg}{/param}
-              {param class:pre/}
+              {param class}pre{/param}
             {/call}
           {case 4}  // Before drawing of 36 squares.
             {call .prePicture}
               {param text}{msg meaning="Turtle.inter2_4-pre" desc="interstitial"}Here's how I solved the previous level.  Make sure you understand it before proceeding.{/msg}{/param}
-	      {param image}three-squares.png{/param}
+              {param image}three-squares.png{/param}
             {/call}
           {case 5}  // Before manually making nested squares.
             {call .interText}
               {param text}{msg meaning="Turtle.inter2_5-pre" desc="interstitial"}Let's explore what we can do with squares of different sizes...{/msg}{/param}
-              {param class:pre/}
+              {param class}pre{/param}
             {/call}
           {case 6}  // Before using "count with" block.
             {call .prePicture}
               {param text}{msg meaning="Turtle.inter2_6-pre" desc="interstitial"}Wouldn't it be nice if you could tell me to count by tens from 50 to 100, drawing a square each time?  Well you can -- with the new "count with" block.  The programs on the left and right do the same thing.{/msg}{/param}
-	      {param image}count-loop-square.png{/param}
-	    {/call}
+              {param image}count-loop-square.png{/param}
+            {/call}
           {case 7}  // Before boxy spiral.
             {call .prePicture}
               {param text}{msg meaning="Turtle.inter2_7-pre" desc="interstitial"}This code draws a boxy spiral.  You'll need to figure out what should go in the blanks on the "count with" block to do it with fewer blocks on the next level.{/msg}{/param}
-	      {param image}spiral-quiz.png{/param}
+              {param image}spiral-quiz.png{/param}
             {/call}
           {case 8}  // Before same-height snowmen.
             {call .interText}
               {param text}{msg meaning="Turtle.inter2_8-pre" desc="interstitial"}We've given you two new blocks: "jump forward", which moves the turtle without leaving a trail, and "draw a snowman", which draws an elephant -- just kidding.{/msg}{/param}
-              {param class:pre/}
+              {param class}pre{/param}
             {/call}
           {case 9}  // Before family of snowmen.
             {call .interText}
               {param text}{msg meaning="Turtle.inter2_9-pre" desc="interstitial"}You don't need to always count from a low number to a high number.  You can count from high to low too.{/msg}{/param}
-              {param class:pre/}
+              {param class}pre{/param}
             {/call}
-	{/switch}
+        {/switch}
       {elseif $ij.page == 3}
         {switch $ij.level}
           {case 1}  // Before calling "draw a square".
             {call .interText}
               {param text}{msg meaning="Turtle.inter3_1-pre" desc="interstitial"}You'll now learn how to create new blocks, which are called "functions".{/msg}{/param}
-              {param class:pre/}
+              {param class}pre{/param}
             {/call}
           {case 2}  // Before and after creating "draw a triangle".
             {call .preAnimation}
               {param text}{msg meaning="Turtle.inter3_2-pre" desc="interstitial"}Here's how the "draw a square" block was created.  On this level, you'll create your own "draw a triangle" block.{/msg}{/param}
-	      {param image}define-draw-a-square.gif{/param}
+              {param image}define-draw-a-square.gif{/param}
             {/call}
-	    {call .interText}
+            {call .interText}
               {param text}{msg meaning="Turtle.inter3_2-post" desc="interstitial"}Congratulations on adding a new block!  That's a huge step for a programmer.  Dividing big tasks into bite-sized pieces is what makes large programs possible.{/msg}{/param}
-              {param class:post/}
-	    {/call}
+              {param class}post{/param}
+            {/call}
           {case 5}  // Before creating "draw a house" funciton.
-            {call .preText}
+            {call .interText}
               {param text}{msg meaning="Turtle.inter3_5-pre" desc="interstitial"}The new blocks that you define can be used just like the built-in blocks, including being used within another block definition...{/msg}{/param}
+              {param class}pre{/param}
             {/call}
           {case 6}  // Before adding length parameter to "draw a triangle".
             {call .preAnimation}
-              {param text}{msg meaning="Turtle.inter3_6-pre" desc="interstitial"}Let me show you how the input was added to "draw a square".  You'll need to know this for this level, where you'll add an input to "draw a triangle{/msg}{/param}
-	      {param image:draw-a-square-add-input.gif/}
-	    {/call}
+              {param text}{msg meaning="Turtle.inter3_6-pre" desc="interstitial"}Let me show you how the input was added to "draw a square".  You'll need to know this for this level, where you'll add an input to "draw a triangle".{/msg}{/param}
+              {param image}draw-a-square-add-input.gif{/param}
+            {/call}
           {case 8}  // Before modifying end location of "create a house".
             {call .interText}
               {param text}{msg meaning="Turtle.inter3_8-pre" desc="interstitial"}It can be useful for a function to put the turtle at a good ending position, to help with building up bigger pictures.{/msg}{/param}
-	      {param class:pre/}
+              {param class}pre{/param}
             {/call}
           {case 9}  // After final level.
-	    {call .interText}
-	      {param text}{msg meaning="Turtle.inter3_9-pre" desc="interstitial"}You now know how to control the turtle, use loops ("repeat" and "count from"), and write and use functions.  Congratulations on becoming a programmer!{/msg}{/param}
-	      {param class:post/}
-	    {/call}
-	{/switch}
+            {call .interText}
+              {param text}{msg meaning="Turtle.inter3_9-post" desc="interstitial"}You now know how to control the turtle, use loops ("repeat" and "count from"), and write and use functions.  Congratulations on becoming a programmer!{/msg}{/param}
+              {param class}post{/param}
+            {/call}
+        {/switch}
       {/if}
     </div>  // style="margin-left: 50px;"
   </div> // interstitial
@@ -330,7 +331,7 @@
           <block type="draw_move_inline" x="20" y="20"></block>
         {case 3, 4, 5, 6}
           <block type="controls_repeat" x="20" y="20">
-            <title name="TIMES">{if $ij.level == 3 or $ij.level == 6 or $ij.level == 7}4{else}3{/if}</title>
+            <title name="TIMES">{if $ij.level == 3}4{else}3{/if}</title>
           </block>
         {case 7}
           <block type="draw_turn_inline" x="20" y="20">
@@ -590,7 +591,7 @@
                 {/if}
               </value>
               <next>
-                <block type="draw_move" inline="false">
+                <block type="draw_move" inline="true">
                   <title name="DIR">moveForward</title>
                   <value name="VALUE">
                     {if $ij.level == 7}
@@ -602,7 +603,7 @@
                     {/if}
                   </value>
                   <next>
-                    <block type="draw_turn" inline="false">
+                    <block type="draw_turn" inline="true">
                       <title name="DIR">turnRight</title>
                       <value name="VALUE">
                         <block type="math_number">
@@ -840,7 +841,10 @@
           {msg meaning="Apps.tooFewBlocksMsg" desc="IBID"}You are using all of the necessary types of blocks, but try using more  of these types of blocks to complete this level.{/msg}</li>
         <li id="levelIncompleteError" class="feedback" style="display: none">
           {msg meaning="Apps.levelIncompleteError" desc="IBID"}You are using all of the necessary types of blocks but not in the right way.{/msg}</li>
-	<li id="appSpecificOneStarFeedback" class="feedback" style="display: none"></li>
+        <li id="appSpecificOneStarFeedback" class="feedback" style="display: none"></li>
+        <li id="appSpecificTwoStarFeedback" class="feedback" style="display: none">
+          {msg meaning="Apps.tooMuchWorkError" desc="TODO"}You made me do a lot of work!  Could you try repeating fewer times?{/msg}
+        </li>
       </ul>  // feedbackText
       <iframe id="feedbackBlocks" class="feedback" style="margin-left: 50px;
         height: 80px; width: 500px; border: none; display: none;" src=""></iframe>

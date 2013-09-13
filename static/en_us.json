@@ -1,7 +1,7 @@
 {
     "@metadata": {
         "author": "Ellen Spertus <ellen.spertus@gmail.com>",
-        "lastupdated": "2013-09-11 14:39:53.685117",
+        "lastupdated": "2013-09-11 15:55:56.668433",
         "locale": "en_us",
         "messagedocumentation" : "qqq"
     },
@@ -223,6 +223,7 @@
     "Turtle.runProgram": "Run",
     "Turtle.resetProgram": "Reset",
     "Turtle.codeTooltip": "See generated JavaScript code.",
+    "Apps.tooMuchWorkError": "You made me do too much work.  Could you try a smaller number?",
     "Turtle.tryAgain": "Try again",
     "Turtle.continue": "Continue",
     "Turtle.catTurtle": "Actions",

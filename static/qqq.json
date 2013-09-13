@@ -217,6 +217,7 @@
     "Turtle.runProgram": "TODO",
     "Turtle.resetProgram": "TODO",
     "Turtle.codeTooltip": "TODO",
+    "Apps.tooMuchWorkError": "TODO",
     "Turtle.tryAgain": "button - Closes the dialog and stays on the current level",
     "Turtle.continue": "button - Closes the dialog and continues to the next level",
     "Turtle.catTurtle": "TODO",

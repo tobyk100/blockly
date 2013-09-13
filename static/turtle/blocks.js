@@ -216,6 +216,7 @@ Blockly.Language.draw_a_square = {
             .appendTitle(BlocklyApps.getMsg('lengthParameter') + ':');
     this.setPreviousStatement(true);
     this.setNextStatement(true);
+    this.setInputsInline(true);
     this.setTooltip('');
   }
 };
@@ -226,12 +227,15 @@ Blockly.JavaScript.draw_a_square = function() {
       this, 'VALUE', Blockly.JavaScript.ORDER_ATOMIC);
   var loopVar = Blockly.JavaScript.variableDB_.getDistinctName(
       'count', Blockly.Variables.NAME_TYPE);
-  return ['// draw_a_square',
-          'for (var ' + loopVar + ' = 0; ' + loopVar + ' < 4; ' +
-              loopVar + '++) {',
-          '  Turtle.moveForward(' + value_length + ');',
-          '  Turtle.turnRight(90);',
-          '}\n'].join('\n');
+  return [
+      // The generated comment helps detect required blocks.
+      // Don't change it without changing REQUIRED_BLOCKS.
+      '// draw_a_square',  
+      'for (var ' + loopVar + ' = 0; ' + loopVar + ' < 4; ' +
+            loopVar + '++) {',
+      '  Turtle.moveForward(' + value_length + ');',
+      '  Turtle.turnRight(90);',
+      '}\n'].join('\n');
 };
 
 // Create a fake "draw a snowman" function so it can be made available to
@@ -265,6 +269,9 @@ Blockly.JavaScript.draw_a_snowman = function() {
   var distanceVar = Blockly.JavaScript.variableDB_.getDistinctName(
       'distance', Blockly.Variables.NAME_TYPE);
   return [
+    // The generated comment helps detect required blocks.
+    // Don't change it without changing REQUIRED_BLOCKS.
+    '// draw_a_snowman',  
     'Turtle.turnLeft(90);',
     'var ' + distancesVar + ' = [' + value + ' * .5, ' + value + ' * .3,' +
         value + ' * .2];',
