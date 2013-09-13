@@ -197,14 +197,14 @@ Turtle.setBlocklyAppConstants_ = function() {
   function draw_a_square(number) {
     return {test: 'draw_a_square',
             type: 'draw_a_square',
-            value: {'VALUE': make_math_number(number)}};
+            values: {'VALUE': make_math_number(number)}};
   }
 
   // This tests for and creates a draw_a_snowman block on page 2.
   function draw_a_snowman(number) {
     return {test: 'draw_a_snowman',
             type: 'draw_a_snowman',
-            value: {'VALUE': make_math_number(number)}};
+            values: {'VALUE': make_math_number(number)}};
   }
 
   // This tests for and creates the limited "move forward" block used on the
@@ -237,7 +237,7 @@ Turtle.setBlocklyAppConstants_ = function() {
               block, 'VALUE', Blockly.JavaScript.ORDER_NONE) == degrees;
       },
       type: 'draw_turn',
-      value: {'VALUE': make_math_number(degrees)}};
+      values: {'VALUE': make_math_number(degrees)}};
   };
 
   // This tests for and creates a left draw_turn block with the specified
@@ -249,7 +249,7 @@ Turtle.setBlocklyAppConstants_ = function() {
           block.getTitleValue('DIR') == 'turnLeft'; },
             type: 'draw_turn',
             titles: {'DIR': 'turnLeft'},
-            value: {'VALUE': make_math_number(degrees)}};
+            values: {'VALUE': make_math_number(degrees)}};
   };
 
   // This tests for any draw_move block and, if not present, creates
@@ -257,20 +257,20 @@ Turtle.setBlocklyAppConstants_ = function() {
   var move = function(distance) {
     return {test: function(block) {return block.type == 'draw_move'; },
             type: 'draw_move',
-            value: {'VALUE': make_math_number(distance)}};
+            values: {'VALUE': make_math_number(distance)}};
   };
 
   // This tests for and creates a "set colour" block with a colour picker
   // as its input.
   var SET_COLOUR_PICKER = {test: 'penColour(\'#',
     type: 'draw_colour',
-    value: {'COLOUR': '<block type="colour_picker"></block>'}};
+    values: {'COLOUR': '<block type="colour_picker"></block>'}};
 
   // This tests for and creates a "set colour" block with a random colour
   // generator as its input.
   var SET_COLOUR_RANDOM = {test: 'penColour(colour_random',
     type: 'draw_colour',
-    value: {'COLOUR': '<block type="colour_random"></block>'}};
+    values: {'COLOUR': '<block type="colour_random"></block>'}};
 
   /**
    * Information about level-specific requirements.  Each entry consists of:
@@ -349,7 +349,7 @@ Turtle.setBlocklyAppConstants_ = function() {
      // Level 8: Three snowmen.
      [BlocklyApps.InterTypes.PRE, 9,
       [draw_a_snowman(150), turn_right(90), turn_left(90),
-       {test: 'jump', type: 'jump', value: {'VALUE': make_math_number(100)}},
+       {test: 'jump', type: 'jump', values: {'VALUE': make_math_number(100)}},
        simple_block('jump'), simple_block('draw_colour')],
       3],
      // Level 9: Snowman family.
@@ -357,7 +357,7 @@ Turtle.setBlocklyAppConstants_ = function() {
       [draw_a_snowman('??'), simple_block('controls_for_counter'),
        simple_block('variables_get_counter'),
        turn_right(90), turn_left(90),
-       {test: 'jump', type: 'jump', value: {'VALUE': make_math_number(60)}}]],
+       {test: 'jump', type: 'jump', values: {'VALUE': make_math_number(60)}}]],
      // Level 10: playground.
      [BlocklyApps.InterTypes.NONE, Infinity, []]
     ],
@@ -368,7 +368,7 @@ Turtle.setBlocklyAppConstants_ = function() {
      // Level 2: Create "draw a triangle".
      [BlocklyApps.InterTypes.PRE | BlocklyApps.InterTypes.POST,
       7,
-      [move(100), turn_right(120), repeat(3), call('draw a triangle')]],
+      [repeat(3), move(100), turn_right(120), call('draw a triangle')]],
      // Level 3: Fence the animals.
      [BlocklyApps.InterTypes.NONE, 7,
       [call('draw a triangle'), move(100), call('draw a square')]],

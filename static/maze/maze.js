@@ -58,24 +58,263 @@ BlocklyApps.LANG = BlocklyApps.getLang();
 document.write('<script type="text/javascript" src="generated/' +
     BlocklyApps.LANG + '.js"></script>\n');
 
+/**
+ * Constants for cardinal directions.  Subsequent code assumes these are
+ * in the range 0..3 and that opposites have an absolute difference of 2.
+ * @enum {number}
+ */
+Maze.DirectionType = {
+  NORTH: 0,
+  EAST: 1,
+  SOUTH: 2,
+  WEST: 3
+};
+
 // Set BlocklyApps constants.
 BlocklyApps.MAX_LEVEL = 10;
 BlocklyApps.LEVEL =
     BlocklyApps.getNumberParamFromUrl('level', 1, BlocklyApps.MAX_LEVEL);
 BlocklyApps.CHECK_FOR_EMPTY_BLOCKS = true;
-BlocklyApps.IDEAL_BLOCK_NUM = [undefined, //  0.
-  2, 5, 2, 5, 4, 4, 4, 6, 6, 5][BlocklyApps.LEVEL];
-BlocklyApps.INTERSTITIALS = [undefined, // 0.
-   [BlocklyApps.InterTypes.PRE],
-   [BlocklyApps.InterTypes.POST],
-   [BlocklyApps.InterTypes.PRE],
-   [BlocklyApps.InterTypes.NONE],
-   [BlocklyApps.InterTypes.PRE | BlocklyApps.InterTypes.POST],
-   [BlocklyApps.InterTypes.PRE],
-   [BlocklyApps.InterTypes.NONE],
-   [BlocklyApps.InterTypes.NONE],
-   [BlocklyApps.InterTypes.PRE | BlocklyApps.InterTypes.POST],
-   [BlocklyApps.InterTypes.NONE]][BlocklyApps.LEVEL];
+
+/*
+ * Configuration for all levels.
+ */
+var LEVELS = [
+  // Level 0
+  {},
+  // Level 1
+  {
+    'interstitials': [BlocklyApps.InterTypes.PRE],
+    'ideal': 2,
+    'requiredBlocks': [
+      {'test': 'moveForward', 'type': 'maze_moveForward'}
+    ],
+    'videoId': '0BybP3F7DhXrUSFRhMnBGLUVPZTA',
+    'startDirection': Maze.DirectionType.EAST,
+    'map': [
+      [0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 2, 1, 3, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0]
+    ]
+  },
+  // Level 2
+  {
+    'interstitials': [BlocklyApps.InterTypes.POST],
+    'ideal': 5,
+    'requiredBlocks': [
+      {'test': 'moveForward', 'type': 'maze_moveForward'},
+      {'test': 'turnLeft', 'type': 'maze_turn', 'params': {'DIR': 'turnLeft'}},
+      {'test': 'turnRight', 'type': 'maze_turn', 'params': {'DIR': 'turnRight'}}
+    ],
+    'startDirection': Maze.DirectionType.EAST,
+    'map': [
+      [0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 1, 3, 0, 0, 0],
+      [0, 0, 2, 1, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0]
+    ]
+  },
+  // Level 3
+  {
+    'interstitials': [BlocklyApps.InterTypes.PRE],
+    'ideal': 2,
+    'requiredBlocks': [
+      {'test': 'while', 'type': 'maze_forever'},
+      {'test': 'moveForward', 'type': 'maze_moveForward'}
+    ],
+    'videoId': '0BybP3F7DhXrUU2FCODdJdXRKVTQ',
+    'startDirection': Maze.DirectionType.EAST,
+    'map': [
+      [0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 2, 1, 1, 1, 1, 3, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0]
+    ]
+  },
+  // Level 4
+  {
+    'interstitials': [BlocklyApps.InterTypes.NONE],
+    'ideal': 5,
+    'requiredBlocks': [
+      {'test': 'while', 'type': 'maze_forever'},
+      {'test': 'turnLeft', 'type': 'maze_turn', 'params': {'DIR': 'turnLeft'}},
+      {'test': 'turnRight', 'type': 'maze_turn', 'params': {'DIR': 'turnRight'}},
+      {'test': 'moveForward', 'type': 'maze_moveForward'}
+    ],
+    'startDirection': Maze.DirectionType.EAST,
+    /**
+     *  Note, the path continues past the start and the goal in both directions.
+     *  This is intentional so kids see the maze is about getting from the start
+     *  to the finish and not necessarily about moving over every part of the maze,
+     *  'mowing the lawn' as Neil calls it.
+     */
+    'map': [
+      [0, 0, 0, 0, 0, 0, 0, 1],
+      [0, 0, 0, 0, 0, 0, 1, 1],
+      [0, 0, 0, 0, 0, 1, 3, 0],
+      [0, 0, 0, 0, 1, 1, 0, 0],
+      [0, 0, 0, 1, 1, 0, 0, 0],
+      [0, 0, 1, 1, 0, 0, 0, 0],
+      [0, 2, 1, 0, 0, 0, 0, 0],
+      [1, 1, 0, 0, 0, 0, 0, 0]
+    ]
+  },
+  // Level 5
+  {
+    'interstitials': [BlocklyApps.InterTypes.PRE | BlocklyApps.InterTypes.POST],
+    'ideal': 4,
+    'requiredBlocks': [
+      {'test': 'while', 'type': 'maze_forever'},
+      {'test': 'isPathLeft', 'type': 'maze_if', 'params': {'DIR': 'isPathLeft'}},
+      {'test': 'turnLeft', 'type': 'maze_turn', 'params': {'DIR': 'turnLeft'}},
+      {'test': 'moveForward', 'type': 'maze_moveForward'}
+    ],
+    'videoId': '0BybP3F7DhXrUSFRhMnBGLUVPZTA',
+    'startDirection': Maze.DirectionType.EAST,
+    'map': [
+      [0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 3, 0, 0],
+      [0, 0, 0, 0, 0, 1, 0, 0],
+      [0, 0, 0, 0, 0, 1, 0, 0],
+      [0, 0, 0, 0, 0, 1, 0, 0],
+      [0, 0, 0, 0, 0, 1, 0, 0],
+      [0, 0, 0, 2, 1, 1, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0]
+    ]
+  },
+  // Level 6
+  {
+    'interstitials': [BlocklyApps.InterTypes.PRE],
+    'ideal': 4,
+    'requiredBlocks': [
+      {'test': 'while', 'type': 'maze_forever'},
+      {'test': 'isPathLeft', 'type': 'maze_if', 'params': {'DIR': 'isPathLeft'}},
+      {'test': 'turnLeft', 'type': 'maze_turn', 'params': {'DIR': 'turnLeft'}},
+      {'test': 'moveForward', 'type': 'maze_moveForward'}
+    ],
+    'startDirection': Maze.DirectionType.EAST,
+    'map': [
+      [0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 1, 1, 1, 1, 1, 0, 0],
+      [0, 1, 0, 0, 0, 1, 0, 0],
+      [0, 1, 1, 3, 0, 1, 0, 0],
+      [0, 0, 0, 0, 0, 1, 0, 0],
+      [0, 2, 1, 1, 1, 1, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0]
+    ]
+  },
+  // Level 7
+  {
+    'interstitials': [BlocklyApps.InterTypes.NONE],
+    'ideal': 4,
+    'requiredBlocks': [
+      {'test': 'while', 'type': 'maze_forever'},
+      {'test': 'isPathRight', 'type': 'maze_if', 'params': {'DIR': 'isPathRight'}},
+      {'test': 'moveForward', 'type': 'maze_moveForward'}
+    ],
+    'startDirection': Maze.DirectionType.EAST,
+    'map': [
+      [0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 2, 1, 1, 1, 1, 0, 0],
+      [0, 0, 0, 0, 0, 1, 0, 0],
+      [0, 1, 1, 3, 0, 1, 0, 0],
+      [0, 1, 0, 0, 0, 1, 0, 0],
+      [0, 1, 1, 1, 1, 1, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0]
+    ]
+  },
+  // Level 8
+  {
+    'interstitials': [BlocklyApps.InterTypes.NONE],
+    'ideal': 6,
+    'requiredBlocks': [
+      {'test': 'while', 'type': 'maze_forever'},
+      {'test': 'isPathRight', 'type': 'maze_if', 'params': {'DIR': 'isPathRight'}},
+      {'test': 'isPathLeft', 'type': 'maze_if', 'params': {'DIR': 'isPathLeft'}},
+      {'test': 'turnLeft', 'type': 'maze_turn', 'params': {'DIR': 'turnLeft'}},
+      {'test': 'turnRight', 'type': 'maze_turn', 'params': {'DIR': 'turnRight'}},
+      {'test': 'moveForward', 'type': 'maze_moveForward'}
+    ],
+    'startDirection': Maze.DirectionType.EAST,
+    'map': [
+      [0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 1, 1, 1, 1, 0, 0, 0],
+      [0, 1, 0, 0, 1, 1, 0, 0],
+      [0, 1, 1, 1, 0, 1, 0, 0],
+      [0, 0, 0, 1, 0, 1, 0, 0],
+      [0, 2, 1, 1, 0, 3, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0]
+    ]
+  },
+  // Level 9
+  {
+    'interstitials': [BlocklyApps.InterTypes.PRE | BlocklyApps.InterTypes.POST],
+    'ideal': 6,
+    'requiredBlocks': [
+      {'test': 'while', 'type': 'maze_forever'},
+      {'test': 'isPathForward', 'type': 'maze_ifElse',
+                                'params': {'DIR': 'isPathForward'}},
+      {'test': 'turnLeft', 'type': 'maze_turn', 'params': {'DIR': 'turnLeft'}},
+      {'test': 'moveForward', 'type': 'maze_moveForward'}
+    ],
+    'startDirection': Maze.DirectionType.EAST,
+    'map': [
+      [0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 1, 1, 1, 1, 1, 0, 0],
+      [0, 0, 1, 0, 0, 0, 0, 0],
+      [3, 1, 1, 1, 1, 1, 1, 0],
+      [0, 1, 0, 1, 0, 1, 1, 0],
+      [1, 1, 1, 1, 1, 0, 1, 0],
+      [0, 1, 0, 1, 0, 2, 1, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0]
+    ]
+  },
+  // Level 10
+  {
+    'interstitials': [BlocklyApps.InterTypes.NONE],
+    'ideal': 5,
+    'requiredBlocks': [
+      {'test': 'while', 'type': 'maze_forever'},
+      {'test': 'isPathForward', 'type': 'maze_ifElse',
+                                'params': {'DIR': 'isPathForward'}},
+      {'test': 'turnRight', 'type': 'maze_turn', 'params': {'DIR': 'turnRight'}},
+      {'test': 'moveForward', 'type': 'maze_moveForward'}
+    ],
+    'startDirection': Maze.DirectionType.EAST,
+    'map': [
+      [0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 2, 1, 1, 1, 1, 1, 0],
+      [0, 0, 1, 1, 0, 1, 1, 0],
+      [0, 0, 0, 0, 0, 0, 1, 0],
+      [0, 0, 1, 1, 0, 1, 1, 0],
+      [0, 1, 3, 1, 1, 1, 1, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0]
+    ]
+  },
+];
+
+/**
+ * Current Level configuration.
+ */
+var CURRENT_LEVEL = LEVELS[BlocklyApps.LEVEL];
+
 
 /**
  * Blocks that are expected to be used on each level.
@@ -84,54 +323,7 @@ BlocklyApps.INTERSTITIALS = [undefined, // 0.
  * 'type' is the type of block to be generated as feedback.
  * 'params' are optional and create a more specific block of the given type.
  */
-BlocklyApps.REQUIRED_BLOCKS = [undefined, // 0.
-  // Level 1.
-  [{'test': 'moveForward', 'type': 'maze_moveForward'}],
-  // Level 2.
-  [{'test': 'moveForward', 'type': 'maze_moveForward'},
-   {'test': 'turnLeft', 'type': 'maze_turn', 'params': {'DIR': 'turnLeft'}},
-   {'test': 'turnRight', 'type': 'maze_turn', 'params': {'DIR': 'turnRight'}}],
-  // Level 3.
-  [{'test': 'while', 'type': 'maze_forever'},
-   {'test': 'moveForward', 'type': 'maze_moveForward'}],
-  // Level 4.
-  [{'test': 'while', 'type': 'maze_forever'},
-   {'test': 'turnLeft', 'type': 'maze_turn', 'params': {'DIR': 'turnLeft'}},
-   {'test': 'turnRight', 'type': 'maze_turn', 'params': {'DIR': 'turnRight'}},
-   {'test': 'moveForward', 'type': 'maze_moveForward'}],
-  // Level 5.
-  [{'test': 'while', 'type': 'maze_forever'},
-   {'test': 'isPathLeft', 'type': 'maze_if', 'params': {'DIR': 'isPathLeft'}},
-   {'test': 'turnLeft', 'type': 'maze_turn', 'params': {'DIR': 'turnLeft'}},
-   {'test': 'moveForward', 'type': 'maze_moveForward'}],
-  // Level 6.
-  [{'test': 'while', 'type': 'maze_forever'},
-   {'test': 'isPathLeft', 'type': 'maze_if', 'params': {'DIR': 'isPathLeft'}},
-   {'test': 'turnLeft', 'type': 'maze_turn', 'params': {'DIR': 'turnLeft'}},
-   {'test': 'moveForward', 'type': 'maze_moveForward'}],
-  // Level 7.
-  [{'test': 'while', 'type': 'maze_forever'},
-   {'test': 'isPathRight', 'type': 'maze_if', 'params': {'DIR': 'isPathRight'}},
-   {'test': 'moveForward', 'type': 'maze_moveForward'}],
-  // Level 8.
-  [{'test': 'while', 'type': 'maze_forever'},
-   {'test': 'isPathRight', 'type': 'maze_if', 'params': {'DIR': 'isPathRight'}},
-   {'test': 'isPathLeft', 'type': 'maze_if', 'params': {'DIR': 'isPathLeft'}},
-   {'test': 'turnLeft', 'type': 'maze_turn', 'params': {'DIR': 'turnLeft'}},
-   {'test': 'turnRight', 'type': 'maze_turn', 'params': {'DIR': 'turnRight'}},
-   {'test': 'moveForward', 'type': 'maze_moveForward'}],
-  // Level 9.
-  [{'test': 'while', 'type': 'maze_forever'},
-   {'test': 'isPathForward', 'type': 'maze_ifElse',
-                             'params': {'DIR': 'isPathForward'}},
-   {'test': 'turnLeft', 'type': 'maze_turn', 'params': {'DIR': 'turnLeft'}},
-   {'test': 'moveForward', 'type': 'maze_moveForward'}],
-  // Level 10.
-  [{'test': 'while', 'type': 'maze_forever'},
-   {'test': 'isPathForward', 'type': 'maze_ifElse',
-                             'params': {'DIR': 'isPathForward'}},
-   {'test': 'turnRight', 'type': 'maze_turn', 'params': {'DIR': 'turnRight'}},
-   {'test': 'moveForward', 'type': 'maze_moveForward'}]][BlocklyApps.LEVEL];
+BlocklyApps.REQUIRED_BLOCKS = CURRENT_LEVEL.requiredBlocks;
 
 //The number of blocks to show as feedback.
 BlocklyApps.NUM_REQUIRED_BLOCKS_TO_FLAG = 10;
@@ -207,9 +399,13 @@ Maze.SKIN = Maze.SKINS[BlocklyApps.SKIN_ID];
  * 'null' is used because IE8 does not like trailing commas in arrays, and it is
  *     used throughout the array for consistency.
  */
+<<<<<<< HEAD
 BlocklyApps.VIDEO_ID = [undefined, '0BybP3F7DhXrUSFRhMnBGLUVPZTA', null,
     '0BybP3F7DhXrUU2FCODdJdXRKVTQ', null, '0BybP3F7DhXrUSFRhMnBGLUVPZTA', null,
     null, null, null, null][BlocklyApps.LEVEL];
+=======
+Maze.VIDEO_ID = CURRENT_LEVEL.videoId;
+>>>>>>> codedotorg/mooc
 
 /**
  * Milliseconds between each animation frame.
@@ -231,106 +427,8 @@ Maze.SquareType = {
 
 // The maze square constants defined above are inlined here
 // for ease of reading and writing the static mazes.
-Maze.map = [
-// Level 0.
- undefined,
-// Level 1.
- [[0, 0, 0, 0, 0, 0, 0, 0],
-  [0, 0, 0, 0, 0, 0, 0, 0],
-  [0, 0, 0, 0, 0, 0, 0, 0],
-  [0, 0, 0, 0, 0, 0, 0, 0],
-  [0, 0, 2, 1, 3, 0, 0, 0],
-  [0, 0, 0, 0, 0, 0, 0, 0],
-  [0, 0, 0, 0, 0, 0, 0, 0],
-  [0, 0, 0, 0, 0, 0, 0, 0]],
-// Level 2.
- [[0, 0, 0, 0, 0, 0, 0, 0],
-  [0, 0, 0, 0, 0, 0, 0, 0],
-  [0, 0, 0, 0, 0, 0, 0, 0],
-  [0, 0, 0, 1, 3, 0, 0, 0],
-  [0, 0, 2, 1, 0, 0, 0, 0],
-  [0, 0, 0, 0, 0, 0, 0, 0],
-  [0, 0, 0, 0, 0, 0, 0, 0],
-  [0, 0, 0, 0, 0, 0, 0, 0]],
-// Level 3.
- [[0, 0, 0, 0, 0, 0, 0, 0],
-  [0, 0, 0, 0, 0, 0, 0, 0],
-  [0, 0, 0, 0, 0, 0, 0, 0],
-  [0, 0, 0, 0, 0, 0, 0, 0],
-  [0, 2, 1, 1, 1, 1, 3, 0],
-  [0, 0, 0, 0, 0, 0, 0, 0],
-  [0, 0, 0, 0, 0, 0, 0, 0],
-  [0, 0, 0, 0, 0, 0, 0, 0]],
-// Level 4.
-/**
- *  Note, the path continues past the start and the goal in both directions.
- *  This is intentional so kids see the maze is about getting from the start
- *  to the finish and not necessarily about moving over every part of the maze,
- *  'mowing the lawn' as Neil calls it.
- */
- [[0, 0, 0, 0, 0, 0, 0, 1],
-  [0, 0, 0, 0, 0, 0, 1, 1],
-  [0, 0, 0, 0, 0, 1, 3, 0],
-  [0, 0, 0, 0, 1, 1, 0, 0],
-  [0, 0, 0, 1, 1, 0, 0, 0],
-  [0, 0, 1, 1, 0, 0, 0, 0],
-  [0, 2, 1, 0, 0, 0, 0, 0],
-  [1, 1, 0, 0, 0, 0, 0, 0]],
-// Level 5.
- [[0, 0, 0, 0, 0, 0, 0, 0],
-  [0, 0, 0, 0, 0, 3, 0, 0],
-  [0, 0, 0, 0, 0, 1, 0, 0],
-  [0, 0, 0, 0, 0, 1, 0, 0],
-  [0, 0, 0, 0, 0, 1, 0, 0],
-  [0, 0, 0, 0, 0, 1, 0, 0],
-  [0, 0, 0, 2, 1, 1, 0, 0],
-  [0, 0, 0, 0, 0, 0, 0, 0]],
-// Level 6.
- [[0, 0, 0, 0, 0, 0, 0, 0],
-  [0, 0, 0, 0, 0, 0, 0, 0],
-  [0, 1, 1, 1, 1, 1, 0, 0],
-  [0, 1, 0, 0, 0, 1, 0, 0],
-  [0, 1, 1, 3, 0, 1, 0, 0],
-  [0, 0, 0, 0, 0, 1, 0, 0],
-  [0, 2, 1, 1, 1, 1, 0, 0],
-  [0, 0, 0, 0, 0, 0, 0, 0]],
-// Level 7.
- [[0, 0, 0, 0, 0, 0, 0, 0],
-  [0, 0, 0, 0, 0, 0, 0, 0],
-  [0, 2, 1, 1, 1, 1, 0, 0],
-  [0, 0, 0, 0, 0, 1, 0, 0],
-  [0, 1, 1, 3, 0, 1, 0, 0],
-  [0, 1, 0, 0, 0, 1, 0, 0],
-  [0, 1, 1, 1, 1, 1, 0, 0],
-  [0, 0, 0, 0, 0, 0, 0, 0]],
-// Level 8.
- [[0, 0, 0, 0, 0, 0, 0, 0],
-  [0, 0, 0, 0, 0, 0, 0, 0],
-  [0, 1, 1, 1, 1, 0, 0, 0],
-  [0, 1, 0, 0, 1, 1, 0, 0],
-  [0, 1, 1, 1, 0, 1, 0, 0],
-  [0, 0, 0, 1, 0, 1, 0, 0],
-  [0, 2, 1, 1, 0, 3, 0, 0],
-  [0, 0, 0, 0, 0, 0, 0, 0]],
-// Level 9.
- [[0, 0, 0, 0, 0, 0, 0, 0],
-  [0, 1, 1, 1, 1, 1, 0, 0],
-  [0, 0, 1, 0, 0, 0, 0, 0],
-  [3, 1, 1, 1, 1, 1, 1, 0],
-  [0, 1, 0, 1, 0, 1, 1, 0],
-  [1, 1, 1, 1, 1, 0, 1, 0],
-  [0, 1, 0, 1, 0, 2, 1, 0],
-  [0, 0, 0, 0, 0, 0, 0, 0]],
-// Level 10.
- [[0, 0, 0, 0, 0, 0, 0, 0],
-  [0, 0, 0, 0, 0, 0, 0, 0],
-  [0, 2, 1, 1, 1, 1, 1, 0],
-  [0, 0, 1, 1, 0, 1, 1, 0],
-  [0, 0, 0, 0, 0, 0, 1, 0],
-  [0, 0, 1, 1, 0, 1, 1, 0],
-  [0, 1, 3, 1, 1, 1, 1, 0],
-  [0, 0, 0, 0, 0, 0, 0, 0]]
-][BlocklyApps.LEVEL];
+Maze.map = CURRENT_LEVEL.map;
+
 // Add blank row at top for hint bubble.
 Maze.map.unshift([0, 0, 0, 0, 0, 0, 0, 0]);
 
@@ -351,32 +449,9 @@ Maze.MAZE_HEIGHT = Maze.SQUARE_SIZE * Maze.ROWS;
 Maze.PATH_WIDTH = Maze.SQUARE_SIZE / 3;
 
 /**
- * Constants for cardinal directions.  Subsequent code assumes these are
- * in the range 0..3 and that opposites have an absolute difference of 2.
- * @enum {number}
- */
-Maze.DirectionType = {
-  NORTH: 0,
-  EAST: 1,
-  SOUTH: 2,
-  WEST: 3
-};
-
-/**
  * Starting direction.
  */
-Maze.startDirection = [
-  Maze.DirectionType.EAST,
-  Maze.DirectionType.EAST,
-  Maze.DirectionType.EAST,
-  Maze.DirectionType.EAST,
-  Maze.DirectionType.EAST,
-  Maze.DirectionType.EAST,
-  Maze.DirectionType.EAST,
-  Maze.DirectionType.EAST,
-  Maze.DirectionType.EAST,
-  Maze.DirectionType.EAST,
-][BlocklyApps.LEVEL];
+Maze.startDirection = CURRENT_LEVEL.startDirection;
 
 /**
  * PIDs of animation tasks currently executing.

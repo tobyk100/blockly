@@ -44,8 +44,6 @@ Maze.MAX_LEVEL = [undefined, 11, 10][Maze.PAGE];
 Maze.LEVEL = BlocklyApps.getNumberParamFromUrl('level', 1, Maze.MAX_LEVEL);
 Maze.REINF = BlocklyApps.getNumberParamFromUrl('reinf', 1, Maze.MAX_REINF);
 
-Maze.idealBlockNum = Maze.idealBlocks[Maze.PAGE][Maze.LEVEL];
-
 Maze.SKINS = [
   // sprite: A 1029x51 set of 21 avatar images.
   // tiles: A 250x200 set of 20 map images.
@@ -106,10 +104,26 @@ Maze.SquareType = {
   STARTANDFINISH: 5
 };
 
-Maze.map = Maze.levels[Maze.PAGE][Maze.LEVEL];
-Maze.initialBallMap = Maze.initialBalls[Maze.PAGE][Maze.LEVEL];
-Maze.finalBallMap = Maze.finalBalls[Maze.PAGE][Maze.LEVEL];
-Maze.startDirection = Maze.startDirections[Maze.PAGE][Maze.LEVEL];
+/**
+ * Load level configuration.
+ */
+var level = LevelConfig.pages[Maze.PAGE].levels[Maze.LEVEL];
+Maze.map = level.map;
+Maze.idealBlockNum = level.ideal;
+Maze.initialBallMap = level.initialBalls;
+Maze.finalBallMap = level.finalBalls;
+Maze.startDirection = level.startDirection;
+
+// Default Scalings
+Maze.scale = {
+  'snapRadius': 1,
+  'stepSpeed': 5
+};
+
+// Override scalars.
+for (var key in level.scale) {
+  Maze.scale[key] = level.scale[key];
+}
 
 Maze.map.unshift([0, 0, 0, 0, 0, 0, 0, 0]);
 Maze.initialBallMap.unshift([0, 0, 0, 0, 0, 0, 0, 0]);
@@ -390,9 +404,7 @@ Maze.init = function() {
        trashcan: true});
   Blockly.loadAudio_(['maze/win.mp3', 'maze/win.ogg'], 'win');
   Blockly.loadAudio_(['maze/whack.mp3', 'maze/whack.ogg'], 'whack');
-  if (Maze.LEVEL == 1) {
-    Blockly.SNAP_RADIUS *= 2;
-  }
+  Blockly.SNAP_RADIUS *= Maze.scale.snapRadius;
 
   Blockly.JavaScript.INFINITE_LOOP_TRAP = '  BlocklyApps.checkTimeout(%1);\n';
   Maze.drawMap();
@@ -735,15 +747,8 @@ Maze.animate = function() {
   }
 
   // Speeding up specific levels
-  if ((Maze.PAGE == 1 && (Maze.LEVEL == 5 || Maze.LEVEL == 7)) ||
-      (Maze.PAGE == 2 && (Maze.LEVEL == 1 || Maze.LEVEL == 3 ||
-                          Maze.LEVEL == 4 || Maze.LEVEL == 8 ||
-                          Maze.LEVEL == 9 || Maze.LEVEL == 10 ||
-                          Maze.LEVEL == 11))) {
-    Maze.pidList.push(window.setTimeout(Maze.animate, Maze.stepSpeed * 3));
-  } else {
-    Maze.pidList.push(window.setTimeout(Maze.animate, Maze.stepSpeed * 5));
-  }
+  var scaledStepSpeed = Maze.stepSpeed * Maze.scale.stepSpeed;
+  Maze.pidList.push(window.setTimeout(Maze.animate, scaledStepSpeed));
 };
 
 
