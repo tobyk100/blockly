@@ -49,6 +49,16 @@ module.exports = function(grunt) {
         src: ['build/templates/common.js', 'build/templates/karel/**/*.js'],
         dest: 'dist/karel/generated/en.js'
       },
+    },
+
+    jshint: {
+      options: {
+        browser: true,
+        globals: {
+          Blockly: true
+        }
+      },
+      all: ['Gruntfile.js', 'src/**/*.js', 'test/**/*.js']
     }
 
   });
@@ -56,6 +66,7 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-clean');
   grunt.loadNpmTasks('grunt-contrib-copy');
   grunt.loadNpmTasks('grunt-contrib-concat');
+  grunt.loadNpmTasks('grunt-contrib-jshint');
   grunt.loadNpmTasks('grunt-soy-compile');
 
   grunt.registerTask('build', ['soycompile', 'concat', 'copy:all']);
