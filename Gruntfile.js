@@ -10,6 +10,7 @@ module.exports = function(grunt) {
       all: {
         files: [
           {expand: true, cwd: 'src/', src: ['**/*.js'], dest: 'dist/'},
+          {expand: true, cwd: 'css/', src: ['**/*.css'], dest: 'dist/'},
           {expand: true, cwd: 'lib/blockly', src: ['*.js'], dest: 'dist/'},
           {expand: true, cwd: 'lib/prettify', src: ['*'], dest: 'dist/'},
           {expand: true, cwd: 'lib/soy', src: ['*.js'], dest: 'dist/_soy/'},
