@@ -1,0 +1,11 @@
+{
+  "name": "blockly-mooc",
+  "version": "0.0.1",
+  "dependencies": {},
+  "repository": "https://github.com/code-dot-org/blockly.git",
+  "dependencies": {},
+  "devDependencies": {
+    "grunt-cli": "~0.1.9",
+    "grunt": "~0.4.1"
+  }
+}
