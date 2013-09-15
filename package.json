@@ -7,6 +7,8 @@
     "grunt-cli": "~0.1.9",
     "grunt": "~0.4.1",
     "grunt-contrib-copy": "~0.4.1",
-    "grunt-contrib-clean": "~0.5.0"
+    "grunt-contrib-clean": "~0.5.0",
+    "grunt-soy-compile": "~0.3.1",
+    "grunt-contrib-concat": "~0.3.0"
   }
 }
