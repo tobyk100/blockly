@@ -1,4 +1,8 @@
-node_modules/
+# System
+*.pyc
 .DS_Store
+
+# Generated
 build/
 dist/
+node_modules/
