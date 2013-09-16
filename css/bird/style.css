@@ -94,10 +94,6 @@ button.primary {
 html[dir="RTL"] button.primary {
   text-align: right;
 }
-#languageMenu {
-  vertical-align: top;
-  margin-top: 12px;
-}
 
 /* Sprited icons. */
 .icon21 {

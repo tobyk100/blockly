@@ -198,10 +198,6 @@ button.disabled {
 input[type="radio"] {
   margin-left: 40px;
 }
-#languageMenu {
-  vertical-align: top;
-  margin-top: 12px;
-}
 
 /* Sprited icons. */
 .icon21 {

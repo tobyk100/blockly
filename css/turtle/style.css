@@ -75,12 +75,6 @@ button.disabled {
   border: 1px solid #ccc;
 }
 
-/* Language */
-#languageMenu {
-  vertical-align: top;
-  margin-top: 12px;
-}
-
 /* Slider. */
 .sliderTrack {
   stroke: #aaa;

@@ -53,9 +53,6 @@ button.disabled, button[disabled=disabled] {
   margin: 5px 0;
   height: 40px;
 }
-#languageMenu {
-  display: none;
-}
 
 /* Sprited icons. */
 .icon21 {
