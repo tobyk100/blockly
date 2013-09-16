@@ -25,6 +25,16 @@
 
 var BlocklyApps = {};
 
+BlocklyApps.BASE_URL = (function () {
+  var scripts = document.getElementsByTagName('script');
+  // Scripts are executed synchronously so this script is the most recently
+  // loaded.
+  var thisScript = scripts[scripts.length - 1];
+  var baseUrl = thisScript.src;
+  var parentUrl = baseUrl.substring(0, baseUrl.lastIndexOf('/') + 1);
+  return parentUrl;
+})();
+
 /**
  * Extracts a parameter from the URL.
  * If the parameter is absent default_value is returned.

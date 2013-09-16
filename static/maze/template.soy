@@ -169,7 +169,7 @@
         </button>
         &nbsp;&nbsp;
         <button id="pegmanButton" onmousedown="Maze.showPegmanMenu();">
-          <img src="../media/1x1.gif">
+          <img src="{$ij.baseUrl}media/1x1.gif">
           <span>&#x25BE;</span>
         </button>
       </td>
@@ -184,9 +184,9 @@
   {call apps.storageDialog /}
   <div id="help" class="dialogHiddenContent">
     <div style="padding-bottom: 0.7ex;"><br>
-      <img class="stars feedback" id="star1" src="../star1.png">
-      <img class="stars feedback" id="star2" src="../star2.png">
-      <img class="stars feedback" id="star3" src="../star3.png">
+      <img class="stars feedback" id="star1" src="{$ij.baseUrl}star1.png">
+      <img class="stars feedback" id="star2" src="{$ij.baseUrl}star2.png">
+      <img class="stars feedback" id="star3" src="{$ij.baseUrl}star3.png">
       <ul id="levelFeedbackText">
         <span id="hintTitle" class="feedback" style="display: none; margin-left: -30px">{msg meaning="Apps.hintTitle" desc="IBID"}{/msg}Hints:</span>
         <li id="nextLevelMsg" style="display: none; margin-left: -40px;">{msg
@@ -276,6 +276,8 @@
           </div>
           <img id="pegman_bubble" height=42 width=55 src="pegman_bubble.png">
         </div>
+        <img id="pegman_bubble" height=42 width=55 src="{$ij.baseUrl}maze/pegman_bubble.png">
+
         /**
          * Show image and/or video below avatar for these reinf levels.
          */
@@ -593,7 +595,7 @@
           program in the JavaScript computer language to be displayed, based on
           the program created by the user."}See generated JavaScript code.{/msg}"
           onclick="BlocklyApps.showCode();">
-          <img src='../media/1x1.gif' alt="code" class="code icon21">
+          <img src='{$ij.baseUrl}media/1x1.gif' alt="code" class="code icon21">
         </button>
         <button id="linkButton" class="notext" style="display: none;"
           title="{msg meaning="Maze.linkTooltip" desc="tooltip (pop-up help) for
@@ -601,19 +603,19 @@
           for a URL to be provided for retrieving it.  The word 'blocks' is as
           in children's toy blocks."}Save and link to blocks.{/msg}"
           onclick="BlocklyStorage.link();">
-          <img src='../media/1x1.gif' alt="link" class="link icon21">
+          <img src='{$ij.baseUrl}media/1x1.gif' alt="link" class="link icon21">
         </button>
       </td>
       <td>
         <button id="runButton" class="launch" onclick="Maze.runButtonClick();">
-            <img src="../media/1x1.gif" class="run icon21">{msg meaning="Maze.runProgram"
+            <img src="{$ij.baseUrl}media/1x1.gif" class="run icon21">{msg meaning="Maze.runProgram"
             desc="button label - Pressing the button runs the computer program the user has
             written."}Run{/msg}
           </button>
         </button>
         <button id="resetButton" class="launch"
           onclick="BlocklyApps.resetButtonClick();" style="display: none">
-            <img src="../media/1x1.gif" class="stop icon21">
+            <img src="{$ij.baseUrl}media/1x1.gif" class="stop icon21">
               {msg meaning="Maze.resetProgram" desc="button label -
                 Pressing the button causes Pegman return to the start of the maze
                 (but does not delete the user's program.)"}Reset{/msg}
@@ -622,10 +624,10 @@
     </tr>
   </table>
 
-  <script type="text/javascript" src="../blockly_compressed.js"></script>
-  <script type="text/javascript" src="../javascript_compressed.js"></script>
-  <script type="text/javascript" src="../{$ij.langSrc}"></script>
-  <script type="text/javascript" src="blocks.js"></script>
+  <script type="text/javascript" src="{$ij.baseUrl}blockly_compressed.js"></script>
+  <script type="text/javascript" src="{$ij.baseUrl}javascript_compressed.js"></script>
+  <script type="text/javascript" src="{$ij.baseUrl}{$ij.langSrc}"></script>
+  <script type="text/javascript" src="{$ij.baseUrl}maze/blocks.js"></script>
   {call .toolbox /}
   <div id="blockly"></div>
 
