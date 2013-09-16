@@ -1,7 +1,7 @@
 {
     "@metadata": {
         "author": "Ellen Spertus <ellen.spertus@gmail.com>",
-        "lastupdated": "2013-09-13 16:16:03.849223",
+        "lastupdated": "2013-09-16 09:50:47.893673",
         "locale": "en_us",
         "messagedocumentation" : "qqq"
     },
@@ -79,9 +79,6 @@
     "Maze.oneTopBlock": "On this level, you need to stack together all of the blocks in the white workspace.",
     "Maze.numBlocksNeeded": "This level can be solved with %1 blocks.",
     "Maze.maze": "Maze",
-    "Maze.hintTitle": "Hint:",
-    "Maze.missingBlocksErrorMsg": "Try one or more of the blocks below to solve this level.",
-    "Maze.levelIncompleteError": "You are using all of the necessary types of blocks but not in the right way.",
     "Maze.reinfMsg1": "Watch the video below and learn how to use blocks to make me move.",
     "Maze.reinfMsg3": "Which direction am I facing after this program ends?",
     "Maze.reinfMsg2": "A repeat block repeats the blocks inside it until I reach the red marker.",

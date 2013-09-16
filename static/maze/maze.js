@@ -399,13 +399,7 @@ Maze.SKIN = Maze.SKINS[BlocklyApps.SKIN_ID];
  * 'null' is used because IE8 does not like trailing commas in arrays, and it is
  *     used throughout the array for consistency.
  */
-<<<<<<< HEAD
-BlocklyApps.VIDEO_ID = [undefined, '0BybP3F7DhXrUSFRhMnBGLUVPZTA', null,
-    '0BybP3F7DhXrUU2FCODdJdXRKVTQ', null, '0BybP3F7DhXrUSFRhMnBGLUVPZTA', null,
-    null, null, null, null][BlocklyApps.LEVEL];
-=======
 Maze.VIDEO_ID = CURRENT_LEVEL.videoId;
->>>>>>> codedotorg/mooc
 
 /**
  * Milliseconds between each animation frame.
