@@ -109,7 +109,7 @@ Maze.SquareType = {
  */
 var level = LevelConfig.pages[Maze.PAGE].levels[Maze.LEVEL];
 Maze.map = level.map;
-Maze.idealBlockNum = level.ideal;
+BlocklyApps.IDEAL_BLOCK_NUM = level.ideal;
 Maze.initialBallMap = level.initialBalls;
 Maze.finalBallMap = level.finalBalls;
 Maze.startDirection = level.startDirection;
@@ -653,7 +653,7 @@ Maze.execute = function() {
   BlocklyApps.log = [];
   BlocklyApps.ticks = 1000;
   var code = Blockly.Generator.workspaceToCode('JavaScript');
-  var result = Maze.ResultType.UNSET;
+  Maze.result = Maze.ResultType.UNSET;
 
   // Check for empty top level blocks to warn user about bugs,
   // especially ones that lead to infinite loops.
@@ -671,29 +671,29 @@ Maze.execute = function() {
   //    no error or exception is thrown.
   try {
     eval(code);
-    result = Maze.ResultType.FAILURE;
+    Maze.result = Maze.ResultType.FAILURE;
   } catch (e) {
     // A boolean is thrown for normal termination.
     // Abnormal termination is a user error.
     if (e === Infinity) {
-      result = Maze.ResultType.TIMEOUT;
+      Maze.result = Maze.ResultType.TIMEOUT;
     } else if (e === true) {
-      result = Maze.ResultType.SUCCESS;
+      Maze.result = Maze.ResultType.SUCCESS;
     } else if (e === false) {
-      result = Maze.ResultType.ERROR;
+      Maze.result = Maze.ResultType.ERROR;
     } else {
       // Syntax error, can't happen.
-      result = Maze.ResultType.ERROR;
+      Maze.result = Maze.ResultType.ERROR;
       alert(e);
     }
   }
 
   // Report result to server.
   BlocklyApps.report('maze', BlocklyApps.LEVEL_ID, Maze.LEVEL,
-      result === Maze.ResultType.SUCCESS, BlocklyApps.stripCode(code));
+      Maze.result === Maze.ResultType.SUCCESS, BlocklyApps.stripCode(code));
 
   // Fast animation if execution is successful.  Slow otherwise.
-  Maze.stepSpeed = (result == Maze.ResultType.SUCCESS) ? 100 : 150;
+  Maze.stepSpeed = (Maze.result == Maze.ResultType.SUCCESS) ? 100 : 150;
 
   // BlocklyApps.log now contains a transcript of all the user's actions.
   // Reset the maze and animate the transcript.
