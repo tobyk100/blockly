@@ -113,6 +113,17 @@ Maze.idealBlockNum = level.ideal;
 Maze.initialBallMap = level.initialBalls;
 Maze.finalBallMap = level.finalBalls;
 Maze.startDirection = level.startDirection;
+/**
+ * Blocks that are expected to be used on each level.
+ * The block will be displayed as feedback in the order below.
+ * 'test' is the string that will be searched for in the code.
+ * 'type' is the type of block to be generated as feedback.
+ * 'params' are optional and create a more specific block of the given type.
+ */
+BlocklyApps.REQUIRED_BLOCKS = level.requiredBlocks;
+
+//The number of blocks to show as feedback.
+BlocklyApps.NUM_REQUIRED_BLOCKS_TO_FLAG = 10;
 
 // Default Scalings
 Maze.scale = {
@@ -456,7 +467,7 @@ Maze.init = function() {
   xml = '<xml>' + xml + '</xml>';
   BlocklyApps.loadBlocks(xml);
 
-  Maze.reset(true);
+  BlocklyApps.reset(true);
   Blockly.addChangeListener(function() {BlocklyApps.updateCapacity()});
 
   if (BlocklyApps.INTERSTITIALS & BlocklyApps.InterTypes.PRE) {
@@ -530,7 +541,7 @@ Maze.hidePegmanMenu = function() {
  * Reset the maze to the start position and kill any pending animation tasks.
  * @param {boolean} first True if an opening animation is to be played.
  */
-Maze.reset = function(first) {
+BlocklyApps.reset = function(first) {
   // Kill all tasks.
   for (var x = 0; x < Maze.pidList.length; x++) {
     window.clearTimeout(Maze.pidList[x]);
@@ -610,7 +621,7 @@ Maze.runButtonClick = function() {
   runButton.style.display = 'none';
   resetButton.style.display = 'inline';
   Blockly.mainWorkspace.traceOn(true);
-  Maze.reset(false);
+  BlocklyApps.reset(false);
   Maze.execute();
 };
 
@@ -686,7 +697,7 @@ Maze.execute = function() {
 
   // BlocklyApps.log now contains a transcript of all the user's actions.
   // Reset the maze and animate the transcript.
-  Maze.reset(false);
+  BlocklyApps.reset(false);
   Maze.pidList.push(window.setTimeout(Maze.animate, 100));
 };
 
