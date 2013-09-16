@@ -458,9 +458,22 @@ Maze.init = function() {
 
   Maze.reset(true);
   Blockly.addChangeListener(function() {BlocklyApps.updateCapacity()});
+
+  if (BlocklyApps.INTERSTITIALS & BlocklyApps.InterTypes.PRE) {
+    if (Maze.VIDEO_ID) {
+      BlocklyApps.addVideoIframeSrc(Maze.VIDEO_ID);
+    }
+    BlocklyApps.showHelp(false, undefined);
+  } else {
+    document.getElementById('helpButton').setAttribute('disabled', 'disabled');
+  }
 };
 
-window.addEventListener('load', Maze.init);
+if (window.location.pathname.match(/readonly.html$/)) {
+  window.addEventListener('load', BlocklyApps.initReadonly);
+} else {
+  window.addEventListener('load', Maze.init);
+}
 
 /**
  * Reload with a different Pegman skin.
@@ -604,12 +617,12 @@ Maze.runButtonClick = function() {
 /**
  * Click the reset button.  Reset the maze.
  */
-Maze.resetButtonClick = function() {
+/* Maze.resetButtonClick = function() {
   document.getElementById('runButton').style.display = 'inline';
   document.getElementById('resetButton').style.display = 'none';
   Blockly.mainWorkspace.traceOn(false);
   Maze.reset(false);
-};
+}; */
 
 /**
  * Outcomes of running the user program.
@@ -630,6 +643,13 @@ Maze.execute = function() {
   BlocklyApps.ticks = 1000;
   var code = Blockly.Generator.workspaceToCode('JavaScript');
   var result = Maze.ResultType.UNSET;
+
+  // Check for empty top level blocks to warn user about bugs,
+  // especially ones that lead to infinite loops.
+  if (BlocklyApps.hasEmptyTopLevelBlocks()) {
+    BlocklyApps.displayFeedback();
+    return;
+  }
 
   // Try running the user's code.  There are four possible outcomes:
   // 1. If pegman reaches the finish [SUCCESS], true is thrown.
@@ -741,7 +761,7 @@ Maze.animate = function() {
       break;
     case 'finish':
       Maze.scheduleFinish(true);
-      window.setTimeout(Maze.giveFeedback, 1000);
+      // window.setTimeout(Maze.giveFeedback, 1000);
       break;
     // Nan's
     case 'putdown':
@@ -762,11 +782,11 @@ Maze.animate = function() {
  * Determine if the ideal number of blocks were used and which kind of
  * feedback, hint or congratulations is displayed.
  */
-Maze.giveFeedback = function() {
+/* Maze.giveFeedback = function() {
   var numBlocks = Blockly.mainWorkspace.getAllBlocks().length;
   console.log('giveFeedback ' + numBlocks + ',' + Maze.idealBlockNum);
   Maze.showDialog(Maze.LEVEL, numBlocks <= Maze.idealBlockNum);
-};
+}; */
 
 /**
  * Schedule the animations for a move or turn.
@@ -1285,7 +1305,7 @@ Maze.pickUpBall = function(id) {
  * @param {string} reinfLevel 'q' + reinforcement level number +
  *   'r' or 'w' (right or wrong answer).
  */
-Maze.showReinfHelp = function(reinfLevel) {
+/* Maze.showReinfHelp = function(reinfLevel) {
   var qNum = Maze.LEVEL;
   var responseType = reinfLevel.charAt(reinfLevel.length - 1);
   document.getElementById('reinfDone').style.display = 'block';
@@ -1310,18 +1330,18 @@ Maze.showReinfHelp = function(reinfLevel) {
   imageDiv.appendChild(img);
   imageDiv.firstChild;
   document.getElementById('shadow').style.display = 'block';
-};
+}; */
 
 /**
  * Hide the reinforcement feedback pop-up.
  */
-Maze.hideReinfHelp = function() {
+/* Maze.hideReinfHelp = function() {
   document.getElementById('reinfDone').style.display = 'none';
   document.getElementById('shadow').style.display = 'none';
   var img = document.getElementById('reinfFeedbackImage')
       .getElementsByTagName('img')[0];
   img.parentElement.removeChild(img);
-};
+}; */
 
 /**
  * Click the continue or try again button.
@@ -1330,7 +1350,7 @@ Maze.hideReinfHelp = function() {
  * @param {number} gotoNextLevel true to continue to next level
  * false to try level again.
  */
-Maze.closeDialogButtonClick = function(gotoNextLevel) {
+/* Maze.closeDialogButtonClick = function(gotoNextLevel) {
   Maze.hideDialog();
   if (gotoNextLevel) {
     window.location = window.location.protocol + '//' +
@@ -1341,7 +1361,7 @@ Maze.closeDialogButtonClick = function(gotoNextLevel) {
     Maze.resetButtonClick();
     // Avoid flicker of loading window twice on levels without reinforcement.
   }
-};
+}; */
 
 /**
  * Show dialog at the end of a level and display feedback and/or interstitial.
@@ -1353,7 +1373,7 @@ Maze.closeDialogButtonClick = function(gotoNextLevel) {
  * then show the reinforcement. Otherwise just show the next/final level message.
  * If levelDone is false, only feedback is shown.
  */
-Maze.showDialog = function(levelNum, levelDone) {
+/* Maze.showDialog = function(levelNum, levelDone) {
   var feedbackColor;
   var feedbackText = document.getElementById('levelFeedbackText');
   if (levelDone) {
@@ -1378,12 +1398,22 @@ Maze.showDialog = function(levelNum, levelDone) {
   document.getElementById('shadow').style.display = 'block';
   document.getElementById('levelFeedback').style.display = 'block';
   feedbackText.style.color = feedbackColor;
-};
+}; */
 
 /**
  * Hide the end of level dialog.
  */
-Maze.hideDialog = function() {
+/* Maze.hideDialog = function() {
   document.getElementById('levelFeedback').style.display = 'none';
   document.getElementById('shadow').style.display = 'none';
+}; */
+
+/**
+ * Updates the tooManyBlocksError message with the ideal number of blocks so the
+ *     student can better understand how to improve their code.
+ */
+Maze.setIdealBlockMessage = function() {
+  var idealNumMsg = document.getElementById('idealNumberMessage');
+  var idealNumText = document.createTextNode(Maze.IDEAL_BLOCK_NUM);
+  idealNumMsg.appendChild(idealNumText);
 };
