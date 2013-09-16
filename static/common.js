@@ -653,11 +653,11 @@ BlocklyApps.importPrettify = function() {
   var link = document.createElement('link');
   link.setAttribute('rel', 'stylesheet');
   link.setAttribute('type', 'text/css');
-  link.setAttribute('href', '../prettify.css');
+  link.setAttribute('href', BlocklyApps.BASE_URL + 'prettify.css');
   document.head.appendChild(link);
   var script = document.createElement('script');
   script.setAttribute('type', 'text/javascript');
-  script.setAttribute('src', '../prettify.js');
+  script.setAttribute('src', BlocklyApps.BASE_URL + 'prettify.js');
   document.head.appendChild(script);
 };
 
