@@ -32,7 +32,6 @@ module.exports = function(grunt) {
     },
 
     concat: {
-      //XXX Generated local names differ.
       templates_maze: {
         src: ['build/templates/common.js', 'build/templates/maze/**/*.js'],
         dest: 'dist/maze/generated/en_us.js'
@@ -43,11 +42,11 @@ module.exports = function(grunt) {
       },
       templates_bird: {
         src: ['build/templates/common.js', 'build/templates/bird/**/*.js'],
-        dest: 'dist/bird/generated/en.js'
+        dest: 'dist/bird/generated/en_us.js'
       },
       templates_karel: {
         src: ['build/templates/common.js', 'build/templates/karel/**/*.js'],
-        dest: 'dist/karel/generated/en.js'
+        dest: 'dist/karel/generated/en_us.js'
       },
     },
 
