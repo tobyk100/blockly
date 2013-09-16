@@ -9,20 +9,24 @@
   <script type="text/javascript" src="../_soy/soyutils.js"></script>
   <script type="text/javascript" src="../base.js"></script>
   <script type="text/javascript" src="levels.js"></script>
-  <script type="text/javascript" src="karel.js"></script>
+  <script type="text/javascript" src="maze.js"></script>
+  <script type="text/javascript" src="generated/en.js"></script>
   <script type="text/javascript" src="../storage.js"></script>
+  <script type="text/javascript" src="../blockly_compressed.js"></script>
+  <script type="text/javascript" src="../javascript_compressed.js"></script>
+  <script type="text/javascript" src="../en_compressed.js"></script>
+  <script type="text/javascript">
+    document.write(mazepage.start({}, null, {
+      page: BocklyApps.PAGE,
+      level: BocklyApps.LEVEL,
+      menu: BlocklyApps.DISPLAY_NAV,
+      maxLevel: Maze.MAX_LEVEL,
+      skin: Maze.SKIN_ID,
+      baseUrl: BlocklyApps.BASE_URL
+    }));
+  </script>
+  <script type="text/javascript" src="blocks.js"></script>
 </head>
 <body>
-  <script type="text/javascript">
-    document.write(karelpage.start({}, null,
-        {lang: BlocklyApps.LANG,
-         page: BlocklyApps.PAGE,
-         level: BlocklyApps.LEVEL,
-         menu: BlocklyApps.DISPLAY_NAV,
-         maxLevel: BlocklyApps.MAX_LEVEL,
-         skin: BlocklyApps.SKIN_ID,
-         langSrc: BlocklyApps.LANGUAGES[BlocklyApps.LANG][2],
-         baseUrl: BlocklyApps.BASE_URL}));
-  </script>
 </body>
 </html>

@@ -10,14 +10,16 @@
   <script type="text/javascript" src="../_soy/soyutils.js"></script>
   <script type="text/javascript" src="../base.js"></script>
   <script type="text/javascript" src="bird.js"></script>
+  <script type="text/javascript" src="generated/en.js"></script>
   <script type="text/javascript" src="../storage.js"></script>
+  <script type="text/javascript" src="../blockly_compressed.js"></script>
+  <script type="text/javascript" src="../javascript_compressed.js"></script>
+  <script type="text/javascript" src="../en_compressed.js"></script>
+  <script type="text/javascript">
+    document.write(birdpage.start({}, null, {level: Bird.LEVEL}));
+  </script>
+  <script type="text/javascript" src="blocks.js"></script>
 </head>
 <body>
-  <script type="text/javascript">
-    document.write(birdpage.start({}, null,
-        {lang: BlocklyApps.LANG,
-         level: Bird.LEVEL,
-         langSrc: BlocklyApps.LANGUAGES[BlocklyApps.LANG][2]}));
-  </script>
 </body>
 </html>

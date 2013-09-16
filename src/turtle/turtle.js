@@ -28,11 +28,6 @@
  */
 var Turtle = {};
 
-BlocklyApps.LANG = BlocklyApps.getLang();
-
-document.write('<script type="text/javascript" src="' + BlocklyApps.BASE_URL +
-    'turtle/generated/' + BlocklyApps.LANG + '.js"></script>\n');
-
 // Create a limited colour palette to avoid overwhelming new users
 // and to make colour checking easier.  These definitions cannot be
 // moved to blocks.js, which is loaded later, since they are used in
@@ -461,7 +456,7 @@ Turtle.init = function() {
   document.title = document.getElementById('title').
       textContent.replace('%1', BlocklyApps.PAGE);
 
-  var rtl = BlocklyApps.LANGUAGES[BlocklyApps.LANG][1] == 'rtl';
+  var rtl = BlocklyApps.isRtl();
   var toolbox = document.getElementById('toolbox');
   Blockly.inject(document.getElementById('blockly'),
       {path: BlocklyApps.BASE_URL,

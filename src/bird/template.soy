@@ -51,9 +51,9 @@
               <span class="tab" id="selected">{$i}</span>
             {else}
               {if $i < $ij.level}
-                <a class="tab previous" href="?lang={$ij.lang}&level={$i}">{$i}</a>
+                <a class="tab previous" href="?level={$i}">{$i}</a>
               {else}
-                <a class="tab" href="?lang={$ij.lang}&level={$i}">{$i}</a>
+                <a class="tab" href="?level={$i}">{$i}</a>
               {/if}
             {/if}
           {/for}
@@ -90,10 +90,6 @@
     </tr>
   </table>
 
-  <script type="text/javascript" src="../blockly_compressed.js"></script>
-  <script type="text/javascript" src="../javascript_compressed.js"></script>
-  <script type="text/javascript" src="../{$ij.langSrc}"></script>
-  <script type="text/javascript" src="blocks.js"></script>
   {call .toolbox /}
   <div id="blockly"></div>
 
@@ -157,8 +153,5 @@
 {template .readonly}
   {call .messages /}
 
-  <script type="text/javascript" src="../../blockly_compressed.js"></script>
-  <script type="text/javascript" src="../../{$ij.langSrc}"></script>
-  <script type="text/javascript" src="blocks.js"></script>
   <div id="blockly"></div>
 {/template}

@@ -28,16 +28,6 @@
  */
 var Maze = Maze || {};
 
-// Supported languages.
-BlocklyApps.LANGUAGES = {
-  // Format: ['Language name', 'direction', 'XX_compressed.js']
-  en: ['English', 'ltr', 'en_compressed.js']
-};
-BlocklyApps.LANG = BlocklyApps.getLang();
-
-document.write('<script type="text/javascript" src="generated/' +
-               BlocklyApps.LANG + '.js"></script>\n');
-
 Maze.MAX_REINF = 0;
 BlocklyApps.PAGE = BlocklyApps.getNumberParamFromUrl('page', 1, 2);
 BlocklyApps.MAX_LEVEL = [undefined, 11, 10][BlocklyApps.PAGE];
@@ -392,7 +382,7 @@ Maze.init = function() {
   }
   Blockly.bindEvent_(window, 'resize', null, Maze.hidePegmanMenu);
 
-  var rtl = BlocklyApps.LANGUAGES[BlocklyApps.LANG][1] == 'rtl';
+  var rtl = BlocklyApps.isRtl();
   var toolbox = document.getElementById('toolbox');
 
   /**
@@ -489,7 +479,7 @@ Maze.changePegman = function(newSkin) {
   Maze.saveToStorage();
   window.location = window.location.protocol + '//' +
       window.location.host + window.location.pathname +
-      '?lang=' + BlocklyApps.LANG + '&level=' + BlocklyApps.LEVEL + '&skin=' + newSkin;
+      '?level=' + BlocklyApps.LEVEL + '&skin=' + newSkin;
 };
 
 /**
@@ -1283,4 +1273,112 @@ Maze.pickUpBall = function(id) {
     var y = Maze.pegmanY;
     Maze.balls_[y][x] = Maze.balls_[y][x] - 1;
     Maze.checkSuccess(id);
+};
+
+/**
+ * Show the help pop-up for reinf levels so we can set text appropriately.
+ * @param {string} reinfLevel 'q' + reinforcement level number +
+ *   'r' or 'w' (right or wrong answer).
+ */
+Maze.showReinfHelp = function(reinfLevel) {
+  var qNum = Maze.LEVEL;
+  var responseType = reinfLevel.charAt(reinfLevel.length - 1);
+  document.getElementById('reinfDone').style.display = 'block';
+  var textColor;
+  var responseType;
+  var img = document.createElement('IMG');
+  if (responseType == 'w') {
+    textColor = 'red';
+    responseType = 'wrong';
+    img.src = 'wrong.png';
+  } else if (responseType == 'r') {
+    textColor = 'green';
+    responseType = 'right';
+    img.src = 'check.png';
+  } else {
+    throw 'Response not w or r.';
+  }
+  var textDiv = document.getElementById('reinfFeedbackText');
+  textDiv.style.color = textColor;
+  textDiv.value = BlocklyApps.getMsg('q' + qNum + responseType);
+  var imageDiv = document.getElementById('reinfFeedbackImage');
+  imageDiv.appendChild(img);
+  imageDiv.firstChild;
+  document.getElementById('shadow').style.display = 'block';
+};
+
+/**
+ * Hide the reinforcement feedback pop-up.
+ */
+Maze.hideReinfHelp = function() {
+  document.getElementById('reinfDone').style.display = 'none';
+  document.getElementById('shadow').style.display = 'none';
+  var img = document.getElementById('reinfFeedbackImage')
+      .getElementsByTagName('img')[0];
+  img.parentElement.removeChild(img);
+};
+
+/**
+ * Click the continue or try again button.
+ * If continue, go to next level.
+ * If try again, stay on current level.
+ * @param {number} gotoNextLevel true to continue to next level
+ * false to try level again.
+ */
+Maze.closeDialogButtonClick = function(gotoNextLevel) {
+  Maze.hideDialog();
+  if (gotoNextLevel) {
+    window.location = window.location.protocol + '//' +
+        window.location.host + window.location.pathname +
+        '?page=' + Maze.PAGE + '&level=' + (Maze.LEVEL + 1) +
+        '&skin=' + Maze.SKIN_ID;
+  } else {
+    Maze.resetButtonClick();
+    // Avoid flicker of loading window twice on levels without reinforcement.
+  }
+};
+
+/**
+ * Show dialog at the end of a level and display feedback and/or interstitial.
+ * @param {number} levelNum the number of the current level.
+ * @param {boolean} levelDone is true only if level was solved using the optimal
+ * number of blocks.
+ * If levelDone is true, show feedback and interstitial (if there is one).
+ * If there is a reinfElement/MSG (determined in template.soy reinfMsg switch/case)
+ * then show the reinforcement. Otherwise just show the next/final level message.
+ * If levelDone is false, only feedback is shown.
+ */
+Maze.showDialog = function(levelNum, levelDone) {
+  var feedbackColor;
+  var feedbackText = document.getElementById('levelFeedbackText');
+  if (levelDone) {
+    feedbackColor = 'green';
+    if (levelNum < Maze.MAX_LEVEL) {
+      feedbackText.value = BlocklyApps.getMsg('nextLevel');
+    } else {
+      feedbackText.value = BlocklyApps.getMsg('finalLevel');
+    }
+    var reinfElement = document.getElementById('reinfMsg');
+    var reinfMSG = reinfElement.innerHTML.match(/\S/);
+    if (reinfElement && reinfMSG) {
+      document.getElementById('interstitial').style.display = 'block';
+    }
+    document.getElementById('nextLevelButton').style.display = 'inline';
+    document.getElementById('tryLevelAgainButton').style.display = 'none';
+  } else {
+    feedbackColor = 'red';
+    document.getElementById('tryLevelAgainButton').style.display = 'inline';
+    document.getElementById('nextLevelButton').style.display = 'none';
+  }
+  document.getElementById('shadow').style.display = 'block';
+  document.getElementById('levelFeedback').style.display = 'block';
+  feedbackText.style.color = feedbackColor;
+};
+
+/**
+ * Hide the end of level dialog.
+ */
+Maze.hideDialog = function() {
+  document.getElementById('levelFeedback').style.display = 'none';
+  document.getElementById('shadow').style.display = 'none';
 };

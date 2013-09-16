@@ -68,85 +68,11 @@ BlocklyApps.getNumberParamFromUrl = function(name, minValue, maxValue) {
 };
 
 /**
- * Use a series of heuristics that determine the likely language of this user.
- * Use a session cookie to load/save the language preference.
- * @return {string} User's language.
- * @throws {string} If no languages exist in this app.
- */
-BlocklyApps.getLang = function() {
-  // First choice: The URL specified language.
-  var lang = BlocklyApps.getStringParamFromUrl('lang', '');
-  if (BlocklyApps.LANGUAGES[lang]) {
-    // Save this explicit choice as cookie.
-    // Use of a session cookie for saving language is explicitly permitted
-    // in the EU's Cookie Consent Exemption policy.  Section 3.6:
-    // http://ec.europa.eu/justice/data-protection/article-29/documentation/
-    //   opinion-recommendation/files/2012/wp194_en.pdf
-    document.cookie = 'lang=' + escape(lang) + '; path=/';
-    return lang;
-  }
-  // Second choice: Language cookie.
-  var cookie = document.cookie.match(/(^|;)\s*lang=(\w+)/);
-  if (cookie) {
-    lang = unescape(cookie[2]);
-    if (BlocklyApps.LANGUAGES[lang]) {
-      return lang;
-    }
-  }
-  // Third choice: The browser's language.
-  lang = navigator.language;
-  if (BlocklyApps.LANGUAGES[lang]) {
-    return lang;
-  }
-  // Fourth choice: English.
-  lang = 'en_us';
-  if (BlocklyApps.LANGUAGES[lang]) {
-    return lang;
-  }
-  // Fifth choice: I'm feeling lucky.
-  for (var lang in BlocklyApps.LANGUAGES) {
-    return lang;
-  }
-  // Sixth choice: Die.
-  throw 'No languages available.';
-};
-
-/**
- * User's language (e.g. "en").
- * @type {?string}
- */
-BlocklyApps.LANG = undefined;
-
-/**
- * List of languages supported by this app.  Keys should be in ISO 639 format.
- * @type {Object}
- */
-BlocklyApps.LANGUAGES = undefined;
-
-/**
- * Set language attribute, direction, and menu contents.
- * This only creates a language menu if the document includes an element
- * named 'languageMenu'.
- */
-BlocklyApps.initLanguages = function() {
-  // Set the HTML's language and direction.
-  // document.dir fails in Mozilla, use document.body.parentNode.dir instead.
-  // https://bugzilla.mozilla.org/show_bug.cgi?id=151407
-  var rtl = BlocklyApps.LANGUAGES[BlocklyApps.LANG][1] == 'rtl';
-  document.head.parentElement.setAttribute('dir',
-      BlocklyApps.LANGUAGES[BlocklyApps.LANG][1]);
-  document.head.parentElement.setAttribute('lang', BlocklyApps.LANG);
-};
-
-/**
  * Common startup tasks for all apps.
  */
 BlocklyApps.init = function() {
   // Set the page title with the content of the H1 title.
   document.title = document.getElementById('title').textContent;
-
-  // Set language-related attributes and variables.
-  BlocklyApps.initLanguages();
 
   // Disable the link button if page isn't backed by App Engine storage.
   var linkButton = document.getElementById('linkButton');
@@ -170,16 +96,22 @@ BlocklyApps.init = function() {
 };
 
 /**
+ * Returns true if the current HTML page is in right-to-left language mode.
+ */
+BlocklyApps.isRtl = function() {
+  document.head.parentElement.getAttribute('dir') == 'rtl';
+};
+
+/**
  * Initialize Blockly for a readonly iframe.  Called on page load.
  * XML argument may be generated from the console with:
  * Blockly.Xml.domToText(Blockly.Xml.workspaceToDom(Blockly.mainWorkspace)).slice(5, -6)
  */
 BlocklyApps.initReadonly = function() {
-  var rtl = BlocklyApps.LANGUAGES[BlocklyApps.LANG][1] == 'rtl';
   Blockly.inject(document.getElementById('blockly'),
       {path: BlocklyApps.BASE_URL,
        readOnly: true,
-       rtl: rtl,
+       rtl: BlocklyApps.isRtl(),
        scrollbars: false});
 
   // Add the blocks.
@@ -622,13 +554,13 @@ window.addEventListener('load', BlocklyApps.addTouchEvents, false);
  * Load the Prettify CSS and JavaScript.
  */
 BlocklyApps.importPrettify = function() {
-  //<link rel="stylesheet" type="text/css" href="../prettify.css">
-  //<script type="text/javascript" src="../prettify.js"></script>
+  // <link rel="stylesheet" type="text/css" href="../prettify.css">
   var link = document.createElement('link');
   link.setAttribute('rel', 'stylesheet');
   link.setAttribute('type', 'text/css');
   link.setAttribute('href', BlocklyApps.BASE_URL + 'prettify.css');
   document.head.appendChild(link);
+  // <script type="text/javascript" src="../prettify.js"></script>
   var script = document.createElement('script');
   script.setAttribute('type', 'text/javascript');
   script.setAttribute('src', BlocklyApps.BASE_URL + 'prettify.js');
@@ -681,21 +613,6 @@ BlocklyApps.MODE_ENUM = {
  * The mode of the tutorial.
  */
 BlocklyApps.MODE = undefined;
-
-/**
- * Languages supported by the application.  Keys should be in ISO 639 format.
- * @type {!Array.<!Array.<string>>}
- */
-BlocklyApps.LANGUAGES = {
-  // Format: ['Language name', 'direction', 'XX_compressed.js']
-  'en_us': ['English', 'ltr', 'en_us_compressed.js']
-};
-
-/**
- * User's language, e.g., "en".
- * @type {!string=}
- */
-BlocklyApps.LANG = undefined;
 
 /**
  * Whether to alert user to empty blocks, short-circuiting all other tests.
@@ -1019,7 +936,7 @@ BlocklyApps.setErrorFeedback = function(feedbackType) {
         document.getElementById('missingBlocksError')
             .style.display = 'list-item';
         document.getElementById('feedbackBlocks').src =
-            'readonly.html?lang={$ij.lang}&xml=' +
+            'readonly.html?xml=' +
             BlocklyApps.generateXMLForBlocks(missingBlocks);
         document.getElementById('feedbackBlocks').style.display = 'block';
       }
@@ -1271,9 +1188,9 @@ BlocklyApps.createURLAndOpenNextLevel = function() {
   if (BlocklyApps.REPORT_URL) {  // Ask the server where to go next.
     BlocklyApps.reportAndRedirect();
   } else {
+    //XXX Use url library to produce well formed URLs. Currently got "?&".
     window.location = window.location.protocol + '//' +
-      window.location.host + window.location.pathname +
-      '?lang=' + BlocklyApps.LANG +
+      window.location.host + window.location.pathname + '?' +
       (BlocklyApps.PAGE ? '&page=' + BlocklyApps.PAGE : '') +
       '&level=' + (BlocklyApps.LEVEL + 1) +
       // TODO: Fix hack used to temporarily keep turtle interstitials working.

@@ -28,16 +28,6 @@
  */
 var Bird = {};
 
-// Supported languages.
-BlocklyApps.LANGUAGES = {
-  // Format: ['Language name', 'direction', 'XX_compressed.js']
-  en: ['English', 'ltr', 'en_compressed.js']
-};
-BlocklyApps.LANG = BlocklyApps.getLang();
-
-document.write('<script type="text/javascript" src="generated/' +
-               BlocklyApps.LANG + '.js"></script>\n');
-
 Bird.MAX_LEVEL = 10;
 Bird.LEVEL = BlocklyApps.getNumberParamFromUrl('level', 1, Bird.MAX_LEVEL);
 
@@ -235,7 +225,7 @@ Bird.drawMap = function() {
 Bird.init = function() {
   BlocklyApps.init();
 
-  var rtl = BlocklyApps.LANGUAGES[BlocklyApps.LANG][1] == 'rtl';
+  var rtl = BlocklyApps.isRtl();
   var toolbox = document.getElementById('toolbox');
   Blockly.inject(document.getElementById('blockly'),
       {path: '../',
@@ -525,7 +515,7 @@ BlocklyApps.congratulationsKeyDown_ = function(e) {
 Bird.nextLevel = function() {
   window.location = window.location.protocol + '//' +
       window.location.host + window.location.pathname +
-      '?lang=' + BlocklyApps.LANG + '&level=' + (Bird.LEVEL + 1);
+      '?level=' + (Bird.LEVEL + 1);
 };
 
 /**

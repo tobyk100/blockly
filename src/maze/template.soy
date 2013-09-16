@@ -124,9 +124,6 @@
  * Web page structure.
  */
 {template .start}
-  {if $ij.mode == 2}
-    <script type="text/javascript" src="{$ij.baseUrl}maze/adp_maze.js"></script>
-  {/if}
   {call .messages /}
   <table width="100%" {call apps.menu}{param menu: $ij.menu /}{/call}
     style="border-bottom: 1px solid #DBDBDB;">
@@ -153,9 +150,9 @@
               {/if}
             {else}
               {if $i < $ij.level}
-                <a class="tab previous" href="?lang={$ij.lang}&level={$i}&skin={$ij.skin}&mode={$ij.mode}">{$i}</a>
+                <a class="tab previous" href="?level={$i}&skin={$ij.skin}&mode={$ij.mode}">{$i}</a>
               {else}
-                <a class="tab" href="?lang={$ij.lang}&level={$i}&skin={$ij.skin}&mode={$ij.mode}">{$i}</a>
+                <a class="tab" href="?level={$i}&skin={$ij.skin}&mode={$ij.mode}">{$i}</a>
               {/if}
             {/if}
           {/for}
@@ -618,10 +615,6 @@
     </tr>
   </table>
 
-  <script type="text/javascript" src="{$ij.baseUrl}blockly_compressed.js"></script>
-  <script type="text/javascript" src="{$ij.baseUrl}javascript_compressed.js"></script>
-  <script type="text/javascript" src="{$ij.baseUrl}{$ij.langSrc}"></script>
-  <script type="text/javascript" src="{$ij.baseUrl}maze/blocks.js"></script>
   {call .toolbox /}
   <div id="blockly"></div>
 </div>
@@ -681,9 +674,5 @@
  */
 {template .readonly}
   {call .messages /}
-
-  <script type="text/javascript" src="{$ij.baseUrl}blockly_compressed.js"></script>
-  <script type="text/javascript" src="{$ij.baseUrl}{$ij.langSrc}"></script>
-  <script type="text/javascript" src="{$ij.baseUrl}maze/blocks.js"></script>
   <div id="blockly"></div>
 {/template}

@@ -10,7 +10,21 @@
   <script type="text/javascript" src="../_soy/soyutils.js"></script>
   <script type="text/javascript" src="../base.js"></script>
   <script type="text/javascript" src="turtle.js"></script>
-  <script type="text/javascript" src="../../storage.js"></script>
+  <script type="text/javascript" src="generated/en_us.js"></script>
+  <script type="text/javascript" src="../blockly_compressed.js"></script>
+  <script type="text/javascript" src="../javascript_compressed.js"></script>
+  <script type="text/javascript" src="../en_compressed.js"></script>
+  <script type="text/javascript">
+    document.write(turtlepage.start({}, null, {
+      page: BlocklyApps.PAGE,
+      level: BlocklyApps.LEVEL,
+      menu: BlocklyApps.DISPLAY_NAV,
+      reinf: Turtle.REINF ? reinf_data[BlocklyApps.PAGE][BlocklyApps.LEVEL] : 0
+    }));
+  </script>
+  <script type="text/javascript" src="blocks.js"></script>
+  <script type="text/javascript" src="../slider.js"></script>
+  <script type="text/javascript" src="answers.js"></script>
   <script>
       // Reinforcement/interstitial text.
       var reinf_data = [
@@ -88,15 +102,5 @@
   </script>
 </head>
 <body>
-  <script type="text/javascript">
-    document.write(turtlepage.start({}, null,
-        {page: BlocklyApps.PAGE,
-         level: BlocklyApps.LEVEL,
-         menu: BlocklyApps.DISPLAY_NAV,
-         reinf: BlocklyApps.REINF ? reinf_data[BlocklyApps.PAGE][BlocklyApps.LEVEL] : 0,
-         lang: BlocklyApps.LANG,
-         langSrc: BlocklyApps.LANGUAGES[BlocklyApps.LANG][2],
-         baseUrl: BlocklyApps.BASE_URL}));
-  </script>
 </body>
 </html>

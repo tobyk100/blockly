@@ -184,9 +184,9 @@
               {/if}
             {else}
               {if $i < $ij.level}
-                <a class="tab previous" href="?page={$ij.page}&lang={$ij.lang}&level={$i}&skin={$ij.skin}">{$i}</a>
+                <a class="tab previous" href="?page={$ij.page}&level={$i}&skin={$ij.skin}">{$i}</a>
               {else}
-                <a class="tab" href="?page={$ij.page}&lang={$ij.lang}&level={$i}&skin={$ij.skin}">{$i}</a>
+                <a class="tab" href="?page={$ij.page}&level={$i}&skin={$ij.skin}">{$i}</a>
               {/if}
             {/if}
           {/for}
@@ -351,10 +351,6 @@
     </tr>
   </table>
 
-  <script type="text/javascript" src="{$ij.baseUrl}blockly_compressed.js"></script>
-  <script type="text/javascript" src="{$ij.baseUrl}javascript_compressed.js"></script>
-  <script type="text/javascript" src="{$ij.baseUrl}{$ij.langSrc}"></script>
-  <script type="text/javascript" src="{$ij.baseUrl}karel/blocks.js"></script>
   {call .toolbox /}
   <div id="blockly"></div>
 

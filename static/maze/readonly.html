@@ -7,6 +7,14 @@
   <script type="text/javascript" src="../_soy/soyutils.js"></script>
   <script type="text/javascript" src="../base.js"></script>
   <script type="text/javascript" src="maze.js"></script>
+  <script type="text/javascript" src="generated/en_us.js"></script>
+  <script type="text/javascript" src="../blockly_compressed.js"></script>
+  <script type="text/javascript" src="../javascript_compressed.js"></script>
+  <script type="text/javascript" src="../en_compressed.js"></script>
+  <script type="text/javascript">
+    document.write(mazepage.readonly({}, null, {}));
+  </script>
+  <script type="text/javascript" src="blocks.js"></script>
   <style>
     html, body {
       background-color: #fff;
@@ -28,10 +36,5 @@
   </style>
 </head>
 <body>
-  <script type="text/javascript">
-    document.write(mazepage.readonly({}, null,
-        {langSrc: BlocklyApps.LANGUAGES[BlocklyApps.LANG][2],
-         baseUrl: BlocklyApps.BASE_URL}));
-  </script>
 </body>
 </html>
