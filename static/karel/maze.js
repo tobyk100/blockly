@@ -680,6 +680,12 @@ Maze.animate = function() {
   var action = BlocklyApps.log.shift();
   if (!action) {
     BlocklyApps.highlight(null);
+    BlocklyApps.levelComplete = (Maze.result == Maze.ResultType.SUCCESS);
+    if (Maze.result == Maze.ResultType.TIMEOUT) {
+      BlocklyApps.displayFeedback();
+    } else {
+      window.setTimeout(BlocklyApps.displayFeedback, 1000);
+    }
     return;
   }
   BlocklyApps.highlight(action[1]);
@@ -940,7 +946,7 @@ Maze.setBallImage = function(ballIcon, x, y) {
 
 /**
  * Schedule to put down a bll at pegman's current location.
- */ 
+ */
 Maze.schedulePickUpBall = function() {
   var x = Maze.pegmanX;
   var y = Maze.pegmanY;
