@@ -27,10 +27,13 @@ cd mooc
 brew install node
 npm install -g grunt-cli
 
-# Build & Run
+# Build
 npm install
 grunt
-open dist/index.html
+
+# Run with live-reload server
+grunt dev
+open http://localhost:8000
 ```
 
 ## Project Layout

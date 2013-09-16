@@ -51,6 +51,38 @@ module.exports = function(grunt) {
       },
     },
 
+    connect: {
+      server: {
+        options: {
+          base: 'dist',
+          middleware: function(connect, options) {
+            return [
+              require('connect-livereload')(),
+              connect.static(options.base),
+              connect.directory(options.base)
+            ];
+          }
+        }
+      }
+    },
+
+    watch: {
+      content: {
+        files: ['src/**/*.js', 'lib/**/*.js', 'static/**/*'],
+        tasks: ['copy']
+      },
+      templates: {
+        files: ['src/**/*.soy'],
+        tasks: ['build:templates']
+      },
+      dist: {
+        files: ['dist/**/*'],
+        options: {
+          livereload: true
+        }
+      }
+    },
+
     jshint: {
       options: {
         browser: true,
@@ -67,9 +99,14 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-copy');
   grunt.loadNpmTasks('grunt-contrib-concat');
   grunt.loadNpmTasks('grunt-contrib-jshint');
+  grunt.loadNpmTasks('grunt-contrib-connect');
+  grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-soy-compile');
 
-  grunt.registerTask('build', ['soycompile', 'concat', 'copy:all']);
+  grunt.registerTask('build:templates', ['soycompile', 'concat']);
+  grunt.registerTask('build', ['build:templates', 'concat', 'copy:all']);
+
+  grunt.registerTask('dev', ['connect:server', 'watch']);
 
   grunt.registerTask('default', ['clean:all', 'build']);
 
