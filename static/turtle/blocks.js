@@ -41,7 +41,7 @@ Blockly.FieldColour.COLOURS = [
 Blockly.FieldColour.COLUMNS = 4;
 
 // Block definitions.
-Blockly.Language.draw_move_inline = {
+Blockly.Language.draw_move_by_constant = {
   // Block for moving forward or backward the internal number of pixels.
   helpUrl: 'http://www.example.com/',
   init: function() {
@@ -60,7 +60,7 @@ Blockly.Language.draw_move_inline = {
   }
 };
 
-Blockly.JavaScript.draw_move_inline = function() {
+Blockly.JavaScript.draw_move_by_constant = function() {
   // Generate JavaScript for moving forward or backward the internal number of
   // pixels.
   var value = window.parseFloat(this.getTitleValue('VALUE'));
@@ -69,7 +69,7 @@ Blockly.JavaScript.draw_move_inline = function() {
 };
 
 
-Blockly.Language.draw_turn_inline_restricted = {
+Blockly.Language.draw_turn_by_constant_restricted = {
   // Block for turning either left or right from among a fixed set of angles.
   helpUrl: '',
   init: function() {
@@ -87,11 +87,11 @@ Blockly.Language.draw_turn_inline_restricted = {
   }
 };
 
-Blockly.Language.draw_turn_inline_restricted.VALUE =
+Blockly.Language.draw_turn_by_constant_restricted.VALUE =
     [30, 45, 60, 90, 120, 135, 150, 180].
     map(function(t) {return [String(t), String(t)];});
 
-Blockly.JavaScript.draw_turn_inline_restricted = function() {
+Blockly.JavaScript.draw_turn_by_constant_restricted = function() {
   // Generate JavaScript for turning either left or right from among a fixed
   // set of angles.
   var value = window.parseFloat(this.getTitleValue('VALUE'));
@@ -99,7 +99,7 @@ Blockly.JavaScript.draw_turn_inline_restricted = function() {
       '(' + value + ', \'block_id_' + this.id + '\');\n';
 };
 
-Blockly.Language.draw_turn_inline = {
+Blockly.Language.draw_turn_by_constant = {
   // Block for turning left or right any number of degrees.
   helpUrl: '',
   init: function() {
@@ -118,7 +118,7 @@ Blockly.Language.draw_turn_inline = {
   }
 };
 
-Blockly.JavaScript.draw_turn_inline = function() {
+Blockly.JavaScript.draw_turn_by_constant = function() {
   // Generate JavaScript for turning left or right.
   var value = window.parseFloat(this.getTitleValue('VALUE'));
   return 'Turtle.' + this.getTitleValue('DIR') +
@@ -216,6 +216,7 @@ Blockly.Language.draw_a_square = {
             .appendTitle(BlocklyApps.getMsg('lengthParameter') + ':');
     this.setPreviousStatement(true);
     this.setNextStatement(true);
+    this.setInputsInline(true);
     this.setTooltip('');
   }
 };
@@ -226,12 +227,15 @@ Blockly.JavaScript.draw_a_square = function() {
       this, 'VALUE', Blockly.JavaScript.ORDER_ATOMIC);
   var loopVar = Blockly.JavaScript.variableDB_.getDistinctName(
       'count', Blockly.Variables.NAME_TYPE);
-  return ['// draw_a_square',
-          'for (var ' + loopVar + ' = 0; ' + loopVar + ' < 4; ' +
-              loopVar + '++) {',
-          '  Turtle.moveForward(' + value_length + ');',
-          '  Turtle.turnRight(90);',
-          '}\n'].join('\n');
+  return [
+      // The generated comment helps detect required blocks.
+      // Don't change it without changing REQUIRED_BLOCKS.
+      '// draw_a_square',  
+      'for (var ' + loopVar + ' = 0; ' + loopVar + ' < 4; ' +
+            loopVar + '++) {',
+      '  Turtle.moveForward(' + value_length + ');',
+      '  Turtle.turnRight(90);',
+      '}\n'].join('\n');
 };
 
 // Create a fake "draw a snowman" function so it can be made available to
@@ -265,6 +269,9 @@ Blockly.JavaScript.draw_a_snowman = function() {
   var distanceVar = Blockly.JavaScript.variableDB_.getDistinctName(
       'distance', Blockly.Variables.NAME_TYPE);
   return [
+    // The generated comment helps detect required blocks.
+    // Don't change it without changing REQUIRED_BLOCKS.
+    '// draw_a_snowman',  
     'Turtle.turnLeft(90);',
     'var ' + distancesVar + ' = [' + value + ' * .5, ' + value + ' * .3,' +
         value + ' * .2];',

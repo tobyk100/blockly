@@ -185,7 +185,7 @@ BlocklyApps.init = function() {
 /**
  * Initialize Blockly for a readonly iframe.  Called on page load.
  * XML argument may be generated from the console with:
- * encodeURIComponent(Blockly.Xml.domToText(Blockly.Xml.workspaceToDom(Blockly.mainWorkspace)).slice(5, -6))
+ * Blockly.Xml.domToText(Blockly.Xml.workspaceToDom(Blockly.mainWorkspace)).slice(5, -6)
  */
 BlocklyApps.initReadonly = function() {
   var rtl = BlocklyApps.LANGUAGES[BlocklyApps.LANG][1] == 'rtl';
@@ -197,8 +197,8 @@ BlocklyApps.initReadonly = function() {
 
   // Add the blocks.
   var xml = BlocklyApps.getStringParamFromUrl('xml', '');
-  xml = Blockly.Xml.textToDom('<xml>' + xml + '</xml>');
-  Blockly.Xml.domToWorkspace(Blockly.mainWorkspace, xml);
+  var parsed_xml = Blockly.Xml.textToDom('<xml>' + xml + '</xml>');
+  Blockly.Xml.domToWorkspace(Blockly.mainWorkspace, parsed_xml);
 };
 
 /**
@@ -726,8 +726,20 @@ BlocklyApps.CHECK_FOR_EMPTY_BLOCKS = undefined;
 BlocklyApps.IDEAL_BLOCK_NUM = undefined;
 
 /**
- * An array of both (1) strings that must be found in the generated code
- * and (2) functions checking for required blocks.
+ * An array of dictionaries representing required blocks.  Keys are:
+ * - test (required): A test whether the block is present, either:
+ *   - A string, in which case the string is searched for in the generated code.
+ *   - A single-argument function is called on each user-added block
+ *     individually.  If any call returns true, the block is deemed present.
+ *     "User-added" blocks are ones that are neither disabled or undeletable.
+ * - type (required): The type of block to be produced for display to the user
+ *   if the test failed.
+ * - titles (optional): A dictionary, where, for each KEY-VALUE pair, this is
+ *   added to the block definition: <title name="KEY">VALUE</title>.
+ * - value (optional): A dictionary, where, for each KEY-VALUE pair, this is
+ *   added to the block definition: <value name="KEY">VALUE</value>
+ * - extra (optional): A string that should be blacked between the "block"
+ *   start and end tags.
  * @type {!Array=}
  */
 BlocklyApps.REQUIRED_BLOCKS = undefined;
@@ -846,13 +858,16 @@ BlocklyApps.updateCapacity = function() {
 // Methods for determining and displaying feedback.
 
 /**
- * Display feedback based on test results.
+ * Display feedback based on test results.  The test results can be
+ * explicitly provied so a specific application (namely Turtle) can generate
+ * test results in its own way and display feedback.
+ * @param {?number} opt_feedbackType Test results (a constant property of
+ *     BlocklyApps.TestResults).
  */
-BlocklyApps.displayFeedback = function() {
+BlocklyApps.displayFeedback = function(opt_feedbackType) {
+  var feedbackType = opt_feedbackType || BlocklyApps.getTestResults();
   BlocklyApps.hideFeedback();
-  var feedbackType = BlocklyApps.getTestResults();
   BlocklyApps.setErrorFeedback(feedbackType);
-  document.getElementById('helpButton').removeAttribute('disabled');
   BlocklyApps.prepareFeedback(feedbackType);
   BlocklyApps.displayCloseDialogButtons(feedbackType);
   BlocklyApps.showHelp(true, feedbackType);
@@ -915,9 +930,10 @@ BlocklyApps.getMissingRequiredBlocks = function() {
         }
       } else if (typeof test == 'function') {
         if (!blocks.some(test)) {
-          // Remove trailing underscore if present.
-          missingBlocks.push(test.name.replace(/_$/, ''));
+          missingBlocks.push(BlocklyApps.REQUIRED_BLOCKS[i]);
         }
+      } else {
+        window.alert('Bad test: ' + test);
       }
     }
   }
@@ -992,7 +1008,6 @@ BlocklyApps.errorVersionMap_ = {};
  *     typically produced by BlocklyApps.getTestResults().
  */
 BlocklyApps.setErrorFeedback = function(feedbackType) {
-  BlocklyApps.hideFeedback();
   switch (feedbackType) {
     // Give hint, not stars, for empty block or not finishing level.
     case BlocklyApps.TestResults.EMPTY_BLOCK_FAIL:
@@ -1009,8 +1024,10 @@ BlocklyApps.setErrorFeedback = function(feedbackType) {
     // For completing level, user gets at least one star.
     case BlocklyApps.TestResults.OTHER_1_STAR_FAIL:
       BlocklyApps.displayStars(1);
+      document.getElementById('appSpecificOneStarFeedback')
+            .style.display = 'list-item';
       break;
-    // One star for failing to use required blocks.
+    // One star for failing to use required blocks but only if level completed.
     case BlocklyApps.TestResults.MISSING_BLOCK_FAIL:
       // For each error type in the array, display the corresponding error.
       var missingBlocks = BlocklyApps.getMissingRequiredBlocks();
@@ -1022,20 +1039,25 @@ BlocklyApps.setErrorFeedback = function(feedbackType) {
             BlocklyApps.generateXMLForBlocks(missingBlocks);
         document.getElementById('feedbackBlocks').style.display = 'block';
       }
-      BlocklyApps.displayStars(1);
+      if (BlocklyApps.levelComplete) {
+	  BlocklyApps.displayStars(1);
+      }
       break;
 
     // Two stars for using too many blocks.
     case BlocklyApps.TestResults.TOO_MANY_BLOCKS_FAIL:
+      BlocklyApps.displayStars(2);
       BlocklyApps.setTextForElement(
           'tooManyBlocksError',
           BlocklyApps.getMsg('numBlocksNeeded').replace(
               '%1', BlocklyApps.IDEAL_BLOCK_NUM).replace(
                   '%2', BlocklyApps.getNumBlocksUsed())).style.display =
                       'list-item';
-      // Fall through...
+      break;
     case BlocklyApps.TestResults.OTHER_2_STAR_FAIL:
       BlocklyApps.displayStars(2);
+      document.getElementById('appSpecificTwoStarFeedback')
+            .style.display = 'list-item';
       break;
 
     // Three stars!
@@ -1088,6 +1110,8 @@ BlocklyApps.report = function(app, id, level, result, program) {
 
 /**
  * Prepare feedback to display after the user's program has finished running.
+ * Specifically, set colours and buttons of feedback added through
+ * BlocklyApps.displayFeedback();
  * @param {number} feedbackType A constant property of BlocklyApps.TestResults.
  */
 BlocklyApps.prepareFeedback = function(feedbackType) {
@@ -1155,10 +1179,8 @@ BlocklyApps.showReinfQuizFeedback = function(reinfLevel, identifier) {
  * Otherwise close the dialog and reset so the user can try again.
  * @param {boolean} gotoNext true to continue to next level,
  *     false to try level again.
- * @param {number} level The current level.
- * @param {number} skinId The maximum level.
  */
-BlocklyApps.goToNextLevelOrReset = function(gotoNext, level, skinId) {
+BlocklyApps.goToNextLevelOrReset = function(gotoNext) {
   if (gotoNext) {
     var interstitial = document.getElementById('interstitial').style.display;
     if (interstitial == 'none' &&
@@ -1216,16 +1238,16 @@ BlocklyApps.showInterstitial = function() {
         document.getElementById('continueButton').setAttribute('disabled',
                                                                'disabled');
         document.getElementById('tryAgainButton').style.display = 'none';
-        var preInterArray = document.querySelectorAll('.preInter');
-        for (var r = 0, preInter; preInter = preInterArray[r]; r++) {
-          preInter.style.display = 'none';
-        }
-        var postInterArray = document.querySelectorAll('.postInter');
-        for (var s = 0, postInter; postInter = postInterArray[s]; s++) {
-          postInter.style.display = 'block';
-        }
-      } else {
+      } else if (document.getElementById('reinfQuizFeedback')) {
         document.getElementById('reinfQuizFeedback').style.display = 'none';
+      }
+      var preInterArray = document.querySelectorAll('.preInter');
+      for (var r = 0, preInter; preInter = preInterArray[r]; r++) {
+        preInter.style.display = 'none';
+      }
+      var postInterArray = document.querySelectorAll('.postInter');
+      for (var s = 0, postInter; postInter = postInterArray[s]; s++) {
+          postInter.style.display = 'block';
       }
       document.getElementById('interstitial').style.display = 'block';
     }
@@ -1279,15 +1301,19 @@ BlocklyApps.showHelp = function(animate, feedbackType) {
       feedbackType : BlocklyApps.NO_TESTS_RUN;
   var help = document.getElementById('help');
   var button = document.getElementById('helpButton');
+  button.removeAttribute('disabled');
+
   var style = {
     width: '50%',
     right: '25%',
     top: '3em'
   };
-  var reinfMSG = document.getElementById('reinfMsg').innerHTML.match(/\S/);
-  var interstitial = document.getElementById('interstitial').style.display;
-  if (reinfMSG && interstitial == 'none') {
-    BlocklyApps.showInterstitial();
+  if (document.getElementById('reinfMsg')) {
+    var reinfMSG = document.getElementById('reinfMsg').innerHTML.match(/\S/);
+    var interstitial = document.getElementById('interstitial').style.display;
+    if (reinfMSG && interstitial == 'none') {
+      BlocklyApps.showInterstitial();
+    }
   }
   BlocklyApps.displayCloseDialogButtons(feedbackType);
   BlocklyApps.showDialog(help, button, animate, true, style,
@@ -1326,14 +1352,13 @@ BlocklyApps.setTextForElement = function(id, text) {
 };
 
 /**
- * Creates the XML for blocks to be displayed in a read only frame.
- * Each block has an x coordinate blockX * i.
+ * Creates the XML for blocks to be displayed in a read-only frame.
  * @param {Array} blockArray An array of blocks to display (with optional args).
  * @return {string} The generated string of XML.
  */
 BlocklyApps.generateXMLForBlocks = function(blockArray) {
   var blockXMLStrings = [];
-  var blockX = 0;
+  var blockX = 10;  // Prevent left output plugs from being cut off.
   var blockY = 0;
   var blockXPadding = 200;
   var blockYPadding = 120;
@@ -1344,12 +1369,22 @@ BlocklyApps.generateXMLForBlocks = function(blockArray) {
     if (block && i < BlocklyApps.NUM_REQUIRED_BLOCKS_TO_FLAG) {
       blockXMLStrings.push('<block', ' type="', block['type'], '" x= "',
                           blockX.toString(), '" y="', blockY, '">');
-      if (block['params']) {
-        var titleNames = Object.keys(block['params']);
+      if (block['titles']) {
+        var titleNames = Object.keys(block['titles']);
         for (var k = 0, name; name = titleNames[k]; k++) {
           blockXMLStrings.push('<title name="', name, '">',
-                              block['params'][name], '</title>');
+                              block['titles'][name], '</title>');
         }
+      }
+      if (block['values']) {
+        var valueNames = Object.keys(block['values']);
+        for (var k = 0, name; name = valueNames[k]; k++) {
+          blockXMLStrings.push('<value name="', name, '">',
+                              block['values'][name], '</title>');
+        }
+      }
+      if (block['extra']) {
+	blockXMLStrings.append(block['extra']);
       }
       blockXMLStrings.push('</block>');
       if ((i + 1) % blocksPerLine == 0) {

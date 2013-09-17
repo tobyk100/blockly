@@ -256,9 +256,11 @@ Turtle.answer = function() {
 /**
  * Validate whether the user's answer is correct.
  * @param {number} pixelErrors Number of pixels that are wrong.
+ * @param {number} permittedErrors Number of pixels allowed to be wrong.
  * @return {boolean} True if the level is solved, false otherwise.
  */
-Turtle.isCorrect = function(pixelErrors) {
+Turtle.isCorrect = function(pixelErrors, permittedErrors) {
   console.log('Pixel errors: ' + pixelErrors);
-  return BlocklyApps.LEVEL < BlocklyApps.MAX_LEVEL && pixelErrors < 100;
+  return BlocklyApps.LEVEL < BlocklyApps.MAX_LEVEL &&
+	pixelErrors < permittedErrors;
 };

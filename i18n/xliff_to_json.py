@@ -101,7 +101,7 @@ def _process_file(filename):
             fields.
 
     Returns:
-        A list of dictionaries produced by parse_trans_unit().
+        A list of dictionaries produced by _parse_trans_unit().
     """
     try:
         results = []  # list of dictionaries (return value)
@@ -118,27 +118,16 @@ def _process_file(filename):
         # Make sure needed fields are present and non-empty.
         for trans_unit in parsed_xml.getElementsByTagName('trans-unit'):
             unit = _parse_trans_unit(trans_unit)
-            for key in ['description', 'meaning', 'source']:
-                if not key in unit or not unit[key]:
-                    raise InputError(filename + ':' + unit['key'],
-                                     key + ' not found')
-            if unit['description'].lower() == 'ibid':
-              if unit['meaning'] not in names:
-                # If the term has not already been described, the use of 'ibid'
-                # is an error.
-                raise InputError(filename,
-                                 'First definition of: ' + unit['meaning']
-                                 + ' has definition: ' + unit['description'])
-              else:
-                # If term has already been described, 'ibid' was used correctly,
-                # and we output nothing.
-                pass
-            else:
-              if unit['meaning'] in names:
-                raise InputError(filename,
-                                 'Second definition of: ' + unit['meaning'])
-              names.append(unit['meaning'])
-              results.append(unit)
+            if 'description' in unit and unit['description'].lower() != 'ibid':
+                for key in ['description', 'meaning', 'source']:
+                    if not key in unit or not unit[key]:
+                        raise InputError(filename + ':' + unit['key'],
+                                         key + ' not found')
+                if unit['meaning'] in names:
+                    raise InputError(filename,
+                                     'Second definition of: ' + unit['meaning'])
+                names.append(unit['meaning'])
+                results.append(unit)
 
         return results
     except IOError, e:
