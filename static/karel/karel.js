@@ -474,13 +474,16 @@ if (window.location.pathname.match(/readonly.html$/)) {
 
 /**
  * Reload with a different Pegman skin.
- * @param {number} skin ID of new skin.
+ * @param {number} newskin ID of new skin.
  */
 Maze.changePegman = function(newSkin) {
   Maze.saveToStorage();
   window.location = window.location.protocol + '//' +
-      window.location.host + window.location.pathname +
-      '?lang=' + BlocklyApps.LANG + '&level=' + BlocklyApps.LEVEL + '&skin=' + newSkin;
+      window.location.host +
+      window.location.pathname +
+      '?lang=' + BlocklyApps.LANG +
+      '&level=' + BlocklyApps.LEVEL +
+      '&skin=' + newSkin;
 };
 
 /**
@@ -577,7 +580,7 @@ BlocklyApps.reset = function(first) {
         svg.removeChild(ballIcon);
       }
       // Place ball if one exists in cell.
-      if (Maze.balls_[y][x] !== 0 ) {
+      if (Maze.balls_[y][x] !== 0) {
         ballIcon = document.createElementNS(Blockly.SVG_NS, 'image');
         ballIcon.setAttribute('id', 'ball' + ballId);
         Maze.setBallImage(ballIcon, x, y);
@@ -914,7 +917,7 @@ Maze.schedulePutDownBall = function() {
   } else if (Maze.balls_[y][x] == -1) {
     // Remove the ballIcon
     ballIcon = document.getElementById('ball' + ballId);
-    var svg = document.getElementById('svgMaze')
+    var svg = document.getElementById('svgMaze');
     svg.removeChild(ballIcon);
      ++Maze.balls_[y][x];
   }
@@ -929,10 +932,12 @@ Maze.schedulePutDownBall = function() {
 Maze.setBallImage = function(ballIcon, x, y) {
   if (Maze.balls_[y][x] > 10) {
     ballIcon.setAttributeNS(
-      'http://www.w3.org/1999/xlink', 'xlink:href', BlocklyApps.BASE_URL + 'karel/' + BlocklyApps.SKIN.ball);
+      'http://www.w3.org/1999/xlink', 'xlink:href',
+      BlocklyApps.BASE_URL + 'karel/' + BlocklyApps.SKIN.ball);
   } else if (Maze.balls_[y][x] < -10) {
     ballIcon.setAttributeNS(
-      'http://www.w3.org/1999/xlink', 'xlink:href', BlocklyApps.BASE_URL + 'karel/-' + BlocklyApps.SKIN.ball);
+      'http://www.w3.org/1999/xlink', 'xlink:href',
+      BlocklyApps.BASE_URL + 'karel/-' + BlocklyApps.SKIN.ball);
   } else {
     ballIcon.setAttributeNS(
       'http://www.w3.org/1999/xlink', 'xlink:href',
@@ -1103,7 +1108,7 @@ Maze.ballsPresent = function(id) {
     return true;
   else
     return false;
-}
+};
 Maze.holesPresent = function(id) {
   var x = Maze.pegmanX;
   var y = Maze.pegmanY;
@@ -1111,7 +1116,7 @@ Maze.holesPresent = function(id) {
     return true;
   else
     return false;
-}
+};
 Maze.currentPositionNotClear = function(id) {
   var x = Maze.pegmanX;
   var y = Maze.pegmanY;
@@ -1119,7 +1124,7 @@ Maze.currentPositionNotClear = function(id) {
     return true;
   else
     return false;
-}
+};
 // Core functions.
 
 /**
@@ -1171,8 +1176,8 @@ Maze.checkSuccess = function(id) {
       for (var x = 0; x < Maze.COLS; x++) {
         if (Maze.balls_[y][x] != Maze.finalBallMap[y][x]) {
           console.log(
-            y + ',' + x + ': ' + Maze.balls_[y][x] + ' vs '
-                + Maze.finalBallMap[y][x]);
+            y + ',' + x + ': ' + Maze.balls_[y][x] + ' vs ' +
+                Maze.finalBallMap[y][x]);
             succeed = false;
             break;
         }
@@ -1190,11 +1195,11 @@ Maze.checkSuccess = function(id) {
     var xml = Blockly.Xml.workspaceToDom(Blockly.mainWorkspace);
     var text = Blockly.Xml.domToText(xml);
     console.log(text);
-}
+};
 
 Maze.notFinish = function(id) {
     return !Maze.checkSuccess(id);
-}
+};
 
 /**
  * Turn pegman left or right.
