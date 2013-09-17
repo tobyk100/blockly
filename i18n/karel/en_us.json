@@ -1,0 +1,357 @@
+{
+  "ballsPresent": {
+    "id": "4050999966626457535",
+    "string": "there is a pile",
+    "description": "Indicates the presence of at least one ball, as in 'he brought a ball, there are now balls present'"
+  },
+  "capacity0": {
+    "id": "1930180861983081233",
+    "string": "You have<x id='START_SPAN'/>0<x id='END_SPAN'/> blocks left.",
+    "description": "warning - No more blocks may be added until some are removed.  Do not alter the portions between pointy brackets (< and >), although you may move them within the phrase and replace 0 with one or more words."
+  },
+  "capacity1": {
+    "id": "5254993033027233494",
+    "string": "You have <x id='START_SPAN'/>1<x id='END_SPAN'/> block left.",
+    "description": "warning - Only one more block may be added.  Do not alter the portions between pointy brackets (< and >), although you may move them within the phrase and replace 1 with one or more words."
+  },
+  "capacity2": {
+    "id": "6521894157625254660",
+    "string": "You have <x id='START_SPAN'/>%1<x id='END_SPAN'/> blocks left.",
+    "description": "warning - Only %1 more blocks may be used, where %1 is an integer greater than 1.  Do not alter the portions between pointy brackets (< and >), although you may move them within the phrase."
+  },
+  "catCondition": {
+    "id": "6974877659202820695",
+    "string": "Conditionals",
+    "description": "TODO"
+  },
+  "catControl": {
+    "id": "2644808704881231557",
+    "string": "Loops",
+    "description": "TODO"
+  },
+  "catKarel": {
+    "id": "5188934812463846027",
+    "string": "Actions",
+    "description": "TODO"
+  },
+  "catProcedures": {
+    "id": "4186339348439406093",
+    "string": "Functions",
+    "description": "TODO"
+  },
+  "codeTooltip": {
+    "id": "3260794418245103523",
+    "string": "See generated JavaScript code.",
+    "description": "tooltip (pop-up help) for button; pressing the button causes a program in the JavaScript computer language to be displayed, based on the program created by the user."
+  },
+  "doCode": {
+    "id": "3122932360783439547",
+    "string": "do",
+    "description": "verb - imperative or infinitive preceding one or more commands to a person."
+  },
+  "elseCode": {
+    "id": "243004437121520865",
+    "string": "else",
+    "description": "conjunction - 'otherwise', introducing commands to be performed if a previous condition was not true, as in 'if x>3, do this, else do that'."
+  },
+  "finalLevel": {
+    "id": "4784887992793201145",
+    "string": "Congratulations! You have solved the final level.",
+    "description": "alert - This is displayed when the user solves the most difficult level."
+  },
+  "holesPresent": {
+    "id": "4787297942415818764",
+    "string": "there is a hole",
+    "description": "Indicates the lack of any balls, as in 'she took the last ball, there are now no balls present'"
+  },
+  "ifTooltip": {
+    "id": "6042489320809216081",
+    "string": "If there is a path in the specified direction, then do some actions.",
+    "description": "tooltip (pop-up help) - 'path' refers to a path through a maze. "
+  },
+  "ifelseTooltip": {
+    "id": "2683860693885209607",
+    "string": "If there is a path in the specified direction, then do the first block of actions. Otherwise, do the second block of actions.",
+    "description": "tooltip (pop-up help) - 'path' refers to a path through a maze."
+  },
+  "instructions1_1": {
+    "id": "511535435235111626",
+    "string": "Help me flatten the field on my farm so it's ready for planting. Move me to the pile of dirt to remove it.",
+    "description": "TODO"
+  },
+  "instructions1_10": {
+    "id": "388541572179212146",
+    "string": "It's nighttime, and I can't tell how large the piles are. Now I don't have all the options I used to have on the while block. Move me along the field, and if there is a pile, remove it.",
+    "description": "TODO"
+  },
+  "instructions1_11": {
+    "id": "4396755987596871156",
+    "string": "It's still dark outside. Move me along the field. If there is a pile, remove it, and if there is a hole, fill it in.",
+    "description": "TODO"
+  },
+  "instructions1_2": {
+    "id": "8681810675525840996",
+    "string": "Move me to the hole and fill it with two shovelfuls of dirt.",
+    "description": "TODO"
+  },
+  "instructions1_3": {
+    "id": "4732731109682389752",
+    "string": "Move me to the pile of dirt and tell me how many shovelfuls to remove using as few blocks as possible.",
+    "description": "TODO"
+  },
+  "instructions1_4": {
+    "id": "6961885717405359269",
+    "string": "Make me remove the 4 piles.",
+    "description": "TODO"
+  },
+  "instructions1_5": {
+    "id": "647788441440746219",
+    "string": "Make me fill in all the holes. Each hole needs 5 shovelfuls of dirt.",
+    "description": "TODO"
+  },
+  "instructions1_6": {
+    "id": "8233180769854710662",
+    "string": "Make me remove all the piles of dirt, using as few blocks as possible. Check out the new option in the dropdown menu on the while block.",
+    "description": "TODO"
+  },
+  "instructions1_7": {
+    "id": "835698657432741186",
+    "string": "I don't know how many shovelfuls of dirt this hole needs. Write a program that makes me fill it until it's even.",
+    "description": "TODO"
+  },
+  "instructions1_8": {
+    "id": "1446396878836001668",
+    "string": "Make me fill in the hole at the end of the field, using as few blocks as possible.",
+    "description": "TODO"
+  },
+  "instructions1_9": {
+    "id": "7689400048197260467",
+    "string": "Make me remove all the piles, using as few blocks as possible.",
+    "description": "TODO"
+  },
+  "instructions2_1": {
+    "id": "2762549004539079372",
+    "string": "Try using the blocks to help me remove all the piles and fill in all the holes on the ground.",
+    "description": "TODO"
+  },
+  "instructions2_10": {
+    "id": "7388270388391736213",
+    "string": "Move me across the field, and use the functions to help me remove all the piles and fill all the holes.",
+    "description": "TODO"
+  },
+  "instructions2_11": {
+    "id": "4415678893021929841",
+    "string": "Use the new function, &quot;remove 1 and avoid the cow&quot;, to make me level out the piles.",
+    "description": "TODO"
+  },
+  "instructions2_2": {
+    "id": "6063060740727772843",
+    "string": "Use the new function block called &quot;fill 5&quot; to help me fill in this hole.",
+    "description": "TODO"
+  },
+  "instructions2_3": {
+    "id": "614565985458201541",
+    "string": "Use the function block to make me fill in all the holes.",
+    "description": "TODO"
+  },
+  "instructions2_4": {
+    "id": "4451667761105342733",
+    "string": "Define a new function that removes 7 shovelfuls. Then use it to write a program that helps me remove all the piles.",
+    "description": "TODO"
+  },
+  "instructions2_5": {
+    "id": "271859688095231445",
+    "string": "Create a new function that removes 3 shovelfuls from a pile, and use it to help me level out all the piles.",
+    "description": "TODO"
+  },
+  "instructions2_6": {
+    "id": "5672757975804035474",
+    "string": "Use the new functions, &quot;fill 8&quot; and &quot;remove 8&quot;, to help me level out the pile and fill in the hole.",
+    "description": "TODO"
+  },
+  "instructions2_7": {
+    "id": "662393348385954208",
+    "string": "There's a cow in my field! Write a new function that helps me avoid the cow and remove the pile.",
+    "description": "TODO"
+  },
+  "instructions2_8": {
+    "id": "3639152755537095722",
+    "string": "Use the function, &quot;avoid the cow and remove 1&quot;, to help me remove all the piles.",
+    "description": "TODO"
+  },
+  "instructions2_9": {
+    "id": "5658777069008500316",
+    "string": "Use one of the new functions to help me remove all of the piles on the ground with as few blocks as possible.",
+    "description": "TODO"
+  },
+  "linkTooltip": {
+    "id": "5239330244422677114",
+    "string": "Save and link to blocks.",
+    "description": "tooltip (pop-up help) for button; pressing the button causes the user's program to be saved and for a URL to be provided for retrieving it.  The word 'blocks' is as in children's toy blocks."
+  },
+  "maze": {
+    "id": "4947809466496978707",
+    "string": "Farmer&amp;nbsp;&amp;nbsp;<x id='PAGE'/>",
+    "description": "brief title - Specifies that this is Blockly's '''Maze''' tutorial."
+  },
+  "moveForward": {
+    "id": "6005707509822211432",
+    "string": "move forward",
+    "description": "verb - imperative or infinitive for a person moving (walking) in the direction he/she is facing."
+  },
+  "moveForwardTooltip": {
+    "id": "8038615649098339929",
+    "string": "Move me forward one space.",
+    "description": "tooltip (pop-up help) - Pegman is the humanoid icon used in Google Maps. See picture at http://goo.gl/9I64i (http://maps.google.com/intl/en/help/maps/streetview/learn/pegman.html). The term 'space' refers to a single square within a maze."
+  },
+  "nextLevel": {
+    "id": "8384449975507912273",
+    "string": "Congratulations! You have completed this level.",
+    "description": "alert - This is displayed when the user solves the maze, inviting them to precede to the next level of difficulty."
+  },
+  "noPathAhead": {
+    "id": "3929450303285114841",
+    "string": "path is blocked",
+    "description": "condensed form of 'if there is a no path ahead', as in: 'if no path ahead, go forward'."
+  },
+  "noPathLeft": {
+    "id": "3597718516419494722",
+    "string": "no path to the left",
+    "description": "condensed form of 'if there is a no path to the left', as in: 'if no path to the left, turn left'."
+  },
+  "noPathRight": {
+    "id": "144914298205682744",
+    "string": "no path to the right",
+    "description": "condensed form of 'if there is a no path to the right', as in: 'if no path to the right, turn right'."
+  },
+  "numBlocksNeeded": {
+    "id": "511772275678137188",
+    "string": "This level can be solved with %1 blocks.",
+    "description": "alert - This is displayed when the user has used more blocks than is necessary."
+  },
+  "oneTopBlock": {
+    "id": "5453838756748900405",
+    "string": "On this level, you need to stack together all of the blocks in the white workspace.",
+    "description": "alert - This is displayed if a user attempts to run a program composed of multiple stacks of blocks, letting them know they need to create a single stack."
+  },
+  "pathAhead": {
+    "id": "4782149863250976860",
+    "string": "path ahead",
+    "description": "condensed form of 'if there is a path ahead', as in: 'if path ahead, go forward'."
+  },
+  "pathLeft": {
+    "id": "711550745704781067",
+    "string": "path to the left",
+    "description": "condensed form of 'if there is a path to the left', as in: 'if path to the left, turn left'."
+  },
+  "pathRight": {
+    "id": "1532160610780148030",
+    "string": "path to the right",
+    "description": "condensed form of 'if there is a path to the right', as in: 'if path to the right, turn right'."
+  },
+  "pickUpBall": {
+    "id": "5268364470656255036",
+    "string": "remove 1",
+    "description": "verb - imperative or infinitive for a person picking up a ball."
+  },
+  "pickupTower": {
+    "id": "885793977251639445",
+    "string": "pickup tower",
+    "description": "Place a tower up off the ground"
+  },
+  "putDown5": {
+    "id": "979916318881432671",
+    "string": "put down 5",
+    "description": "place 5 balls on the square."
+  },
+  "putDownBall": {
+    "id": "820940435620302045",
+    "string": "fill 1",
+    "description": "verb - imperative or infinitive for a person putting down a ball."
+  },
+  "putdownTower": {
+    "id": "471029618522690538",
+    "string": "put down tower",
+    "description": "Place a tower on the ground"
+  },
+  "q10right": {
+    "id": "2865770337752480735",
+    "string": "That's right!",
+    "description": "Congratulating the user on correctly answering the question."
+  },
+  "q10wrong": {
+    "id": "5238516985457537713",
+    "string": "No - Try tracking my direction while following the program.",
+    "description": "tracking is suggesting to the user that they should follow each instruction and follow how that will affect the movement. A 'program' is a set of instructions that tell the computer what to do next."
+  },
+  "q4right": {
+    "id": "1775354388524175835",
+    "string": "That's right! Good job.",
+    "description": "Congratulating the user on correctly answering the question."
+  },
+  "q4wrong": {
+    "id": "3269298963580773141",
+    "string": "No - Try tracking my direction while following the program.",
+    "description": "tracking is suggesting to the user that they should follow each instruction and follow how that will affect the movement. A 'program' is a set of instructions that tell the computer what to do next."
+  },
+  "q5right": {
+    "id": "4318072147009246027",
+    "string": "You got it right!",
+    "description": "Congratulating the user on correctly answering the question."
+  },
+  "q5wrong": {
+    "id": "783174224955555486",
+    "string": "No - Try tracking my direction while following the program.",
+    "description": "tracking is suggesting to the user that they should follow each instruction and follow how that will affect the movement. A 'program' is a set of instructions that tell the computer what to do next."
+  },
+  "repeatUntilBlocked": {
+    "id": "5669566230124297065",
+    "string": "while path ahead",
+    "description": "verb - imperative or infinitive to repeat the following commands.  The phrase is followed by the symbol denoting the end of the maze."
+  },
+  "repeatUntilFinish": {
+    "id": "1290859655665631564",
+    "string": "repeat until finish",
+    "description": "verb - imperative or infinitive to repeat the following commands.  The phrase is followed by the symbol denoting the end of the maze."
+  },
+  "repeatWhileCurrentNotClear": {
+    "id": "1129624636896695060",
+    "string": "while",
+    "description": "verb - imperative or infinitive to repeat the following commands.  The phrase is followed by the symbol denoting the end of the maze."
+  },
+  "resetProgram": {
+    "id": "7500283240829656880",
+    "string": "Reset",
+    "description": "button label - Pressing the button causes Pegman return to the start of the maze (but does not delete the user's program.)"
+  },
+  "runProgram": {
+    "id": "1693991524949368295",
+    "string": "Run",
+    "description": "button label - Pressing the button runs the computer program the user has written."
+  },
+  "turnLeft": {
+    "id": "7862783498529930828",
+    "string": "turn left",
+    "description": "verb - imperative or infinitive for a person turning his head and body one quarter rotation counter-clockwise.  Prefer a translation that has text in common with the translation of 'turn right'.  See [[Translating:Blockly#Drop-Down_Menus]]."
+  },
+  "turnRight": {
+    "id": "8939528218719420819",
+    "string": "turn right",
+    "description": "verb - imperative or infinitive for a person turning his head and body one quarter rotation clockwise. Prefer a translation that has text in common with the translation of 'turn left'.  See [[Translating:Blockly#Drop-Down_Menus]]."
+  },
+  "turnTooltip": {
+    "id": "5741193476304946702",
+    "string": "Turns me left or right by 90 degrees.",
+    "description": "tooltip (pop-up help) - Pegman is the humanoid icon used in Google Maps. See picture at http://goo.gl/9I64i (http://maps.google.com/intl/en/help/maps/streetview/learn/pegman.html). The term 'space' refers to a single square within a maze."
+  },
+  "while": {
+    "id": "3456647281718039043",
+    "string": "while",
+    "description": "condensed form of 'while something is true'"
+  },
+  "whileTooltip": {
+    "id": "3784721066365313721",
+    "string": "Repeat the enclosed actions until finish point is reached.",
+    "description": "tooltip (pop-up help) - Repeat the enclosed commands until the maze has been successfully completed (the end point reached)."
+  }
+}

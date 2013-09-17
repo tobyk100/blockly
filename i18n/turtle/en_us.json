@@ -1,0 +1,522 @@
+{
+  "blocksUsed": {
+    "id": "6192414251393604148",
+    "string": "Blocks used: %1",
+    "description": "TODO"
+  },
+  "catColour": {
+    "id": "1759106504444276359",
+    "string": "Color",
+    "description": "TODO"
+  },
+  "catControl": {
+    "id": "4536361039378989928",
+    "string": "Loops",
+    "description": "TODO"
+  },
+  "catMath": {
+    "id": "8552911449139168297",
+    "string": "Math",
+    "description": "TODO"
+  },
+  "catProcedures": {
+    "id": "8555382107213594291",
+    "string": "Functions",
+    "description": "TODO"
+  },
+  "catTurtle": {
+    "id": "5148447119737439401",
+    "string": "Actions",
+    "description": "TODO"
+  },
+  "catVariables": {
+    "id": "5457454918800758856",
+    "string": "Variables",
+    "description": "TODO"
+  },
+  "codeTooltip": {
+    "id": "2144789925684885720",
+    "string": "See generated JavaScript code.",
+    "description": "TODO"
+  },
+  "colourTooltip": {
+    "id": "3919378580309876148",
+    "string": "Changes the color of the pen.",
+    "description": "TODO"
+  },
+  "continue": {
+    "id": "4025711230282642462",
+    "string": "Continue",
+    "description": "button - Closes the dialog and continues to the next level"
+  },
+  "degrees": {
+    "id": "893046754428386132",
+    "string": "degrees",
+    "description": "TODO"
+  },
+  "dots": {
+    "id": "5277007024015341462",
+    "string": "dots",
+    "description": "TODO"
+  },
+  "drawAHouseNotDefined8": {
+    "id": "8625429193502071045",
+    "string": "You need to complete level 7 before doing this level.",
+    "description": "TODO"
+  },
+  "drawAHouseNotDefined9": {
+    "id": "8669528399059881976",
+    "string": "You need to complete levels 7 and 8 before doing this level.",
+    "description": "TODO"
+  },
+  "drawASnowman": {
+    "id": "3552165757021173739",
+    "string": "draw a snowman",
+    "description": "TODO"
+  },
+  "drawASquare": {
+    "id": "3072368140058022895",
+    "string": "draw a square",
+    "description": "TODO"
+  },
+  "heightParameter": {
+    "id": "250839010734163446",
+    "string": "height",
+    "description": "TODO"
+  },
+  "hideTurtle": {
+    "id": "1146327621590900127",
+    "string": "hide turtle",
+    "description": "TODO"
+  },
+  "instructions1_1": {
+    "id": "707237950593730668",
+    "string": "I'm a turtle with chalk on my belly. Stack up blocks and press &quot;Run Program&quot; to make me draw the shown picture.",
+    "description": "TODO"
+  },
+  "instructions1_10": {
+    "id": "8318979339055620562",
+    "string": "Draw anything you want. Some ideas are a stick figure, snowflake, or spiral.  You could also try out the new &quot;set width&quot; block.  Have fun!",
+    "description": "TODO"
+  },
+  "instructions1_2": {
+    "id": "6382876912107212213",
+    "string": "Draw a square, making each side a different color.",
+    "description": "TODO"
+  },
+  "instructions1_3": {
+    "id": "5911380370899013787",
+    "string": "Make a square using only 3 blocks.  (Remember that blocks to set color are free.)",
+    "description": "TODO"
+  },
+  "instructions1_4": {
+    "id": "686007247288680202",
+    "string": "Draw a triangle whose sides are all 100 dots and are in random colors.  You'll have to figure out how far to turn.",
+    "description": "TODO"
+  },
+  "instructions1_5": {
+    "id": "5516352830551153056",
+    "string": "Draw a triangle and then a square to draw an envelope.",
+    "description": "TODO"
+  },
+  "instructions1_6": {
+    "id": "3269367049188261668",
+    "string": "Can you figure out how draw this triangle and square?",
+    "description": "TODO"
+  },
+  "instructions1_7": {
+    "id": "3389423800139214515",
+    "string": "See if you can draw these green glasses.",
+    "description": "TODO"
+  },
+  "instructions1_8": {
+    "id": "8433889366554272133",
+    "string": "After trying out these blocks, see what happens if you make them repeat 8 times.  It should look a little different every time you run it.",
+    "description": "TODO"
+  },
+  "instructions1_9": {
+    "id": "5820593249319089549",
+    "string": "Figure out what number to replace the question marks with to draw a circle.",
+    "description": "TODO"
+  },
+  "instructions2_1": {
+    "id": "480823864302136740",
+    "string": "Find the familiar blocks in the new categories to draw a square in your favorite color.",
+    "description": "TODO"
+  },
+  "instructions2_10": {
+    "id": "2765665419557326891",
+    "string": "Draw whatever you want.  One idea is experimenting with different types of spirals.  What happens if you change the turn amount, rather than the move amount?  TODO: Add starting blocks.",
+    "description": "TODO"
+  },
+  "instructions2_2": {
+    "id": "4190754164128379813",
+    "string": "Use the new &quot;draw a square&quot; block, found in the &quot;Functions&quot; category, to draw a small green square.",
+    "description": "TODO"
+  },
+  "instructions2_3": {
+    "id": "4542091680501997160",
+    "string": "Use the &quot;repeat&quot; block to draw 3 squares of size 100, each 120 degrees apart, in random colors.",
+    "description": "TODO"
+  },
+  "instructions2_4": {
+    "id": "7431547268749431251",
+    "string": "Now change the code to draw 36 squares, each 10 degrees apart.",
+    "description": "TODO"
+  },
+  "instructions2_5": {
+    "id": "4753589449668334621",
+    "string": "Draw squares with sides of 50, 60, 70, 80, and 90 dots.  You'll need lots of blocks.",
+    "description": "TODO"
+  },
+  "instructions2_6": {
+    "id": "1269926501111815369",
+    "string": "Modify this program with the &quot;counter&quot; block (found in the Variables category) to draw the same series of squares with fewer blocks than on the previous level.",
+    "description": "TODO"
+  },
+  "instructions2_7": {
+    "id": "4105282775454076680",
+    "string": "Replace the pale (disabled) blocks with a &quot;count with&quot; block (in the Loops category) and &quot;counter&quot; block (in the Variables category) to draw the same spiral.",
+    "description": "TODO"
+  },
+  "instructions2_8": {
+    "id": "6522997473700521653",
+    "string": "Draw three snowmen 150 dots tall in different colors, 100 dots apart.  Use the new &quot;draw a snowman&quot; function and &quot;jump forward&quot; block.",
+    "description": "TODO"
+  },
+  "instructions2_9": {
+    "id": "3911570462840508551",
+    "string": "Use a &quot;count with&quot; loop to draw a family of snowmen with heights of 110, 100, 90, 80, and 70 dots, each 60 dots apart.",
+    "description": "TODO"
+  },
+  "instructions3_1": {
+    "id": "3164275452307531104",
+    "string": "You can now see how the &quot;draw a square&quot; and &quot;draw a circle&quot; functions are defined.  Defining a function doesn't run its blocks.  You have to pull out the &quot;draw a square&quot; block to actually draw a square.",
+    "description": "TODO"
+  },
+  "instructions3_10": {
+    "id": "495427248197512279",
+    "string": "You're now free to do whatever you want.  One idea is to try running this program with different turn amounts (higher or lower than 90).  Other ideas are to draw a star, circle, heart, or animal.",
+    "description": "TODO"
+  },
+  "instructions3_2": {
+    "id": "4632342053860970836",
+    "string": "Using the &quot;draw a square&quot; function as an example, create a &quot;draw a triangle&quot; function and use it.",
+    "description": "TODO"
+  },
+  "instructions3_3": {
+    "id": "5477072746213052175",
+    "string": "Draw triangular fences around the cats and a square fence around the cow.  Tip: Test the program as you go along.",
+    "description": "TODO"
+  },
+  "instructions3_4": {
+    "id": "5630104567218363163",
+    "string": "See if you can figure out how to use &quot;draw a square&quot; and &quot;draw a triangle&quot; (and some other blocks) to draw a house around the lion.",
+    "description": "TODO"
+  },
+  "instructions3_5": {
+    "id": "2613267230562876277",
+    "string": "Now create a &quot;draw a house&quot; function and use it house two cats.",
+    "description": "TODO"
+  },
+  "instructions3_6": {
+    "id": "304227982281877910",
+    "string": "Using &quot;draw a square&quot; as an example, add an input named &quot;length&quot; to &quot;draw a triangle&quot;.  Then, draw triangles in different colors around the animals.",
+    "description": "TODO"
+  },
+  "instructions3_7": {
+    "id": "380340402060185830",
+    "string": "Add a &quot;height&quot; input to &quot;draw a house&quot; and build a big house for the elephant.",
+    "description": "TODO"
+  },
+  "instructions3_8": {
+    "id": "8812489020733766443",
+    "string": "Here are all of the blocks from the previous level.  Modify &quot;draw a house&quot; so the turtle ends up at the bottom right corner of the new house.  Use this modified function to house all the animals.",
+    "description": "TODO"
+  },
+  "instructions3_9": {
+    "id": "3990974763608318007",
+    "string": "Use a &quot;count with&quot; block and your code from the previous level to draw houses of size 50, 100, and 150 in different colors.",
+    "description": "TODO"
+  },
+  "inter1_10-pre": {
+    "id": "8722676893343433986",
+    "string": "Congratulations on completing this tutorial.  Just for fun, here's a new block that changes how wide of lines I draw.  We've been using a default width of 5.",
+    "description": "interstitial"
+  },
+  "inter1_2-pre": {
+    "id": "3203419004910558277",
+    "string": "I can draw in different colors.  Choose what color you would like me to use with the &quot;set color&quot; block.  Blocks for changing color don't count to your block count used for scoring, so go wild!",
+    "description": "interstitial"
+  },
+  "inter1_3-pre": {
+    "id": "24619743896402142",
+    "string": "Tired of dragging and dropping?  Let the &quot;repeat&quot; block do the work for you.",
+    "description": "interstitial"
+  },
+  "inter1_4-pre": {
+    "id": "929058449208871153",
+    "string": "Do you like surprises?  Use the &quot;random color&quot; block to let me pick the color.",
+    "description": "interstitial"
+  },
+  "inter1_5-pre": {
+    "id": "5786046560502402400",
+    "string": "Did you know you can copy and paste a block?",
+    "description": "interstitial"
+  },
+  "inter1_6-pre": {
+    "id": "1488997373214724751",
+    "string": "I can move backward, not just forward.",
+    "description": "interstitial"
+  },
+  "inter1_8-pre": {
+    "id": "4816323991137794833",
+    "string": "Do you ever get tired of waiting for me?  You can make me move faster (or slower) with the speed slider.",
+    "description": "interstitial"
+  },
+  "inter2_1-pre": {
+    "id": "1062418378645422702",
+    "string": "To make room for new blocks, we've put the blocks into categories.  You may have to look around for your old favorite blocks, but they're all there.",
+    "description": "interstitial"
+  },
+  "inter2_2-pre": {
+    "id": "19074688780336846",
+    "string": "We've added a new category for &quot;Functions&quot;, a powerful new type of block.",
+    "description": "interstitial"
+  },
+  "inter2_3-pre": {
+    "id": "4918778924437779076",
+    "string": "Wondering why it's better to use &quot;repeat&quot; than copying and pasting the blocks three times?  See why on the next level",
+    "description": "interstitial"
+  },
+  "inter2_4-pre": {
+    "id": "1104536591751788133",
+    "string": "Here's how I solved the previous level.  Make sure you understand it before proceeding.",
+    "description": "interstitial"
+  },
+  "inter2_5-pre": {
+    "id": "3519159199468649838",
+    "string": "Let's explore what we can do with squares of different sizes...",
+    "description": "interstitial"
+  },
+  "inter2_6-pre": {
+    "id": "7794696594406275663",
+    "string": "Wouldn't it be nice if you could tell me to count by tens from 50 to 100, drawing a square each time?  Well you can -- with the new &quot;count with&quot; block.  The programs on the left and right do the same thing.",
+    "description": "interstitial"
+  },
+  "inter2_7-pre": {
+    "id": "305761785294031376",
+    "string": "This code draws a boxy spiral.  You'll need to figure out what should go in the blanks on the &quot;count with&quot; block to do it with fewer blocks on the next level.",
+    "description": "interstitial"
+  },
+  "inter2_8-pre": {
+    "id": "8001180165829334489",
+    "string": "We've given you two new blocks: &quot;jump forward&quot;, which moves the turtle without leaving a trail, and &quot;draw a snowman&quot;, which draws an elephant -- just kidding.",
+    "description": "interstitial"
+  },
+  "inter2_9-pre": {
+    "id": "6313461302897917500",
+    "string": "You don't need to always count from a low number to a high number.  You can count from high to low too.",
+    "description": "interstitial"
+  },
+  "inter3_1-pre": {
+    "id": "8785953022988235676",
+    "string": "You'll now learn how to create new blocks, which are called &quot;functions&quot;.",
+    "description": "interstitial"
+  },
+  "inter3_2-post": {
+    "id": "3623955996781973221",
+    "string": "Congratulations on adding a new block!  That's a huge step for a programmer.  Dividing big tasks into bite-sized pieces is what makes large programs possible.",
+    "description": "interstitial"
+  },
+  "inter3_2-pre": {
+    "id": "1086871000972376902",
+    "string": "Here's how the &quot;draw a square&quot; block was created.  On this level, you'll create your own &quot;draw a triangle&quot; block.",
+    "description": "interstitial"
+  },
+  "inter3_5-pre": {
+    "id": "4940764885229537348",
+    "string": "The new blocks that you define can be used just like the built-in blocks, including being used within another block definition...",
+    "description": "interstitial"
+  },
+  "inter3_6-pre": {
+    "id": "4908846812243506715",
+    "string": "Let me show you how the input was added to &quot;draw a square&quot;.  You'll need to know this for this level, where you'll add an input to &quot;draw a triangle&quot;.",
+    "description": "interstitial"
+  },
+  "inter3_8-pre": {
+    "id": "1904911322128652747",
+    "string": "It can be useful for a function to put the turtle at a good ending position, to help with building up bigger pictures.",
+    "description": "interstitial"
+  },
+  "inter3_9-post": {
+    "id": "5105116183408421300",
+    "string": "You now know how to control the turtle, use loops (&quot;repeat&quot; and &quot;count from&quot;), and write and use functions.  Congratulations on becoming a programmer!",
+    "description": "interstitial"
+  },
+  "jumpBackward": {
+    "id": "4466869966303893630",
+    "string": "jump backward by",
+    "description": "TODO"
+  },
+  "jumpForward": {
+    "id": "5069046536746700962",
+    "string": "jump forward by",
+    "description": "TODO"
+  },
+  "jumpForwardTooltip": {
+    "id": "7563511320497497010",
+    "string": "Moves the turtle forward without leaving any marks.",
+    "description": "TODO"
+  },
+  "lengthParameter": {
+    "id": "7975813070692811697",
+    "string": "length",
+    "description": "TODO"
+  },
+  "loopVariable": {
+    "id": "4975881527969825929",
+    "string": "counter",
+    "description": "TODO"
+  },
+  "moveBackward": {
+    "id": "4294783477990312138",
+    "string": "move backward by",
+    "description": "TODO"
+  },
+  "moveForward": {
+    "id": "1013045213595604872",
+    "string": "move forward by",
+    "description": "TODO"
+  },
+  "moveForwardTooltip": {
+    "id": "3518504260884370609",
+    "string": "Moves the turtle forward.",
+    "description": "TODO"
+  },
+  "moveTooltip": {
+    "id": "552526916301133670",
+    "string": "Moves the turtle forward or backward by the specified amount.",
+    "description": "TODO"
+  },
+  "notBlackColour": {
+    "id": "8349021672644911810",
+    "string": "You need to set a color other than black for this level.",
+    "description": "TODO"
+  },
+  "numBlocksNeeded": {
+    "id": "320660831584776468",
+    "string": "This level can be solved with %1 blocks.  You used %2.",
+    "description": "TODO"
+  },
+  "penDown": {
+    "id": "295126337553066153",
+    "string": "pen down",
+    "description": "TODO"
+  },
+  "penTooltip": {
+    "id": "968123423114261681",
+    "string": "Lifts or lowers the pen, to start or stop drawing.",
+    "description": "TODO"
+  },
+  "penUp": {
+    "id": "196845303311122428",
+    "string": "pen up",
+    "description": "TODO"
+  },
+  "resetProgram": {
+    "id": "2599109327728834397",
+    "string": "Reset",
+    "description": "TODO"
+  },
+  "runProgram": {
+    "id": "8801900916913964496",
+    "string": "Run",
+    "description": "TODO"
+  },
+  "setColour": {
+    "id": "8582408810273452213",
+    "string": "set color",
+    "description": "TODO"
+  },
+  "setWidth": {
+    "id": "8037633027892627134",
+    "string": "set width",
+    "description": "TODO"
+  },
+  "showMe": {
+    "id": "514758953227426343",
+    "string": "Show me",
+    "description": "TODO"
+  },
+  "showTurtle": {
+    "id": "8598935855828958714",
+    "string": "show turtle",
+    "description": "TODO"
+  },
+  "title": {
+    "id": "1735010517448028234",
+    "string": "CS First: Turtle Graphics %1",
+    "description": "TODO"
+  },
+  "tooFewColours": {
+    "id": "1757525824513667617",
+    "string": "You need to use at least %1 different colors on this level.  You used only %2.",
+    "description": "TODO"
+  },
+  "tryAgain": {
+    "id": "8285768475184396675",
+    "string": "Try again",
+    "description": "button - Closes the dialog and stays on the current level"
+  },
+  "turnLeft": {
+    "id": "6078028329780496695",
+    "string": "turn left by",
+    "description": "TODO"
+  },
+  "turnRight": {
+    "id": "6889946611851664425",
+    "string": "turn right by",
+    "description": "TODO"
+  },
+  "turnRightTooltip": {
+    "id": "3642603709514258121",
+    "string": "Turns the turtle right by the specified angle.",
+    "description": "TODO"
+  },
+  "turnTooltip": {
+    "id": "7089740218907481322",
+    "string": "Turns the turtle left or right by the specified number of degrees.",
+    "description": "TODO"
+  },
+  "turtle1": {
+    "id": "3561533632409117166",
+    "string": "Turtle 1",
+    "description": "brief title - Specifies that this is Blockly's '''Turtle 1''' tutorial."
+  },
+  "turtle2": {
+    "id": "5693651952632842190",
+    "string": "Turtle 2",
+    "description": "brief title - Specifies that this is Blockly's '''Turtle 2''' tutorial."
+  },
+  "turtle3": {
+    "id": "9192320043405678363",
+    "string": "Turtle 3",
+    "description": "brief title - Specifies that this is Blockly's '''Turtle 3''' tutorial."
+  },
+  "turtleVisibilityTooltip": {
+    "id": "9016285072881975083",
+    "string": "Makes the turtle (green circle and arrow) visible or invisible.",
+    "description": "TODO"
+  },
+  "widthTooltip": {
+    "id": "1359456544648181295",
+    "string": "Changes the width of the pen.",
+    "description": "TODO"
+  },
+  "wrongColour": {
+    "id": "7740915719993711156",
+    "string": "Your picture is the wrong color.  For this level, it needs to be %1.",
+    "description": "TODO"
+  }
+}
