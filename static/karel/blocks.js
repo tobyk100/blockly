@@ -227,7 +227,6 @@ Blockly.JavaScript.maze_untilBlocked = function() {
         '\'block_id_' + this.id + '\'') + branch;
   }
   var branch = Blockly.JavaScript.statementToCode(this, 'DO');
-  console.log('while (' + argument + ') {\n' + branch + '}\n');
   return 'while (' + argument + ') {\n' + branch + '}\n';
 };
 
@@ -252,7 +251,6 @@ Blockly.JavaScript.maze_untilBlockedOrNotClear = function() {
     branch = Blockly.JavaScript.INFINITE_LOOP_TRAP.replace(/%1/g,
         '\'block_id_' + this.id + '\'') + branch;
   }
-  console.log('while (' + argument + ') {\n' + branch + '}\n');
   return 'while (' + argument + ') {\n' + branch + '}\n';
 };
 
