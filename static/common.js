@@ -25,7 +25,12 @@
 
 var BlocklyApps = {};
 
-BlocklyApps.BASE_URL = (function () {
+/**
+ * The parent directory of the apps. Contains common.js.
+ */
+BlocklyApps.BASE_URL = (function() {
+  // This implementation gaurantees the correct absolute path regardless of
+  // hosting solution.
   var scripts = document.getElementsByTagName('script');
   // Scripts are executed synchronously so this script is the most recently
   // loaded.
@@ -261,7 +266,10 @@ BlocklyApps.changeLanguage = function() {
       window.location.host + window.location.pathname + search;
 };
 
-BlocklyApps.onResize = function(e) {
+/**
+ *  Resizes the blockly workspace.
+ */
+BlocklyApps.onResize = function() {
   var blocklyDiv = document.getElementById('blockly');
   var visualization = document.getElementById('visualization');
   var top = visualization.offsetTop;
@@ -1103,7 +1111,12 @@ BlocklyApps.setErrorFeedback = function(feedbackType) {
 
 BlocklyApps.REPORT_URL = BlocklyApps.getStringParamFromUrl('callback_url');
 
-BlocklyApps.REPORT = undefined;
+/**
+ * Caches the current report to send to the server. An app can set this
+ * variable and continue to execute.
+ * @private
+ */
+BlocklyApps.latestReport_ = undefined;
 
 /**
  * Report back to the server, if available.
@@ -1114,7 +1127,7 @@ BlocklyApps.REPORT = undefined;
  * @param {string} program The user program, which will get URL-encoded.
  */
 BlocklyApps.report = function(app, id, level, result, program) {
-  BlocklyApps.REPORT = {
+  BlocklyApps.latestReport_ = {
     'app': app,
     'id': id,
     'level': level,
@@ -1124,6 +1137,11 @@ BlocklyApps.report = function(app, id, level, result, program) {
     'program': encodeURIComponent(program)
   };
 };
+
+/**
+ * Send the latest report set by BlocklyApps.report and redirect based
+ * on the response from the server.
+ */
 BlocklyApps.reportAndRedirect = function() {
   var httpRequest = new XMLHttpRequest();
   httpRequest.onload = function() {
@@ -1137,14 +1155,12 @@ BlocklyApps.reportAndRedirect = function() {
   httpRequest.setRequestHeader('Content-Type',
       'application/x-www-form-urlencoded');
   var query = [];
-  for (var key in BlocklyApps.REPORT) {
-    query.push(key + '=' + BlocklyApps.REPORT[key]);
+  for (var key in BlocklyApps.latestReport_) {
+    query.push(key + '=' + BlocklyApps.latestReport_[key]);
   }
   query = query.join('&');
   httpRequest.send(query);
 };
-
-BlocklyApps.reportAndRedirect
 
 /**
  * Prepare feedback to display after the user's program has finished running.
