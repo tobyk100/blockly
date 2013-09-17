@@ -39,9 +39,9 @@ document.write('<script type="text/javascript" src="generated/' +
                BlocklyApps.LANG + '.js"></script>\n');
 
 Maze.MAX_REINF = 0;
-Maze.PAGE = BlocklyApps.getNumberParamFromUrl('page', 1, 2);
-Maze.MAX_LEVEL = [undefined, 11, 10][Maze.PAGE];
-Maze.LEVEL = BlocklyApps.getNumberParamFromUrl('level', 1, Maze.MAX_LEVEL);
+BlocklyApps.PAGE = BlocklyApps.getNumberParamFromUrl('page', 1, 2);
+BlocklyApps.MAX_LEVEL = [undefined, 11, 10][BlocklyApps.PAGE];
+BlocklyApps.LEVEL = BlocklyApps.getNumberParamFromUrl('level', 1, BlocklyApps.MAX_LEVEL);
 Maze.REINF = BlocklyApps.getNumberParamFromUrl('reinf', 1, Maze.MAX_REINF);
 
 Maze.SKINS = [
@@ -82,8 +82,8 @@ Maze.SKINS = [
     ball: 'check.png'
   }*/
 ];
-Maze.SKIN_ID = BlocklyApps.getNumberParamFromUrl('skin', 0, Maze.SKINS.length);
-Maze.SKIN = Maze.SKINS[Maze.SKIN_ID];
+BlocklyApps.SKIN_ID = BlocklyApps.getNumberParamFromUrl('skin', 0, Maze.SKINS.length);
+BlocklyApps.SKIN = Maze.SKINS[BlocklyApps.SKIN_ID];
 
 /**
  * Milliseconds between each animation frame.
@@ -107,7 +107,7 @@ Maze.SquareType = {
 /**
  * Load level configuration.
  */
-var level = LevelConfig.pages[Maze.PAGE].levels[Maze.LEVEL];
+var level = LevelConfig.pages[BlocklyApps.PAGE].levels[BlocklyApps.LEVEL];
 Maze.map = level.map;
 BlocklyApps.IDEAL_BLOCK_NUM = level.ideal;
 Maze.initialBallMap = level.initialBalls;
@@ -185,11 +185,6 @@ Maze.DirectionType = {
  */
 Maze.pidList = [];
 
-/**
- * Pseudo-random identifier used for tracking user progress within a level.
- */
-Maze.LEVEL_ID = Math.random();
-
 // Map each possible shape to a sprite.
 // Input: Binary string representing Centre/North/West/South/East squares.
 // Output: [x, y] coordinates of each tile's sprite in tiles.png.
@@ -228,10 +223,10 @@ Maze.drawMap = function() {
   square.setAttribute('stroke', '#CCB');
   svg.appendChild(square);
 
-  if (Maze.SKIN.background) {
+  if (BlocklyApps.SKIN.background) {
     var tile = document.createElementNS(Blockly.SVG_NS, 'image');
     tile.setAttributeNS('http://www.w3.org/1999/xlink', 'xlink:href',
-        Maze.SKIN.background);
+        BlocklyApps.SKIN.background);
     tile.setAttribute('height', Maze.MAZE_HEIGHT);
     tile.setAttribute('width', Maze.MAZE_WIDTH);
     tile.setAttribute('x', 0);
@@ -239,7 +234,7 @@ Maze.drawMap = function() {
     svg.appendChild(tile);
   }
 
-  if (Maze.SKIN.graph) {
+  if (BlocklyApps.SKIN.graph) {
     // Draw the grid lines.
     // The grid lines are offset so that the lines pass through the centre of
     // each square.  A half-pixel offset is also added to as standard SVG
@@ -250,7 +245,7 @@ Maze.drawMap = function() {
       h_line.setAttribute('y1', k * Maze.SQUARE_SIZE + offset);
       h_line.setAttribute('x2', Maze.MAZE_WIDTH);
       h_line.setAttribute('y2', k * Maze.SQUARE_SIZE + offset);
-      h_line.setAttribute('stroke', Maze.SKIN.graph);
+      h_line.setAttribute('stroke', BlocklyApps.SKIN.graph);
       h_line.setAttribute('stroke-width', 1);
       svg.appendChild(h_line);
     }
@@ -259,7 +254,7 @@ Maze.drawMap = function() {
       v_line.setAttribute('x1', k * Maze.SQUARE_SIZE + offset);
       v_line.setAttribute('x2', k * Maze.SQUARE_SIZE + offset);
       v_line.setAttribute('y2', Maze.MAZE_HEIGHT);
-      v_line.setAttribute('stroke', Maze.SKIN.graph);
+      v_line.setAttribute('stroke', BlocklyApps.SKIN.graph);
       v_line.setAttribute('stroke-width', 1);
       svg.appendChild(v_line);
     }
@@ -316,7 +311,7 @@ Maze.drawMap = function() {
       // Tile sprite.
       var tile = document.createElementNS(Blockly.SVG_NS, 'image');
       tile.setAttributeNS('http://www.w3.org/1999/xlink', 'xlink:href',
-          Maze.SKIN.tiles);
+          BlocklyApps.SKIN.tiles);
       tile.setAttribute('height', Maze.SQUARE_SIZE * 4);
       tile.setAttribute('width', Maze.SQUARE_SIZE * 5);
       tile.setAttribute('clip-path', 'url(#tileClipPath' + tileId + ')');
@@ -341,7 +336,7 @@ Maze.drawMap = function() {
   var pegmanIcon = document.createElementNS(Blockly.SVG_NS, 'image');
   pegmanIcon.setAttribute('id', 'pegman');
   pegmanIcon.setAttributeNS('http://www.w3.org/1999/xlink', 'xlink:href',
-      Maze.SKIN.sprite);
+      BlocklyApps.SKIN.sprite);
   pegmanIcon.setAttribute('height', Maze.PEGMAN_HEIGHT);
   pegmanIcon.setAttribute('width', Maze.PEGMAN_WIDTH * 21); // 49 * 21 = 1029
   pegmanIcon.setAttribute('clip-path', 'url(#pegmanClipPath)');
@@ -355,7 +350,7 @@ Maze.drawMap = function() {
         obsIcon.setAttribute('height', 40);
         obsIcon.setAttribute('width', 40);
         obsIcon.setAttributeNS(
-          'http://www.w3.org/1999/xlink', 'xlink:href', Maze.SKIN.obstacle);
+          'http://www.w3.org/1999/xlink', 'xlink:href', BlocklyApps.SKIN.obstacle);
         obsIcon.setAttribute('x',
                              Maze.SQUARE_SIZE * (x + 0.5) -
                              obsIcon.getAttribute('width') / 2);
@@ -376,7 +371,7 @@ Maze.init = function() {
 
   // Setup the Pegman menu.
   var pegmanImg = document.querySelector('#pegmanButton>img');
-  pegmanImg.style.backgroundImage = 'url(' + Maze.SKIN.sprite + ')';
+  pegmanImg.style.backgroundImage = 'url(' + BlocklyApps.SKIN.sprite + ')';
   var pegmanMenu = document.getElementById('pegmanMenu');
   var handlerFactory = function(n) {
     return function() {
@@ -384,7 +379,7 @@ Maze.init = function() {
     };
   };
   for (var i = 0; i < Maze.SKINS.length; i++) {
-    if (i == Maze.SKIN_ID) {
+    if (i == BlocklyApps.SKIN_ID) {
       continue;
     }
     var div = document.createElement('div');
@@ -494,7 +489,7 @@ Maze.changePegman = function(newSkin) {
   Maze.saveToStorage();
   window.location = window.location.protocol + '//' +
       window.location.host + window.location.pathname +
-      '?lang=' + BlocklyApps.LANG + '&level=' + Maze.LEVEL + '&skin=' + newSkin;
+      '?lang=' + BlocklyApps.LANG + '&level=' + BlocklyApps.LEVEL + '&skin=' + newSkin;
 };
 
 /**
@@ -572,7 +567,7 @@ BlocklyApps.reset = function(first) {
   lookIcon.parentNode.appendChild(lookIcon);
   var paths = lookIcon.getElementsByTagName('path');
   for (var i = 0, path; path = paths[i]; i++) {
-    path.setAttribute('stroke', Maze.SKIN.look);
+    path.setAttribute('stroke', BlocklyApps.SKIN.look);
   }
 
   // Nan's
@@ -689,7 +684,7 @@ Maze.execute = function() {
   }
 
   // Report result to server.
-  BlocklyApps.report('maze', BlocklyApps.LEVEL_ID, Maze.LEVEL,
+  BlocklyApps.report('maze', BlocklyApps.LEVEL_ID, BlocklyApps.LEVEL,
       Maze.result === Maze.ResultType.SUCCESS, BlocklyApps.stripCode(code));
 
   // Fast animation if execution is successful.  Slow otherwise.
@@ -964,14 +959,14 @@ Maze.schedulePutDownBall = function() {
 Maze.setBallImage = function(ballIcon, x, y) {
   if (Maze.balls_[y][x] > 10) {
     ballIcon.setAttributeNS(
-      'http://www.w3.org/1999/xlink', 'xlink:href', Maze.SKIN.ball);
+      'http://www.w3.org/1999/xlink', 'xlink:href', BlocklyApps.SKIN.ball);
   } else if (Maze.balls_[y][x] < -10) {
     ballIcon.setAttributeNS(
-      'http://www.w3.org/1999/xlink', 'xlink:href', '-' + Maze.SKIN.ball);
+      'http://www.w3.org/1999/xlink', 'xlink:href', '-' + BlocklyApps.SKIN.ball);
   } else {
     ballIcon.setAttributeNS(
       'http://www.w3.org/1999/xlink', 'xlink:href',
-      Maze.balls_[y][x] + Maze.SKIN.ball);
+      Maze.balls_[y][x] + BlocklyApps.SKIN.ball);
   }
 };
 
