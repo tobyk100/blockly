@@ -1284,13 +1284,3 @@ Maze.pickUpBall = function(id) {
     Maze.balls_[y][x] = Maze.balls_[y][x] - 1;
     Maze.checkSuccess(id);
 };
-
-/**
- * Updates the tooManyBlocksError message with the ideal number of blocks so the
- *     student can better understand how to improve their code.
- */
-Maze.setIdealBlockMessage = function() {
-  var idealNumMsg = document.getElementById('idealNumberMessage');
-  var idealNumText = document.createTextNode(Maze.IDEAL_BLOCK_NUM);
-  idealNumMsg.appendChild(idealNumText);
-};
