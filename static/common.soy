@@ -12,7 +12,7 @@
  * ../i18n/xliff_to_json.py --xlf extracted_msgs.xlf --templates common.soy {bird,maze,turtle,karel}/template.soy karel/templateLevel*.soy --lang en_us
  *
  * # Generate .js files for each project:
- * for i in bird maze turtle; do ../i18n/json_to_js.py --source_lang=en_us --output_dir=$i/generated --path_to_jar=_soy --template common.soy,$i/template.soy *.json; done
+ * for i in bird maze turtle karel; do ../i18n/json_to_js.py --source_lang=en_us --output_dir=$i/generated --path_to_jar=_soy --template common.soy,$i/template.soy *.json; done
  */
 
 /**
