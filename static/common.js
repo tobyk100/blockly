@@ -1362,7 +1362,6 @@ BlocklyApps.generateXMLForBlocks = function(blockArray) {
   var blockY = 0;
   var blockXPadding = 200;
   var blockYPadding = 120;
-  var iframePadding = 50;
   var blocksPerLine = 2;
   var iframeHeight = parseInt(document.getElementById('feedbackBlocks')
           .style.height);
@@ -1390,7 +1389,7 @@ BlocklyApps.generateXMLForBlocks = function(blockArray) {
       blockXMLStrings.push('</block>');
       if ((i + 1) % blocksPerLine == 0) {
         blockY += blockYPadding;
-        iframeHeight += iframePadding;
+        iframeHeight += blockYPadding;
         blockX = 0;
       } else {
         blockX += blockXPadding;
