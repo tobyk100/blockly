@@ -1,5 +1,12 @@
 var config = {};
 
+var APPS = [
+  'maze',
+  'turtle',
+  'bird',
+  'karel'
+];
+
 config.clean = {
   all: ['build', 'dist']
 };
@@ -40,47 +47,22 @@ config.messages = {
   }
 };
 
-config.concat = {
-  templates_maze: {
-    src: ['build/templates/common.js', 'build/templates/maze/**/*.js'],
-    dest: 'dist/maze/generated/en_us.js'
-  },
-  templates_turtle: {
-    src: ['build/templates/common.js', 'build/templates/turtle/**/*.js'],
-    dest: 'dist/turtle/generated/en_us.js'
-  },
-  templates_bird: {
-    src: ['build/templates/common.js', 'build/templates/bird/**/*.js'],
-    dest: 'dist/bird/generated/en_us.js'
-  },
-  templates_karel: {
-    src: ['build/templates/common.js', 'build/templates/karel/**/*.js'],
-    dest: 'dist/karel/generated/en_us.js'
-  },
-};
+config.concat = {};
+APPS.forEach(function(app) {
+  config.concat['templates_' + app] = {
+    src: ['build/templates/common.js', 'build/templates/' + app + '/**/*.js'],
+    dest: 'dist/' + app + '/generated/en_us.js'
+  };
+});
 
-config.browserify = {
-  maze: {
-    files: {
-      'dist/maze/maze.js': ['src/maze/main.js']
-    }
-  },
-  turtle: {
-    files: {
-      'dist/turtle/turtle.js': ['src/turtle/main.js']
-    }
-  },
-  bird: {
-    files: {
-      'dist/bird/bird.js': ['src/bird/main.js']
-    }
-  },
-  karel: {
-    files: {
-      'dist/karel/karel.js': ['src/karel/main.js']
-    }
-  }
-};
+config.browserify = {}
+APPS.forEach(function(app) {
+  var src = 'src/' + app + '/main.js';
+  var dest = 'dist/' + app + '/' + app + '.js';
+  var files = {};
+  files[dest] = [src];
+  config.browserify[app] = {files: files};
+});
 
 config.connect = {
   server: {
@@ -118,7 +100,7 @@ config.watch = {
   }
 };
 
-config. jshint = {
+config.jshint = {
   options: {
     browser: true,
     globals: {
