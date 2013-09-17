@@ -210,20 +210,20 @@ Turtle.setBlocklyAppConstants_ = function() {
 
   // This tests for and creates the limited "move forward" block used on the
   // earlier levels of the tutorial.
-  var MOVE_FORWARD_INLINE = {test: 'moveForward', type: 'draw_move_inline'};
+  var MOVE_FORWARD_INLINE = {test: 'moveForward', type: 'draw_move_by_constant'};
 
   // This tests for and creates the limited "move forward" block used on the
   // earlier levels of the tutorial.
   var MOVE_BACKWARD_INLINE = {test: 'moveBackward',
-                              type: 'draw_move_inline',
+                              type: 'draw_move_by_constant',
                               titles: {'DIR': 'moveBackward'}};
 
-  // This tests for and creates a [right] draw_turn_inline_restricted block
+  // This tests for and creates a [right] draw_turn_by_constant_restricted block
   // with the specified number of degrees as its input.  The restricted turn
   // is used on the earlier levels of the tutorial.
   var turnRightRestricted = function(degrees) {
     return {test: 'turnRight(' + degrees,
-            type: 'draw_turn_inline_restricted',
+            type: 'draw_turn_by_constant_restricted',
             titles: {'VALUE': degrees}};
   };
 
@@ -300,7 +300,7 @@ Turtle.setBlocklyAppConstants_ = function() {
      [BlocklyApps.InterTypes.PRE,
       3,
       [MOVE_FORWARD_INLINE, repeat(3),
-       {test: 'turnRight', type: 'draw_turn_inline', titles: {'VALUE': '???'}},
+       {test: 'turnRight', type: 'draw_turn_by_constant', titles: {'VALUE': '???'}},
        SET_COLOUR_RANDOM],
       3],
      // Level 5: Envelope.

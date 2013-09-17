@@ -328,13 +328,13 @@
     {if $ij.page == 1}
       {switch $ij.level}
         {case 1, 2}
-          <block type="draw_move_inline" x="20" y="20"></block>
+          <block type="draw_move_by_constant" x="20" y="20"></block>
         {case 3, 4, 5, 6}
           <block type="controls_repeat" x="20" y="20">
             <title name="TIMES">{if $ij.level == 3}4{else}3{/if}</title>
           </block>
         {case 7}
-          <block type="draw_turn_inline" x="20" y="20">
+          <block type="draw_turn_by_constant_restricted" x="20" y="20">
             <title name="DIR">turnRight</title>
             <title name="VALUE">90</title>
           </block>
@@ -344,15 +344,15 @@
               <block type="colour_random"></block>
             </value>
             <next>
-              <block type="draw_move_inline">
+              <block type="draw_move_by_constant">
                 <title name="DIR">moveForward</title>
                 <title name="VALUE">100</title>
                 <next>
-                  <block type="draw_move_inline">
+                  <block type="draw_move_by_constant">
                     <title name="DIR">moveBackward</title>
                     <title name="VALUE">100</title>
                     <next>
-                      <block type="draw_turn_inline">
+                      <block type="draw_turn_by_constant">
                         <title name="DIR">turnRight</title>
                         <title name="VALUE">45</title>
                       </block>
@@ -385,7 +385,7 @@
             </statement>
           </block>
         {case 10}
-          <block type="draw_move_inline" x="20" y="20">
+          <block type="draw_move_by_constant" x="20" y="20">
             <title name="DIR">moveForward</title>
             <title name="VALUE">100</title>
           </block>
@@ -577,25 +577,17 @@
                 <arg name="length">
               </mutation>
               <value name="ARG0">
-                {if $ij.level == 7}
-                  <block type="math_number">
-                    <title name="NUM">100</title>
-                  </block>
-                {else}
-                  <block type="variables_get_length"></block>
-                {/if}
+                <block type="math_number">
+                  <title name="NUM">100</title>
+                </block>
               </value>
               <next>
                 <block type="draw_move" inline="true">
                   <title name="DIR">moveForward</title>
                   <value name="VALUE">
-                    {if $ij.level == 7}
-                      <block type="math_number">
-                        <title name="NUM">100</title>
-                      </block>
-                    {else}
-                      <block type="variables_get_length"></block>
-                    {/if}
+                    <block type="math_number">
+                      <title name="NUM">100</title>
+                    </block>
                   </value>
                   <next>
                     <block type="draw_turn" inline="true">
@@ -611,13 +603,9 @@
                             <arg name="length"></arg>
                           </mutation>
                           <value name="ARG0">
-                            {if $ij.level == 7}
-                              <block type="math_number">
-                                <title name="NUM">100</title>
-                              </block>
-                            {else}
-                              <block type="variables_get_length"></block>
-                            {/if}
+                            <block type="math_number">
+                              <title name="NUM">100</title>
+                            </block>
                           </value>
                         </block>
                       </next>
@@ -869,7 +857,7 @@
  * ======
  * Within this page, blocks are only added, never taken away.
  *
- * Level 1 [el]: Adds draw_move_inline and draw_turn_inline.
+ * Level 1 [el]: Adds draw_move_by_constant and draw_turn_by_constant.
  * Level 2 [coloured square]: Adds draw_colour with colour_picker.
  * level 3 [square in three blocks]: Adds controls_repeat.
  * level 4 [triangle] Adds draw_colour with colour_random.
@@ -947,8 +935,8 @@
 {template .toolbox}
   <xml id="toolbox" style="display: none;">
     {if $ij.page == 1}
-      <block type="draw_move_inline"></block>">
-      <block type="draw_turn_inline{if $ij.level <= 8}_restricted{/if}">
+      <block type="draw_move_by_constant"></block>">
+      <block type="draw_turn_by_constant{if $ij.level <= 8}_restricted{/if}">
         <title name="VALUE">90</title>
       </block>
       {if $ij.level >= 2}
