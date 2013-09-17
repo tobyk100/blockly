@@ -424,7 +424,7 @@ Maze.SquareType = {
 Maze.map = CURRENT_LEVEL.map;
 
 // Add blank row at top for hint bubble.
-Maze.map.unshift([0, 0, 0, 0, 0, 0, 0, 0]);
+Maze.map.unshift(new Array(Maze.map[0].length));
 
 /**
  * Measure maze dimensions and set sizes.
@@ -490,6 +490,14 @@ Maze.drawMap = function() {
   square.setAttribute('stroke', '#CCB');
   svg.appendChild(square);
 
+  // Adjust outer element size.
+  svg.setAttribute('width', Maze.MAZE_WIDTH);
+  svg.setAttribute('height', Maze.MAZE_HEIGHT);
+  
+  // Adjust hint bubble width.
+  var hint = document.getElementById('hintBubble');
+  hint.style.width = (Maze.MAZE_WIDTH - 20) + 'px';
+  
   if (Maze.SKIN.background) {
     var tile = document.createElementNS(Blockly.SVG_NS, 'image');
     tile.setAttributeNS('http://www.w3.org/1999/xlink', 'xlink:href',
@@ -532,10 +540,9 @@ Maze.drawMap = function() {
   // Return a value of '0' if the specified square is wall or out of bounds,
   // '1' otherwise (empty, obstacle, start, finish).
   var normalize = function(x, y) {
-    if (x < 0 || x >= Maze.COLS || y < 0 || y >= Maze.ROWS) {
-      return '0';
-    }
-    return (Maze.map[y][x] == Maze.SquareType.WALL) ? '0' : '1';
+    return ((Maze.map[y] === undefined) ||
+            (Maze.map[y][x] === undefined) ||
+            (Maze.map[y][x] == Maze.SquareType.WALL)) ? '0' : '1';
   };
 
   // Compute and draw the tile for each square.
@@ -693,11 +700,12 @@ Maze.init = function() {
   var blocklyDiv = document.getElementById('blockly');
   var onresize = function(e) {
     var top = visualization.offsetTop;
+    var svg = document.getElementById('svgMaze');
 
     blocklyDiv.style.top = top + 'px';
-    blocklyDiv.style.left = rtl ? '10px' : '420px';
+    blocklyDiv.style.left = rtl ? '10px' : (svg.clientWidth + 20) + 'px';
 
-    blocklyDiv.style.width = (window.innerWidth - 440) + 'px';
+    blocklyDiv.style.width = (window.innerWidth - svg.clientWidth - 40) + 'px';
     blocklyDiv.style.height = (window.innerHeight - top - 20 +
         window.scrollY) + 'px';
   };
