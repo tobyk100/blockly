@@ -79,8 +79,9 @@ Turtle.PROCEDURE_CALL_TEMPLATE_ = 'procedures_callnoreturn[^e]*e="%1"';
  * @return A required block specification that tests for a call of the
  *     specified function with the specified argument name.  If not present,
  *     this contains the information to create such a block for display.
+ * @private
  */
-Turtle.define_with_arg_ = function(func_name, arg_name) {
+Turtle.defineWithArg_ = function(func_name, arg_name) {
   return {
     test: function(block) {
       return block.type == 'procedures_defnoreturn' &&
@@ -112,7 +113,7 @@ Turtle.setBlocklyAppConstants_ = function() {
    *     such as '???'.
    * @return {string} The textual representation of a math_number block.
    */
-  var make_math_number = function(number) {
+  var makeMathNumber = function(number) {
       return '<block type="math_number"><title name="NUM">' +
             number + '</title></block>';
   };
@@ -124,7 +125,7 @@ Turtle.setBlocklyAppConstants_ = function() {
    * @return {Object} A required blocks dictionary able to check for and
    *     generate the specified block.
    */
-  var simple_block = function(block_type) {
+  var simpleBlock = function(block_type) {
     return {test: function(block) {return block.type == block_type; },
             type: block_type};
   };
@@ -165,7 +166,7 @@ Turtle.setBlocklyAppConstants_ = function() {
    * @return {Object} A required blocks dictionary able to check for and
    *     generate the specified block.
    */
-  function call_with_arg(func_name, arg_name) {
+  function callWithArg(func_name, arg_name) {
     return {test: function(block) {
       return block.type == 'procedures_callnoreturn' &&
           block.getTitleValue('NAME') == func_name; },
@@ -194,42 +195,42 @@ Turtle.setBlocklyAppConstants_ = function() {
   // The remaining internal functions are specific to Turtle.
 
   // This tests for and creates a draw_a_square block on page 2.
-  function draw_a_square(number) {
+  function drawASquare(number) {
     return {test: 'draw_a_square',
             type: 'draw_a_square',
-            values: {'VALUE': make_math_number(number)}};
+            values: {'VALUE': makeMathNumber(number)}};
   }
 
   // This tests for and creates a draw_a_snowman block on page 2.
-  function draw_a_snowman(number) {
+  function drawASnowman(number) {
     return {test: 'draw_a_snowman',
             type: 'draw_a_snowman',
-            values: {'VALUE': make_math_number(number)}};
+            values: {'VALUE': makeMathNumber(number)}};
   }
 
   // This tests for and creates the limited "move forward" block used on the
   // earlier levels of the tutorial.
-  var MOVE_FORWARD_INLINE = {test: 'moveForward', type: 'draw_move_inline'};
+  var MOVE_FORWARD_INLINE = {test: 'moveForward', type: 'draw_move_by_constant'};
 
   // This tests for and creates the limited "move forward" block used on the
   // earlier levels of the tutorial.
   var MOVE_BACKWARD_INLINE = {test: 'moveBackward',
-                              type: 'draw_move_inline',
+                              type: 'draw_move_by_constant',
                               titles: {'DIR': 'moveBackward'}};
 
-  // This tests for and creates a [right] draw_turn_inline_restricted block
+  // This tests for and creates a [right] draw_turn_by_constant_restricted block
   // with the specified number of degrees as its input.  The restricted turn
   // is used on the earlier levels of the tutorial.
-  var turn_right_restricted = function(degrees) {
+  var turnRightRestricted = function(degrees) {
     return {test: 'turnRight(' + degrees,
-            type: 'draw_turn_inline_restricted',
+            type: 'draw_turn_by_constant_restricted',
             titles: {'VALUE': degrees}};
   };
 
   // This tests for and creates a [right] draw_turn block with the specified
   // number of degrees as its input.  For the earliest levels, the method
-  // turn_right_restricted should be used instead.
-  var turn_right = function(degrees) {
+  // turnRightRestricted should be used instead.
+  var turnRight = function(degrees) {
     return {
       test: function(block) {
         return block.type == 'draw_turn' &&
@@ -237,19 +238,19 @@ Turtle.setBlocklyAppConstants_ = function() {
               block, 'VALUE', Blockly.JavaScript.ORDER_NONE) == degrees;
       },
       type: 'draw_turn',
-      values: {'VALUE': make_math_number(degrees)}};
+      values: {'VALUE': makeMathNumber(degrees)}};
   };
 
   // This tests for and creates a left draw_turn block with the specified
   // number of degrees as its input.  This method is not appropriate for the
   // earliest levels of the tutorial, which do not provide draw_turn.
-  var turn_left = function(degrees) {
+  var turnLeft = function(degrees) {
     return {test: function(block) {
       return block.type == 'draw_turn' &&
           block.getTitleValue('DIR') == 'turnLeft'; },
             type: 'draw_turn',
             titles: {'DIR': 'turnLeft'},
-            values: {'VALUE': make_math_number(degrees)}};
+            values: {'VALUE': makeMathNumber(degrees)}};
   };
 
   // This tests for any draw_move block and, if not present, creates
@@ -257,7 +258,7 @@ Turtle.setBlocklyAppConstants_ = function() {
   var move = function(distance) {
     return {test: function(block) {return block.type == 'draw_move'; },
             type: 'draw_move',
-            values: {'VALUE': make_math_number(distance)}};
+            values: {'VALUE': makeMathNumber(distance)}};
   };
 
   // This tests for and creates a "set colour" block with a colour picker
@@ -286,33 +287,33 @@ Turtle.setBlocklyAppConstants_ = function() {
     [undefined,  // Level 0.
      // Level 1: El.
      [BlocklyApps.InterTypes.NONE, 3,
-      [MOVE_FORWARD_INLINE, turn_right_restricted(90)]],
+      [MOVE_FORWARD_INLINE, turnRightRestricted(90)]],
      // Level 2: Square (without repeat).
      [BlocklyApps.InterTypes.PRE, 7,
-      [MOVE_FORWARD_INLINE, turn_right_restricted(90), SET_COLOUR_PICKER],
+      [MOVE_FORWARD_INLINE, turnRightRestricted(90), SET_COLOUR_PICKER],
       4],
      // Level 3: Square (with repeat).
      [BlocklyApps.InterTypes.PRE,
       3,
-      [MOVE_FORWARD_INLINE, turn_right_restricted(90), repeat(4)]],
+      [MOVE_FORWARD_INLINE, turnRightRestricted(90), repeat(4)]],
      // Level 4: Triangle.
      [BlocklyApps.InterTypes.PRE,
       3,
       [MOVE_FORWARD_INLINE, repeat(3),
-       {test: 'turnRight', type: 'draw_turn_inline', titles: {'VALUE': '???'}},
+       {test: 'turnRight', type: 'draw_turn_by_constant', titles: {'VALUE': '???'}},
        SET_COLOUR_RANDOM],
       3],
      // Level 5: Envelope.
      [BlocklyApps.InterTypes.PRE, 6,
-      [repeat(3), turn_right_restricted(120), MOVE_FORWARD_INLINE]],
+      [repeat(3), turnRightRestricted(120), MOVE_FORWARD_INLINE]],
      // Level 6: triangle and square.
      [BlocklyApps.InterTypes.PRE, 6,
-      [repeat(3), turn_right_restricted(120),
+      [repeat(3), turnRightRestricted(120),
        MOVE_FORWARD_INLINE, MOVE_BACKWARD_INLINE]],
      // Level 7: glasses.
      [BlocklyApps.InterTypes.NONE,
       8,
-      [turn_right_restricted(90), MOVE_FORWARD_INLINE, SET_COLOUR_PICKER,
+      [turnRightRestricted(90), MOVE_FORWARD_INLINE, SET_COLOUR_PICKER,
        MOVE_BACKWARD_INLINE],
       Turtle.Colours.GREEN],
      // Level 8: spikes.
@@ -326,38 +327,38 @@ Turtle.setBlocklyAppConstants_ = function() {
     [undefined,  // Level 0.
      // Level 1: Square.
      [BlocklyApps.InterTypes.PRE, 5,
-      [repeat(4), turn_right(90), move(100), SET_COLOUR_PICKER], 1],
+      [repeat(4), turnRight(90), move(100), SET_COLOUR_PICKER], 1],
      // Level 2: Small green square.
      [BlocklyApps.InterTypes.PRE, 2,
-      [draw_a_square('??'), SET_COLOUR_PICKER],
+      [drawASquare('??'), SET_COLOUR_PICKER],
       Turtle.Colours.GREEN],
      // Level 3: Three squares.
      [BlocklyApps.InterTypes.PRE, 5,
-      [repeat(3), draw_a_square(100), turn_right(120), SET_COLOUR_RANDOM]],
+      [repeat(3), drawASquare(100), turnRight(120), SET_COLOUR_RANDOM]],
      // Level 4: 36 squares.
      [BlocklyApps.InterTypes.PRE, 5, []],
      // Level 5: Different size squares.
-     [BlocklyApps.InterTypes.PRE, 10, [draw_a_square('??')]],
+     [BlocklyApps.InterTypes.PRE, 10, [drawASquare('??')]],
      // Level 6: For-loop squares.
      [BlocklyApps.InterTypes.PRE, 6,
       // This is not displayed properly.
-      [simple_block('variables_get_counter')]],
+      [simpleBlock('variables_get_counter')]],
      // Level 7: Boxy spiral.
      [BlocklyApps.InterTypes.PRE, 8,
-      [simple_block('controls_for_counter'), move('??'),
-       simple_block('variables_get_counter'), turn_right(90)]],
+      [simpleBlock('controls_for_counter'), move('??'),
+       simpleBlock('variables_get_counter'), turnRight(90)]],
      // Level 8: Three snowmen.
      [BlocklyApps.InterTypes.PRE, 9,
-      [draw_a_snowman(150), turn_right(90), turn_left(90),
-       {test: 'jump', type: 'jump', values: {'VALUE': make_math_number(100)}},
-       simple_block('jump'), simple_block('draw_colour')],
+      [drawASnowman(150), turnRight(90), turnLeft(90),
+       {test: 'jump', type: 'jump', values: {'VALUE': makeMathNumber(100)}},
+       simpleBlock('jump'), simpleBlock('draw_colour')],
       3],
      // Level 9: Snowman family.
      [BlocklyApps.InterTypes.PRE, 12,
-      [draw_a_snowman('??'), simple_block('controls_for_counter'),
-       simple_block('variables_get_counter'),
-       turn_right(90), turn_left(90),
-       {test: 'jump', type: 'jump', values: {'VALUE': make_math_number(60)}}]],
+      [drawASnowman('??'), simpleBlock('controls_for_counter'),
+       simpleBlock('variables_get_counter'),
+       turnRight(90), turnLeft(90),
+       {test: 'jump', type: 'jump', values: {'VALUE': makeMathNumber(60)}}]],
      // Level 10: playground.
      [BlocklyApps.InterTypes.NONE, Infinity, []]
     ],
@@ -368,37 +369,37 @@ Turtle.setBlocklyAppConstants_ = function() {
      // Level 2: Create "draw a triangle".
      [BlocklyApps.InterTypes.PRE | BlocklyApps.InterTypes.POST,
       7,
-      [repeat(3), move(100), turn_right(120), call('draw a triangle')]],
+      [repeat(3), move(100), turnRight(120), call('draw a triangle')]],
      // Level 3: Fence the animals.
      [BlocklyApps.InterTypes.NONE, 7,
       [call('draw a triangle'), move(100), call('draw a square')]],
      // Level 4: House the lion.
      [BlocklyApps.InterTypes.NONE, 6,
-      [call('draw a square'), move(100), turn_right(30),
+      [call('draw a square'), move(100), turnRight(30),
        call('draw a triangle')]],
      // Level 5: Create "draw a house".
      [BlocklyApps.InterTypes.PRE, 8,
-      [define('draw a house'), call('draw a square'), move(100), turn_right(30),
+      [define('draw a house'), call('draw a square'), move(100), turnRight(30),
        call('draw a triangle'), call('draw a house')]],
      // Level 6: Add parameter to "draw a triangle".
      [BlocklyApps.InterTypes.PRE, 13,
-      [Turtle.define_with_arg_('draw a triangle', 'length'),
-       simple_block('variables_get_length'),
-       call_with_arg('draw a triangle', 'length')],
+      [Turtle.defineWithArg_('draw a triangle', 'length'),
+       simpleBlock('variables_get_length'),
+       callWithArg('draw a triangle', 'length')],
       2],
      // Level 7: Add parameter to "draw a house".
      [BlocklyApps.InterTypes.NONE, 13,
-      [Turtle.define_with_arg_('draw a house', 'height'),
-       call_with_arg('draw a square', 'length'),
-       call_with_arg('draw a triangle', 'length'),
-       simple_block('variables_get_height'),
-       call_with_arg('draw a house', 'height')]],
+      [Turtle.defineWithArg_('draw a house', 'height'),
+       callWithArg('draw a square', 'length'),
+       callWithArg('draw a triangle', 'length'),
+       simpleBlock('variables_get_height'),
+       callWithArg('draw a house', 'height')]],
      // Level 8: Draw houses.
      [BlocklyApps.InterTypes.PRE, 27, []],
      // Level 9: Draw houses with for loop.
      [BlocklyApps.InterTypes.POST, 27,
-      [simple_block('controls_for_counter'),
-       simple_block('variables_get_counter'),
+      [simpleBlock('controls_for_counter'),
+       simpleBlock('variables_get_counter'),
        SET_COLOUR_RANDOM],
       3],
      // Level 10: playground.
@@ -515,7 +516,7 @@ Turtle.init = function() {
         var dom = Blockly.Xml.textToDom(xml);
         Blockly.Xml.domToWorkspace(Blockly.mainWorkspace, dom);
         if (!BlocklyApps.getUserBlocks_().some(
-          Turtle.define_with_arg_('draw a house', 'height')['test'])) {
+          Turtle.defineWithArg_('draw a house', 'height')['test'])) {
           window.alert(BlocklyApps.getMsg('notReadyForLevel'));
         }
       }
