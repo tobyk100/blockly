@@ -200,7 +200,7 @@ BlocklyApps.init = function() {
 BlocklyApps.initReadonly = function() {
   var rtl = BlocklyApps.LANGUAGES[BlocklyApps.LANG][1] == 'rtl';
   Blockly.inject(document.getElementById('blockly'),
-      {path: '../../',
+      {path: BlocklyApps.BASE_URL,
        readOnly: true,
        rtl: rtl,
        scrollbars: false});
@@ -1130,8 +1130,7 @@ BlocklyApps.reportAndRedirect = function() {
     var response = JSON.parse(httpRequest.responseText);
     var redirect = response['redirect'];
     if (redirect) {
-      window.location.href = BlocklyApps.nextLevelUrl;
-      BlocklyApps.nextLevelUrl = redirect;
+      window.location.href = redirect;
     }
   };
   httpRequest.open('POST', BlocklyApps.REPORT_URL);

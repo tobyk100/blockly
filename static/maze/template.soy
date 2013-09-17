@@ -125,7 +125,7 @@
  */
 {template .start}
   {if $ij.mode == 2}
-    <script type="text/javascript" src="adp_maze.js"></script>
+    <script type="text/javascript" src="{$ij.baseUrl}maze/adp_maze.js"></script>
   {/if}
   {call .messages /}
   <table width="100%" {call apps.menu}{param menu: $ij.menu /}{/call}
@@ -274,10 +274,8 @@
               {/if}
             </span>
           </div>
-          <img id="pegman_bubble" height=42 width=55 src="pegman_bubble.png">
+          <img id="pegman_bubble" height=42 width=55 src="{$ij.baseUrl}maze/pegman_bubble.png">
         </div>
-        <img id="pegman_bubble" height=42 width=55 src="{$ij.baseUrl}maze/pegman_bubble.png">
-
         /**
          * Show image and/or video below avatar for these reinf levels.
          */
@@ -346,11 +344,11 @@
              </p>
             {case 5}
               <p class="quiz postInter" style="margin-left: 115px; margin-bottom: 20px;">
-                <img style="margin-left: 50px;" src="repeat_blocka1.png"
+                <img style="margin-left: 50px;" src="{$ij.baseUrl}maze/repeat_blocka1.png"
                   onclick="BlocklyApps.showReinfQuizFeedback({$ij.level}, 'q5w')">
-                <img style="margin-left: 50px;" src="repeat_blocka2.png"
+                <img style="margin-left: 50px;" src="{$ij.baseUrl}maze/repeat_blocka2.png"
                   onclick="BlocklyApps.showReinfQuizFeedback({$ij.level}, 'q5r')">
-                <img style="margin-left: 50px;" src="repeat_blocka3.png"
+                <img style="margin-left: 50px;" src="{$ij.baseUrl}maze/repeat_blocka3.png"
                   onclick="BlocklyApps.showReinfQuizFeedback({$ij.level}, 'q5w')">
               </p>
             {case 9}
@@ -686,8 +684,8 @@
 {template .readonly}
   {call .messages /}
 
-  <script type="text/javascript" src="../blockly_compressed.js"></script>
-  <script type="text/javascript" src="../{$ij.langSrc}"></script>
-  <script type="text/javascript" src="blocks.js"></script>
+  <script type="text/javascript" src="{$ij.baseUrl}blockly_compressed.js"></script>
+  <script type="text/javascript" src="{$ij.baseUrl}{$ij.langSrc}"></script>
+  <script type="text/javascript" src="{$ij.baseUrl}maze/blocks.js"></script>
   <div id="blockly"></div>
 {/template}

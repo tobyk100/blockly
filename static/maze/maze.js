@@ -394,6 +394,8 @@ BlocklyApps.SKIN_ID =
     BlocklyApps.getNumberParamFromUrl('skin', 0, Maze.SKINS.length);
 Maze.SKIN = Maze.SKINS[BlocklyApps.SKIN_ID];
 
+Maze.SKIN.MARKER_URL = BlocklyApps.BASE_URL + 'maze/' + Maze.SKIN.marker;
+
 /**
  * Google Drive video ID.
  * 'null' is used because IE8 does not like trailing commas in arrays, and it is
@@ -597,7 +599,7 @@ Maze.drawMap = function() {
   var finishMarker = document.createElementNS(Blockly.SVG_NS, 'image');
   finishMarker.setAttribute('id', 'finish');
   finishMarker.setAttributeNS('http://www.w3.org/1999/xlink', 'xlink:href',
-      BlocklyApps.BASE_URL + 'maze/' + Maze.SKIN.marker);
+      Maze.SKIN.MARKER_URL);
   finishMarker.setAttribute('height', 34);
   finishMarker.setAttribute('width', 20);
   svg.appendChild(finishMarker);
