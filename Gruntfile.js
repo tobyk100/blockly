@@ -31,6 +31,14 @@ module.exports = function(grunt) {
       }
     },
 
+    messages: {
+      all: {
+        locales: ['en_us'],
+        srcBase: 'i18n',
+        destBase: 'build'
+      }
+    },
+
     concat: {
       templates_maze: {
         src: ['build/templates/common.js', 'build/templates/maze/**/*.js'],
@@ -102,8 +110,16 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-soy-compile');
 
+  grunt.loadTasks('tasks');
+
   grunt.registerTask('build:templates', ['soycompile', 'concat']);
-  grunt.registerTask('build', ['build:templates', 'concat', 'copy:all']);
+
+  grunt.registerTask('build', [
+    'messages',
+    'build:templates',
+    'concat',
+    'copy:all'
+  ]);
 
   grunt.registerTask('dev', ['connect:server', 'watch']);
 
