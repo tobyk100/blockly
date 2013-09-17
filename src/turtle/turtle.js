@@ -26,7 +26,8 @@
 /**
  * Create a namespace for the application.
  */
-var Turtle = {};
+var Turtle = module.exports;
+var Slider = require('../slider');
 
 // Create a limited colour palette to avoid overwhelming new users
 // and to make colour checking easier.  These definitions cannot be
@@ -466,8 +467,6 @@ Turtle.init = function() {
   if (BlocklyApps.LEVEL == 1) {
     Blockly.SNAP_RADIUS *= 2;
   }
-
-  Blockly.JavaScript.INFINITE_LOOP_TRAP = '  BlocklyApps.checkTimeout(%1);\n';
 
   // Add to reserved word list: API, local variables in execution evironment
   // (execute) and the infinite loop detection function.

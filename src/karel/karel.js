@@ -23,10 +23,13 @@
  */
 'use strict';
 
+var BlocklyApps = require('../base');
+var levels = require('./levels');
+
 /**
  * Create a namespace for the application.
  */
-var Maze = Maze || {};
+var Maze = module.exports;
 
 Maze.MAX_REINF = 0;
 BlocklyApps.PAGE = BlocklyApps.getNumberParamFromUrl('page', 1, 2);
@@ -97,7 +100,7 @@ Maze.SquareType = {
 /**
  * Load level configuration.
  */
-var level = LevelConfig.pages[BlocklyApps.PAGE].levels[BlocklyApps.LEVEL];
+var level = levels.pages[BlocklyApps.PAGE].levels[BlocklyApps.LEVEL];
 Maze.map = level.map;
 BlocklyApps.IDEAL_BLOCK_NUM = level.ideal;
 Maze.initialBallMap = level.initialBalls;
@@ -402,7 +405,6 @@ Maze.init = function() {
   Blockly.loadAudio_(['maze/whack.mp3', 'maze/whack.ogg'], 'whack');
   Blockly.SNAP_RADIUS *= Maze.scale.snapRadius;
 
-  Blockly.JavaScript.INFINITE_LOOP_TRAP = '  BlocklyApps.checkTimeout(%1);\n';
   Maze.drawMap();
 
   var blocklyDiv = document.getElementById('blockly');

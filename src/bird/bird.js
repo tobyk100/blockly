@@ -235,7 +235,6 @@ Bird.init = function() {
   Blockly.loadAudio_(['apps/bird/win.mp3', 'apps/bird/win.ogg'], 'win');
   Blockly.loadAudio_(['apps/bird/whack.mp3', 'apps/bird/whack.ogg'], 'whack');
 
-  Blockly.JavaScript.INFINITE_LOOP_TRAP = '  BlocklyApps.checkTimeout();\n';
   Bird.drawMap();
 
   var blocklyDiv = document.getElementById('blockly');
@@ -366,7 +365,7 @@ Bird.execute = function() {
   BlocklyApps.ticks = 10000;
   var code = Blockly.Generator.workspaceToCode('JavaScript');
   code = 'while(true) {\n' +
-      Blockly.JavaScript.INFINITE_LOOP_TRAP +
+      BlocklyApps.INFINITE_LOOP_TRAP +
       code +
       '}';
   var result = Bird.ResultType.UNSET;

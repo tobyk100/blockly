@@ -7,29 +7,11 @@
   <link rel="stylesheet" type="text/css" href="../common.css">
   <link rel="stylesheet" type="text/css" href="style.css">
   <script type="text/javascript" src="../_soy/soyutils.js"></script>
-  <script type="text/javascript" src="../base.js"></script>
-  <script type="text/javascript" src="maze.js"></script>
   <script type="text/javascript" src="generated/en_us.js"></script>
-  <script type="text/javascript">
-    if (BlocklyApps.MODE == BlocklyApps.MODE_ENUM.ADAPTIVE) {
-      BlocklyApps.MAX_LEVEL = 18;
-      BlocklyApps.LEVEL =
-        BlocklyApps.getNumberParamFromUrl('level', 1, BlocklyApps.MAX_LEVEL);
-    }
-  </script>
-  <script type="text/javascript" src="../storage.js"></script>
   <script type="text/javascript" src="../blockly_compressed.js"></script>
   <script type="text/javascript" src="../javascript_compressed.js"></script>
   <script type="text/javascript" src="../en_compressed.js"></script>
-  <script type="text/javascript">
-    document.write(mazepage.start({}, null, {
-      level: BlocklyApps.LEVEL,
-      menu: BlocklyApps.DISPLAY_NAV,
-      skin: BlocklyApps.SKIN_ID,
-      mode: BlocklyApps.MODE
-    }));
-  </script>
-  <script type="text/javascript" src="blocks.js"></script>
+  <script type="text/javascript" src="./maze.js"></script>
 </head>
 <body>
 </body>

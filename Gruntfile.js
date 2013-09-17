@@ -9,7 +9,6 @@ module.exports = function(grunt) {
     copy: {
       all: {
         files: [
-          {expand: true, cwd: 'src/', src: ['**/*.js'], dest: 'dist/'},
           {expand: true, cwd: 'css/', src: ['**/*.css'], dest: 'dist/'},
           {expand: true, cwd: 'lib/blockly', src: ['*.js'], dest: 'dist/'},
           {expand: true, cwd: 'lib/prettify', src: ['*'], dest: 'dist/'},
@@ -58,6 +57,29 @@ module.exports = function(grunt) {
       },
     },
 
+    browserify: {
+      maze: {
+        files: {
+          'dist/maze/maze.js': ['src/maze/main.js']
+        }
+      },
+      turtle: {
+        files: {
+          'dist/turtle/turtle.js': ['src/turtle/main.js']
+        }
+      },
+      bird: {
+        files: {
+          'dist/bird/bird.js': ['src/bird/main.js']
+        }
+      },
+      karel: {
+        files: {
+          'dist/karel/karel.js': ['src/karel/main.js']
+        }
+      }
+    },
+
     connect: {
       server: {
         options: {
@@ -74,8 +96,12 @@ module.exports = function(grunt) {
     },
 
     watch: {
+      src: {
+        files: ['src/**/*.js'],
+        tasks: ['browserify']
+      },
       content: {
-        files: ['src/**/*.js', 'lib/**/*.js', 'static/**/*'],
+        files: ['lib/**/*.js', 'static/**/*'],
         tasks: ['copy']
       },
       templates: {
@@ -109,6 +135,7 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-connect');
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-soy-compile');
+  grunt.loadNpmTasks('grunt-browserify');
 
   grunt.loadTasks('tasks');
 
@@ -118,6 +145,7 @@ module.exports = function(grunt) {
     'messages',
     'build:templates',
     'concat',
+    'browserify',
     'copy:all'
   ]);
 

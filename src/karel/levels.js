@@ -37,8 +37,7 @@ var IF_OPT_HOLES_PRESENT = {'test': 'if (Maze.holesPresent', 'type': 'maze_if', 
 // This tests for and creates the "maze_ifElse" block.
 var IF_ELSE = {'test': '} else {', 'type': 'maze_ifElse'};
 
-
-var LevelConfig = {
+module.exports = {
   'pages': [
 
     // Page 0

@@ -23,7 +23,7 @@
  */
 'use strict';
 
-var BlocklyApps = {};
+var BlocklyApps = module.exports;
 
 /**
  * The parent directory of the apps. Contains common.js.
@@ -403,6 +403,11 @@ BlocklyApps.storageAlert = function(message) {
 };
 
 /**
+ * JavaScript code used to bail out of infinite loops.
+ */
+BlocklyApps.INFINITE_LOOP_TRAP = '  BlocklyApps.checkTimeout();\n';
+
+/**
  * Convert the user's code to raw JavaScript.
  * @param {string} code Generated code.
  * @return {string} The code without serial numbers and timeout checks.
@@ -411,7 +416,7 @@ BlocklyApps.stripCode = function(code) {
   // Strip out serial numbers.
   code = code.replace(/(,\s*)?'block_id_\d+'\)/g, ')');
   // Remove timeouts.
-  var regex = new RegExp(Blockly.JavaScript.INFINITE_LOOP_TRAP
+  var regex = new RegExp(BlocklyApps.INFINITE_LOOP_TRAP
       .replace('(%1)', '\\((\'\\d+\')?\\)'), 'g');
   return code.replace(regex, '');
 };

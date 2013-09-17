@@ -23,6 +23,8 @@
  */
 'use strict';
 
+var BlocklyApps = require('../base');
+
 /**
  * Create a namespace for the application.
  */
@@ -666,7 +668,6 @@ Maze.init = function() {
     Blockly.SNAP_RADIUS *= 2;
   }
 
-  Blockly.JavaScript.INFINITE_LOOP_TRAP = '  BlocklyApps.checkTimeout(%1);\n';
   Maze.drawMap();
 
   window.addEventListener('scroll', function() {
