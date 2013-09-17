@@ -11,22 +11,28 @@ var PUT_DOWN_BALL = {'test': 'putDownBall', 'type': 'maze_putDownBall'};
 var REPEAT = {'test': 'for', 'type': 'controls_repeat'};
 
 // This tests for and creates the "maze_turn" block turning left.
-var TURN_LEFT = {'test': 'turnLeft', 'type': 'maze_turn', 'params': {'DIR': 'turnLeft'}};
+var TURN_LEFT = {'test': 'turnLeft', 'type': 'maze_turn', 'titles': {'DIR': 'turnLeft'}};
 
 // This tests for and creates the "maze_turn" block turning right.
-var TURN_RIGHT = {'test': 'turnRight', 'type': 'maze_turn', 'params': {'DIR': 'turnRight'}};
+var TURN_RIGHT = {'test': 'turnRight', 'type': 'maze_turn', 'titles': {'DIR': 'turnRight'}};
 
 // This tests for and creates the "maze_untilBlocked" block.
 var UNTIL_BLOCKED = {'test': 'while (Maze.isPathForward', 'type': 'maze_untilBlocked'};
 
 // This tests for and creates the "maze_untilBlockedOrNotClear" block with the option "ballsPresent" selected.
-var WHILE_OPT_BALLS_PRESENT = {'test': 'while (Maze.ballsPresent', 'type': 'maze_untilBlockedOrNotClear', 'params': {'DIR': 'ballsPresent'}};
+var WHILE_OPT_BALLS_PRESENT = {'test': 'while (Maze.ballsPresent', 'type': 'maze_untilBlockedOrNotClear', 'titles': {'DIR': 'ballsPresent'}};
 
 // This tests for and creates the "maze_untilBlockedOrNotClear" block with the option "isPathForward" selected.
-var WHILE_OPT_PATH_AHEAD = {'test': 'while (Maze.isPathForward', 'type': 'maze_untilBlockedOrNotClear', 'params': {'DIR': 'isPathForward'}};
+var WHILE_OPT_PATH_AHEAD = {'test': 'while (Maze.isPathForward', 'type': 'maze_untilBlockedOrNotClear', 'titles': {'DIR': 'isPathForward'}};
 
 // This tests for and creates the "maze_if" block.
 var IF = {'test': 'if', 'type': 'maze_if'};
+
+// This tests for and creates the "maze_if" block with the option "ballsPresent" selected.
+var IF_OPT_BALLS_PRESENT = {'test': 'if (Maze.ballsPresent', 'type': 'maze_if', 'titles': {'DIR': 'ballsPresent'}};
+
+// This tests for and creates the "maze_if" block with the option "holesPresent" selected.
+var IF_OPT_HOLES_PRESENT = {'test': 'if (Maze.holesPresent', 'type': 'maze_if', 'titles': {'DIR': 'holesPresent'}};
 
 // This tests for and creates the "maze_ifElse" block.
 var IF_ELSE = {'test': '} else {', 'type': 'maze_ifElse'};
@@ -410,7 +416,7 @@ var LevelConfig = {
         {
           'ideal': 4,
           'requiredBlocks': [
-            MOVE_FORWARD, PICK_UP_BALL, IF, UNTIL_BLOCKED // or REPEAT
+            MOVE_FORWARD, PICK_UP_BALL, IF_OPT_BALLS_PRESENT, UNTIL_BLOCKED // or REPEAT
           ],
           'map': [
             [ 1, 1, 1, 1, 1, 1, 1, 1 ],
@@ -449,7 +455,7 @@ var LevelConfig = {
         {
           'ideal': 6,
           'requiredBlocks': [
-            MOVE_FORWARD, PICK_UP_BALL, PUT_DOWN_BALL, IF, UNTIL_BLOCKED // or REPEAT
+            MOVE_FORWARD, PICK_UP_BALL, PUT_DOWN_BALL, IF_OPT_BALLS_PRESENT, IF_OPT_HOLES_PRESENT, UNTIL_BLOCKED // or REPEAT
           ],
           'map': [
             [ 1, 1, 1, 1, 1, 1, 1, 1 ],
