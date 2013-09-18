@@ -1,5 +1,5 @@
 window.BlocklyApps = require('../base');
-var karel = require('./karel');
+window.Maze = require('./karel');
 var blocks = require('./blocks');
 
 document.write(mazepage.start({}, null, {

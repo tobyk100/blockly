@@ -272,6 +272,9 @@
     "string": "fill 1",
     "description": "verb - imperative or infinitive for a person putting down a ball."
   },
+  "putDownBallTooltip": {
+    "string": "TODO"
+  },
   "putdownTower": {
     "id": "471029618522690538",
     "string": "put down tower",
