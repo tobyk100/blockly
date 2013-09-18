@@ -1155,7 +1155,6 @@ Maze.move = function(direction, id) {
 
 // Nan's
 Maze.checkSuccess = function(id) {
-  console.log('checkSuccess called');
   // if (Maze.pegmanX == Maze.finish_.x && Maze.pegmanY == Maze.finish_.y) {
     // Nan's
     // Check to see whether the number of balls is the same as the target
@@ -1163,15 +1162,11 @@ Maze.checkSuccess = function(id) {
     for (var y = 0; y < Maze.ROWS; y++) {
       for (var x = 0; x < Maze.COLS; x++) {
         if (Maze.balls_[y][x] != Maze.finalBallMap[y][x]) {
-          console.log(
-            y + ',' + x + ': ' + Maze.balls_[y][x] + ' vs '
-                + Maze.finalBallMap[y][x]);
             succeed = false;
             break;
         }
       }
     }
-    console.log(succeed);
     if (succeed) {
         // Finished.  Terminate the user's program.
         BlocklyApps.log.push(['finish', null]);
@@ -1182,7 +1177,6 @@ Maze.checkSuccess = function(id) {
     // Nan's testing code for showing the corresponding xml
     var xml = Blockly.Xml.workspaceToDom(Blockly.mainWorkspace);
     var text = Blockly.Xml.domToText(xml);
-    console.log(text);
 }
 
 Maze.notFinish = function(id) {

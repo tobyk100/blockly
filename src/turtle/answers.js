@@ -260,7 +260,6 @@ Turtle.answer = function() {
  * @return {boolean} True if the level is solved, false otherwise.
  */
 Turtle.isCorrect = function(pixelErrors, permittedErrors) {
-  console.log('Pixel errors: ' + pixelErrors);
   return BlocklyApps.LEVEL < BlocklyApps.MAX_LEVEL &&
-	pixelErrors < permittedErrors;
+  pixelErrors < permittedErrors;
 };

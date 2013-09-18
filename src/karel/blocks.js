@@ -199,7 +199,6 @@ exports.install = function(blockly) {
     var branch = generator.statementToCode(this, 'DO');
     branch = BlocklyApps.INFINITE_LOOP_TRAP.replace(/%1/g,
         '\'block_id_' + this.id + '\'') + branch;
-    console.log('while (' + argument + ') {\n' + branch + '}\n');
     return 'while (' + argument + ') {\n' + branch + '}\n';
   };
 
