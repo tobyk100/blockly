@@ -5,9 +5,14 @@
   <meta name="google" value="notranslate">
   <title>Blockly : Farmer Readonly</title>
   <script type="text/javascript" src="../_soy/soyutils.js"></script>
-  <script type="text/javascript" src="../common.js"></script>
-  <script type="text/javascript" src="levels.js"></script>
-  <script type="text/javascript" src="maze.js"></script>
+  <script type="text/javascript" src="generated/en_us.js"></script>
+  <script type="text/javascript" src="../blockly_compressed.js"></script>
+  <script type="text/javascript" src="../javascript_compressed.js"></script>
+  <script type="text/javascript" src="../en_compressed.js"></script>
+  <script type="text/javascript" src="./karel.js"></script>
+  <script type="text/javascript">
+    karelMain({readonly: true});
+  </script>
   <style>
     html, body {
       background-color: #fff;
@@ -29,9 +34,5 @@
   </style>
 </head>
 <body>
-  <script type="text/javascript">
-    document.write(mazepage.readonly({}, null,
-        {langSrc: BlocklyApps.LANGUAGES[BlocklyApps.LANG][2]}));
-  </script>
 </body>
 </html>

@@ -1,0 +1,63 @@
+{namespace apps}
+
+/**
+ * This is a Closure Template.  It exists to encapsulate the translation
+ * of messages used by the apps.
+ *
+ * # Run the following command after changing the messages in any of the
+ * # included apps subdirectories.
+ * java -jar _soy/SoyMsgExtractor.jar --outputFile extracted_msgs.xlf --srcs common.soy,maze/template.soy,turtle/template.soy,karel/templateLevel2.soy,karel/templateLevel1.soy,karel/template.soy
+ *
+ * # Create en_us.json, keys.json, qqq.json.
+ * ../i18n/xliff_to_json.py --xlf extracted_msgs.xlf --templates common.soy {maze,turtle,karel}/template.soy karel/templateLevel*.soy --lang en_us
+ *
+ * # Generate .js files for each project:
+ * for i in maze turtle karel; do ../i18n/json_to_js.py --source_lang=en_us --output_dir=$i/generated --path_to_jar=_soy --template common.soy,$i/template.soy *.json; done
+ */
+
+/**
+ * Dialogs.
+ */
+{template .dialog private="true"}
+  <div id="dialogShadow" class="dialogAnimate"></div>
+  <div id="dialogBorder"></div>
+  <div id="dialog"></div>
+{/template}
+
+/**
+ * Code dialog.
+ */
+{template .codeDialog private="true"}
+  <div id="dialogCode" class="dialogHiddenContent">
+    <pre id="containerCode"></pre>
+    {call apps.ok /}
+  </div>
+{/template}
+
+/**
+ * Storage dialog.
+ */
+{template .storageDialog private="true"}
+  <div id="dialogStorage" class="dialogHiddenContent">
+    <div id="containerStorage"></div>
+    {call apps.ok /}
+  </div>
+{/template}
+
+/**
+ * OK button for dialogs.
+ */
+{template .ok private="true"}
+  <div class="farSide" style="padding: 1ex 3ex 0">
+    <button class="secondary" onclick="BlocklyApps.hideDialog(true)">
+      {{msg meaning="Apps.dialogOk" desc="IBID"}}OK{{/msg}}
+    </button>
+  </div>
+{/template}
+
+/**
+ * @param menu A boolean, which when true means the menu should display.
+ */
+{template .menu}
+  {if not $menu} class="hide" {/if}
+{/template}

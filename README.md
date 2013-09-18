@@ -11,18 +11,30 @@ This repository contains the source code for the
 of Code. Information about Blockly can be found in the
 [wiki](https://code.google.com/p/blockly/w/list).
 
-- [Installation](#installation)
+- [Quick Start](#quick-start)
 - [Project Layout](#project-layout)
 - [Contribute to Blockly](#to-contribute)
 - [Merge trunk from Google Code](#merge-trunk)
 
-## Installation
+## Quick Start
 
-1. `git clone https://github.com/code-dot-org/blockly.git`
-2. Run an app by navigating your browser to the index.html
-   file found in each app's directory.
-3. You only need to rebuild an app if you change a template (.soy) file. There
-   is a block comment at the top of each template file with build instructions.
+```bash
+# Get the code
+git clone https://github.com/code-dot-org/blockly.git mooc
+cd mooc
+
+# Machine setup (OSX with Homebrew)
+brew install node
+npm install -g grunt-cli
+
+# Build
+npm install
+grunt
+
+# Run with live-reload server
+grunt dev
+open http://localhost:8000
+```
 
 ## Project Layout
 There are various apps in the static/ directory, including
@@ -45,7 +57,7 @@ The apps depend on two more objects:
     [repo](https://code.google.com/p/blockly/). In summary, the apps depend on
     common.js, which depends on blockly\_compressed.js, which depends on Google
     Closure.
-- **BlocklyApps**, defined in static/common.js 
+- **BlocklyApps**, defined in static/common.js
 
 ## To Contribute
 

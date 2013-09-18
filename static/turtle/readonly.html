@@ -5,8 +5,11 @@
   <meta name="google" value="notranslate">
   <title>Blockly : Turtle Readonly</title>
   <script type="text/javascript" src="../_soy/soyutils.js"></script>
-  <script type="text/javascript" src="../common.js"></script>
   <script type="text/javascript" src="turtle.js"></script>
+  <script type="text/javascript" src="generated/en_us.js"></script>
+  <script type="text/javascript" src="../blockly_compressed.js"></script>
+  <script type="text/javascript" src="../javascript_compressed.js"></script>
+  <script type="text/javascript" src="../en_compressed.js"></script>
   <style>
     html, body {
       background-color: #fff;
@@ -29,8 +32,7 @@
 </head>
 <body>
   <script type="text/javascript">
-    document.write(turtlepage.readonly({}, null,
-        {langSrc: BlocklyApps.LANGUAGES[BlocklyApps.LANG][2]}));
+    turtleMain({readonly: true});
   </script>
 </body>
 </html>

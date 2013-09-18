@@ -7,27 +7,15 @@
   <link rel="stylesheet" type="text/css" href="../common.css">
   <link rel="stylesheet" type="text/css" href="style.css">
   <script type="text/javascript" src="../_soy/soyutils.js"></script>
-  <script type="text/javascript" src="../common.js"></script>
-  <script type="text/javascript" src="maze.js"></script>
+  <script type="text/javascript" src="generated/en_us.js"></script>
+  <script type="text/javascript" src="../blockly_compressed.js"></script>
+  <script type="text/javascript" src="../javascript_compressed.js"></script>
+  <script type="text/javascript" src="../en_compressed.js"></script>
+  <script type="text/javascript" src="./maze.js"></script>
   <script type="text/javascript">
-    if (BlocklyApps.MODE == BlocklyApps.MODE_ENUM.ADAPTIVE) {
-      BlocklyApps.MAX_LEVEL = 18;
-      BlocklyApps.LEVEL =
-        BlocklyApps.getNumberParamFromUrl('level', 1, BlocklyApps.MAX_LEVEL);
-    }
+    mazeMain();
   </script>
-  <script type="text/javascript" src="../../storage.js"></script>
 </head>
 <body>
-  <script type="text/javascript">
-    document.write(mazepage.start({}, null,
-        {lang: BlocklyApps.LANG,
-         level: BlocklyApps.LEVEL,
-         menu: BlocklyApps.DISPLAY_NAV,
-         skin: BlocklyApps.SKIN_ID,
-         mode: BlocklyApps.MODE,
-         langSrc: BlocklyApps.LANGUAGES[BlocklyApps.LANG][2],
-         baseUrl: BlocklyApps.BASE_URL}));
-  </script>
 </body>
 </html>

@@ -1,0 +1,172 @@
+{
+  "blocklyMessage": {
+    "id": "6650354588969822092",
+    "string": "Blockly",
+    "description": "The project name.  If readers of your language would know approximately how to pronounce 'Blockly', leave unchanged.  Otherwise, include a transliteration in parentheses, such as the Russian: 'Blockly (Блoкли)'."
+  },
+  "catColour": {
+    "id": "5532942470899034153",
+    "string": "Colour",
+    "description": "category - Blocks related to [https://code.google.com/p/blockly/wiki/Colour colour]."
+  },
+  "catLists": {
+    "id": "7880221162350996120",
+    "string": "Lists",
+    "description": "category - Blocks related to [https://code.google.com/p/blockly/wiki/Lists lists]."
+  },
+  "catLogic": {
+    "id": "1686883036031489642",
+    "string": "Logic",
+    "description": "category - Blocks related to [https://code.google.com/p/blockly/wiki/Logic logic]."
+  },
+  "catLoops": {
+    "id": "8514812131842527965",
+    "string": "Loops",
+    "description": "category - Blocks related to [http://en.wikipedia.org/wiki/Control_flow#Loops loops]."
+  },
+  "catMath": {
+    "id": "8504064665960111059",
+    "string": "Math",
+    "description": "category - Blocks related to mathematics."
+  },
+  "catProcedures": {
+    "id": "5803514418162480510",
+    "string": "Procedures",
+    "description": "category - Blocks related to [http://en.wikipedia.org/wiki/Subroutine defining or using procedures/functions]."
+  },
+  "catText": {
+    "id": "2561306449483326985",
+    "string": "Text",
+    "description": "category - Blocks related to [https://code.google.com/p/blockly/wiki/Text text processing]."
+  },
+  "catVariables": {
+    "id": "3279501947911403228",
+    "string": "Variables",
+    "description": "category - Blocks related to [https://code.google.com/p/blockly/wiki/Variables variables]."
+  },
+  "codeTooltip": {
+    "id": "5838195295317713027",
+    "string": "See generated JavaScript code.",
+    "description": "tooltip (pop-up help) for button; pressing the button causes a program in the JavaScript computer language to be displayed, based on the program created by the user."
+  },
+  "dialogCancel": {
+    "id": "8605819299263106886",
+    "string": "Cancel",
+    "description": "Label on button for user to press when not wanting to proceed.\n{{Identical|Cancel}}"
+  },
+  "dialogOk": {
+    "id": "3964361619617826429",
+    "string": "OK",
+    "description": "Label on button for user to press when done reading help information.\n{{Identical|OK}}"
+  },
+  "emptyBlocksErrorMsg": {
+    "id": "4352395945928742108",
+    "string": "Remove empty blocks.",
+    "description": "alert - This error message is displayed when the user has added blocks with nothing nested inside them (e.g. repeat or if blocks)."
+  },
+  "finalLevelMsg": {
+    "id": "1144995744314074379",
+    "string": "Congratulations! You have solved the final level.",
+    "description": "alert - This is displayed when the user solves the most difficult level."
+  },
+  "hashError": {
+    "id": "2570539532822249158",
+    "string": "Sorry, '%1' doesn't correspond with any saved program.",
+    "description": "alert - A request to retrieve a stored program does not have a valid URL. %1 is the invalid portion of the URL."
+  },
+  "help": {
+    "id": "1662703848705955943",
+    "string": "Help",
+    "description": "The label on a button the user can press for help.\n{{Identical|Help}}"
+  },
+  "hintTitle": {
+    "id": "6671914256511678537",
+    "string": "Hint:",
+    "description": "title - this indicates to the user that what follows are ways to improve and/or fix their code."
+  },
+  "httpRequestError": {
+    "id": "6491926390857975299",
+    "string": "There was a problem with the request.",
+    "description": "alert - The URL is invalid or a server error occurred.  This message will be followed by technical information useful to engineers trying to understand the problem."
+  },
+  "levelIncompleteError": {
+    "id": "2245055276599312776",
+    "string": "You are using all of the necessary types of blocks but not in the right way.",
+    "description": "TODO"
+  },
+  "linkAlert": {
+    "id": "6192625840582724866",
+    "string": "Share your blocks with this link:\n\n%1",
+    "description": "alert - After the user has pressed a button to save his/her program, this provides the URL (%1) to retrieve the program.  The characters '\n\n' indicate that a blank line will be displayed before the URL (in English).  Leave those in unless you move %1 to the beginning or middle of the text, in which case you should use your judgment about where blank lines would be most useful."
+  },
+  "linkTooltip": {
+    "id": "5391382062551588177",
+    "string": "Save and link to blocks.",
+    "description": "tooltip - Clicking on this button will cause the current program to be saved and for a URL to be shown to later retrieve it."
+  },
+  "listVariable": {
+    "id": "7314181232693154293",
+    "string": "list",
+    "description": "variable name - Default [https://code.google.com/p/blockly/wiki/Variables variable] representing a [https://code.google.com/p/blockly/wiki/Lists list].  This should be a single word, preferably short."
+  },
+  "missingBlocksErrorMsg": {
+    "id": "7738506862343583229",
+    "string": "Try one or more of the blocks below to solve this level.",
+    "description": "TODO"
+  },
+  "nextLevel": {
+    "id": "6946125796492579884",
+    "string": "Congratulations! You have completed this level.",
+    "description": "alert - This is displayed when the user solves the level, inviting them to precede to the next level of difficulty."
+  },
+  "numBlocksNeeded": {
+    "id": "857707012901609467",
+    "string": "This level can be solved with %1 blocks.",
+    "description": "alert - This is displayed when the user has used more blocks than is necessary."
+  },
+  "projectMessage": {
+    "id": "8682553848590484654",
+    "string": "CS First",
+    "description": "The project name. 'CS' is an abbreviation for Computer Science. 'First' refers to the project's goal of introducing students to programming as early as possible in their life."
+  },
+  "resetProgram": {
+    "id": "6533409555866489852",
+    "string": "Reset",
+    "description": "button label - Pressing the button causes the output of the program to be erased but does not delete the user's program)."
+  },
+  "runProgram": {
+    "id": "6189808175540281396",
+    "string": "Run Program",
+    "description": "button label - Pressing the button runs the computer program the user has written."
+  },
+  "runTooltip": {
+    "id": "6316320629891574281",
+    "string": "Run the program defined by the blocks in the workspace.",
+    "description": "tooltip - Pressing this button runs the computer program the user has written."
+  },
+  "subtitle": {
+    "id": "9151382257658567281",
+    "string": "a visual programming environment",
+    "description": "A short description of Blockly."
+  },
+  "textVariable": {
+    "id": "768570576516576913",
+    "string": "text",
+    "description": "variable name - Default [https://code.google.com/p/blockly/wiki/Variables variable] representing a [https://code.google.com/p/blockly/wiki/Text piece of text].  This should be a single word, preferably short."
+  },
+  "tooFewBlocksMsg": {
+    "id": "1974981833802480926",
+    "string": "You are using all of the necessary types of blocks, but try using more  of these types of blocks to complete this level.",
+    "description": "alert - The user has not completed the level, is using all of the necessary types of blocks, but needs more of these types of blocks to complete the level."
+  },
+  "tooManyBlocksMsg": {
+    "id": "1502277686681186601",
+    "string": "This level can be solved with <x id='START_SPAN'/><x id='END_SPAN'/> blocks.",
+    "description": "alert - This is displayed when the user has used more blocks than is necessary."
+  },
+  "xmlError": {
+    "id": "5758425077401246127",
+    "string": "Could not load your saved file.  Perhaps it was created with a different version of Blockly?",
+    "description": "alert - There was a problem loading a file previously saved by the user.  The most likely reason for the problem is that it was created with an earlier, incompatible version of Blockly.  This message will be followed by technical information useful to engineers trying to understand the problem."
+  }
+}
