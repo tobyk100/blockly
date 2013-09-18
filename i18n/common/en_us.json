@@ -119,6 +119,11 @@
     "string": "Congratulations! You have completed this level.",
     "description": "alert - This is displayed when the user solves the level, inviting them to precede to the next level of difficulty."
   },
+  "numBlocksNeeded": {
+    "id": "857707012901609467",
+    "string": "This level can be solved with %1 blocks.",
+    "description": "alert - This is displayed when the user has used more blocks than is necessary."
+  },
   "projectMessage": {
     "id": "8682553848590484654",
     "string": "CS First",
