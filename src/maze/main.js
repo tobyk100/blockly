@@ -1,5 +1,5 @@
 window.BlocklyApps = require('../base');
-var maze = require('./maze');
+window.Maze = require('./maze');
 var blocks = require('./blocks');
 
 if (BlocklyApps.MODE == BlocklyApps.MODE_ENUM.ADAPTIVE) {

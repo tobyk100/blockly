@@ -1,3 +1,5 @@
+var Direction = require('../tiles').Direction;
+
 /*
  * Configuration for all levels.
  */
@@ -12,7 +14,7 @@ module.exports = [
       {'test': 'moveForward', 'type': 'maze_moveForward'}
     ],
     'videoId': '0BybP3F7DhXrUSFRhMnBGLUVPZTA',
-    'startDirection': Maze.DirectionType.EAST,
+    'startDirection': Direction.EAST,
     'map': [
       [0, 0, 0, 0, 0, 0, 0, 0],
       [0, 0, 0, 0, 0, 0, 0, 0],
@@ -33,7 +35,7 @@ module.exports = [
       {'test': 'turnLeft', 'type': 'maze_turn', 'titles': {'DIR': 'turnLeft'}},
       {'test': 'turnRight', 'type': 'maze_turn', 'titles': {'DIR': 'turnRight'}}
     ],
-    'startDirection': Maze.DirectionType.EAST,
+    'startDirection': Direction.EAST,
     'map': [
       [0, 0, 0, 0, 0, 0, 0, 0],
       [0, 0, 0, 0, 0, 0, 0, 0],
@@ -54,7 +56,7 @@ module.exports = [
       {'test': 'moveForward', 'type': 'maze_moveForward'}
     ],
     'videoId': '0BybP3F7DhXrUU2FCODdJdXRKVTQ',
-    'startDirection': Maze.DirectionType.EAST,
+    'startDirection': Direction.EAST,
     'map': [
       [0, 0, 0, 0, 0, 0, 0, 0],
       [0, 0, 0, 0, 0, 0, 0, 0],
@@ -76,7 +78,7 @@ module.exports = [
       {'test': 'turnRight', 'type': 'maze_turn', 'titles': {'DIR': 'turnRight'}},
       {'test': 'moveForward', 'type': 'maze_moveForward'}
     ],
-    'startDirection': Maze.DirectionType.EAST,
+    'startDirection': Direction.EAST,
     /**
      *  Note, the path continues past the start and the goal in both directions.
      *  This is intentional so kids see the maze is about getting from the start
@@ -105,7 +107,7 @@ module.exports = [
       {'test': 'moveForward', 'type': 'maze_moveForward'}
     ],
     'videoId': '0BybP3F7DhXrUSFRhMnBGLUVPZTA',
-    'startDirection': Maze.DirectionType.EAST,
+    'startDirection': Direction.EAST,
     'map': [
       [0, 0, 0, 0, 0, 0, 0, 0],
       [0, 0, 0, 0, 0, 3, 0, 0],
@@ -127,7 +129,7 @@ module.exports = [
       {'test': 'turnLeft', 'type': 'maze_turn', 'titles': {'DIR': 'turnLeft'}},
       {'test': 'moveForward', 'type': 'maze_moveForward'}
     ],
-    'startDirection': Maze.DirectionType.EAST,
+    'startDirection': Direction.EAST,
     'map': [
       [0, 0, 0, 0, 0, 0, 0, 0],
       [0, 0, 0, 0, 0, 0, 0, 0],
@@ -148,7 +150,7 @@ module.exports = [
       {'test': 'isPathRight', 'type': 'maze_if', 'titles': {'DIR': 'isPathRight'}},
       {'test': 'moveForward', 'type': 'maze_moveForward'}
     ],
-    'startDirection': Maze.DirectionType.EAST,
+    'startDirection': Direction.EAST,
     'map': [
       [0, 0, 0, 0, 0, 0, 0, 0],
       [0, 0, 0, 0, 0, 0, 0, 0],
@@ -172,7 +174,7 @@ module.exports = [
       {'test': 'turnRight', 'type': 'maze_turn', 'titles': {'DIR': 'turnRight'}},
       {'test': 'moveForward', 'type': 'maze_moveForward'}
     ],
-    'startDirection': Maze.DirectionType.EAST,
+    'startDirection': Direction.EAST,
     'map': [
       [0, 0, 0, 0, 0, 0, 0, 0],
       [0, 0, 0, 0, 0, 0, 0, 0],
@@ -195,7 +197,7 @@ module.exports = [
       {'test': 'turnLeft', 'type': 'maze_turn', 'titles': {'DIR': 'turnLeft'}},
       {'test': 'moveForward', 'type': 'maze_moveForward'}
     ],
-    'startDirection': Maze.DirectionType.EAST,
+    'startDirection': Direction.EAST,
     'map': [
       [0, 0, 0, 0, 0, 0, 0, 0],
       [0, 1, 1, 1, 1, 1, 0, 0],
@@ -218,7 +220,7 @@ module.exports = [
       {'test': 'turnRight', 'type': 'maze_turn', 'titles': {'DIR': 'turnRight'}},
       {'test': 'moveForward', 'type': 'maze_moveForward'}
     ],
-    'startDirection': Maze.DirectionType.EAST,
+    'startDirection': Direction.EAST,
     'map': [
       [0, 0, 0, 0, 0, 0, 0, 0],
       [0, 0, 0, 0, 0, 0, 0, 0],

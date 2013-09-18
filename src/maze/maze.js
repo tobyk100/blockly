@@ -26,23 +26,14 @@
 var BlocklyApps = require('../base');
 var msg = require('../../build/en_us/i18n/common');
 var levels = require('./levels');
+var tiles = require('../tiles');
+
+var Direction = tiles.Direction;
 
 /**
  * Create a namespace for the application.
  */
-var Maze = {};
-
-/**
- * Constants for cardinal directions.  Subsequent code assumes these are
- * in the range 0..3 and that opposites have an absolute difference of 2.
- * @enum {number}
- */
-Maze.DirectionType = {
-  NORTH: 0,
-  EAST: 1,
-  SOUTH: 2,
-  WEST: 3
-};
+var Maze = module.exports;
 
 // Set BlocklyApps constants.
 BlocklyApps.MAX_LEVEL = 10;
@@ -722,16 +713,16 @@ Maze.animate = function() {
       Maze.pegmanX--;
       break;
     case 'look_north':
-      Maze.scheduleLook(Maze.DirectionType.NORTH);
+      Maze.scheduleLook(Direction.NORTH);
       break;
     case 'look_east':
-      Maze.scheduleLook(Maze.DirectionType.EAST);
+      Maze.scheduleLook(Direction.EAST);
       break;
     case 'look_south':
-      Maze.scheduleLook(Maze.DirectionType.SOUTH);
+      Maze.scheduleLook(Direction.SOUTH);
       break;
     case 'look_west':
-      Maze.scheduleLook(Maze.DirectionType.WEST);
+      Maze.scheduleLook(Direction.WEST);
       break;
     case 'fail_forward':
       Maze.scheduleFail(true);
@@ -796,16 +787,16 @@ Maze.scheduleFail = function(forward) {
   var deltaX = 0;
   var deltaY = 0;
   switch (Maze.pegmanD) {
-    case Maze.DirectionType.NORTH:
+    case Direction.NORTH:
       deltaY = -0.25;
       break;
-    case Maze.DirectionType.EAST:
+    case Direction.EAST:
       deltaX = 0.25;
       break;
-    case Maze.DirectionType.SOUTH:
+    case Direction.SOUTH:
       deltaY = 0.25;
       break;
-    case Maze.DirectionType.WEST:
+    case Direction.WEST:
       deltaX = -0.25;
       break;
   }
@@ -877,24 +868,24 @@ Maze.displayPegman = function(x, y, d) {
 /**
  * Display the look icon at Pegman's current location,
  * in the specified direction.
- * @param {!Maze.DirectionType} d Direction (0 - 3).
+ * @param {!Direction} d Direction (0 - 3).
  */
 Maze.scheduleLook = function(d) {
   var x = Maze.pegmanX;
   var y = Maze.pegmanY;
   switch (d) {
-    case Maze.DirectionType.NORTH:
+    case Direction.NORTH:
       x += 0.5;
       break;
-    case Maze.DirectionType.EAST:
+    case Direction.EAST:
       x += 1;
       y += 0.5;
       break;
-    case Maze.DirectionType.SOUTH:
+    case Direction.SOUTH:
       x += 0.5;
       y += 1;
       break;
-    case Maze.DirectionType.WEST:
+    case Direction.WEST:
       y += 0.5;
       break;
   }
@@ -1008,19 +999,19 @@ Maze.move = function(direction, id) {
   var effectiveDirection = Maze.pegmanD + direction;
   var command;
   switch (Maze.constrainDirection4(effectiveDirection)) {
-    case Maze.DirectionType.NORTH:
+    case Direction.NORTH:
       Maze.pegmanY--;
       command = 'north';
       break;
-    case Maze.DirectionType.EAST:
+    case Direction.EAST:
       Maze.pegmanX++;
       command = 'east';
       break;
-    case Maze.DirectionType.SOUTH:
+    case Direction.SOUTH:
       Maze.pegmanY++;
       command = 'south';
       break;
-    case Maze.DirectionType.WEST:
+    case Direction.WEST:
       Maze.pegmanX--;
       command = 'west';
       break;
@@ -1064,21 +1055,21 @@ Maze.isPath = function(direction, id) {
   var square;
   var command;
   switch (Maze.constrainDirection4(effectiveDirection)) {
-    case Maze.DirectionType.NORTH:
+    case Direction.NORTH:
       square = Maze.map[Maze.pegmanY - 1] &&
           Maze.map[Maze.pegmanY - 1][Maze.pegmanX];
       command = 'look_north';
       break;
-    case Maze.DirectionType.EAST:
+    case Direction.EAST:
       square = Maze.map[Maze.pegmanY][Maze.pegmanX + 1];
       command = 'look_east';
       break;
-    case Maze.DirectionType.SOUTH:
+    case Direction.SOUTH:
       square = Maze.map[Maze.pegmanY + 1] &&
           Maze.map[Maze.pegmanY + 1][Maze.pegmanX];
       command = 'look_south';
       break;
-    case Maze.DirectionType.WEST:
+    case Direction.WEST:
       square = Maze.map[Maze.pegmanY][Maze.pegmanX - 1];
       command = 'look_west';
       break;
