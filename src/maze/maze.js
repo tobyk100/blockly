@@ -397,7 +397,7 @@ Maze.init = function() {
     }
     var div = document.createElement('div');
     var img = document.createElement('img');
-    img.src = '/blockly/static/media/1x1.gif';
+    img.src = BlocklyApps.BASE_URL + 'media/1x1.gif';
     img.style.backgroundImage = 'url(' + BlocklyApps.BASE_URL + 'maze/' + Maze.SKINS[i].sprite + ')';
     div.appendChild(img);
     pegmanMenu.appendChild(div);

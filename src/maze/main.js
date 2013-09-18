@@ -12,7 +12,8 @@ document.write(mazepage.start({}, null, {
   level: BlocklyApps.LEVEL,
   menu: BlocklyApps.DISPLAY_NAV,
   skin: BlocklyApps.SKIN_ID,
-  mode: BlocklyApps.MODE
+  mode: BlocklyApps.MODE,
+  baseUrl: BlocklyApps.BASE_URL
 }));
 
 blocks.install(Blockly);

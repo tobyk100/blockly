@@ -7,7 +7,8 @@ document.write(turtlepage.start({}, null, {
   page: BlocklyApps.PAGE,
   level: BlocklyApps.LEVEL,
   menu: BlocklyApps.DISPLAY_NAV,
-  reinf: Turtle.REINF ? reinf_data[BlocklyApps.PAGE][BlocklyApps.LEVEL] : 0
+  reinf: Turtle.REINF ? reinf_data[BlocklyApps.PAGE][BlocklyApps.LEVEL] : 0,
+  baseUrl: BlocklyApps.BASE_URL
 }));
 
 // Reinforcement/interstitial text.

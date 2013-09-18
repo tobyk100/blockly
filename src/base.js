@@ -38,7 +38,7 @@ BlocklyApps.BASE_URL = (function() {
   var thisScript = scripts[scripts.length - 1];
   var baseUrl = thisScript.src;
   var parentUrl = baseUrl.substring(0, baseUrl.lastIndexOf('/') + 1);
-  return parentUrl;
+  return parentUrl + '../'; //XXX
 })();
 
 /**
