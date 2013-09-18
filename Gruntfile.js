@@ -3,7 +3,6 @@ var config = {};
 var APPS = [
   'maze',
   'turtle',
-  'bird',
   'karel'
 ];
 
