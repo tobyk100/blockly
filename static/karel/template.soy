@@ -20,23 +20,20 @@
  */
 
 /**
- * Web page structure.
- */
-{template .start}
-  <div id="start_blocks" style="display:none">
-    {call .startBlocks /}
-  </div>
+  * Translated messages for use in JavaScript.
+  */
+{template .messages}
   <div id="MSG" style="display: none">
     <span id="moveForward">{msg meaning="Karel.moveForward" desc="verb -
       imperative or infinitive for a person moving (walking) in the direction
       he/she is facing."}move forward{/msg}</span>
     // Nan's
     <span id="putDownBall">{msg meaning="Karel.putDownBall" desc="verb -
-      imperative or infinitive for a person putting down a ball."}fill 1{/msg}</span>    
+      imperative or infinitive for a person putting down a ball."}fill 1{/msg}</span>
     <span id="putDown5">{msg meaning="Karel.putDown5" desc="place 5 balls on the square."}
       put down 5{/msg}</span>
     <span id="pickUpBall">{msg meaning="Karel.pickUpBall" desc="verb -
-      imperative or infinitive for a person picking up a ball."}remove 1{/msg}</span>    
+      imperative or infinitive for a person picking up a ball."}remove 1{/msg}</span>
     <span id="while">{msg meaning="Karel.while" desc="condensed form of 'while
       something is true'"}while{/msg}</span>
     <span id="ballsPresent">{msg meaning="Karel.ballsPresent" desc="Indicates
@@ -149,10 +146,23 @@
       displayed if a user attempts to run a program composed of multiple stacks
       of blocks, letting them know they need to create a single stack."}On this
       level, you need to stack together all of the blocks in the white workspace.{/msg}</span>
+    <span id="numBlocksNeeded">{msg meaning="Karel.numBlocksNeeded"
+      desc="alert - This is displayed when the user has used more blocks than is
+      necessary."}This level can be solved with %1 blocks.{/msg}</span>
     <span id="putdownTower">{msg meaning="Karel.putdownTower" desc="Place a tower on the ground"}
       put down tower{/msg}</span>
     <span id="pickupTower">{msg meaning="Karel.pickupTower" desc="Place a tower up off the ground"}
       pickup tower{/msg}</span>
+  </div>
+{/template}
+
+/**
+ * Web page structure.
+ */
+{template .start}
+  {call .messages /}
+  <div id="start_blocks" style="display:none">
+    {call .startBlocks /}
   </div>
 
   // Common messages follow.  They are inlined here and in the other
@@ -193,8 +203,12 @@
         </h1>
       </td>
       <td class="farSide">
-        <select id="languageMenu" onchange="BlocklyApps.changeLanguage();"></select>
-        {sp}&nbsp;{sp}
+//        <select id="languageMenu" onchange="BlocklyApps.changeLanguage();"></select>
+        &nbsp;&nbsp;
+        <button id="helpButton" onclick="BlocklyApps.showHelp(true, {$ij.level}, false);">
+          {msg meaning="Apps.help" desc="IBID"}Help{/msg}
+        </button>
+        &nbsp;&nbsp;
         <button id="pegmanButton" onmousedown="Maze.showPegmanMenu();">
           <img src="../media/1x1.gif">
           <span>&#x25BE;</span>
@@ -206,314 +220,89 @@
   /**
    * For processing the window input after finishing a level.
    */
-  <div id="levelFeedback">
+  {call apps.dialog /}
+  {call apps.codeDialog /}
+  {call apps.storageDialog /}
+  <div id="help" class="dialogHiddenContent">
     <div style="padding-bottom: 0.7ex;"><br>
-      <textarea id="levelFeedbackText" rows=3 cols=40 style="resize: none;
-        border: 0; text-align: center; overflow: hidden; font-size: 16pt;
-        font-family: Arial;">
-        {if $ij.page == 1}
-          {switch $ij.level}
-            {case 1, 2}
-              {msg meaning="Karel.hint1_1" desc="hint - 'block' refers to a
-               child's stackable toys."}
-                  You could solve this level with fewer blocks. Can you find
-                  a solution with fewer blocks?
-              {/msg}
-            {case 3}
-              {msg meaning="Karel.hint1_3" desc="hint - A 'repeat' block is used
-               to repeat blocks over and over."}
-                 There is a solution using only 3 blocks. Can you find it? Did
-                 you using the repeat block?
-              {/msg}
-            {case 4}
-              {msg meaning="Karel.hint1_4" desc="TODO"}
-                 Can you find a solution using only 4 blocks? Try using one of
-                 the green loop blocks.
-              {/msg}
-            {case 5}
-              {msg meaning="Karel.hint1_5" desc="hint - A 'repeat' block is used
-                to repeat blocks over and over."}
-                 Can you find a solution using 4 blocks? Try putting a loop
-                 inside of another loop. Remember, loop blocks are green.
-              {/msg}
-            {case 6}
-              {msg meaning="Karel.hint1_6" desc="hint - A 'repeat' block is used
-               to repeat blocks over and over. The red marker is the goal to
-               be reached in the maze."}
-                 There is a solution using only 3 blocks. Can you find it? Did you try the new option on the while block?
-              {/msg}
-            {case 7}
-              {msg meaning="Karel.hint1_7" desc="hint - A 'repeat' block is used
-                to repeat blocks over and over. The red marker is the goal to
-                be reached in the maze."}
-                  Can you use the while block to complete the level with
-                  only 4 blocks?
-              {/msg}
-            {case 8}
-              {msg meaning="Karel.hint1_8" desc="TODO"}
-                 There is a solution using only 3 blocks. Can you find it?za
-              {/msg}
-            {case 9}
-              {msg meaning="Karel.hint1_9" desc="hint - A 'repeat' block is used
-                to repeat blocks over and over. The red marker is the goal to
-                be reached in the maze."}
-                  Could you use two while blocks to complete this level with
-                  fewer total blocks?
-                {/msg}
-            {case 10}
-              {msg meaning="Karel.hint1_10" desc="hint - A 'repeat' block is used
-               to repeat blocks over and over."}
-                 Can you find a solution using 4 blocks? Try including an if block.
-              {/msg}
-            {case 11}
-              {msg meaning="Karel.hint1_11" desc="hint - A 'repeat' block is used
-               to repeat blocks over and over."}
-                 Can you find a solution using 6 blocks? Try including 2 if blocks.
-              {/msg}
-          {/switch}
-        {elseif $ij.page == 2}
-          {switch $ij.level}
-            {case 1}
-              {msg meaning="Karel.hint2_1" desc="TODO"}
-                Use only the blocks you need to get to complete the level.{/msg}
-            {case 2}
-              {msg meaning="Karel.hint2_2" desc="TODO"}
-                Can you find a solution using 2 blocks? Try using the given function(s).{/msg}
-            {case 3}
-              {msg meaning="Karel.hint2_3" desc="TODO"}
-                Can you find a solution using 3 blocks? Try using the given function(s) inside a while block.{/msg}
-            {case 4}
-              {msg meaning="Karel.hint2_4" desc="TODO"}
-                Could you use fewer blocks? Try defining your own function and using it inside one of the loop blocks.{/msg}
-            {case 5}
-              {msg meaning="Karel.hint2_5" desc="TODO"}
-                Could you use fewer blocks? Try defining your own function and using it inside one of the loop block.{/msg}
-            {case 6}
-              {msg meaning="Karel.hint2_6" desc="TODO"}
-                Can you find a solution using 4 blocks? Try using the given function(s).{/msg}
-            {case 7}
-              {msg meaning="Karel.hint2_7" desc="TODO"}
-                Can you find a solution by adding 8 blocks in the "avoid the cow and remove 1" block?{/msg}
-            {case 8}
-              {msg meaning="Karel.hint2_8" desc="TODO"}
-                Can you find a solution using 2 blocks? Try using the given function(s) inside one of the loop blocks.{/msg}
-            {case 9}
-              {msg meaning="Karel.hint2_9" desc="TODO"}
-                Can you find a solution using 4 blocks? Try including an if block.{/msg}
-            {case 10}
-              {msg meaning="Karel.hint2_10" desc="TODO"}
-                Can you find a solution using fewer blocks? Try including two if blocks.{/msg}
-          {/switch}
-        {/if}
-    </textarea>
-    /**
-     * Interstitial levels.
-     */
-    <div id="interstitial" style="display: none;">
-    /**
-     * Show image above avatar for these reinf levels.
-     */
-    {if $ij.level == 2}
-      <img style="margin-left: 110px;" src="repeat_block.png">
-    {/if}
-    <br>
-    <div id="reinfbubble">
-      <span id="reinfMsg">
-        {switch $ij.level}
-          /* {case 2}
-            {msg meaning="Karel.reinfMsg2" desc="instructions - 'block' refers
-              to a child's stackable toys. A 'repeat' block is used to repeat
-              blocks over and over. The red marker is the goal to be reached
-              in the maze."}A repeat block repeats the blocks inside it until
-              I reach the red marker.{/msg}
-          {case 3}
-            {msg meaning="Karel.reinfMsg3" desc="instructions - 'program'
-              refers to a series of instructions that tell the computer
-              what to do next."}You have just written some programs. Good job!{/msg}
-          {case 4}
-            {msg meaning="Karel.reinfMsg4" desc="instructions - program'
-              refers to a series of instructions that tell the computer
-              what to do next."}Which direction am I facing after this
-              program ends?{/msg}
-          {case 5}
-            {msg meaning="Karel.reinfMsg5" desc="instructions - An example
-              of an 'if' block is if there is a path to the left, turn
-              left."}Here is an if block: I will turn left if there is a
-              path to the left.{/msg}
-          {case 6}
-            {msg meaning="Karel.reinfMsg6" desc="instructions - An example
-              of an 'if' block is if there is a path to the left, turn left.
-              A 'repeat' block is used to repeat blocks over and over.
-              'program' refers to a series of instructions that tell the
-              computer what to do next."}We can place 'if' blocks inside
-              'repeat' blocks. Where am I when this program ends?
-              Click on the correct picture below.{/msg}
-          {case 7}
-            {msg meaning="Karel.reinfMsg7" desc="instructions - A 'repeat'
-              block is used to repeat blocks over and over. "}Repeat blocks
-              allow me to do an action multiple times without additional blocks.
-              'if' blocks allow me to do an action based on my surroundings.{/msg}
-          {case 9}
-            {msg meaning="Karel.reinfMsg9" desc="instructions - An example of an
-              'if-else' block is if there is a path ahead move forward, else
-              turn left."}Here is an 'if-else' block: I move forward if there
-              is a path ahead, but I turn left if not.{/msg}
-          {case 10}
-            {msg meaning="Karel.reinfMsg10" desc="instructions - 'block' refers
-              to a child's stackable toys. A 'repeat' block is used to repeat
-              blocks over and over. The red marker is the goal to be reached
-              in the maze."}Will the blocks below move me to the red marker?{/msg} */
-        {/switch}
-      </span>
-    </div>
-    <img id="pegman_bubble" height=42 width=55 src="pegman_bubble.png">
+      <img class="stars feedback" id="star1" src="../star1.png">
+      <img class="stars feedback" id="star2" src="../star2.png">
+      <img class="stars feedback" id="star3" src="../star3.png">
+        <ul id="levelFeedbackText">
+                  <span id="hintTitle" class="feedback" style="display: none; margin-left: -30px">{msg meaning="Apps.hintTitle" desc="IBID"}{/msg}Hints:</span>
+        <li id="nextLevelMsg" style="display: none; margin-left: -40px;">{msg
+          meaning="Apps.nextLevel" desc="IBID"}Congratulations! You have completed this level.{/msg}</li>
+        <li id="finalLevelMsg" style="display: none; margin-left: -40px;">{msg
+          meaning="Apps.finalLevelMsg" desc="alert - This is displayed when
+          the user solves the most difficult level."}Congratulations! You
+          have solved the final level.{/msg}</li>
+        <li id="emptyBlocksError" class="feedback" style="display: none">
+          {msg meaning="Apps.emptyBlocksErrorMsg" desc="IBID"}Remove empty blocks.{/msg}</li>
+        <li id="missingBlocksError" class="feedback" style="display: none">
+          {msg meaning="Apps.missingBlocksErrorMsg" desc="IBID"}Try one or more of the blocks below to solve this level.{/msg}</li>
+        <li id="tooManyBlocksError" class="feedback" style="display: none">
+          {msg meaning="Apps.tooManyBlocksMsg" desc="IBID"}This level can be solved with <span id="idealNumberMessage"></span> blocks.{/msg}</li>
+        <li id="tooFewBlocksError" class="feedback" style="display: none">
+          {msg meaning="Apps.tooFewBlocksMsg" desc="IBID"}You are using all of the necessary types of blocks, but try using more  of these types of blocks to complete this level.{/msg}</li>
+        <li id="levelIncompleteError" class="feedback" style="display: none">
+          {msg meaning="Apps.levelIncompleteError" desc="IBID"}You are using all of the necessary types of blocks but not in the right way.{/msg}</li>
+      </ul>  // feedbackText
+      <iframe id="feedbackBlocks" class="feedback" style="margin-left: 50px;
+        height: 80px; width: 500px; border: none; display: none;" src=""></iframe>
 
+      /**
+       * Interstitial levels.
+       */
+      <div id="interstitial" style="display: none;">
+        <div style="margin-left: 50px;">
+          <div id="reinfbubble">
+            <span id="reinfMsg">
+            </span>
+          </div>
+          <img id="pegman_bubble" height=42 width=55 src="pegman_bubble.png">
+        </div>
 
-    /**
-     * Show image below avatar for these reinf levels.
-     */
-    {if $ij.level == 4}
-      <p><img border=2 src="dirs.png">&nbsp;<img src="dirs2.png"><br>
-    {/if}
-    {if $ij.level == 5}
-      <p><img style="margin-left: 110px;" src="ifblock.png"><br>
-    {/if}
-    {if $ij.level == 6}
-      <img style="margin-top: 10px;" border=2 src="repeat_block2.png"><br>
-    {/if}
-    {if $ij.level == 9}
-      <p><img style="margin-left: 60px; height: 150px; width: 260px;"
-          src="if-else2.png"><br><br>
-    {/if}
-    {if $ij.level == 10}
-     <p><img style="margin-left: 10px; height: 350px; width: 490px;"
-         src="ifelse.png"><br>
-    {/if}
+        /**
+         * Show image and/or video below avatar for these reinf levels.
+         */
 
+        /**
+         * Multiple choice question.
+         */
 
-  /**
-   * Multiple choice question.
-   */
-  {if $ij.level == 4}
-    <p>
-      <input type="radio" name="q4" id="q41"
-        onclick="Maze.showReinfHelp('q4w')">
-        <span style="font-weight: bold">
-          {msg meaning="Karel.dirN" desc="An abbreviation of the direction
-            North"} N{/msg}
-        </span><br>
-      <input type="radio" name="q4" id="q42"
-        onclick="Maze.showReinfHelp('q4w')">
-        <span style="font-weight: bold">
-          {msg meaning="Karel.dirE" desc="An abbreviation of the direction
-            East"} E{/msg}
-        </span><br>
-      <input type="radio" name="q4" id="q43"
-        onclick="Maze.showReinfHelp('q4w')">
-        <span style="font-weight: bold">
-          {msg meaning="Karel.dirS" desc="An abbreviation of the direction
-            North"} S{/msg}
-        </span><br>
-      <input type="radio" name="q4" id="q44"
-        onclick="Maze.showReinfHelp('q4r')">
-        <span style="font-weight: bold">
-          {msg meaning="Karel.dirW" desc="An abbreviation of the direction
-            West"} W{/msg}
-        </span><br><br>
-    </p>
-    <div id="shadow"></div>
-    <div id="reinfDone">
-      <div style="padding-bottom: 0.7ex;">
-        <div style="text-align: center;" id="reinfFeedbackImage"></div><br>
-        <textarea id="reinfFeedbackText" rows=2 cols=40 style="resize: none;
-          border: none; text-align: center; overflow: hidden; font-size: 16pt;
-          font-family: Arial;"></textarea>
+        /**
+         * Reinforcement quiz feedback.
+         */
+        <div id="reinfQuizFeedback" style="display: none;">
+          <div style="padding-bottom: 0.7ex; text-align: center;">
+            <textarea id="reinfFeedbackText" rows=2 cols=40
+              style="resize: none; border: none; text-align: center;
+              overflow: hidden; font-size: 16pt; font-family: Arial;">
+            </textarea>
+          </div>
+        </div>
       </div>
-      <div style="text-align: center; padding-top: 1ex; padding-right: 3ex">
-        <button id="okButton" class="launch" onclick="Maze.hideReinfHelp()&nbsp">
-          <span>
-            {msg meaning="Karel.ok" desc="Closes the dialog box."}OK{/msg}
-          </span>
+      /**
+       * End reinf level processing.
+       */
+      <br>
+      <div id="returnToLevelButton" style="display: none;">{call apps.ok /}</div>
+      <div style="text-align: center">
+        <button id="tryAgainButton" class="launch" style="display: none"
+          onclick="BlocklyApps.goToNextLevelOrReset(false);">
+          {msg meaning="Maze.tryAgain" desc="button - Closes the dialog and
+            stays on the current level"}Try again{/msg}
+        </button>
+        <button id="continueButton" class="launch" style="display: none"
+          onclick="BlocklyApps.goToNextLevelOrReset(true);">
+            {msg meaning="Maze.continue" desc="button - Closes the dialog and
+              continues to the next level"}Continue{/msg}
         </button>
       </div>
     </div>
-  {/if}
-  {if $ij.level == 6}
-    <p>
-      <img style="margin-left: 30px;" src="repeat_blocka1.png"
-        onclick="Maze.showReinfHelp('q5w')">
-      <img style="margin-left: 20px;" src="repeat_blocka2.png"
-        onclick="Maze.showReinfHelp('q5r')">
-      <img style="margin-left: 20px;" src="repeat_blocka3.png"
-        onclick="Maze.showReinfHelp('q5w')">
-    </p>
-    <div id="shadow"></div>
-    <div id="reinfDone">
-      <div style="padding-bottom: 0.7ex">
-        <div style="text-align: center;" id="reinfFeedbackImage"></div><br>
-        <textarea id="reinfFeedbackText" rows=2 cols=40 style="resize: none;
-          border: none; text-align: center; overflow: hidden; font-size: 16pt;
-          font-family: Arial;"></textarea>
-      </div>
-      <div style="text-align: center; padding-top: 1ex; padding-right: 3ex;">
-        <button id="okButton" class="launch" onclick="Maze.hideReinfHelp()">
-          <span>
-            {msg meaning="Karel.ok" desc="Closes the dialog box."}OK{/msg}
-          </span>
-        </button>
-      </div>
-    </div>
-  {/if}
-  {if $ij.level == 10}
-    <p>
-      <input type="radio" name="q8" id="q81"
-        onClick="Maze.showReinfHelp('q10r')">
-        <span style="font-weight: bold">{msg meaning="Karel.yes" desc="Yes
-          indicates that this option is true and correct."} Yes{/msg}
-        </span><br>
-      <input type="radio" name="q8" id="q82"
-        onClick="Maze.showReinfHelp('q10w')">
-        <span style="font-weight: bold">
-          {msg meaning="Karel.no" desc="No indicates that this option is
-            false and incorrect."} No{/msg}
-        </span><br><br>
-    </p>
-    <div id="shadow"></div>
-    <div id="reinfDone">
-      <div style="padding-bottom: 0.7ex;">
-        <div style="text-align:center;" id="reinfFeedbackImage"></div><br>
-        <textarea id="reinfFeedbackText" rows=2 cols=40 style="resize: none;
-          border: none; text-align: center; overflow: hidden;
-          font-size: 16pt; font-family: Arial;"></textarea>
-      </div>
-      <div style="text-align: center; padding-top: 1ex; padding-right: 3ex;">
-        <button id="okButton" class="launch" onclick="Maze.hideReinfHelp()">
-          <span>
-            {msg meaning="Karel.ok" desc="Closes the dialog box."}OK{/msg}
-          </span>
-        </button>
-      </div>
-    </div>
-  {/if}
   </div>
-  /**
-  * End reinf level processing.
-  */
+  </div>
   <br><br>
-  <div style="text-align: center">
-    <button id="tryLevelAgainButton" class="launch" style="display: none"
-      onclick="Maze.closeDialogButtonClick(false);">
-      {msg meaning="Karel.tryAgain" desc="button - Closes the dialog and
-        stays on the current level"}Try again{/msg}
-    </button>
-    <button id="nextLevelButton" class="launch" style="display: none"
-      onclick="Maze.closeDialogButtonClick(true);">
-        {msg meaning="Karel.continue" desc="button - Closes the dialog and
-          continues to the next level"}Continue{/msg}
-    </button>
-  </div>
-  </div>
-  </div>
 
   <div id="visualization">
     <div id="hintBubble">
@@ -536,7 +325,8 @@
       <div id="capacity"></div>
     </div>
   </div>
-  <table width="400">
+
+  <table width="400" tyle="padding-top: 10px;">
     <tr>
       <td style="width: 190px; text-align: center; vertical-align: top;">
         <button title="{msg meaning="Karel.codeTooltip" desc="tooltip
@@ -559,15 +349,15 @@
         <button id="runButton" class="launch" onclick="Maze.runButtonClick();">
             <img src="../media/1x1.gif" class="run icon21"> {msg meaning="Karel.runProgram"
             desc="button label - Pressing the button runs the computer program the user has
-            written."} Run Program{/msg}
+            written."}Run{/msg}
           </button>
         </button>
         <button id="resetButton" class="launch"
-          onclick="Maze.resetButtonClick();" style="display: none">
+          onclick="BlocklyApps.resetButtonClick();" style="display: none">
             <img src="../media/1x1.gif" class="stop icon21">
               {msg meaning="Karel.resetProgram" desc="button label -
                 Pressing the button causes Pegman return to the start of the maze
-                (but does not delete the user's program.)"} Reset{/msg}
+                (but does not delete the user's program.)"}Reset{/msg}
           </button>
       </td>
     </tr>
@@ -580,8 +370,11 @@
   {call .toolbox /}
   <div id="blockly"></div>
 
+  {call apps.dialog /}
+  {call apps.codeDialog /}
+  {call apps.storageDialog /}
+
   <div id="pegmanMenu"></div>
-  <div id="shadow"></div>
 {/template}
 
 /**
@@ -596,6 +389,19 @@
     {/if}
   </xml>
 {/template}
+
+/**
+ * Readonly Blockly in an iframe.
+ */
+{template .readonly}
+  {call .messages /}
+
+  <script type="text/javascript" src="../blockly_compressed.js"></script>
+  <script type="text/javascript" src="../{$ij.langSrc}"></script>
+  <script type="text/javascript" src="blocks.js"></script>
+  <div id="blockly"></div>
+{/template}
+
 /**
  * Web page structure.
  */

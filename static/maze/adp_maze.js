@@ -213,11 +213,11 @@ BlocklyApps.REQUIRED_BLOCKS = [undefined, // 0.
   [{'test': 'moveForward', 'type': 'maze_moveForward'}],
   // Level 3.
   [{'test': 'moveForward', 'type': 'maze_moveForward'},
-   {'test': 'turnLeft', 'type': 'maze_turn', 'params': {'DIR': 'turnLeft'}},
-   {'test': 'turnRight', 'type': 'maze_turn', 'params': {'DIR': 'turnRight'}}],
+   {'test': 'turnLeft', 'type': 'maze_turn', 'titles': {'DIR': 'turnLeft'}},
+   {'test': 'turnRight', 'type': 'maze_turn', 'titles': {'DIR': 'turnRight'}}],
   // Level 4.
   [{'test': 'moveForward', 'type': 'maze_moveForward'},
-   {'test': 'turnLeft', 'type': 'maze_turn', 'params': {'DIR': 'turnLeft'}}],
+   {'test': 'turnLeft', 'type': 'maze_turn', 'titles': {'DIR': 'turnLeft'}}],
   // Level 5.
   [{'test': 'moveForward', 'type': 'maze_moveForward'},
    {'test': 'for', 'type': 'controls_repeat'}],
@@ -227,11 +227,11 @@ BlocklyApps.REQUIRED_BLOCKS = [undefined, // 0.
   // Level 7.
   [{'test': 'moveForward', 'type': 'maze_moveForward'},
    {'test': 'for', 'type': 'controls_repeat'},
-   {'test': 'turnLeft', 'type': 'maze_turn', 'params': {'DIR': 'turnLeft'}}],
+   {'test': 'turnLeft', 'type': 'maze_turn', 'titles': {'DIR': 'turnLeft'}}],
   // Level 8.
   [{'test': 'moveForward', 'type': 'maze_moveForward'},
    {'test': 'for', 'type': 'controls_repeat'},
-   {'test': 'turnRight', 'type': 'maze_turn', 'params': {'DIR': 'turnRight'}}],
+   {'test': 'turnRight', 'type': 'maze_turn', 'titles': {'DIR': 'turnRight'}}],
   // Level 9.
   [{'test': 'moveForward', 'type': 'maze_moveForward'},
    {'test': 'while', 'type': 'maze_forever'}],
@@ -241,36 +241,36 @@ BlocklyApps.REQUIRED_BLOCKS = [undefined, // 0.
   // Level 11.
   [{'test': 'moveForward', 'type': 'maze_moveForward'},
    {'test': 'while', 'type': 'maze_forever'},
-   {'test': 'turnLeft', 'type': 'maze_turn', 'params': {'DIR': 'turnLeft'}},
-   {'test': 'turnRight', 'type': 'maze_turn', 'params': {'DIR': 'turnRight'}}],
+   {'test': 'turnLeft', 'type': 'maze_turn', 'titles': {'DIR': 'turnLeft'}},
+   {'test': 'turnRight', 'type': 'maze_turn', 'titles': {'DIR': 'turnRight'}}],
   // Level 12.
   [{'test': 'moveForward', 'type': 'maze_moveForward'},
    {'test': 'while', 'type': 'maze_forever'},
-   {'test': 'turnLeft', 'type': 'maze_turn', 'params': {'DIR': 'turnLeft'}},
-   {'test': 'turnRight', 'type': 'maze_turn', 'params': {'DIR': 'turnRight'}}],
+   {'test': 'turnLeft', 'type': 'maze_turn', 'titles': {'DIR': 'turnLeft'}},
+   {'test': 'turnRight', 'type': 'maze_turn', 'titles': {'DIR': 'turnRight'}}],
   // Level 13.
-  [{'test': 'isPathLeft', 'type': 'maze_if', 'params': {'DIR': 'isPathLeft'}},
+  [{'test': 'isPathLeft', 'type': 'maze_if', 'titles': {'DIR': 'isPathLeft'}},
    {'test': 'while', 'type': 'maze_forever'},
-   {'test': 'turnLeft', 'type': 'maze_turn', 'params': {'DIR': 'turnLeft'}}],
+   {'test': 'turnLeft', 'type': 'maze_turn', 'titles': {'DIR': 'turnLeft'}}],
   // Level 14.
-  [{'test': 'isPathRight', 'type': 'maze_if', 'params': {'DIR': 'isPathRight'}},
+  [{'test': 'isPathRight', 'type': 'maze_if', 'titles': {'DIR': 'isPathRight'}},
    {'test': 'while', 'type': 'maze_forever'},
-   {'test': 'turnRight', 'type': 'maze_turn', 'params': {'DIR': 'turnRight'}}],
+   {'test': 'turnRight', 'type': 'maze_turn', 'titles': {'DIR': 'turnRight'}}],
   // Level 15.
-  [{'test': 'isPathRight', 'type': 'maze_if', 'params': {'DIR': 'isPathRight'}},
+  [{'test': 'isPathRight', 'type': 'maze_if', 'titles': {'DIR': 'isPathRight'}},
    {'test': 'while', 'type': 'maze_forever'},
-   {'test': 'turnRight', 'type': 'maze_turn', 'params': {'DIR': 'turnRight'}}],
+   {'test': 'turnRight', 'type': 'maze_turn', 'titles': {'DIR': 'turnRight'}}],
   // Level 16.
-  [{'test': 'isPathRight', 'type': 'maze_if', 'params': {'DIR': 'isPathRight'}},
+  [{'test': 'isPathRight', 'type': 'maze_if', 'titles': {'DIR': 'isPathRight'}},
    {'test': 'while', 'type': 'maze_forever'},
-   {'test': 'turnRight', 'type': 'maze_turn', 'params': {'DIR': 'turnRight'}}],
+   {'test': 'turnRight', 'type': 'maze_turn', 'titles': {'DIR': 'turnRight'}}],
   // Level 17.
   [{'test': 'isPathForward', 'type': 'maze_ifElse',
-    'params': {'DIR': 'isPathForward'}},
+    'titles': {'DIR': 'isPathForward'}},
    {'test': 'while', 'type': 'maze_forever'}],
   // Level 18.
   [{'test': 'isPathForward', 'type': 'maze_ifElse',
-    'params': {'DIR': 'isPathForward'}},
+    'titles': {'DIR': 'isPathForward'}},
    {'test': 'while', 'type': 'maze_forever'}]][BlocklyApps.LEVEL];
 
 BlocklyApps.INTERSTITIALS = undefined;

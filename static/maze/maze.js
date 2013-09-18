@@ -108,8 +108,8 @@ var LEVELS = [
     'ideal': 5,
     'requiredBlocks': [
       {'test': 'moveForward', 'type': 'maze_moveForward'},
-      {'test': 'turnLeft', 'type': 'maze_turn', 'params': {'DIR': 'turnLeft'}},
-      {'test': 'turnRight', 'type': 'maze_turn', 'params': {'DIR': 'turnRight'}}
+      {'test': 'turnLeft', 'type': 'maze_turn', 'titles': {'DIR': 'turnLeft'}},
+      {'test': 'turnRight', 'type': 'maze_turn', 'titles': {'DIR': 'turnRight'}}
     ],
     'startDirection': Maze.DirectionType.EAST,
     'map': [
@@ -150,8 +150,8 @@ var LEVELS = [
     'ideal': 5,
     'requiredBlocks': [
       {'test': 'while', 'type': 'maze_forever'},
-      {'test': 'turnLeft', 'type': 'maze_turn', 'params': {'DIR': 'turnLeft'}},
-      {'test': 'turnRight', 'type': 'maze_turn', 'params': {'DIR': 'turnRight'}},
+      {'test': 'turnLeft', 'type': 'maze_turn', 'titles': {'DIR': 'turnLeft'}},
+      {'test': 'turnRight', 'type': 'maze_turn', 'titles': {'DIR': 'turnRight'}},
       {'test': 'moveForward', 'type': 'maze_moveForward'}
     ],
     'startDirection': Maze.DirectionType.EAST,
@@ -178,8 +178,8 @@ var LEVELS = [
     'ideal': 4,
     'requiredBlocks': [
       {'test': 'while', 'type': 'maze_forever'},
-      {'test': 'isPathLeft', 'type': 'maze_if', 'params': {'DIR': 'isPathLeft'}},
-      {'test': 'turnLeft', 'type': 'maze_turn', 'params': {'DIR': 'turnLeft'}},
+      {'test': 'isPathLeft', 'type': 'maze_if', 'titles': {'DIR': 'isPathLeft'}},
+      {'test': 'turnLeft', 'type': 'maze_turn', 'titles': {'DIR': 'turnLeft'}},
       {'test': 'moveForward', 'type': 'maze_moveForward'}
     ],
     'videoId': '0BybP3F7DhXrUSFRhMnBGLUVPZTA',
@@ -201,8 +201,8 @@ var LEVELS = [
     'ideal': 4,
     'requiredBlocks': [
       {'test': 'while', 'type': 'maze_forever'},
-      {'test': 'isPathLeft', 'type': 'maze_if', 'params': {'DIR': 'isPathLeft'}},
-      {'test': 'turnLeft', 'type': 'maze_turn', 'params': {'DIR': 'turnLeft'}},
+      {'test': 'isPathLeft', 'type': 'maze_if', 'titles': {'DIR': 'isPathLeft'}},
+      {'test': 'turnLeft', 'type': 'maze_turn', 'titles': {'DIR': 'turnLeft'}},
       {'test': 'moveForward', 'type': 'maze_moveForward'}
     ],
     'startDirection': Maze.DirectionType.EAST,
@@ -223,7 +223,7 @@ var LEVELS = [
     'ideal': 4,
     'requiredBlocks': [
       {'test': 'while', 'type': 'maze_forever'},
-      {'test': 'isPathRight', 'type': 'maze_if', 'params': {'DIR': 'isPathRight'}},
+      {'test': 'isPathRight', 'type': 'maze_if', 'titles': {'DIR': 'isPathRight'}},
       {'test': 'moveForward', 'type': 'maze_moveForward'}
     ],
     'startDirection': Maze.DirectionType.EAST,
@@ -244,10 +244,10 @@ var LEVELS = [
     'ideal': 6,
     'requiredBlocks': [
       {'test': 'while', 'type': 'maze_forever'},
-      {'test': 'isPathRight', 'type': 'maze_if', 'params': {'DIR': 'isPathRight'}},
-      {'test': 'isPathLeft', 'type': 'maze_if', 'params': {'DIR': 'isPathLeft'}},
-      {'test': 'turnLeft', 'type': 'maze_turn', 'params': {'DIR': 'turnLeft'}},
-      {'test': 'turnRight', 'type': 'maze_turn', 'params': {'DIR': 'turnRight'}},
+      {'test': 'isPathRight', 'type': 'maze_if', 'titles': {'DIR': 'isPathRight'}},
+      {'test': 'isPathLeft', 'type': 'maze_if', 'titles': {'DIR': 'isPathLeft'}},
+      {'test': 'turnLeft', 'type': 'maze_turn', 'titles': {'DIR': 'turnLeft'}},
+      {'test': 'turnRight', 'type': 'maze_turn', 'titles': {'DIR': 'turnRight'}},
       {'test': 'moveForward', 'type': 'maze_moveForward'}
     ],
     'startDirection': Maze.DirectionType.EAST,
@@ -269,8 +269,8 @@ var LEVELS = [
     'requiredBlocks': [
       {'test': 'while', 'type': 'maze_forever'},
       {'test': 'isPathForward', 'type': 'maze_ifElse',
-                                'params': {'DIR': 'isPathForward'}},
-      {'test': 'turnLeft', 'type': 'maze_turn', 'params': {'DIR': 'turnLeft'}},
+                                'titles': {'DIR': 'isPathForward'}},
+      {'test': 'turnLeft', 'type': 'maze_turn', 'titles': {'DIR': 'turnLeft'}},
       {'test': 'moveForward', 'type': 'maze_moveForward'}
     ],
     'startDirection': Maze.DirectionType.EAST,
@@ -292,8 +292,8 @@ var LEVELS = [
     'requiredBlocks': [
       {'test': 'while', 'type': 'maze_forever'},
       {'test': 'isPathForward', 'type': 'maze_ifElse',
-                                'params': {'DIR': 'isPathForward'}},
-      {'test': 'turnRight', 'type': 'maze_turn', 'params': {'DIR': 'turnRight'}},
+                                'titles': {'DIR': 'isPathForward'}},
+      {'test': 'turnRight', 'type': 'maze_turn', 'titles': {'DIR': 'turnRight'}},
       {'test': 'moveForward', 'type': 'maze_moveForward'}
     ],
     'startDirection': Maze.DirectionType.EAST,
@@ -321,7 +321,7 @@ var CURRENT_LEVEL = LEVELS[BlocklyApps.LEVEL];
  * The block will be displayed as feedback in the order below.
  * 'test' is the string that will be searched for in the code.
  * 'type' is the type of block to be generated as feedback.
- * 'params' are optional and create a more specific block of the given type.
+ * 'titles' are optional and create a more specific block of the given type.
  */
 BlocklyApps.REQUIRED_BLOCKS = CURRENT_LEVEL.requiredBlocks;
 
@@ -493,11 +493,11 @@ Maze.drawMap = function() {
   // Adjust outer element size.
   svg.setAttribute('width', Maze.MAZE_WIDTH);
   svg.setAttribute('height', Maze.MAZE_HEIGHT);
-  
+
   // Adjust hint bubble width.
   var hint = document.getElementById('hintBubble');
   hint.style.width = (Maze.MAZE_WIDTH - 20) + 'px';
-  
+
   if (Maze.SKIN.background) {
     var tile = document.createElementNS(Blockly.SVG_NS, 'image');
     tile.setAttributeNS('http://www.w3.org/1999/xlink', 'xlink:href',

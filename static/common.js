@@ -1040,7 +1040,7 @@ BlocklyApps.setErrorFeedback = function(feedbackType) {
         document.getElementById('feedbackBlocks').style.display = 'block';
       }
       if (BlocklyApps.levelComplete) {
-	  BlocklyApps.displayStars(1);
+        BlocklyApps.displayStars(1);
       }
       break;
 
@@ -1384,7 +1384,7 @@ BlocklyApps.generateXMLForBlocks = function(blockArray) {
         }
       }
       if (block['extra']) {
-	blockXMLStrings.append(block['extra']);
+        blockXMLStrings.append(block['extra']);
       }
       blockXMLStrings.push('</block>');
       if ((i + 1) % blocksPerLine == 0) {

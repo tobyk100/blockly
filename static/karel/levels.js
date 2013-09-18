@@ -1,3 +1,43 @@
+// This tests for and creates the "move_forward" block.
+var MOVE_FORWARD = {'test': 'moveForward', 'type': 'maze_moveForward'};
+
+// This tests for and creates the "pickUpBall" block.
+var PICK_UP_BALL = {'test': 'pickUpBall', 'type': 'maze_pickUpBall'};
+
+// This tests for and creates the "putDownBall" block.
+var PUT_DOWN_BALL = {'test': 'putDownBall', 'type': 'maze_putDownBall'};
+
+// This tests for and creates the "controls_repeat" block.
+var REPEAT = {'test': 'for', 'type': 'controls_repeat'};
+
+// This tests for and creates the "maze_turn" block turning left.
+var TURN_LEFT = {'test': 'turnLeft', 'type': 'maze_turn', 'titles': {'DIR': 'turnLeft'}};
+
+// This tests for and creates the "maze_turn" block turning right.
+var TURN_RIGHT = {'test': 'turnRight', 'type': 'maze_turn', 'titles': {'DIR': 'turnRight'}};
+
+// This tests for and creates the "maze_untilBlocked" block.
+var UNTIL_BLOCKED = {'test': 'while (Maze.isPathForward', 'type': 'maze_untilBlocked'};
+
+// This tests for and creates the "maze_untilBlockedOrNotClear" block with the option "ballsPresent" selected.
+var WHILE_OPT_BALLS_PRESENT = {'test': 'while (Maze.ballsPresent', 'type': 'maze_untilBlockedOrNotClear', 'titles': {'DIR': 'ballsPresent'}};
+
+// This tests for and creates the "maze_untilBlockedOrNotClear" block with the option "isPathForward" selected.
+var WHILE_OPT_PATH_AHEAD = {'test': 'while (Maze.isPathForward', 'type': 'maze_untilBlockedOrNotClear', 'titles': {'DIR': 'isPathForward'}};
+
+// This tests for and creates the "maze_if" block.
+var IF = {'test': 'if', 'type': 'maze_if'};
+
+// This tests for and creates the "maze_if" block with the option "ballsPresent" selected.
+var IF_OPT_BALLS_PRESENT = {'test': 'if (Maze.ballsPresent', 'type': 'maze_if', 'titles': {'DIR': 'ballsPresent'}};
+
+// This tests for and creates the "maze_if" block with the option "holesPresent" selected.
+var IF_OPT_HOLES_PRESENT = {'test': 'if (Maze.holesPresent', 'type': 'maze_if', 'titles': {'DIR': 'holesPresent'}};
+
+// This tests for and creates the "maze_ifElse" block.
+var IF_ELSE = {'test': '} else {', 'type': 'maze_ifElse'};
+
+
 var LevelConfig = {
   'pages': [
 
@@ -14,6 +54,9 @@ var LevelConfig = {
         // Level 1
         {
           'ideal': 5,
+          'requiredBlocks': [
+            MOVE_FORWARD, PICK_UP_BALL
+          ],
           'scale': {
             'snapRadius': 2.0
           },
@@ -53,6 +96,9 @@ var LevelConfig = {
         // Level 2
         {
           'ideal': 3,
+          'requiredBlocks': [
+            MOVE_FORWARD, PUT_DOWN_BALL
+          ],
           'map': [
             [ 1, 1, 1, 1, 1, 1, 1, 1 ],
             [ 1, 1, 1, 1, 1, 1, 1, 1 ],
@@ -89,6 +135,9 @@ var LevelConfig = {
         // Level 3
         {
           'ideal': 3,
+          'requiredBlocks': [
+            MOVE_FORWARD, PICK_UP_BALL, REPEAT
+          ],
           'map': [
             [ 1, 1, 1, 1, 1, 1, 1, 1 ],
             [ 1, 1, 1, 1, 1, 1, 1, 1 ],
@@ -125,6 +174,9 @@ var LevelConfig = {
         // Level 4
         {
           'ideal': 4,
+          'requiredBlocks': [
+            MOVE_FORWARD, PICK_UP_BALL, TURN_LEFT, REPEAT
+          ],
           'map': [
             [ 1, 1, 1, 1, 1, 1, 1, 1 ],
             [ 1, 1, 1, 1, 1, 1, 1, 1 ],
@@ -161,6 +213,9 @@ var LevelConfig = {
         // Level 5
         {
           'ideal': 5,
+          'requiredBlocks': [
+            MOVE_FORWARD, PUT_DOWN_BALL, REPEAT, UNTIL_BLOCKED
+          ],
           'scale': {
             'stepSpeed': 3
           },
@@ -200,6 +255,9 @@ var LevelConfig = {
         // Level 6
         {
           'ideal': 3,
+          'requiredBlocks': [
+            MOVE_FORWARD, PICK_UP_BALL, WHILE_OPT_BALLS_PRESENT // or REPEAT
+          ],
           'map': [
             [ 1, 1, 1, 1, 1, 1, 1, 1 ],
             [ 1, 1, 1, 1, 1, 1, 1, 1 ],
@@ -236,6 +294,9 @@ var LevelConfig = {
         // Level 7
         {
           'ideal': 4,
+          'requiredBlocks': [
+            TURN_RIGHT, MOVE_FORWARD, PUT_DOWN_BALL, WHILE_OPT_BALLS_PRESENT
+          ],
           'scale': {
             'stepSpeed': 3
           },
@@ -275,6 +336,9 @@ var LevelConfig = {
         // Level 8
         {
           'ideal': 3,
+          'requiredBlocks': [
+            MOVE_FORWARD, PUT_DOWN_BALL, WHILE_OPT_PATH_AHEAD // or REPEAT
+          ],
           'map': [
             [ 1, 1, 1, 1, 1, 1, 1, 1 ],
             [ 1, 1, 1, 1, 1, 1, 1, 1 ],
@@ -311,6 +375,10 @@ var LevelConfig = {
         // Level 9
         {
           'ideal': 9,
+          'requiredBlocks': [
+            MOVE_FORWARD, PICK_UP_BALL, WHILE_OPT_PATH_AHEAD, // or REPEAT
+            TURN_LEFT
+          ],
           'map': [
             [ 0, 0, 0, 0, 0, 1, 1, 0 ],
             [ 0, 0, 0, 0, 0, 1, 1, 1 ],
@@ -347,6 +415,9 @@ var LevelConfig = {
         // Level 10
         {
           'ideal': 4,
+          'requiredBlocks': [
+            MOVE_FORWARD, PICK_UP_BALL, IF_OPT_BALLS_PRESENT, UNTIL_BLOCKED // or REPEAT
+          ],
           'map': [
             [ 1, 1, 1, 1, 1, 1, 1, 1 ],
             [ 1, 1, 1, 1, 1, 1, 1, 1 ],
@@ -383,6 +454,9 @@ var LevelConfig = {
         // Level 11
         {
           'ideal': 6,
+          'requiredBlocks': [
+            MOVE_FORWARD, PICK_UP_BALL, PUT_DOWN_BALL, IF_OPT_BALLS_PRESENT, IF_OPT_HOLES_PRESENT, UNTIL_BLOCKED // or REPEAT
+          ],
           'map': [
             [ 1, 1, 1, 1, 1, 1, 1, 1 ],
             [ 1, 1, 1, 1, 1, 1, 1, 1 ],
