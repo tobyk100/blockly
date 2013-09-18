@@ -10,121 +10,9 @@
  */
 
 /**
- * Translated messages for use in JavaScript.
- */
-{template .messages}
-  <div style="display: none">
-    <span id="moveForward">{msg meaning="Maze.moveForward" desc="verb -
-      imperative or infinitive for a person moving (walking) in the direction
-      he/she is facing."}move forward{/msg}</span>
-    <span id="turnLeft">{msg meaning="Maze.turnLeft" desc="verb - imperative
-      or infinitive for a person turning his head and body one quarter rotation
-      counter-clockwise.  Prefer a translation that has text in common with the
-      translation of 'turn right'.  See [[Translating:Blockly#Drop-Down_Menus]]."}
-      turn left{/msg}</span>
-    <span id="turnRight">{msg meaning="Maze.turnRight" desc="verb - imperative
-      or infinitive for a person turning his head and body one quarter rotation
-      clockwise. Prefer a translation that has text in common with the
-      translation of 'turn left'.  See [[Translating:Blockly#Drop-Down_Menus]]."}
-      turn right{/msg}</span>
-    <span id="doCode">{msg meaning="Maze.doCode" desc="verb - imperative or
-      infinitive preceding one or more commands to a person."}do{/msg}</span>
-    <span id="elseCode">{msg meaning="Maze.elseCode" desc="conjunction -
-      'otherwise', introducing commands to be performed if a previous condition
-      was not true, as in 'if x>3, do this, else do that'."}else{/msg}</span>
-    <span id="pathAhead">{msg meaning="Maze.pathAhead" desc="condensed form of
-      'if there is a path ahead', as in: 'if path ahead, go forward'."}if
-      path ahead{/msg}</span>
-    <span id="pathLeft">{msg meaning="Maze.pathLeft" desc="condensed form of 'if
-      there is a path to the left', as in: 'if path to the left, turn left'."}if
-      path to the left{/msg}</span>
-    <span id="pathRight">{msg meaning="Maze.pathRight" desc="condensed form of
-      'if there is a path to the right', as in: 'if path to the right, turn
-      right'."}if path to the right{/msg}</span>
-    <span id="repeatUntil">{msg meaning="Maze.repeatUntil" desc="verb -
-      imperative or infinitive to repeat the following commands.  The phrase is
-      followed by the symbol denoting the end of the maze."}repeat until{/msg}</span>
-    <span id="moveForwardTooltip">{msg meaning="Maze.moveForwardTooltip"
-      desc="tooltip (pop-up help) - Pegman is the humanoid icon used in Google Maps.
-      See picture at http://goo.gl/9I64i (http://maps.google.com/intl/en/help/maps/streetview/learn/pegman.html).
-      The term 'space' refers to a single square within a maze."}Move me forward
-      one space.{/msg}</span>
-    <span id="q2wrong">{msg meaning="Maze.q3wrong" desc="tracking is suggesting
-      to the user that they should follow each instruction and follow how that
-      will affect the movement. A 'program' is a set of instructions that tell
-      the computer what to do next."}No - Try tracking my direction while
-      following the program.{/msg}</span>
-    <span id="q2right">{msg meaning="Maze.q3right" desc="Congratulating the
-      user on correctly answering the question."}That's right!{/msg}</span>
-    <span id="q5wrong">{msg meaning="Maze.q5wrong" desc="Tracking is suggesting
-      to the user that they should follow each instruction and follow how that
-      will affect the movement. A 'program' is a set of instructions that tell
-      the computer what to do next."}No - Try tracking my direction while
-      following the program.{/msg}</span>
-    <span id="q5right">{msg meaning="Maze.q5right" desc="Congratulating the user
-      on correctly answering the question."}That's right!{/msg}</span>
-    <span id="q9wrong">{msg meaning="Maze.q9wrong" desc="tracking is suggesting
-      to the user that they should follow each instruction and follow how that
-      will affect the movement. A 'program' is a set of instructions that tell
-      the computer what to do next."}No - Try tracking my direction while
-      following the program.{/msg}</span>
-    <span id="q9right">{msg meaning="Maze.q9right" desc="Congratulating the
-      user on correctly answering the question."}That's right!{/msg}</span>
-    <span id="turnTooltip">{msg meaning="Maze.turnTooltip" desc="tooltip
-      (pop-up help) - Pegman is the humanoid icon used in Google Maps.
-      See picture at http://goo.gl/9I64i
-      (http://maps.google.com/intl/en/help/maps/streetview/learn/pegman.html).
-      The term 'space' refers to a single square within a maze."}Turns me
-      left or right by 90 degrees.{/msg}</span>
-    <span id="ifTooltip">{msg meaning="Maze.ifTooltip" desc="tooltip
-      (pop-up help) - 'path' refers to a path through a maze. "}If there is a
-      path in the specified direction, then do some actions.{/msg}</span>
-    <span id="ifelseTooltip">{msg meaning="Maze.ifelseTooltip" desc="tooltip
-      (pop-up help) - 'path' refers to a path through a maze."}If there is a
-      path in the specified direction, then do the first block of actions.
-      Otherwise, do the second block of actions.{/msg}</span>
-    <span id="whileTooltip">{msg meaning="Maze.whileTooltip" desc="tooltip
-      (pop-up help) - Repeat the enclosed commands until the maze has been
-      successfully completed (the end point reached)."}Repeat the enclosed
-      actions until finish point is reached.{/msg}</span>
-    <span id="capacity0">{msg meaning="Maze.capacity0" desc="warning - No more
-      blocks may be added until some are removed.  Do not alter the portions
-      between pointy brackets (< and >), although you may move them within the
-      phrase and replace 0 with one or more words."}You have
-      <span id='capacityNumber'>0</span> blocks left.{/msg}</span>
-    <span id="capacity1">{msg meaning="Maze.capacity1" desc="warning - Only one
-      more block may be added.  Do not alter the portions between pointy brackets
-      (< and >), although you may move them within the phrase and replace 1 with
-      one or more words."}You have <span id='capacityNumber'>1</span> block left.
-      {/msg}</span>
-    <span id="capacity2">{msg meaning="Maze.capacity2" desc="warning - Only %1
-      more blocks may be used, where %1 is an integer greater than 1.  Do not
-      alter the portions between pointy brackets (< and >), although you may
-      move them within the phrase."}You have <span id='capacityNumber'>%1</span>
-      blocks left.{/msg}</span>
-    <span id="nextLevel">{msg meaning="Maze.nextLevel" desc="alert - This is
-      displayed when the user solves the maze, inviting them to precede to the
-      next level of difficulty."}
-      Congratulations! You have completed this level.{/msg}</span>
-    <span id="finalLevel">{msg meaning="Maze.finalLevel" desc="alert - This is
-      displayed when the user solves the most difficult level."}
-      Congratulations! You have solved the final level.{/msg}</span>
-    <span id="oneTopBlock">{msg meaning="Maze.oneTopBlock" desc="alert - This is
-      displayed if a user attempts to run a program composed of multiple stacks
-      of blocks, letting them know they need to create a single stack."}On this
-      level, you need to stack together all of the blocks in the white
-      workspace.{/msg}</span>
-    <span id="numBlocksNeeded">{msg meaning="Maze.numBlocksNeeded"
-      desc="alert - This is displayed when the user has used more blocks than is
-      necessary."}This level can be solved with %1 blocks.{/msg}</span>
-  </div>
-{/template}
-
-/**
  * Web page structure.
  */
 {template .start}
-  {call .messages /}
   <table width="100%" {call apps.menu}{param menu: $ij.menu /}{/call}
     style="border-bottom: 1px solid #DBDBDB;">
     <tr>
@@ -673,6 +561,5 @@
  * Readonly Blockly in an iframe.
  */
 {template .readonly}
-  {call .messages /}
   <div id="blockly"></div>
 {/template}

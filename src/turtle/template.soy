@@ -24,7 +24,7 @@
     </div>
     <img id="turtle" height=45 width=130 src="turtle.png">
   </span>
-{/template}       
+{/template}
 
 /**
  * Display text and a picture.
@@ -43,7 +43,7 @@
       <tr height=40><br><br></tr>
     </table>
   </span>
-{/template}       
+{/template}
 
 /**
  * Display text and animation.
@@ -111,77 +111,6 @@
       </block>
     </statement>
   </block>
-{/template}
-
-
-/**
- * Messages for translation.
- */
-{template .messages}
-  <div id="MSG" style="display: none">
-    // Used in blocks.js for general turtle graphics blocks
-    <span id="colourTooltip">{msg meaning="Turtle.colourTooltip" desc="TODO"}Changes the color of the pen.{/msg}</span>
-    <span id="degrees">{msg meaning="Turtle.degrees" desc="TODO"}degrees{/msg}</span>
-    <span id="hideTurtle">{msg meaning="Turtle.hideTurtle" desc="TODO"}hide turtle{/msg}</span>
-    <span id="moveBackward">{msg meaning="Turtle.moveBackward" desc="TODO"}move backward by{/msg}</span>
-    <span id="moveForward">{msg meaning="Turtle.moveForward" desc="TODO"}move forward by{/msg}</span>
-    <span id="moveForwardTooltip">{msg meaning="Turtle.moveForwardTooltip" desc="TODO"}Moves the turtle forward.{/msg}</span>
-    <span id="jumpBackward">{msg meaning="Turtle.jumpBackward" desc="TODO"}jump backward by{/msg}</span>
-    <span id="jumpForward">{msg meaning="Turtle.jumpForward" desc="TODO"}jump forward by{/msg}</span>
-    <span id="jumpForwardTooltip">{msg meaning="Turtle.jumpForwardTooltip" desc="TODO"}Moves the turtle forward without leaving any marks.{/msg}</span>
-    <span id="moveTooltip">{msg meaning="Turtle.moveTooltip" desc="TODO"}Moves the turtle forward or backward by the specified amount.{/msg}</span>
-    <span id="penDown">{msg meaning="Turtle.penDown" desc="TODO"}pen down{/msg}</span>
-    <span id="penTooltip">{msg meaning="Turtle.penTooltip" desc="TODO"}Lifts or lowers the pen, to start or stop drawing.{/msg}</span>
-    <span id="penUp">{msg meaning="Turtle.penUp" desc="TODO"}pen up{/msg}</span>
-    <span id="dots">{msg meaning="Turtle.dots" desc="TODO"}dots{/msg}</span>
-    <span id="setColour">{msg meaning="Turtle.setColour" desc="TODO"}set color{/msg}</span>
-    <span id="setWidth">{msg meaning="Turtle.setWidth" desc="TODO"}set width{/msg}</span>
-    <span id="showTurtle">{msg meaning="Turtle.showTurtle" desc="TODO"}show turtle{/msg}</span>
-    <span id="turnLeft">{msg meaning="Turtle.turnLeft" desc="TODO"}turn left by{/msg}</span>
-    <span id="turnRightTooltip">{msg meaning="Turtle.turnRightTooltip" desc="TODO"}Turns the turtle right by the specified angle.{/msg}</span>
-    <span id="turnRight">{msg meaning="Turtle.turnRight" desc="TODO"}turn right by{/msg}</span>
-    <span id="turnTooltip">{msg meaning="Turtle.turnTooltip" desc="TODO"}Turns the turtle left or right by the specified number of degrees.{/msg}</span>
-    <span id="turtleVisibilityTooltip">{msg meaning="Turtle.turtleVisibilityTooltip" desc="TODO"}Makes the turtle (green circle and arrow) visible or invisible.{/msg}</span>
-    <span id="widthTooltip">{msg meaning="Turtle.widthTooltip" desc="TODO"}Changes the width of the pen.{/msg}</span>
-    <span id="loopVariable">{msg meaning="Turtle.loopVariable" desc="TODO"}counter{/msg}</span>
-
-    // Used for displaying block count.
-    <span id="blocksUsed">{msg meaning="Turtle.blocksUsed" desc="TODO"}Blocks used: %1{/msg}</span>
-
-    // Used for alerting user that levels 8 and 9 of page 3 require
-    // doing the previous level.
-    <span id="notReadyForLevel">
-      {if $ij.page == 3 and $ij.level == 8}
-        {msg meaning="Turtle.drawAHouseNotDefined8" desc="TODO"}
-          You need to complete level 7 before doing this level.
-        {/msg}
-      {elseif $ij.page == 3 and $ij.level == 9}
-        {msg meaning="Turtle.drawAHouseNotDefined9" desc="TODO"}
-          You need to complete levels 7 and 8 before doing this level.
-        {/msg}
-      {/if}
-    </span>
-
-    // Used for providing feedback on colour use.
-    <span id="notBlackColour">{msg meaning="Turtle.notBlackColour" desc="TODO"}You need to set a color other than black for this level.{/msg}</span>
-    <span id="tooFewColours">{msg meaning="Turtle.tooFewColours" desc="TODO"}You need to use at least %1 different colors on this level.  You used only %2.{/msg}</span>
-    <span id="wrongColour">{msg meaning="Turtle.wrongColour" desc="TODO"}Your picture is the wrong color.  For this level, it needs to be %1.{/msg}</span>
-
-    // Used in blocks.js for tutorial-only blocks.
-    <span id="drawASquare">{msg meaning="Turtle.drawASquare" desc="TODO"}draw a square{/msg}</span>
-    <span id="lengthParameter">{msg meaning="Turtle.lengthParameter" desc="TODO"}length{/msg}</span>
-    <span id="drawASnowman">{msg meaning="Turtle.drawASnowman" desc="TODO"}draw a snowman{/msg}</span>
-    <span id="heightParameter">{msg meaning="Turtle.heightParameter" desc="TODO"}height{/msg}</span>
-
-    // Used in base.js.
-    <span id="title">{msg meaning="Turtle.title" desc="TODO"}CS First: Turtle Graphics %1{/msg}</span>
-    <span id="numBlocksNeeded">
-          {msg meaning="Turtle.numBlocksNeeded" desc="TODO"}
-            This level can be solved with %1 blocks.  You used %2.
-          {/msg}
-    </span>
-
-  </div>
 {/template}
 
 /**
@@ -672,7 +601,6 @@
  * Web page structure.
  */
 {template .start}
-  {call .messages /}
   {call .startBlocks /}
 
   // Show level bar and language dropdown.
@@ -1105,6 +1033,5 @@
  * Readonly Blockly in an iframe.
  */
 {template .readonly}
-  {call .messages /}
   <div id="blockly"></div>
 {/template}

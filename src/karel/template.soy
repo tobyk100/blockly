@@ -10,147 +10,9 @@
  */
 
 /**
-  * Translated messages for use in JavaScript.
-  */
-{template .messages}
-  <div id="MSG" style="display: none">
-    <span id="moveForward">{msg meaning="Karel.moveForward" desc="verb -
-      imperative or infinitive for a person moving (walking) in the direction
-      he/she is facing."}move forward{/msg}</span>
-    // Nan's
-    <span id="putDownBall">{msg meaning="Karel.putDownBall" desc="verb -
-      imperative or infinitive for a person putting down a ball."}fill 1{/msg}</span>
-    <span id="putDown5">{msg meaning="Karel.putDown5" desc="place 5 balls on the square."}
-      put down 5{/msg}</span>
-    <span id="pickUpBall">{msg meaning="Karel.pickUpBall" desc="verb -
-      imperative or infinitive for a person picking up a ball."}remove 1{/msg}</span>
-    <span id="while">{msg meaning="Karel.while" desc="condensed form of 'while
-      something is true'"}while{/msg}</span>
-    <span id="ballsPresent">{msg meaning="Karel.ballsPresent" desc="Indicates
-      the presence of at least one ball, as in 'he brought a ball, there
-      are now balls present'"}there is a pile{/msg}</span>
-    <span id="holesPresent">{msg meaning="Karel.holesPresent" desc="Indicates
-      the lack of any balls, as in 'she took the last ball, there
-      are now no balls present'"}there is a hole{/msg}</span>
-    <span id="turnLeft">{msg meaning="Karel.turnLeft" desc="verb - imperative
-      or infinitive for a person turning his head and body one quarter rotation
-      counter-clockwise.  Prefer a translation that has text in common with the
-      translation of 'turn right'.  See [[Translating:Blockly#Drop-Down_Menus]]."}
-      turn left{/msg}</span>
-    <span id="turnRight">{msg meaning="Karel.turnRight" desc="verb - imperative
-      or infinitive for a person turning his head and body one quarter rotation
-      clockwise. Prefer a translation that has text in common with the
-      translation of 'turn left'.  See [[Translating:Blockly#Drop-Down_Menus]]."}
-      turn right{/msg}</span>
-    <span id="doCode">{msg meaning="Karel.doCode" desc="verb - imperative or
-      infinitive preceding one or more commands to a person."}do{/msg}</span>
-    <span id="elseCode">{msg meaning="Karel.elseCode" desc="conjunction -
-      'otherwise', introducing commands to be performed if a previous condition
-      was not true, as in 'if x>3, do this, else do that'."}else{/msg}</span>
-    <span id="pathAhead">{msg meaning="Karel.pathAhead" desc="condensed form of
-      'if there is a path ahead', as in: 'if path ahead, go forward'."}path ahead{/msg}</span>
-    <span id="pathLeft">{msg meaning="Karel.pathLeft" desc="condensed form of 'if
-      there is a path to the left', as in: 'if path to the left, turn left'."}path to the left{/msg}</span>
-    <span id="pathRight">{msg meaning="Karel.pathRight" desc="condensed form of
-      'if there is a path to the right', as in: 'if path to the right, turn
-      right'."}path to the right{/msg}</span>
-    <span id="noPathAhead">{msg meaning="Karel.noPathAhead" desc="condensed form of
-      'if there is a no path ahead', as in: 'if no path ahead, go forward'."}path is blocked{/msg}</span>
-    <span id="noPathLeft">{msg meaning="Karel.noPathLeft" desc="condensed form of 'if
-      there is a no path to the left', as in: 'if no path to the left, turn left'."}no path to the left{/msg}</span>
-    <span id="noPathRight">{msg meaning="Karel.noPathRight" desc="condensed form of
-      'if there is a no path to the right', as in: 'if no path to the right, turn
-      right'."}no path to the right{/msg}</span>
-    <span id="repeatUntilBlocked">{msg meaning="Karel.repeatUntilBlocked" desc="verb -
-      imperative or infinitive to repeat the following commands.  The phrase is
-      followed by the symbol denoting the end of the maze."}while path ahead{/msg}</span>
-    <span id="repeatUntilFinish">{msg meaning="Karel.repeatUntilFinish" desc="verb -
-      imperative or infinitive to repeat the following commands.  The phrase is
-      followed by the symbol denoting the end of the maze."}repeat until finish{/msg}</span>
-    <span id="repeatWhileCurrentNotClear">{msg meaning="Karel.repeatWhileCurrentNotClear" desc="verb -
-      imperative or infinitive to repeat the following commands.  The phrase is
-      followed by the symbol denoting the end of the maze."}while{/msg}</span>
-    <span id="moveForwardTooltip">{msg meaning="Karel.moveForwardTooltip"
-      desc="tooltip (pop-up help) - Pegman is the humanoid icon used in Google Maps.
-      See picture at http://goo.gl/9I64i (http://maps.google.com/intl/en/help/maps/streetview/learn/pegman.html).
-      The term 'space' refers to a single square within a maze."}Move me forward one space.{/msg}</span>
-    <span id="q4wrong">{msg meaning="Karel.q4wrong" desc="tracking is suggesting
-      to the user that they should follow each instruction and follow how that
-      will affect the movement. A 'program' is a set of instructions that tell
-      the computer what to do next."}No - Try tracking my direction while
-      following the program.{/msg}</span>
-    <span id="q4right">{msg meaning="Karel.q4right" desc="Congratulating the
-      user on correctly answering the question."}That's right! Good job.{/msg}</span>
-    <span id="q5wrong">{msg meaning="Karel.q5wrong" desc="tracking is suggesting
-    to the user that they should follow each instruction and follow how that
-    will affect the movement. A 'program' is a set of instructions that tell
-    the computer what to do next."}No - Try tracking my direction while following
-    the program.{/msg}</span>
-    <span id="q5right">{msg meaning="Karel.q5right" desc="Congratulating the user
-      on correctly answering the question."}You got it right!{/msg}</span>
-    <span id="q10wrong">{msg meaning="Karel.q10wrong" desc="tracking is suggesting
-      to the user that they should follow each instruction and follow how that
-      will affect the movement. A 'program' is a set of instructions that tell
-      the computer what to do next."}No - Try tracking my direction while
-      following the program.{/msg}</span>
-    <span id="q10right">{msg meaning="Karel.q10right" desc="Congratulating the
-      user on correctly answering the question."}That's right!{/msg}</span>
-    <span id="turnTooltip">{msg meaning="Karel.turnTooltip" desc="tooltip
-      (pop-up help) - Pegman is the humanoid icon used in Google Maps.
-      See picture at http://goo.gl/9I64i
-      (http://maps.google.com/intl/en/help/maps/streetview/learn/pegman.html).
-      The term 'space' refers to a single square within a maze."}Turns me
-      left or right by 90 degrees.{/msg}</span>
-    <span id="ifTooltip">{msg meaning="Karel.ifTooltip" desc="tooltip
-      (pop-up help) - 'path' refers to a path through a maze. "}If there is a
-      path in the specified direction, then do some actions.{/msg}</span>
-    <span id="ifelseTooltip">{msg meaning="Karel.ifelseTooltip" desc="tooltip
-      (pop-up help) - 'path' refers to a path through a maze."}If there is a
-      path in the specified direction, then do the first block of actions.
-      Otherwise, do the second block of actions.{/msg}</span>
-    <span id="whileTooltip">{msg meaning="Karel.whileTooltip" desc="tooltip
-      (pop-up help) - Repeat the enclosed commands until the maze has been
-      successfully completed (the end point reached)."}Repeat the enclosed
-      actions until finish point is reached.{/msg}</span>
-    <span id="capacity0">{msg meaning="Karel.capacity0" desc="warning - No more
-      blocks may be added until some are removed.  Do not alter the portions
-      between pointy brackets (< and >), although you may move them within the
-      phrase and replace 0 with one or more words."}You have
-      <span id='capacityNumber'>0</span> blocks left.{/msg}</span>
-    <span id="capacity1">{msg meaning="Karel.capacity1" desc="warning - Only one
-      more block may be added.  Do not alter the portions between pointy brackets
-      (< and >), although you may move them within the phrase and replace 1 with
-      one or more words."}You have <span id='capacityNumber'>1</span> block left.{/msg}</span>
-    <span id="capacity2">{msg meaning="Karel.capacity2" desc="warning - Only %1
-      more blocks may be used, where %1 is an integer greater than 1.  Do not
-      alter the portions between pointy brackets (< and >), although you may
-      move them within the phrase."}You have <span id='capacityNumber'>%1</span> blocks left.{/msg}</span>
-    <span id="nextLevel">{msg meaning="Karel.nextLevel" desc="alert - This is
-      displayed when the user solves the maze, inviting them to precede to the
-      next level of difficulty."}
-      Congratulations! You have completed this level.{/msg}</span>
-    <span id="finalLevel">{msg meaning="Karel.finalLevel" desc="alert - This is
-      displayed when the user solves the most difficult level."}
-      Congratulations! You have solved the final level.{/msg}</span>
-    <span id="oneTopBlock">{msg meaning="Karel.oneTopBlock" desc="alert - This is
-      displayed if a user attempts to run a program composed of multiple stacks
-      of blocks, letting them know they need to create a single stack."}On this
-      level, you need to stack together all of the blocks in the white workspace.{/msg}</span>
-    <span id="numBlocksNeeded">{msg meaning="Karel.numBlocksNeeded"
-      desc="alert - This is displayed when the user has used more blocks than is
-      necessary."}This level can be solved with %1 blocks.{/msg}</span>
-    <span id="putdownTower">{msg meaning="Karel.putdownTower" desc="Place a tower on the ground"}
-      put down tower{/msg}</span>
-    <span id="pickupTower">{msg meaning="Karel.pickupTower" desc="Place a tower up off the ground"}
-      pickup tower{/msg}</span>
-  </div>
-{/template}
-
-/**
  * Web page structure.
  */
 {template .start}
-  {call .messages /}
   <div id="start_blocks" style="display:none">
     {call .startBlocks /}
   </div>
@@ -378,8 +240,6 @@
  * Readonly Blockly in an iframe.
  */
 {template .readonly}
-  {call .messages /}
-
   <script type="text/javascript" src="../blockly_compressed.js"></script>
   <script type="text/javascript" src="../{$ij.langSrc}"></script>
   <script type="text/javascript" src="blocks.js"></script>

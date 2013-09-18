@@ -512,15 +512,21 @@ Turtle.init = function() {
   } else {
     if (BlocklyApps.PAGE == 3 &&
         (BlocklyApps.LEVEL == 8 || BlocklyApps.LEVEL == 9)) {
+      var notReadyMsg;
+      if (BlocklyApps.LEVEL == 8) {
+        notReadyMsg = msg.drawAHouseNotDefined8();
+      } else {
+        notReadyMsg = msg.drawAHouseNotDefined9();
+      }
       var xml = window.sessionStorage.turtle3Blocks;
       if (xml === undefined) {
-        window.alert(msg.notReadyForLevel());
+        window.alert(notReadyMsg);
       } else {
         var dom = Blockly.Xml.textToDom(xml);
         Blockly.Xml.domToWorkspace(Blockly.mainWorkspace, dom);
         if (!BlocklyApps.getUserBlocks_().some(
           Turtle.defineWithArg_('draw a house', 'height')['test'])) {
-          window.alert(msg.notReadyForLevel());
+          window.alert(notReadyMsg);
         }
       }
     } else {
