@@ -2,18 +2,30 @@ window.BlocklyApps = require('../base');
 window.Maze = require('./maze');
 var blocks = require('./blocks');
 
-if (BlocklyApps.MODE == BlocklyApps.MODE_ENUM.ADAPTIVE) {
-  BlocklyApps.MAX_LEVEL = 18;
-  BlocklyApps.LEVEL =
-    BlocklyApps.getNumberParamFromUrl('level', 1, BlocklyApps.MAX_LEVEL);
-}
+window.mazeMain = function(options) {
 
-document.write(mazepage.start({}, null, {
-  level: BlocklyApps.LEVEL,
-  menu: BlocklyApps.DISPLAY_NAV,
-  skin: BlocklyApps.SKIN_ID,
-  mode: BlocklyApps.MODE,
-  baseUrl: BlocklyApps.BASE_URL
-}));
+  if (!options) {
+    options = {};
+  }
 
-blocks.install(Blockly);
+  if (BlocklyApps.MODE == BlocklyApps.MODE_ENUM.ADAPTIVE) {
+    BlocklyApps.MAX_LEVEL = 18;
+    BlocklyApps.LEVEL =
+      BlocklyApps.getNumberParamFromUrl('level', 1, BlocklyApps.MAX_LEVEL);
+  }
+
+  if (options.readonly) {
+    document.write(mazepage.readonly({}, null, {}));
+  } else {
+    document.write(mazepage.start({}, null, {
+      level: BlocklyApps.LEVEL,
+      menu: BlocklyApps.DISPLAY_NAV,
+      skin: BlocklyApps.SKIN_ID,
+      mode: BlocklyApps.MODE,
+      baseUrl: BlocklyApps.BASE_URL
+    }));
+  }
+
+  blocks.install(Blockly);
+
+};
