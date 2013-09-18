@@ -25,6 +25,7 @@
 
 var BlocklyApps = require('../base');
 var levels = require('./levels');
+var msg = require('../../build/en_us/i18n/karel');
 
 /**
  * Create a namespace for the application.
@@ -1302,7 +1303,7 @@ Maze.showReinfHelp = function(reinfLevel) {
   }
   var textDiv = document.getElementById('reinfFeedbackText');
   textDiv.style.color = textColor;
-  textDiv.value = BlocklyApps.getMsg('q' + qNum + responseType);
+  textDiv.value = msg['q' + qNum + responseType]();
   var imageDiv = document.getElementById('reinfFeedbackImage');
   imageDiv.appendChild(img);
   imageDiv.firstChild;
@@ -1356,9 +1357,9 @@ Maze.showDialog = function(levelNum, levelDone) {
   if (levelDone) {
     feedbackColor = 'green';
     if (levelNum < Maze.MAX_LEVEL) {
-      feedbackText.value = BlocklyApps.getMsg('nextLevel');
+      feedbackText.value = msg.nextLevel();
     } else {
-      feedbackText.value = BlocklyApps.getMsg('finalLevel');
+      feedbackText.value = msg.finalLevel();
     }
     var reinfElement = document.getElementById('reinfMsg');
     var reinfMSG = reinfElement.innerHTML.match(/\S/);

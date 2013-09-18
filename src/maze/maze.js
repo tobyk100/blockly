@@ -24,6 +24,7 @@
 'use strict';
 
 var BlocklyApps = require('../base');
+var msg = require('../../build/en_us/i18n/common');
 
 /**
  * Create a namespace for the application.
@@ -818,7 +819,7 @@ Maze.runButtonClick = function() {
   // Only allow a single top block on levels 1 and 2.
   if (BlocklyApps.LEVEL <= 2 && Blockly.mainWorkspace.getTopBlocks()
         .length > 1) {
-    window.alert(BlocklyApps.getMsg('oneTopBlock'));
+    window.alert(msg.oneTopBlock());
     return;
   }
   var runButton = document.getElementById('runButton');

@@ -23,6 +23,9 @@
  */
 'use strict';
 
+var commonMsg = require('../../build/en_us/i18n/common');
+var birdMsg = require('../../build/en_us/i18n/bird');
+
 /**
  * Create a namespace for the application.
  */
@@ -450,18 +453,18 @@ Bird.congratulations = function() {
     top: '5em'
   };
   if (Bird.LEVEL < Bird.MAX_LEVEL) {
-    var text = BlocklyApps.getMsg('Bird_nextLevel')
+    var text = birdMsg.nextLevel()
         .replace('%1', Bird.LEVEL + 1);
     var cancel = document.createElement('button');
     cancel.appendChild(
-        document.createTextNode(BlocklyApps.getMsg('dialogCancel')));
+        document.createTextNode(commonMsg.dialogCancel()));
     cancel.addEventListener('click', BlocklyApps.hideDialog, true);
     cancel.addEventListener('touchend', BlocklyApps.hideDialog, true);
     buttonDiv.appendChild(cancel);
 
     var ok = document.createElement('button');
     ok.className = 'secondary';
-    ok.appendChild(document.createTextNode(BlocklyApps.getMsg('dialogOk')));
+    ok.appendChild(document.createTextNode(commonMsg.dialogOk()));
     ok.addEventListener('click', Bird.nextLevel, true);
     ok.addEventListener('touchend', Bird.nextLevel, true);
     buttonDiv.appendChild(ok);
@@ -475,12 +478,12 @@ Bird.congratulations = function() {
         BlocklyApps.congratulationsKeyDown_, true);
 
   } else {
-    var text = BlocklyApps.getMsg('Bird_finalLevel');
+    var text = birdMsg.finalLevel();
     var ok = document.createElement('button');
     ok.className = 'secondary';
     ok.addEventListener('click', BlocklyApps.hideDialog, true);
     ok.addEventListener('touchend', BlocklyApps.hideDialog, true);
-    ok.appendChild(document.createTextNode(BlocklyApps.getMsg('dialogOk')));
+    ok.appendChild(document.createTextNode(commonMsg.dialogOk()));
     buttonDiv.appendChild(ok);
     BlocklyApps.showDialog(content, null, false, true, style,
         BlocklyApps.stopDialogKeyDown);

@@ -28,6 +28,7 @@
  */
 var Turtle = module.exports;
 var Slider = require('../slider');
+var msg = require('../../build/en_us/i18n/turtle');
 
 // Create a limited colour palette to avoid overwhelming new users
 // and to make colour checking easier.  These definitions cannot be
@@ -513,13 +514,13 @@ Turtle.init = function() {
         (BlocklyApps.LEVEL == 8 || BlocklyApps.LEVEL == 9)) {
       var xml = window.sessionStorage.turtle3Blocks;
       if (xml === undefined) {
-        window.alert(BlocklyApps.getMsg('notReadyForLevel'));
+        window.alert(msg.notReadyForLevel());
       } else {
         var dom = Blockly.Xml.textToDom(xml);
         Blockly.Xml.domToWorkspace(Blockly.mainWorkspace, dom);
         if (!BlocklyApps.getUserBlocks_().some(
           Turtle.defineWithArg_('draw a house', 'height')['test'])) {
-          window.alert(BlocklyApps.getMsg('notReadyForLevel'));
+          window.alert(msg.notReadyForLevel());
         }
       }
     } else {
@@ -577,8 +578,7 @@ if (window.location.pathname.match(/readonly.html$/)) {
 Turtle.updateBlockCount = function() {
   BlocklyApps.setTextForElement(
       'blockCount',
-      BlocklyApps.getMsg('blocksUsed').
-          replace('%1', BlocklyApps.getNumBlocksUsed()));
+      msg.blocksUsed().replace('%1', BlocklyApps.getNumBlocksUsed()));
 };
 
 /**
@@ -1039,14 +1039,13 @@ Turtle.checkAnswer = function() {
         var message = '';
         feedbackType = BlocklyApps.TestResults.OTHER_1_STAR_FAIL;
         if (colourResult == Turtle.ColourResults.FORBIDDEN_DEFAULT) {
-          message = BlocklyApps.getMsg('notBlackColour');
+          message = msg.notBlackColour();
         } else if (colourResult == Turtle.ColourResults.TOO_FEW) {
-          message = BlocklyApps.getMsg('tooFewColours');
+          message = msg.tooFewColours();
           message = message.replace('%1', Turtle.REQUIRED_COLOURS);
           message = message.replace('%2', Turtle.coloursUsed.length);
         } else if (typeof colourResult == 'string') {
-          message = BlocklyApps.getMsg('wrongColour').replace('%1',
-                                                              colourResult);
+          message = msg.wrongColour().replace('%1', colourResult);
         }
         BlocklyApps.setTextForElement('appSpecificOneStarFeedback', message);
       }

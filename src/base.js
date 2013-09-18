@@ -24,6 +24,7 @@
 'use strict';
 
 var BlocklyApps = module.exports;
+var msg = require('../build/en_us/i18n/common');
 
 /**
  * The parent directory of the apps. Contains common.js.
@@ -77,10 +78,10 @@ BlocklyApps.init = function() {
   // Disable the link button if page isn't backed by App Engine storage.
   var linkButton = document.getElementById('linkButton');
   if ('BlocklyStorage' in window) {
-    BlocklyStorage.HTTPREQUEST_ERROR = BlocklyApps.getMsg('httpRequestError');
-    BlocklyStorage.LINK_ALERT = BlocklyApps.getMsg('linkAlert');
-    BlocklyStorage.HASH_ERROR = BlocklyApps.getMsg('hashError');
-    BlocklyStorage.XML_ERROR = BlocklyApps.getMsg('xmlError');
+    BlocklyStorage.HTTPREQUEST_ERROR = msg.httpRequestError();
+    BlocklyStorage.LINK_ALERT = msg.linkAlert();
+    BlocklyStorage.HASH_ERROR = msg.hashError();
+    BlocklyStorage.XML_ERROR = msg.xmlError();
     // Swap out the BlocklyStorage's alert() for a nicer dialog.
     BlocklyStorage.alert = BlocklyApps.storageAlert;
   } else if (linkButton) {
@@ -505,35 +506,6 @@ BlocklyApps.stopDialogKeyDown = function() {
 };
 
 /**
- * Gets the message with the given key from the document.
- * @param {string} key The key of the document element.
- * @return {string} The innerHTML of the specified element,
- *     or an error message if the element was not found.
- */
-BlocklyApps.getMsg = function(key) {
-  var msg = BlocklyApps.getMsgOrNull(key);
-  return msg === null ? '[Unknown message: ' + key + ']' : msg;
-};
-
-/**
- * Gets the message with the given key from the document.
- * @param {string} key The key of the document element.
- * @return {string} The innerHTML of the specified element,
- *     or null if the element was not found.
- */
-BlocklyApps.getMsgOrNull = function(key) {
-  var element = document.getElementById(key);
-  if (element) {
-    var text = element.innerHTML;
-    // Convert newline sequences.
-    text = text.replace(/\\n/g, '\n');
-    return text;
-  } else {
-    return null;
-  }
-};
-
-/**
  * On touch enabled browsers, add touch-friendly variants of event handlers
  * for elements such as buttons whose event handlers are specified in the
  * markup. For example, ontouchend is treated as equivalent to onclick.
@@ -751,12 +723,12 @@ BlocklyApps.updateCapacity = function() {
   } else {
     p.style.display = 'inline';
     if (cap == 0) {
-      p.innerHTML = BlocklyApps.getMsg('capacity0');
+      p.innerHTML = msg.capacity0();
     } else if (cap == 1) {
-      p.innerHTML = BlocklyApps.getMsg('capacity1');
+      p.innerHTML = msg.capacity1();
     } else {
       cap = Number(cap);
-      p.innerHTML = BlocklyApps.getMsg('capacity2').replace('%1', cap);
+      p.innerHTML = msg.capacity2().replace('%1', cap);
     }
   }
 };
@@ -955,7 +927,7 @@ BlocklyApps.setErrorFeedback = function(feedbackType) {
       BlocklyApps.displayStars(2);
       BlocklyApps.setTextForElement(
           'tooManyBlocksError',
-          BlocklyApps.getMsg('numBlocksNeeded').replace(
+          msg.numBlocksNeeded().replace(
               '%1', BlocklyApps.IDEAL_BLOCK_NUM).replace(
                   '%2', BlocklyApps.getNumBlocksUsed())).style.display =
                       'list-item';
@@ -1094,7 +1066,7 @@ BlocklyApps.showReinfQuizFeedback = function(reinfLevel, identifier) {
   }
   var textDiv = document.getElementById('reinfFeedbackText');
   textDiv.style.color = textColor;
-  textDiv.value = BlocklyApps.getMsg('q' + qNum + responseType);
+  textDiv.value = msg['q' + qNum + responseType]();
 };
 
 /**

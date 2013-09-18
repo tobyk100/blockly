@@ -23,6 +23,8 @@
  */
 'use strict';
 
+var msg = require('../../build/en_us/i18n/maze');
+
 // Install extensions to Blockly's language and JavaScript generator.
 exports.install = function(blockly) {
 
@@ -35,10 +37,10 @@ exports.install = function(blockly) {
     init: function() {
       this.setColour(290);
       this.appendDummyInput()
-          .appendTitle(BlocklyApps.getMsg('moveForward'));
+          .appendTitle(msg.moveForward());
       this.setPreviousStatement(true);
       this.setNextStatement(true);
-      this.setTooltip(BlocklyApps.getMsg('moveForwardTooltip'));
+      this.setTooltip(msg.moveForwardTooltip());
     }
   };
 
@@ -56,13 +58,13 @@ exports.install = function(blockly) {
           .appendTitle(new blockly.FieldDropdown(this.DIRECTIONS), 'DIR');
       this.setPreviousStatement(true);
       this.setNextStatement(true);
-      this.setTooltip(BlocklyApps.getMsg('turnTooltip'));
+      this.setTooltip(msg.turnTooltip());
     }
   };
 
   blockly.Language.maze_turn.DIRECTIONS =
-      [[BlocklyApps.getMsg('turnLeft') + ' \u27F2', 'turnLeft'],
-       [BlocklyApps.getMsg('turnRight') + ' \u27F3', 'turnRight']];
+      [[msg.turnLeft() + ' \u27F2', 'turnLeft'],
+       [msg.turnRight() + ' \u27F3', 'turnRight']];
 
   generator.maze_turn = function() {
     // Generate JavaScript for turning left or right.
@@ -78,14 +80,14 @@ exports.install = function(blockly) {
       this.setOutput(true, 'Boolean');
       this.appendDummyInput()
           .appendTitle(new blockly.FieldDropdown(this.DIRECTIONS), 'DIR');
-      this.setTooltip(BlocklyApps.getMsg('isPathTooltip'));
+      this.setTooltip(msg.isPathTooltip());
     }
   };
 
   blockly.Language.maze_isPath.DIRECTIONS =
-      [[BlocklyApps.getMsg('pathAhead'), 'isPathForward'],
-       [BlocklyApps.getMsg('pathLeft') + ' \u27F2', 'isPathLeft'],
-       [BlocklyApps.getMsg('pathRight') + ' \u27F3', 'isPathRight']];
+      [[msg.pathAhead(), 'isPathForward'],
+       [msg.pathLeft() + ' \u27F2', 'isPathLeft'],
+       [msg.pathRight() + ' \u27F3', 'isPathRight']];
 
   generator.maze_isPath = function() {
     // Generate JavaScript for checking if there is a path.
@@ -101,8 +103,8 @@ exports.install = function(blockly) {
       this.appendDummyInput()
           .appendTitle(new blockly.FieldDropdown(this.DIRECTIONS), 'DIR');
       this.appendStatementInput('DO')
-          .appendTitle(BlocklyApps.getMsg('doCode'));
-      this.setTooltip(BlocklyApps.getMsg('ifTooltip'));
+          .appendTitle(msg.doCode());
+      this.setTooltip(msg.ifTooltip());
       this.setPreviousStatement(true);
       this.setNextStatement(true);
     }
@@ -128,10 +130,10 @@ exports.install = function(blockly) {
       this.appendDummyInput()
           .appendTitle(new blockly.FieldDropdown(this.DIRECTIONS), 'DIR');
       this.appendStatementInput('DO')
-          .appendTitle(BlocklyApps.getMsg('doCode'));
+          .appendTitle(msg.doCode());
       this.appendStatementInput('ELSE')
-          .appendTitle(BlocklyApps.getMsg('elseCode'));
-      this.setTooltip(BlocklyApps.getMsg('ifelseTooltip'));
+          .appendTitle(msg.elseCode());
+      this.setTooltip(msg.ifelseTooltip());
       this.setPreviousStatement(true);
       this.setNextStatement(true);
     }
@@ -157,12 +159,12 @@ exports.install = function(blockly) {
     init: function() {
       this.setColour(120);
       this.appendDummyInput()
-          .appendTitle(BlocklyApps.getMsg('repeatUntil'))
+          .appendTitle(msg.repeatUntil())
           .appendTitle(new blockly.FieldImage(Maze.SKIN.marker, 12, 16));
       this.appendStatementInput('DO')
-          .appendTitle(BlocklyApps.getMsg('doCode'));
+          .appendTitle(msg.doCode());
       this.setPreviousStatement(true);
-      this.setTooltip(BlocklyApps.getMsg('whileTooltip'));
+      this.setTooltip(msg.whileTooltip());
     }
   };
 

@@ -55,7 +55,7 @@ APPS.forEach(function(app) {
   };
 });
 
-config.browserify = {}
+config.browserify = {};
 APPS.forEach(function(app) {
   var src = 'src/' + app + '/main.js';
   var dest = 'dist/' + app + '/' + app + '.js';
@@ -91,6 +91,10 @@ config.watch = {
   templates: {
     files: ['src/**/*.soy'],
     tasks: ['build:templates']
+  },
+  messages: {
+    files: ['i18n/**/*.json'],
+    tasks: ['messages', 'browserify']
   },
   dist: {
     files: ['dist/**/*'],
@@ -130,7 +134,6 @@ module.exports = function(grunt) {
   grunt.registerTask('build', [
     'messages',
     'build:templates',
-    'concat',
     'browserify',
     'copy'
   ]);

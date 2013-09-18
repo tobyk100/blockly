@@ -254,6 +254,9 @@
     "string": "remove 1",
     "description": "verb - imperative or infinitive for a person picking up a ball."
   },
+  "pickUpBallTooltip": {
+    "string": "TODO"
+  },
   "pickupTower": {
     "id": "885793977251639445",
     "string": "pickup tower",

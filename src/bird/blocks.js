@@ -23,6 +23,8 @@
  */
 'use strict';
 
+var msg = require('../../build/en_us/i18n/bird');
+
 // Install extensions to Blockly's language and JavaScript generator.
 exports.install = function(blockly) {
 
@@ -35,9 +37,9 @@ exports.install = function(blockly) {
     init: function() {
       this.setColour(330);
       this.appendDummyInput()
-          .appendTitle(BlocklyApps.getMsg('Bird_hungry'));
+          .appendTitle(msg.hungry());
       this.setOutput(true, 'Boolean');
-      this.setTooltip(BlocklyApps.getMsg('Bird_hungryTooltip'));
+      this.setTooltip(msg.hungryTooltip());
     }
   };
 
@@ -52,10 +54,10 @@ exports.install = function(blockly) {
     init: function() {
       this.setColour(290);
       this.appendDummyInput()
-          .appendTitle(BlocklyApps.getMsg('Bird_heading'))
+          .appendTitle(msg.heading())
           .appendTitle(new blockly.FieldAngle('90'), 'ANGLE');
       this.setPreviousStatement(true);
-      this.setTooltip(BlocklyApps.getMsg('Bird_headingTooltip'));
+      this.setTooltip(msg.headingTooltip());
     }
   };
 
@@ -73,7 +75,7 @@ exports.install = function(blockly) {
       this.appendDummyInput()
           .appendTitle(new blockly.FieldDropdown([['x', 'X'], ['y', 'Y']]), 'XY');
       this.setOutput(true, 'Number');
-      this.setTooltip(BlocklyApps.getMsg('Bird_positionTooltip'));
+      this.setTooltip(msg.positionTooltip());
     }
   };
 
@@ -155,12 +157,12 @@ exports.install = function(blockly) {
     init: function() {
       this.setColour(210);
       this.appendValueInput("CONDITION")
-          .appendTitle(BlocklyApps.getMsg('Bird_if'))
+          .appendTitle(msg.if())
           .setCheck("Boolean");
       this.appendStatementInput('DO')
-          .appendTitle(BlocklyApps.getMsg('Bird_doCode'));
+          .appendTitle(msg.doCode());
       this.appendStatementInput('ELSE')
-          .appendTitle(BlocklyApps.getMsg('Bird_elseCode'));
+          .appendTitle(msg.elseCode());
       this.setDeletable(false);
       this.setTooltip(blockly.LANG_CONTROLS_IF_TOOLTIP_2);
     }

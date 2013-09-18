@@ -23,6 +23,8 @@
  */
 'use strict';
 
+var msg = require('../../build/en_us/i18n/turtle');
+
 // Install extensions to Blockly's language and JavaScript generator.
 exports.install = function(blockly) {
 
@@ -54,11 +56,11 @@ exports.install = function(blockly) {
       this.appendDummyInput()
           .appendTitle(new blockly.FieldTextInput('100',
             blockly.FieldTextInput.numberValidator), 'VALUE')
-          .appendTitle(BlocklyApps.getMsg('dots'));
+          .appendTitle(msg.dots());
       this.setInputsInline(true);
       this.setPreviousStatement(true);
       this.setNextStatement(true);
-      this.setTooltip(BlocklyApps.getMsg('moveForwardTooltip'));
+      this.setTooltip(msg.moveForwardTooltip());
     }
   };
 
@@ -81,11 +83,11 @@ exports.install = function(blockly) {
               blockly.Language.draw_turn.DIRECTIONS), 'DIR');
       this.appendDummyInput()
           .appendTitle(new blockly.FieldDropdown(this.VALUE), 'VALUE')
-          .appendTitle(BlocklyApps.getMsg('degrees'));
+          .appendTitle(msg.degrees());
       this.setInputsInline(true);
       this.setPreviousStatement(true);
       this.setNextStatement(true);
-      this.setTooltip(BlocklyApps.getMsg('turnTooltip'));
+      this.setTooltip(msg.turnTooltip());
     }
   };
 
@@ -112,11 +114,11 @@ exports.install = function(blockly) {
       this.appendDummyInput()
           .appendTitle(new blockly.FieldTextInput('90',
               blockly.FieldTextInput.numberValidator), 'VALUE')
-          .appendTitle(BlocklyApps.getMsg('degrees'));
+          .appendTitle(msg.degrees());
       this.setInputsInline(true);
       this.setPreviousStatement(true);
       this.setNextStatement(true);
-      this.setTooltip(BlocklyApps.getMsg('turnTooltip'));
+      this.setTooltip(msg.turnTooltip());
     }
   };
 
@@ -146,11 +148,11 @@ exports.install = function(blockly) {
               blockly.Language.draw_turn.DIRECTIONS), 'DIR');
       this.appendDummyInput()
           .appendTitle(new blockly.FieldDropdown(this.VALUE), 'VALUE')
-          .appendTitle(BlocklyApps.getMsg('degrees'));
+          .appendTitle(msg.degrees());
       this.setInputsInline(true);
       this.setPreviousStatement(true);
       this.setNextStatement(true);
-      this.setTooltip(BlocklyApps.getMsg('turnTooltip'));
+      this.setTooltip(msg.turnTooltip());
     }
   };
 
@@ -177,11 +179,11 @@ exports.install = function(blockly) {
       this.appendDummyInput()
           .appendTitle(new blockly.FieldTextInput('90',
               blockly.FieldTextInput.numberValidator), 'VALUE')
-          .appendTitle(BlocklyApps.getMsg('degrees'));
+          .appendTitle(msg.degrees());
       this.setInputsInline(true);
       this.setPreviousStatement(true);
       this.setNextStatement(true);
-      this.setTooltip(BlocklyApps.getMsg('turnTooltip'));
+      this.setTooltip(msg.turnTooltip());
     }
   };
 
@@ -200,8 +202,7 @@ exports.install = function(blockly) {
       this.setColour(330);
       this.appendDummyInput()
           .appendTitle(blockly.LANG_VARIABLES_GET_TITLE)
-          .appendTitle(new blockly.FieldLabel(BlocklyApps.getMsg('loopVariable')),
-                       'VAR');
+          .appendTitle(new blockly.FieldLabel(msg.loopVariable()), 'VAR');
       this.setOutput(true);
       this.setTooltip(blockly.LANG_VARIABLES_GET_TOOLTIP);
     },
@@ -276,11 +277,11 @@ exports.install = function(blockly) {
     init: function() {
       this.setColour(290);
       this.appendDummyInput()
-          .appendTitle(BlocklyApps.getMsg('drawASquare'));
+          .appendTitle(msg.drawASquare());
       this.appendValueInput('VALUE')
           .setAlign(blockly.ALIGN_RIGHT)
           .setCheck('Number')
-              .appendTitle(BlocklyApps.getMsg('lengthParameter') + ':');
+              .appendTitle(msg.lengthParameter() + ':');
       this.setPreviousStatement(true);
       this.setNextStatement(true);
       this.setInputsInline(true);
@@ -312,11 +313,11 @@ exports.install = function(blockly) {
     init: function() {
       this.setColour(290);
       this.appendDummyInput()
-          .appendTitle(BlocklyApps.getMsg('drawASnowman'));
+          .appendTitle(msg.drawASnowman());
       this.appendValueInput('VALUE')
           .setAlign(blockly.ALIGN_RIGHT)
           .setCheck('Number')
-          .appendTitle(BlocklyApps.getMsg('heightParameter') + ':');
+          .appendTitle(msg.heightParameter() + ':');
       this.setPreviousStatement(true);
       this.setNextStatement(true);
       this.setTooltip('');
@@ -367,7 +368,7 @@ exports.install = function(blockly) {
       this.setColour(120);
       this.appendDummyInput()
           .appendTitle(blockly.LANG_CONTROLS_FOR_INPUT_WITH)
-          .appendTitle(new blockly.FieldLabel(BlocklyApps.getMsg('loopVariable')),
+          .appendTitle(new blockly.FieldLabel(msg.loopVariable()),
                        'VAR');
       this.appendValueInput('FROM')
           .setCheck('Number')
@@ -427,17 +428,17 @@ exports.install = function(blockly) {
           .appendTitle(new blockly.FieldDropdown(
               blockly.Language.draw_move.DIRECTIONS), 'DIR');
       this.appendDummyInput()
-          .appendTitle(BlocklyApps.getMsg('dots'));
+          .appendTitle(msg.dots());
       this.setInputsInline(true);
       this.setPreviousStatement(true);
       this.setNextStatement(true);
-      this.setTooltip(BlocklyApps.getMsg('moveTooltip'));
+      this.setTooltip(msg.moveTooltip());
     }
   };
 
   blockly.Language.draw_move.DIRECTIONS =
-      [[BlocklyApps.getMsg('moveForward'), 'moveForward'],
-       [BlocklyApps.getMsg('moveBackward'), 'moveBackward']];
+      [[msg.moveForward(), 'moveForward'],
+       [msg.moveBackward(), 'moveBackward']];
 
   generator.draw_move = function() {
     // Generate JavaScript for moving forward or backwards.
@@ -457,17 +458,17 @@ exports.install = function(blockly) {
           .appendTitle(new blockly.FieldDropdown(
               blockly.Language.jump.DIRECTIONS), 'DIR');
       this.appendDummyInput()
-          .appendTitle(BlocklyApps.getMsg('dots'));
+          .appendTitle(msg.dots());
       this.setInputsInline(true);
       this.setPreviousStatement(true);
       this.setNextStatement(true);
-      this.setTooltip(BlocklyApps.getMsg('jumpTooltip'));
+      this.setTooltip(msg.jumpTooltip());
     }
   };
 
   blockly.Language.jump.DIRECTIONS =
-      [[BlocklyApps.getMsg('jumpForward'), 'jumpForward'],
-       [BlocklyApps.getMsg('jumpBackward'), 'jumpBackward']];
+      [[msg.jumpForward(), 'jumpForward'],
+       [msg.jumpBackward(), 'jumpBackward']];
 
   generator.jump = function() {
     // Generate JavaScript for jumping forward or backwards.
@@ -487,17 +488,17 @@ exports.install = function(blockly) {
           .appendTitle(new blockly.FieldDropdown(
               blockly.Language.draw_turn.DIRECTIONS), 'DIR');
       this.appendDummyInput()
-          .appendTitle(BlocklyApps.getMsg('degrees'));
+          .appendTitle(msg.degrees());
       this.setInputsInline(true);
       this.setPreviousStatement(true);
       this.setNextStatement(true);
-      this.setTooltip(BlocklyApps.getMsg('turnTooltip'));
+      this.setTooltip(msg.turnTooltip());
     }
   };
 
   blockly.Language.draw_turn.DIRECTIONS =
-      [[BlocklyApps.getMsg('turnRight'), 'turnRight'],
-       [BlocklyApps.getMsg('turnLeft'), 'turnLeft']];
+      [[msg.turnRight(), 'turnRight'],
+       [msg.turnLeft(), 'turnLeft']];
 
   generator.draw_turn = function() {
     // Generate JavaScript for turning left or right.
@@ -514,10 +515,10 @@ exports.install = function(blockly) {
       this.setColour(160);
       this.appendValueInput('WIDTH')
           .setCheck('Number')
-          .appendTitle(BlocklyApps.getMsg('setWidth'));
+          .appendTitle(msg.setWidth());
       this.setPreviousStatement(true);
       this.setNextStatement(true);
-      this.setTooltip(BlocklyApps.getMsg('widthTooltip'));
+      this.setTooltip(msg.widthTooltip());
     }
   };
 
@@ -537,13 +538,13 @@ exports.install = function(blockly) {
           .appendTitle(new blockly.FieldDropdown(this.STATE), 'PEN');
       this.setPreviousStatement(true);
       this.setNextStatement(true);
-      this.setTooltip(BlocklyApps.getMsg('penTooltip'));
+      this.setTooltip(msg.penTooltip());
     }
   };
 
   blockly.Language.draw_pen.STATE =
-      [[BlocklyApps.getMsg('penUp'), 'penUp'],
-       [BlocklyApps.getMsg('penDown'), 'penDown']];
+      [[msg.penUp(), 'penUp'],
+       [msg.penDown(), 'penDown']];
 
   generator.draw_pen = function() {
     // Generate JavaScript for pen up/down.
@@ -558,11 +559,11 @@ exports.install = function(blockly) {
       this.setColour(20);
       this.appendValueInput('COLOUR')
           .setCheck('Colour')
-          .appendTitle(BlocklyApps.getMsg('setColour'));
+          .appendTitle(msg.setColour());
       this.setPreviousStatement(true);
       this.setNextStatement(true);
       this.setInputsInline(true);
-      this.setTooltip(BlocklyApps.getMsg('colourTooltip'));
+      this.setTooltip(msg.colourTooltip());
     }
   };
 
@@ -583,13 +584,13 @@ exports.install = function(blockly) {
       this.setNextStatement(true, null);
       this.appendDummyInput()
           .appendTitle(new blockly.FieldDropdown(this.STATE), 'VISIBILITY');
-      this.setTooltip(BlocklyApps.getMsg('turtleVisibilityTooltip'));
+      this.setTooltip(msg.turtleVisibilityTooltip());
     }
   };
 
   blockly.Language.turtle_visibility.STATE =
-      [[BlocklyApps.getMsg('hideTurtle'), 'hideTurtle'],
-       [BlocklyApps.getMsg('showTurtle'), 'showTurtle']];
+      [[msg.hideTurtle(), 'hideTurtle'],
+       [msg.showTurtle(), 'showTurtle']];
 
   generator.turtle_visibility = function() {
     // Generate JavaScript for changing turtle visibility.

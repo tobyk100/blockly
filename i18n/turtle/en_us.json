@@ -239,117 +239,117 @@
     "string": "Use a &quot;count with&quot; block and your code from the previous level to draw houses of size 50, 100, and 150 in different colors.",
     "description": "TODO"
   },
-  "inter1_10-pre": {
+  "inter1_10_pre": {
     "id": "8722676893343433986",
     "string": "Congratulations on completing this tutorial.  Just for fun, here's a new block that changes how wide of lines I draw.  We've been using a default width of 5.",
     "description": "interstitial"
   },
-  "inter1_2-pre": {
+  "inter1_2_pre": {
     "id": "3203419004910558277",
     "string": "I can draw in different colors.  Choose what color you would like me to use with the &quot;set color&quot; block.  Blocks for changing color don't count to your block count used for scoring, so go wild!",
     "description": "interstitial"
   },
-  "inter1_3-pre": {
+  "inter1_3_pre": {
     "id": "24619743896402142",
     "string": "Tired of dragging and dropping?  Let the &quot;repeat&quot; block do the work for you.",
     "description": "interstitial"
   },
-  "inter1_4-pre": {
+  "inter1_4_pre": {
     "id": "929058449208871153",
     "string": "Do you like surprises?  Use the &quot;random color&quot; block to let me pick the color.",
     "description": "interstitial"
   },
-  "inter1_5-pre": {
+  "inter1_5_pre": {
     "id": "5786046560502402400",
     "string": "Did you know you can copy and paste a block?",
     "description": "interstitial"
   },
-  "inter1_6-pre": {
+  "inter1_6_pre": {
     "id": "1488997373214724751",
     "string": "I can move backward, not just forward.",
     "description": "interstitial"
   },
-  "inter1_8-pre": {
+  "inter1_8_pre": {
     "id": "4816323991137794833",
     "string": "Do you ever get tired of waiting for me?  You can make me move faster (or slower) with the speed slider.",
     "description": "interstitial"
   },
-  "inter2_1-pre": {
+  "inter2_1_pre": {
     "id": "1062418378645422702",
     "string": "To make room for new blocks, we've put the blocks into categories.  You may have to look around for your old favorite blocks, but they're all there.",
     "description": "interstitial"
   },
-  "inter2_2-pre": {
+  "inter2_2_pre": {
     "id": "19074688780336846",
     "string": "We've added a new category for &quot;Functions&quot;, a powerful new type of block.",
     "description": "interstitial"
   },
-  "inter2_3-pre": {
+  "inter2_3_pre": {
     "id": "4918778924437779076",
     "string": "Wondering why it's better to use &quot;repeat&quot; than copying and pasting the blocks three times?  See why on the next level",
     "description": "interstitial"
   },
-  "inter2_4-pre": {
+  "inter2_4_pre": {
     "id": "1104536591751788133",
     "string": "Here's how I solved the previous level.  Make sure you understand it before proceeding.",
     "description": "interstitial"
   },
-  "inter2_5-pre": {
+  "inter2_5_pre": {
     "id": "3519159199468649838",
     "string": "Let's explore what we can do with squares of different sizes...",
     "description": "interstitial"
   },
-  "inter2_6-pre": {
+  "inter2_6_pre": {
     "id": "7794696594406275663",
     "string": "Wouldn't it be nice if you could tell me to count by tens from 50 to 100, drawing a square each time?  Well you can -- with the new &quot;count with&quot; block.  The programs on the left and right do the same thing.",
     "description": "interstitial"
   },
-  "inter2_7-pre": {
+  "inter2_7_pre": {
     "id": "305761785294031376",
     "string": "This code draws a boxy spiral.  You'll need to figure out what should go in the blanks on the &quot;count with&quot; block to do it with fewer blocks on the next level.",
     "description": "interstitial"
   },
-  "inter2_8-pre": {
+  "inter2_8_pre": {
     "id": "8001180165829334489",
     "string": "We've given you two new blocks: &quot;jump forward&quot;, which moves the turtle without leaving a trail, and &quot;draw a snowman&quot;, which draws an elephant -- just kidding.",
     "description": "interstitial"
   },
-  "inter2_9-pre": {
+  "inter2_9_pre": {
     "id": "6313461302897917500",
     "string": "You don't need to always count from a low number to a high number.  You can count from high to low too.",
     "description": "interstitial"
   },
-  "inter3_1-pre": {
+  "inter3_1_pre": {
     "id": "8785953022988235676",
     "string": "You'll now learn how to create new blocks, which are called &quot;functions&quot;.",
     "description": "interstitial"
   },
-  "inter3_2-post": {
+  "inter3_2_post": {
     "id": "3623955996781973221",
     "string": "Congratulations on adding a new block!  That's a huge step for a programmer.  Dividing big tasks into bite-sized pieces is what makes large programs possible.",
     "description": "interstitial"
   },
-  "inter3_2-pre": {
+  "inter3_2_pre": {
     "id": "1086871000972376902",
     "string": "Here's how the &quot;draw a square&quot; block was created.  On this level, you'll create your own &quot;draw a triangle&quot; block.",
     "description": "interstitial"
   },
-  "inter3_5-pre": {
+  "inter3_5_pre": {
     "id": "4940764885229537348",
     "string": "The new blocks that you define can be used just like the built-in blocks, including being used within another block definition...",
     "description": "interstitial"
   },
-  "inter3_6-pre": {
+  "inter3_6_pre": {
     "id": "4908846812243506715",
     "string": "Let me show you how the input was added to &quot;draw a square&quot;.  You'll need to know this for this level, where you'll add an input to &quot;draw a triangle&quot;.",
     "description": "interstitial"
   },
-  "inter3_8-pre": {
+  "inter3_8_pre": {
     "id": "1904911322128652747",
     "string": "It can be useful for a function to put the turtle at a good ending position, to help with building up bigger pictures.",
     "description": "interstitial"
   },
-  "inter3_9-post": {
+  "inter3_9_post": {
     "id": "5105116183408421300",
     "string": "You now know how to control the turtle, use loops (&quot;repeat&quot; and &quot;count from&quot;), and write and use functions.  Congratulations on becoming a programmer!",
     "description": "interstitial"
