@@ -26,6 +26,21 @@
 var BlocklyApps = {};
 
 /**
+ * The parent directory of the apps. Contains common.js.
+ */
+BlocklyApps.BASE_URL = (function() {
+  // This implementation gaurantees the correct absolute path regardless of
+  // hosting solution.
+  var scripts = document.getElementsByTagName('script');
+  // Scripts are executed synchronously so this script is the most recently
+  // loaded.
+  var thisScript = scripts[scripts.length - 1];
+  var baseUrl = thisScript.src;
+  var parentUrl = baseUrl.substring(0, baseUrl.lastIndexOf('/') + 1);
+  return parentUrl;
+})();
+
+/**
  * Extracts a parameter from the URL.
  * If the parameter is absent default_value is returned.
  * @param {string} name The name of the parameter.
@@ -190,7 +205,7 @@ BlocklyApps.init = function() {
 BlocklyApps.initReadonly = function() {
   var rtl = BlocklyApps.LANGUAGES[BlocklyApps.LANG][1] == 'rtl';
   Blockly.inject(document.getElementById('blockly'),
-      {path: '../../',
+      {path: BlocklyApps.BASE_URL,
        readOnly: true,
        rtl: rtl,
        scrollbars: false});
@@ -249,6 +264,28 @@ BlocklyApps.changeLanguage = function() {
 
   window.location = window.location.protocol + '//' +
       window.location.host + window.location.pathname + search;
+};
+
+/**
+ *  Resizes the blockly workspace.
+ */
+BlocklyApps.onResize = function() {
+  var blocklyDiv = document.getElementById('blockly');
+  var visualization = document.getElementById('visualization');
+  var top = visualization.offsetTop;
+  var scrollY = window.scrollY;
+  blocklyDiv.style.top = Math.max(top, scrollY) + 'px';
+
+  var blocklyDivParent = blocklyDiv.parentNode;
+  var parentStyle = window.getComputedStyle ?
+                    window.getComputedStyle(blocklyDivParent) :
+                    blocklyDivParent.currentStyle.width;  // IE
+  var parentWidth = parseInt(parentStyle.width);
+  var parentHeight = window.innerHeight - parseInt(blocklyDiv.style.top) +
+    scrollY - 20;
+
+  blocklyDiv.style.width = (parentWidth - 440) + 'px';
+  blocklyDiv.style.height = parentHeight + 'px';
 };
 
 /**
@@ -643,11 +680,11 @@ BlocklyApps.importPrettify = function() {
   var link = document.createElement('link');
   link.setAttribute('rel', 'stylesheet');
   link.setAttribute('type', 'text/css');
-  link.setAttribute('href', '../prettify.css');
+  link.setAttribute('href', BlocklyApps.BASE_URL + 'prettify.css');
   document.head.appendChild(link);
   var script = document.createElement('script');
   script.setAttribute('type', 'text/javascript');
-  script.setAttribute('src', '../prettify.js');
+  script.setAttribute('src', BlocklyApps.BASE_URL + 'prettify.js');
   document.head.appendChild(script);
 };
 
@@ -1069,10 +1106,17 @@ BlocklyApps.setErrorFeedback = function(feedbackType) {
 
 /**
  * Where to report back information about the user program.
+ * Undefined if no server given to report to.
  */
 
-BlocklyApps.REPORT_URL = BlocklyApps.getStringParamFromUrl('callback_url',
-    '/report');
+BlocklyApps.REPORT_URL = BlocklyApps.getStringParamFromUrl('callback_url');
+
+/**
+ * Caches the current report to send to the server. An app can set this
+ * variable and continue to execute.
+ * @private
+ */
+BlocklyApps.latestReport_ = undefined;
 
 /**
  * Report back to the server, if available.
@@ -1083,29 +1127,39 @@ BlocklyApps.REPORT_URL = BlocklyApps.getStringParamFromUrl('callback_url',
  * @param {string} program The user program, which will get URL-encoded.
  */
 BlocklyApps.report = function(app, id, level, result, program) {
-  // Allow for reporting on any hosting service running http(s).
-  if (window.location.protocol.indexOf('http') > -1) {
-    var httpRequest = new XMLHttpRequest();
-    // Check reponse from server for a redirect, this way a smart server
-    // can override default level switching behavior for adaptive learning.
-    httpRequest.onload = function() {
-      var response = JSON.parse(httpRequest.responseText);
-      var redirect = response['redirect'];
-      if (redirect) {
-        BlocklyApps.nextLevelUrl = redirect;
-      }
-    };
-    httpRequest.open('POST', BlocklyApps.REPORT_URL);
-    httpRequest.setRequestHeader('Content-Type',
-        'application/x-www-form-urlencoded');
-    httpRequest.send('app=' + app +
-        '&id=' + id +
-        '&level=' + level +
-        '&result=' + result +
-        '&attempt=' + 1 +  // TODO(toby): implement
-        '&time=' + 1 +  // TODO(toby): implement
-        '&program=' + encodeURIComponent(program));
+  BlocklyApps.latestReport_ = {
+    'app': app,
+    'id': id,
+    'level': level,
+    'result': result,
+    'attempt': 1,  // TODO(toby): implement
+    'time': 1,  // TODO(toby): implement
+    'program': encodeURIComponent(program)
+  };
+};
+
+/**
+ * Send the latest report set by BlocklyApps.report and redirect based
+ * on the response from the server.
+ */
+BlocklyApps.reportAndRedirect = function() {
+  var httpRequest = new XMLHttpRequest();
+  httpRequest.onload = function() {
+    var response = JSON.parse(httpRequest.responseText);
+    var redirect = response['redirect'];
+    if (redirect) {
+      window.location.href = redirect;
+    }
+  };
+  httpRequest.open('POST', BlocklyApps.REPORT_URL);
+  httpRequest.setRequestHeader('Content-Type',
+      'application/x-www-form-urlencoded');
+  var query = [];
+  for (var key in BlocklyApps.latestReport_) {
+    query.push(key + '=' + BlocklyApps.latestReport_[key]);
   }
+  query = query.join('&');
+  httpRequest.send(query);
 };
 
 /**
@@ -1267,8 +1321,8 @@ BlocklyApps.hideInterstitial = function() {
  * Construct the URL and go to the next level.
  */
 BlocklyApps.createURLAndOpenNextLevel = function() {
-  if (BlocklyApps.nextLevelUrl) {
-    window.top.location.href = BlocklyApps.nextLevelUrl;
+  if (BlocklyApps.REPORT_URL) {  // Ask the server where to go next.
+    BlocklyApps.reportAndRedirect();
   } else {
     window.location = window.location.protocol + '//' +
       window.location.host + window.location.pathname +

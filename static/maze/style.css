@@ -4,6 +4,13 @@ body {
   margin-top: 0;
 }
 
+#visualization {
+  margin-bottom: 10px;
+  position: relative;
+  top: 10px;
+  float: left;
+}
+
 #svgMaze {
   border: solid 1px #DBDBDB;
 }
@@ -122,4 +129,7 @@ html[dir="RTL"] #pegmanButton>span {
 }
 .hide {
   display: none;
+}
+#gameButtons {
+  clear: left;
 }

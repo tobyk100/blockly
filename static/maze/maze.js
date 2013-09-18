@@ -55,8 +55,8 @@ BlocklyApps.LANGUAGES = {
 };
 BlocklyApps.LANG = BlocklyApps.getLang();
 
-document.write('<script type="text/javascript" src="generated/' +
-    BlocklyApps.LANG + '.js"></script>\n');
+document.write('<script type="text/javascript" src="' + BlocklyApps.BASE_URL +
+    'maze/generated/' + BlocklyApps.LANG + '.js"></script>\n');
 
 /**
  * Constants for cardinal directions.  Subsequent code assumes these are
@@ -394,6 +394,8 @@ BlocklyApps.SKIN_ID =
     BlocklyApps.getNumberParamFromUrl('skin', 0, Maze.SKINS.length);
 Maze.SKIN = Maze.SKINS[BlocklyApps.SKIN_ID];
 
+Maze.SKIN.MARKER_URL = BlocklyApps.BASE_URL + 'maze/' + Maze.SKIN.marker;
+
 /**
  * Google Drive video ID.
  * 'null' is used because IE8 does not like trailing commas in arrays, and it is
@@ -501,7 +503,7 @@ Maze.drawMap = function() {
   if (Maze.SKIN.background) {
     var tile = document.createElementNS(Blockly.SVG_NS, 'image');
     tile.setAttributeNS('http://www.w3.org/1999/xlink', 'xlink:href',
-        Maze.SKIN.background);
+        BlocklyApps.BASE_URL + 'maze/' + Maze.SKIN.background);
     tile.setAttribute('height', Maze.MAZE_HEIGHT);
     tile.setAttribute('width', Maze.MAZE_WIDTH);
     tile.setAttribute('x', 0);
@@ -582,7 +584,7 @@ Maze.drawMap = function() {
       // Tile sprite.
       var tile = document.createElementNS(Blockly.SVG_NS, 'image');
       tile.setAttributeNS('http://www.w3.org/1999/xlink', 'xlink:href',
-          Maze.SKIN.tiles);
+          BlocklyApps.BASE_URL + 'maze/' + Maze.SKIN.tiles);
       tile.setAttribute('height', Maze.SQUARE_SIZE * 4);
       tile.setAttribute('width', Maze.SQUARE_SIZE * 5);
       tile.setAttribute('clip-path', 'url(#tileClipPath' + tileId + ')');
@@ -597,7 +599,7 @@ Maze.drawMap = function() {
   var finishMarker = document.createElementNS(Blockly.SVG_NS, 'image');
   finishMarker.setAttribute('id', 'finish');
   finishMarker.setAttributeNS('http://www.w3.org/1999/xlink', 'xlink:href',
-      Maze.SKIN.marker);
+      Maze.SKIN.MARKER_URL);
   finishMarker.setAttribute('height', 34);
   finishMarker.setAttribute('width', 20);
   svg.appendChild(finishMarker);
@@ -616,7 +618,7 @@ Maze.drawMap = function() {
   var pegmanIcon = document.createElementNS(Blockly.SVG_NS, 'image');
   pegmanIcon.setAttribute('id', 'pegman');
   pegmanIcon.setAttributeNS('http://www.w3.org/1999/xlink', 'xlink:href',
-      Maze.SKIN.sprite);
+      BlocklyApps.BASE_URL + 'maze/' + Maze.SKIN.sprite);
   pegmanIcon.setAttribute('height', Maze.PEGMAN_HEIGHT);
   pegmanIcon.setAttribute('width', Maze.PEGMAN_WIDTH * 21); // 49 * 21 = 1029
   pegmanIcon.setAttribute('clip-path', 'url(#pegmanClipPath)');
@@ -651,7 +653,7 @@ Maze.init = function() {
 
   // Setup the Pegman (skin) menu.
   var pegmanImg = document.querySelector('#pegmanButton>img');
-  pegmanImg.style.backgroundImage = 'url(' + Maze.SKIN.sprite + ')';
+  pegmanImg.style.backgroundImage = 'url(' + BlocklyApps.BASE_URL + 'maze/' + Maze.SKIN.sprite + ')';
   var pegmanMenu = document.getElementById('pegmanMenu');
   var handlerFactory = function(n) {
     return function() {
@@ -664,8 +666,8 @@ Maze.init = function() {
     }
     var div = document.createElement('div');
     var img = document.createElement('img');
-    img.src = '../media/1x1.gif';
-    img.style.backgroundImage = 'url(' + Maze.SKINS[i].sprite + ')';
+    img.src = '/blockly/static/media/1x1.gif';
+    img.style.backgroundImage = 'url(' + BlocklyApps.BASE_URL + 'maze/' + Maze.SKINS[i].sprite + ')';
     div.appendChild(img);
     pegmanMenu.appendChild(div);
     Blockly.bindEvent_(div, 'mousedown', null, handlerFactory(i));
@@ -684,7 +686,7 @@ Maze.init = function() {
   Blockly.HSV_SATURATION = 0.6;
 
   Blockly.inject(document.getElementById('blockly'),
-      {path: '../',
+      {path: BlocklyApps.BASE_URL,
        rtl: rtl,
        toolbox: toolbox,
        trashcan: true});
@@ -697,24 +699,12 @@ Maze.init = function() {
   Blockly.JavaScript.INFINITE_LOOP_TRAP = '  BlocklyApps.checkTimeout(%1);\n';
   Maze.drawMap();
 
-  var blocklyDiv = document.getElementById('blockly');
-  var onresize = function(e) {
-    var top = visualization.offsetTop;
-    var svg = document.getElementById('svgMaze');
-
-    blocklyDiv.style.top = top + 'px';
-    blocklyDiv.style.left = rtl ? '10px' : (svg.clientWidth + 20) + 'px';
-
-    blocklyDiv.style.width = (window.innerWidth - svg.clientWidth - 40) + 'px';
-    blocklyDiv.style.height = (window.innerHeight - top - 20 +
-        window.scrollY) + 'px';
-  };
   window.addEventListener('scroll', function() {
-      onresize();
+      BlocklyApps.onResize();
       Blockly.fireUiEvent(window, 'resize');
     });
-  window.addEventListener('resize', onresize);
-  onresize();
+  window.addEventListener('resize', BlocklyApps.onResize);
+  BlocklyApps.onResize();
 
   var defaultXml =
       '<xml>' +

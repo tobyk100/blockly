@@ -30,8 +30,8 @@ var Turtle = {};
 
 BlocklyApps.LANG = BlocklyApps.getLang();
 
-document.write('<script type="text/javascript" src="generated/' +
-    BlocklyApps.LANG + '.js"></script>\n');
+document.write('<script type="text/javascript" src="' + BlocklyApps.BASE_URL +
+    'turtle/generated/' + BlocklyApps.LANG + '.js"></script>\n');
 
 // Create a limited colour palette to avoid overwhelming new users
 // and to make colour checking easier.  These definitions cannot be
@@ -452,7 +452,7 @@ Turtle.visible = true;
  * Initialize Blockly and the turtle.  Called on page load.
  */
 Turtle.init = function() {
-  if (Turtle.REINF) {
+  if (BlocklyApps.REINF) {
     return;
   }
   BlocklyApps.init();
@@ -464,7 +464,7 @@ Turtle.init = function() {
   var rtl = BlocklyApps.LANGUAGES[BlocklyApps.LANG][1] == 'rtl';
   var toolbox = document.getElementById('toolbox');
   Blockly.inject(document.getElementById('blockly'),
-      {path: '../',
+      {path: BlocklyApps.BASE_URL,
        rtl: rtl,
        toolbox: toolbox,
        trashcan: true});
@@ -481,10 +481,18 @@ Turtle.init = function() {
   var blocklyDiv = document.getElementById('blockly');
   var visualization = document.getElementById('visualization');
   var onresize = function(e) {
-    var top = bubble.offsetTop;
-    blocklyDiv.style.top = Math.max(10, top - window.scrollY) + 'px';
-    blocklyDiv.style.left = rtl ? '10px' : '420px';
-    blocklyDiv.style.width = (window.innerWidth - 440) + 'px';
+    var top = visualization.offsetTop;
+    blocklyDiv.style.top = top + 'px';
+
+    var blocklyDivParent = blocklyDiv.parentNode;
+    var parentStyle = window.getComputedStyle ?
+                      window.getComputedStyle(blocklyDivParent) :
+                      blocklyDivParent.currentStyle.width;  // IE
+    var parentWidth = parseInt(parentStyle.width);
+
+    blocklyDiv.style.width = (parentWidth - 440) + 'px';
+    blocklyDiv.style.height = (window.innerHeight - top - 20 +
+        window.scrollY) + 'px';
   };
   window.addEventListener('scroll', function() {
       onresize();
