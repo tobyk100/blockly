@@ -84,6 +84,10 @@ config.watch = {
     files: ['src/**/*.js'],
     tasks: ['browserify']
   },
+  css: {
+    files: ['css/**/*.css'],
+    tasks: ['copy']
+  },
   content: {
     files: ['lib/**/*.js', 'static/**/*'],
     tasks: ['copy']
