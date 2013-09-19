@@ -1062,7 +1062,7 @@ Turtle.checkAnswer = function() {
     }
   }
 
-  BlocklyApps.displayFeedback(feedbackType);
+  BlocklyApps.displayFeedback('turtle', feedbackType);
 };
 
 /**
