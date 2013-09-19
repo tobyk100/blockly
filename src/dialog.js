@@ -46,6 +46,40 @@ var stopDialogKeyDown = function() {
 };
 
 /**
+ * Compute the absolute coordinates and dimensions of an HTML or SVG element.
+ * @param {!Element} element Element to match.
+ * @return {!Object} Contains height, width, x, and y properties.
+ */
+var getBBox = function(element) {
+  if (element.getBBox) {
+    // SVG element.
+    var bBox = element.getBBox();
+    var height = bBox.height;
+    var width = bBox.width;
+    var xy = Blockly.getAbsoluteXY_(element);
+    var x = xy.x;
+    var y = xy.y;
+  } else {
+    // HTML element.
+    var height = element.offsetHeight;
+    var width = element.offsetWidth;
+    var x = 0;
+    var y = 0;
+    do {
+      x += element.offsetLeft;
+      y += element.offsetTop;
+      element = element.offsetParent;
+    } while (element);
+  }
+  return {
+    height: height,
+    width: width,
+    x: x,
+    y: y
+  };
+};
+
+/**
  * Match the animated border to the a element's size and location.
  * @param {!Element} element Element to match.
  * @param {boolean} animate Animate to the new location.
@@ -168,38 +202,4 @@ exports.hide = function(opt_animate) {
     content.className += ' dialogHiddenContent';
     document.body.appendChild(content);
   }
-};
-
-/**
- * Compute the absolute coordinates and dimensions of an HTML or SVG element.
- * @param {!Element} element Element to match.
- * @return {!Object} Contains height, width, x, and y properties.
- */
-var getBBox = function(element) {
-  if (element.getBBox) {
-    // SVG element.
-    var bBox = element.getBBox();
-    var height = bBox.height;
-    var width = bBox.width;
-    var xy = Blockly.getAbsoluteXY_(element);
-    var x = xy.x;
-    var y = xy.y;
-  } else {
-    // HTML element.
-    var height = element.offsetHeight;
-    var width = element.offsetWidth;
-    var x = 0;
-    var y = 0;
-    do {
-      x += element.offsetLeft;
-      y += element.offsetTop;
-      element = element.offsetParent;
-    } while (element);
-  }
-  return {
-    height: height,
-    width: width,
-    x: x,
-    y: y
-  };
 };
