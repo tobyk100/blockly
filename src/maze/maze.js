@@ -24,7 +24,8 @@
 'use strict';
 
 var BlocklyApps = require('../base');
-var msg = require('../../build/en_us/i18n/common');
+var commonMsg = require('../../build/en_us/i18n/common');
+var mazeMsg = require('../../build/en_us/i18n/maze');
 var levels = require('./levels');
 var tiles = require('../tiles');
 
@@ -227,9 +228,11 @@ Maze.drawMap = function() {
   svg.setAttribute('width', Maze.MAZE_WIDTH);
   svg.setAttribute('height', Maze.MAZE_HEIGHT);
 
-  // Adjust hint bubble width.
-  var hint = document.getElementById('hintBubble');
-  hint.style.width = (Maze.MAZE_WIDTH - 20) + 'px';
+  // Size and fill-in hint bubble.
+  var hintBubble = document.getElementById('hintBubble');
+  hintBubble.style.width = (Maze.MAZE_WIDTH - 20) + 'px';
+  var hint = document.getElementById('hint');
+  hint.innerHTML = mazeMsg['instructions' + BlocklyApps.LEVEL + '_m1']();
 
   if (Maze.SKIN.background) {
     var tile = document.createElementNS(Blockly.SVG_NS, 'image');
@@ -577,7 +580,7 @@ Maze.runButtonClick = function() {
   // Only allow a single top block on levels 1 and 2.
   if (BlocklyApps.LEVEL <= 2 && Blockly.mainWorkspace.getTopBlocks()
         .length > 1) {
-    window.alert(msg.oneTopBlock());
+    window.alert(commonMsg.oneTopBlock());
     return;
   }
   var runButton = document.getElementById('runButton');

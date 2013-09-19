@@ -551,53 +551,6 @@
 {/template}
 
 /**
- * Show instructions.
- */
-{template .showInstructions}
-  {switch $ij.page}
-    {case 1}
-      {switch $ij.level}
-        {case 1}{msg meaning="Turtle.instructions1_1" desc="TODO"}I'm a turtle with chalk on my belly. Stack up blocks and press "Run Program" to make me draw the shown picture.{/msg}
-        {case 2}{msg meaning="Turtle.instructions1_2" desc="TODO"}Draw a square, making each side a different color.{/msg}
-        {case 3}{msg meaning="Turtle.instructions1_3" desc="TODO"}Make a square using only 3 blocks.  (Remember that blocks to set color are free.){/msg}
-        {case 4}{msg meaning="Turtle.instructions1_4" desc="TODO"}Draw a triangle whose sides are all 100 dots and are in random colors.  You'll have to figure out how far to turn.{/msg}
-        {case 5}{msg meaning="Turtle.instructions1_5" desc="TODO"}Draw a triangle and then a square to draw an envelope.{/msg}
-        {case 6}{msg meaning="Turtle.instructions1_6" desc="TODO"}Can you figure out how draw this triangle and square?{/msg}
-        {case 7}{msg meaning="Turtle.instructions1_7" desc="TODO"}See if you can draw these green glasses.{/msg}
-        {case 8}{msg meaning="Turtle.instructions1_8" desc="TODO"}After trying out these blocks, see what happens if you make them repeat 8 times.  It should look a little different every time you run it.{/msg}
-        {case 9}{msg meaning="Turtle.instructions1_9" desc="TODO"}Figure out what number to replace the question marks with to draw a circle.{/msg}
-        {case 10}{msg meaning="Turtle.instructions1_10" desc="TODO"}Draw anything you want. Some ideas are a stick figure, snowflake, or spiral.  You could also try out the new "set width" block.  Have fun!{/msg}
-      {/switch}
-    {case 2}
-      {switch $ij.level}
-        {case 1}{msg meaning="Turtle.instructions2_1" desc="TODO"}Find the familiar blocks in the new categories to draw a square in your favorite color.{/msg}
-        {case 2}{msg meaning="Turtle.instructions2_2" desc="TODO"}Use the new "draw a square" block, found in the "Functions" category, to draw a small green square.{/msg}
-        {case 3}{msg meaning="Turtle.instructions2_3" desc="TODO"}Use the "repeat" block to draw 3 squares of size 100, each 120 degrees apart, in random colors.{/msg}
-        {case 4}{msg meaning="Turtle.instructions2_4" desc="TODO"}Now change the code to draw 36 squares, each 10 degrees apart.{/msg}
-        {case 5}{msg meaning="Turtle.instructions2_5" desc="TODO"}Draw squares with sides of 50, 60, 70, 80, and 90 dots.  You'll need lots of blocks.{/msg}
-        {case 6}{msg meaning="Turtle.instructions2_6" desc="TODO"}Modify this program with the "counter" block (found in the Variables category) to draw the same series of squares with fewer blocks than on the previous level.{/msg}
-        {case 7}{msg meaning="Turtle.instructions2_7" desc="TODO"}Replace the pale (disabled) blocks with a "count with" block (in the Loops category) and "counter" block (in the Variables category) to draw the same spiral.{/msg}
-        {case 8}{msg meaning="Turtle.instructions2_8" desc="TODO"}Draw three snowmen 150 dots tall in different colors, 100 dots apart.  Use the new "draw a snowman" function and "jump forward" block.{/msg}
-        {case 9}{msg meaning="Turtle.instructions2_9" desc="TODO"}Use a "count with" loop to draw a family of snowmen with heights of 110, 100, 90, 80, and 70 dots, each 60 dots apart.{/msg}
-        {case 10}{msg meaning="Turtle.instructions2_10" desc="TODO"}Draw whatever you want.  One idea is experimenting with different types of spirals.  What happens if you change the turn amount, rather than the move amount?  TODO: Add starting blocks.{/msg}
-      {/switch}
-    {case 3}
-      {switch $ij.level}
-        {case 1}{msg meaning="Turtle.instructions3_1" desc="TODO"}You can now see how the "draw a square" and "draw a circle" functions are defined.  Defining a function doesn't run its blocks.  You have to pull out the "draw a square" block to actually draw a square.{/msg}
-        {case 2}{msg meaning="Turtle.instructions3_2" desc="TODO"}Using the "draw a square" function as an example, create a "draw a triangle" function and use it.{/msg}
-        {case 3}{msg meaning="Turtle.instructions3_3" desc="TODO"}Draw triangular fences around the cats and a square fence around the cow.  Tip: Test the program as you go along.{/msg}
-        {case 4}{msg meaning="Turtle.instructions3_4" desc="TODO"}See if you can figure out how to use "draw a square" and "draw a triangle" (and some other blocks) to draw a house around the lion.{/msg}
-        {case 5}{msg meaning="Turtle.instructions3_5" desc="TODO"}Now create a "draw a house" function and use it house two cats.{/msg}
-        {case 6}{msg meaning="Turtle.instructions3_6" desc="TODO"}Using "draw a square" as an example, add an input named "length" to "draw a triangle".  Then, draw triangles in different colors around the animals.{/msg}
-        {case 7}{msg meaning="Turtle.instructions3_7" desc="TODO"}Add a "height" input to "draw a house" and build a big house for the elephant.{/msg}
-        {case 8}{msg meaning="Turtle.instructions3_8" desc="TODO"}Here are all of the blocks from the previous level.  Modify "draw a house" so the turtle ends up at the bottom right corner of the new house.  Use this modified function to house all the animals.{/msg}
-        {case 9}{msg meaning="Turtle.instructions3_9" desc="TODO"}Use a "count with" block and your code from the previous level to draw houses of size 50, 100, and 150 in different colors.{/msg}
-        {case 10}{msg meaning="Turtle.instructions3_10" desc="TODO"}You're now free to do whatever you want.  One idea is to try running this program with different turn amounts (higher or lower than 90).  Other ideas are to draw a star, circle, heart, or animal.{/msg}
-    {/switch}
-  {/switch}
-{/template}
-
-/**
  * Web page structure.
  */
 {template .start}
@@ -649,9 +602,7 @@
   </table>
   // First column has prompt, capacity, canvas, slider, and buttons.
   <div id="bubble">
-    <div id="prompt">
-      {call .showInstructions /}
-    </div>
+    <div id="prompt"></div>
   </div>
   <div id="blockCount"></div>
   <div id="visualization">
