@@ -455,12 +455,6 @@ Maze.init = function() {
   }
 };
 
-if (window.location.pathname.match(/readonly.html$/)) {
-  window.addEventListener('load', BlocklyApps.initReadonly);
-} else {
-  window.addEventListener('load', Maze.init);
-}
-
 /**
  * Reload with a different Pegman skin.
  * @param {number} skin ID of new skin.
@@ -623,7 +617,7 @@ Maze.execute = function() {
   // Check for empty top level blocks to warn user about bugs,
   // especially ones that lead to infinite loops.
   if (BlocklyApps.hasEmptyTopLevelBlocks()) {
-    BlocklyApps.displayFeedback();
+    BlocklyApps.displayFeedback('karel');
     return;
   }
 
@@ -678,9 +672,11 @@ Maze.animate = function() {
     BlocklyApps.highlight(null);
     BlocklyApps.levelComplete = (Maze.result == Maze.ResultType.SUCCESS);
     if (Maze.result == Maze.ResultType.TIMEOUT) {
-      BlocklyApps.displayFeedback();
+      BlocklyApps.displayFeedback('karel');
     } else {
-      window.setTimeout(BlocklyApps.displayFeedback, 1000);
+      window.setTimeout(function() {
+        BlocklyApps.displayFeedback('karel');
+      }, 1000);
     }
     return;
   }

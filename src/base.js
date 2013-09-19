@@ -741,10 +741,10 @@ BlocklyApps.updateCapacity = function() {
  * @param {?number} opt_feedbackType Test results (a constant property of
  *     BlocklyApps.TestResults).
  */
-BlocklyApps.displayFeedback = function(opt_feedbackType) {
+BlocklyApps.displayFeedback = function(app, opt_feedbackType) {
   var feedbackType = opt_feedbackType || BlocklyApps.getTestResults();
   BlocklyApps.hideFeedback();
-  BlocklyApps.setErrorFeedback(feedbackType);
+  BlocklyApps.setErrorFeedback(app, feedbackType);
   BlocklyApps.prepareFeedback(feedbackType);
   BlocklyApps.displayCloseDialogButtons(feedbackType);
   BlocklyApps.showHelp(true, feedbackType);
@@ -884,7 +884,7 @@ BlocklyApps.errorVersionMap_ = {};
  * @param {number} feedbackType A constant property of BlocklyApps.TestResults,
  *     typically produced by BlocklyApps.getTestResults().
  */
-BlocklyApps.setErrorFeedback = function(feedbackType) {
+BlocklyApps.setErrorFeedback = function(app, feedbackType) {
   switch (feedbackType) {
     // Give hint, not stars, for empty block or not finishing level.
     case BlocklyApps.TestResults.EMPTY_BLOCK_FAIL:
@@ -912,7 +912,7 @@ BlocklyApps.setErrorFeedback = function(feedbackType) {
         document.getElementById('missingBlocksError')
             .style.display = 'list-item';
         document.getElementById('feedbackBlocks').src =
-            BlocklyApps.BASE_URL + 'turtle/readonly.html?xml=' +
+            BlocklyApps.BASE_URL + app + '/readonly.html?xml=' +
             BlocklyApps.generateXMLForBlocks(missingBlocks);
         document.getElementById('feedbackBlocks').style.display = 'block';
       }
