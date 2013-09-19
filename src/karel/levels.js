@@ -1,7 +1,11 @@
 var Direction = require('../tiles').Direction;
 
 // This tests for and creates the "move_forward" block.
-var MOVE_FORWARD = {'test': 'moveForward', 'type': 'maze_moveForward'};
+var MOVE_FORWARD = {
+    'test': function(block) {
+      return block.type == 'maze_moveForward';},
+    'type': 'maze_moveForward'
+};
 
 // This tests for and creates the "pickUpBall" block.
 var PICK_UP_BALL = {'test': 'pickUpBall', 'type': 'maze_pickUpBall'};
@@ -10,34 +14,107 @@ var PICK_UP_BALL = {'test': 'pickUpBall', 'type': 'maze_pickUpBall'};
 var PUT_DOWN_BALL = {'test': 'putDownBall', 'type': 'maze_putDownBall'};
 
 // This tests for and creates the "controls_repeat" block.
-var REPEAT = {'test': 'for', 'type': 'controls_repeat'};
+var REPEAT = {
+    'test': function(block) {
+      return block.type == 'controls_repeat';},
+    'type': 'controls_repeat'
+};
 
 // This tests for and creates the "maze_turn" block turning left.
-var TURN_LEFT = {'test': 'turnLeft', 'type': 'maze_turn', 'titles': {'DIR': 'turnLeft'}};
+var TURN_LEFT = {
+  'test': 'turnLeft',
+  'type': 'maze_turn',
+  'titles': {'DIR': 'turnLeft'}
+};
 
 // This tests for and creates the "maze_turn" block turning right.
-var TURN_RIGHT = {'test': 'turnRight', 'type': 'maze_turn', 'titles': {'DIR': 'turnRight'}};
+var TURN_RIGHT = {
+  'test': 'turnRight',
+  'type': 'maze_turn',
+  'titles': {'DIR': 'turnRight'}
+};
 
 // This tests for and creates the "maze_untilBlocked" block.
-var UNTIL_BLOCKED = {'test': 'while (Maze.isPathForward', 'type': 'maze_untilBlocked'};
+var UNTIL_BLOCKED = {
+  'test': 'while (Maze.isPathForward',
+  'type': 'maze_untilBlocked'
+};
 
 // This tests for and creates the "maze_untilBlockedOrNotClear" block with the option "ballsPresent" selected.
-var WHILE_OPT_BALLS_PRESENT = {'test': 'while (Maze.ballsPresent', 'type': 'maze_untilBlockedOrNotClear', 'titles': {'DIR': 'ballsPresent'}};
+var WHILE_OPT_BALLS_PRESENT = {
+  'test': 'while (Maze.ballsPresent',
+  'type': 'maze_untilBlockedOrNotClear',
+  'titles': {'DIR': 'ballsPresent'}
+};
 
 // This tests for and creates the "maze_untilBlockedOrNotClear" block with the option "isPathForward" selected.
-var WHILE_OPT_PATH_AHEAD = {'test': 'while (Maze.isPathForward', 'type': 'maze_untilBlockedOrNotClear', 'titles': {'DIR': 'isPathForward'}};
+var WHILE_OPT_PATH_AHEAD = {
+  'test': 'while (Maze.isPathForward',
+  'type': 'maze_untilBlockedOrNotClear',
+  'titles': {'DIR': 'isPathForward'}
+};
 
 // This tests for and creates the "maze_if" block.
 var IF = {'test': 'if', 'type': 'maze_if'};
 
 // This tests for and creates the "maze_if" block with the option "ballsPresent" selected.
-var IF_OPT_BALLS_PRESENT = {'test': 'if (Maze.ballsPresent', 'type': 'maze_if', 'titles': {'DIR': 'ballsPresent'}};
+var IF_OPT_BALLS_PRESENT = {
+  'test': 'if (Maze.ballsPresent',
+  'type': 'maze_if',
+  'titles': {'DIR': 'ballsPresent'}
+};
 
 // This tests for and creates the "maze_if" block with the option "holesPresent" selected.
-var IF_OPT_HOLES_PRESENT = {'test': 'if (Maze.holesPresent', 'type': 'maze_if', 'titles': {'DIR': 'holesPresent'}};
+var IF_OPT_HOLES_PRESENT = {
+  'test': 'if (Maze.holesPresent',
+  'type': 'maze_if',
+  'titles': {'DIR': 'holesPresent'}
+};
 
 // This tests for and creates the "maze_ifElse" block.
 var IF_ELSE = {'test': '} else {', 'type': 'maze_ifElse'};
+
+// This tests for and creates the "fill num" blcok.
+var fill = function(num) {
+  return {'test': 'fill_' + num + '();',
+          'type': 'procedures_callnoreturn',
+          'titles': {'NAME': 'fill ' + num}};
+};
+
+// This tests for and creates the "remove num" blcok.
+var remove = function(num) {
+  return {'test': 'remove_' + num + '();',
+          'type': 'procedures_callnoreturn',
+          'titles': {'NAME': 'remove ' + num}};
+};
+
+// This tests for and creates the "avoid the cow and remove 1" blcok.
+var AVOID_OBSTACLE_AND_REMOVE = {
+  'test': 'avoid_the_cow_and_remove_1();',
+  'type': 'procedures_callnoreturn',
+  'titles': {'NAME': 'avoid the cow and remove 1'}
+};
+
+// This tests for and creates the "remove 1 and avoid the cow" blcok.
+var AVOID_OBSTACLE_AND_REMOVE = {
+  'test': 'remove_1_and_avoid_the_cow();',
+  'type': 'procedures_callnoreturn',
+  'titles': {'NAME': 'avoid the cow and remove 1'}
+};
+
+// This tests for and creates the "remove piles" block.
+var REMOVE_PILES = {
+  'test': 'remove_piles();',
+  'type': 'procedures_callnoreturn',
+  'titles': {'NAME': 'remove piles'}
+};
+
+// This tests for and creates the "fill holes" block.
+var FILL_HOLES = {
+  'test': 'fill_holes();',
+  'type': 'procedures_callnoreturn',
+  'titles': {'NAME': 'fill holes'}
+};
 
 module.exports = {
   'pages': [
@@ -503,6 +580,9 @@ module.exports = {
         // Level 1
         {
           'ideal': null,
+          'requiredBlocks': [
+            TURN_LEFT, MOVE_FORWARD, PICK_UP_BALL, TURN_RIGHT
+          ],
           'scale': {
             'stepSpeed': 3
           },
@@ -542,6 +622,9 @@ module.exports = {
         // Level 2
         {
           'ideal': 5,
+          'requiredBlocks': [
+            MOVE_FORWARD, fill(5)
+          ],
           'map': [
             [ 1, 1, 1, 1, 1, 1, 1, 1 ],
             [ 1, 1, 1, 1, 1, 1, 1, 1 ],
@@ -578,6 +661,9 @@ module.exports = {
         // Level 3
         {
           'ideal': 7,
+          'requiredBlocks': [
+            MOVE_FORWARD, fill(5), UNTIL_BLOCKED // or REPEAT
+          ],
           'scale': {
             'stepSpeed': 3
           },
@@ -617,6 +703,9 @@ module.exports = {
         // Level 4
         {
           'ideal': 12,
+          'requiredBlocks': [
+            PICK_UP_BALL, REPEAT, remove(7), MOVE_FORWARD, TURN_LEFT, TURN_RIGHT
+          ],
           'scale': {
             'stepSpeed': 3
           },
@@ -656,6 +745,9 @@ module.exports = {
         // Level 5
         {
           'ideal': 8,
+          'requiredBlocks': [
+            PICK_UP_BALL, REPEAT, remove(3), MOVE_FORWARD
+          ],
           'map': [
             [ 1, 1, 1, 1, 1, 1, 1, 1 ],
             [ 1, 1, 1, 1, 1, 1, 1, 1 ],
@@ -692,6 +784,9 @@ module.exports = {
         // Level 6
         {
           'ideal': 10,
+          'requiredBlocks': [
+            remove(8), fill(8), MOVE_FORWARD, UNTIL_BLOCKED // or REPEAT
+          ],
           'map': [
             [ 1, 1, 1, 1, 1, 1, 1, 1 ],
             [ 1, 1, 1, 1, 1, 1, 1, 1 ],
@@ -728,6 +823,9 @@ module.exports = {
         // Level 7
         {
           'ideal': 10,
+          'requiredBlocks': [
+            TURN_LEFT, MOVE_FORWARD, TURN_RIGHT, PICK_UP_BALL
+          ],
           'map': [
             [ 1, 1, 1, 1, 1, 1, 1, 1 ],
             [ 1, 1, 1, 1, 1, 1, 1, 1 ],
@@ -764,6 +862,9 @@ module.exports = {
         // Level 8
         {
           'ideal': 12,
+          'requiredBlocks': [
+            REPEAT, AVOID_OBSTACLE_AND_REMOVE
+          ],
           'scale': {
             'stepSpeed': 3
           },
@@ -803,6 +904,9 @@ module.exports = {
         // Level 9
         {
           'ideal': 24,
+          'requiredBlocks': [
+            REMOVE_PILES, MOVE_FORWARD, IF_OPT_BALLS_PRESENT, UNTIL_BLOCKED // or REPEAT
+          ],
           'scale': {
             'stepSpeed': 3
           },
@@ -842,6 +946,9 @@ module.exports = {
         // Level 10
         {
           'ideal': 26,
+          'requiredBlocks': [
+            REMOVE_PILES, MOVE_FORWARD, FILL_HOLES, IF_OPT_BALLS_PRESENT, IF_OPT_HOLES_PRESENT, UNTIL_BLOCKED // or REPEAT
+          ],
           'scale': {
             'stepSpeed': 3
           },
