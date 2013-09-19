@@ -64,6 +64,12 @@ Both of these tutorials are found on code.org/learn or csedweek.org/learn. At th
 3. [Forking](https://help.github.com/articles/fork-a-repo)
 4. [Pull Requests](https://help.github.com/articles/using-pull-requests)
 
+### Style Guide
+- In general follow google's javascript style [guide](http://google-styleguide.googlecode.com/svn/trunk/javascriptguide.xml).
+- 80 character line length.
+- 2 space indent.
+- 4 space indent on long line breaks.
+
 ### Quick Start
 
 1. [Install and set up git](https://help.github.com/articles/set-up-git)
