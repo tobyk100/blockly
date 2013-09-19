@@ -12,9 +12,9 @@ of Code. Information about Blockly can be found in the
 [wiki](https://code.google.com/p/blockly/w/list).
 
 - [Quick Start](#quick-start)
-- [Project Layout](#project-layout)
+- [Project Specification](#project-specification)
 - [Contribute to Blockly](#to-contribute)
-- [Merge trunk from Google Code](#merge-trunk)
+
 
 ## Quick Start
 
@@ -36,28 +36,24 @@ grunt dev
 open http://localhost:8000
 ```
 
-## Project Layout
-There are various apps in the static/ directory, including
-Maze, Turtle, and Karel. Each app has the following:
+## Project Specification
+Both of these tutorials are found on code.org/learn or csedweek.org/learn. At the end of 1-hour, you’re sent to a Drupal thank you page that leads you back to code.org/learn
 
-- index.html, where you can find the javascript dependencies.
-- app.js containing game dynamics and graphics rendering
-- template.soy, a [Closure Template](https://developers.google.com/closure/templates/).
-- an object literal, e.g. Maze = {}.
+### 1 hour tutorial
+- 18 Maze puzzles + 6 videos, with celeb videos and licensed skins
+- No auth/identity/login, no state
+- Works on touch-screens, cross-browser (IE9+ required. IE8 highly desired)
+- Looks good on smartphones / small screens
+- Translated into at least spanish, and other non-bidi languages
 
-The apps depend on two more objects:
-
-- **Blockly**, defined in static/blockly\_compressed.js. To see the source code
-    for Blockly visit the Google Code
-    [repo](https://code.google.com/p/blockly/).  This github repo does not
-    contain the source code for blockly\_compressed.js, you can consider it a
-    black box with documentation and source code at Google Code. Blockly uses
-    the [Google Closure Library](https://developers.google.com/closure/) and
-    the build script for the Closure Compiler is at the Google Code
-    [repo](https://code.google.com/p/blockly/). In summary, the apps depend on
-    common.js, which depends on blockly\_compressed.js, which depends on Google
-    Closure.
-- **BlocklyApps**, defined in static/common.js
+### 20-hour curriculum
+- X stages, Y puzzles, Z videos
+- HAS student auth, teacher auth.
+- Student can see a map of where they are. Earn “trophies”
+- Teacher can see dashboard of student progress
+- Both students and teachers earn real-world rewards upon completion. 
+- Works on touch-screens, cross-browser (IE9+ required. IE8 highly desired)
+- NOT optimized for smartphones / small screens. NOT translated
 
 ## To Contribute
 
@@ -100,16 +96,3 @@ The apps depend on two more objects:
     pull request. 
   - To use a global gitignore file read these
     [instructions](http://robots.thoughtbot.com/post/18739402579/global-gitignore).
-
-## Merge Trunk
-
-  1. Track the svn repo with `git svn init
-     https://blockly.googlecode.com/svn/trunk/`
-  1. See the effect by running `cat .git/config` before and after the above
-     command.
-  2. Fetch the repo now called 'svn': `git svn fetch svn`, this will take a
-     couple minutes.
-  4. Checkout a local branch which tracks the remote svn branch: `git checkout
-     -b trunk git-svn`
-  5. You can now treat your local branch `trunk` like any other git branch. To
-     fetch further revisions from the svn repo use `git svn fetch`.
