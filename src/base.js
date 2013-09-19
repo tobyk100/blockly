@@ -913,7 +913,7 @@ BlocklyApps.setErrorFeedback = function(feedbackType) {
         document.getElementById('missingBlocksError')
             .style.display = 'list-item';
         document.getElementById('feedbackBlocks').src =
-            'readonly.html?xml=' +
+            BlocklyApps.BASE_URL + 'turtle/readonly.html?xml=' +
             BlocklyApps.generateXMLForBlocks(missingBlocks);
         document.getElementById('feedbackBlocks').style.display = 'block';
       }
