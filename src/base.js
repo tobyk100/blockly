@@ -469,26 +469,6 @@ BlocklyApps.dialogKeyDown_ = function(e) {
 };
 
 /**
- * If the user preses enter, escape, or space, hide the dialog.
- * Enter and space move to the next level, escape does not.
- * @param {!Event} e Keyboard event.
- * @private
- */
-BlocklyApps.congratulationsKeyDown_ = function(e) {
-  if (e.keyCode == 13 || // Enter key.
-      e.keyCode == 27 || // Escape key.
-      e.keyCode == 32    // Space key.
-      ) {
-    BlocklyApps.hideDialog(true);
-    e.stopPropagation();
-    e.preventDefault();
-    if (e.keyCode != 27) {
-      BlocklyApps.goToNextLevelOrReset(true);
-    }
-  }
-};
-
-/**
  * Start listening for BlocklyApps.dialogKeyDown_.
  */
 BlocklyApps.startDialogKeyDown = function() {
