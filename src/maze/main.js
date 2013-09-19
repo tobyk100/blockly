@@ -14,9 +14,7 @@ window.mazeMain = function(options) {
       BlocklyApps.getNumberParamFromUrl('level', 1, BlocklyApps.MAX_LEVEL);
   }
 
-  if (options.readonly) {
-    document.write(mazepage.readonly({}, null, {}));
-  } else {
+  if (!options.readonly) {
     document.write(mazepage.start({}, null, {
       level: BlocklyApps.LEVEL,
       menu: BlocklyApps.DISPLAY_NAV,
