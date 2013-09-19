@@ -46,6 +46,10 @@ BlocklyApps.CHECK_FOR_EMPTY_BLOCKS = true;
  */
 var CURRENT_LEVEL = levels[BlocklyApps.LEVEL];
 
+/**
+ * The ideal number of blocks to solve the current level.
+ */
+BlocklyApps.IDEAL_BLOCK_NUM = CURRENT_LEVEL.ideal;
 
 /**
  * Blocks that are expected to be used on each level.
