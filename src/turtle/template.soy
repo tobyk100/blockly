@@ -22,7 +22,7 @@
     <div id="reinfbubble">
       <span id="reinfMsg">{$text}</span>
     </div>
-    <img id="turtle" height=45 width=130 src="turtle.png">
+    <img id="turtle" height=45 width=130 src="{$ij.baseUrl}turtle/turtle.png">
   </span>
 {/template}
 
@@ -36,10 +36,10 @@
     <div id="reinfbubble">
       <span id="reinfMsg">{$text}</span>
     </div>
-    <img id="turtle" height=45 width=130 src="turtle.png">
+    <img id="turtle" height=45 width=130 src="{$ij.baseUrl}turtle/turtle.png">
     <table>
       <tr><br></tr>
-      <tr><td><img src="{$image}"></td></tr>
+      <tr><td><img src="{$ij.baseUrl}turtle/{$image}"></td></tr>
       <tr height=40><br><br></tr>
     </table>
   </span>
@@ -55,12 +55,12 @@
     <div id="reinfbubble">
       <span id="reinfMsg">{$text}</span>
     </div>
-    <img id="turtle" height=45 width=130 src="turtle.png">
+    <img id="turtle" height=45 width=130 src="{$ij.baseUrl}turtle/turtle.png">
     <p><button id="showButton" style="display: inline" class="launch" onclick="this.style.display = 'none'; document.getElementById('animation').style.display='inline'; document.getElementById('continueButton').style.display='inline';">{msg meaning="Turtle.showMe" desc="TODO"}Show me{/msg}</button></p>
     <div id="animation" style="display: none">
       <table>
         <tr>
-          <td><img src="{$image}"></td>
+          <td><img src="{$ij.baseUrl}turtle/{$image}"></td>
         </tr>
       </table>
     </div>

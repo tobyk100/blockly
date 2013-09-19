@@ -389,7 +389,7 @@ Maze.init = function() {
   Blockly.HSV_SATURATION = 0.6;
 
   Blockly.inject(document.getElementById('blockly'),
-      {path: '../',
+      {path: BlocklyApps.BASE_URL,
        rtl: rtl,
        toolbox: toolbox,
        trashcan: true});
