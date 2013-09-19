@@ -508,7 +508,6 @@ exports.install = function(BlocklyApps, Turtle) {
       BlocklyApps.getNumberParamFromUrl('level', 1, BlocklyApps.MAX_LEVEL);
 
   var level = BLOCK_DATA[BlocklyApps.PAGE - 1][BlocklyApps.LEVEL - 1];
-  console.log(level);
   BlocklyApps.INTERSTITIALS = level.interstitials;
   BlocklyApps.IDEAL_BLOCK_NUM = level.ideal || Infinity;
   BlocklyApps.REQUIRED_BLOCKS = level.requiredBlocks || [];
