@@ -26,6 +26,7 @@
 var BlocklyApps = module.exports;
 var msg = require('../build/en_us/i18n/common');
 var dialog = require('./dialog');
+var InterTypes = require('./feedback').InterTypes;
 
 /**
  * The parent directory of the apps. Contains common.js.
@@ -470,20 +471,10 @@ BlocklyApps.TestResults = {
 
 /**
  * The interstital setting for each level defined in the application.
- * See BlocklyApps.InterTypes for options.
+ * See InterTypes for options.
  * @type {!Array=}
  */
  BlocklyApps.INTERSTITIALS = undefined;
-
-/**
- * The way interstitials can be displayed. The values are used for bitwise
- * comparisons, so mutually exclusive choices must be different powers of two.
- */
-BlocklyApps.InterTypes = {
-  NONE: 0,
-  PRE: 1,          // Show interstitial when the page loads.
-  POST: 2          // Show interstitial when the level is complete.
-};
 
 /**
  * Updates the document's 'capacity' element's innerHTML with a message
@@ -854,7 +845,7 @@ BlocklyApps.goToNextLevelOrReset = function(gotoNext) {
   if (gotoNext) {
     var interstitial = document.getElementById('interstitial').style.display;
     if (interstitial == 'none' &&
-        BlocklyApps.INTERSTITIALS & BlocklyApps.InterTypes.POST) {
+        BlocklyApps.INTERSTITIALS & InterTypes.POST) {
       BlocklyApps.showInterstitial();
     } else {
       BlocklyApps.hideDialog(false);
@@ -903,7 +894,7 @@ BlocklyApps.displayCloseDialogButtons = function(feedbackType) {
  */
 BlocklyApps.showInterstitial = function() {
   if (BlocklyApps.levelComplete) {
-    if (BlocklyApps.INTERSTITIALS & BlocklyApps.InterTypes.POST) {
+    if (BlocklyApps.INTERSTITIALS & InterTypes.POST) {
       if (document.querySelector('.quiz')) {
         document.getElementById('continueButton').setAttribute('disabled',
                                                                'disabled');
@@ -921,7 +912,7 @@ BlocklyApps.showInterstitial = function() {
       }
       document.getElementById('interstitial').style.display = 'block';
     }
-  } else if (BlocklyApps.INTERSTITIALS & BlocklyApps.InterTypes.PRE) {
+  } else if (BlocklyApps.INTERSTITIALS & InterTypes.PRE) {
     document.getElementById('interstitial').style.display = 'block';
   }
 };

@@ -24,6 +24,7 @@
 'use strict';
 
 var BlocklyApps = require('../base');
+var InterTypes = require('../feedback').InterTypes;
 var commonMsg = require('../../build/en_us/i18n/common');
 var mazeMsg = require('../../build/en_us/i18n/maze');
 var levels = require('./levels');
@@ -463,7 +464,7 @@ Maze.init = function() {
   BlocklyApps.reset(true);
   Blockly.addChangeListener(function() {BlocklyApps.updateCapacity()});
 
-  if (BlocklyApps.INTERSTITIALS & BlocklyApps.InterTypes.PRE) {
+  if (BlocklyApps.INTERSTITIALS & InterTypes.PRE) {
     if (Maze.VIDEO_ID) {
       BlocklyApps.addVideoIframeSrc(Maze.VIDEO_ID);
     }

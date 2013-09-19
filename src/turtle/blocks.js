@@ -23,6 +23,7 @@
  */
 'use strict';
 
+var Colours = require('./core');
 var msg = require('../../build/en_us/i18n/turtle');
 
 // Install extensions to Blockly's language and JavaScript generator.
@@ -34,14 +35,14 @@ exports.install = function(blockly) {
   // Create a smaller palette.
   blockly.FieldColour.COLOURS = [
     // Row 1.
-    Turtle.Colours.BLACK, Turtle.Colours.GREY,
-    Turtle.Colours.KHAKI, Turtle.Colours.WHITE,
+    Colours.BLACK, Colours.GREY,
+    Colours.KHAKI, Colours.WHITE,
     // Row 2.
-    Turtle.Colours.RED, Turtle.Colours.PINK,
-    Turtle.Colours.ORANGE, Turtle.Colours.YELLOW,
+    Colours.RED, Colours.PINK,
+    Colours.ORANGE, Colours.YELLOW,
     // Row 3.
-    Turtle.Colours.GREEN, Turtle.Colours.BLUE,
-    Turtle.Colours.AQUAMARINE, Turtle.Colours.PLUM];
+    Colours.GREEN, Colours.BLUE,
+    Colours.AQUAMARINE, Colours.PLUM];
   blockly.FieldColour.COLUMNS = 4;
 
   // Block definitions.

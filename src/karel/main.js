@@ -8,9 +8,7 @@ window.karelMain = function(options) {
     options = {};
   }
 
-  if (options.readonly) {
-    document.write(karelpage.readonly({}, null, {}));
-  } else {
+  if (!options.readonly) {
     document.write(karelpage.start({}, null, {
       page: BlocklyApps.PAGE,
       level: BlocklyApps.LEVEL,
