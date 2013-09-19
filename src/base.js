@@ -483,8 +483,7 @@ BlocklyApps.congratulationsKeyDown_ = function(e) {
     e.stopPropagation();
     e.preventDefault();
     if (e.keyCode != 27) {
-      BlocklyApps.goToNextLevelOrReset(
-          true, BlocklyApps.LEVEL, BlocklyApps.SKIN);
+      BlocklyApps.goToNextLevelOrReset(true);
     }
   }
 };
