@@ -205,136 +205,298 @@ exports.defineWithArg_ = function(func_name, arg_name) {
 };
 
 /**
- * Information about level-specific requirements.  Each entry consists of:
- * - type of interstitial, if any.
- * - the ideal number of blocks.
- * - an array of required blocks.
- * - required colours.
+ * Information about level-specific requirements.
  */
 var BLOCK_DATA = [
-  // Page 0.
-  undefined,
   // Page 1.
-  [undefined,  // Level 0.
-   // Level 1: El.
-   [InterTypes.NONE, 3,
-    [MOVE_FORWARD_INLINE, turnRightRestricted(90)]],
-   // Level 2: Square (without repeat).
-   [InterTypes.PRE, 7,
-    [MOVE_FORWARD_INLINE, turnRightRestricted(90), SET_COLOUR_PICKER],
-    4],
-   // Level 3: Square (with repeat).
-   [InterTypes.PRE,
-    3,
-    [MOVE_FORWARD_INLINE, turnRightRestricted(90), repeat(4)]],
-   // Level 4: Triangle.
-   [InterTypes.PRE,
-    3,
-    [MOVE_FORWARD_INLINE, repeat(3),
-     {test: 'turnRight', type: 'draw_turn_by_constant', titles: {'VALUE': '???'}},
-     SET_COLOUR_RANDOM],
-    3],
-   // Level 5: Envelope.
-   [InterTypes.PRE, 6,
-    [repeat(3), turnRightRestricted(120), MOVE_FORWARD_INLINE]],
-   // Level 6: triangle and square.
-   [InterTypes.PRE, 6,
-    [repeat(3), turnRightRestricted(120),
-     MOVE_FORWARD_INLINE, MOVE_BACKWARD_INLINE]],
-   // Level 7: glasses.
-   [InterTypes.NONE,
-    8,
-    [turnRightRestricted(90), MOVE_FORWARD_INLINE, SET_COLOUR_PICKER,
-     MOVE_BACKWARD_INLINE],
-    Colours.GREEN],
-   // Level 8: spikes.
-   [InterTypes.PRE, 4, [repeat(8)], 8],
-   // Level 9: circle.
-   [InterTypes.NONE, 3, []],
-   // Level 10: playground.
-   [InterTypes.PRE, Infinity, []]],
-
+  [
+    // Level 1: El.
+    {
+      ideal: 3,
+      requiredBlocks: [MOVE_FORWARD_INLINE, turnRightRestricted(90)]
+    },
+    // Level 2: Square (without repeat).
+    {
+      interstitials: InterTypes.PRE,
+      ideal: 7,
+      requiredBlocks: [
+        MOVE_FORWARD_INLINE,
+        turnRightRestricted(90),
+        SET_COLOUR_PICKER
+      ],
+      requiredColours: 4
+    },
+    // Level 3: Square (with repeat).
+    {
+      interstitials: InterTypes.PRE,
+      ideal: 3,
+      requiredBlocks: [
+        MOVE_FORWARD_INLINE,
+        turnRightRestricted(90),
+        repeat(4)
+      ]
+    },
+    // Level 4: Triangle.
+    {
+      interstitials: InterTypes.PRE,
+      ideal: 3,
+      requiredBlocks: [
+        MOVE_FORWARD_INLINE,
+        repeat(3),
+        {
+          test: 'turnRight',
+          type: 'draw_turn_by_constant',
+          titles: {VALUE: '???'}
+        },
+        SET_COLOUR_RANDOM
+      ],
+      requiredColors: 3
+    },
+    // Level 5: Envelope.
+    {
+      interstitials: InterTypes.PRE,
+      ideal: 6,
+      requiredBlocks: [
+        repeat(3),
+        turnRightRestricted(120),
+        MOVE_FORWARD_INLINE
+      ]
+    },
+    // Level 6: triangle and square.
+    {
+      interstitials: InterTypes.PRE,
+      ideal: 6,
+      requiredBlocks: [
+        repeat(3),
+        turnRightRestricted(120),
+        MOVE_FORWARD_INLINE,
+        MOVE_BACKWARD_INLINE
+      ]
+    },
+    // Level 7: glasses.
+    {
+      ideal: 8,
+      requiredBlocks: [
+        turnRightRestricted(90),
+        MOVE_FORWARD_INLINE,
+        SET_COLOUR_PICKER,
+        MOVE_BACKWARD_INLINE
+      ],
+      requiredColors: Colours.GREEN
+    },
+    // Level 8: spikes.
+    {
+      interstitials: InterTypes.PRE,
+      ideal: 4,
+      requiredBlocks: [repeat(8)],
+      requiredColors: 8
+    },
+    // Level 9: circle.
+    {
+      ideal: 3
+    },
+    // Level 10: playground.
+    {
+      interstitials: InterTypes.PRE
+    },
+  ],
   // Page 2.
-  [undefined,  // Level 0.
-   // Level 1: Square.
-   [InterTypes.PRE, 5,
-    [repeat(4), turnRight(90), move(100), SET_COLOUR_PICKER], 1],
-   // Level 2: Small green square.
-   [InterTypes.PRE, 2,
-    [drawASquare('??'), SET_COLOUR_PICKER],
-    Colours.GREEN],
-   // Level 3: Three squares.
-   [InterTypes.PRE, 5,
-    [repeat(3), drawASquare(100), turnRight(120), SET_COLOUR_RANDOM]],
-   // Level 4: 36 squares.
-   [InterTypes.PRE, 5, []],
-   // Level 5: Different size squares.
-   [InterTypes.PRE, 10, [drawASquare('??')]],
-   // Level 6: For-loop squares.
-   [InterTypes.PRE, 6,
-    // This is not displayed properly.
-    [simpleBlock('variables_get_counter')]],
-   // Level 7: Boxy spiral.
-   [InterTypes.PRE, 8,
-    [simpleBlock('controls_for_counter'), move('??'),
-     simpleBlock('variables_get_counter'), turnRight(90)]],
-   // Level 8: Three snowmen.
-   [InterTypes.PRE, 9,
-    [drawASnowman(150), turnRight(90), turnLeft(90),
-     {test: 'jump', type: 'jump', values: {'VALUE': makeMathNumber(100)}},
-     simpleBlock('jump'), simpleBlock('draw_colour')],
-    3],
-   // Level 9: Snowman family.
-   [InterTypes.PRE, 12,
-    [drawASnowman('??'), simpleBlock('controls_for_counter'),
-     simpleBlock('variables_get_counter'),
-     turnRight(90), turnLeft(90),
-     {test: 'jump', type: 'jump', values: {'VALUE': makeMathNumber(60)}}]],
-   // Level 10: playground.
-   [InterTypes.NONE, Infinity, []]
+  [
+    // Level 1: Square.
+    {
+      interstitials: InterTypes.PRE,
+      ideal: 5,
+      requiredBlocks: [
+        repeat(4),
+        turnRight(90),
+        move(100),
+        SET_COLOUR_PICKER
+      ],
+      requiredColors: 1
+    },
+    // Level 2: Small green square.
+    {
+      interstitials: InterTypes.PRE,
+      ideal: 2,
+      requiredBlocks: [
+        drawASquare('??'),
+        SET_COLOUR_PICKER
+      ],
+      requiredColors: Colours.GREEN
+    },
+    // Level 3: Three squares.
+    {
+      interstitials: InterTypes.PRE,
+      ideal: 5,
+      requiredBlocks: [
+        repeat(3),
+        drawASquare(100),
+        turnRight(120),
+        SET_COLOUR_RANDOM
+      ]
+    },
+    // Level 4: 36 squares.
+    {
+      interstitials: InterTypes.PRE,
+      ideal: 5
+    },
+    // Level 5: Different size squares.
+    {
+      interstitials: InterTypes.PRE,
+      ideal: 10,
+      requiredBlocks: [
+        drawASquare('??')
+      ]
+    },
+    // Level 6: For-loop squares.
+    {
+      interstitials: InterTypes.PRE,
+      ideal: 6,
+      // This is not displayed properly.
+      requiredBlocks: [simpleBlock('variables_get_counter')]
+    },
+    // Level 7: Boxy spiral.
+    {
+      interstitials: InterTypes.PRE,
+      ideal: 8,
+      requiredBlocks: [
+        simpleBlock('controls_for_counter'),
+        move('??'),
+        simpleBlock('variables_get_counter'),
+        turnRight(90)
+      ]
+    },
+    // Level 8: Three snowmen.
+    {
+      interstitials: InterTypes.PRE,
+      ideal: 9,
+      requiredBlocks: [
+        drawASnowman(150),
+        turnRight(90),
+        turnLeft(90),
+        {
+          test: 'jump',
+          type: 'jump',
+          values: {'VALUE': makeMathNumber(100)}
+        },
+        simpleBlock('jump'),
+        simpleBlock('draw_colour')
+      ],
+      requiredColors: 3
+    },
+    // Level 9: Snowman family.
+    {
+      interstitials: InterTypes.PRE,
+      ideal: 12,
+      requiredBlocks: [
+        drawASnowman('??'),
+        simpleBlock('controls_for_counter'),
+        simpleBlock('variables_get_counter'),
+        turnRight(90),
+        turnLeft(90),
+        {
+          test: 'jump',
+          type: 'jump',
+          values: {'VALUE': makeMathNumber(60)}
+        }
+      ]
+    },
+    // Level 10: playground.
+    {}
   ],
   // Page 3.
-  [undefined,  // Level 0.
-   // Level 1: Call 'draw a square'.
-   [InterTypes.PRE, 1, [call('draw a square')]],
-   // Level 2: Create "draw a triangle".
-   [InterTypes.PRE | InterTypes.POST,
-    7,
-    [repeat(3), move(100), turnRight(120), call('draw a triangle')]],
-   // Level 3: Fence the animals.
-   [InterTypes.NONE, 7,
-    [call('draw a triangle'), move(100), call('draw a square')]],
-   // Level 4: House the lion.
-   [InterTypes.NONE, 6,
-    [call('draw a square'), move(100), turnRight(30),
-     call('draw a triangle')]],
-   // Level 5: Create "draw a house".
-   [InterTypes.PRE, 8,
-    [define('draw a house'), call('draw a square'), move(100), turnRight(30),
-     call('draw a triangle'), call('draw a house')]],
-   // Level 6: Add parameter to "draw a triangle".
-   [InterTypes.PRE, 13,
-    [exports.defineWithArg_('draw a triangle', 'length'),
-     simpleBlock('variables_get_length'),
-     callWithArg('draw a triangle', 'length')],
-    2],
-   // Level 7: Add parameter to "draw a house".
-   [InterTypes.NONE, 13,
-    [exports.defineWithArg_('draw a house', 'height'),
-     callWithArg('draw a square', 'length'),
-     callWithArg('draw a triangle', 'length'),
-     simpleBlock('variables_get_height'),
-     callWithArg('draw a house', 'height')]],
-   // Level 8: Draw houses.
-   [InterTypes.PRE, 27, []],
-   // Level 9: Draw houses with for loop.
-   [InterTypes.POST, 27,
-    [simpleBlock('controls_for_counter'),
-     simpleBlock('variables_get_counter'),
-     SET_COLOUR_RANDOM],
-    3],
-   // Level 10: playground.
-   [InterTypes.NONE, Infinity, []]
+  [
+    // Level 1: Call 'draw a square'.
+    {
+      interstitials: InterTypes.PRE,
+      ideal: 1,
+      requiredBlocks: [
+        call('draw a square')
+      ]
+    },
+    // Level 2: Create "draw a triangle".
+    {
+      interstitials: InterTypes.PRE | InterTypes.POST,
+      ideal: 7,
+      requiredBlocks: [
+        repeat(3),
+        move(100),
+        turnRight(120),
+        call('draw a triangle')
+      ]
+    },
+    // Level 3: Fence the animals.
+    {
+      ideal: 7,
+      requiredBlocks: [
+        call('draw a triangle'),
+        move(100),
+        call('draw a square')
+      ]
+    },
+    // Level 4: House the lion.
+    {
+      ideal: 6,
+      requiredBlocks: [
+        call('draw a square'),
+        move(100),
+        turnRight(30),
+        call('draw a triangle')
+      ]
+    },
+    // Level 5: Create "draw a house".
+    {
+      interstitials: InterTypes.PRE,
+      ideal: 8,
+      requiredBlocks: [
+        define('draw a house'),
+        call('draw a square'),
+        move(100),
+        turnRight(30),
+        call('draw a triangle'),
+        call('draw a house')
+      ]
+    },
+    // Level 6: Add parameter to "draw a triangle".
+    {
+      interstitials: InterTypes.PRE,
+      ideal: 13,
+      requiredBlocks: [
+        exports.defineWithArg_('draw a triangle', 'length'),
+        simpleBlock('variables_get_length'),
+        callWithArg('draw a triangle', 'length')
+      ],
+      requiredColors: 2
+    },
+    // Level 7: Add parameter to "draw a house".
+    {
+      ideal: 13,
+      requiredBlocks: [
+        exports.defineWithArg_('draw a house', 'height'),
+        callWithArg('draw a square', 'length'),
+        callWithArg('draw a triangle', 'length'),
+        simpleBlock('variables_get_height'),
+        callWithArg('draw a house', 'height')
+      ]
+    },
+    // Level 8: Draw houses.
+    {
+      interstitials: InterTypes.PRE,
+      ideal: 27
+    },
+    // Level 9: Draw houses with for loop.
+    {
+      interstitials: InterTypes.POST,
+      ideal: 27,
+      requiredBlocks: [
+        simpleBlock('controls_for_counter'),
+        simpleBlock('variables_get_counter'),
+        SET_COLOUR_RANDOM
+      ],
+      requiredColors: 3
+    },
+    // Level 10: playground.
+    {}
   ]
 ];
 
@@ -345,12 +507,10 @@ exports.install = function(BlocklyApps, Turtle) {
   BlocklyApps.LEVEL =
       BlocklyApps.getNumberParamFromUrl('level', 1, BlocklyApps.MAX_LEVEL);
 
-  BlocklyApps.INTERSTITIALS =
-      BLOCK_DATA[BlocklyApps.PAGE][BlocklyApps.LEVEL][0];
-  BlocklyApps.IDEAL_BLOCK_NUM =
-      BLOCK_DATA[BlocklyApps.PAGE][BlocklyApps.LEVEL][1];
-  BlocklyApps.REQUIRED_BLOCKS =
-      BLOCK_DATA[BlocklyApps.PAGE][BlocklyApps.LEVEL][2];
-  Turtle.REQUIRED_COLOURS =
-      BLOCK_DATA[BlocklyApps.PAGE][BlocklyApps.LEVEL][3];
+  var level = BLOCK_DATA[BlocklyApps.PAGE - 1][BlocklyApps.LEVEL - 1];
+  console.log(level);
+  BlocklyApps.INTERSTITIALS = level.interstitials;
+  BlocklyApps.IDEAL_BLOCK_NUM = level.ideal || Infinity;
+  BlocklyApps.REQUIRED_BLOCKS = level.requiredBlocks || [];
+  Turtle.REQUIRED_COLOURS = level.requiredColors;
 };
