@@ -17,53 +17,80 @@ var REPEAT = {'test': function(block) {
               'type': 'controls_repeat'};
 
 // This tests for and creates the "maze_turn" block turning left.
-var TURN_LEFT = {'test': 'turnLeft', 'type': 'maze_turn', 'titles': {'DIR': 'turnLeft'}};
+var TURN_LEFT = {'test': 'turnLeft',
+                 'type': 'maze_turn',
+                 'titles': {'DIR': 'turnLeft'}};
 
 // This tests for and creates the "maze_turn" block turning right.
-var TURN_RIGHT = {'test': 'turnRight', 'type': 'maze_turn', 'titles': {'DIR': 'turnRight'}};
+var TURN_RIGHT = {'test': 'turnRight',
+                  'type': 'maze_turn',
+                  'titles': {'DIR': 'turnRight'}};
 
 // This tests for and creates the "maze_untilBlocked" block.
-var UNTIL_BLOCKED = {'test': 'while (Maze.isPathForward', 'type': 'maze_untilBlocked'};
+var UNTIL_BLOCKED = {'test': 'while (Maze.isPathForward',
+                     'type': 'maze_untilBlocked'};
 
 // This tests for and creates the "maze_untilBlockedOrNotClear" block with the option "ballsPresent" selected.
-var WHILE_OPT_BALLS_PRESENT = {'test': 'while (Maze.ballsPresent', 'type': 'maze_untilBlockedOrNotClear', 'titles': {'DIR': 'ballsPresent'}};
+var WHILE_OPT_BALLS_PRESENT = {'test': 'while (Maze.ballsPresent',
+                               'type': 'maze_untilBlockedOrNotClear',
+                               'titles': {'DIR': 'ballsPresent'}};
 
 // This tests for and creates the "maze_untilBlockedOrNotClear" block with the option "isPathForward" selected.
-var WHILE_OPT_PATH_AHEAD = {'test': 'while (Maze.isPathForward', 'type': 'maze_untilBlockedOrNotClear', 'titles': {'DIR': 'isPathForward'}};
+var WHILE_OPT_PATH_AHEAD = {'test': 'while (Maze.isPathForward',
+                            'type': 'maze_untilBlockedOrNotClear',
+                            'titles': {'DIR': 'isPathForward'}};
 
 // This tests for and creates the "maze_if" block.
 var IF = {'test': 'if', 'type': 'maze_if'};
 
 // This tests for and creates the "maze_if" block with the option "ballsPresent" selected.
-var IF_OPT_BALLS_PRESENT = {'test': 'if (Maze.ballsPresent', 'type': 'maze_if', 'titles': {'DIR': 'ballsPresent'}};
+var IF_OPT_BALLS_PRESENT = {'test': 'if (Maze.ballsPresent',
+                            'type': 'maze_if',
+                            'titles': {'DIR': 'ballsPresent'}};
 
 // This tests for and creates the "maze_if" block with the option "holesPresent" selected.
-var IF_OPT_HOLES_PRESENT = {'test': 'if (Maze.holesPresent', 'type': 'maze_if', 'titles': {'DIR': 'holesPresent'}};
+var IF_OPT_HOLES_PRESENT = {'test': 'if (Maze.holesPresent',
+                            'type': 'maze_if',
+                            'titles': {'DIR': 'holesPresent'}};
 
 // This tests for and creates the "maze_ifElse" block.
 var IF_ELSE = {'test': '} else {', 'type': 'maze_ifElse'};
 
 // This tests for and creates the "fill num" blcok.
 var fill = function(num) {
-    return {'test': 'fill_' + num + '();', 'type': 'procedures_callnoreturn', 'titles': {'NAME': 'fill ' + num}};
+    return {'test': 'fill_' + num + '();',
+            'type': 'procedures_callnoreturn',
+            'titles': {'NAME': 'fill ' + num}};
 };
 
 // This tests for and creates the "remove num" blcok.
 var remove = function(num) {
-    return {'test': 'remove_' + num + '();', 'type': 'procedures_callnoreturn', 'titles': {'NAME': 'remove ' + num}};
+    return {'test': 'remove_' + num + '();',
+            'type': 'procedures_callnoreturn',
+            'titles': {'NAME': 'remove ' + num}};
 };
 
 // This tests for and creates the "avoid the cow and remove 1" blcok.
-var AVOID_OBSTACLE_AND_REMOVE = {'test': 'avoid_the_cow_and_remove_1();', 'type': 'procedures_callnoreturn', 'titles': {'NAME': 'avoid the cow and remove 1'}};
+var AVOID_OBSTACLE_AND_REMOVE =
+    {'test': 'avoid_the_cow_and_remove_1();',
+     'type': 'procedures_callnoreturn',
+     'titles': {'NAME': 'avoid the cow and remove 1'}};
 
 // This tests for and creates the "remove 1 and avoid the cow" blcok.
-var AVOID_OBSTACLE_AND_REMOVE = {'test': 'remove_1_and_avoid_the_cow();', 'type': 'procedures_callnoreturn', 'titles': {'NAME': 'avoid the cow and remove 1'}};
+var AVOID_OBSTACLE_AND_REMOVE =
+    {'test': 'remove_1_and_avoid_the_cow();',
+     'type': 'procedures_callnoreturn',
+     'titles': {'NAME': 'avoid the cow and remove 1'}};
 
 // This tests for and creates the "remove piles" block.
-var REMOVE_PILES = {'test': 'remove_piles();', 'type': 'procedures_callnoreturn', 'titles': {'NAME': 'remove piles'}};
+var REMOVE_PILES = {'test': 'remove_piles();',
+                    'type': 'procedures_callnoreturn',
+                    'titles': {'NAME': 'remove piles'}};
 
 // This tests for and creates the "fill holes" block.
-var FILL_HOLES = {'test': 'fill_holes();', 'type': 'procedures_callnoreturn', 'titles': {'NAME': 'fill holes'}};
+var FILL_HOLES = {'test': 'fill_holes();',
+                  'type': 'procedures_callnoreturn',
+                  'titles': {'NAME': 'fill holes'}};
 
 
 module.exports = {
