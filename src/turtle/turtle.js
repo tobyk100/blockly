@@ -501,6 +501,10 @@ Turtle.init = function() {
     document.getElementById('linkButton').className = 'disabled';
   }
 
+  // Show the instructions.
+  var msgKey = 'instructions' + BlocklyApps.PAGE + '_' + BlocklyApps.LEVEL;
+  document.getElementById('prompt').innerHTML = msg[msgKey]();
+
   // Initialize the slider.
   var sliderSvg = document.getElementById('slider');
   Turtle.speedSlider = new Slider(10, 35, 130, sliderSvg);
