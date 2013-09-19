@@ -208,6 +208,11 @@ Maze.drawMap = function() {
   square.setAttribute('stroke', '#CCB');
   svg.appendChild(square);
 
+  // Fill-in hint bubble.
+  var hint = document.getElementById('hint');
+  var hintKey = 'instructions' + BlocklyApps.PAGE + '_' + BlocklyApps.LEVEL;
+  hint.innerHTML = msg[hintKey]();
+
   if (BlocklyApps.SKIN.background) {
     var tile = document.createElementNS(Blockly.SVG_NS, 'image');
     tile.setAttributeNS('http://www.w3.org/1999/xlink', 'xlink:href',
