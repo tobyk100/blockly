@@ -13,7 +13,6 @@ config.clean = {
 config.copy = {
   static: {
     files: [
-      {expand: true, cwd: 'css/', src: ['**/*.css'], dest: 'dist/'},
       {expand: true, cwd: 'static/', src: ['**'], dest: 'dist/'}
     ]
   },
@@ -25,6 +24,20 @@ config.copy = {
     ]
   }
 };
+
+config.sass = {
+  all: {
+    files: {
+      'dist/common.css': 'style/common.scss',
+      'dist/style.css': 'style/style.scss'
+    }
+  }
+};
+APPS.forEach(function(app) {
+  var src = 'style/' + app + '/style.scss';
+  var dest = 'dist/' + app + '/style.css';
+  config.sass.all.files[dest] = src;
+});
 
 config.soycompile = {
   all: {
@@ -83,9 +96,9 @@ config.watch = {
     files: ['src/**/*.js'],
     tasks: ['browserify']
   },
-  css: {
-    files: ['css/**/*.css'],
-    tasks: ['copy']
+  style: {
+    files: ['scss/**/*.scss', 'sass/**/*.sass'],
+    tasks: ['sass']
   },
   content: {
     files: ['lib/**/*.js', 'static/**/*'],
@@ -129,6 +142,7 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-soy-compile');
   grunt.loadNpmTasks('grunt-browserify');
+  grunt.loadNpmTasks('grunt-sass');
 
   grunt.loadTasks('tasks');
 
@@ -138,7 +152,8 @@ module.exports = function(grunt) {
     'messages',
     'build:templates',
     'browserify',
-    'copy'
+    'copy',
+    'sass'
   ]);
 
   grunt.registerTask('dev', ['connect:server', 'watch']);
