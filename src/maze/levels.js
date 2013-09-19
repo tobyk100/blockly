@@ -1,3 +1,4 @@
+var InterTypes = require('../feedback').InterTypes;
 var Direction = require('../tiles').Direction;
 
 /*
@@ -8,7 +9,7 @@ module.exports = [
   {},
   // Level 1
   {
-    'interstitials': [BlocklyApps.InterTypes.PRE],
+    'interstitials': [InterTypes.PRE],
     'ideal': 2,
     'requiredBlocks': [
       {'test': 'moveForward', 'type': 'maze_moveForward'}
@@ -28,7 +29,7 @@ module.exports = [
   },
   // Level 2
   {
-    'interstitials': [BlocklyApps.InterTypes.POST],
+    'interstitials': [InterTypes.POST],
     'ideal': 5,
     'requiredBlocks': [
       {'test': 'moveForward', 'type': 'maze_moveForward'},
@@ -49,7 +50,7 @@ module.exports = [
   },
   // Level 3
   {
-    'interstitials': [BlocklyApps.InterTypes.PRE],
+    'interstitials': [InterTypes.PRE],
     'ideal': 2,
     'requiredBlocks': [
       {'test': 'while', 'type': 'maze_forever'},
@@ -70,7 +71,7 @@ module.exports = [
   },
   // Level 4
   {
-    'interstitials': [BlocklyApps.InterTypes.NONE],
+    'interstitials': [InterTypes.NONE],
     'ideal': 5,
     'requiredBlocks': [
       {'test': 'while', 'type': 'maze_forever'},
@@ -98,7 +99,7 @@ module.exports = [
   },
   // Level 5
   {
-    'interstitials': [BlocklyApps.InterTypes.PRE | BlocklyApps.InterTypes.POST],
+    'interstitials': [InterTypes.PRE | InterTypes.POST],
     'ideal': 4,
     'requiredBlocks': [
       {'test': 'while', 'type': 'maze_forever'},
@@ -121,7 +122,7 @@ module.exports = [
   },
   // Level 6
   {
-    'interstitials': [BlocklyApps.InterTypes.PRE],
+    'interstitials': [InterTypes.PRE],
     'ideal': 4,
     'requiredBlocks': [
       {'test': 'while', 'type': 'maze_forever'},
@@ -143,7 +144,7 @@ module.exports = [
   },
   // Level 7
   {
-    'interstitials': [BlocklyApps.InterTypes.NONE],
+    'interstitials': [InterTypes.NONE],
     'ideal': 4,
     'requiredBlocks': [
       {'test': 'while', 'type': 'maze_forever'},
@@ -164,7 +165,7 @@ module.exports = [
   },
   // Level 8
   {
-    'interstitials': [BlocklyApps.InterTypes.NONE],
+    'interstitials': [InterTypes.NONE],
     'ideal': 6,
     'requiredBlocks': [
       {'test': 'while', 'type': 'maze_forever'},
@@ -188,7 +189,7 @@ module.exports = [
   },
   // Level 9
   {
-    'interstitials': [BlocklyApps.InterTypes.PRE | BlocklyApps.InterTypes.POST],
+    'interstitials': [InterTypes.PRE | InterTypes.POST],
     'ideal': 6,
     'requiredBlocks': [
       {'test': 'while', 'type': 'maze_forever'},
@@ -211,7 +212,7 @@ module.exports = [
   },
   // Level 10
   {
-    'interstitials': [BlocklyApps.InterTypes.NONE],
+    'interstitials': [InterTypes.NONE],
     'ideal': 5,
     'requiredBlocks': [
       {'test': 'while', 'type': 'maze_forever'},
