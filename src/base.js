@@ -25,6 +25,7 @@
 
 var BlocklyApps = module.exports;
 var msg = require('../build/en_us/i18n/common');
+var dialog = require('./dialog');
 
 /**
  * The parent directory of the apps. Contains common.js.
@@ -198,180 +199,13 @@ BlocklyApps.checkTimeout = function(opt_id) {
 };
 
 /**
- * Is the dialog currently onscreen?
- * @private
- */
-BlocklyApps.isDialogVisible_ = false;
-
-/**
- * A closing dialog should animate towards this element.
- * @type Element
- * @private
- */
-BlocklyApps.dialogOrigin_ = null;
-
-/**
- * A function to call when a dialog closes.
- * @type Function
- * @private
- */
-BlocklyApps.dialogDispose_ = null;
-
-/**
- * Show the dialog pop-up.
- * @param {!Element} content DOM element to display in the dialog.
- * @param {Element} origin Animate the dialog opening/closing from/to this
- *     DOM element.  If null, don't show any animations for opening or closing.
- * @param {boolean} animate Animate the dialog opening (if origin not null).
- * @param {boolean} modal If true, grey out background and prevent interaction.
- * @param {!Object} style A dictionary of style rules for the dialog.
- * @param {Function} disposeFunc An optional function to call when the dialog
- *     closes.  Normally used for unhooking events.
- */
-BlocklyApps.showDialog = function(content, origin, animate, modal, style,
-                                  disposeFunc) {
-  if (BlocklyApps.isDialogVisible_) {
-    BlocklyApps.hideDialog(false);
-  }
-  BlocklyApps.isDialogVisible_ = true;
-  BlocklyApps.dialogOrigin_ = origin;
-  BlocklyApps.dialogDispose_ = disposeFunc;
-  var dialog = document.getElementById('dialog');
-  var shadow = document.getElementById('dialogShadow');
-  var border = document.getElementById('dialogBorder');
-
-  // Copy all the specified styles to the dialog.
-  for (var name in style) {
-    dialog.style[name] = style[name];
-  }
-  dialog.appendChild(content);
-  content.className = content.className.replace('dialogHiddenContent', '');
-
-  if (modal) {
-    shadow.style.visibility = 'visible';
-    shadow.style.opacity = 0.3;
-  }
-  function endResult() {
-    dialog.style.visibility = 'visible';
-    dialog.style.zIndex = 1;
-    border.style.visibility = 'hidden';
-  }
-  if (animate && origin) {
-    BlocklyApps.matchBorder_(origin, false, 0.2);
-    BlocklyApps.matchBorder_(dialog, true, 0.8);
-    // In 175ms show the dialog and hide the animated border.
-    window.setTimeout(endResult, 175);
-  } else {
-    // No animation.  Just set the final state.
-    endResult();
-  }
-};
-
-/**
- * Hide the dialog pop-up.
+ * Hide the dialog pop-up and interstitials.
  * @param {boolean} opt_animate Animate the dialog closing.  Defaults to true.
  *     Requires that origin was not null when dialog was opened.
  */
 BlocklyApps.hideDialog = function(opt_animate) {
-  if (!BlocklyApps.isDialogVisible_) {
-    return;
-  }
-  BlocklyApps.isDialogVisible_ = false;
-  BlocklyApps.dialogDispose_ && BlocklyApps.dialogDispose_();
-  BlocklyApps.dialogDispose_ = null;
-  var origin = (opt_animate === false) ? null : BlocklyApps.dialogOrigin_;
-  var dialog = document.getElementById('dialog');
-  var shadow = document.getElementById('dialogShadow');
-  var border = document.getElementById('dialogBorder');
-
-  shadow.style.opacity = 0;
-
-  function endResult() {
-    shadow.style.visibility = 'hidden';
-    border.style.visibility = 'hidden';
-  }
-  if (origin) {
-    BlocklyApps.matchBorder_(dialog, false, 0.8);
-    BlocklyApps.matchBorder_(origin, true, 0.2);
-    // In 175ms hide both the shadow and the animated border.
-    window.setTimeout(endResult, 175);
-  } else {
-    // No animation.  Just set the final state.
-    endResult();
-  }
-  dialog.style.visibility = 'hidden';
-  dialog.style.zIndex = -1;
-  while (dialog.firstChild) {
-    var content = dialog.firstChild;
-    content.className += ' dialogHiddenContent';
-    document.body.appendChild(content);
-  }
+  dialog.hide(opt_animate);
   BlocklyApps.hideInterstitial();
-};
-
-/**
- * Match the animated border to the a element's size and location.
- * @param {!Element} element Element to match.
- * @param {boolean} animate Animate to the new location.
- * @param {number} opacity Opacity of border.
- * @private
- */
-BlocklyApps.matchBorder_ = function(element, animate, opacity) {
-  if (!element) {
-    return;
-  }
-  var border = document.getElementById('dialogBorder');
-  var bBox = BlocklyApps.getBBox_(element);
-  function change() {
-    border.style.width = bBox.width + 'px';
-    border.style.height = bBox.height + 'px';
-    border.style.left = bBox.x + 'px';
-    border.style.top = bBox.y + 'px';
-    border.style.opacity = opacity;
-  }
-  if (animate) {
-    border.className = 'dialogAnimate';
-    window.setTimeout(change, 1);
-  } else {
-    border.className = '';
-    change();
-  }
-  border.style.visibility = 'visible';
-};
-
-/**
- * Compute the absolute coordinates and dimensions of an HTML or SVG element.
- * @param {!Element} element Element to match.
- * @return {!Object} Contains height, width, x, and y properties.
- * @private
- */
-BlocklyApps.getBBox_ = function(element) {
-  if (element.getBBox) {
-    // SVG element.
-    var bBox = element.getBBox();
-    var height = bBox.height;
-    var width = bBox.width;
-    var xy = Blockly.getAbsoluteXY_(element);
-    var x = xy.x;
-    var y = xy.y;
-  } else {
-    // HTML element.
-    var height = element.offsetHeight;
-    var width = element.offsetWidth;
-    var x = 0;
-    var y = 0;
-    do {
-      x += element.offsetLeft;
-      y += element.offsetTop;
-      element = element.offsetParent;
-    } while (element);
-  }
-  return {
-    height: height,
-    width: width,
-    x: x,
-    y: y
-  };
 };
 
 /**
@@ -395,12 +229,9 @@ BlocklyApps.storageAlert = function(message) {
     left: '25%',
     top: '5em'
   };
-  function disposeFunc() {
+  dialog.show(content, origin, true, true, style, function() {
     content.parentNode.removeChild(content);
-    BlocklyApps.stopDialogKeyDown();
-  }
-  BlocklyApps.showDialog(content, origin, true, true, style, disposeFunc);
-  BlocklyApps.startDialogKeyDown();
+  });
 };
 
 /**
@@ -446,42 +277,7 @@ BlocklyApps.showCode = function(origin) {
     left: '30%',
     top: '5em'
   };
-  BlocklyApps.showDialog(content, origin, true, true, style,
-      BlocklyApps.stopDialogKeyDown);
-  BlocklyApps.startDialogKeyDown();
-};
-
-/**
- * If the user preses enter, escape, or space, hide the dialog.
- * @param {!Event} e Keyboard event.
- * @private
- */
-BlocklyApps.dialogKeyDown_ = function(e) {
-  if (BlocklyApps.isDialogVisible_) {
-    if (e.keyCode == 13 ||
-        e.keyCode == 27 ||
-        e.keyCode == 32) {
-      BlocklyApps.hideDialog(true);
-      e.stopPropagation();
-      e.preventDefault();
-    }
-  }
-};
-
-/**
- * Start listening for BlocklyApps.dialogKeyDown_.
- */
-BlocklyApps.startDialogKeyDown = function() {
-  document.body.addEventListener('keydown',
-      BlocklyApps.dialogKeyDown_, true);
-};
-
-/**
- * Stop listening for BlocklyApps.dialogKeyDown_.
- */
-BlocklyApps.stopDialogKeyDown = function() {
-  document.body.removeEventListener('keydown',
-      BlocklyApps.dialogKeyDown_, true);
+  dialog.show(content, origin, true, true, style);
 };
 
 /**
@@ -1190,9 +986,7 @@ BlocklyApps.showHelp = function(animate, feedbackType) {
     }
   }
   BlocklyApps.displayCloseDialogButtons(feedbackType);
-  BlocklyApps.showDialog(help, button, animate, true, style,
-        BlocklyApps.stopDialogKeyDown);
-  BlocklyApps.startDialogKeyDown();
+  dialog.show(help, button, animate, true, style);
 };
 
 /**
