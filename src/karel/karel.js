@@ -133,21 +133,9 @@ for (var key in level.scale) {
   Maze.scale[key] = level.scale[key];
 }
 
-Maze.map.unshift([0, 0, 0, 0, 0, 0, 0, 0]);
-Maze.initialBallMap.unshift([0, 0, 0, 0, 0, 0, 0, 0]);
-Maze.finalBallMap.unshift([0, 0, 0, 0, 0, 0, 0, 0]);
-
-// Nan's
-Maze.init_balls = [
-  [0, 0, 0, 0, 0, 0, 0, 0],
-  [0, 0, 0, 0, 0, 0, 0, 0],
-  [0, 0, 0, 0, 0, 0, 0, 0],
-  [0, 0, 0, 0, 0, 0, 0, 0],
-  [0, 0, 0, 0, 0, 0, 0, 0],
-  [0, 0, 0, 0, 0, 0, 0, 0],
-  [0, 0, 0, 0, 0, 0, 0, 0],
-  [0, 0, 0, 0, 0, 0, 0, 0],
-  [0, 0, 0, 0, 0, 0, 0, 0]];
+Maze.map.unshift(new Array(Maze.map[0].length));
+Maze.initialBallMap.unshift(new Array(Maze.initialBallMap[0].length));
+Maze.finalBallMap.unshift(new Array(Maze.finalBallMap[0].length));
 
 /**
  * Measure maze dimensions and set sizes.
@@ -208,6 +196,18 @@ Maze.drawMap = function() {
   square.setAttribute('stroke', '#CCB');
   svg.appendChild(square);
 
+  // Adjust outer element size.
+  svg.setAttribute('width', Maze.MAZE_WIDTH);
+  svg.setAttribute('height', Maze.MAZE_HEIGHT);
+  
+  // Adjust hint bubble width.
+  var hintBubble = document.getElementById('hintBubble');
+  hintBubble.style.width = (Maze.MAZE_WIDTH - 20) + 'px';
+  
+  // Adjust button table width.
+  var buttonTable = document.getElementById('gameButtons');
+  buttonTable.style.width = Maze.MAZE_WIDTH + 'px';
+  
   // Fill-in hint bubble.
   var hint = document.getElementById('hint');
   var hintKey = 'instructions' + BlocklyApps.PAGE + '_' + BlocklyApps.LEVEL;
@@ -255,13 +255,10 @@ Maze.drawMap = function() {
   // Return a value of '0' if the specified square is wall, obstacle or out of
   // bounds, '1' otherwise (empty, start, finish).
   var normalize = function(x, y) {
-    if (x < 0 || x >= Maze.COLS || y < 0 || y >= Maze.ROWS) {
-      return '0';
-    }
-    if (Maze.map[y][x] == Maze.SquareType.OBSTACLE) {
-      return '0';
-    }
-    return (Maze.map[y][x] == Maze.SquareType.WALL) ? '0' : '1';
+    return ((Maze.map[y] === undefined) ||
+            (Maze.map[y][x] === undefined) ||
+            (Maze.map[y][x] == Maze.SquareType.WALL) ||
+            (Maze.map[y][x] == Maze.SquareType.OBSTACLE)) ? '0' : '1';
   };
 
   // Compute and draw the tile for each square.
@@ -428,14 +425,11 @@ Maze.init = function() {
     }
   }
 
-  // Nan's
   // Init the balls so that all places are empty
-  Maze.balls_ = Maze.init_balls;
+  Maze.balls_ = new Array(Maze.ROWS);
   // Locate the balls in ball_map
   for (var y = 0; y < Maze.ROWS; y++) {
-    for (var x = 0; x < Maze.COLS; x++) {
-      Maze.balls_[y][x] = Maze.initialBallMap[y][x];
-    }
+    Maze.balls_[y] = Maze.initialBallMap[y].slice(0);
   }
 
   var xml = document.getElementById('start_blocks').innerHTML;
@@ -550,9 +544,9 @@ BlocklyApps.reset = function(first) {
   var svg = document.getElementById('svgMaze');
   var pegmanIcon = document.getElementById('pegman');
   for (var y = 0; y < Maze.ROWS; y++) {
+    // Reset current ball map with initial.
+    Maze.balls_[y] = Maze.initialBallMap[y].slice(0);
     for (var x = 0; x < Maze.COLS; x++) {
-      // Reset current ball map with initial.
-      Maze.balls_[y][x] = Maze.initialBallMap[y][x];
       // Remove all balls from svg element, less efficient than checking if we
       // need to remove, but much easier to code.
       var ballIcon = document.getElementById('ball' + ballId);
@@ -560,7 +554,7 @@ BlocklyApps.reset = function(first) {
         svg.removeChild(ballIcon);
       }
       // Place ball if one exists in cell.
-      if (Maze.balls_[y][x] !== 0 ) {
+      if (Maze.balls_[y][x] !== 0 && Maze.balls_[y][x] !== undefined) {
         ballIcon = document.createElementNS(Blockly.SVG_NS, 'image');
         ballIcon.setAttribute('id', 'ball' + ballId);
         Maze.setBallImage(ballIcon, x, y);

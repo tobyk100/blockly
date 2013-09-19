@@ -232,6 +232,10 @@ Maze.drawMap = function() {
   svg.setAttribute('width', Maze.MAZE_WIDTH);
   svg.setAttribute('height', Maze.MAZE_HEIGHT);
 
+  // Adjust button table width.
+  var buttonTable = document.getElementById('gameButtons');
+  buttonTable.style.width = Maze.MAZE_WIDTH + 'px';
+  
   // Size and fill-in hint bubble.
   var hintBubble = document.getElementById('hintBubble');
   hintBubble.style.width = (Maze.MAZE_WIDTH - 20) + 'px';

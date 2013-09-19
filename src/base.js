@@ -156,7 +156,8 @@ BlocklyApps.onResize = function() {
   var top = visualization.offsetTop;
   var scrollY = window.scrollY;
   blocklyDiv.style.top = Math.max(top, scrollY) + 'px';
-
+  var svg = document.getElementById('svgMaze');
+  
   var blocklyDivParent = blocklyDiv.parentNode;
   var parentStyle = window.getComputedStyle ?
                     window.getComputedStyle(blocklyDivParent) :
@@ -165,8 +166,9 @@ BlocklyApps.onResize = function() {
   var parentHeight = window.innerHeight - parseInt(blocklyDiv.style.top) +
     scrollY - 20;
 
-  blocklyDiv.style.width = (parentWidth - 440) + 'px';
+  blocklyDiv.style.width = (parentWidth - svg.clientWidth - 40) + 'px';
   blocklyDiv.style.height = parentHeight + 'px';
+  blocklyDiv.style.marginLeft = (svg.clientWidth + 15) + 'px';
 };
 
 /**
