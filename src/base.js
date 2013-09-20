@@ -695,9 +695,8 @@ BlocklyApps.REPORT_URL = BlocklyApps.getStringParamFromUrl('callback_url');
 /**
  * Caches the current report to send to the server. An app can set this
  * variable and continue to execute.
- * @private
  */
-BlocklyApps.latestReport_ = undefined;
+var latestReport_ = undefined;
 
 /**
  * Report back to the server, if available.
@@ -708,7 +707,7 @@ BlocklyApps.latestReport_ = undefined;
  * @param {string} program The user program, which will get URL-encoded.
  */
 BlocklyApps.report = function(app, id, level, result, program) {
-  BlocklyApps.latestReport_ = {
+  latestReport_ = {
     'app': app,
     'id': id,
     'level': level,
@@ -736,8 +735,8 @@ BlocklyApps.reportAndRedirect = function() {
   httpRequest.setRequestHeader('Content-Type',
       'application/x-www-form-urlencoded');
   var query = [];
-  for (var key in BlocklyApps.latestReport_) {
-    query.push(key + '=' + BlocklyApps.latestReport_[key]);
+  for (var key in latestReport_) {
+    query.push(key + '=' + latestReport_[key]);
   }
   query = query.join('&');
   httpRequest.send(query);
