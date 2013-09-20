@@ -594,21 +594,12 @@
       <td style="width: 15px;">
         <img id="spinner" style="visibility: hidden;" src="{$ij.baseUrl}turtle/loading.gif" height=15 width=15>
       </td>
-      <td style="width: 190px; text-align: center">
-        <button id="helpButton" onclick="BlocklyApps.showHelp(true, {$ij.level}, false);">
-          {msg meaning="Apps.help" desc="IBID"}Help{/msg}
-        </button>
-        <button id="runButton" class="launch" onclick="Turtle.runButtonClick();">
-          <img src="{$ij.baseUrl}media/1x1.gif" class="run icon21">
-          {msg meaning="Turtle.runProgram" desc="TODO"}Run{/msg}
-        </button>
-        <button id="resetButton" class="launch" onclick="BlocklyApps.resetButtonClick();" style="display: none">
-          <img src="{$ij.baseUrl}/media/1x1.gif" class="stop icon21">
-          {msg meaning="Turtle.resetProgram" desc="TODO"}Reset{/msg}
-        </button>
-      </td>
     </tr>
   </table>
+
+  {call apps.gameButtons}
+    {param appInstance}Turtle{/param}
+  {/call}
 
   <div id="toolbarDiv">
     <button title="{msg meaning="Turtle.codeTooltip" desc="TODO"}See generated JavaScript code.{/msg}" onclick="BlocklyApps.showCode(this);">

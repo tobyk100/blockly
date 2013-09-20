@@ -53,6 +53,7 @@ levels.install(BlocklyApps, Turtle);
 BlocklyApps.CHECK_FOR_EMPTY_BLOCKS = false;
 BlocklyApps.NUM_REQUIRED_BLOCKS_TO_FLAG = 1;
 BlocklyApps.FREE_BLOCKS = 'colour';
+BlocklyApps.INTERSTITIALS = {}; //XXX
 
 Turtle.HEIGHT = 400;
 Turtle.WIDTH = 400;

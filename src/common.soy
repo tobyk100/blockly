@@ -61,3 +61,48 @@
 {template .menu}
   {if not $menu} class="hide" {/if}
 {/template}
+
+/**
+ * @param appInstance The name of the App object to run.
+ */
+{template .gameButtons}
+  <table id="gameButtons" width="400" style="padding-top: 10px;">
+    <tr>
+      <td style="width: 190px; text-align: center; vertical-align: top;">
+        <button class="notext" title="{msg meaning="Maze.codeTooltip"
+          desc="tooltip (pop-up help) for button; pressing the button causes a
+          program in the JavaScript computer language to be displayed, based on
+          the program created by the user."}See generated JavaScript code.{/msg}"
+          onclick="BlocklyApps.showCode();">
+          <img src='{$ij.baseUrl}media/1x1.gif' alt="code" class="code icon21">
+        </button>
+        <button id="linkButton" class="notext" style="display: none;"
+          title="{msg meaning="Maze.linkTooltip" desc="tooltip (pop-up help) for
+          button; pressing the button causes the user's program to be saved and
+          for a URL to be provided for retrieving it.  The word 'blocks' is as
+          in children's toy blocks."}Save and link to blocks.{/msg}"
+          onclick="BlocklyStorage.link();">
+          <img src='{$ij.baseUrl}media/1x1.gif' alt="link" class="link icon21">
+        </button>
+      </td>
+      <td>
+        <button id="helpButton" onclick="BlocklyApps.showHelp(true);">
+          {msg meaning="Apps.help" desc="IBID"}Help{/msg}
+        </button>
+        <button id="runButton" class="launch" onclick="{$appInstance}.runButtonClick();">
+            <img src="{$ij.baseUrl}media/1x1.gif" class="run icon21">{msg meaning="Maze.runProgram"
+            desc="button label - Pressing the button runs the computer program the user has
+            written."}Run{/msg}
+          </button>
+        </button>
+        <button id="resetButton" class="launch"
+          onclick="BlocklyApps.resetButtonClick();" style="display: none">
+            <img src="{$ij.baseUrl}media/1x1.gif" class="stop icon21">
+              {msg meaning="Maze.resetProgram" desc="button label -
+                Pressing the button causes Pegman return to the start of the maze
+                (but does not delete the user's program.)"}Reset{/msg}
+          </button>
+      </td>
+    </tr>
+  </table>
+{/template}
