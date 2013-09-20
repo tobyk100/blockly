@@ -139,3 +139,22 @@
   <iframe id="feedbackBlocks" class="feedback" style="margin-left: 50px;
     height: 80px; width: 500px; border: none; display: none;" src=""></iframe>
 {/template}
+
+/**
+ * Buttons on the feedback dialog.
+ */
+{template .feedbackButtons}
+  <div id="returnToLevelButton" style="display: none;">{call apps.ok /}</div>
+  <div style="text-align: center">
+    <button id="tryAgainButton" class="launch" style="display: none"
+      onclick="BlocklyApps.goToNextLevelOrReset(false);">
+      {msg meaning="Turtle.tryAgain" desc="button - Closes the dialog and
+        stays on the current level"}Try again{/msg}
+    </button>
+    <button id="continueButton" class="launch" style="display: none"
+      onclick="BlocklyApps.goToNextLevelOrReset(true);">
+        {msg meaning="Turtle.continue" desc="button - Closes the dialog and
+          continues to the next level"}Continue{/msg}
+    </button>
+  </div>
+{/template}
