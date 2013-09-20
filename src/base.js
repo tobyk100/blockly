@@ -804,7 +804,7 @@ BlocklyApps.hideFeedback = function() {
 BlocklyApps.goToNextLevelOrReset = function(gotoNext) {
   if (gotoNext) {
     var interstitial = document.getElementById('interstitial').style.display;
-    if (interstitial == 'none' && BlocklyApps.INTERSTITIALS.before) {
+    if (interstitial == 'none' && BlocklyApps.INTERSTITIALS.after) {
       BlocklyApps.showInterstitial();
     } else {
       BlocklyApps.hideDialog(false);
