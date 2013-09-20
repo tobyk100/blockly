@@ -27,7 +27,6 @@
  * Create a namespace for the application.
  */
 var Turtle = module.exports;
-var InterTypes = require('../feedback').InterTypes;
 var Slider = require('../slider');
 var msg = require('../../build/en_us/i18n/turtle');
 var levels = require('./levels');
@@ -198,7 +197,7 @@ Turtle.init = function() {
   // Lazy-load the syntax-highlighting.
   window.setTimeout(BlocklyApps.importPrettify, 1);
 
-  if (BlocklyApps.INTERSTITIALS & InterTypes.PRE) {
+  if (BlocklyApps.INTERSTITIALS.before) {
     BlocklyApps.showHelp(false, undefined);
   } else {
     document.getElementById('helpButton').setAttribute('disabled', 'disabled');

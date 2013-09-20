@@ -24,7 +24,6 @@
 'use strict';
 
 var BlocklyApps = require('../base');
-var InterTypes = require('../feedback').InterTypes;
 var commonMsg = require('../../build/en_us/i18n/common');
 var mazeMsg = require('../../build/en_us/i18n/maze');
 var levels = require('./levels');
@@ -64,6 +63,8 @@ BlocklyApps.REQUIRED_BLOCKS = CURRENT_LEVEL.requiredBlocks;
 
 //The number of blocks to show as feedback.
 BlocklyApps.NUM_REQUIRED_BLOCKS_TO_FLAG = 10;
+
+BlocklyApps.INTERSTITIALS = CURRENT_LEVEL.interstitials || {};
 
 Maze.SKINS = [
   // sprite: A 1029x51 set of 21 avatar images.
@@ -132,13 +133,6 @@ BlocklyApps.SKIN_ID =
 Maze.SKIN = Maze.SKINS[BlocklyApps.SKIN_ID];
 
 Maze.SKIN.MARKER_URL = BlocklyApps.BASE_URL + 'maze/' + Maze.SKIN.marker;
-
-/**
- * Google Drive video ID.
- * 'null' is used because IE8 does not like trailing commas in arrays, and it is
- *     used throughout the array for consistency.
- */
-Maze.VIDEO_ID = CURRENT_LEVEL.videoId;
 
 /**
  * Milliseconds between each animation frame.
@@ -469,9 +463,10 @@ Maze.init = function() {
   BlocklyApps.reset(true);
   Blockly.addChangeListener(function() {BlocklyApps.updateCapacity()});
 
-  if (BlocklyApps.INTERSTITIALS & InterTypes.PRE) {
-    if (Maze.VIDEO_ID) {
-      BlocklyApps.addVideoIframeSrc(Maze.VIDEO_ID);
+  var interstitial = BlocklyApps.INTERSTITIALS.before;
+  if (interstitial) {
+    if (interstitial.videoId) {
+      BlocklyApps.addVideoIframeSrc(interstitial.videoId);
     }
     BlocklyApps.showHelp(false, undefined);
   } else {

@@ -24,7 +24,6 @@
 'use strict';
 
 var BlocklyApps = require('../base');
-var InterTypes = require('../feedback').InterTypes;
 var levels = require('./levels');
 var msg = require('../../build/en_us/i18n/karel');
 var tiles = require('../tiles');
@@ -440,9 +439,10 @@ Maze.init = function() {
   BlocklyApps.reset(true);
   Blockly.addChangeListener(function() {BlocklyApps.updateCapacity()});
 
-  if (BlocklyApps.INTERSTITIALS & InterTypes.PRE) {
-    if (Maze.VIDEO_ID) {
-      BlocklyApps.addVideoIframeSrc(Maze.VIDEO_ID);
+  var interstitial = BlocklyApps.INTERSTITIALS.before;
+  if (interstitial) {
+    if (interstitial.videoId) {
+      BlocklyApps.addVideoIframeSrc(interstitial.videoId);
     }
     BlocklyApps.showHelp(false, undefined);
   } else {

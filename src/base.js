@@ -26,7 +26,6 @@
 var BlocklyApps = module.exports;
 var msg = require('../build/en_us/i18n/common');
 var dialog = require('./dialog');
-var InterTypes = require('./feedback').InterTypes;
 
 /**
  * The parent directory of the apps. Contains common.js.
@@ -453,10 +452,9 @@ BlocklyApps.TestResults = {
 
 /**
  * The interstital setting for each level defined in the application.
- * See InterTypes for options.
  * @type {!Array=}
  */
- BlocklyApps.INTERSTITIALS = undefined;
+BlocklyApps.INTERSTITIALS = undefined;
 
 /**
  * Updates the document's 'capacity' element's innerHTML with a message
@@ -826,8 +824,7 @@ BlocklyApps.showReinfQuizFeedback = function(reinfLevel, identifier) {
 BlocklyApps.goToNextLevelOrReset = function(gotoNext) {
   if (gotoNext) {
     var interstitial = document.getElementById('interstitial').style.display;
-    if (interstitial == 'none' &&
-        BlocklyApps.INTERSTITIALS & InterTypes.POST) {
+    if (interstitial == 'none' && BlocklyApps.INTERSTITIALS.before) {
       BlocklyApps.showInterstitial();
     } else {
       BlocklyApps.hideDialog(false);
@@ -876,7 +873,7 @@ BlocklyApps.displayCloseDialogButtons = function(feedbackType) {
  */
 BlocklyApps.showInterstitial = function() {
   if (BlocklyApps.levelComplete) {
-    if (BlocklyApps.INTERSTITIALS & InterTypes.POST) {
+    if (BlocklyApps.INTERSTITIALS.after) {
       if (document.querySelector('.quiz')) {
         document.getElementById('continueButton').setAttribute('disabled',
                                                                'disabled');
@@ -894,7 +891,7 @@ BlocklyApps.showInterstitial = function() {
       }
       document.getElementById('interstitial').style.display = 'block';
     }
-  } else if (BlocklyApps.INTERSTITIALS & InterTypes.PRE) {
+  } else if (BlocklyApps.INTERSTITIALS.before) {
     document.getElementById('interstitial').style.display = 'block';
   }
 };

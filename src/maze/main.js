@@ -14,6 +14,7 @@ window.mazeMain = function(options) {
       level: BlocklyApps.LEVEL,
       menu: BlocklyApps.DISPLAY_NAV,
       skin: BlocklyApps.SKIN_ID,
+      interstitials: BlocklyApps.INTERSTITIALS,
       baseUrl: BlocklyApps.BASE_URL
     }));
   }

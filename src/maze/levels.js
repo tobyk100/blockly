@@ -1,4 +1,3 @@
-var InterTypes = require('../feedback').InterTypes;
 var Direction = require('../tiles').Direction;
 
 /*
@@ -16,12 +15,16 @@ module.exports = {
   null,
   // Level 1
   {
-    'interstitials': [InterTypes.PRE],
+    'interstitials': {
+      before: {
+        message: 'reinfMsg1',
+        videoId: '0BybP3F7DhXrUSFRhMnBGLUVPZTA'
+      }
+    },
     'ideal': 2,
     'requiredBlocks': [
       {'test': 'moveForward', 'type': 'maze_moveForward'}
     ],
-    'videoId': '0BybP3F7DhXrUSFRhMnBGLUVPZTA',
     'startDirection': Direction.EAST,
     'map': [
       [0, 0, 0, 0, 0, 0, 0, 0],
@@ -36,7 +39,11 @@ module.exports = {
   },
   // Level 2
   {
-    'interstitials': [InterTypes.POST],
+    'interstitials': {
+      after: {
+        message: 'reinfMsg3'
+      }
+    },
     'ideal': 5,
     'requiredBlocks': [
       {'test': 'moveForward', 'type': 'maze_moveForward'},
@@ -57,13 +64,17 @@ module.exports = {
   },
   // Level 3
   {
-    'interstitials': [InterTypes.PRE],
+    'interstitials': {
+      before: {
+        message: 'reinfMsg2',
+        videoId: '0BybP3F7DhXrUU2FCODdJdXRKVTQ'
+      }
+    },
     'ideal': 2,
     'requiredBlocks': [
       {'test': 'while', 'type': 'maze_forever'},
       {'test': 'moveForward', 'type': 'maze_moveForward'}
     ],
-    'videoId': '0BybP3F7DhXrUU2FCODdJdXRKVTQ',
     'startDirection': Direction.EAST,
     'map': [
       [0, 0, 0, 0, 0, 0, 0, 0],
@@ -78,7 +89,6 @@ module.exports = {
   },
   // Level 4
   {
-    'interstitials': [InterTypes.NONE],
     'ideal': 5,
     'requiredBlocks': [
       {'test': 'while', 'type': 'maze_forever'},
@@ -106,7 +116,15 @@ module.exports = {
   },
   // Level 5
   {
-    'interstitials': [InterTypes.PRE | InterTypes.POST],
+    'interstitials': {
+      before: {
+        message: 'reinfMsg4',
+        videoId: '0BybP3F7DhXrUSFRhMnBGLUVPZTA'
+      },
+      after: {
+        message: 'reinfMsg5'
+      }
+    },
     'ideal': 4,
     'requiredBlocks': [
       {'test': 'while', 'type': 'maze_forever'},
@@ -114,7 +132,6 @@ module.exports = {
       {'test': 'turnLeft', 'type': 'maze_turn', 'titles': {'DIR': 'turnLeft'}},
       {'test': 'moveForward', 'type': 'maze_moveForward'}
     ],
-    'videoId': '0BybP3F7DhXrUSFRhMnBGLUVPZTA',
     'startDirection': Direction.EAST,
     'map': [
       [0, 0, 0, 0, 0, 0, 0, 0],
@@ -129,7 +146,11 @@ module.exports = {
   },
   // Level 6
   {
-    'interstitials': [InterTypes.PRE],
+    'interstitials': {
+      before: {
+        message: 'reinfMsg6'
+      }
+    },
     'ideal': 4,
     'requiredBlocks': [
       {'test': 'while', 'type': 'maze_forever'},
@@ -151,7 +172,6 @@ module.exports = {
   },
   // Level 7
   {
-    'interstitials': [InterTypes.NONE],
     'ideal': 4,
     'requiredBlocks': [
       {'test': 'while', 'type': 'maze_forever'},
@@ -172,7 +192,6 @@ module.exports = {
   },
   // Level 8
   {
-    'interstitials': [InterTypes.NONE],
     'ideal': 6,
     'requiredBlocks': [
       {'test': 'while', 'type': 'maze_forever'},
@@ -196,7 +215,14 @@ module.exports = {
   },
   // Level 9
   {
-    'interstitials': [InterTypes.PRE | InterTypes.POST],
+    'interstitials': {
+      before: {
+        message: 'reinfMsg8'
+      },
+      after: {
+        message: 'reinfMsg9'
+      }
+    },
     'ideal': 6,
     'requiredBlocks': [
       {'test': 'while', 'type': 'maze_forever'},
@@ -219,7 +245,6 @@ module.exports = {
   },
   // Level 10
   {
-    'interstitials': [InterTypes.NONE],
     'ideal': 5,
     'requiredBlocks': [
       {'test': 'while', 'type': 'maze_forever'},

@@ -99,61 +99,11 @@
         <div style="margin-left: 50px;">
           <div id="reinfbubble">
             <span id="reinfMsg">
-              {if $ij.page == 1}
-                {switch $ij.level}
-                  {case 1}
-                  <span class="preInter">{msg meaning="Maze.reinfMsg1"
-                    desc="instructions - introduction to the Maze tutorial."}
-                      Watch the video below and learn how to use blocks to make
-                      me move.{/msg}</span>
-                 {case 2}
-                    <span class="postInter">{msg meaning="Maze.reinfMsg3" desc="instructions - program'
-                      refers to a series of instructions that tell the computer
-                      what to do next."}Which direction am I facing after this
-                      program ends?{/msg}</span>
-                  {case 3}
-                    {msg meaning="Maze.reinfMsg2"
-                      desc="instructions - 'block' refers to a child's stackable
-                      toys. A 'repeat' block is used to repeat blocks over and
-                      over. The red marker is the goal to be reached in the
-                      maze."}A repeat block repeats the blocks inside it until I
-                      reach the red marker.{/msg}
-                  {case 5}
-                    <span class="preInter">{msg meaning="Maze.reinfMsg4"
-                      desc="instructions - An example of an 'if' block is if
-                      there is a path to the left, turn left."}Here is an 'if'
-                      block: I will turn in a particular direction if there is a
-                      path in that direction. For example if there is a path to
-                      the left, I will turn left.{/msg}</span>
-                    <span class="postInter">{msg meaning="Maze.reinfMsg5" desc="instructions - An example
-                      of an 'if' block is if there is a path to the left, turn left.
-                      A 'repeat' block is used to repeat blocks over and over.
-                      'program' refers to a series of instructions that tell the
-                      computer what to do next."}We can place 'if' blocks inside
-                      'repeat' blocks. Where am I when this program ends?
-                      Click on the correct picture below.{/msg}</span>
-                  {case 6}
-                    {msg meaning="Maze.reinfMsg6" desc="instructions - A 'repeat'
-                      block is used to repeat blocks over and over. "}
-                      <strong>Remember:</strong>
-                      <ul>
-                        <li>'repeat' blocks perform an action multiple times
-                            without additional blocks.</li>
-                        <li>'if' blocks check if there is a path in a certain
-                            direction.</li>
-                      </ul>{/msg}
-                  {case 9}
-                    <span class="preInter">{msg meaning="Maze.reinfMsg8"
-                      desc="instructions - An example of an 'if-else' block is
-                      if there is a path ahead move forward, else turn left."}
-                        Here is an 'if-else' block: I move forward if there is a
-                        path ahead, otherwise I turn left.{/msg}</span>
-                    <span class="postInter">{msg meaning="Maze.reinfMsg9" desc="instructions - 'block'
-                      refers to a child's stackable toys. A 'repeat' block is
-                      used to repeat blocks over and over. The red marker is the
-                      goal to be reached in the maze."}Will the blocks below
-                      move me to the red marker?{/msg}</span>
-               {/switch}
+              {if $ij.interstitials.before}
+                <span class="preInter">{$ij.interstitials.before.message}</span>
+              {/if}
+              {if $ij.interstitials.after}
+                <span class="postInter">{$ij.interstitials.after.message}</span>
               {/if}
             </span>
           </div>
