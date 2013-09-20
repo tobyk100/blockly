@@ -191,8 +191,7 @@ Maze.drawMap = function() {
 
   // Fill-in hint bubble.
   var hint = document.getElementById('hint');
-  var hintKey = 'instructions' + pageNumber + '_' + levelNumber;
-  hint.innerHTML = msg[hintKey]();
+  hint.innerHTML = msg[level.instructions]();
 
   if (skin.background) {
     var tile = document.createElementNS(Blockly.SVG_NS, 'image');

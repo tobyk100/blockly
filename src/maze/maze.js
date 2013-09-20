@@ -188,12 +188,12 @@ Maze.drawMap = function() {
   // Adjust button table width.
   var buttonTable = document.getElementById('gameButtons');
   buttonTable.style.width = Maze.MAZE_WIDTH + 'px';
-  
+
   // Size and fill-in hint bubble.
   var hintBubble = document.getElementById('hintBubble');
   hintBubble.style.width = (Maze.MAZE_WIDTH - 20) + 'px';
   var hint = document.getElementById('hint');
-  hint.innerHTML = mazeMsg['instructions' + pageNumber + '_' + levelNumber]();
+  hint.innerHTML = mazeMsg[level.instructions]();
 
   if (skin.background) {
     var tile = document.createElementNS(Blockly.SVG_NS, 'image');

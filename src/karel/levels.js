@@ -125,6 +125,7 @@ module.exports = {
 
         // Level 1
         {
+          'instructions': 'instructions1_1',
           'ideal': 5,
           'requiredBlocks': [
             [MOVE_FORWARD], [PICK_UP_BALL]
@@ -167,6 +168,7 @@ module.exports = {
 
         // Level 2
         {
+          'instructions': 'instructions1_2',
           'ideal': 3,
           'requiredBlocks': [
             [MOVE_FORWARD], [PUT_DOWN_BALL]
@@ -206,6 +208,7 @@ module.exports = {
 
         // Level 3
         {
+          'instructions': 'instructions1_3',
           'ideal': 3,
           'requiredBlocks': [
             [MOVE_FORWARD], [PICK_UP_BALL], [REPEAT]
@@ -245,6 +248,7 @@ module.exports = {
 
         // Level 4
         {
+          'instructions': 'instructions1_4',
           'ideal': 4,
           'requiredBlocks': [
             [MOVE_FORWARD], [PICK_UP_BALL], [TURN_LEFT], [REPEAT]
@@ -284,6 +288,7 @@ module.exports = {
 
         // Level 5
         {
+          'instructions': 'instructions1_5',
           'ideal': 5,
           'requiredBlocks': [
             [MOVE_FORWARD], [PUT_DOWN_BALL], [REPEAT], [UNTIL_BLOCKED]
@@ -326,6 +331,7 @@ module.exports = {
 
         // Level 6
         {
+          'instructions': 'instructions1_6',
           'ideal': 3,
           'requiredBlocks': [
             [MOVE_FORWARD],
@@ -367,6 +373,7 @@ module.exports = {
 
         // Level 7
         {
+          'instructions': 'instructions1_7',
           'ideal': 4,
           'requiredBlocks': [
             [TURN_RIGHT],
@@ -412,6 +419,7 @@ module.exports = {
 
         // Level 8
         {
+          'instructions': 'instructions1_8',
           'ideal': 3,
           'requiredBlocks': [
             [MOVE_FORWARD],
@@ -453,6 +461,7 @@ module.exports = {
 
         // Level 9
         {
+          'instructions': 'instructions1_9',
           'ideal': 9,
           'requiredBlocks': [
             [MOVE_FORWARD],
@@ -495,6 +504,7 @@ module.exports = {
 
         // Level 10
         {
+          'instructions': 'instructions1_10',
           'ideal': 4,
           'requiredBlocks': [
             [MOVE_FORWARD],
@@ -537,6 +547,7 @@ module.exports = {
 
         // Level 11
         {
+          'instructions': 'instructions1_11',
           'ideal': 6,
           'requiredBlocks': [
             [MOVE_FORWARD],
@@ -587,6 +598,7 @@ module.exports = {
 
         // Level 1
         {
+          'instructions': 'instructions2_1',
           'ideal': null,
           'requiredBlocks': [
             [TURN_LEFT], [MOVE_FORWARD], [PICK_UP_BALL], [TURN_RIGHT]
@@ -629,6 +641,7 @@ module.exports = {
 
         // Level 2
         {
+          'instructions': 'instructions2_2',
           'ideal': 5,
           'requiredBlocks': [
             [MOVE_FORWARD], [fill(5)]
@@ -668,6 +681,7 @@ module.exports = {
 
         // Level 3
         {
+          'instructions': 'instructions2_3',
           'ideal': 7,
           'requiredBlocks': [
             [MOVE_FORWARD], [fill(5)], [UNTIL_BLOCKED, REPEAT]
@@ -710,6 +724,7 @@ module.exports = {
 
         // Level 4
         {
+          'instructions': 'instructions2_4',
           'ideal': 12,
           'requiredBlocks': [
             [PICK_UP_BALL],
@@ -757,6 +772,7 @@ module.exports = {
 
         // Level 5
         {
+          'instructions': 'instructions2_5',
           'ideal': 8,
           'requiredBlocks': [
             [PICK_UP_BALL],
@@ -799,6 +815,7 @@ module.exports = {
 
         // Level 6
         {
+          'instructions': 'instructions2_6',
           'ideal': 10,
           'requiredBlocks': [
             [remove(8)], [fill(8)], [MOVE_FORWARD], [UNTIL_BLOCKED, REPEAT]
@@ -838,6 +855,7 @@ module.exports = {
 
         // Level 7
         {
+          'instructions': 'instructions2_7',
           'ideal': 10,
           'requiredBlocks': [
             [TURN_LEFT], [MOVE_FORWARD], [TURN_RIGHT], [PICK_UP_BALL]
@@ -877,6 +895,7 @@ module.exports = {
 
         // Level 8
         {
+          'instructions': 'instructions2_8',
           'ideal': 12,
           'requiredBlocks': [
             [REPEAT], [AVOID_OBSTACLE_AND_REMOVE]
@@ -919,6 +938,7 @@ module.exports = {
 
         // Level 9
         {
+          'instructions': 'instructions2_9',
           'ideal': 24,
           'requiredBlocks': [
             [REMOVE_PILES],
@@ -964,6 +984,7 @@ module.exports = {
 
         // Level 10
         {
+          'instructions': 'instructions2_10',
           'ideal': 26,
           'requiredBlocks': [
             [REMOVE_PILES],
@@ -1011,6 +1032,7 @@ module.exports = {
 
         // Level 11
         {
+          'instructions': 'instructions2_11',
           'ideal': 15,
           'scale': {
             'stepSpeed': 3

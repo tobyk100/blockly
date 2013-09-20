@@ -10,6 +10,7 @@ module.exports = {
   'levels': [
   // Level 1
   {
+    'instructions': 'instructions1_1',
     'interstitials': {
       before: {
         message: 'reinfMsg1',
@@ -39,6 +40,7 @@ module.exports = {
   },
   // Level 2
   {
+    'instructions': 'instructions1_2',
     'interstitials': {
       after: {
         message: 'reinfMsg3',
@@ -70,6 +72,7 @@ module.exports = {
   },
   // Level 3
   {
+    'instructions': 'instructions1_3',
     'interstitials': {
       before: {
         message: 'reinfMsg2',
@@ -99,6 +102,7 @@ module.exports = {
   },
   // Level 4
   {
+    'instructions': 'instructions1_4',
     'ideal': 5,
     'requiredBlocks': [
       [{'test': 'while', 'type': 'maze_forever'}],
@@ -129,6 +133,7 @@ module.exports = {
   },
   // Level 5
   {
+    'instructions': 'instructions1_5',
     'interstitials': {
       before: {
         message: 'reinfMsg4',
@@ -165,6 +170,7 @@ module.exports = {
   },
   // Level 6
   {
+    'instructions': 'instructions1_6',
     'interstitials': {
       before: {
         message: 'reinfMsg6'
@@ -191,6 +197,7 @@ module.exports = {
   },
   // Level 7
   {
+    'instructions': 'instructions1_7',
     'ideal': 4,
     'requiredBlocks': [
       [{'test': 'while', 'type': 'maze_forever'}],
@@ -211,6 +218,7 @@ module.exports = {
   },
   // Level 8
   {
+    'instructions': 'instructions1_8',
     'ideal': 6,
     'requiredBlocks': [
       [{'test': 'while', 'type': 'maze_forever'}],
@@ -234,6 +242,7 @@ module.exports = {
   },
   // Level 9
   {
+    'instructions': 'instructions1_9',
     'interstitials': {
       before: {
         message: 'reinfMsg8',
@@ -267,6 +276,7 @@ module.exports = {
   },
   // Level 10
   {
+    'instructions': 'instructions1_10',
     'ideal': 5,
     'requiredBlocks': [
       [{'test': 'while', 'type': 'maze_forever'}],
@@ -294,6 +304,7 @@ module.exports = {
     'levels': [
         // Level 1
         {
+          'instructions': 'instructions2_1',
           'ideal': 2,
           'requiredBlocks': [
             [{'test': 'moveForward', 'type': 'maze_moveForward'}],
@@ -312,6 +323,7 @@ module.exports = {
         },
         // Level 2
         {
+          'instructions': 'instructions2_2',
           'ideal': 3,
           'requiredBlocks': [
             [{'test': 'moveForward', 'type': 'maze_moveForward'}],
@@ -330,6 +342,7 @@ module.exports = {
         },
         // Level 3
         {
+          'instructions': 'instructions2_3',
           'ideal': 5,
           'requiredBlocks': [
             [{'test': 'moveForward', 'type': 'maze_moveForward'}],
@@ -354,6 +367,7 @@ module.exports = {
         },
         // Level 4
         {
+          'instructions': 'instructions2_4',
           'ideal': 7,
           'requiredBlocks': [
             [{'test': 'moveForward', 'type': 'maze_moveForward'}],
@@ -375,6 +389,7 @@ module.exports = {
         },
         // Level 5
         {
+          'instructions': 'instructions2_5',
           'ideal': 2,
           'requiredBlocks': [
             [{'test': 'moveForward', 'type': 'maze_moveForward'}],
@@ -394,6 +409,7 @@ module.exports = {
         },
         // Level 6
         {
+          'instructions': 'instructions2_6',
           'ideal': 3,
           'requiredBlocks': [
             [{'test': 'moveForward', 'type': 'maze_moveForward'}],
@@ -413,6 +429,7 @@ module.exports = {
         },
         // Level 7
         {
+          'instructions': 'instructions2_7',
           'ideal': 5,
           'requiredBlocks': [
             [{'test': 'moveForward', 'type': 'maze_moveForward'}],
@@ -435,6 +452,7 @@ module.exports = {
         },
         // Level 8
         {
+          'instructions': 'instructions2_8',
           'ideal': 5,
           'requiredBlocks': [
             [{'test': 'moveForward', 'type': 'maze_moveForward'}],
@@ -457,6 +475,7 @@ module.exports = {
         },
         // Level 9
         {
+          'instructions': 'instructions2_9',
           'ideal': 2,
           'requiredBlocks': [
             [{'test': 'moveForward', 'type': 'maze_moveForward'}],
@@ -476,6 +495,7 @@ module.exports = {
         },
         // Level 10
         {
+          'instructions': 'instructions2_10',
           'ideal': 3,
           'requiredBlocks': [
             [{'test': 'moveForward', 'type': 'maze_moveForward'}],
@@ -495,6 +515,7 @@ module.exports = {
         },
         // Level 11
         {
+          'instructions': 'instructions2_11',
           'ideal': 5,
           'requiredBlocks': [
             [{'test': 'moveForward', 'type': 'maze_moveForward'}],
@@ -520,6 +541,7 @@ module.exports = {
         },
         // Level 12
         {
+          'instructions': 'instructions2_12',
           'ideal': 5,
           'requiredBlocks': [
             [{'test': 'moveForward', 'type': 'maze_moveForward'}],
@@ -545,6 +567,7 @@ module.exports = {
         },
         // Level 13
         {
+          'instructions': 'instructions2_13',
           'ideal': 4,
           'requiredBlocks': [
             [{'test': 'isPathLeft',
@@ -569,6 +592,7 @@ module.exports = {
         },
         // Level 14
         {
+          'instructions': 'instructions2_14',
           'ideal': 4,
           'requiredBlocks': [
             [{'test': 'isPathRight',
@@ -593,6 +617,7 @@ module.exports = {
         },
         // Level 15
         {
+          'instructions': 'instructions2_15',
           'ideal': 4,
           'requiredBlocks': [
             [{'test': 'isPathRight',
@@ -617,6 +642,7 @@ module.exports = {
         },
         // Level 16
         {
+          'instructions': 'instructions2_16',
           'ideal': 4,
           'requiredBlocks': [
             [{'test': 'isPathRight',
@@ -641,6 +667,7 @@ module.exports = {
         },
         // Level 17
         {
+          'instructions': 'instructions2_17',
           'ideal': 6,
           'requiredBlocks': [
             [{'test': 'isPathForward',
@@ -662,6 +689,7 @@ module.exports = {
         },
         // Level 18
         {
+          'instructions': 'instructions2_18',
           'ideal': 5,
           'requiredBlocks': [
             [{'test': 'isPathForward',
