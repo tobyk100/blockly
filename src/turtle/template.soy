@@ -623,34 +623,14 @@
   {call apps.storageDialog /}
   <div id="help" class="dialogHiddenContent">
     <div style="padding-bottom: 0.7ex;"><br>
-      <img class="stars feedback" id="star1" src="{$ij.baseUrl}star1.png">
-      <img class="stars feedback" id="star2" src="{$ij.baseUrl}star2.png">
-      <img class="stars feedback" id="star3" src="{$ij.baseUrl}star3.png">
-      <ul id="levelFeedbackText">
-        <span id="hintTitle" class="feedback" style="display: none; margin-left: -30px">{msg meaning="Apps.hintTitle" desc="IBID"}Hints:{/msg}</span>
-        <li id="nextLevelMsg" style="display: none; margin-left: -40px;">{msg
-          meaning="Apps.nextLevel" desc="IBID"}Congratulations! You have completed this level.{/msg}</li>
-        <li id="finalLevelMsg" style="display: none; margin-left: -40px;">{msg
-          meaning="Apps.finalLevelMsg" desc="alert - This is displayed when
-          the user solves the most difficult level."}Congratulations! You
-          have solved the final level.{/msg}</li>
-        <li id="emptyBlocksError" class="feedback" style="display: none">
-          {msg meaning="Apps.emptyBlocksErrorMsg" desc="IBID"}Remove empty blocks.{/msg}</li>
-        <li id="missingBlocksError" class="feedback" style="display: none">
-          {msg meaning="Apps.missingBlocksErrorMsg" desc="IBID"}Try one or more of the blocks below to solve this level.{/msg}</li>
-        <li id="tooManyBlocksError" class="feedback" style="display: none">
-          {msg meaning="Apps.tooManyBlocksMsg" desc="IBID"}This level can be solved with <span id="idealNumberMessage"></span> blocks.{/msg}</li>
-        <li id="tooFewBlocksError" class="feedback" style="display: none">
-          {msg meaning="Apps.tooFewBlocksMsg" desc="IBID"}You are using all of the necessary types of blocks, but try using more  of these types of blocks to complete this level.{/msg}</li>
-        <li id="levelIncompleteError" class="feedback" style="display: none">
-          {msg meaning="Apps.levelIncompleteError" desc="IBID"}You are using all of the necessary types of blocks but not in the right way.{/msg}</li>
-        <li id="appSpecificOneStarFeedback" class="feedback" style="display: none"></li>
-        <li id="appSpecificTwoStarFeedback" class="feedback" style="display: none">
-          {msg meaning="Apps.tooMuchWorkError" desc="TODO"}You made me do a lot of work!  Could you try repeating fewer times?{/msg}
-        </li>
-      </ul>  // feedbackText
-      <iframe id="feedbackBlocks" class="feedback" style="margin-left: 50px;
-        height: 80px; width: 500px; border: none; display: none;" src=""></iframe>
+      {call apps.feedback}
+        {param appSpecific}
+          <li id="appSpecificOneStarFeedback" class="feedback" style="display: none"></li>
+          <li id="appSpecificTwoStarFeedback" class="feedback" style="display: none">
+            {msg meaning="Apps.tooMuchWorkError" desc="TODO"}You made me do a lot of work!  Could you try repeating fewer times?{/msg}
+          </li>
+        {/param}
+      {/call}
       {call .showInterstitials /}
 
     </div>
