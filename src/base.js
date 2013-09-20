@@ -26,7 +26,6 @@
 var BlocklyApps = module.exports;
 var msg = require('../build/en_us/i18n/common');
 var dialog = require('./dialog');
-var InterTypes = require('./feedback').InterTypes;
 
 /**
  * The parent directory of the apps. Contains common.js.
@@ -350,26 +349,6 @@ BlocklyApps.MAX_LEVEL = undefined;
 BlocklyApps.SKIN_ID = undefined;
 
 /**
- * The maximum number of the mode.
- * @type {number}
- */
-BlocklyApps.MAX_MODE = undefined;
-
-/**
- * Enumeration of the modes the tutorial can be in (normal or adaptive).
- * @enum {number}
- */
-BlocklyApps.MODE_ENUM = {
-  NORMAL: 1,
-  ADAPTIVE: 2
-};
-
-/**
- * The mode of the tutorial.
- */
-BlocklyApps.MODE = undefined;
-
-/**
  * Whether to alert user to empty blocks, short-circuiting all other tests.
  */
 BlocklyApps.CHECK_FOR_EMPTY_BLOCKS = undefined;
@@ -473,10 +452,9 @@ BlocklyApps.TestResults = {
 
 /**
  * The interstital setting for each level defined in the application.
- * See InterTypes for options.
  * @type {!Array=}
  */
- BlocklyApps.INTERSTITIALS = undefined;
+BlocklyApps.INTERSTITIALS = undefined;
 
 /**
  * Updates the document's 'capacity' element's innerHTML with a message
@@ -811,33 +789,6 @@ BlocklyApps.hideFeedback = function() {
 };
 
 /**
- * Show feedback on a quiz interstitial question.
- * @param {number} reinfLevel Level number the quiz is displayed on.
- * @param {string} identifier 'q' + reinforcement level number +
- *     'r' or 'w' (right or wrong answer).
- */
-BlocklyApps.showReinfQuizFeedback = function(reinfLevel, identifier) {
-  var qNum = reinfLevel;
-  var responseType = identifier.charAt(identifier.length - 1);
-  document.getElementById('reinfQuizFeedback').style.display = 'block';
-  var textColor;
-  var responseType;
-  if (responseType == 'w') {
-    textColor = 'red';
-    responseType = 'wrong';
-  } else if (responseType == 'r') {
-    textColor = 'green';
-    responseType = 'right';
-    document.getElementById('continueButton').removeAttribute('disabled');
-  } else {
-    throw 'Response not w or r.';
-  }
-  var textDiv = document.getElementById('reinfFeedbackText');
-  textDiv.style.color = textColor;
-  textDiv.value = msg['q' + qNum + responseType]();
-};
-
-/**
  * If the level is done, either show an interstitial or go to the next level.
  * Otherwise close the dialog and reset so the user can try again.
  * @param {boolean} gotoNext true to continue to next level,
@@ -846,8 +797,7 @@ BlocklyApps.showReinfQuizFeedback = function(reinfLevel, identifier) {
 BlocklyApps.goToNextLevelOrReset = function(gotoNext) {
   if (gotoNext) {
     var interstitial = document.getElementById('interstitial').style.display;
-    if (interstitial == 'none' &&
-        BlocklyApps.INTERSTITIALS & InterTypes.POST) {
+    if (interstitial == 'none' && BlocklyApps.INTERSTITIALS.before) {
       BlocklyApps.showInterstitial();
     } else {
       BlocklyApps.hideDialog(false);
@@ -896,14 +846,7 @@ BlocklyApps.displayCloseDialogButtons = function(feedbackType) {
  */
 BlocklyApps.showInterstitial = function() {
   if (BlocklyApps.levelComplete) {
-    if (BlocklyApps.INTERSTITIALS & InterTypes.POST) {
-      if (document.querySelector('.quiz')) {
-        document.getElementById('continueButton').setAttribute('disabled',
-                                                               'disabled');
-        document.getElementById('tryAgainButton').style.display = 'none';
-      } else if (document.getElementById('reinfQuizFeedback')) {
-        document.getElementById('reinfQuizFeedback').style.display = 'none';
-      }
+    if (BlocklyApps.INTERSTITIALS.after) {
       var preInterArray = document.querySelectorAll('.preInter');
       for (var r = 0, preInter; preInter = preInterArray[r]; r++) {
         preInter.style.display = 'none';
@@ -914,7 +857,7 @@ BlocklyApps.showInterstitial = function() {
       }
       document.getElementById('interstitial').style.display = 'block';
     }
-  } else if (BlocklyApps.INTERSTITIALS & InterTypes.PRE) {
+  } else if (BlocklyApps.INTERSTITIALS.before) {
     document.getElementById('interstitial').style.display = 'block';
   }
 };
@@ -939,8 +882,7 @@ BlocklyApps.createURLAndOpenNextLevel = function() {
       (BlocklyApps.PAGE ? '&page=' + BlocklyApps.PAGE : '') +
       '&level=' + (BlocklyApps.LEVEL + 1) +
       // TODO: Fix hack used to temporarily keep turtle interstitials working.
-      (BlocklyApps.SKIN_ID ? '&skin=' + BlocklyApps.SKIN_ID : '&reinf=1') +
-      (BlocklyApps.MODE ? '&mode=' + BlocklyApps.MODE : '');
+      (BlocklyApps.SKIN_ID ? '&skin=' + BlocklyApps.SKIN_ID : '&reinf=1');
   }
 };
 
@@ -980,20 +922,6 @@ BlocklyApps.showHelp = function(animate, feedbackType) {
   }
   BlocklyApps.displayCloseDialogButtons(feedbackType);
   dialog.show(help, button, animate, true, style);
-};
-
-/**
- * If there is an interstitial iframe, create a URL for the video stored in
- * Google Drive and add it as the iframe source.
- * @param {string} videoId A Google Drive video ID.
- */
-BlocklyApps.addVideoIframeSrc = function(videoId) {
-  var videoIframe = document.getElementById('interstitial')
-      .querySelector('.video');
-  if (videoIframe) {
-    var videoUrl = 'https://docs.google.com/file/d/' + videoId + '/preview';
-    videoIframe.src = videoUrl;
-  }
 };
 
 /**

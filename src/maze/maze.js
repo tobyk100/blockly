@@ -24,7 +24,6 @@
 'use strict';
 
 var BlocklyApps = require('../base');
-var InterTypes = require('../feedback').InterTypes;
 var commonMsg = require('../../build/en_us/i18n/common');
 var mazeMsg = require('../../build/en_us/i18n/maze');
 var levels = require('./levels');
@@ -38,15 +37,15 @@ var Direction = tiles.Direction;
 var Maze = module.exports;
 
 // Set BlocklyApps constants.
-BlocklyApps.MAX_LEVEL = 10;
-BlocklyApps.LEVEL =
-    BlocklyApps.getNumberParamFromUrl('level', 1, BlocklyApps.MAX_LEVEL);
+BlocklyApps.PAGE = BlocklyApps.getNumberParamFromUrl('page', 1, 2);
+BlocklyApps.MAX_LEVEL = [undefined, 10, 18][BlocklyApps.PAGE];
+BlocklyApps.LEVEL = BlocklyApps.getNumberParamFromUrl('level', 1, BlocklyApps.MAX_LEVEL);
 BlocklyApps.CHECK_FOR_EMPTY_BLOCKS = true;
 
 /**
  * Current Level configuration.
  */
-var CURRENT_LEVEL = levels[BlocklyApps.LEVEL];
+var CURRENT_LEVEL = levels.pages[BlocklyApps.PAGE].levels[BlocklyApps.LEVEL];
 
 /**
  * The ideal number of blocks to solve the current level.
@@ -64,6 +63,8 @@ BlocklyApps.REQUIRED_BLOCKS = CURRENT_LEVEL.requiredBlocks;
 
 //The number of blocks to show as feedback.
 BlocklyApps.NUM_REQUIRED_BLOCKS_TO_FLAG = 10;
+
+BlocklyApps.INTERSTITIALS = CURRENT_LEVEL.interstitials || {};
 
 Maze.SKINS = [
   // sprite: A 1029x51 set of 21 avatar images.
@@ -132,13 +133,6 @@ BlocklyApps.SKIN_ID =
 Maze.SKIN = Maze.SKINS[BlocklyApps.SKIN_ID];
 
 Maze.SKIN.MARKER_URL = BlocklyApps.BASE_URL + 'maze/' + Maze.SKIN.marker;
-
-/**
- * Google Drive video ID.
- * 'null' is used because IE8 does not like trailing commas in arrays, and it is
- *     used throughout the array for consistency.
- */
-Maze.VIDEO_ID = CURRENT_LEVEL.videoId;
 
 /**
  * Milliseconds between each animation frame.
@@ -241,7 +235,8 @@ Maze.drawMap = function() {
   var hintBubble = document.getElementById('hintBubble');
   hintBubble.style.width = (Maze.MAZE_WIDTH - 20) + 'px';
   var hint = document.getElementById('hint');
-  hint.innerHTML = mazeMsg['instructions' + BlocklyApps.LEVEL + '_m1']();
+  hint.innerHTML = mazeMsg['instructions' + BlocklyApps.PAGE + '_' +
+                           BlocklyApps.LEVEL]();
 
   if (Maze.SKIN.background) {
     var tile = document.createElementNS(Blockly.SVG_NS, 'image');
@@ -468,10 +463,8 @@ Maze.init = function() {
   BlocklyApps.reset(true);
   Blockly.addChangeListener(function() {BlocklyApps.updateCapacity()});
 
-  if (BlocklyApps.INTERSTITIALS & InterTypes.PRE) {
-    if (Maze.VIDEO_ID) {
-      BlocklyApps.addVideoIframeSrc(Maze.VIDEO_ID);
-    }
+  var interstitial = BlocklyApps.INTERSTITIALS.before;
+  if (interstitial) {
     BlocklyApps.showHelp(false, undefined);
   } else {
     document.getElementById('helpButton').setAttribute('disabled', 'disabled');
@@ -486,8 +479,8 @@ Maze.changePegman = function(newSkin) {
   Maze.saveToStorage();
   window.location = window.location.protocol + '//' +
       window.location.host + window.location.pathname +
-      '?level=' + BlocklyApps.LEVEL +
-      '&skin=' + newSkin + '&mode=' + BlocklyApps.MODE;
+      '?page=' + BlocklyApps.PAGE + '&level=' + BlocklyApps.LEVEL +
+      '&skin=' + newSkin;
 };
 
 /**
@@ -1099,12 +1092,3 @@ Maze.setIdealBlockMessage = function() {
   var idealNumText = document.createTextNode(Maze.IDEAL_BLOCK_NUM);
   idealNumMsg.appendChild(idealNumText);
 };
-
-/**
- * The mode of the maze we are in.
- * If mode = 1, we are in the original maze; if mode = 2, we are in the adaptive
- * maze with additional levels.
- */
-BlocklyApps.MAX_MODE = 2;
-BlocklyApps.MODE =
-    BlocklyApps.getNumberParamFromUrl('mode', 1, BlocklyApps.MAX_MODE);

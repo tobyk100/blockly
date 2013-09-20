@@ -8,18 +8,13 @@ window.mazeMain = function(options) {
     options = {};
   }
 
-  if (BlocklyApps.MODE == BlocklyApps.MODE_ENUM.ADAPTIVE) {
-    BlocklyApps.MAX_LEVEL = 18;
-    BlocklyApps.LEVEL =
-      BlocklyApps.getNumberParamFromUrl('level', 1, BlocklyApps.MAX_LEVEL);
-  }
-
   if (!options.readonly) {
     document.write(mazepage.start({}, null, {
+      page: BlocklyApps.PAGE,
       level: BlocklyApps.LEVEL,
       menu: BlocklyApps.DISPLAY_NAV,
       skin: BlocklyApps.SKIN_ID,
-      mode: BlocklyApps.MODE,
+      interstitials: BlocklyApps.INTERSTITIALS,
       baseUrl: BlocklyApps.BASE_URL
     }));
   }

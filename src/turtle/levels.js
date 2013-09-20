@@ -1,4 +1,3 @@
-var InterTypes = require('../feedback').InterTypes;
 var Colours = require('./core').Colours;
 
 /**
@@ -217,7 +216,9 @@ var BLOCK_DATA = [
     },
     // Level 2: Square (without repeat).
     {
-      interstitials: InterTypes.PRE,
+      interstitials: {
+        before: {}
+      },
       ideal: 7,
       requiredBlocks: [
         MOVE_FORWARD_INLINE,
@@ -228,7 +229,9 @@ var BLOCK_DATA = [
     },
     // Level 3: Square (with repeat).
     {
-      interstitials: InterTypes.PRE,
+      interstitials: {
+        before: {}
+      },
       ideal: 3,
       requiredBlocks: [
         MOVE_FORWARD_INLINE,
@@ -238,7 +241,9 @@ var BLOCK_DATA = [
     },
     // Level 4: Triangle.
     {
-      interstitials: InterTypes.PRE,
+      interstitials: {
+        before: {}
+      },
       ideal: 3,
       requiredBlocks: [
         MOVE_FORWARD_INLINE,
@@ -254,7 +259,9 @@ var BLOCK_DATA = [
     },
     // Level 5: Envelope.
     {
-      interstitials: InterTypes.PRE,
+      interstitials: {
+        before: {}
+      },
       ideal: 6,
       requiredBlocks: [
         repeat(3),
@@ -264,7 +271,9 @@ var BLOCK_DATA = [
     },
     // Level 6: triangle and square.
     {
-      interstitials: InterTypes.PRE,
+      interstitials: {
+        before: {}
+      },
       ideal: 6,
       requiredBlocks: [
         repeat(3),
@@ -286,7 +295,9 @@ var BLOCK_DATA = [
     },
     // Level 8: spikes.
     {
-      interstitials: InterTypes.PRE,
+      interstitials: {
+        before: {}
+      },
       ideal: 4,
       requiredBlocks: [repeat(8)],
       requiredColors: 8
@@ -297,14 +308,18 @@ var BLOCK_DATA = [
     },
     // Level 10: playground.
     {
-      interstitials: InterTypes.PRE
+      interstitials: {
+        before: {}
+      }
     },
   ],
   // Page 2.
   [
     // Level 1: Square.
     {
-      interstitials: InterTypes.PRE,
+      interstitials: {
+        before: {}
+      },
       ideal: 5,
       requiredBlocks: [
         repeat(4),
@@ -316,7 +331,9 @@ var BLOCK_DATA = [
     },
     // Level 2: Small green square.
     {
-      interstitials: InterTypes.PRE,
+      interstitials: {
+        before: {}
+      },
       ideal: 2,
       requiredBlocks: [
         drawASquare('??'),
@@ -326,7 +343,9 @@ var BLOCK_DATA = [
     },
     // Level 3: Three squares.
     {
-      interstitials: InterTypes.PRE,
+      interstitials: {
+        before: {}
+      },
       ideal: 5,
       requiredBlocks: [
         repeat(3),
@@ -337,12 +356,16 @@ var BLOCK_DATA = [
     },
     // Level 4: 36 squares.
     {
-      interstitials: InterTypes.PRE,
+      interstitials: {
+        before: {}
+      },
       ideal: 5
     },
     // Level 5: Different size squares.
     {
-      interstitials: InterTypes.PRE,
+      interstitials: {
+        before: {}
+      },
       ideal: 10,
       requiredBlocks: [
         drawASquare('??')
@@ -350,14 +373,18 @@ var BLOCK_DATA = [
     },
     // Level 6: For-loop squares.
     {
-      interstitials: InterTypes.PRE,
+      interstitials: {
+        before: {}
+      },
       ideal: 6,
       // This is not displayed properly.
       requiredBlocks: [simpleBlock('variables_get_counter')]
     },
     // Level 7: Boxy spiral.
     {
-      interstitials: InterTypes.PRE,
+      interstitials: {
+        before: {}
+      },
       ideal: 8,
       requiredBlocks: [
         simpleBlock('controls_for_counter'),
@@ -368,7 +395,9 @@ var BLOCK_DATA = [
     },
     // Level 8: Three snowmen.
     {
-      interstitials: InterTypes.PRE,
+      interstitials: {
+        before: {}
+      },
       ideal: 9,
       requiredBlocks: [
         drawASnowman(150),
@@ -386,7 +415,9 @@ var BLOCK_DATA = [
     },
     // Level 9: Snowman family.
     {
-      interstitials: InterTypes.PRE,
+      interstitials: {
+        before: {}
+      },
       ideal: 12,
       requiredBlocks: [
         drawASnowman('??'),
@@ -408,7 +439,9 @@ var BLOCK_DATA = [
   [
     // Level 1: Call 'draw a square'.
     {
-      interstitials: InterTypes.PRE,
+      interstitials: {
+        before: {}
+      },
       ideal: 1,
       requiredBlocks: [
         call('draw a square')
@@ -416,7 +449,10 @@ var BLOCK_DATA = [
     },
     // Level 2: Create "draw a triangle".
     {
-      interstitials: InterTypes.PRE | InterTypes.POST,
+      interstitials: {
+        before: {},
+        after: {}
+      },
       ideal: 7,
       requiredBlocks: [
         repeat(3),
@@ -446,7 +482,9 @@ var BLOCK_DATA = [
     },
     // Level 5: Create "draw a house".
     {
-      interstitials: InterTypes.PRE,
+      interstitials: {
+        before: {}
+      },
       ideal: 8,
       requiredBlocks: [
         define('draw a house'),
@@ -459,7 +497,9 @@ var BLOCK_DATA = [
     },
     // Level 6: Add parameter to "draw a triangle".
     {
-      interstitials: InterTypes.PRE,
+      interstitials: {
+        before: {}
+      },
       ideal: 13,
       requiredBlocks: [
         exports.defineWithArg_('draw a triangle', 'length'),
@@ -481,12 +521,16 @@ var BLOCK_DATA = [
     },
     // Level 8: Draw houses.
     {
-      interstitials: InterTypes.PRE,
+      interstitials: {
+        before: {}
+      },
       ideal: 27
     },
     // Level 9: Draw houses with for loop.
     {
-      interstitials: InterTypes.POST,
+      interstitials: {
+        after: {}
+      },
       ideal: 27,
       requiredBlocks: [
         simpleBlock('controls_for_counter'),
