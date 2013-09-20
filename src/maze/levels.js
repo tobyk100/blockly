@@ -274,7 +274,6 @@ module.exports = {
         null,
         // Level 1
         {
-          'interstitials': [InterTypes.NONE],
           'ideal': 2,
           'requiredBlocks': [
             {'test': 'moveForward', 'type': 'maze_moveForward'},
@@ -293,7 +292,6 @@ module.exports = {
         },
         // Level 2
         {
-          'interstitials': [InterTypes.NONE],
           'ideal': 3,
           'requiredBlocks': [
             {'test': 'moveForward', 'type': 'maze_moveForward'},
@@ -312,7 +310,6 @@ module.exports = {
         },
         // Level 3
         {
-          'interstitials': [InterTypes.NONE],
           'ideal': 5,
           'requiredBlocks': [
             {'test': 'moveForward', 'type': 'maze_moveForward'},
@@ -337,7 +334,6 @@ module.exports = {
         },
         // Level 4
         {
-          'interstitials': [InterTypes.NONE],
           'ideal': 7,
           'requiredBlocks': [
             {'test': 'moveForward', 'type': 'maze_moveForward'},
@@ -359,7 +355,6 @@ module.exports = {
         },
         // Level 5
         {
-          'interstitials': [InterTypes.NONE],
           'ideal': 2,
           'requiredBlocks': [
             {'test': 'moveForward', 'type': 'maze_moveForward'},
@@ -379,7 +374,6 @@ module.exports = {
         },
         // Level 6
         {
-          'interstitials': [InterTypes.NONE],
           'ideal': 3,
           'requiredBlocks': [
             {'test': 'moveForward', 'type': 'maze_moveForward'},
@@ -399,7 +393,6 @@ module.exports = {
         },
         // Level 7
         {
-          'interstitials': [InterTypes.NONE],
           'ideal': 5,
           'requiredBlocks': [
             {'test': 'moveForward', 'type': 'maze_moveForward'},
@@ -422,7 +415,6 @@ module.exports = {
         },
         // Level 8
         {
-          'interstitials': [InterTypes.NONE],
           'ideal': 5,
           'requiredBlocks': [
             {'test': 'moveForward', 'type': 'maze_moveForward'},
@@ -445,7 +437,6 @@ module.exports = {
         },
         // Level 9
         {
-          'interstitials': [InterTypes.NONE],
           'ideal': 2,
           'requiredBlocks': [
             {'test': 'moveForward', 'type': 'maze_moveForward'},
@@ -465,7 +456,6 @@ module.exports = {
         },
         // Level 10
         {
-          'interstitials': [InterTypes.NONE],
           'ideal': 3,
           'requiredBlocks': [
             {'test': 'moveForward', 'type': 'maze_moveForward'},
@@ -485,7 +475,6 @@ module.exports = {
         },
         // Level 11
         {
-          'interstitials': [InterTypes.NONE],
           'ideal': 5,
           'requiredBlocks': [
             {'test': 'moveForward', 'type': 'maze_moveForward'},
@@ -511,7 +500,6 @@ module.exports = {
         },
         // Level 12
         {
-          'interstitials': [InterTypes.NONE],
           'ideal': 5,
           'requiredBlocks': [
             {'test': 'moveForward', 'type': 'maze_moveForward'},
@@ -537,7 +525,6 @@ module.exports = {
         },
         // Level 13
         {
-          'interstitials': [InterTypes.NONE],
           'ideal': 4,
           'requiredBlocks': [
             {'test': 'isPathLeft',
@@ -562,7 +549,6 @@ module.exports = {
         },
         // Level 14
         {
-          'interstitials': [InterTypes.NONE],
           'ideal': 4,
           'requiredBlocks': [
             {'test': 'isPathRight',
@@ -587,7 +573,6 @@ module.exports = {
         },
         // Level 15
         {
-          'interstitials': [InterTypes.NONE],
           'ideal': 4,
           'requiredBlocks': [
             {'test': 'isPathRight',
@@ -612,7 +597,6 @@ module.exports = {
         },
         // Level 16
         {
-          'interstitials': [InterTypes.NONE],
           'ideal': 4,
           'requiredBlocks': [
             {'test': 'isPathRight',
@@ -637,7 +621,6 @@ module.exports = {
         },
         // Level 17
         {
-          'interstitials': [InterTypes.NONE],
           'ideal': 6,
           'requiredBlocks': [
             {'test': 'isPathForward',
@@ -659,7 +642,6 @@ module.exports = {
         },
         // Level 18
         {
-          'interstitials': [InterTypes.NONE],
           'ideal': 5,
           'requiredBlocks': [
             {'test': 'isPathForward',
