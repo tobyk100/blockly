@@ -43,7 +43,7 @@ BlocklyApps.LEVEL = BlocklyApps.getNumberParamFromUrl('level', 1, BlocklyApps.MA
 Maze.REINF = BlocklyApps.getNumberParamFromUrl('reinf', 1, Maze.MAX_REINF);
 
 BlocklyApps.SKIN_ID = BlocklyApps.getStringParamFromUrl('skin', 'farmer');
-BlocklyApps.SKIN = skins.load(BlocklyApps.BASE_URL, BlocklyApps.SKIN_ID);
+var skin = skins.load(BlocklyApps.BASE_URL, BlocklyApps.SKIN_ID);
 
 /**
  * Milliseconds between each animation frame.
@@ -178,10 +178,10 @@ Maze.drawMap = function() {
   var hintKey = 'instructions' + BlocklyApps.PAGE + '_' + BlocklyApps.LEVEL;
   hint.innerHTML = msg[hintKey]();
 
-  if (BlocklyApps.SKIN.background) {
+  if (skin.background) {
     var tile = document.createElementNS(Blockly.SVG_NS, 'image');
     tile.setAttributeNS('http://www.w3.org/1999/xlink', 'xlink:href',
-                        BlocklyApps.SKIN.background);
+                        skin.background);
     tile.setAttribute('height', Maze.MAZE_HEIGHT);
     tile.setAttribute('width', Maze.MAZE_WIDTH);
     tile.setAttribute('x', 0);
@@ -189,7 +189,7 @@ Maze.drawMap = function() {
     svg.appendChild(tile);
   }
 
-  if (BlocklyApps.SKIN.graph) {
+  if (skin.graph) {
     // Draw the grid lines.
     // The grid lines are offset so that the lines pass through the centre of
     // each square.  A half-pixel offset is also added to as standard SVG
@@ -200,7 +200,7 @@ Maze.drawMap = function() {
       h_line.setAttribute('y1', k * Maze.SQUARE_SIZE + offset);
       h_line.setAttribute('x2', Maze.MAZE_WIDTH);
       h_line.setAttribute('y2', k * Maze.SQUARE_SIZE + offset);
-      h_line.setAttribute('stroke', BlocklyApps.SKIN.graph);
+      h_line.setAttribute('stroke', skin.graph);
       h_line.setAttribute('stroke-width', 1);
       svg.appendChild(h_line);
     }
@@ -209,7 +209,7 @@ Maze.drawMap = function() {
       v_line.setAttribute('x1', k * Maze.SQUARE_SIZE + offset);
       v_line.setAttribute('x2', k * Maze.SQUARE_SIZE + offset);
       v_line.setAttribute('y2', Maze.MAZE_HEIGHT);
-      v_line.setAttribute('stroke', BlocklyApps.SKIN.graph);
+      v_line.setAttribute('stroke', skin.graph);
       v_line.setAttribute('stroke-width', 1);
       svg.appendChild(v_line);
     }
@@ -263,7 +263,7 @@ Maze.drawMap = function() {
       // Tile sprite.
       var tile = document.createElementNS(Blockly.SVG_NS, 'image');
       tile.setAttributeNS('http://www.w3.org/1999/xlink', 'xlink:href',
-                          BlocklyApps.SKIN.tiles);
+                          skin.tiles);
       tile.setAttribute('height', Maze.SQUARE_SIZE * 4);
       tile.setAttribute('width', Maze.SQUARE_SIZE * 5);
       tile.setAttribute('clip-path', 'url(#tileClipPath' + tileId + ')');
@@ -288,7 +288,7 @@ Maze.drawMap = function() {
   var pegmanIcon = document.createElementNS(Blockly.SVG_NS, 'image');
   pegmanIcon.setAttribute('id', 'pegman');
   pegmanIcon.setAttributeNS('http://www.w3.org/1999/xlink', 'xlink:href',
-                            BlocklyApps.SKIN.avatar);
+                            skin.avatar);
   pegmanIcon.setAttribute('height', Maze.PEGMAN_HEIGHT);
   pegmanIcon.setAttribute('width', Maze.PEGMAN_WIDTH * 21); // 49 * 21 = 1029
   pegmanIcon.setAttribute('clip-path', 'url(#pegmanClipPath)');
@@ -303,7 +303,7 @@ Maze.drawMap = function() {
         obsIcon.setAttribute('width', 40);
         obsIcon.setAttributeNS(
           'http://www.w3.org/1999/xlink', 'xlink:href',
-          BlocklyApps.SKIN.obstacle);
+          skin.obstacle);
         obsIcon.setAttribute('x',
                              Maze.SQUARE_SIZE * (x + 0.5) -
                              obsIcon.getAttribute('width') / 2);
@@ -445,7 +445,7 @@ BlocklyApps.reset = function(first) {
   lookIcon.parentNode.appendChild(lookIcon);
   var paths = lookIcon.getElementsByTagName('path');
   for (var i = 0, path; path = paths[i]; i++) {
-    path.setAttribute('stroke', BlocklyApps.SKIN.look);
+    path.setAttribute('stroke', skin.look);
   }
 
   // Nan's
@@ -818,7 +818,7 @@ Maze.schedulePutDownBall = function() {
 Maze.setBallImage = function(ballIcon, x, y) {
   ballIcon.setAttributeNS(
     'http://www.w3.org/1999/xlink', 'xlink:href',
-    BlocklyApps.SKIN.ball(Maze.balls_[y][x]))
+    skin.ball(Maze.balls_[y][x]))
 };
 
 /**

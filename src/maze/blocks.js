@@ -26,7 +26,7 @@
 var msg = require('../../build/en_us/i18n/maze');
 
 // Install extensions to Blockly's language and JavaScript generator.
-exports.install = function(blockly) {
+exports.install = function(blockly, skin) {
 
   var generator = blockly.Generator.get('JavaScript');
   blockly.JavaScript = generator;
@@ -160,7 +160,7 @@ exports.install = function(blockly) {
       this.setColour(120);
       this.appendDummyInput()
           .appendTitle(msg.repeatUntil())
-          .appendTitle(new blockly.FieldImage(Maze.SKIN.marker, 12, 16));
+          .appendTitle(new blockly.FieldImage(skin.goal, 12, 16));
       this.appendStatementInput('DO')
           .appendTitle(msg.doCode());
       this.setPreviousStatement(true);

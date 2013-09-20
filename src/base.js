@@ -343,12 +343,6 @@ BlocklyApps.LEVEL = undefined;
 BlocklyApps.MAX_LEVEL = undefined;
 
 /**
- * The application-dependent skin identifier.
- * @type {string}
- */
-BlocklyApps.SKIN_ID = undefined;
-
-/**
  * Whether to alert user to empty blocks, short-circuiting all other tests.
  */
 BlocklyApps.CHECK_FOR_EMPTY_BLOCKS = undefined;
