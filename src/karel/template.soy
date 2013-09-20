@@ -13,9 +13,6 @@
  * Web page structure.
  */
 {template .start}
-  <div id="start_blocks" style="display:none">
-    {call .startBlocks /}
-  </div>
 
   /**
    * For processing the window input after finishing a level.
@@ -104,7 +101,7 @@
     {param appInstance}Maze{/param}
   {/call}
 
-  {call .toolbox /}
+  {$ij.level.toolbox |noAutoescape}
   <div id="blockly"></div>
 
   {call apps.dialog /}

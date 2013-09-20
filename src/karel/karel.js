@@ -47,6 +47,7 @@ var skin = skins.load(BlocklyApps.BASE_URL, skinId);
 
 exports.config = {
   skin: skin,
+  level: level,
   interstitials: BlocklyApps.INTERSTITIALS,
   baseUrl: BlocklyApps.BASE_URL
 };
@@ -378,8 +379,7 @@ Maze.init = function() {
     Maze.balls_[y] = Maze.initialBallMap[y].slice(0);
   }
 
-  var xml = document.getElementById('start_blocks').innerHTML;
-  xml = '<xml>' + xml + '</xml>';
+  var xml = '<xml>' + level.startBlocks + '</xml>';
   BlocklyApps.loadBlocks(xml);
 
   BlocklyApps.reset(true);

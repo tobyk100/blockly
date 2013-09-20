@@ -1,6 +1,6 @@
 var Direction = require('../tiles').Direction;
 
-//TODO: Hacky level-number dependent toolbox.
+//TODO: Fix hacky level-number-dependent toolbox.
 var toolbox = function(page, level) {
   return mazepage.toolbox({}, null, {
     page: page,
