@@ -37,21 +37,23 @@ var Direction = tiles.Direction;
  */
 var Maze = module.exports;
 
-// Set BlocklyApps constants.
-BlocklyApps.PAGE = BlocklyApps.getNumberParamFromUrl('page', 1, 2);
-BlocklyApps.MAX_LEVEL = [undefined, 10, 18][BlocklyApps.PAGE];
-BlocklyApps.LEVEL = BlocklyApps.getNumberParamFromUrl('level', 1, BlocklyApps.MAX_LEVEL);
-BlocklyApps.CHECK_FOR_EMPTY_BLOCKS = true;
+var pageNumber = BlocklyApps.getNumberParamFromUrl('page', 1, 2);
+var pageIndex = pageNumber - 1;
 
-/**
- * Current Level configuration.
- */
-var CURRENT_LEVEL = levels.pages[BlocklyApps.PAGE].levels[BlocklyApps.LEVEL];
+var levelCount = levels.pages[pageIndex].levels.length;
+var levelNumber =
+    BlocklyApps.getNumberParamFromUrl('level', 1, levelCount + 1);
+var levelIndex = levelNumber - 1;
+
+var level = levels.pages[pageIndex].levels[levelIndex];
+
+// Set BlocklyApps constants.
+BlocklyApps.CHECK_FOR_EMPTY_BLOCKS = true;
 
 /**
  * The ideal number of blocks to solve the current level.
  */
-BlocklyApps.IDEAL_BLOCK_NUM = CURRENT_LEVEL.ideal;
+BlocklyApps.IDEAL_BLOCK_NUM = level.ideal;
 
 /**
  * Blocks that are expected to be used on each level.
@@ -60,17 +62,35 @@ BlocklyApps.IDEAL_BLOCK_NUM = CURRENT_LEVEL.ideal;
  * 'type' is the type of block to be generated as feedback.
  * 'titles' are optional and create a more specific block of the given type.
  */
-BlocklyApps.REQUIRED_BLOCKS = CURRENT_LEVEL.requiredBlocks;
+BlocklyApps.REQUIRED_BLOCKS = level.requiredBlocks;
 
 //The number of blocks to show as feedback.
 BlocklyApps.NUM_REQUIRED_BLOCKS_TO_FLAG = 10;
 
-BlocklyApps.INTERSTITIALS = CURRENT_LEVEL.interstitials || {};
+BlocklyApps.INTERSTITIALS = level.interstitials || {};
 
-BlocklyApps.SKIN_ID = BlocklyApps.getStringParamFromUrl('skin', 'pegman');
+// Default Scalings
+Maze.scale = {
+  'snapRadius': 1,
+  //'stepSpeed': 5 XXX Maze uses absolute values, Karel scales. Reconcile.
+};
 
-var skin = skins.load(BlocklyApps.BASE_URL, BlocklyApps.SKIN_ID);
-exports.skin = skin;
+// Override scalars.
+for (var key in level.scale) {
+  Maze.scale[key] = level.scale[key];
+}
+
+var skinId = BlocklyApps.getStringParamFromUrl('skin', 'pegman');
+var skin = skins.load(BlocklyApps.BASE_URL, skinId);
+
+exports.config = {
+  page: pageNumber,
+  level: levelNumber,
+  skin: skin,
+  interstitials: BlocklyApps.INTERSTITIALS,
+  baseUrl: BlocklyApps.BASE_URL,
+  menu: BlocklyApps.DISPLAY_NAV
+};
 
 /**
  * Milliseconds between each animation frame.
@@ -92,7 +112,7 @@ Maze.SquareType = {
 
 // The maze square constants defined above are inlined here
 // for ease of reading and writing the static mazes.
-Maze.map = CURRENT_LEVEL.map;
+Maze.map = level.map;
 
 // Add blank row at top for hint bubble.
 Maze.map.unshift(new Array(Maze.map[0].length));
@@ -116,7 +136,7 @@ Maze.PATH_WIDTH = Maze.SQUARE_SIZE / 3;
 /**
  * Starting direction.
  */
-Maze.startDirection = CURRENT_LEVEL.startDirection;
+Maze.startDirection = level.startDirection;
 
 /**
  * PIDs of animation tasks currently executing.
@@ -173,8 +193,7 @@ Maze.drawMap = function() {
   var hintBubble = document.getElementById('hintBubble');
   hintBubble.style.width = (Maze.MAZE_WIDTH - 20) + 'px';
   var hint = document.getElementById('hint');
-  hint.innerHTML = mazeMsg['instructions' + BlocklyApps.PAGE + '_' +
-                           BlocklyApps.LEVEL]();
+  hint.innerHTML = mazeMsg['instructions' + pageNumber + '_' + levelNumber]();
 
   if (skin.background) {
     var tile = document.createElementNS(Blockly.SVG_NS, 'image');
@@ -345,9 +364,7 @@ Maze.init = function() {
        trashcan: true});
   Blockly.loadAudio_(['maze/win.mp3', 'maze/win.ogg'], 'win');
   Blockly.loadAudio_(['maze/whack.mp3', 'maze/whack.ogg'], 'whack');
-  if (BlocklyApps.LEVEL == 1) {
-    Blockly.SNAP_RADIUS *= 2;
-  }
+  Blockly.SNAP_RADIUS *= Maze.scale.snapRadius;
 
   Maze.drawMap();
 
@@ -384,18 +401,6 @@ Maze.init = function() {
   } else {
     document.getElementById('helpButton').setAttribute('disabled', 'disabled');
   }
-};
-
-/**
- * Reload with a different Pegman skin.
- * @param {number} skin ID of new skin.
- */
-Maze.changePegman = function(newSkin) {
-  Maze.saveToStorage();
-  window.location = window.location.protocol + '//' +
-      window.location.host + window.location.pathname +
-      '?page=' + BlocklyApps.PAGE + '&level=' + BlocklyApps.LEVEL +
-      '&skin=' + newSkin;
 };
 
 /**
@@ -458,8 +463,8 @@ BlocklyApps.reset = function(first) {
  */
 Maze.runButtonClick = function() {
   // Only allow a single top block on levels 1 and 2.
-  if (BlocklyApps.LEVEL <= 2 && Blockly.mainWorkspace.getTopBlocks()
-        .length > 1) {
+  if (level.singleTopBlock &&
+      Blockly.mainWorkspace.getTopBlocks().length > 1) {
     window.alert(commonMsg.oneTopBlock());
     return;
   }
@@ -487,19 +492,26 @@ Maze.ResultType = {
   ERROR: -2
 };
 
+var displayFeedback = function() {
+  BlocklyApps.displayFeedback({
+    app: 'maze',
+    finalLevel: levelNumber === levelCount
+  });
+};
+
 /**
  * Execute the user's code.  Heaven help us...
  */
 Maze.execute = function() {
   BlocklyApps.log = [];
-  BlocklyApps.ticks = 50 * BlocklyApps.LEVEL;
+  BlocklyApps.ticks = 50 * levelNumber;
   var code = Blockly.Generator.workspaceToCode('JavaScript');
   Maze.result = Maze.ResultType.UNSET;
 
   // Check for empty top level blocks to warn user about bugs,
   // especially ones that lead to infinite loops.
   if (BlocklyApps.hasEmptyTopLevelBlocks()) {
-    BlocklyApps.displayFeedback('maze');
+    displayFeedback();
     return;
   }
 
@@ -523,15 +535,7 @@ Maze.execute = function() {
       Maze.stepSpeed = 0;  // Go infinitely fast so program ends quickly.
     } else if (e === true) {
       Maze.result = Maze.ResultType.SUCCESS;
-      if (BlocklyApps.LEVEL == 1) {
-        Maze.stepSpeed = 150;
-      } else if (BlocklyApps.LEVEL <= 3) {
-        Maze.stepSpeed = 100;
-      } else if (BlocklyApps.LEVEL <= 5) {
-        Maze.stepSpeed = 80;
-      } else {
-        Maze.stepSpeed = 60;
-      }
+      Maze.stepSpeed = level.stepSpeed;
     } else if (e === false) {
       Maze.result = Maze.ResultType.ERROR;
       Maze.stepSpeed = 150;
@@ -544,7 +548,7 @@ Maze.execute = function() {
   }
 
   // Report result to server.
-  BlocklyApps.report('maze', BlocklyApps.LEVEL,
+  BlocklyApps.report('maze', levelNumber,
       Maze.result === Maze.ResultType.SUCCESS, BlocklyApps.stripCode(code));
 
   // BlocklyApps.log now contains a transcript of all the user's actions.
@@ -565,10 +569,10 @@ Maze.animate = function() {
     BlocklyApps.highlight(null);
     BlocklyApps.levelComplete = (Maze.result == Maze.ResultType.SUCCESS);
     if (Maze.result == Maze.ResultType.TIMEOUT) {
-      BlocklyApps.displayFeedback('maze');
+      displayFeedback();
     } else {
       window.setTimeout(function() {
-        BlocklyApps.displayFeedback('maze');
+        displayFeedback();
       }, 1000);
     }
     return;

@@ -325,24 +325,6 @@ BlocklyApps.importPrettify = function() {
 // The following properties get their non-default values set by the application.
 
 /**
- * The page number, or a false value if the app doesn't use pages.
- * @type {number}
- */
-BlocklyApps.PAGE = undefined;
-
-/**
- * The current level.
- * @type {number}
- */
-BlocklyApps.LEVEL = undefined;
-
-/**
- * The maximum level for the current page for the current application.
- * @type {number}
- */
-BlocklyApps.MAX_LEVEL = undefined;
-
-/**
  * Whether to alert user to empty blocks, short-circuiting all other tests.
  */
 BlocklyApps.CHECK_FOR_EMPTY_BLOCKS = undefined;
@@ -476,13 +458,16 @@ BlocklyApps.updateCapacity = function() {
  * @param {?number} opt_feedbackType Test results (a constant property of
  *     BlocklyApps.TestResults).
  */
-BlocklyApps.displayFeedback = function(app, opt_feedbackType) {
-  var feedbackType = opt_feedbackType || BlocklyApps.getTestResults();
+BlocklyApps.displayFeedback = function(options) {
+  if (!options) {
+    options = {};
+  }
+  options.feedbackType = options.feedbackType || BlocklyApps.getTestResults();
   BlocklyApps.hideFeedback();
-  BlocklyApps.setErrorFeedback(app, feedbackType);
-  BlocklyApps.prepareFeedback(feedbackType);
-  BlocklyApps.displayCloseDialogButtons(feedbackType);
-  BlocklyApps.showHelp(true, feedbackType);
+  BlocklyApps.setErrorFeedback(options);
+  BlocklyApps.prepareFeedback(options);
+  BlocklyApps.displayCloseDialogButtons(options.feedbackType);
+  BlocklyApps.showHelp(true, options.feedbackType);
 };
 
 /**
@@ -633,8 +618,8 @@ BlocklyApps.displayStars = function(numStars) {
  * @param {number} feedbackType A constant property of BlocklyApps.TestResults,
  *     typically produced by BlocklyApps.getTestResults().
  */
-BlocklyApps.setErrorFeedback = function(app, feedbackType) {
-  switch (feedbackType) {
+BlocklyApps.setErrorFeedback = function(options) {
+  switch (options.feedbackType) {
     // Give hint, not stars, for empty block or not finishing level.
     case BlocklyApps.TestResults.EMPTY_BLOCK_FAIL:
       document.getElementById('emptyBlocksError').style.display = 'list-item';
@@ -661,7 +646,7 @@ BlocklyApps.setErrorFeedback = function(app, feedbackType) {
         document.getElementById('missingBlocksError')
             .style.display = 'list-item';
         document.getElementById('feedbackBlocks').src =
-            BlocklyApps.BASE_URL + app + '/readonly.html?xml=' +
+            BlocklyApps.BASE_URL + options.app + '/readonly.html?xml=' +
             BlocklyApps.generateXMLForBlocks(missingBlocks);
         document.getElementById('feedbackBlocks').style.display = 'block';
       }
@@ -753,19 +738,22 @@ BlocklyApps.reportAndRedirect = function() {
  * Prepare feedback to display after the user's program has finished running.
  * Specifically, set colours and buttons of feedback added through
  * BlocklyApps.displayFeedback();
- * @param {number} feedbackType A constant property of BlocklyApps.TestResults.
+ * @param {number} options.feedbackType A constant property of BlocklyApps.TestResults.
  */
-BlocklyApps.prepareFeedback = function(feedbackType) {
+BlocklyApps.prepareFeedback = function(options) {
+  if (!options) {
+    options = {};
+  }
   // Determine colour and buttons.
   var feedbackText = document.getElementById('levelFeedbackText');
-  if (feedbackType == BlocklyApps.TestResults.ALL_PASS) {
+  if (options.feedbackType == BlocklyApps.TestResults.ALL_PASS) {
     feedbackText.style.color = 'green';
     feedbackText.style.textAlign = 'center';
     document.getElementById('hintTitle').style.display = 'none';
-    if (BlocklyApps.LEVEL < BlocklyApps.MAX_LEVEL) {
-      document.getElementById('nextLevelMsg').style.display = 'list-item';
-    } else {
+    if (options.finalLevel) {
       document.getElementById('finalLevelMsg').style.display = 'list-item';
+    } else {
+      document.getElementById('nextLevelMsg').style.display = 'list-item';
     }
   } else {
     feedbackText.style.color = 'red';
@@ -872,7 +860,7 @@ BlocklyApps.hideInterstitial = function() {
 /**
  * Construct the URL and go to the next level.
  */
-BlocklyApps.createURLAndOpenNextLevel = function() {
+BlocklyApps.createURLAndOpenNextLevel = function(config) {
   if (BlocklyApps.REPORT_URL) {  // Ask the server where to go next.
     BlocklyApps.reportAndRedirect();
   } else {
@@ -880,9 +868,9 @@ BlocklyApps.createURLAndOpenNextLevel = function() {
     window.location = window.location.protocol + '//' +
       window.location.host + window.location.pathname + '?' +
       (BlocklyApps.PAGE ? '&page=' + BlocklyApps.PAGE : '') +
-      '&level=' + (BlocklyApps.LEVEL + 1) +
+      '&level=' + (config.level + 1) +
       // TODO: Fix hack used to temporarily keep turtle interstitials working.
-      (BlocklyApps.SKIN_ID ? '&skin=' + BlocklyApps.SKIN_ID : '&reinf=1');
+      (config.skin ? '&skin=' + config.skin.id : '&reinf=1');
   }
 };
 

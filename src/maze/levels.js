@@ -5,14 +5,9 @@ var Direction = require('../tiles').Direction;
  */
 module.exports = {
   'pages': [
-  // Page 0
-  null,
-
   // Page 1
   {
   'levels': [
-  // Level 0
-  null,
   // Level 1
   {
     'interstitials': {
@@ -25,6 +20,10 @@ module.exports = {
     'requiredBlocks': [
       [{'test': 'moveForward', 'type': 'maze_moveForward'}]
     ],
+    'scale': {
+      'snapRadius': 2,
+      'stepSpeed': 150
+    },
     'startDirection': Direction.EAST,
     'map': [
       [0, 0, 0, 0, 0, 0, 0, 0],
@@ -35,7 +34,8 @@ module.exports = {
       [0, 0, 0, 0, 0, 0, 0, 0],
       [0, 0, 0, 0, 0, 0, 0, 0],
       [0, 0, 0, 0, 0, 0, 0, 0]
-    ]
+    ],
+    'singleTopBlock': true
   },
   // Level 2
   {
@@ -52,6 +52,9 @@ module.exports = {
       [{'test': 'turnLeft', 'type': 'maze_turn', 'titles': {'DIR': 'turnLeft'}}],
       [{'test': 'turnRight', 'type': 'maze_turn', 'titles': {'DIR': 'turnRight'}}]
     ],
+    'scale': {
+      'stepSpeed': 100
+    },
     'startDirection': Direction.EAST,
     'map': [
       [0, 0, 0, 0, 0, 0, 0, 0],
@@ -62,7 +65,8 @@ module.exports = {
       [0, 0, 0, 0, 0, 0, 0, 0],
       [0, 0, 0, 0, 0, 0, 0, 0],
       [0, 0, 0, 0, 0, 0, 0, 0]
-    ]
+    ],
+    'singleTopBlock': true
   },
   // Level 3
   {
@@ -78,6 +82,9 @@ module.exports = {
       [{'test': 'while', 'type': 'maze_forever'}],
       [{'test': 'moveForward', 'type': 'maze_moveForward'}]
     ],
+    'scale': {
+      'stepSpeed': 100
+    },
     'startDirection': Direction.EAST,
     'map': [
       [0, 0, 0, 0, 0, 0, 0, 0],
@@ -99,6 +106,9 @@ module.exports = {
       [{'test': 'turnRight', 'type': 'maze_turn', 'titles': {'DIR': 'turnRight'}}],
       [{'test': 'moveForward', 'type': 'maze_moveForward'}]
     ],
+    'scale': {
+      'stepSpeed': 80
+    },
     'startDirection': Direction.EAST,
     /**
      *  Note, the path continues past the start and the goal in both directions.
@@ -138,6 +148,9 @@ module.exports = {
       [{'test': 'turnLeft', 'type': 'maze_turn', 'titles': {'DIR': 'turnLeft'}}],
       [{'test': 'moveForward', 'type': 'maze_moveForward'}]
     ],
+    'scale': {
+      'stepSpeed': 80
+    },
     'startDirection': Direction.EAST,
     'map': [
       [0, 0, 0, 0, 0, 0, 0, 0],

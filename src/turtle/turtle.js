@@ -690,7 +690,10 @@ Turtle.checkAnswer = function() {
     }
   }
 
-  BlocklyApps.displayFeedback('turtle', feedbackType);
+  BlocklyApps.displayFeedback({
+    app: 'turtle',
+    feedbackType: feedbackType
+  });
 };
 
 /**

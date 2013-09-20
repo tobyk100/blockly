@@ -38,6 +38,7 @@ exports.load = function(baseUrl, id) {
   var root = baseUrl + 'skins/' + id + '/';
   var config = CONFIGS[id];
   var skin = {
+    id: id,
     avatar: root + 'avatar.png',
     tiles: root + 'tiles.png',
     goal: root + 'goal.png',

@@ -59,9 +59,9 @@
               {/if}
             {else}
               {if $i < $ij.level}
-                <a class="tab previous" href="?page={$ij.page}&level={$i}&skin={$ij.skin}">{$i}</a>
+                <a class="tab previous" href="?page={$ij.page}&level={$i}&skin={$ij.skin.id}">{$i}</a>
               {else}
-                <a class="tab" href="?page={$ij.page}&level={$i}&skin={$ij.skin}">{$i}</a>
+                <a class="tab" href="?page={$ij.page}&level={$i}&skin={$ij.skin.id}">{$i}</a>
               {/if}
             {/if}
           {/for}

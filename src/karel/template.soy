@@ -36,7 +36,7 @@
             {/msg}
           </span>
           {sp}&nbsp;{sp}
-          {for $i in range(1, $ij.maxLevel + 1)}
+          {for $i in range(1, $ij.levelCount)}
             {sp}
             {if $i == $ij.level}
               {if $i > 9}
@@ -46,9 +46,9 @@
               {/if}
             {else}
               {if $i < $ij.level}
-                <a class="tab previous" href="?page={$ij.page}&level={$i}&skin={$ij.skin}">{$i}</a>
+                <a class="tab previous" href="?page={$ij.page}&level={$i}&skin={$ij.skin.id}">{$i}</a>
               {else}
-                <a class="tab" href="?page={$ij.page}&level={$i}&skin={$ij.skin}">{$i}</a>
+                <a class="tab" href="?page={$ij.page}&level={$i}&skin={$ij.skin.id}">{$i}</a>
               {/if}
             {/if}
           {/for}

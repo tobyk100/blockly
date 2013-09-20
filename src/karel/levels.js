@@ -119,15 +119,9 @@ var FILL_HOLES = {
 module.exports = {
   'pages': [
 
-    // Page 0
-    null,
-
     // Page 1
     {
       'levels': [
-
-        // Level 0
-        null,
 
         // Level 1
         {
@@ -590,9 +584,6 @@ module.exports = {
     // Page 2
     {
       'levels': [
-
-        // Level 0
-        null,
 
         // Level 1
         {
