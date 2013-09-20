@@ -73,9 +73,6 @@ BlocklyApps.getNumberParamFromUrl = function(name, minValue, maxValue) {
  * Common startup tasks for all apps.
  */
 BlocklyApps.init = function() {
-  // Set the page title with the content of the H1 title.
-  document.title = document.getElementById('title').textContent;
-
   // Disable the link button if page isn't backed by App Engine storage.
   var linkButton = document.getElementById('linkButton');
   if ('BlocklyStorage' in window) {
@@ -361,15 +358,6 @@ BlocklyApps.REQUIRED_BLOCKS = undefined;
  * @type {!number=}
  */
 BlocklyApps.NUM_REQUIRED_BLOCKS_TO_FLAG = undefined;
-
-/**
- * Indicates whether or not the default navigation menu is used.
- * This allows for hiding the navigation menu and using some other means of
- * navigation.
- * @type {boolean}
- */
-BlocklyApps.DISPLAY_NAV = BlocklyApps.getStringParamFromUrl('menu', 'true') ===
-    'true';
 
 /**
  * Flag indicating whether the last program run completed the level.

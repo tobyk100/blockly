@@ -36,15 +36,8 @@ var Direction = tiles.Direction;
  */
 var Maze = module.exports;
 
-var pageNumber = BlocklyApps.getNumberParamFromUrl('page', 1, 2);
-var pageIndex = pageNumber - 1;
-
-var levelCount = levels.pages[pageIndex].levels.length;
-var levelNumber =
-    BlocklyApps.getNumberParamFromUrl('level', 1, levelCount + 1);
-var levelIndex = levelNumber - 1;
-
-var level = levels.pages[pageIndex].levels[levelIndex];
+var levelId = BlocklyApps.getStringParamFromUrl('level', '1_1');
+var level = levels[levelId];
 
 Maze.MAX_REINF = 0;
 Maze.REINF = BlocklyApps.getNumberParamFromUrl('reinf', 1, Maze.MAX_REINF);
@@ -53,13 +46,9 @@ var skinId = BlocklyApps.getStringParamFromUrl('skin', 'farmer');
 var skin = skins.load(BlocklyApps.BASE_URL, skinId);
 
 exports.config = {
-  page: pageNumber,
-  level: levelNumber,
-  levelCount: levelCount, // XXX
   skin: skin,
   interstitials: BlocklyApps.INTERSTITIALS,
-  baseUrl: BlocklyApps.BASE_URL,
-  menu: BlocklyApps.DISPLAY_NAV
+  baseUrl: BlocklyApps.BASE_URL
 };
 
 /**
@@ -562,7 +551,7 @@ Maze.execute = function() {
   }
 
   // Report result to server.
-  BlocklyApps.report('maze', levelNumber,
+  BlocklyApps.report('maze', levelId,
       Maze.result === Maze.ResultType.SUCCESS, BlocklyApps.stripCode(code));
 
   // Fast animation if execution is successful.  Slow otherwise.

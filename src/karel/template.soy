@@ -17,51 +17,6 @@
     {call .startBlocks /}
   </div>
 
-  // Common messages follow.  They are inlined here and in the other
-  // apps/*/template.soy files instead of being shared in the parent directory
-  // in order to avoid:
-  // - loading an additional file over the network.
-  // - keeping track of which languages have translated common messages.
-  // Messages in the other apps' template.soy files reference these to
-  // minimize extra work for translators.
-  <table width="100%" {call apps.menu}{param menu: $ij.menu /}{/call}>
-    <tr>
-      <td>
-        <h1>
-          <span id="title">
-            <a href="../index.html">{{msg meaning="Apps.blocklyMessage" desc="The project name.  If readers of your language would know approximately how to pronounce 'Blockly', leave unchanged.  Otherwise, include a transliteration in parentheses, such as the Russian: 'Blockly (Блoкли)'.  This should be identical to {lb}{lb}msg-blockly|Maze-Apps.blocklyMessage{rb}{rb}."}}Blockly{{/msg}}</a>
-            {sp}:{sp}
-            {msg meaning="Karel.maze" desc="brief title - Specifies that this is Blockly's '''Maze''' tutorial."}
-              Farmer&nbsp;&nbsp;{$ij.page}
-            {/msg}
-          </span>
-          {sp}&nbsp;{sp}
-          {for $i in range(1, $ij.levelCount)}
-            {sp}
-            {if $i == $ij.level}
-              {if $i > 9}
-                <span class="selected doubleDigit tab">{$i}</span>
-              {else}
-                <span class="selected singleDigit tab">{$i}</span>
-              {/if}
-            {else}
-              {if $i < $ij.level}
-                <a class="tab previous" href="?page={$ij.page}&level={$i}&skin={$ij.skin.id}">{$i}</a>
-              {else}
-                <a class="tab" href="?page={$ij.page}&level={$i}&skin={$ij.skin.id}">{$i}</a>
-              {/if}
-            {/if}
-          {/for}
-        </h1>
-      </td>
-      <td class="farSide">
-        <button id="helpButton" onclick="BlocklyApps.showHelp(true, {$ij.level}, false);">
-          {msg meaning="Apps.help" desc="IBID"}Help{/msg}
-        </button>
-      </td>
-    </tr>
-  </table>
-
   /**
    * For processing the window input after finishing a level.
    */
@@ -165,6 +120,9 @@
         </button>
       </td>
       <td>
+        <button id="helpButton" onclick="BlocklyApps.showHelp(true, {$ij.level}, false);">
+          {msg meaning="Apps.help" desc="IBID"}Help{/msg}
+        </button>
         <button id="runButton" class="launch" onclick="Maze.runButtonClick();">
             <img src="{$ij.baseUrl}media/1x1.gif" class="run icon21"> {msg meaning="Karel.runProgram"
             desc="button label - Pressing the button runs the computer program the user has

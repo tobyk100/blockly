@@ -81,10 +81,6 @@ Turtle.init = function() {
     return;
   }
   BlocklyApps.init();
-  // BlocklyApps.init() sets the page title but does not substitute
-  // in the page number.  Do it now.
-  document.title = document.getElementById('title').
-      textContent.replace('%1', BlocklyApps.PAGE);
 
   var rtl = BlocklyApps.isRtl();
   var toolbox = document.getElementById('toolbox');

@@ -37,15 +37,8 @@ var Direction = tiles.Direction;
  */
 var Maze = module.exports;
 
-var pageNumber = BlocklyApps.getNumberParamFromUrl('page', 1, 2);
-var pageIndex = pageNumber - 1;
-
-var levelCount = levels.pages[pageIndex].levels.length;
-var levelNumber =
-    BlocklyApps.getNumberParamFromUrl('level', 1, levelCount + 1);
-var levelIndex = levelNumber - 1;
-
-var level = levels.pages[pageIndex].levels[levelIndex];
+var levelId = BlocklyApps.getStringParamFromUrl('level', '1_1');
+var level = levels[levelId];
 
 // Set BlocklyApps constants.
 BlocklyApps.CHECK_FOR_EMPTY_BLOCKS = true;
@@ -84,12 +77,9 @@ var skinId = BlocklyApps.getStringParamFromUrl('skin', 'pegman');
 var skin = skins.load(BlocklyApps.BASE_URL, skinId);
 
 exports.config = {
-  page: pageNumber,
-  level: levelNumber,
   skin: skin,
   interstitials: BlocklyApps.INTERSTITIALS,
-  baseUrl: BlocklyApps.BASE_URL,
-  menu: BlocklyApps.DISPLAY_NAV
+  baseUrl: BlocklyApps.BASE_URL
 };
 
 /**
@@ -504,7 +494,7 @@ var displayFeedback = function() {
  */
 Maze.execute = function() {
   BlocklyApps.log = [];
-  BlocklyApps.ticks = 50 * levelNumber;
+  BlocklyApps.ticks = 50 * levelNumber; // XXX ?
   var code = Blockly.Generator.workspaceToCode('JavaScript');
   Maze.result = Maze.ResultType.UNSET;
 
@@ -548,7 +538,7 @@ Maze.execute = function() {
   }
 
   // Report result to server.
-  BlocklyApps.report('maze', levelNumber,
+  BlocklyApps.report('maze', levelId,
       Maze.result === Maze.ResultType.SUCCESS, BlocklyApps.stripCode(code));
 
   // BlocklyApps.log now contains a transcript of all the user's actions.
