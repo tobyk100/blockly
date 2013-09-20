@@ -581,7 +581,6 @@ BlocklyApps.getMissingRequiredBlocks = function() {
       }
     }
   }
-  console.log(missingBlocks);
   return missingBlocks;
 };
 
