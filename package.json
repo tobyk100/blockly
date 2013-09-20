@@ -3,6 +3,9 @@
   "version": "0.0.1",
   "dependencies": {},
   "repository": "https://github.com/code-dot-org/blockly.git",
+  "engines" : {
+    "node" : "~0.10.18"
+  },
   "devDependencies": {
     "grunt-cli": "~0.1.9",
     "grunt": "~0.4.1",
