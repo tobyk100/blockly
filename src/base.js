@@ -344,7 +344,7 @@ BlocklyApps.MAX_LEVEL = undefined;
 
 /**
  * The application-dependent skin identifier.
- * @type {number}
+ * @type {string}
  */
 BlocklyApps.SKIN_ID = undefined;
 
