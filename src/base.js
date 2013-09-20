@@ -372,12 +372,6 @@ BlocklyApps.DISPLAY_NAV = BlocklyApps.getStringParamFromUrl('menu', 'true') ===
     'true';
 
 /**
- * This allows the server to override the standard next level redirect.
- * @type {string=}
- */
-BlocklyApps.nextLevelUrl = undefined;
-
-/**
  * Flag indicating whether the last program run completed the level.
  * @type {?boolean}
  */
