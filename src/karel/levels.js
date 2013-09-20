@@ -133,7 +133,7 @@ module.exports = {
         {
           'ideal': 5,
           'requiredBlocks': [
-            MOVE_FORWARD, PICK_UP_BALL
+            [MOVE_FORWARD], [PICK_UP_BALL]
           ],
           'scale': {
             'snapRadius': 2.0
@@ -175,7 +175,7 @@ module.exports = {
         {
           'ideal': 3,
           'requiredBlocks': [
-            MOVE_FORWARD, PUT_DOWN_BALL
+            [MOVE_FORWARD], [PUT_DOWN_BALL]
           ],
           'map': [
             [ 1, 1, 1, 1, 1, 1, 1, 1 ],
@@ -214,7 +214,7 @@ module.exports = {
         {
           'ideal': 3,
           'requiredBlocks': [
-            MOVE_FORWARD, PICK_UP_BALL, REPEAT
+            [MOVE_FORWARD], [PICK_UP_BALL], [REPEAT]
           ],
           'map': [
             [ 1, 1, 1, 1, 1, 1, 1, 1 ],
@@ -253,7 +253,7 @@ module.exports = {
         {
           'ideal': 4,
           'requiredBlocks': [
-            MOVE_FORWARD, PICK_UP_BALL, TURN_LEFT, REPEAT
+            [MOVE_FORWARD], [PICK_UP_BALL], [TURN_LEFT], [REPEAT]
           ],
           'map': [
             [ 1, 1, 1, 1, 1, 1, 1, 1 ],
@@ -292,7 +292,7 @@ module.exports = {
         {
           'ideal': 5,
           'requiredBlocks': [
-            MOVE_FORWARD, PUT_DOWN_BALL, REPEAT, UNTIL_BLOCKED
+            [MOVE_FORWARD], [PUT_DOWN_BALL], [REPEAT], [UNTIL_BLOCKED]
           ],
           'scale': {
             'stepSpeed': 3
@@ -334,7 +334,9 @@ module.exports = {
         {
           'ideal': 3,
           'requiredBlocks': [
-            MOVE_FORWARD, PICK_UP_BALL, WHILE_OPT_BALLS_PRESENT // or REPEAT
+            [MOVE_FORWARD],
+            [PICK_UP_BALL],
+            [WHILE_OPT_BALLS_PRESENT, REPEAT]
           ],
           'map': [
             [ 1, 1, 1, 1, 1, 1, 1, 1 ],
@@ -373,7 +375,10 @@ module.exports = {
         {
           'ideal': 4,
           'requiredBlocks': [
-            TURN_RIGHT, MOVE_FORWARD, PUT_DOWN_BALL, WHILE_OPT_BALLS_PRESENT
+            [TURN_RIGHT],
+            [MOVE_FORWARD],
+            [PUT_DOWN_BALL],
+            [WHILE_OPT_BALLS_PRESENT]
           ],
           'scale': {
             'stepSpeed': 3
@@ -415,7 +420,9 @@ module.exports = {
         {
           'ideal': 3,
           'requiredBlocks': [
-            MOVE_FORWARD, PUT_DOWN_BALL, WHILE_OPT_PATH_AHEAD // or REPEAT
+            [MOVE_FORWARD],
+            [PUT_DOWN_BALL],
+            [WHILE_OPT_PATH_AHEAD, REPEAT]
           ],
           'map': [
             [ 1, 1, 1, 1, 1, 1, 1, 1 ],
@@ -454,8 +461,10 @@ module.exports = {
         {
           'ideal': 9,
           'requiredBlocks': [
-            MOVE_FORWARD, PICK_UP_BALL, WHILE_OPT_PATH_AHEAD, // or REPEAT
-            TURN_LEFT
+            [MOVE_FORWARD],
+            [PICK_UP_BALL],
+            [WHILE_OPT_PATH_AHEAD, REPEAT],
+            [TURN_LEFT]
           ],
           'map': [
             [ 0, 0, 0, 0, 0, 1, 1, 0 ],
@@ -494,7 +503,10 @@ module.exports = {
         {
           'ideal': 4,
           'requiredBlocks': [
-            MOVE_FORWARD, PICK_UP_BALL, IF_OPT_BALLS_PRESENT, UNTIL_BLOCKED // or REPEAT
+            [MOVE_FORWARD],
+            [PICK_UP_BALL],
+            [IF_OPT_BALLS_PRESENT],
+            [UNTIL_BLOCKED, REPEAT]
           ],
           'map': [
             [ 1, 1, 1, 1, 1, 1, 1, 1 ],
@@ -533,7 +545,12 @@ module.exports = {
         {
           'ideal': 6,
           'requiredBlocks': [
-            MOVE_FORWARD, PICK_UP_BALL, PUT_DOWN_BALL, IF_OPT_BALLS_PRESENT, IF_OPT_HOLES_PRESENT, UNTIL_BLOCKED // or REPEAT
+            [MOVE_FORWARD],
+            [PICK_UP_BALL],
+            [PUT_DOWN_BALL],
+            [IF_OPT_BALLS_PRESENT],
+            [IF_OPT_HOLES_PRESENT],
+            [UNTIL_BLOCKED, REPEAT]
           ],
           'map': [
             [ 1, 1, 1, 1, 1, 1, 1, 1 ],
@@ -581,7 +598,7 @@ module.exports = {
         {
           'ideal': null,
           'requiredBlocks': [
-            TURN_LEFT, MOVE_FORWARD, PICK_UP_BALL, TURN_RIGHT
+            [TURN_LEFT], [MOVE_FORWARD], [PICK_UP_BALL], [TURN_RIGHT]
           ],
           'scale': {
             'stepSpeed': 3
@@ -623,7 +640,7 @@ module.exports = {
         {
           'ideal': 5,
           'requiredBlocks': [
-            MOVE_FORWARD, fill(5)
+            [MOVE_FORWARD], [fill(5)]
           ],
           'map': [
             [ 1, 1, 1, 1, 1, 1, 1, 1 ],
@@ -662,7 +679,7 @@ module.exports = {
         {
           'ideal': 7,
           'requiredBlocks': [
-            MOVE_FORWARD, fill(5), UNTIL_BLOCKED // or REPEAT
+            [MOVE_FORWARD], [fill(5)], [UNTIL_BLOCKED, REPEAT]
           ],
           'scale': {
             'stepSpeed': 3
@@ -704,7 +721,12 @@ module.exports = {
         {
           'ideal': 12,
           'requiredBlocks': [
-            PICK_UP_BALL, REPEAT, remove(7), MOVE_FORWARD, TURN_LEFT, TURN_RIGHT
+            [PICK_UP_BALL],
+            [REPEAT],
+            [remove(7)],
+            [MOVE_FORWARD],
+            [TURN_LEFT],
+            [TURN_RIGHT]
           ],
           'scale': {
             'stepSpeed': 3
@@ -746,7 +768,10 @@ module.exports = {
         {
           'ideal': 8,
           'requiredBlocks': [
-            PICK_UP_BALL, REPEAT, remove(3), MOVE_FORWARD
+            [PICK_UP_BALL],
+            [REPEAT],
+            [remove(3)],
+            [MOVE_FORWARD]
           ],
           'map': [
             [ 1, 1, 1, 1, 1, 1, 1, 1 ],
@@ -785,7 +810,7 @@ module.exports = {
         {
           'ideal': 10,
           'requiredBlocks': [
-            remove(8), fill(8), MOVE_FORWARD, UNTIL_BLOCKED // or REPEAT
+            [remove(8)], [fill(8)], [MOVE_FORWARD], [UNTIL_BLOCKED, REPEAT]
           ],
           'map': [
             [ 1, 1, 1, 1, 1, 1, 1, 1 ],
@@ -824,7 +849,7 @@ module.exports = {
         {
           'ideal': 10,
           'requiredBlocks': [
-            TURN_LEFT, MOVE_FORWARD, TURN_RIGHT, PICK_UP_BALL
+            [TURN_LEFT], [MOVE_FORWARD], [TURN_RIGHT], [PICK_UP_BALL]
           ],
           'map': [
             [ 1, 1, 1, 1, 1, 1, 1, 1 ],
@@ -863,7 +888,7 @@ module.exports = {
         {
           'ideal': 12,
           'requiredBlocks': [
-            REPEAT, AVOID_OBSTACLE_AND_REMOVE
+            [REPEAT], [AVOID_OBSTACLE_AND_REMOVE]
           ],
           'scale': {
             'stepSpeed': 3
@@ -905,7 +930,10 @@ module.exports = {
         {
           'ideal': 24,
           'requiredBlocks': [
-            REMOVE_PILES, MOVE_FORWARD, IF_OPT_BALLS_PRESENT, UNTIL_BLOCKED // or REPEAT
+            [REMOVE_PILES],
+            [MOVE_FORWARD],
+            [IF_OPT_BALLS_PRESENT],
+            [UNTIL_BLOCKED, REPEAT]
           ],
           'scale': {
             'stepSpeed': 3
@@ -947,7 +975,12 @@ module.exports = {
         {
           'ideal': 26,
           'requiredBlocks': [
-            REMOVE_PILES, MOVE_FORWARD, FILL_HOLES, IF_OPT_BALLS_PRESENT, IF_OPT_HOLES_PRESENT, UNTIL_BLOCKED // or REPEAT
+            [REMOVE_PILES],
+            [MOVE_FORWARD],
+            [FILL_HOLES],
+            [IF_OPT_BALLS_PRESENT],
+            [IF_OPT_HOLES_PRESENT],
+            [UNTIL_BLOCKED, REPEAT]
           ],
           'scale': {
             'stepSpeed': 3
