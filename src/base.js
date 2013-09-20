@@ -157,7 +157,7 @@ BlocklyApps.onResize = function() {
   var scrollY = window.scrollY;
   blocklyDiv.style.top = Math.max(top, scrollY) + 'px';
   var svg = document.getElementById('svgMaze');
-  
+
   var blocklyDivParent = blocklyDiv.parentNode;
   var parentStyle = window.getComputedStyle ?
                     window.getComputedStyle(blocklyDivParent) :
@@ -532,32 +532,52 @@ BlocklyApps.getUserBlocks_ = function() {
 /**
  * Check to see if the user's code contains the required blocks for a level.
  * This never returns more than BlocklyApps.NUM_REQUIRED_BLOCKS_TO_FLAG.
- * @return {!Array} array of strings where each string is the prefix of an
- *   id in the corresponding template.soy.
+ * @return {!Array} array of array of strings where each array of strings is
+ * a set of blocks that at least one of them should be used. Each block is
+ * represented as the prefix of an id in the corresponding template.soy.
  */
 BlocklyApps.getMissingRequiredBlocks = function() {
   var missingBlocks = [];
   var code = null;  // JavaScript code, which is initalized lazily.
   if (BlocklyApps.REQUIRED_BLOCKS && BlocklyApps.REQUIRED_BLOCKS.length) {
     var blocks = BlocklyApps.getUserBlocks_();
+    // For each list of required blocks
+    // Keep track of the number of the missing block lists. It should not be
+    // bigger than BlocklyApps.NUM_REQUIRED_BLOCKS_TO_FLAG
+    var missingBlockNum = 0;
     for (var i = 0;
          i < BlocklyApps.REQUIRED_BLOCKS.length &&
-             missingBlocks.length < BlocklyApps.NUM_REQUIRED_BLOCKS_TO_FLAG;
+             missingBlockNum < BlocklyApps.NUM_REQUIRED_BLOCKS_TO_FLAG;
          i++) {
-      var test = BlocklyApps.REQUIRED_BLOCKS[i]['test'];
-      if (typeof test == 'string') {
-        if (!code) {
-          code = Blockly.Generator.workspaceToCode('JavaScript');
+      var tests = BlocklyApps.REQUIRED_BLOCKS[i];
+      // For each of the test
+      // If at least one of the tests succeeded, we consider the required block
+      // is used
+      var usedRequiredBlock = false;
+      for (var testId = 0; testId < tests.length; testId++) {
+        var test = tests[testId].test;
+        if (typeof test === 'string') {
+          if (!code) {
+            code = Blockly.Generator.workspaceToCode('JavaScript');
+          }
+          if (code.indexOf(test) !== -1) {
+            // Succeeded, moving to the next list of tests
+            usedRequiredBlock = true;
+            break;
+          }
+        } else if (typeof test === 'function') {
+          if (blocks.some(test)) {
+            // Succeeded, moving to the next list of tests
+            usedRequiredBlock = true;
+            break;
+          }
+        } else {
+          window.alert('Bad test: ' + test);
         }
-        if (code.indexOf(test) == -1) {
-          missingBlocks.push(BlocklyApps.REQUIRED_BLOCKS[i]);
-        }
-      } else if (typeof test == 'function') {
-        if (!blocks.some(test)) {
-          missingBlocks.push(BlocklyApps.REQUIRED_BLOCKS[i]);
-        }
-      } else {
-        window.alert('Bad test: ' + test);
+      }
+      if (!usedRequiredBlock) {
+        missingBlockNum++;
+        missingBlocks = missingBlocks.concat(BlocklyApps.REQUIRED_BLOCKS[i]);
       }
     }
   }
@@ -955,7 +975,7 @@ BlocklyApps.generateXMLForBlocks = function(blockArray) {
   var iframeHeight = parseInt(document.getElementById('feedbackBlocks')
           .style.height);
   for (var i = 0, block; block = blockArray[i]; i++) {
-    if (block && i < BlocklyApps.NUM_REQUIRED_BLOCKS_TO_FLAG) {
+    if (block) {
       blockXMLStrings.push('<block', ' type="', block['type'], '" x= "',
                           blockX.toString(), '" y="', blockY, '">');
       if (block['titles']) {

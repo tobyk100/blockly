@@ -212,7 +212,7 @@ var BLOCK_DATA = [
     // Level 1: El.
     {
       ideal: 3,
-      requiredBlocks: [MOVE_FORWARD_INLINE, turnRightRestricted(90)]
+      requiredBlocks: [[MOVE_FORWARD_INLINE], [turnRightRestricted(90)]]
     },
     // Level 2: Square (without repeat).
     {
@@ -221,9 +221,9 @@ var BLOCK_DATA = [
       },
       ideal: 7,
       requiredBlocks: [
-        MOVE_FORWARD_INLINE,
-        turnRightRestricted(90),
-        SET_COLOUR_PICKER
+        [MOVE_FORWARD_INLINE],
+        [turnRightRestricted(90)],
+        [SET_COLOUR_PICKER]
       ],
       requiredColours: 4
     },
@@ -234,9 +234,9 @@ var BLOCK_DATA = [
       },
       ideal: 3,
       requiredBlocks: [
-        MOVE_FORWARD_INLINE,
-        turnRightRestricted(90),
-        repeat(4)
+        [MOVE_FORWARD_INLINE],
+        [turnRightRestricted(90)],
+        [repeat(4)]
       ]
     },
     // Level 4: Triangle.
@@ -246,14 +246,14 @@ var BLOCK_DATA = [
       },
       ideal: 3,
       requiredBlocks: [
-        MOVE_FORWARD_INLINE,
-        repeat(3),
-        {
+        [MOVE_FORWARD_INLINE],
+        [repeat(3)],
+        [{
           test: 'turnRight',
           type: 'draw_turn_by_constant',
           titles: {VALUE: '???'}
-        },
-        SET_COLOUR_RANDOM
+        }],
+        [SET_COLOUR_RANDOM]
       ],
       requiredColors: 3
     },
@@ -264,9 +264,9 @@ var BLOCK_DATA = [
       },
       ideal: 6,
       requiredBlocks: [
-        repeat(3),
-        turnRightRestricted(120),
-        MOVE_FORWARD_INLINE
+        [repeat(3)],
+        [turnRightRestricted(120)],
+        [MOVE_FORWARD_INLINE]
       ]
     },
     // Level 6: triangle and square.
@@ -276,20 +276,20 @@ var BLOCK_DATA = [
       },
       ideal: 6,
       requiredBlocks: [
-        repeat(3),
-        turnRightRestricted(120),
-        MOVE_FORWARD_INLINE,
-        MOVE_BACKWARD_INLINE
+        [repeat(3)],
+        [turnRightRestricted(120)],
+        [MOVE_FORWARD_INLINE],
+        [MOVE_BACKWARD_INLINE]
       ]
     },
     // Level 7: glasses.
     {
       ideal: 8,
       requiredBlocks: [
-        turnRightRestricted(90),
-        MOVE_FORWARD_INLINE,
-        SET_COLOUR_PICKER,
-        MOVE_BACKWARD_INLINE
+        [turnRightRestricted(90)],
+        [MOVE_FORWARD_INLINE],
+        [SET_COLOUR_PICKER],
+        [MOVE_BACKWARD_INLINE]
       ],
       requiredColors: Colours.GREEN
     },
@@ -299,7 +299,7 @@ var BLOCK_DATA = [
         before: {}
       },
       ideal: 4,
-      requiredBlocks: [repeat(8)],
+      requiredBlocks: [[repeat(8)]],
       requiredColors: 8
     },
     // Level 9: circle.
@@ -322,10 +322,10 @@ var BLOCK_DATA = [
       },
       ideal: 5,
       requiredBlocks: [
-        repeat(4),
-        turnRight(90),
-        move(100),
-        SET_COLOUR_PICKER
+        [repeat(4)],
+        [turnRight(90)],
+        [move(100)],
+        [SET_COLOUR_PICKER]
       ],
       requiredColors: 1
     },
@@ -336,8 +336,8 @@ var BLOCK_DATA = [
       },
       ideal: 2,
       requiredBlocks: [
-        drawASquare('??'),
-        SET_COLOUR_PICKER
+        [drawASquare('??')],
+        [SET_COLOUR_PICKER]
       ],
       requiredColors: Colours.GREEN
     },
@@ -348,10 +348,10 @@ var BLOCK_DATA = [
       },
       ideal: 5,
       requiredBlocks: [
-        repeat(3),
-        drawASquare(100),
-        turnRight(120),
-        SET_COLOUR_RANDOM
+        [repeat(3)],
+        [drawASquare(100)],
+        [turnRight(120)],
+        [SET_COLOUR_RANDOM]
       ]
     },
     // Level 4: 36 squares.
@@ -368,7 +368,7 @@ var BLOCK_DATA = [
       },
       ideal: 10,
       requiredBlocks: [
-        drawASquare('??')
+        [drawASquare('??')]
       ]
     },
     // Level 6: For-loop squares.
@@ -378,7 +378,7 @@ var BLOCK_DATA = [
       },
       ideal: 6,
       // This is not displayed properly.
-      requiredBlocks: [simpleBlock('variables_get_counter')]
+      requiredBlocks: [[simpleBlock('variables_get_counter')]]
     },
     // Level 7: Boxy spiral.
     {
@@ -387,10 +387,10 @@ var BLOCK_DATA = [
       },
       ideal: 8,
       requiredBlocks: [
-        simpleBlock('controls_for_counter'),
-        move('??'),
-        simpleBlock('variables_get_counter'),
-        turnRight(90)
+        [simpleBlock('controls_for_counter')],
+        [move('??')],
+        [simpleBlock('variables_get_counter')],
+        [turnRight(90)]
       ]
     },
     // Level 8: Three snowmen.
@@ -400,16 +400,16 @@ var BLOCK_DATA = [
       },
       ideal: 9,
       requiredBlocks: [
-        drawASnowman(150),
-        turnRight(90),
-        turnLeft(90),
-        {
+        [drawASnowman(150)],
+        [turnRight(90)],
+        [turnLeft(90)],
+        [{
           test: 'jump',
           type: 'jump',
           values: {'VALUE': makeMathNumber(100)}
-        },
-        simpleBlock('jump'),
-        simpleBlock('draw_colour')
+        }],
+        [simpleBlock('jump')],
+        [simpleBlock('draw_colour')]
       ],
       requiredColors: 3
     },
@@ -420,16 +420,16 @@ var BLOCK_DATA = [
       },
       ideal: 12,
       requiredBlocks: [
-        drawASnowman('??'),
-        simpleBlock('controls_for_counter'),
-        simpleBlock('variables_get_counter'),
-        turnRight(90),
-        turnLeft(90),
-        {
+        [drawASnowman('??')],
+        [simpleBlock('controls_for_counter')],
+        [simpleBlock('variables_get_counter')],
+        [turnRight(90)],
+        [turnLeft(90)],
+        [{
           test: 'jump',
           type: 'jump',
           values: {'VALUE': makeMathNumber(60)}
-        }
+        }]
       ]
     },
     // Level 10: playground.
@@ -444,7 +444,7 @@ var BLOCK_DATA = [
       },
       ideal: 1,
       requiredBlocks: [
-        call('draw a square')
+        [call('draw a square')]
       ]
     },
     // Level 2: Create "draw a triangle".
@@ -455,29 +455,29 @@ var BLOCK_DATA = [
       },
       ideal: 7,
       requiredBlocks: [
-        repeat(3),
-        move(100),
-        turnRight(120),
-        call('draw a triangle')
+        [repeat(3)],
+        [move(100)],
+        [turnRight(120)],
+        [call('draw a triangle')]
       ]
     },
     // Level 3: Fence the animals.
     {
       ideal: 7,
       requiredBlocks: [
-        call('draw a triangle'),
-        move(100),
-        call('draw a square')
+        [call('draw a triangle')],
+        [move(100)],
+        [call('draw a square')]
       ]
     },
     // Level 4: House the lion.
     {
       ideal: 6,
       requiredBlocks: [
-        call('draw a square'),
-        move(100),
-        turnRight(30),
-        call('draw a triangle')
+        [call('draw a square')],
+        [move(100)],
+        [turnRight(30)],
+        [call('draw a triangle')]
       ]
     },
     // Level 5: Create "draw a house".
@@ -487,12 +487,12 @@ var BLOCK_DATA = [
       },
       ideal: 8,
       requiredBlocks: [
-        define('draw a house'),
-        call('draw a square'),
-        move(100),
-        turnRight(30),
-        call('draw a triangle'),
-        call('draw a house')
+        [define('draw a house')],
+        [call('draw a square')],
+        [move(100)],
+        [turnRight(30)],
+        [call('draw a triangle')],
+        [call('draw a house')]
       ]
     },
     // Level 6: Add parameter to "draw a triangle".
@@ -502,9 +502,9 @@ var BLOCK_DATA = [
       },
       ideal: 13,
       requiredBlocks: [
-        exports.defineWithArg_('draw a triangle', 'length'),
-        simpleBlock('variables_get_length'),
-        callWithArg('draw a triangle', 'length')
+        [exports.defineWithArg_('draw a triangle', 'length')],
+        [simpleBlock('variables_get_length')],
+        [callWithArg('draw a triangle', 'length')]
       ],
       requiredColors: 2
     },
@@ -512,11 +512,11 @@ var BLOCK_DATA = [
     {
       ideal: 13,
       requiredBlocks: [
-        exports.defineWithArg_('draw a house', 'height'),
-        callWithArg('draw a square', 'length'),
-        callWithArg('draw a triangle', 'length'),
-        simpleBlock('variables_get_height'),
-        callWithArg('draw a house', 'height')
+        [exports.defineWithArg_('draw a house', 'height')],
+        [callWithArg('draw a square', 'length')],
+        [callWithArg('draw a triangle', 'length')],
+        [simpleBlock('variables_get_height')],
+        [callWithArg('draw a house', 'height')]
       ]
     },
     // Level 8: Draw houses.
@@ -533,9 +533,9 @@ var BLOCK_DATA = [
       },
       ideal: 27,
       requiredBlocks: [
-        simpleBlock('controls_for_counter'),
-        simpleBlock('variables_get_counter'),
-        SET_COLOUR_RANDOM
+        [simpleBlock('controls_for_counter')],
+        [simpleBlock('variables_get_counter')],
+        [SET_COLOUR_RANDOM]
       ],
       requiredColors: 3
     },
