@@ -160,4 +160,6 @@ module.exports = function(grunt) {
 
   grunt.registerTask('default', ['clean:all', 'build']);
 
+  grunt.registerTask('heroku:development', ['clean:all', 'build']);
+
 };
