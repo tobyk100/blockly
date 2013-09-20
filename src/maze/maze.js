@@ -465,9 +465,6 @@ Maze.init = function() {
 
   var interstitial = BlocklyApps.INTERSTITIALS.before;
   if (interstitial) {
-    if (interstitial.videoId) {
-      BlocklyApps.addVideoIframeSrc(interstitial.videoId);
-    }
     BlocklyApps.showHelp(false, undefined);
   } else {
     document.getElementById('helpButton').setAttribute('disabled', 'disabled');
