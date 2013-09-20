@@ -486,7 +486,7 @@ Maze.ResultType = {
 var displayFeedback = function() {
   BlocklyApps.displayFeedback({
     app: 'maze',
-    finalLevel: levelNumber === levelCount
+    finalLevel: false //TODO: Get from server or otherwise parameterize
   });
 };
 
@@ -495,7 +495,7 @@ var displayFeedback = function() {
  */
 Maze.execute = function() {
   BlocklyApps.log = [];
-  BlocklyApps.ticks = 50 * levelNumber; // XXX ?
+  BlocklyApps.ticks = 50;
   var code = Blockly.Generator.workspaceToCode('JavaScript');
   Maze.result = Maze.ResultType.UNSET;
 

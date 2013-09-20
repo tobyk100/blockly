@@ -504,7 +504,7 @@ Maze.ResultType = {
 var displayFeedback = function() {
   BlocklyApps.displayFeedback({
     app: 'karel',
-    finalLevel: levelNumber === levelCount
+    finalLevel: false //TODO: Get from server or otherwise parameterize
   });
 };
 
