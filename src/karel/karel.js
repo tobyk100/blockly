@@ -458,7 +458,8 @@ Maze.changePegman = function(newSkin) {
   Maze.saveToStorage();
   window.location = window.location.protocol + '//' +
       window.location.host + window.location.pathname +
-      '?level=' + BlocklyApps.LEVEL + '&skin=' + newSkin;
+      '?page=' + BlocklyApps.PAGE + '&level=' + BlocklyApps.LEVEL +
+      '&skin=' + newSkin;
 };
 
 /**

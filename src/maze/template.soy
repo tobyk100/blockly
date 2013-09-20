@@ -28,19 +28,19 @@
             {/msg}
           </span>
           {sp}&nbsp;{sp}
-          {for $i in range(1, $ij.mode == 2 ? 19 : 11)}
+          {for $i in range(1, $ij.page == 2 ? 19 : 11)}
             {sp}
             {if $i == $ij.level}
-              {if $i > ($ij.mode == 2 ? 19 : 11) - 2}
+              {if $i > ($ij.page == 2 ? 19 : 11) - 2}
                 <span class="selected doubleDigit tab">{$i}</span>
               {else}
                 <span class="selected tab">{$i}</span>
               {/if}
             {else}
               {if $i < $ij.level}
-                <a class="tab previous" href="?level={$i}&skin={$ij.skin}&mode={$ij.mode}">{$i}</a>
+                <a class="tab previous" href="?page={$ij.page}&level={$i}&skin={$ij.skin}">{$i}</a>
               {else}
-                <a class="tab" href="?level={$i}&skin={$ij.skin}&mode={$ij.mode}">{$i}</a>
+                <a class="tab" href="?page={$ij.page}&level={$i}&skin={$ij.skin}">{$i}</a>
               {/if}
             {/if}
           {/for}
@@ -99,7 +99,7 @@
         <div style="margin-left: 50px;">
           <div id="reinfbubble">
             <span id="reinfMsg">
-              {if $ij.mode == 1}
+              {if $ij.page == 1}
                 {switch $ij.level}
                   {case 1}
                   <span class="preInter">{msg meaning="Maze.reinfMsg1"
@@ -162,7 +162,7 @@
         /**
          * Show image and/or video below avatar for these reinf levels.
          */
-        {if $ij.mode == 1}
+        {if $ij.page == 1}
           {switch $ij.level}
             {case 1}
                 <iframe class="video" src=""></iframe>
@@ -196,7 +196,7 @@
          * Multiple choice question.
          */
 
-        {if $ij.mode == 1}
+        {if $ij.page == 1}
           {switch $ij.level}
             {case 2}
               <p class="quiz postInter">
@@ -352,7 +352,7 @@
     <block type="maze_moveForward"></block>
     <block type="maze_turn"><title name="DIR">turnLeft</title></block>
     <block type="maze_turn"><title name="DIR">turnRight</title></block>
-    {if $ij.mode == 1}
+    {if $ij.page == 1}
       {if $ij.level > 2}
         <block type="maze_forever"></block>
         {if $ij.level == 5}
@@ -364,7 +364,7 @@
          <block type="maze_ifElse"></block>
        {/if}
       {/if}
-    {elseif $ij.mode == 2}
+    {elseif $ij.page == 2}
       {if $ij.level > 4 and $ij.level < 9}
         <block type="controls_repeat">
           <title name="TIMES">5</title>

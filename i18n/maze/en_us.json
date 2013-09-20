@@ -69,142 +69,142 @@
     "string": "If there is a path in the specified direction, then do the first block of actions. Otherwise, do the second block of actions.",
     "description": "tooltip (pop-up help) - 'path' refers to a path through a maze."
   },
-  "instructions10_m1": {
+  "instructions1_10": {
     "id": "6167520316579602442",
     "string": "Use the 'if-else' block to help me get out of the maze!",
     "description": "instructions - an example of an 'if-else' block is: 'if there is a path to the left, turn left, else or otherwise turn right'."
   },
-  "instructions10_m2": {
+  "instructions2_10": {
     "id": "2412547971116978730",
     "string": "Try to reach the end of this path using only three blocks.",
     "description": "instructions - 'path' refers to a path through a maze, and 'block' refers to a child's building block."
   },
-  "instructions11_m2": {
+  "instructions2_11": {
     "id": "1455178279506102440",
     "string": "Reach the goal using only five blocks.",
     "description": "instructions - the goal is reaching the end point in a maze; 'block' refers to a child's building block."
   },
-  "instructions12_m2": {
+  "instructions2_12": {
     "id": "376023948138102352",
     "string": "Reach the goal using only five blocks.",
     "description": "instructions - the goal is reaching the end point in a maze; 'block' refers to a child's building block."
   },
-  "instructions13_m2": {
+  "instructions2_13": {
     "id": "7102371650442076855",
     "string": "I will have to turn left when I cannot go straight. Use an 'if' block to see if their is a path in another direction.",
     "description": "instructions - 'turn left' refers to rotating in place a quarter circle counter-clockwise. An example of an 'if' block is: 'if there is a path to the left, turn left'."
   },
-  "instructions14_m2": {
+  "instructions2_14": {
     "id": "3869139555508242409",
     "string": "I will have to turn right when I cannot go straight. Use an 'if' block to see if their is a path in another direction.",
     "description": "instructions - 'turn left' refers to rotating in place a quarter circle counter-clockwise. An example of an 'if' block is: 'if there is a path to the left, turn left'."
   },
-  "instructions15_m2": {
+  "instructions2_15": {
     "id": "7049730293562356228",
     "string": "An 'if' condition will do something only if the condition is true.  Try turning right if there is a path to the right.",
     "description": "instructions - an example of an 'if' block is: 'if there is a path to the left, turn left'."
   },
-  "instructions16_m2": {
+  "instructions2_16": {
     "id": "3042157832321644942",
     "string": "An 'if' condition will do something only if the condition is true.  Try turning right if there is a path to the right.",
     "description": "instructions - an example of an 'if' block is: 'if there is a path to the left, turn left'."
   },
-  "instructions17_m2": {
+  "instructions2_17": {
     "id": "1921114589161044058",
     "string": "If-else blocks will do one thing or the other.",
     "description": "instructions - 'block' refers to a child's building block."
   },
-  "instructions18_m2": {
+  "instructions2_18": {
     "id": "703067714057600362",
     "string": "Use the 'if-else' block to help me get out of the maze!",
     "description": "instructions - an example of an 'if-else' block is: 'if there is a path to the left, turn left, else or otherwise turn right'."
   },
-  "instructions1_m1": {
+  "instructions1_1": {
     "id": "6315855985873350815",
     "string": "A program is a sequence of statements. Stack a couple of 'move forward' blocks together to help me reach the goal.",
     "description": "instructions - the word 'program' refers to a computer program, and the words for 'stack' and 'blocks' should be the same as for stacking children's blocks. Use the imperative verb form appropriate for speaking to a child, gender unspecified.  If no gender-neutral singular/familiar form exists but a gender-neutral plural/formal form exists, use that instead."
   },
-  "instructions1_m2": {
+  "instructions2_1": {
     "id": "4083979993945840021",
     "string": "A program is a sequence of statements. Stack a couple of 'move forward' blocks together to help me reach the goal.",
     "description": "instructions - the word 'program' refers to a computer program, and the words for 'stack' and 'blocks' should be the same as for stacking children's blocks. Use the imperative verb form appropriate for speaking to a child, gender unspecified.  If no gender-neutral singular/familiar form exists but a gender-neutral plural/formal form exists, use that instead."
   },
-  "instructions2_m1": {
+  "instructions1_2": {
     "id": "2027826841571701243",
     "string": "What should I do to follow the path?",
     "description": "instructions - 'steps' refers to instructions in a computer program; 'path' refers to the path through a maze. See previous description for tense."
   },
-  "instructions2_m2": {
+  "instructions2_2": {
     "id": "1871190326975133337",
     "string": "A program is a sequence of statements. Stack a couple of 'move forward' blocks together to help me reach the goal.",
     "description": "instructions - the word 'program' refers to a computer program, and the words for 'stack' and 'blocks' should be the same as for stacking children's blocks. Use the imperative verb form appropriate for speaking to a child, gender unspecified.  If no gender-neutral singular/familiar form exists but a gender-neutral plural/formal form exists, use that instead."
   },
-  "instructions3_m1": {
+  "instructions1_3": {
     "id": "2835206376100898481",
     "string": "Computers have limited memory. Reach the end of this path using only two blocks.",
     "description": "instructions - 'path' refers to a path through a maze, and 'block' refers to a child's building block."
   },
-  "instructions3_m2": {
+  "instructions2_3": {
     "id": "9068460194411820247",
     "string": "What should I do to follow the path?",
     "description": "instructions - 'steps' refers to instructions in a computer program; 'path' refers to the path through a maze. See previous description for tense."
   },
-  "instructions4_m1": {
+  "instructions1_4": {
     "id": "3556887539065550515",
     "string": "Reach the goal using only five blocks.",
     "description": "instructions - the goal is reaching the end point in a maze; 'block' refers to a child's building block."
   },
-  "instructions4_m2": {
+  "instructions2_4": {
     "id": "8380965510044188233",
     "string": "What should I do to follow the path?",
     "description": "instructions - 'steps' refers to instructions in a computer program; 'path' refers to the path through a maze. See previous description for tense."
   },
-  "instructions5_m1": {
+  "instructions1_5": {
     "id": "1224478900937224235",
     "string": "I will have to turn left when I cannot go straight. Use an 'if' block to see if their is a path in another direction.",
     "description": "instructions - 'turn left' refers to rotating in place a quarter circle counter-clockwise. An example of an 'if' block is: 'if there is a path to the left, turn left'."
   },
-  "instructions5_m2": {
+  "instructions2_5": {
     "id": "7686423618086788043",
     "string": "Try to reach the end of this path using only two blocks.",
     "description": "instructions - 'path' refers to a path through a maze, and 'block' refers to a child's building block."
   },
-  "instructions6_m1": {
+  "instructions1_6": {
     "id": "2675463684838806294",
     "string": "An 'if' condition will do something only if the condition is true.  Try turning left if there is a path to the left.",
     "description": "instructions - an example of an 'if' block is: 'if there is a path to the left, turn left'."
   },
-  "instructions6_m2": {
+  "instructions2_6": {
     "id": "7916832332058433887",
     "string": "Try to reach the end of this path using only three blocks.",
     "description": "instructions - 'path' refers to a path through a maze, and 'block' refers to a child's building block."
   },
-  "instructions7_m1": {
+  "instructions1_7": {
     "id": "390084050358184874",
     "string": "A small change to the blocks from the previous maze will solve this level.",
     "description": "instructions - 'blocks' refers to a child's building blocks"
   },
-  "instructions7_m2": {
+  "instructions2_7": {
     "id": "3846752408201513826",
     "string": "Try to reach the end of this path using only two repeat blocks.",
     "description": "instructions - 'path' refers to a path through a maze, and 'block' refers to a child's building block."
   },
-  "instructions8_m1": {
+  "instructions1_8": {
     "id": "9175946759388661783",
     "string": "You can use more than one 'if' statement.",
     "description": "instructions - an example of an 'if' block is: 'if there is a path to the left, turn left'."
   },
-  "instructions8_m2": {
+  "instructions2_8": {
     "id": "2611769440555818823",
     "string": "Try to reach the end of this path using only two repeat blocks.",
     "description": "instructions - 'path' refers to a path through a maze, and 'block' refers to a child's building block."
   },
-  "instructions9_m1": {
+  "instructions1_9": {
     "id": "4750733923757450011",
     "string": "If-else blocks will do one thing or the other.",
     "description": "instructions - 'block' refers to a child's building block."
   },
-  "instructions9_m2": {
+  "instructions2_9": {
     "id": "7508911288134093999",
     "string": "Try to reach the end of this path using the new repeat block.",
     "description": "instructions - 'path' refers to a path through a maze, and 'block' refers to a child's building block."

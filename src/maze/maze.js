@@ -38,15 +38,15 @@ var Direction = tiles.Direction;
 var Maze = module.exports;
 
 // Set BlocklyApps constants.
-BlocklyApps.MAX_LEVEL = 10;
-BlocklyApps.LEVEL =
-    BlocklyApps.getNumberParamFromUrl('level', 1, BlocklyApps.MAX_LEVEL);
+BlocklyApps.PAGE = BlocklyApps.getNumberParamFromUrl('page', 1, 2);
+BlocklyApps.MAX_LEVEL = [undefined, 10, 18][BlocklyApps.PAGE];
+BlocklyApps.LEVEL = BlocklyApps.getNumberParamFromUrl('level', 1, BlocklyApps.MAX_LEVEL);
 BlocklyApps.CHECK_FOR_EMPTY_BLOCKS = true;
 
 /**
  * Current Level configuration.
  */
-var CURRENT_LEVEL = levels[BlocklyApps.LEVEL];
+var CURRENT_LEVEL = levels.pages[BlocklyApps.PAGE].levels[BlocklyApps.LEVEL];
 
 /**
  * The ideal number of blocks to solve the current level.
@@ -241,7 +241,8 @@ Maze.drawMap = function() {
   var hintBubble = document.getElementById('hintBubble');
   hintBubble.style.width = (Maze.MAZE_WIDTH - 20) + 'px';
   var hint = document.getElementById('hint');
-  hint.innerHTML = mazeMsg['instructions' + BlocklyApps.LEVEL + '_m1']();
+  hint.innerHTML = mazeMsg['instructions' + BlocklyApps.PAGE + '_' +
+                           BlocklyApps.LEVEL]();
 
   if (Maze.SKIN.background) {
     var tile = document.createElementNS(Blockly.SVG_NS, 'image');
@@ -486,8 +487,8 @@ Maze.changePegman = function(newSkin) {
   Maze.saveToStorage();
   window.location = window.location.protocol + '//' +
       window.location.host + window.location.pathname +
-      '?level=' + BlocklyApps.LEVEL +
-      '&skin=' + newSkin + '&mode=' + BlocklyApps.MODE;
+      '?page=' + BlocklyApps.PAGE + '&level=' + BlocklyApps.LEVEL +
+      '&skin=' + newSkin;
 };
 
 /**
@@ -1099,12 +1100,3 @@ Maze.setIdealBlockMessage = function() {
   var idealNumText = document.createTextNode(Maze.IDEAL_BLOCK_NUM);
   idealNumMsg.appendChild(idealNumText);
 };
-
-/**
- * The mode of the maze we are in.
- * If mode = 1, we are in the original maze; if mode = 2, we are in the adaptive
- * maze with additional levels.
- */
-BlocklyApps.MAX_MODE = 2;
-BlocklyApps.MODE =
-    BlocklyApps.getNumberParamFromUrl('mode', 1, BlocklyApps.MAX_MODE);

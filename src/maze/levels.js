@@ -4,9 +4,16 @@ var Direction = require('../tiles').Direction;
 /*
  * Configuration for all levels.
  */
-module.exports = [
+module.exports = {
+  'pages': [
+  // Page 0
+  null,
+  
+  // Page 1
+  {
+  'levels': [
   // Level 0
-  {},
+  null,
   // Level 1
   {
     'interstitials': [InterTypes.PRE],
@@ -232,5 +239,422 @@ module.exports = [
       [0, 1, 3, 1, 1, 1, 1, 0],
       [0, 0, 0, 0, 0, 0, 0, 0]
     ]
+  }
+  ]
   },
-];
+    // Page 2
+    {
+    'levels': [
+        // Level 0
+        null,
+        // Level 1
+        {
+          'interstitials': [BlocklyApps.InterTypes.NONE],
+          'ideal': 2,
+          'requiredBlocks': [
+            {'test': 'moveForward', 'type': 'maze_moveForward'},
+          ],
+          'startDirection': Direction.EAST,
+          'map': [
+            [0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 2, 1, 3, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0]
+          ]
+        },
+        // Level 2
+        {
+          'interstitials': [BlocklyApps.InterTypes.NONE],
+          'ideal': 3,
+          'requiredBlocks': [
+            {'test': 'moveForward', 'type': 'maze_moveForward'},
+          ],
+          'startDirection': Direction.EAST,
+          'map': [
+            [0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 2, 1, 1, 3, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0]
+          ]
+        },
+        // Level 3
+        {
+          'interstitials': [BlocklyApps.InterTypes.NONE],
+          'ideal': 5,
+          'requiredBlocks': [
+            {'test': 'moveForward', 'type': 'maze_moveForward'},
+            {'test': 'turnLeft',
+                'type': 'maze_turn',
+                'titles': {'DIR': 'turnLeft'}},
+            {'test': 'turnRight',
+                'type': 'maze_turn',
+                'titles': {'DIR': 'turnRight'}}
+          ],
+          'startDirection': Direction.EAST,
+          'map': [
+            [0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 4, 1, 3, 0, 0, 0],
+            [0, 0, 2, 1, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0]
+          ]
+        },
+        // Level 4
+        {
+          'interstitials': [BlocklyApps.InterTypes.NONE],
+          'ideal': 7,
+          'requiredBlocks': [
+            {'test': 'moveForward', 'type': 'maze_moveForward'},
+            {'test': 'turnLeft',
+                'type': 'maze_turn',
+                'titles': {'DIR': 'turnLeft'}}
+          ],
+          'startDirection': Direction.EAST,
+          'map': [
+            [0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 2, 4, 3, 0, 0, 0],
+            [0, 0, 1, 1, 1, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0]
+          ]
+        },
+        // Level 5
+        {
+          'interstitials': [BlocklyApps.InterTypes.NONE],
+          'ideal': 2,
+          'requiredBlocks': [
+            {'test': 'moveForward', 'type': 'maze_moveForward'},
+            {'test': 'for', 'type': 'controls_repeat'}
+          ],
+          'startDirection': Direction.EAST,
+          'map': [
+            [0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 2, 1, 1, 1, 1, 3, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0]
+          ]
+        },
+        // Level 6
+        {
+          'interstitials': [BlocklyApps.InterTypes.NONE],
+          'ideal': 3,
+          'requiredBlocks': [
+            {'test': 'moveForward', 'type': 'maze_moveForward'},
+            {'test': 'for', 'type': 'controls_repeat'}
+          ],
+          'startDirection': Direction.EAST,
+          'map': [
+            [0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 2, 0, 0, 0],
+            [0, 0, 0, 0, 1, 0, 0, 0],
+            [0, 0, 0, 0, 1, 0, 0, 0],
+            [0, 0, 0, 0, 1, 0, 0, 0],
+            [0, 0, 0, 0, 1, 0, 0, 0],
+            [0, 0, 0, 0, 3, 0, 0, 0]
+          ]
+        },
+        // Level 7
+        {
+          'interstitials': [BlocklyApps.InterTypes.NONE],
+          'ideal': 5,
+          'requiredBlocks': [
+            {'test': 'moveForward', 'type': 'maze_moveForward'},
+            {'test': 'for', 'type': 'controls_repeat'},
+            {'test': 'turnLeft',
+                'type': 'maze_turn',
+                'titles': {'DIR': 'turnLeft'}}
+          ],
+          'startDirection': Direction.EAST,
+          'map': [
+            [0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 3, 0],
+            [0, 0, 0, 0, 0, 0, 1, 0],
+            [0, 0, 0, 0, 0, 0, 1, 0],
+            [0, 0, 0, 0, 0, 0, 1, 0],
+            [0, 0, 0, 0, 0, 0, 1, 0],
+            [0, 0, 2, 1, 1, 1, 1, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0]
+          ]
+        },
+        // Level 8
+        {
+          'interstitials': [BlocklyApps.InterTypes.NONE],
+          'ideal': 5,
+          'requiredBlocks': [
+            {'test': 'moveForward', 'type': 'maze_moveForward'},
+            {'test': 'for', 'type': 'controls_repeat'},
+            {'test': 'turnRight',
+                'type': 'maze_turn',
+                 'titles': {'DIR': 'turnRight'}}
+          ],
+          'startDirection': Direction.EAST,
+          'map': [
+            [0, 0, 0, 0, 0, 0, 0, 0],
+            [2, 1, 1, 1, 1, 1, 1, 0],
+            [0, 0, 0, 0, 0, 0, 1, 0],
+            [0, 0, 0, 0, 0, 0, 1, 0],
+            [0, 0, 0, 0, 0, 0, 1, 0],
+            [0, 0, 0, 0, 0, 0, 1, 0],
+            [0, 0, 0, 0, 0, 0, 3, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0]
+          ]
+        },
+        // Level 9
+        {
+          'interstitials': [BlocklyApps.InterTypes.NONE],
+          'ideal': 2,
+          'requiredBlocks': [
+            {'test': 'moveForward', 'type': 'maze_moveForward'},
+            {'test': 'while', 'type': 'maze_forever'}
+          ],
+          'startDirection': Direction.EAST,
+          'map': [
+            [0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 2, 1, 1, 1, 1, 3, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0]
+          ]
+        },
+        // Level 10
+        {
+          'interstitials': [BlocklyApps.InterTypes.NONE],
+          'ideal': 3,
+          'requiredBlocks': [
+            {'test': 'moveForward', 'type': 'maze_moveForward'},
+            {'test': 'while', 'type': 'maze_forever'}
+          ],
+          'startDirection': Direction.EAST,
+          'map': [
+            [0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 2, 0, 0, 0],
+            [0, 0, 0, 0, 1, 0, 0, 0],
+            [0, 0, 0, 0, 1, 0, 0, 0],
+            [0, 0, 0, 0, 1, 0, 0, 0],
+            [0, 0, 0, 0, 1, 0, 0, 0],
+            [0, 0, 0, 0, 3, 0, 0, 0]
+          ]
+        },
+        // Level 11
+        {
+          'interstitials': [BlocklyApps.InterTypes.NONE],
+          'ideal': 5,
+          'requiredBlocks': [
+            {'test': 'moveForward', 'type': 'maze_moveForward'},
+            {'test': 'while', 'type': 'maze_forever'},
+            {'test': 'turnLeft',
+                'type': 'maze_turn',
+                'titles': {'DIR': 'turnLeft'}},
+            {'test': 'turnRight',
+                'type': 'maze_turn',
+                'titles': {'DIR': 'turnRight'}}
+          ],
+          'startDirection': Direction.EAST,
+          'map': [
+            [0, 0, 0, 0, 0, 0, 0, 1],
+            [0, 0, 0, 0, 0, 0, 1, 1],
+            [0, 0, 0, 0, 0, 1, 3, 0],
+            [0, 0, 0, 0, 1, 1, 0, 0],
+            [0, 0, 0, 1, 1, 0, 0, 0],
+            [0, 0, 1, 1, 0, 0, 0, 0],
+            [0, 2, 1, 0, 0, 0, 0, 0],
+            [1, 1, 0, 0, 0, 0, 0, 0]
+          ]
+        },
+        // Level 12
+        {
+          'interstitials': [BlocklyApps.InterTypes.NONE],
+          'ideal': 5,
+          'requiredBlocks': [
+            {'test': 'moveForward', 'type': 'maze_moveForward'},
+            {'test': 'while', 'type': 'maze_forever'},
+            {'test': 'turnLeft',
+                'type': 'maze_turn',
+                'titles': {'DIR': 'turnLeft'}},
+            {'test': 'turnRight',
+                'type': 'maze_turn',
+                'titles': {'DIR': 'turnRight'}}
+          ],
+          'startDirection': Direction.EAST,
+          'map': [
+            [1, 0, 0, 0, 0, 0, 0, 0],
+            [1, 2, 0, 0, 0, 0, 0, 0],
+            [0, 1, 1, 0, 0, 0, 0, 0],
+            [0, 0, 1, 1, 0, 0, 0, 0],
+            [0, 0, 0, 1, 1, 0, 0, 0],
+            [0, 0, 0, 0, 1, 1, 0, 0],
+            [0, 0, 0, 0, 0, 1, 3, 0],
+            [0, 0, 0, 0, 0, 0, 1, 1]
+          ]
+        },
+        // Level 13
+        {
+          'interstitials': [BlocklyApps.InterTypes.NONE],
+          'ideal': 4,
+          'requiredBlocks': [
+            {'test': 'isPathLeft',
+                'type': 'maze_if',
+                'titles': {'DIR': 'isPathLeft'}},
+            {'test': 'while', 'type': 'maze_forever'},
+            {'test': 'turnLeft',
+                'type': 'maze_turn',
+                'titles': {'DIR': 'turnLeft'}}
+          ],
+          'startDirection': Direction.EAST,
+          'map': [
+            [0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 3, 0, 0],
+            [0, 0, 0, 0, 0, 1, 0, 0],
+            [0, 0, 0, 0, 0, 1, 0, 0],
+            [0, 0, 0, 0, 0, 1, 0, 0],
+            [0, 0, 0, 0, 0, 1, 0, 0],
+            [0, 0, 0, 2, 1, 1, 0, 0],
+            [0, 0, 0, 0, 0, 4, 0, 0]
+          ]
+        },
+        // Level 14
+        {
+          'interstitials': [BlocklyApps.InterTypes.NONE],
+          'ideal': 4,
+          'requiredBlocks': [
+            {'test': 'isPathRight',
+                'type': 'maze_if',
+                'titles': {'DIR': 'isPathRight'}},
+            {'test': 'while', 'type': 'maze_forever'},
+            {'test': 'turnRight',
+                'type': 'maze_turn',
+                'titles': {'DIR': 'turnRight'}}
+          ],
+          'startDirection': Direction.EAST,
+          'map': [
+            [0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 2, 1, 1, 1, 0, 0],
+            [0, 0, 0, 0, 0, 1, 0, 0],
+            [0, 0, 0, 0, 0, 1, 0, 0],
+            [0, 0, 0, 0, 0, 1, 4, 0],
+            [0, 0, 0, 0, 0, 1, 0, 0],
+            [0, 3, 1, 1, 1, 1, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0]
+          ]
+        },
+        // Level 15
+        {
+          'interstitials': [BlocklyApps.InterTypes.NONE],
+          'ideal': 4,
+          'requiredBlocks': [
+            {'test': 'isPathRight',
+                'type': 'maze_if',
+                'titles': {'DIR': 'isPathRight'}},
+            {'test': 'while', 'type': 'maze_forever'},
+            {'test': 'turnRight',
+                'type': 'maze_turn',
+                'titles': {'DIR': 'turnRight'}}
+          ],
+          'startDirection': Direction.EAST,
+          'map': [
+            [0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 2, 1, 1, 1, 1, 0, 0],
+            [0, 0, 0, 0, 0, 1, 0, 0],
+            [0, 1, 1, 3, 0, 1, 0, 0],
+            [0, 1, 0, 0, 0, 1, 0, 0],
+            [0, 1, 1, 1, 1, 1, 0, 0],
+            [0, 0, 0, 0, 4, 0, 0, 0]
+          ]
+        },
+        // Level 16
+        {
+          'interstitials': [BlocklyApps.InterTypes.NONE],
+          'ideal': 4,
+          'requiredBlocks': [
+            {'test': 'isPathRight',
+                'type': 'maze_if',
+                'titles': {'DIR': 'isPathRight'}},
+            {'test': 'while', 'type': 'maze_forever'},
+            {'test': 'turnRight',
+                'type': 'maze_turn',
+                'titles': {'DIR': 'turnRight'}}
+          ],
+          'startDirection': Direction.EAST,
+          'map': [
+            [0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 4, 0, 0, 0, 0],
+            [0, 2, 1, 1, 1, 1, 0, 0],
+            [0, 0, 0, 0, 0, 1, 4, 0],
+            [0, 1, 1, 3, 0, 1, 1, 0],
+            [0, 1, 0, 0, 0, 1, 0, 0],
+            [0, 1, 1, 1, 1, 1, 4, 1],
+            [0, 0, 0, 0, 0, 0, 0, 0]
+          ]
+        },
+        // Level 17
+        {
+          'interstitials': [BlocklyApps.InterTypes.NONE],
+          'ideal': 6,
+          'requiredBlocks': [
+            {'test': 'isPathForward',
+                'type': 'maze_ifElse',
+                'titles': {'DIR': 'isPathForward'}},
+            {'test': 'while', 'type': 'maze_forever'}
+          ],
+          'startDirection': Direction.EAST,
+          'map': [
+            [0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 1, 1, 1, 1, 1, 0, 0],
+            [0, 0, 1, 0, 0, 0, 0, 0],
+            [3, 1, 1, 1, 1, 1, 1, 0],
+            [0, 1, 0, 1, 0, 1, 1, 0],
+            [1, 1, 1, 4, 1, 0, 1, 0],
+            [0, 1, 0, 1, 0, 2, 1, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0]
+          ]
+        },
+        // Level 18
+        {
+          'interstitials': [BlocklyApps.InterTypes.NONE],
+          'ideal': 5,
+          'requiredBlocks': [
+            {'test': 'isPathForward',
+                'type': 'maze_ifElse',
+                'titles': {'DIR': 'isPathForward'}},
+            {'test': 'while', 'type': 'maze_forever'}
+          ],
+          'startDirection': Direction.EAST,
+          'map': [
+            [0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 2, 1, 1, 1, 1, 1, 0],
+            [0, 0, 1, 4, 0, 1, 1, 0],
+            [0, 0, 0, 0, 0, 0, 1, 0],
+            [0, 0, 1, 1, 0, 1, 1, 0],
+            [0, 1, 3, 1, 1, 1, 1, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0]
+          ]
+        }
+      ]
+    }
+  ]
+};

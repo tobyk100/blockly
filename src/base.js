@@ -350,26 +350,6 @@ BlocklyApps.MAX_LEVEL = undefined;
 BlocklyApps.SKIN_ID = undefined;
 
 /**
- * The maximum number of the mode.
- * @type {number}
- */
-BlocklyApps.MAX_MODE = undefined;
-
-/**
- * Enumeration of the modes the tutorial can be in (normal or adaptive).
- * @enum {number}
- */
-BlocklyApps.MODE_ENUM = {
-  NORMAL: 1,
-  ADAPTIVE: 2
-};
-
-/**
- * The mode of the tutorial.
- */
-BlocklyApps.MODE = undefined;
-
-/**
  * Whether to alert user to empty blocks, short-circuiting all other tests.
  */
 BlocklyApps.CHECK_FOR_EMPTY_BLOCKS = undefined;
@@ -939,8 +919,7 @@ BlocklyApps.createURLAndOpenNextLevel = function() {
       (BlocklyApps.PAGE ? '&page=' + BlocklyApps.PAGE : '') +
       '&level=' + (BlocklyApps.LEVEL + 1) +
       // TODO: Fix hack used to temporarily keep turtle interstitials working.
-      (BlocklyApps.SKIN_ID ? '&skin=' + BlocklyApps.SKIN_ID : '&reinf=1') +
-      (BlocklyApps.MODE ? '&mode=' + BlocklyApps.MODE : '');
+      (BlocklyApps.SKIN_ID ? '&skin=' + BlocklyApps.SKIN_ID : '&reinf=1');
   }
 };
 
