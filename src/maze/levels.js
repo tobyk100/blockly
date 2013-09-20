@@ -292,8 +292,6 @@ module.exports = {
     // Page 2
     {
     'levels': [
-        // Level 0
-        null,
         // Level 1
         {
           'ideal': 2,
@@ -441,9 +439,9 @@ module.exports = {
           'requiredBlocks': [
             [{'test': 'moveForward', 'type': 'maze_moveForward'}],
             [{'test': 'for', 'type': 'controls_repeat'}],
-              [{'test': 'turnRight',
-                'type': 'maze_turn',
-                'titles': {'DIR': 'turnRight'}}]
+            [{'test': 'turnRight',
+              'type': 'maze_turn',
+              'titles': {'DIR': 'turnRight'}}]
           ],
           'startDirection': Direction.EAST,
           'map': [
