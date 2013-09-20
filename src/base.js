@@ -343,12 +343,6 @@ BlocklyApps.LEVEL = undefined;
 BlocklyApps.MAX_LEVEL = undefined;
 
 /**
- * The application-dependent skin identifier.
- * @type {number}
- */
-BlocklyApps.SKIN_ID = undefined;
-
-/**
  * Whether to alert user to empty blocks, short-circuiting all other tests.
  */
 BlocklyApps.CHECK_FOR_EMPTY_BLOCKS = undefined;
@@ -641,12 +635,6 @@ BlocklyApps.displayStars = function(numStars) {
 };
 
 /**
- * Map from missing block names (e.g., "move") to the highest number
- * error message (starting with 1) that has been used.
- */
-BlocklyApps.errorVersionMap_ = {};
-
-/**
  * Sets appropriate feedback for when the modal dialog is displayed.
  * @param {number} feedbackType A constant property of BlocklyApps.TestResults,
  *     typically produced by BlocklyApps.getTestResults().
@@ -721,9 +709,8 @@ BlocklyApps.REPORT_URL = BlocklyApps.getStringParamFromUrl('callback_url');
 /**
  * Caches the current report to send to the server. An app can set this
  * variable and continue to execute.
- * @private
  */
-BlocklyApps.latestReport_ = undefined;
+var latestReport_ = undefined;
 
 /**
  * Report back to the server, if available.
@@ -734,7 +721,7 @@ BlocklyApps.latestReport_ = undefined;
  * @param {string} program The user program, which will get URL-encoded.
  */
 BlocklyApps.report = function(app, id, level, result, program) {
-  BlocklyApps.latestReport_ = {
+  latestReport_ = {
     'app': app,
     'id': id,
     'level': level,
@@ -762,8 +749,8 @@ BlocklyApps.reportAndRedirect = function() {
   httpRequest.setRequestHeader('Content-Type',
       'application/x-www-form-urlencoded');
   var query = [];
-  for (var key in BlocklyApps.latestReport_) {
-    query.push(key + '=' + BlocklyApps.latestReport_[key]);
+  for (var key in latestReport_) {
+    query.push(key + '=' + latestReport_[key]);
   }
   query = query.join('&');
   httpRequest.send(query);

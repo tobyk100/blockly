@@ -58,11 +58,6 @@
         <button id="helpButton" onclick="BlocklyApps.showHelp(true, {$ij.level}, false);">
           {msg meaning="Apps.help" desc="IBID"}Help{/msg}
         </button>
-        &nbsp;&nbsp;
-        <button id="pegmanButton" onmousedown="Maze.showPegmanMenu();">
-          <img src="{$ij.baseUrl}media/1x1.gif">
-          <span>&#x25BE;</span>
-        </button>
       </td>
     </tr>
   </table>
@@ -193,8 +188,6 @@
   {call apps.dialog /}
   {call apps.codeDialog /}
   {call apps.storageDialog /}
-
-  <div id="pegmanMenu"></div>
 {/template}
 
 /**

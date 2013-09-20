@@ -27,6 +27,7 @@ var BlocklyApps = require('../base');
 var commonMsg = require('../../build/en_us/i18n/common');
 var mazeMsg = require('../../build/en_us/i18n/maze');
 var levels = require('./levels');
+var skins = require('../skins');
 var tiles = require('../tiles');
 
 var Direction = tiles.Direction;
@@ -66,73 +67,10 @@ BlocklyApps.NUM_REQUIRED_BLOCKS_TO_FLAG = 10;
 
 BlocklyApps.INTERSTITIALS = CURRENT_LEVEL.interstitials || {};
 
-Maze.SKINS = [
-  // sprite: A 1029x51 set of 21 avatar images.
-  // tiles: A 250x200 set of 20 map images.
-  // marker: A 20x34 goal image.
-  // background: An optional 400x450 background image, or false.
-  // graph: Colour of optional grid lines, or false.
-  // look: Colour of sonar-like look icon.
-  {
-    sprite: 'pegman.png',
-    tiles: 'tiles_pegman.png',
-    marker: 'marker.png',
-    background: false,
-    // TODO: Need to update to the associated obstacles
-    obstacle: 'cat.png',
-    graph: false,
-    look: '#000'
-  },
-  {
-    sprite: 'astro.png',
-    tiles: 'tiles_astro.png',
-    marker: 'marker.png',
-    background: 'bg_astro.jpg',
-    // TODO: Need to update to the associated obstacles
-    obstacle: 'cat.png',
-    // Coma star cluster, photo by George Hatfield, used with permission.
-    graph: false,
-    look: '#fff'
-  },
-  {
-    sprite: 'zombieman.png',
-    tiles: 'tiles_panda.png',
-    marker: 'mkr_sunflower.png',
-    background: 'board_pvz.png',
-    // TODO: Need to update to the associated obstacles
-    obstacle: 'cat.png',
-    // Coma star cluster, photo by George Hatfield, used with permission.
-    graph: false,
-    look: '#fff'
-  },
-  {
-    sprite: 'mouse.png',
-    tiles: 'tiles_mouse.png',
-    marker: 'marker_mouse.png',
-    background: 'bg_mouse.png',
-    // TODO: Need to update to the associated obstacles
-    obstacle: 'cat.png',
-    graph: false,
-    look: '#fff'
-  },
-  {
-    sprite: 'panda.png',
-    tiles: 'tiles_panda.png',
-    marker: 'marker.png',
-    background: 'bg_panda.jpg',
-    // TODO: Need to update to the associated obstacles
-    obstacle: 'cat.png',
-    // Spring canopy, photo by Rupert Fleetingly, CC licensed for reuse.
-    graph: false,
-    look: '#000'
-  }
-];
+BlocklyApps.SKIN_ID = BlocklyApps.getStringParamFromUrl('skin', 'pegman');
 
-BlocklyApps.SKIN_ID =
-    BlocklyApps.getNumberParamFromUrl('skin', 0, Maze.SKINS.length);
-Maze.SKIN = Maze.SKINS[BlocklyApps.SKIN_ID];
-
-Maze.SKIN.MARKER_URL = BlocklyApps.BASE_URL + 'maze/' + Maze.SKIN.marker;
+var skin = skins.load(BlocklyApps.BASE_URL, BlocklyApps.SKIN_ID);
+exports.skin = skin;
 
 /**
  * Milliseconds between each animation frame.
@@ -238,10 +176,10 @@ Maze.drawMap = function() {
   hint.innerHTML = mazeMsg['instructions' + BlocklyApps.PAGE + '_' +
                            BlocklyApps.LEVEL]();
 
-  if (Maze.SKIN.background) {
+  if (skin.background) {
     var tile = document.createElementNS(Blockly.SVG_NS, 'image');
     tile.setAttributeNS('http://www.w3.org/1999/xlink', 'xlink:href',
-        BlocklyApps.BASE_URL + 'maze/' + Maze.SKIN.background);
+                        skin.background);
     tile.setAttribute('height', Maze.MAZE_HEIGHT);
     tile.setAttribute('width', Maze.MAZE_WIDTH);
     tile.setAttribute('x', 0);
@@ -249,7 +187,7 @@ Maze.drawMap = function() {
     svg.appendChild(tile);
   }
 
-  if (Maze.SKIN.graph) {
+  if (skin.graph) {
     // Draw the grid lines.
     // The grid lines are offset so that the lines pass through the centre of
     // each square.  A half-pixel offset is also added to as standard SVG
@@ -260,7 +198,7 @@ Maze.drawMap = function() {
       h_line.setAttribute('y1', k * Maze.SQUARE_SIZE + offset);
       h_line.setAttribute('x2', Maze.MAZE_WIDTH);
       h_line.setAttribute('y2', k * Maze.SQUARE_SIZE + offset);
-      h_line.setAttribute('stroke', Maze.SKIN.graph);
+      h_line.setAttribute('stroke', skin.graph);
       h_line.setAttribute('stroke-width', 1);
       svg.appendChild(h_line);
     }
@@ -269,7 +207,7 @@ Maze.drawMap = function() {
       v_line.setAttribute('x1', k * Maze.SQUARE_SIZE + offset);
       v_line.setAttribute('x2', k * Maze.SQUARE_SIZE + offset);
       v_line.setAttribute('y2', Maze.MAZE_HEIGHT);
-      v_line.setAttribute('stroke', Maze.SKIN.graph);
+      v_line.setAttribute('stroke', skin.graph);
       v_line.setAttribute('stroke-width', 1);
       svg.appendChild(v_line);
     }
@@ -322,7 +260,7 @@ Maze.drawMap = function() {
       // Tile sprite.
       var tile = document.createElementNS(Blockly.SVG_NS, 'image');
       tile.setAttributeNS('http://www.w3.org/1999/xlink', 'xlink:href',
-          BlocklyApps.BASE_URL + 'maze/' + Maze.SKIN.tiles);
+                          skin.tiles);
       tile.setAttribute('height', Maze.SQUARE_SIZE * 4);
       tile.setAttribute('width', Maze.SQUARE_SIZE * 5);
       tile.setAttribute('clip-path', 'url(#tileClipPath' + tileId + ')');
@@ -337,7 +275,7 @@ Maze.drawMap = function() {
   var finishMarker = document.createElementNS(Blockly.SVG_NS, 'image');
   finishMarker.setAttribute('id', 'finish');
   finishMarker.setAttributeNS('http://www.w3.org/1999/xlink', 'xlink:href',
-      Maze.SKIN.MARKER_URL);
+                              skin.goal);
   finishMarker.setAttribute('height', 34);
   finishMarker.setAttribute('width', 20);
   svg.appendChild(finishMarker);
@@ -356,7 +294,7 @@ Maze.drawMap = function() {
   var pegmanIcon = document.createElementNS(Blockly.SVG_NS, 'image');
   pegmanIcon.setAttribute('id', 'pegman');
   pegmanIcon.setAttributeNS('http://www.w3.org/1999/xlink', 'xlink:href',
-      BlocklyApps.BASE_URL + 'maze/' + Maze.SKIN.sprite);
+                            skin.avatar);
   pegmanIcon.setAttribute('height', Maze.PEGMAN_HEIGHT);
   pegmanIcon.setAttribute('width', Maze.PEGMAN_WIDTH * 21); // 49 * 21 = 1029
   pegmanIcon.setAttribute('clip-path', 'url(#pegmanClipPath)');
@@ -370,7 +308,7 @@ Maze.drawMap = function() {
         obsIcon.setAttribute('height', 40);
         obsIcon.setAttribute('width', 40);
         obsIcon.setAttributeNS(
-          'http://www.w3.org/1999/xlink', 'xlink:href', Maze.SKIN.obstacle);
+          'http://www.w3.org/1999/xlink', 'xlink:href', skin.obstacle);
         obsIcon.setAttribute('x',
                              Maze.SQUARE_SIZE * (x + 0.5) -
                              obsIcon.getAttribute('width') / 2);
@@ -388,29 +326,6 @@ Maze.drawMap = function() {
  */
 Maze.init = function() {
   BlocklyApps.init();
-
-  // Setup the Pegman (skin) menu.
-  var pegmanImg = document.querySelector('#pegmanButton>img');
-  pegmanImg.style.backgroundImage = 'url(' + BlocklyApps.BASE_URL + 'maze/' + Maze.SKIN.sprite + ')';
-  var pegmanMenu = document.getElementById('pegmanMenu');
-  var handlerFactory = function(n) {
-    return function() {
-      Maze.changePegman(n);
-    };
-  };
-  for (var i = 0; i < Maze.SKINS.length; i++) {
-    if (i == BlocklyApps.SKIN_ID) {
-      continue;
-    }
-    var div = document.createElement('div');
-    var img = document.createElement('img');
-    img.src = BlocklyApps.BASE_URL + 'media/1x1.gif';
-    img.style.backgroundImage = 'url(' + BlocklyApps.BASE_URL + 'maze/' + Maze.SKINS[i].sprite + ')';
-    div.appendChild(img);
-    pegmanMenu.appendChild(div);
-    Blockly.bindEvent_(div, 'mousedown', null, handlerFactory(i));
-  }
-  Blockly.bindEvent_(window, 'resize', null, Maze.hidePegmanMenu);
 
   var rtl = BlocklyApps.isRtl();
   var toolbox = document.getElementById('toolbox');
@@ -493,37 +408,6 @@ Maze.saveToStorage = function() {
 };
 
 /**
- * Display the Pegman skin-change menu.
- */
-Maze.showPegmanMenu = function() {
-  var menu = document.getElementById('pegmanMenu');
-  if (menu.style.display == 'block') {
-    return;  // Menu is already open.
-  }
-  var button = document.getElementById('pegmanButton');
-  Blockly.addClass_(button, 'buttonHover');
-  menu.style.top = (button.offsetTop + button.offsetHeight) + 'px';
-  menu.style.left = button.offsetLeft + 'px';
-  menu.style.display = 'block';
-  window.setTimeout(function() {
-      Maze.pegmanMenuMouse_ = Blockly.bindEvent_(document.body, 'mousedown',
-                                                 null, Maze.hidePegmanMenu);
-      }, 0);
-};
-
-/**
- * Hide the Pegman skin-change menu.
- */
-Maze.hidePegmanMenu = function() {
-  document.getElementById('pegmanMenu').style.display = 'none';
-  Blockly.removeClass_(document.getElementById('pegmanButton'), 'buttonHover');
-  if (Maze.pegmanMenuMouse_) {
-    Blockly.unbindEvent_(Maze.pegmanMenuMouse_);
-    delete Maze.pegmanMenuMouse_;
-  }
-};
-
-/**
  * Reset the maze to the start position and kill any pending animation tasks.
  * @param {boolean} first True if an opening animation is to be played.
  */
@@ -565,7 +449,7 @@ BlocklyApps.reset = function(first) {
   lookIcon.parentNode.appendChild(lookIcon);
   var paths = lookIcon.getElementsByTagName('path');
   for (var i = 0, path; path = paths[i]; i++) {
-    path.setAttribute('stroke', Maze.SKIN.look);
+    path.setAttribute('stroke', skin.look);
   }
 };
 

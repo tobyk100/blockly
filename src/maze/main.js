@@ -19,7 +19,7 @@ window.mazeMain = function(options) {
     }));
   }
 
-  blocks.install(Blockly);
+  blocks.install(Blockly, Maze.skin);
 
   window.addEventListener('load', function() {
     if (options.readonly) {
