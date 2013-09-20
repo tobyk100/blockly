@@ -621,12 +621,6 @@ BlocklyApps.displayStars = function(numStars) {
 };
 
 /**
- * Map from missing block names (e.g., "move") to the highest number
- * error message (starting with 1) that has been used.
- */
-BlocklyApps.errorVersionMap_ = {};
-
-/**
  * Sets appropriate feedback for when the modal dialog is displayed.
  * @param {number} feedbackType A constant property of BlocklyApps.TestResults,
  *     typically produced by BlocklyApps.getTestResults().
