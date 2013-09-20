@@ -78,6 +78,7 @@ var skin = skins.load(BlocklyApps.BASE_URL, skinId);
 
 exports.config = {
   skin: skin,
+  level: level,
   interstitials: BlocklyApps.INTERSTITIALS,
   baseUrl: BlocklyApps.BASE_URL
 };
