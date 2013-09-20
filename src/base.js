@@ -789,33 +789,6 @@ BlocklyApps.hideFeedback = function() {
 };
 
 /**
- * Show feedback on a quiz interstitial question.
- * @param {number} reinfLevel Level number the quiz is displayed on.
- * @param {string} identifier 'q' + reinforcement level number +
- *     'r' or 'w' (right or wrong answer).
- */
-BlocklyApps.showReinfQuizFeedback = function(reinfLevel, identifier) {
-  var qNum = reinfLevel;
-  var responseType = identifier.charAt(identifier.length - 1);
-  document.getElementById('reinfQuizFeedback').style.display = 'block';
-  var textColor;
-  var responseType;
-  if (responseType == 'w') {
-    textColor = 'red';
-    responseType = 'wrong';
-  } else if (responseType == 'r') {
-    textColor = 'green';
-    responseType = 'right';
-    document.getElementById('continueButton').removeAttribute('disabled');
-  } else {
-    throw 'Response not w or r.';
-  }
-  var textDiv = document.getElementById('reinfFeedbackText');
-  textDiv.style.color = textColor;
-  textDiv.value = msg['q' + qNum + responseType]();
-};
-
-/**
  * If the level is done, either show an interstitial or go to the next level.
  * Otherwise close the dialog and reset so the user can try again.
  * @param {boolean} gotoNext true to continue to next level,
@@ -874,13 +847,6 @@ BlocklyApps.displayCloseDialogButtons = function(feedbackType) {
 BlocklyApps.showInterstitial = function() {
   if (BlocklyApps.levelComplete) {
     if (BlocklyApps.INTERSTITIALS.after) {
-      if (document.querySelector('.quiz')) {
-        document.getElementById('continueButton').setAttribute('disabled',
-                                                               'disabled');
-        document.getElementById('tryAgainButton').style.display = 'none';
-      } else if (document.getElementById('reinfQuizFeedback')) {
-        document.getElementById('reinfQuizFeedback').style.display = 'none';
-      }
       var preInterArray = document.querySelectorAll('.preInter');
       for (var r = 0, preInter; preInter = preInterArray[r]; r++) {
         preInter.style.display = 'none';
