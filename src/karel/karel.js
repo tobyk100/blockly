@@ -552,7 +552,7 @@ Maze.execute = function() {
   }
 
   // Report result to server.
-  BlocklyApps.report('maze', BlocklyApps.LEVEL_ID, BlocklyApps.LEVEL,
+  BlocklyApps.report('maze', BlocklyApps.LEVEL,
       Maze.result === Maze.ResultType.SUCCESS, BlocklyApps.stripCode(code));
 
   // Fast animation if execution is successful.  Slow otherwise.

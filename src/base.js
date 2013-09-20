@@ -422,12 +422,6 @@ BlocklyApps.ticks = null;
 BlocklyApps.reset = function(first) {};
 
 /**
- * Pseudo-random identifier used for tracking user progress within a level.
- * @type {!number}
- */
-BlocklyApps.LEVEL_ID = Math.random();
-
-/**
  * Enumeration of test results.
  * BlocklyApps.getTestResults() runs checks in the below order.
  * EMPTY_BLOCKS_FAIL can only occur if BlocklyApps.CHECK_FOR_EMPTY_BLOCKS true.
@@ -720,10 +714,9 @@ var latestReport_ = undefined;
  * @param {number} result An indicator of the success of the code.
  * @param {string} program The user program, which will get URL-encoded.
  */
-BlocklyApps.report = function(app, id, level, result, program) {
+BlocklyApps.report = function(app, level, result, program) {
   latestReport_ = {
     'app': app,
-    'id': id,
     'level': level,
     'result': result,
     'attempt': 1,  // TODO(toby): implement

@@ -544,7 +544,7 @@ Maze.execute = function() {
   }
 
   // Report result to server.
-  BlocklyApps.report('maze', BlocklyApps.LEVEL_ID, BlocklyApps.LEVEL,
+  BlocklyApps.report('maze', BlocklyApps.LEVEL,
       Maze.result === Maze.ResultType.SUCCESS, BlocklyApps.stripCode(code));
 
   // BlocklyApps.log now contains a transcript of all the user's actions.

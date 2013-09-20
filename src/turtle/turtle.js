@@ -638,7 +638,7 @@ Turtle.checkAnswer = function() {
       BlocklyApps.PAGE == 1 && BlocklyApps.LEVEL == 9 ? 10 : 150);
   var feedbackType = BlocklyApps.getTestResults();
 
-  BlocklyApps.report('turtle', BlocklyApps.LEVEL_ID, BlocklyApps.LEVEL,
+  BlocklyApps.report('turtle', BlocklyApps.LEVEL,
                      BlocklyApps.levelComplete,
                      BlocklyApps.stripCode(Turtle.code));
   if (BlocklyApps.levelComplete) {
