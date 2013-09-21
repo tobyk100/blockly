@@ -692,7 +692,9 @@ Turtle.checkAnswer = function() {
 
   // All levels on Page 4 are free play levels, always return the free play
   // result type
-  feedbackType = BlocklyApps.TestResults.FREE_PLAY;
+  if (BlocklyApps.PAGE == 4) {
+    feedbackType = BlocklyApps.TestResults.FREE_PLAY;
+  }
 
   BlocklyApps.displayFeedback('turtle', feedbackType);
 };
