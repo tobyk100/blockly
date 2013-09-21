@@ -631,7 +631,6 @@ BlocklyApps.setErrorFeedback = function(options) {
 
     // For completing level, user gets at least one star.
     case BlocklyApps.TestResults.OTHER_1_STAR_FAIL:
-      BlocklyApps.displayStars(1);
       document.getElementById('appSpecificOneStarFeedback')
             .style.display = 'list-item';
       break;
@@ -647,14 +646,10 @@ BlocklyApps.setErrorFeedback = function(options) {
             BlocklyApps.generateXMLForBlocks(missingBlocks);
         document.getElementById('feedbackBlocks').style.display = 'block';
       }
-      if (BlocklyApps.levelComplete) {
-        BlocklyApps.displayStars(1);
-      }
       break;
 
     // Two stars for using too many blocks.
     case BlocklyApps.TestResults.TOO_MANY_BLOCKS_FAIL:
-      BlocklyApps.displayStars(2);
       BlocklyApps.setTextForElement(
           'tooManyBlocksError',
           msg.numBlocksNeeded().replace(
@@ -663,14 +658,12 @@ BlocklyApps.setErrorFeedback = function(options) {
                       'list-item';
       break;
     case BlocklyApps.TestResults.OTHER_2_STAR_FAIL:
-      BlocklyApps.displayStars(2);
       document.getElementById('appSpecificTwoStarFeedback')
             .style.display = 'list-item';
       break;
 
     // Three stars!
     case BlocklyApps.TestResults.ALL_PASS:
-      BlocklyApps.displayStars(3);
       break;
   }
 };
