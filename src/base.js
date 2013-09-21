@@ -434,6 +434,7 @@ BlocklyApps.LEVEL_ID = Math.random();
  */
 BlocklyApps.TestResults = {
   NO_TESTS_RUN: -1,          // Default.
+  FREE_PLAY: -2,             // 0 stars, try again or continue.
   EMPTY_BLOCK_FAIL: 1,       // 0 stars.
   MISSING_BLOCK_FAIL: 2,     // 1 star.
   TOO_FEW_BLOCKS_FAIL: 3,    // 0 stars.
@@ -696,6 +697,11 @@ BlocklyApps.setErrorFeedback = function(app, feedbackType) {
     case BlocklyApps.TestResults.ALL_PASS:
       BlocklyApps.displayStars(3);
       break;
+
+    // Free plays
+    case BlocklyApps.TestResults.FREE_PLAY:
+      document.getElementById('reinfFeedbackMsg').style.display = 'list-item';
+      break;
   }
 };
 
@@ -831,6 +837,7 @@ BlocklyApps.displayCloseDialogButtons = function(feedbackType) {
       break;
     case BlocklyApps.TestResults.TOO_MANY_BLOCKS_FAIL:
     case BlocklyApps.TestResults.OTHER_2_STAR_FAIL:
+    case BlocklyApps.TestResults.FREE_PLAY:
       continueButton.style.display = 'inline';
       tryAgainButton.style.display = 'inline';
       returnToLevelButton.style.display = 'none';

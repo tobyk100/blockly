@@ -164,6 +164,11 @@
     "string": "This level can be solved with <x id='START_SPAN'/><x id='END_SPAN'/> blocks.",
     "description": "alert - This is displayed when the user has used more blocks than is necessary."
   },
+  "rinfFeedbackMsg": {
+    "id": "",
+    "string": "Does this look like what you want?",
+    "description": "TODO"
+  },
   "xmlError": {
     "id": "5758425077401246127",
     "string": "Could not load your saved file.  Perhaps it was created with a different version of Blockly?",

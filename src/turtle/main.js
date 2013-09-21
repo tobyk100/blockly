@@ -84,7 +84,18 @@ window.turtleMain = function() {
     undefined,
     // Before final play level (10).
     ['You now know how to control the turtle, use loops ("repeat" and "count from"), and write and use functions.  Congratulations on becoming a programmer!']
-   ]
+   ],
+   // Page 4.
+   [undefined, // There is no level 0.
+    // Before drawing the house
+    undefined,
+    // Before drawing the square
+    undefined,
+    // Before drawing the arrow
+    undefined,
+    // Before drawing the ship
+    undefined
+   ],
   ];
 
   blocks.install(Blockly);

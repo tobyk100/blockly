@@ -239,6 +239,26 @@
     "string": "Use a &quot;count with&quot; block and your code from the previous level to draw houses of size 50, 100, and 150 in different colors.",
     "description": "TODO"
   },
+  "instructions4_1": {
+    "id": "",
+    "string": "Now you have learned how to draw different shapes, can you create a program that draws the house you made with tangram pieces?",
+    "description": "TODO"
+  },
+  "instructions4_2": {
+    "id": "",
+    "string": "Now you have learned how to draw different shapes, can you create a program that draws the square you made with two triangles?",
+    "description": "TODO"
+  },
+  "instructions4_3": {
+    "id": "",
+    "string": "Now you have learned how to draw different shapes, can you create a program that draws the arrow you made with tangram pieces?",
+    "description": "TODO"
+  },
+  "instructions4_4": {
+    "id": "",
+    "string": "Now you have learned how to draw different shapes, can you create a program that draws the ship you made with tangram pieces?",
+    "description": "TODO"
+  },
   "inter1_10_pre": {
     "id": "8722676893343433986",
     "string": "Congratulations on completing this tutorial.  Just for fun, here's a new block that changes how wide of lines I draw.  We've been using a default width of 5.",

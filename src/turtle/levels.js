@@ -541,13 +541,28 @@ var BLOCK_DATA = [
     },
     // Level 10: playground.
     {}
+  ],
+  // Page 4.
+  [
+    // Level 1: playground.
+    {
+    },
+    // Level 2: playground.
+    {
+    },
+    // Level 3: playground.
+    {
+    },
+    // Level 4: playground.
+    {
+    }
   ]
 ];
 
 exports.install = function(BlocklyApps, Turtle) {
   // Set constants with information extracted from the URL.
-  BlocklyApps.MAX_LEVEL = 10;
-  BlocklyApps.PAGE = BlocklyApps.getNumberParamFromUrl('page', 1, 3);
+  BlocklyApps.PAGE = BlocklyApps.getNumberParamFromUrl('page', 1, 4);
+  BlocklyApps.MAX_LEVEL = BlocklyApps.PAGE == 4? 4 : 10;
   BlocklyApps.LEVEL =
       BlocklyApps.getNumberParamFromUrl('level', 1, BlocklyApps.MAX_LEVEL);
 
