@@ -95,7 +95,7 @@ window.turtleMain = function() {
     undefined,
     // Before drawing the ship
     undefined
-   ],
+   ]
   ];
 
   blocks.install(Blockly);
