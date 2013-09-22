@@ -24,8 +24,8 @@
 'use strict';
 
 var BlocklyApps = require('../base');
-var levels = require('./levels');
 var msg = require('../../build/en_us/i18n/karel');
+var levels = require('./levels');
 var skins = require('../skins');
 var tiles = require('../tiles');
 
@@ -41,6 +41,8 @@ var level = levels[levelId];
 
 var skinId = BlocklyApps.getStringParamFromUrl('skin', 'farmer');
 var skin = skins.load(BlocklyApps.BASE_URL, skinId);
+
+BlocklyApps.INTERSTITIALS = level.interstitials || {};
 
 exports.config = {
   skin: skin,
@@ -75,7 +77,7 @@ Maze.map = level.map;
 BlocklyApps.IDEAL_BLOCK_NUM = level.ideal;
 Maze.initialBallMap = level.initialBalls;
 Maze.finalBallMap = level.finalBalls;
-Maze.startDirection = level.startDirection;
+
 /**
  * Blocks that are expected to be used on each level.
  * The block will be displayed as feedback in the order below.
@@ -87,8 +89,6 @@ BlocklyApps.REQUIRED_BLOCKS = level.requiredBlocks;
 
 //The number of blocks to show as feedback.
 BlocklyApps.NUM_REQUIRED_BLOCKS_TO_FLAG = 1;
-
-BlocklyApps.INTERSTITIALS = level.interstitials || {};
 
 // Default Scalings
 Maze.scale = {
@@ -120,6 +120,11 @@ Maze.PEGMAN_WIDTH = 49;
 Maze.MAZE_WIDTH = Maze.SQUARE_SIZE * Maze.COLS;
 Maze.MAZE_HEIGHT = Maze.SQUARE_SIZE * Maze.ROWS;
 Maze.PATH_WIDTH = Maze.SQUARE_SIZE / 3;
+
+/**
+ * Starting direction.
+ */
+Maze.startDirection = level.startDirection;
 
 /**
  * PIDs of animation tasks currently executing.
@@ -168,15 +173,13 @@ Maze.drawMap = function() {
   svg.setAttribute('width', Maze.MAZE_WIDTH);
   svg.setAttribute('height', Maze.MAZE_HEIGHT);
 
-  // Adjust hint bubble width.
-  var hintBubble = document.getElementById('hintBubble');
-  hintBubble.style.width = (Maze.MAZE_WIDTH - 20) + 'px';
-
   // Adjust button table width.
   var buttonTable = document.getElementById('gameButtons');
   buttonTable.style.width = Maze.MAZE_WIDTH + 'px';
 
-  // Fill-in hint bubble.
+  // Size and fill-in hint bubble.
+  var hintBubble = document.getElementById('hintBubble');
+  hintBubble.style.width = (Maze.MAZE_WIDTH - 20) + 'px';
   var hint = document.getElementById('hint');
   hint.innerHTML = msg[level.instructions]();
 
@@ -304,8 +307,7 @@ Maze.drawMap = function() {
         obsIcon.setAttribute('height', 40);
         obsIcon.setAttribute('width', 40);
         obsIcon.setAttributeNS(
-          'http://www.w3.org/1999/xlink', 'xlink:href',
-          skin.obstacle);
+          'http://www.w3.org/1999/xlink', 'xlink:href', skin.obstacle);
         obsIcon.setAttribute('x',
                              Maze.SQUARE_SIZE * (x + 0.5) -
                              obsIcon.getAttribute('width') / 2);
@@ -636,7 +638,6 @@ Maze.animate = function() {
       break;
     case 'finish':
       Maze.scheduleFinish(true);
-      // window.setTimeout(Maze.giveFeedback, 1000);
       break;
     // Nan's
     case 'putdown':

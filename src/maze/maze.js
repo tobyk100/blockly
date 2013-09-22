@@ -40,41 +40,10 @@ var Maze = module.exports;
 var levelId = BlocklyApps.getStringParamFromUrl('level', '1_1');
 var level = levels[levelId];
 
-// Set BlocklyApps constants.
-BlocklyApps.CHECK_FOR_EMPTY_BLOCKS = true;
-
-/**
- * The ideal number of blocks to solve the current level.
- */
-BlocklyApps.IDEAL_BLOCK_NUM = level.ideal;
-
-/**
- * Blocks that are expected to be used on each level.
- * The block will be displayed as feedback in the order below.
- * 'test' is the string that will be searched for in the code.
- * 'type' is the type of block to be generated as feedback.
- * 'titles' are optional and create a more specific block of the given type.
- */
-BlocklyApps.REQUIRED_BLOCKS = level.requiredBlocks;
-
-//The number of blocks to show as feedback.
-BlocklyApps.NUM_REQUIRED_BLOCKS_TO_FLAG = 10;
-
-BlocklyApps.INTERSTITIALS = level.interstitials || {};
-
-// Default Scalings
-Maze.scale = {
-  'snapRadius': 1,
-  'stepSpeed': 5
-};
-
-// Override scalars.
-for (var key in level.scale) {
-  Maze.scale[key] = level.scale[key];
-}
-
 var skinId = BlocklyApps.getStringParamFromUrl('skin', 'pegman');
 var skin = skins.load(BlocklyApps.BASE_URL, skinId);
+
+BlocklyApps.INTERSTITIALS = level.interstitials || {};
 
 exports.config = {
   skin: skin,
@@ -104,6 +73,37 @@ Maze.SquareType = {
 // The maze square constants defined above are inlined here
 // for ease of reading and writing the static mazes.
 Maze.map = level.map;
+
+// Set BlocklyApps constants.
+BlocklyApps.CHECK_FOR_EMPTY_BLOCKS = true;
+
+/**
+ * The ideal number of blocks to solve the current level.
+ */
+BlocklyApps.IDEAL_BLOCK_NUM = level.ideal;
+
+/**
+ * Blocks that are expected to be used on each level.
+ * The block will be displayed as feedback in the order below.
+ * 'test' is the string that will be searched for in the code.
+ * 'type' is the type of block to be generated as feedback.
+ * 'titles' are optional and create a more specific block of the given type.
+ */
+BlocklyApps.REQUIRED_BLOCKS = level.requiredBlocks;
+
+//The number of blocks to show as feedback.
+BlocklyApps.NUM_REQUIRED_BLOCKS_TO_FLAG = 10;
+
+// Default Scalings
+Maze.scale = {
+  'snapRadius': 1,
+  'stepSpeed': 5
+};
+
+// Override scalars.
+for (var key in level.scale) {
+  Maze.scale[key] = level.scale[key];
+}
 
 // Add blank row at top for hint bubble.
 Maze.map.unshift(new Array(Maze.map[0].length));
@@ -368,12 +368,7 @@ Maze.init = function(config) {
     });
   window.addEventListener('resize', BlocklyApps.onResize);
   BlocklyApps.onResize();
-
-  var defaultXml =
-      '<xml>' +
-      '  <block type="maze_moveForward" x="70" y="70"></block>' +
-      '</xml>';
-  BlocklyApps.loadBlocks(defaultXml);
+  Blockly.svgResize();
 
   // Locate the start and finish squares.
   for (var y = 0; y < Maze.ROWS; y++) {
@@ -385,6 +380,12 @@ Maze.init = function(config) {
       }
     }
   }
+
+  var defaultXml =
+      '<xml>' +
+      '  <block type="maze_moveForward" x="70" y="70"></block>' +
+      '</xml>';
+  BlocklyApps.loadBlocks(defaultXml);
 
   BlocklyApps.reset(true);
   Blockly.addChangeListener(function() {BlocklyApps.updateCapacity()});
