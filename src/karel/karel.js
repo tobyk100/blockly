@@ -324,8 +324,11 @@ Maze.drawMap = function() {
 /**
  * Initialize Blockly and the maze.  Called on page load.
  */
-Maze.init = function() {
-  BlocklyApps.init();
+Maze.init = function(config) {
+  if (config == null) {
+    config = {};
+  }
+  BlocklyApps.init(config);
 
   var rtl = BlocklyApps.isRtl();
   var toolbox = document.getElementById('toolbox');

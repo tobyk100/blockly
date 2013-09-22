@@ -27,6 +27,10 @@ var BlocklyApps = module.exports;
 var msg = require('../build/en_us/i18n/common');
 var dialog = require('./dialog');
 
+//TODO: These should be members of a BlocklyApp instance.
+var onAttempt;
+var onContinue;
+
 /**
  * The parent directory of the apps. Contains common.js.
  */
@@ -72,7 +76,15 @@ BlocklyApps.getNumberParamFromUrl = function(name, minValue, maxValue) {
 /**
  * Common startup tasks for all apps.
  */
-BlocklyApps.init = function() {
+BlocklyApps.init = function(config) {
+  // Store configuration.
+  onAttempt = config.onAttempt || function(report) {
+    console.log('Attempt!');
+    console.log(report);
+  };
+  onContinue = config.onContinue || function() {
+    console.log('Continue!');
+  };
   // Disable the link button if page isn't backed by App Engine storage.
   var linkButton = document.getElementById('linkButton');
   if ('BlocklyStorage' in window) {
@@ -661,59 +673,24 @@ BlocklyApps.setErrorFeedback = function(options) {
 };
 
 /**
- * Where to report back information about the user program.
- * Undefined if no server given to report to.
- */
-
-BlocklyApps.REPORT_URL = BlocklyApps.getStringParamFromUrl('callback_url');
-
-/**
- * Caches the current report to send to the server. An app can set this
- * variable and continue to execute.
- */
-var latestReport_ = undefined;
-
-/**
  * Report back to the server, if available.
  * @param {string} app The name of the application.
  * @param {number} id A unique identifier generated when the page was loaded.
- * @param {number} level The current level of the application.
+ * @param {string} levelId The ID of the current level.
  * @param {number} result An indicator of the success of the code.
  * @param {string} program The user program, which will get URL-encoded.
  */
-BlocklyApps.report = function(app, level, result, program) {
-  latestReport_ = {
-    'app': app,
-    'level': level,
-    'result': result,
-    'attempt': 1,  // TODO(toby): implement
-    'time': 1,  // TODO(toby): implement
-    'program': encodeURIComponent(program)
+BlocklyApps.report = function(app, levelId, result, program) {
+  var report = {
+    app: app,
+    level: levelId,
+    result: result,
+    program: encodeURIComponent(program),
+    // TODO(toby): implement stats
+    attempt: 1,
+    time: 1
   };
-};
-
-/**
- * Send the latest report set by BlocklyApps.report and redirect based
- * on the response from the server.
- */
-BlocklyApps.reportAndRedirect = function() {
-  var httpRequest = new XMLHttpRequest();
-  httpRequest.onload = function() {
-    var response = JSON.parse(httpRequest.responseText);
-    var redirect = response['redirect'];
-    if (redirect) {
-      window.location.href = redirect;
-    }
-  };
-  httpRequest.open('POST', BlocklyApps.REPORT_URL);
-  httpRequest.setRequestHeader('Content-Type',
-      'application/x-www-form-urlencoded');
-  var query = [];
-  for (var key in latestReport_) {
-    query.push(key + '=' + latestReport_[key]);
-  }
-  query = query.join('&');
-  httpRequest.send(query);
+  onAttempt(report);
 };
 
 /**
@@ -767,7 +744,7 @@ BlocklyApps.continueClicked = function() {
     BlocklyApps.showInterstitial();
   } else {
     BlocklyApps.hideDialog(false);
-    BlocklyApps.createURLAndOpenNextLevel();
+    onContinue();
   }
 };
 
@@ -837,23 +814,6 @@ BlocklyApps.showInterstitial = function() {
  */
 BlocklyApps.hideInterstitial = function() {
   document.getElementById('interstitial').style.display = 'none';
-};
-
-/**
- * Construct the URL and go to the next level.
- */
-BlocklyApps.createURLAndOpenNextLevel = function(config) {
-  if (BlocklyApps.REPORT_URL) {  // Ask the server where to go next.
-    BlocklyApps.reportAndRedirect();
-  } else {
-    //XXX Use url library to produce well formed URLs. Currently got "?&".
-    window.location = window.location.protocol + '//' +
-      window.location.host + window.location.pathname + '?' +
-      (BlocklyApps.PAGE ? '&page=' + BlocklyApps.PAGE : '') +
-      '&level=' + (config.level + 1) +
-      // TODO: Fix hack used to temporarily keep turtle interstitials working.
-      (config.skin ? '&skin=' + config.skin.id : '&reinf=1');
-  }
 };
 
 /**

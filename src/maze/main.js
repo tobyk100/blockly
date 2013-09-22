@@ -18,7 +18,7 @@ window.mazeMain = function(options) {
     if (options.readonly) {
       BlocklyApps.initReadonly();
     } else {
-      Maze.init();
+      Maze.init(options);
     }
   });
 
