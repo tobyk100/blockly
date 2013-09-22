@@ -57,6 +57,7 @@ exports.load = function(baseUrl, id) {
       } else {
         prefix = '' + n;
       }
+      //TODO: This really should be a sprite sheet.
       return root + prefix + 'check.png';
     }
   };

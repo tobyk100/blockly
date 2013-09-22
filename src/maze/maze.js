@@ -65,7 +65,7 @@ BlocklyApps.INTERSTITIALS = level.interstitials || {};
 // Default Scalings
 Maze.scale = {
   'snapRadius': 1,
-  //'stepSpeed': 5 XXX Maze uses absolute values, Karel scales. Reconcile.
+  'stepSpeed': 5
 };
 
 // Override scalars.
@@ -86,7 +86,7 @@ exports.config = {
 /**
  * Milliseconds between each animation frame.
  */
-Maze.stepSpeed;
+var stepSpeed;
 
 /**
  * The types of squares in the maze, which is represented
@@ -422,11 +422,11 @@ BlocklyApps.reset = function(first) {
     Maze.pegmanD = Maze.startDirection + 1;
     Maze.scheduleFinish(false);
     Maze.pidList.push(window.setTimeout(function() {
-      Maze.stepSpeed = 100;
+      stepSpeed = 100;
       Maze.schedule([Maze.pegmanX, Maze.pegmanY, Maze.pegmanD * 4],
                     [Maze.pegmanX, Maze.pegmanY, Maze.pegmanD * 4 - 4]);
       Maze.pegmanD++;
-    }, Maze.stepSpeed * 5));
+    }, stepSpeed * 5));
   } else {
     Maze.pegmanD = Maze.startDirection;
     Maze.displayPegman(Maze.pegmanX, Maze.pegmanY, Maze.pegmanD * 4);
@@ -523,13 +523,13 @@ Maze.execute = function() {
     // Abnormal termination is a user error.
     if (e === Infinity) {
       Maze.result = Maze.ResultType.TIMEOUT;
-      Maze.stepSpeed = 0;  // Go infinitely fast so program ends quickly.
+      stepSpeed = 0;  // Go infinitely fast so program ends quickly.
     } else if (e === true) {
       Maze.result = Maze.ResultType.SUCCESS;
-      Maze.stepSpeed = level.stepSpeed;
+      stepSpeed = 100;
     } else if (e === false) {
       Maze.result = Maze.ResultType.ERROR;
-      Maze.stepSpeed = 150;
+      stepSpeed = 150;
     } else {
       // Syntax error, can't happen.
       Maze.result = Maze.ResultType.ERROR;
@@ -545,7 +545,7 @@ Maze.execute = function() {
   // BlocklyApps.log now contains a transcript of all the user's actions.
   // Reset the maze and animate the transcript.
   BlocklyApps.reset(false);
-  Maze.pidList.push(window.setTimeout(Maze.animate, Maze.stepSpeed));
+  Maze.pidList.push(window.setTimeout(Maze.animate, stepSpeed));
 };
 
 /**
@@ -628,7 +628,9 @@ Maze.animate = function() {
       break;
   }
 
-  Maze.pidList.push(window.setTimeout(Maze.animate, Maze.stepSpeed * 5));
+  // Speeding up specific levels
+  var scaledStepSpeed = stepSpeed * Maze.scale.stepSpeed;
+  Maze.pidList.push(window.setTimeout(Maze.animate, scaledStepSpeed));
 };
 
 /**
@@ -647,16 +649,16 @@ Maze.schedule = function(startPos, endPos) {
       Maze.displayPegman(startPos[0] + deltas[0] * 2,
           startPos[1] + deltas[1] * 2,
           Maze.constrainDirection16(startPos[2] + deltas[2] * 2));
-    }, Maze.stepSpeed));
+    }, stepSpeed));
   Maze.pidList.push(window.setTimeout(function() {
       Maze.displayPegman(startPos[0] + deltas[0] * 3,
           startPos[1] + deltas[1] * 3,
           Maze.constrainDirection16(startPos[2] + deltas[2] * 3));
-    }, Maze.stepSpeed * 2));
+    }, stepSpeed * 2));
   Maze.pidList.push(window.setTimeout(function() {
       Maze.displayPegman(endPos[0], endPos[1],
           Maze.constrainDirection16(endPos[2]));
-    }, Maze.stepSpeed * 3));
+    }, stepSpeed * 3));
 };
 
 /**
@@ -693,16 +695,16 @@ Maze.scheduleFail = function(forward) {
     Maze.displayPegman(Maze.pegmanX,
                        Maze.pegmanY,
                        direction16);
-    }, Maze.stepSpeed));
+    }, stepSpeed));
   Maze.pidList.push(window.setTimeout(function() {
     Maze.displayPegman(Maze.pegmanX + deltaX,
                        Maze.pegmanY + deltaY,
                        direction16);
     Blockly.playAudio('whack', .5);
-  }, Maze.stepSpeed * 2));
+  }, stepSpeed * 2));
   Maze.pidList.push(window.setTimeout(function() {
       Maze.displayPegman(Maze.pegmanX, Maze.pegmanY, direction16);
-    }, Maze.stepSpeed * 3));
+    }, stepSpeed * 3));
 };
 
 /**
@@ -715,16 +717,16 @@ Maze.scheduleFinish = function(sound) {
   if (sound) {
     Blockly.playAudio('win', .5);
   }
-  Maze.stepSpeed = 150;  // Slow down victory animation a bit.
+  stepSpeed = 150;  // Slow down victory animation a bit.
   Maze.pidList.push(window.setTimeout(function() {
     Maze.displayPegman(Maze.pegmanX, Maze.pegmanY, 18);
-    }, Maze.stepSpeed));
+    }, stepSpeed));
   Maze.pidList.push(window.setTimeout(function() {
     Maze.displayPegman(Maze.pegmanX, Maze.pegmanY, 16);
-    }, Maze.stepSpeed * 2));
+    }, stepSpeed * 2));
   Maze.pidList.push(window.setTimeout(function() {
       Maze.displayPegman(Maze.pegmanX, Maze.pegmanY, direction16);
-    }, Maze.stepSpeed * 3));
+    }, stepSpeed * 3));
 };
 
 /**
@@ -780,7 +782,7 @@ Maze.scheduleLook = function(d) {
   var paths = lookIcon.getElementsByTagName('path');
   lookIcon.style.display = 'inline';
   for (var x = 0, path; path = paths[x]; x++) {
-    Maze.scheduleLookStep(path, Maze.stepSpeed * x);
+    Maze.scheduleLookStep(path, stepSpeed * x);
   }
 };
 
@@ -794,7 +796,7 @@ Maze.scheduleLookStep = function(path, delay) {
     path.style.display = 'inline';
     window.setTimeout(function() {
       path.style.display = 'none';
-    }, Maze.stepSpeed * 2);
+    }, stepSpeed * 2);
   }, delay));
 };
 

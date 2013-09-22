@@ -30,7 +30,7 @@ module.exports = {
     ],
     'scale': {
       'snapRadius': 2,
-      'stepSpeed': 150
+      'stepSpeed': 12
     },
     'startDirection': Direction.EAST,
     'map': [
@@ -62,7 +62,7 @@ module.exports = {
       [{'test': 'turnRight', 'type': 'maze_turn', 'titles': {'DIR': 'turnRight'}}]
     ],
     'scale': {
-      'stepSpeed': 100
+      'stepSpeed': 10
     },
     'startDirection': Direction.EAST,
     'map': [
@@ -93,7 +93,7 @@ module.exports = {
       [{'test': 'moveForward', 'type': 'maze_moveForward'}]
     ],
     'scale': {
-      'stepSpeed': 100
+      'stepSpeed': 8
     },
     'startDirection': Direction.EAST,
     'map': [
@@ -118,7 +118,7 @@ module.exports = {
       [{'test': 'moveForward', 'type': 'maze_moveForward'}]
     ],
     'scale': {
-      'stepSpeed': 80
+      'stepSpeed': 6
     },
     'startDirection': Direction.EAST,
     /**
@@ -161,7 +161,7 @@ module.exports = {
       [{'test': 'moveForward', 'type': 'maze_moveForward'}]
     ],
     'scale': {
-      'stepSpeed': 80
+      'stepSpeed': 6
     },
     'startDirection': Direction.EAST,
     'map': [
