@@ -39,9 +39,6 @@ var Maze = module.exports;
 var levelId = BlocklyApps.getStringParamFromUrl('level', '1_1');
 var level = levels[levelId];
 
-Maze.MAX_REINF = 0;
-Maze.REINF = BlocklyApps.getNumberParamFromUrl('reinf', 1, Maze.MAX_REINF);
-
 var skinId = BlocklyApps.getStringParamFromUrl('skin', 'farmer');
 var skin = skins.load(BlocklyApps.BASE_URL, skinId);
 
