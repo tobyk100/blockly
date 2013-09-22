@@ -759,23 +759,23 @@ BlocklyApps.hideFeedback = function() {
 };
 
 /**
- * If the level is done, either show an interstitial or go to the next level.
- * Otherwise close the dialog and reset so the user can try again.
- * @param {boolean} gotoNext true to continue to next level,
- *     false to try level again.
+ * Either show an interstitial or go to the next level.
  */
-BlocklyApps.goToNextLevelOrReset = function(gotoNext) {
-  if (gotoNext) {
-    var interstitial = document.getElementById('interstitial').style.display;
-    if (interstitial == 'none' && BlocklyApps.INTERSTITIALS.after) {
-      BlocklyApps.showInterstitial();
-    } else {
-      BlocklyApps.hideDialog(false);
-      BlocklyApps.createURLAndOpenNextLevel();
-    }
+BlocklyApps.continueClicked = function() {
+  var interstitial = document.getElementById('interstitial').style.display;
+  if (interstitial == 'none' && BlocklyApps.INTERSTITIALS.after) {
+    BlocklyApps.showInterstitial();
   } else {
-    BlocklyApps.hideDialog(true);
+    BlocklyApps.hideDialog(false);
+    BlocklyApps.createURLAndOpenNextLevel();
   }
+};
+
+/**
+ * Close the dialog so the user can try again.
+ */
+BlocklyApps.tryAgainClicked = function() {
+  BlocklyApps.hideDialog(true);
 };
 
 /**
