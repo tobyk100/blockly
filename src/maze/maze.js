@@ -25,7 +25,6 @@
 
 var BlocklyApps = require('../base');
 var commonMsg = require('../../build/en_us/i18n/common');
-var mazeMsg = require('../../build/en_us/i18n/maze');
 var levels = require('./levels');
 var skins = require('../skins');
 var tiles = require('../tiles');
@@ -184,7 +183,7 @@ Maze.drawMap = function() {
   var hintBubble = document.getElementById('hintBubble');
   hintBubble.style.width = (Maze.MAZE_WIDTH - 20) + 'px';
   var hint = document.getElementById('hint');
-  hint.innerHTML = mazeMsg[level.instructions]();
+  hint.innerHTML = level.instructions;
 
   if (skin.background) {
     var tile = document.createElementNS(Blockly.SVG_NS, 'image');
@@ -339,6 +338,10 @@ Maze.init = function(config) {
     config = {};
   }
   BlocklyApps.init(config);
+  // Override the current level with caller supplied parameters.
+  for (var prop in config.level) {
+    level[prop] = config.level[prop];
+  }
 
   var rtl = BlocklyApps.isRtl();
   var toolbox = document.getElementById('toolbox');
