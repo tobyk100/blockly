@@ -603,14 +603,6 @@ BlocklyApps.getTestResults = function() {
 };
 
 /**
- * Show stars based on the degree of completion and if the level is complete.
- * @param {number} numStars The number of stars to display.
- */
-BlocklyApps.displayStars = function(numStars) {
-  document.getElementById('star' + numStars).style.display = 'block';
-};
-
-/**
  * Sets appropriate feedback for when the modal dialog is displayed.
  * @param {number} feedbackType A constant property of BlocklyApps.TestResults,
  *     typically produced by BlocklyApps.getTestResults().
