@@ -36,19 +36,26 @@ var Direction = tiles.Direction;
  */
 var Maze = module.exports;
 
+var levelId = BlocklyApps.getStringParamFromUrl('level', '1_1');
+var level = levels[levelId];
+
 Maze.MAX_REINF = 0;
-BlocklyApps.PAGE = BlocklyApps.getNumberParamFromUrl('page', 1, 2);
-BlocklyApps.MAX_LEVEL = [undefined, 11, 10][BlocklyApps.PAGE];
-BlocklyApps.LEVEL = BlocklyApps.getNumberParamFromUrl('level', 1, BlocklyApps.MAX_LEVEL);
 Maze.REINF = BlocklyApps.getNumberParamFromUrl('reinf', 1, Maze.MAX_REINF);
 
-BlocklyApps.SKIN_ID = BlocklyApps.getStringParamFromUrl('skin', 'farmer');
-var skin = skins.load(BlocklyApps.BASE_URL, BlocklyApps.SKIN_ID);
+var skinId = BlocklyApps.getStringParamFromUrl('skin', 'farmer');
+var skin = skins.load(BlocklyApps.BASE_URL, skinId);
+
+exports.config = {
+  skin: skin,
+  level: level,
+  interstitials: BlocklyApps.INTERSTITIALS,
+  baseUrl: BlocklyApps.BASE_URL
+};
 
 /**
  * Milliseconds between each animation frame.
  */
-Maze.stepSpeed;
+var stepSpeed;
 
 /**
  * The types of squares in the maze, which is represented
@@ -67,7 +74,6 @@ Maze.SquareType = {
 /**
  * Load level configuration.
  */
-var level = levels.pages[BlocklyApps.PAGE].levels[BlocklyApps.LEVEL];
 Maze.map = level.map;
 BlocklyApps.IDEAL_BLOCK_NUM = level.ideal;
 Maze.initialBallMap = level.initialBalls;
@@ -175,8 +181,7 @@ Maze.drawMap = function() {
 
   // Fill-in hint bubble.
   var hint = document.getElementById('hint');
-  var hintKey = 'instructions' + BlocklyApps.PAGE + '_' + BlocklyApps.LEVEL;
-  hint.innerHTML = msg[hintKey]();
+  hint.innerHTML = msg[level.instructions]();
 
   if (skin.background) {
     var tile = document.createElementNS(Blockly.SVG_NS, 'image');
@@ -319,8 +324,11 @@ Maze.drawMap = function() {
 /**
  * Initialize Blockly and the maze.  Called on page load.
  */
-Maze.init = function() {
-  BlocklyApps.init();
+Maze.init = function(config) {
+  if (config == null) {
+    config = {};
+  }
+  BlocklyApps.init(config);
 
   var rtl = BlocklyApps.isRtl();
   var toolbox = document.getElementById('toolbox');
@@ -374,8 +382,7 @@ Maze.init = function() {
     Maze.balls_[y] = Maze.initialBallMap[y].slice(0);
   }
 
-  var xml = document.getElementById('start_blocks').innerHTML;
-  xml = '<xml>' + xml + '</xml>';
+  var xml = '<xml>' + level.startBlocks + '</xml>';
   BlocklyApps.loadBlocks(xml);
 
   BlocklyApps.reset(true);
@@ -387,18 +394,6 @@ Maze.init = function() {
   } else {
     document.getElementById('helpButton').setAttribute('disabled', 'disabled');
   }
-};
-
-/**
- * Reload with a different Pegman skin.
- * @param {number} skin ID of new skin.
- */
-Maze.changePegman = function(newSkin) {
-  Maze.saveToStorage();
-  window.location = window.location.protocol + '//' +
-      window.location.host + window.location.pathname +
-      '?page=' + BlocklyApps.PAGE + '&level=' + BlocklyApps.LEVEL +
-      '&skin=' + newSkin;
 };
 
 /**
@@ -429,11 +424,11 @@ BlocklyApps.reset = function(first) {
     Maze.pegmanD = Maze.startDirection + 1;
     Maze.scheduleFinish(false);
     Maze.pidList.push(window.setTimeout(function() {
-      Maze.stepSpeed = 100;
+      stepSpeed = 100;
       Maze.schedule([Maze.pegmanX, Maze.pegmanY, Maze.pegmanD * 4],
                     [Maze.pegmanX, Maze.pegmanY, Maze.pegmanD * 4 - 4]);
       Maze.pegmanD++;
-    }, Maze.stepSpeed * 5));
+    }, stepSpeed * 5));
   } else {
     Maze.pegmanD = Maze.startDirection;
     Maze.displayPegman(Maze.pegmanX, Maze.pegmanY, Maze.pegmanD * 4);
@@ -509,6 +504,13 @@ Maze.ResultType = {
   ERROR: -2
 };
 
+var displayFeedback = function() {
+  BlocklyApps.displayFeedback({
+    app: 'karel',
+    finalLevel: false //TODO: Get from server or otherwise parameterize
+  });
+};
+
 /**
  * Execute the user's code.  Heaven help us...
  */
@@ -521,7 +523,7 @@ Maze.execute = function() {
   // Check for empty top level blocks to warn user about bugs,
   // especially ones that lead to infinite loops.
   if (BlocklyApps.hasEmptyTopLevelBlocks()) {
-    BlocklyApps.displayFeedback('karel');
+    displayFeedback();
     return;
   }
 
@@ -552,11 +554,11 @@ Maze.execute = function() {
   }
 
   // Report result to server.
-  BlocklyApps.report('maze', BlocklyApps.LEVEL_ID, BlocklyApps.LEVEL,
+  BlocklyApps.report('maze', levelId,
       Maze.result === Maze.ResultType.SUCCESS, BlocklyApps.stripCode(code));
 
   // Fast animation if execution is successful.  Slow otherwise.
-  Maze.stepSpeed = (Maze.result == Maze.ResultType.SUCCESS) ? 100 : 150;
+  stepSpeed = (Maze.result == Maze.ResultType.SUCCESS) ? 100 : 150;
 
   // BlocklyApps.log now contains a transcript of all the user's actions.
   // Reset the maze and animate the transcript.
@@ -576,10 +578,10 @@ Maze.animate = function() {
     BlocklyApps.highlight(null);
     BlocklyApps.levelComplete = (Maze.result == Maze.ResultType.SUCCESS);
     if (Maze.result == Maze.ResultType.TIMEOUT) {
-      BlocklyApps.displayFeedback('karel');
+      displayFeedback();
     } else {
       window.setTimeout(function() {
-        BlocklyApps.displayFeedback('karel');
+        displayFeedback();
       }, 1000);
     }
     return;
@@ -649,7 +651,7 @@ Maze.animate = function() {
   }
 
   // Speeding up specific levels
-  var scaledStepSpeed = Maze.stepSpeed * Maze.scale.stepSpeed;
+  var scaledStepSpeed = stepSpeed * Maze.scale.stepSpeed;
   Maze.pidList.push(window.setTimeout(Maze.animate, scaledStepSpeed));
 };
 
@@ -669,16 +671,16 @@ Maze.schedule = function(startPos, endPos) {
       Maze.displayPegman(startPos[0] + deltas[0] * 2,
           startPos[1] + deltas[1] * 2,
           Maze.constrainDirection16(startPos[2] + deltas[2] * 2));
-    }, Maze.stepSpeed));
+    }, stepSpeed));
   Maze.pidList.push(window.setTimeout(function() {
       Maze.displayPegman(startPos[0] + deltas[0] * 3,
           startPos[1] + deltas[1] * 3,
           Maze.constrainDirection16(startPos[2] + deltas[2] * 3));
-    }, Maze.stepSpeed * 2));
+    }, stepSpeed * 2));
   Maze.pidList.push(window.setTimeout(function() {
       Maze.displayPegman(endPos[0], endPos[1],
           Maze.constrainDirection16(endPos[2]));
-    }, Maze.stepSpeed * 3));
+    }, stepSpeed * 3));
 };
 
 /**
@@ -715,16 +717,16 @@ Maze.scheduleFail = function(forward) {
     Maze.displayPegman(Maze.pegmanX,
                        Maze.pegmanY,
                        direction16);
-    }, Maze.stepSpeed));
+    }, stepSpeed));
   Maze.pidList.push(window.setTimeout(function() {
     Maze.displayPegman(Maze.pegmanX + deltaX,
                        Maze.pegmanY + deltaY,
                        direction16);
     Blockly.playAudio('whack', .5);
-  }, Maze.stepSpeed * 2));
+  }, stepSpeed * 2));
   Maze.pidList.push(window.setTimeout(function() {
       Maze.displayPegman(Maze.pegmanX, Maze.pegmanY, direction16);
-    }, Maze.stepSpeed * 3));
+    }, stepSpeed * 3));
 };
 
 /**
@@ -737,16 +739,16 @@ Maze.scheduleFinish = function(sound) {
   if (sound) {
     Blockly.playAudio('win', .5);
   }
-  Maze.stepSpeed = 150;  // Slow down victory animation a bit.
+  stepSpeed = 150;  // Slow down victory animation a bit.
   Maze.pidList.push(window.setTimeout(function() {
     Maze.displayPegman(Maze.pegmanX, Maze.pegmanY, 18);
-    }, Maze.stepSpeed));
+    }, stepSpeed));
   Maze.pidList.push(window.setTimeout(function() {
     Maze.displayPegman(Maze.pegmanX, Maze.pegmanY, 16);
-    }, Maze.stepSpeed * 2));
+    }, stepSpeed * 2));
   Maze.pidList.push(window.setTimeout(function() {
       Maze.displayPegman(Maze.pegmanX, Maze.pegmanY, direction16);
-    }, Maze.stepSpeed * 3));
+    }, stepSpeed * 3));
 };
 
 /**
@@ -894,7 +896,7 @@ Maze.scheduleLook = function(d) {
   var paths = lookIcon.getElementsByTagName('path');
   lookIcon.style.display = 'inline';
   for (var x = 0, path; path = paths[x]; x++) {
-    Maze.scheduleLookStep(path, Maze.stepSpeed * x);
+    Maze.scheduleLookStep(path, stepSpeed * x);
   }
 };
 
@@ -908,7 +910,7 @@ Maze.scheduleLookStep = function(path, delay) {
     path.style.display = 'inline';
     window.setTimeout(function() {
       path.style.display = 'none';
-    }, Maze.stepSpeed * 2);
+    }, stepSpeed * 2);
   }, delay));
 };
 

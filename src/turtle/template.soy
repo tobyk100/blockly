@@ -1,15 +1,5 @@
 {namespace turtlepage}
 
-/**
- * This is a Closure Template.
- *
- * To build the US English version, run:
- * java -jar ../_soy/SoyToJsSrcCompiler.jar --outputPathFormat generated/en_us.js --srcs ../common.soy,template.soy
- *
- * To fully internationalize, follow the instructions in ../common.soy.
- */
-
-
 // Templates for interstitials.
 
 /**
@@ -556,50 +546,6 @@
 {template .start}
   {call .startBlocks /}
 
-  // Show level bar and language dropdown.
-  <table width="100%" {call apps.menu}{param menu: $ij.menu /}{/call} style="border-bottom: 1px solid #DBDBDB;">
-    <tr>
-      <td>
-        <h1>
-          <span id="title">
-            <a href="https://sites.google.com/site/computersciencefirst/">
-              {msg meaning="Apps.projectMessage" desc="IBID"}CS First{/msg}</a>
-            {sp}:{sp}
-            {switch $ij.page}
-              {case 1}
-                {msg meaning="Turtle.turtle1" desc="brief title - Specifies that this is Blockly's '''Turtle 1''' tutorial."}Turtle 1{/msg}
-              {case 2}
-                {msg meaning="Turtle.turtle2" desc="brief title - Specifies that this is Blockly's '''Turtle 2''' tutorial."}Turtle 2{/msg}
-              {case 3}
-                {msg meaning="Turtle.turtle3" desc="brief title - Specifies that this is Blockly's '''Turtle 3''' tutorial."}Turtle 3{/msg}
-            {/switch}
-          </span>
-          {sp}&nbsp;{sp}
-          {for $i in range(1, 11)}
-            {sp}
-            {if $i == $ij.level}
-              {if $i > 9}
-                <span class="selected doubleDigit tab">{$i}</span>
-              {else}
-                <span class="selected tab">{$i}</span>
-              {/if}
-            {else}
-              {if $i < $ij.level}
-                <a class="tab previous" href="?page={$ij.page}&level={$i}">{$i}</a>
-              {else}
-                <a class="tab" href="?page={$ij.page}&level={$i}">{$i}</a>
-              {/if}
-            {/if}
-          {/for}
-        </h1>
-      </td>
-      <td class="farSide">
-        <button id="helpButton" onclick="BlocklyApps.showHelp(true, {$ij.level}, false);">
-          {msg meaning="Apps.help" desc="IBID"}Help{/msg}
-        </button>
-      </td>
-    </tr>
-  </table>
   // First column has prompt, capacity, canvas, slider, and buttons.
   <div id="bubble">
     <div id="prompt"></div>
@@ -638,18 +584,12 @@
       <td style="width: 15px;">
         <img id="spinner" style="visibility: hidden;" src="{$ij.baseUrl}turtle/loading.gif" height=15 width=15>
       </td>
-      <td style="width: 190px; text-align: center">
-        <button id="runButton" class="launch" onclick="Turtle.runButtonClick();">
-          <img src="{$ij.baseUrl}media/1x1.gif" class="run icon21">
-          {msg meaning="Turtle.runProgram" desc="TODO"}Run{/msg}
-        </button>
-        <button id="resetButton" class="launch" onclick="BlocklyApps.resetButtonClick();" style="display: none">
-          <img src="{$ij.baseUrl}/media/1x1.gif" class="stop icon21">
-          {msg meaning="Turtle.resetProgram" desc="TODO"}Reset{/msg}
-        </button>
-      </td>
     </tr>
   </table>
+
+  {call apps.gameButtons}
+    {param appInstance}Turtle{/param}
+  {/call}
 
   <div id="toolbarDiv">
     <button title="{msg meaning="Turtle.codeTooltip" desc="TODO"}See generated JavaScript code.{/msg}" onclick="BlocklyApps.showCode(this);">
@@ -673,50 +613,17 @@
   {call apps.storageDialog /}
   <div id="help" class="dialogHiddenContent">
     <div style="padding-bottom: 0.7ex;"><br>
-      <img class="stars feedback" id="star1" src="{$ij.baseUrl}star1.png">
-      <img class="stars feedback" id="star2" src="{$ij.baseUrl}star2.png">
-      <img class="stars feedback" id="star3" src="{$ij.baseUrl}star3.png">
-      <ul id="levelFeedbackText">
-        <span id="hintTitle" class="feedback" style="display: none; margin-left: -30px">{msg meaning="Apps.hintTitle" desc="IBID"}Hints:{/msg}</span>
-        <li id="nextLevelMsg" style="display: none; margin-left: -40px;">{msg
-          meaning="Apps.nextLevel" desc="IBID"}Congratulations! You have completed this level.{/msg}</li>
-        <li id="finalLevelMsg" style="display: none; margin-left: -40px;">{msg
-          meaning="Apps.finalLevelMsg" desc="alert - This is displayed when
-          the user solves the most difficult level."}Congratulations! You
-          have solved the final level.{/msg}</li>
-        <li id="emptyBlocksError" class="feedback" style="display: none">
-          {msg meaning="Apps.emptyBlocksErrorMsg" desc="IBID"}Remove empty blocks.{/msg}</li>
-        <li id="missingBlocksError" class="feedback" style="display: none">
-          {msg meaning="Apps.missingBlocksErrorMsg" desc="IBID"}Try one or more of the blocks below to solve this level.{/msg}</li>
-        <li id="tooManyBlocksError" class="feedback" style="display: none">
-          {msg meaning="Apps.tooManyBlocksMsg" desc="IBID"}This level can be solved with <span id="idealNumberMessage"></span> blocks.{/msg}</li>
-        <li id="tooFewBlocksError" class="feedback" style="display: none">
-          {msg meaning="Apps.tooFewBlocksMsg" desc="IBID"}You are using all of the necessary types of blocks, but try using more  of these types of blocks to complete this level.{/msg}</li>
-        <li id="levelIncompleteError" class="feedback" style="display: none">
-          {msg meaning="Apps.levelIncompleteError" desc="IBID"}You are using all of the necessary types of blocks but not in the right way.{/msg}</li>
-        <li id="appSpecificOneStarFeedback" class="feedback" style="display: none"></li>
-        <li id="appSpecificTwoStarFeedback" class="feedback" style="display: none">
-          {msg meaning="Apps.tooMuchWorkError" desc="TODO"}You made me do a lot of work!  Could you try repeating fewer times?{/msg}
-        </li>
-      </ul>  // feedbackText
-      <iframe id="feedbackBlocks" class="feedback" style="margin-left: 50px;
-        height: 80px; width: 500px; border: none; display: none;" src=""></iframe>
+      {call apps.feedback}
+        {param appSpecific}
+          <li id="appSpecificOneStarFeedback" class="feedback" style="display: none"></li>
+          <li id="appSpecificTwoStarFeedback" class="feedback" style="display: none">
+            {msg meaning="Apps.tooMuchWorkError" desc="TODO"}You made me do a lot of work!  Could you try repeating fewer times?{/msg}
+          </li>
+        {/param}
+      {/call}
       {call .showInterstitials /}
-
     </div>
-    <div id="returnToLevelButton" style="display: none;">{call apps.ok /}</div>
-    <div style="text-align: center">
-      <button id="tryAgainButton" class="launch" style="display: none"
-        onclick="BlocklyApps.goToNextLevelOrReset(false);">
-        {msg meaning="Turtle.tryAgain" desc="button - Closes the dialog and
-          stays on the current level"}Try again{/msg}
-      </button>
-      <button id="continueButton" class="launch" style="display: none"
-        onclick="BlocklyApps.goToNextLevelOrReset(true);">
-          {msg meaning="Turtle.continue" desc="button - Closes the dialog and
-            continues to the next level"}Continue{/msg}
-      </button>
-    </div>
+    {call apps.feedbackButtons/}
   </div>
 {/template}
 

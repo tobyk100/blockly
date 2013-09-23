@@ -53,6 +53,7 @@ levels.install(BlocklyApps, Turtle);
 BlocklyApps.CHECK_FOR_EMPTY_BLOCKS = false;
 BlocklyApps.NUM_REQUIRED_BLOCKS_TO_FLAG = 1;
 BlocklyApps.FREE_BLOCKS = 'colour';
+BlocklyApps.INTERSTITIALS = {}; //XXX
 
 Turtle.HEIGHT = 400;
 Turtle.WIDTH = 400;
@@ -81,10 +82,6 @@ Turtle.init = function() {
     return;
   }
   BlocklyApps.init();
-  // BlocklyApps.init() sets the page title but does not substitute
-  // in the page number.  Do it now.
-  document.title = document.getElementById('title').
-      textContent.replace('%1', BlocklyApps.PAGE);
 
   var rtl = BlocklyApps.isRtl();
   var toolbox = document.getElementById('toolbox');
@@ -638,7 +635,7 @@ Turtle.checkAnswer = function() {
       BlocklyApps.PAGE == 1 && BlocklyApps.LEVEL == 9 ? 10 : 150);
   var feedbackType = BlocklyApps.getTestResults();
 
-  BlocklyApps.report('turtle', BlocklyApps.LEVEL_ID, BlocklyApps.LEVEL,
+  BlocklyApps.report('turtle', BlocklyApps.LEVEL,
                      BlocklyApps.levelComplete,
                      BlocklyApps.stripCode(Turtle.code));
   if (BlocklyApps.levelComplete) {
@@ -690,7 +687,10 @@ Turtle.checkAnswer = function() {
     }
   }
 
-  BlocklyApps.displayFeedback('turtle', feedbackType);
+  BlocklyApps.displayFeedback({
+    app: 'turtle',
+    feedbackType: feedbackType
+  });
 };
 
 /**
