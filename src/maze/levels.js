@@ -1,20 +1,23 @@
 var Direction = require('../tiles').Direction;
 
+//TODO: Fix hacky level-number-dependent toolbox.
+var toolbox = function(page, level) {
+  return mazepage.toolbox({}, null, {
+    page: page,
+    level: level
+  });
+};
+
 /*
  * Configuration for all levels.
  */
 module.exports = {
-  'pages': [
-  // Page 0
-  null,
 
-  // Page 1
-  {
-  'levels': [
-  // Level 0
-  null,
-  // Level 1
-  {
+  // Formerly page 1
+
+  '1_1': {
+    'instructions': 'instructions1_1',
+    'toolbox': toolbox(1, 1),
     'interstitials': {
       before: {
         message: 'reinfMsg1',
@@ -25,6 +28,10 @@ module.exports = {
     'requiredBlocks': [
       [{'test': 'moveForward', 'type': 'maze_moveForward'}]
     ],
+    'scale': {
+      'snapRadius': 2,
+      'stepSpeed': 12
+    },
     'startDirection': Direction.EAST,
     'map': [
       [0, 0, 0, 0, 0, 0, 0, 0],
@@ -35,10 +42,12 @@ module.exports = {
       [0, 0, 0, 0, 0, 0, 0, 0],
       [0, 0, 0, 0, 0, 0, 0, 0],
       [0, 0, 0, 0, 0, 0, 0, 0]
-    ]
+    ],
+    'singleTopBlock': true
   },
-  // Level 2
-  {
+  '1_2': {
+    'instructions': 'instructions1_2',
+    'toolbox': toolbox(1, 2),
     'interstitials': {
       after: {
         message: 'reinfMsg3',
@@ -52,6 +61,9 @@ module.exports = {
       [{'test': 'turnLeft', 'type': 'maze_turn', 'titles': {'DIR': 'turnLeft'}}],
       [{'test': 'turnRight', 'type': 'maze_turn', 'titles': {'DIR': 'turnRight'}}]
     ],
+    'scale': {
+      'stepSpeed': 10
+    },
     'startDirection': Direction.EAST,
     'map': [
       [0, 0, 0, 0, 0, 0, 0, 0],
@@ -62,10 +74,12 @@ module.exports = {
       [0, 0, 0, 0, 0, 0, 0, 0],
       [0, 0, 0, 0, 0, 0, 0, 0],
       [0, 0, 0, 0, 0, 0, 0, 0]
-    ]
+    ],
+    'singleTopBlock': true
   },
-  // Level 3
-  {
+  '1_3': {
+    'instructions': 'instructions1_3',
+    'toolbox': toolbox(1, 3),
     'interstitials': {
       before: {
         message: 'reinfMsg2',
@@ -78,6 +92,9 @@ module.exports = {
       [{'test': 'while', 'type': 'maze_forever'}],
       [{'test': 'moveForward', 'type': 'maze_moveForward'}]
     ],
+    'scale': {
+      'stepSpeed': 8
+    },
     'startDirection': Direction.EAST,
     'map': [
       [0, 0, 0, 0, 0, 0, 0, 0],
@@ -90,8 +107,9 @@ module.exports = {
       [0, 0, 0, 0, 0, 0, 0, 0]
     ]
   },
-  // Level 4
-  {
+  '1_4': {
+    'instructions': 'instructions1_4',
+    'toolbox': toolbox(1, 4),
     'ideal': 5,
     'requiredBlocks': [
       [{'test': 'while', 'type': 'maze_forever'}],
@@ -99,6 +117,9 @@ module.exports = {
       [{'test': 'turnRight', 'type': 'maze_turn', 'titles': {'DIR': 'turnRight'}}],
       [{'test': 'moveForward', 'type': 'maze_moveForward'}]
     ],
+    'scale': {
+      'stepSpeed': 6
+    },
     'startDirection': Direction.EAST,
     /**
      *  Note, the path continues past the start and the goal in both directions.
@@ -117,8 +138,9 @@ module.exports = {
       [1, 1, 0, 0, 0, 0, 0, 0]
     ]
   },
-  // Level 5
-  {
+  '1_5': {
+    'instructions': 'instructions1_5',
+    'toolbox': toolbox(1, 5),
     'interstitials': {
       before: {
         message: 'reinfMsg4',
@@ -138,6 +160,9 @@ module.exports = {
       [{'test': 'turnLeft', 'type': 'maze_turn', 'titles': {'DIR': 'turnLeft'}}],
       [{'test': 'moveForward', 'type': 'maze_moveForward'}]
     ],
+    'scale': {
+      'stepSpeed': 6
+    },
     'startDirection': Direction.EAST,
     'map': [
       [0, 0, 0, 0, 0, 0, 0, 0],
@@ -150,8 +175,9 @@ module.exports = {
       [0, 0, 0, 0, 0, 0, 0, 0]
     ]
   },
-  // Level 6
-  {
+  '1_6': {
+    'instructions': 'instructions1_6',
+    'toolbox': toolbox(1, 6),
     'interstitials': {
       before: {
         message: 'reinfMsg6'
@@ -176,8 +202,9 @@ module.exports = {
       [0, 0, 0, 0, 0, 0, 0, 0]
     ]
   },
-  // Level 7
-  {
+  '1_7': {
+    'instructions': 'instructions1_7',
+    'toolbox': toolbox(1, 7),
     'ideal': 4,
     'requiredBlocks': [
       [{'test': 'while', 'type': 'maze_forever'}],
@@ -196,8 +223,9 @@ module.exports = {
       [0, 0, 0, 0, 0, 0, 0, 0]
     ]
   },
-  // Level 8
-  {
+  '1_8': {
+    'instructions': 'instructions1_8',
+    'toolbox': toolbox(1, 8),
     'ideal': 6,
     'requiredBlocks': [
       [{'test': 'while', 'type': 'maze_forever'}],
@@ -219,8 +247,9 @@ module.exports = {
       [0, 0, 0, 0, 0, 0, 0, 0]
     ]
   },
-  // Level 9
-  {
+  '1_9': {
+    'instructions': 'instructions1_9',
+    'toolbox': toolbox(1, 9),
     'interstitials': {
       before: {
         message: 'reinfMsg8',
@@ -252,8 +281,9 @@ module.exports = {
       [0, 0, 0, 0, 0, 0, 0, 0]
     ]
   },
-  // Level 10
-  {
+  '1_10': {
+    'instructions': 'instructions1_10',
+    'toolbox': toolbox(1, 10),
     'ideal': 5,
     'requiredBlocks': [
       [{'test': 'while', 'type': 'maze_forever'}],
@@ -273,404 +303,415 @@ module.exports = {
       [0, 1, 3, 1, 1, 1, 1, 0],
       [0, 0, 0, 0, 0, 0, 0, 0]
     ]
-  }
-  ]
   },
-    // Page 2
-    {
-    'levels': [
-        // Level 0
-        null,
-        // Level 1
-        {
-          'ideal': 2,
-          'requiredBlocks': [
-            [{'test': 'moveForward', 'type': 'maze_moveForward'}],
-          ],
-          'startDirection': Direction.EAST,
-          'map': [
-            [0, 0, 0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0, 0, 0],
-            [0, 0, 2, 1, 3, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0, 0, 0]
-          ]
-        },
-        // Level 2
-        {
-          'ideal': 3,
-          'requiredBlocks': [
-            [{'test': 'moveForward', 'type': 'maze_moveForward'}],
-          ],
-          'startDirection': Direction.EAST,
-          'map': [
-            [0, 0, 0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0, 0, 0],
-            [0, 0, 2, 1, 1, 3, 0, 0],
-            [0, 0, 0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0, 0, 0]
-          ]
-        },
-        // Level 3
-        {
-          'ideal': 5,
-          'requiredBlocks': [
-            [{'test': 'moveForward', 'type': 'maze_moveForward'}],
-            [{'test': 'turnLeft',
-              'type': 'maze_turn',
-              'titles': {'DIR': 'turnLeft'}}],
-            [{'test': 'turnRight',
-              'type': 'maze_turn',
-              'titles': {'DIR': 'turnRight'}}]
-          ],
-          'startDirection': Direction.EAST,
-          'map': [
-            [0, 0, 0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0, 0, 0],
-            [0, 0, 4, 1, 3, 0, 0, 0],
-            [0, 0, 2, 1, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0, 0, 0]
-          ]
-        },
-        // Level 4
-        {
-          'ideal': 7,
-          'requiredBlocks': [
-            [{'test': 'moveForward', 'type': 'maze_moveForward'}],
-            [{'test': 'turnLeft',
-              'type': 'maze_turn',
-              'titles': {'DIR': 'turnLeft'}}]
-          ],
-          'startDirection': Direction.EAST,
-          'map': [
-            [0, 0, 0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0, 0, 0],
-            [0, 0, 2, 4, 3, 0, 0, 0],
-            [0, 0, 1, 1, 1, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0, 0, 0]
-          ]
-        },
-        // Level 5
-        {
-          'ideal': 2,
-          'requiredBlocks': [
-            [{'test': 'moveForward', 'type': 'maze_moveForward'}],
-            [{'test': 'for', 'type': 'controls_repeat'}]
-          ],
-          'startDirection': Direction.EAST,
-          'map': [
-            [0, 0, 0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0, 0, 0],
-            [0, 2, 1, 1, 1, 1, 3, 0],
-            [0, 0, 0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0, 0, 0]
-          ]
-        },
-        // Level 6
-        {
-          'ideal': 3,
-          'requiredBlocks': [
-            [{'test': 'moveForward', 'type': 'maze_moveForward'}],
-            [{'test': 'for', 'type': 'controls_repeat'}]
-          ],
-          'startDirection': Direction.EAST,
-          'map': [
-            [0, 0, 0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 2, 0, 0, 0],
-            [0, 0, 0, 0, 1, 0, 0, 0],
-            [0, 0, 0, 0, 1, 0, 0, 0],
-            [0, 0, 0, 0, 1, 0, 0, 0],
-            [0, 0, 0, 0, 1, 0, 0, 0],
-            [0, 0, 0, 0, 3, 0, 0, 0]
-          ]
-        },
-        // Level 7
-        {
-          'ideal': 5,
-          'requiredBlocks': [
-            [{'test': 'moveForward', 'type': 'maze_moveForward'}],
-            [{'test': 'for', 'type': 'controls_repeat'}],
-            [{'test': 'turnLeft',
-              'type': 'maze_turn',
-              'titles': {'DIR': 'turnLeft'}}]
-          ],
-          'startDirection': Direction.EAST,
-          'map': [
-            [0, 0, 0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0, 3, 0],
-            [0, 0, 0, 0, 0, 0, 1, 0],
-            [0, 0, 0, 0, 0, 0, 1, 0],
-            [0, 0, 0, 0, 0, 0, 1, 0],
-            [0, 0, 0, 0, 0, 0, 1, 0],
-            [0, 0, 2, 1, 1, 1, 1, 0],
-            [0, 0, 0, 0, 0, 0, 0, 0]
-          ]
-        },
-        // Level 8
-        {
-          'ideal': 5,
-          'requiredBlocks': [
-            [{'test': 'moveForward', 'type': 'maze_moveForward'}],
-            [{'test': 'for', 'type': 'controls_repeat'}],
-              [{'test': 'turnRight',
-                'type': 'maze_turn',
-                'titles': {'DIR': 'turnRight'}}]
-          ],
-          'startDirection': Direction.EAST,
-          'map': [
-            [0, 0, 0, 0, 0, 0, 0, 0],
-            [2, 1, 1, 1, 1, 1, 1, 0],
-            [0, 0, 0, 0, 0, 0, 1, 0],
-            [0, 0, 0, 0, 0, 0, 1, 0],
-            [0, 0, 0, 0, 0, 0, 1, 0],
-            [0, 0, 0, 0, 0, 0, 1, 0],
-            [0, 0, 0, 0, 0, 0, 3, 0],
-            [0, 0, 0, 0, 0, 0, 0, 0]
-          ]
-        },
-        // Level 9
-        {
-          'ideal': 2,
-          'requiredBlocks': [
-            [{'test': 'moveForward', 'type': 'maze_moveForward'}],
-            [{'test': 'while', 'type': 'maze_forever'}]
-          ],
-          'startDirection': Direction.EAST,
-          'map': [
-            [0, 0, 0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0, 0, 0],
-            [0, 2, 1, 1, 1, 1, 3, 0],
-            [0, 0, 0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0, 0, 0]
-          ]
-        },
-        // Level 10
-        {
-          'ideal': 3,
-          'requiredBlocks': [
-            [{'test': 'moveForward', 'type': 'maze_moveForward'}],
-            [{'test': 'while', 'type': 'maze_forever'}]
-          ],
-          'startDirection': Direction.EAST,
-          'map': [
-            [0, 0, 0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 2, 0, 0, 0],
-            [0, 0, 0, 0, 1, 0, 0, 0],
-            [0, 0, 0, 0, 1, 0, 0, 0],
-            [0, 0, 0, 0, 1, 0, 0, 0],
-            [0, 0, 0, 0, 1, 0, 0, 0],
-            [0, 0, 0, 0, 3, 0, 0, 0]
-          ]
-        },
-        // Level 11
-        {
-          'ideal': 5,
-          'requiredBlocks': [
-            [{'test': 'moveForward', 'type': 'maze_moveForward'}],
-            [{'test': 'while', 'type': 'maze_forever'}],
-            [{'test': 'turnLeft',
-              'type': 'maze_turn',
-              'titles': {'DIR': 'turnLeft'}}],
-            [{'test': 'turnRight',
-              'type': 'maze_turn',
-              'titles': {'DIR': 'turnRight'}}]
-          ],
-          'startDirection': Direction.EAST,
-          'map': [
-            [0, 0, 0, 0, 0, 0, 0, 1],
-            [0, 0, 0, 0, 0, 0, 1, 1],
-            [0, 0, 0, 0, 0, 1, 3, 0],
-            [0, 0, 0, 0, 1, 1, 0, 0],
-            [0, 0, 0, 1, 1, 0, 0, 0],
-            [0, 0, 1, 1, 0, 0, 0, 0],
-            [0, 2, 1, 0, 0, 0, 0, 0],
-            [1, 1, 0, 0, 0, 0, 0, 0]
-          ]
-        },
-        // Level 12
-        {
-          'ideal': 5,
-          'requiredBlocks': [
-            [{'test': 'moveForward', 'type': 'maze_moveForward'}],
-            [{'test': 'while', 'type': 'maze_forever'}],
-            [{'test': 'turnLeft',
-              'type': 'maze_turn',
-              'titles': {'DIR': 'turnLeft'}}],
-            [{'test': 'turnRight',
-              'type': 'maze_turn',
-              'titles': {'DIR': 'turnRight'}}]
-          ],
-          'startDirection': Direction.EAST,
-          'map': [
-            [1, 0, 0, 0, 0, 0, 0, 0],
-            [1, 2, 0, 0, 0, 0, 0, 0],
-            [0, 1, 1, 0, 0, 0, 0, 0],
-            [0, 0, 1, 1, 0, 0, 0, 0],
-            [0, 0, 0, 1, 1, 0, 0, 0],
-            [0, 0, 0, 0, 1, 1, 0, 0],
-            [0, 0, 0, 0, 0, 1, 3, 0],
-            [0, 0, 0, 0, 0, 0, 1, 1]
-          ]
-        },
-        // Level 13
-        {
-          'ideal': 4,
-          'requiredBlocks': [
-            [{'test': 'isPathLeft',
-              'type': 'maze_if',
-              'titles': {'DIR': 'isPathLeft'}}],
-            [{'test': 'while', 'type': 'maze_forever'}],
-            [{'test': 'turnLeft',
-              'type': 'maze_turn',
-              'titles': {'DIR': 'turnLeft'}}]
-          ],
-          'startDirection': Direction.EAST,
-          'map': [
-            [0, 0, 0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0, 3, 0, 0],
-            [0, 0, 0, 0, 0, 1, 0, 0],
-            [0, 0, 0, 0, 0, 1, 0, 0],
-            [0, 0, 0, 0, 0, 1, 0, 0],
-            [0, 0, 0, 0, 0, 1, 0, 0],
-            [0, 0, 0, 2, 1, 1, 0, 0],
-            [0, 0, 0, 0, 0, 4, 0, 0]
-          ]
-        },
-        // Level 14
-        {
-          'ideal': 4,
-          'requiredBlocks': [
-            [{'test': 'isPathRight',
-              'type': 'maze_if',
-              'titles': {'DIR': 'isPathRight'}}],
-            [{'test': 'while', 'type': 'maze_forever'}],
-            [{'test': 'turnRight',
-              'type': 'maze_turn',
-              'titles': {'DIR': 'turnRight'}}]
-          ],
-          'startDirection': Direction.EAST,
-          'map': [
-            [0, 0, 0, 0, 0, 0, 0, 0],
-            [0, 0, 2, 1, 1, 1, 0, 0],
-            [0, 0, 0, 0, 0, 1, 0, 0],
-            [0, 0, 0, 0, 0, 1, 0, 0],
-            [0, 0, 0, 0, 0, 1, 4, 0],
-            [0, 0, 0, 0, 0, 1, 0, 0],
-            [0, 3, 1, 1, 1, 1, 0, 0],
-            [0, 0, 0, 0, 0, 0, 0, 0]
-          ]
-        },
-        // Level 15
-        {
-          'ideal': 4,
-          'requiredBlocks': [
-            [{'test': 'isPathRight',
-              'type': 'maze_if',
-              'titles': {'DIR': 'isPathRight'}}],
-            [{'test': 'while', 'type': 'maze_forever'}],
-            [{'test': 'turnRight',
-              'type': 'maze_turn',
-              'titles': {'DIR': 'turnRight'}}]
-          ],
-          'startDirection': Direction.EAST,
-          'map': [
-            [0, 0, 0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0, 0, 0],
-            [0, 2, 1, 1, 1, 1, 0, 0],
-            [0, 0, 0, 0, 0, 1, 0, 0],
-            [0, 1, 1, 3, 0, 1, 0, 0],
-            [0, 1, 0, 0, 0, 1, 0, 0],
-            [0, 1, 1, 1, 1, 1, 0, 0],
-            [0, 0, 0, 0, 4, 0, 0, 0]
-          ]
-        },
-        // Level 16
-        {
-          'ideal': 4,
-          'requiredBlocks': [
-            [{'test': 'isPathRight',
-              'type': 'maze_if',
-              'titles': {'DIR': 'isPathRight'}}],
-            [{'test': 'while', 'type': 'maze_forever'}],
-            [{'test': 'turnRight',
-              'type': 'maze_turn',
-              'titles': {'DIR': 'turnRight'}}]
-          ],
-          'startDirection': Direction.EAST,
-          'map': [
-            [0, 0, 0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 4, 0, 0, 0, 0],
-            [0, 2, 1, 1, 1, 1, 0, 0],
-            [0, 0, 0, 0, 0, 1, 4, 0],
-            [0, 1, 1, 3, 0, 1, 1, 0],
-            [0, 1, 0, 0, 0, 1, 0, 0],
-            [0, 1, 1, 1, 1, 1, 4, 1],
-            [0, 0, 0, 0, 0, 0, 0, 0]
-          ]
-        },
-        // Level 17
-        {
-          'ideal': 6,
-          'requiredBlocks': [
-            [{'test': 'isPathForward',
-              'type': 'maze_ifElse',
-              'titles': {'DIR': 'isPathForward'}}],
-            [{'test': 'while', 'type': 'maze_forever'}]
-          ],
-          'startDirection': Direction.EAST,
-          'map': [
-            [0, 0, 0, 0, 0, 0, 0, 0],
-            [0, 1, 1, 1, 1, 1, 0, 0],
-            [0, 0, 1, 0, 0, 0, 0, 0],
-            [3, 1, 1, 1, 1, 1, 1, 0],
-            [0, 1, 0, 1, 0, 1, 1, 0],
-            [1, 1, 1, 4, 1, 0, 1, 0],
-            [0, 1, 0, 1, 0, 2, 1, 0],
-            [0, 0, 0, 0, 0, 0, 0, 0]
-          ]
-        },
-        // Level 18
-        {
-          'ideal': 5,
-          'requiredBlocks': [
-            [{'test': 'isPathForward',
-              'type': 'maze_ifElse',
-              'titles': {'DIR': 'isPathForward'}}],
-            [{'test': 'while', 'type': 'maze_forever'}]
-          ],
-          'startDirection': Direction.EAST,
-          'map': [
-            [0, 0, 0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0, 0, 0],
-            [0, 2, 1, 1, 1, 1, 1, 0],
-            [0, 0, 1, 4, 0, 1, 1, 0],
-            [0, 0, 0, 0, 0, 0, 1, 0],
-            [0, 0, 1, 1, 0, 1, 1, 0],
-            [0, 1, 3, 1, 1, 1, 1, 0],
-            [0, 0, 0, 0, 0, 0, 0, 0]
-          ]
-        }
-      ]
-    }
-  ]
+
+  // Formerly Page 2
+
+  '2_1': {
+    'instructions': 'instructions2_1',
+    'toolbox': toolbox(2, 1),
+    'ideal': 2,
+    'requiredBlocks': [
+      [{'test': 'moveForward', 'type': 'maze_moveForward'}],
+    ],
+    'startDirection': Direction.EAST,
+    'map': [
+      [0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 2, 1, 3, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0]
+    ]
+  },
+  '2_2': {
+    'instructions': 'instructions2_2',
+    'toolbox': toolbox(2, 2),
+    'ideal': 3,
+    'requiredBlocks': [
+      [{'test': 'moveForward', 'type': 'maze_moveForward'}],
+    ],
+    'startDirection': Direction.EAST,
+    'map': [
+      [0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 2, 1, 1, 3, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0]
+    ]
+  },
+  '2_3': {
+    'instructions': 'instructions2_3',
+    'toolbox': toolbox(2, 3),
+    'ideal': 5,
+    'requiredBlocks': [
+      [{'test': 'moveForward', 'type': 'maze_moveForward'}],
+      [{'test': 'turnLeft',
+        'type': 'maze_turn',
+        'titles': {'DIR': 'turnLeft'}}],
+      [{'test': 'turnRight',
+        'type': 'maze_turn',
+        'titles': {'DIR': 'turnRight'}}]
+    ],
+    'startDirection': Direction.EAST,
+    'map': [
+      [0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 4, 1, 3, 0, 0, 0],
+      [0, 0, 2, 1, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0]
+    ]
+  },
+  '2_4': {
+    'instructions': 'instructions2_4',
+    'toolbox': toolbox(2, 4),
+    'ideal': 7,
+    'requiredBlocks': [
+      [{'test': 'moveForward', 'type': 'maze_moveForward'}],
+      [{'test': 'turnLeft',
+       'type': 'maze_turn',
+       'titles': {'DIR': 'turnLeft'}}]
+    ],
+    'startDirection': Direction.EAST,
+    'map': [
+      [0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 2, 4, 3, 0, 0, 0],
+      [0, 0, 1, 1, 1, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0]
+    ]
+  },
+  '2_5': {
+    'instructions': 'instructions2_5',
+    'toolbox': toolbox(2, 5),
+    'ideal': 2,
+    'requiredBlocks': [
+      [{'test': 'moveForward', 'type': 'maze_moveForward'}],
+      [{'test': 'for', 'type': 'controls_repeat'}]
+    ],
+    'startDirection': Direction.EAST,
+    'map': [
+      [0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 2, 1, 1, 1, 1, 3, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0]
+    ]
+  },
+  '2_6': {
+    'instructions': 'instructions2_6',
+    'toolbox': toolbox(2, 6),
+    'ideal': 3,
+    'requiredBlocks': [
+      [{'test': 'moveForward', 'type': 'maze_moveForward'}],
+      [{'test': 'for', 'type': 'controls_repeat'}]
+    ],
+    'startDirection': Direction.EAST,
+    'map': [
+      [0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 2, 0, 0, 0],
+      [0, 0, 0, 0, 1, 0, 0, 0],
+      [0, 0, 0, 0, 1, 0, 0, 0],
+      [0, 0, 0, 0, 1, 0, 0, 0],
+      [0, 0, 0, 0, 1, 0, 0, 0],
+      [0, 0, 0, 0, 3, 0, 0, 0]
+    ]
+  },
+  '2_7': {
+    'instructions': 'instructions2_7',
+    'toolbox': toolbox(2, 7),
+    'ideal': 5,
+    'requiredBlocks': [
+      [{'test': 'moveForward', 'type': 'maze_moveForward'}],
+      [{'test': 'for', 'type': 'controls_repeat'}],
+      [{'test': 'turnLeft',
+        'type': 'maze_turn',
+        'titles': {'DIR': 'turnLeft'}}]
+    ],
+    'startDirection': Direction.EAST,
+    'map': [
+      [0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 3, 0],
+      [0, 0, 0, 0, 0, 0, 1, 0],
+      [0, 0, 0, 0, 0, 0, 1, 0],
+      [0, 0, 0, 0, 0, 0, 1, 0],
+      [0, 0, 0, 0, 0, 0, 1, 0],
+      [0, 0, 2, 1, 1, 1, 1, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0]
+    ]
+  },
+  '2_8': {
+    'instructions': 'instructions2_8',
+    'toolbox': toolbox(2, 8),
+    'ideal': 5,
+    'requiredBlocks': [
+      [{'test': 'moveForward', 'type': 'maze_moveForward'}],
+      [{'test': 'for', 'type': 'controls_repeat'}],
+      [{'test': 'turnRight',
+        'type': 'maze_turn',
+        'titles': {'DIR': 'turnRight'}}]
+    ],
+    'startDirection': Direction.EAST,
+    'map': [
+      [0, 0, 0, 0, 0, 0, 0, 0],
+      [2, 1, 1, 1, 1, 1, 1, 0],
+      [0, 0, 0, 0, 0, 0, 1, 0],
+      [0, 0, 0, 0, 0, 0, 1, 0],
+      [0, 0, 0, 0, 0, 0, 1, 0],
+      [0, 0, 0, 0, 0, 0, 1, 0],
+      [0, 0, 0, 0, 0, 0, 3, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0]
+    ]
+  },
+  '2_9': {
+    'instructions': 'instructions2_9',
+    'toolbox': toolbox(2, 9),
+    'ideal': 2,
+    'requiredBlocks': [
+      [{'test': 'moveForward', 'type': 'maze_moveForward'}],
+      [{'test': 'while', 'type': 'maze_forever'}]
+    ],
+    'startDirection': Direction.EAST,
+    'map': [
+      [0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 2, 1, 1, 1, 1, 3, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0]
+    ]
+  },
+  '2_10': {
+    'instructions': 'instructions2_10',
+    'toolbox': toolbox(2, 10),
+    'ideal': 3,
+    'requiredBlocks': [
+      [{'test': 'moveForward', 'type': 'maze_moveForward'}],
+      [{'test': 'while', 'type': 'maze_forever'}]
+    ],
+    'startDirection': Direction.EAST,
+    'map': [
+      [0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 2, 0, 0, 0],
+      [0, 0, 0, 0, 1, 0, 0, 0],
+      [0, 0, 0, 0, 1, 0, 0, 0],
+      [0, 0, 0, 0, 1, 0, 0, 0],
+      [0, 0, 0, 0, 1, 0, 0, 0],
+      [0, 0, 0, 0, 3, 0, 0, 0]
+    ]
+  },
+  '2_11': {
+    'instructions': 'instructions2_11',
+    'toolbox': toolbox(2, 11),
+    'ideal': 5,
+    'requiredBlocks': [
+      [{'test': 'moveForward', 'type': 'maze_moveForward'}],
+      [{'test': 'while', 'type': 'maze_forever'}],
+      [{'test': 'turnLeft',
+        'type': 'maze_turn',
+        'titles': {'DIR': 'turnLeft'}}],
+      [{'test': 'turnRight',
+        'type': 'maze_turn',
+        'titles': {'DIR': 'turnRight'}}]
+    ],
+    'startDirection': Direction.EAST,
+    'map': [
+      [0, 0, 0, 0, 0, 0, 0, 1],
+      [0, 0, 0, 0, 0, 0, 1, 1],
+      [0, 0, 0, 0, 0, 1, 3, 0],
+      [0, 0, 0, 0, 1, 1, 0, 0],
+      [0, 0, 0, 1, 1, 0, 0, 0],
+      [0, 0, 1, 1, 0, 0, 0, 0],
+      [0, 2, 1, 0, 0, 0, 0, 0],
+      [1, 1, 0, 0, 0, 0, 0, 0]
+    ]
+  },
+  '2_12': {
+    'instructions': 'instructions2_12',
+    'toolbox': toolbox(2, 12),
+    'ideal': 5,
+    'requiredBlocks': [
+      [{'test': 'moveForward', 'type': 'maze_moveForward'}],
+      [{'test': 'while', 'type': 'maze_forever'}],
+      [{'test': 'turnLeft',
+        'type': 'maze_turn',
+        'titles': {'DIR': 'turnLeft'}}],
+      [{'test': 'turnRight',
+        'type': 'maze_turn',
+        'titles': {'DIR': 'turnRight'}}]
+    ],
+    'startDirection': Direction.EAST,
+    'map': [
+      [1, 0, 0, 0, 0, 0, 0, 0],
+      [1, 2, 0, 0, 0, 0, 0, 0],
+      [0, 1, 1, 0, 0, 0, 0, 0],
+      [0, 0, 1, 1, 0, 0, 0, 0],
+      [0, 0, 0, 1, 1, 0, 0, 0],
+      [0, 0, 0, 0, 1, 1, 0, 0],
+      [0, 0, 0, 0, 0, 1, 3, 0],
+      [0, 0, 0, 0, 0, 0, 1, 1]
+    ]
+  },
+  '2_13': {
+    'instructions': 'instructions2_13',
+    'toolbox': toolbox(2, 13),
+    'ideal': 4,
+    'requiredBlocks': [
+      [{'test': 'isPathLeft',
+        'type': 'maze_if',
+        'titles': {'DIR': 'isPathLeft'}}],
+      [{'test': 'while', 'type': 'maze_forever'}],
+      [{'test': 'turnLeft',
+        'type': 'maze_turn',
+        'titles': {'DIR': 'turnLeft'}}]
+    ],
+    'startDirection': Direction.EAST,
+    'map': [
+      [0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 3, 0, 0],
+      [0, 0, 0, 0, 0, 1, 0, 0],
+      [0, 0, 0, 0, 0, 1, 0, 0],
+      [0, 0, 0, 0, 0, 1, 0, 0],
+      [0, 0, 0, 0, 0, 1, 0, 0],
+      [0, 0, 0, 2, 1, 1, 0, 0],
+      [0, 0, 0, 0, 0, 4, 0, 0]
+    ]
+  },
+  '2_14': {
+    'instructions': 'instructions2_14',
+    'toolbox': toolbox(2, 14),
+    'ideal': 4,
+    'requiredBlocks': [
+      [{'test': 'isPathRight',
+        'type': 'maze_if',
+        'titles': {'DIR': 'isPathRight'}}],
+      [{'test': 'while', 'type': 'maze_forever'}],
+      [{'test': 'turnRight',
+        'type': 'maze_turn',
+        'titles': {'DIR': 'turnRight'}}]
+    ],
+    'startDirection': Direction.EAST,
+    'map': [
+      [0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 2, 1, 1, 1, 0, 0],
+      [0, 0, 0, 0, 0, 1, 0, 0],
+      [0, 0, 0, 0, 0, 1, 0, 0],
+      [0, 0, 0, 0, 0, 1, 4, 0],
+      [0, 0, 0, 0, 0, 1, 0, 0],
+      [0, 3, 1, 1, 1, 1, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0]
+    ]
+  },
+  '2_15': {
+    'instructions': 'instructions2_15',
+    'toolbox': toolbox(2, 15),
+    'ideal': 4,
+    'requiredBlocks': [
+      [{'test': 'isPathRight',
+        'type': 'maze_if',
+        'titles': {'DIR': 'isPathRight'}}],
+      [{'test': 'while', 'type': 'maze_forever'}],
+      [{'test': 'turnRight',
+        'type': 'maze_turn',
+        'titles': {'DIR': 'turnRight'}}]
+    ],
+    'startDirection': Direction.EAST,
+    'map': [
+      [0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 2, 1, 1, 1, 1, 0, 0],
+      [0, 0, 0, 0, 0, 1, 0, 0],
+      [0, 1, 1, 3, 0, 1, 0, 0],
+      [0, 1, 0, 0, 0, 1, 0, 0],
+      [0, 1, 1, 1, 1, 1, 0, 0],
+      [0, 0, 0, 0, 4, 0, 0, 0]
+    ]
+  },
+  '2_16': {
+    'instructions': 'instructions2_16',
+    'toolbox': toolbox(2, 16),
+    'ideal': 4,
+    'requiredBlocks': [
+      [{'test': 'isPathRight',
+        'type': 'maze_if',
+        'titles': {'DIR': 'isPathRight'}}],
+      [{'test': 'while', 'type': 'maze_forever'}],
+      [{'test': 'turnRight',
+        'type': 'maze_turn',
+        'titles': {'DIR': 'turnRight'}}]
+    ],
+    'startDirection': Direction.EAST,
+    'map': [
+      [0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 4, 0, 0, 0, 0],
+      [0, 2, 1, 1, 1, 1, 0, 0],
+      [0, 0, 0, 0, 0, 1, 4, 0],
+      [0, 1, 1, 3, 0, 1, 1, 0],
+      [0, 1, 0, 0, 0, 1, 0, 0],
+      [0, 1, 1, 1, 1, 1, 4, 1],
+      [0, 0, 0, 0, 0, 0, 0, 0]
+    ]
+  },
+  '2_17': {
+    'instructions': 'instructions2_17',
+    'toolbox': toolbox(2, 17),
+    'ideal': 6,
+    'requiredBlocks': [
+      [{'test': 'isPathForward',
+        'type': 'maze_ifElse',
+        'titles': {'DIR': 'isPathForward'}}],
+      [{'test': 'while', 'type': 'maze_forever'}]
+    ],
+    'startDirection': Direction.EAST,
+    'map': [
+      [0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 1, 1, 1, 1, 1, 0, 0],
+      [0, 0, 1, 0, 0, 0, 0, 0],
+      [3, 1, 1, 1, 1, 1, 1, 0],
+      [0, 1, 0, 1, 0, 1, 1, 0],
+      [1, 1, 1, 4, 1, 0, 1, 0],
+      [0, 1, 0, 1, 0, 2, 1, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0]
+    ]
+  },
+  '2_18': {
+    'instructions': 'instructions2_18',
+    'toolbox': toolbox(2, 18),
+    'ideal': 5,
+    'requiredBlocks': [
+      [{'test': 'isPathForward',
+        'type': 'maze_ifElse',
+        'titles': {'DIR': 'isPathForward'}}],
+      [{'test': 'while', 'type': 'maze_forever'}]
+    ],
+    'startDirection': Direction.EAST,
+    'map': [
+      [0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 2, 1, 1, 1, 1, 1, 0],
+      [0, 0, 1, 4, 0, 1, 1, 0],
+      [0, 0, 0, 0, 0, 0, 1, 0],
+      [0, 0, 1, 1, 0, 1, 1, 0],
+      [0, 1, 3, 1, 1, 1, 1, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0]
+    ]
+  }
 };

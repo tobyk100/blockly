@@ -9,23 +9,16 @@ window.mazeMain = function(options) {
   }
 
   if (!options.readonly) {
-    document.write(mazepage.start({}, null, {
-      page: BlocklyApps.PAGE,
-      level: BlocklyApps.LEVEL,
-      menu: BlocklyApps.DISPLAY_NAV,
-      skin: BlocklyApps.SKIN_ID,
-      interstitials: BlocklyApps.INTERSTITIALS,
-      baseUrl: BlocklyApps.BASE_URL
-    }));
+    document.write(mazepage.start({}, null, Maze.config));
   }
 
-  blocks.install(Blockly, Maze.skin);
+  blocks.install(Blockly, Maze.config.skin);
 
   window.addEventListener('load', function() {
     if (options.readonly) {
       BlocklyApps.initReadonly();
     } else {
-      Maze.init();
+      Maze.init(options);
     }
   });
 

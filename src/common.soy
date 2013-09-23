@@ -1,21 +1,6 @@
 {namespace apps}
 
 /**
- * This is a Closure Template.  It exists to encapsulate the translation
- * of messages used by the apps.
- *
- * # Run the following command after changing the messages in any of the
- * # included apps subdirectories.
- * java -jar _soy/SoyMsgExtractor.jar --outputFile extracted_msgs.xlf --srcs common.soy,maze/template.soy,turtle/template.soy,karel/templateLevel2.soy,karel/templateLevel1.soy,karel/template.soy
- *
- * # Create en_us.json, keys.json, qqq.json.
- * ../i18n/xliff_to_json.py --xlf extracted_msgs.xlf --templates common.soy {maze,turtle,karel}/template.soy karel/templateLevel*.soy --lang en_us
- *
- * # Generate .js files for each project:
- * for i in maze turtle karel; do ../i18n/json_to_js.py --source_lang=en_us --output_dir=$i/generated --path_to_jar=_soy --template common.soy,$i/template.soy *.json; done
- */
-
-/**
  * Dialogs.
  */
 {template .dialog private="true"}
@@ -56,8 +41,95 @@
 {/template}
 
 /**
- * @param menu A boolean, which when true means the menu should display.
+ * @param appInstance The name of the App object to run.
  */
-{template .menu}
-  {if not $menu} class="hide" {/if}
+{template .gameButtons}
+  <table id="gameButtons" width="400" style="padding-top: 10px;">
+    <tr>
+      <td style="width: 190px; text-align: center; vertical-align: top;">
+        <button class="notext" title="{msg meaning="Maze.codeTooltip"
+          desc="tooltip (pop-up help) for button; pressing the button causes a
+          program in the JavaScript computer language to be displayed, based on
+          the program created by the user."}See generated JavaScript code.{/msg}"
+          onclick="BlocklyApps.showCode();">
+          <img src='{$ij.baseUrl}media/1x1.gif' alt="code" class="code icon21">
+        </button>
+        <button id="linkButton" class="notext" style="display: none;"
+          title="{msg meaning="Maze.linkTooltip" desc="tooltip (pop-up help) for
+          button; pressing the button causes the user's program to be saved and
+          for a URL to be provided for retrieving it.  The word 'blocks' is as
+          in children's toy blocks."}Save and link to blocks.{/msg}"
+          onclick="BlocklyStorage.link();">
+          <img src='{$ij.baseUrl}media/1x1.gif' alt="link" class="link icon21">
+        </button>
+      </td>
+      <td>
+        <button id="helpButton" onclick="BlocklyApps.showHelp(true);">
+          {msg meaning="Apps.help" desc="IBID"}Help{/msg}
+        </button>
+        <button id="runButton" class="launch" onclick="{$appInstance}.runButtonClick();">
+            <img src="{$ij.baseUrl}media/1x1.gif" class="run icon21">{msg meaning="Maze.runProgram"
+            desc="button label - Pressing the button runs the computer program the user has
+            written."}Run{/msg}
+          </button>
+        </button>
+        <button id="resetButton" class="launch"
+          onclick="BlocklyApps.resetButtonClick();" style="display: none">
+            <img src="{$ij.baseUrl}media/1x1.gif" class="stop icon21">
+              {msg meaning="Maze.resetProgram" desc="button label -
+                Pressing the button causes Pegman return to the start of the maze
+                (but does not delete the user's program.)"}Reset{/msg}
+          </button>
+      </td>
+    </tr>
+  </table>
+{/template}
+
+/**
+ * @param? appSpecific Contains feedback entries for a particular app.
+ */
+{template .feedback}
+    <ul id="levelFeedbackText">
+              <span id="hintTitle" class="feedback" style="display: none; margin-left: -30px">{msg meaning="Apps.hintTitle" desc="IBID"}{/msg}Hints:</span>
+    <li id="nextLevelMsg" style="display: none; margin-left: -40px;">{msg
+      meaning="Apps.nextLevel" desc="IBID"}Congratulations! You have completed this level.{/msg}</li>
+    <li id="finalLevelMsg" style="display: none; margin-left: -40px;">{msg
+      meaning="Apps.finalLevelMsg" desc="alert - This is displayed when
+      the user solves the most difficult level."}Congratulations! You
+      have solved the final level.{/msg}</li>
+    <li id="emptyBlocksError" class="feedback" style="display: none">
+      {msg meaning="Apps.emptyBlocksErrorMsg" desc="IBID"}Remove empty blocks.{/msg}</li>
+    <li id="missingBlocksError" class="feedback" style="display: none">
+      {msg meaning="Apps.missingBlocksErrorMsg" desc="IBID"}Try one or more of the blocks below to solve this level.{/msg}</li>
+    <li id="tooManyBlocksError" class="feedback" style="display: none">
+      {msg meaning="Apps.tooManyBlocksMsg" desc="IBID"}This level can be solved with <span id="idealNumberMessage"></span> blocks.{/msg}</li>
+    <li id="tooFewBlocksError" class="feedback" style="display: none">
+      {msg meaning="Apps.tooFewBlocksMsg" desc="IBID"}You are using all of the necessary types of blocks, but try using more  of these types of blocks to complete this level.{/msg}</li>
+    <li id="levelIncompleteError" class="feedback" style="display: none">
+      {msg meaning="Apps.levelIncompleteError" desc="IBID"}You are using all of the necessary types of blocks but not in the right way.{/msg}</li>
+    {if $appSpecific}
+      {$appSpecific |noAutoescape}
+    {/if}
+  </ul>  // feedbackText
+  <iframe id="feedbackBlocks" class="feedback" style="margin-left: 50px;
+    height: 80px; width: 500px; border: none; display: none;" src=""></iframe>
+{/template}
+
+/**
+ * Buttons on the feedback dialog.
+ */
+{template .feedbackButtons}
+  <div id="returnToLevelButton" style="display: none;">{call apps.ok /}</div>
+  <div style="text-align: center">
+    <button id="tryAgainButton" class="launch" style="display: none"
+      onclick="BlocklyApps.tryAgainClicked();">
+      {msg meaning="Turtle.tryAgain" desc="button - Closes the dialog and
+        stays on the current level"}Try again{/msg}
+    </button>
+    <button id="continueButton" class="launch" style="display: none"
+      onclick="BlocklyApps.continueClicked();">
+        {msg meaning="Turtle.continue" desc="button - Closes the dialog and
+          continues to the next level"}Continue{/msg}
+    </button>
+  </div>
 {/template}
