@@ -67,20 +67,26 @@ Maze.SquareType = {
   OPEN: 1,
   START: 2,
   FINISH: 3,
-  OBSTACLE: 4
+  OBSTACLE: 4,
+  STARTANDFINISH: 5
 };
 
-// The maze square constants defined above are inlined here
-// for ease of reading and writing the static mazes.
-Maze.map = level.map;
-
-// Set BlocklyApps constants.
+//TODO: Make configurable.
 BlocklyApps.CHECK_FOR_EMPTY_BLOCKS = true;
 
 /**
- * The ideal number of blocks to solve the current level.
+ * Load level configuration.
  */
+Maze.map = level.map;
 BlocklyApps.IDEAL_BLOCK_NUM = level.ideal;
+Maze.initialBallMap = level.initialBalls;
+Maze.finalBallMap = level.finalBalls;
+
+var getTile = function(map, x, y) {
+  if (map) {
+    return map[y][x];
+  }
+};
 
 /**
  * Blocks that are expected to be used on each level.
@@ -107,6 +113,12 @@ for (var key in level.scale) {
 
 // Add blank row at top for hint bubble.
 Maze.map.unshift(new Array(Maze.map[0].length));
+if (Maze.initialBallMap) {
+  Maze.initialBallMap.unshift(new Array(Maze.initialBallMap[0].length));
+}
+if (Maze.finalBallMap) {
+  Maze.finalBallMap.unshift(new Array(Maze.finalBallMap[0].length));
+}
 
 /**
  * Measure maze dimensions and set sizes.
@@ -225,12 +237,13 @@ Maze.drawMap = function() {
 
   // Draw the tiles making up the maze map.
 
-  // Return a value of '0' if the specified square is wall or out of bounds,
-  // '1' otherwise (empty, obstacle, start, finish).
+  // Return a value of '0' if the specified square is wall obstacle, or out
+  // of bounds '1' otherwise (empty, obstacle, start, finish).
   var normalize = function(x, y) {
     return ((Maze.map[y] === undefined) ||
             (Maze.map[y][x] === undefined) ||
-            (Maze.map[y][x] == Maze.SquareType.WALL)) ? '0' : '1';
+            (Maze.map[y][x] == Maze.SquareType.WALL) ||
+            (Maze.map[y][x] == Maze.SquareType.OBSTACLE)) ? '0' : '1';
   };
 
   // Compute and draw the tile for each square.
@@ -281,15 +294,6 @@ Maze.drawMap = function() {
     }
   }
 
-  // Add finish marker.
-  var finishMarker = document.createElementNS(Blockly.SVG_NS, 'image');
-  finishMarker.setAttribute('id', 'finish');
-  finishMarker.setAttributeNS('http://www.w3.org/1999/xlink', 'xlink:href',
-                              skin.goal);
-  finishMarker.setAttribute('height', 34);
-  finishMarker.setAttribute('width', 20);
-  svg.appendChild(finishMarker);
-
   // Pegman's clipPath element, whose (x, y) is reset by Maze.displayPegman
   var pegmanClip = document.createElementNS(Blockly.SVG_NS, 'clipPath');
   pegmanClip.setAttribute('id', 'pegmanClipPath');
@@ -310,6 +314,17 @@ Maze.drawMap = function() {
   pegmanIcon.setAttribute('clip-path', 'url(#pegmanClipPath)');
   svg.appendChild(pegmanIcon);
 
+  if (Maze.finish_) {
+    // Add finish marker.
+    var finishMarker = document.createElementNS(Blockly.SVG_NS, 'image');
+    finishMarker.setAttribute('id', 'finish');
+    finishMarker.setAttributeNS('http://www.w3.org/1999/xlink', 'xlink:href',
+                                skin.goal);
+    finishMarker.setAttribute('height', 34);
+    finishMarker.setAttribute('width', 20);
+    svg.appendChild(finishMarker);
+  }
+
   // Add obstacles.
   for (var y = 0; y < Maze.ROWS; y++) {
     for (var x = 0; x < Maze.COLS; x++) {
@@ -327,6 +342,19 @@ Maze.drawMap = function() {
                              obsIcon.getAttribute('height'));
         svg.appendChild(obsIcon);
       }
+    }
+  }
+};
+
+var resetBalls = function() {
+  // Init the balls so that all places are empty
+  Maze.balls_ = new Array(Maze.ROWS);
+  // Locate the balls in ball_map
+  for (var y = 0; y < Maze.ROWS; y++) {
+    if (Maze.initialBallMap) {
+      Maze.balls_[y] = Maze.initialBallMap[y].slice(0);
+    } else {
+      Maze.balls_[y] = new Array(Maze.COLS);
     }
   }
 };
@@ -360,6 +388,23 @@ Maze.init = function(config) {
   Blockly.loadAudio_(['maze/whack.mp3', 'maze/whack.ogg'], 'whack');
   Blockly.SNAP_RADIUS *= Maze.scale.snapRadius;
 
+  // Locate the start and finish squares.
+  for (var y = 0; y < Maze.ROWS; y++) {
+    for (var x = 0; x < Maze.COLS; x++) {
+      if (Maze.map[y][x] == Maze.SquareType.START) {
+        Maze.start_ = {x: x, y: y};
+      } else if (Maze.map[y][x] == Maze.SquareType.FINISH) {
+        Maze.finish_ = {x: x, y: y};
+      // Nan's
+      } else if (Maze.map[y][x] == Maze.SquareType.STARTANDFINISH) {
+        Maze.start_ = {x: x, y: y};
+        Maze.finish_ = {x: x, y: y};
+      }
+    }
+  }
+
+  resetBalls();
+
   Maze.drawMap();
 
   window.addEventListener('scroll', function() {
@@ -370,22 +415,10 @@ Maze.init = function(config) {
   BlocklyApps.onResize();
   Blockly.svgResize();
 
-  // Locate the start and finish squares.
-  for (var y = 0; y < Maze.ROWS; y++) {
-    for (var x = 0; x < Maze.COLS; x++) {
-      if (Maze.map[y][x] == Maze.SquareType.START) {
-        Maze.start_ = {x: x, y: y};
-      } else if (Maze.map[y][x] == Maze.SquareType.FINISH) {
-        Maze.finish_ = {x: x, y: y};
-      }
-    }
-  }
-
-  var defaultXml =
-      '<xml>' +
-      '  <block type="maze_moveForward" x="70" y="70"></block>' +
-      '</xml>';
-  BlocklyApps.loadBlocks(defaultXml);
+  var startBlocks = level.startBlocks ||
+      '<block type="maze_moveForward" x="70" y="70"></block>';
+  var xml = '<xml>' + startBlocks + '</xml>';
+  BlocklyApps.loadBlocks(xml);
 
   BlocklyApps.reset(true);
   Blockly.addChangeListener(function() {BlocklyApps.updateCapacity()});
@@ -436,12 +469,17 @@ BlocklyApps.reset = function(first) {
     Maze.displayPegman(Maze.pegmanX, Maze.pegmanY, Maze.pegmanD * 4);
   }
 
-  // Move the finish icon into position.
-  var finishIcon = document.getElementById('finish');
-  finishIcon.setAttribute('x', Maze.SQUARE_SIZE * (Maze.finish_.x + 0.5) -
-      finishIcon.getAttribute('width') / 2);
-  finishIcon.setAttribute('y', Maze.SQUARE_SIZE * (Maze.finish_.y + 0.6) -
-      finishIcon.getAttribute('height'));
+  var svg = document.getElementById('svgMaze');
+
+  if (Maze.finish_) {
+
+    // Move the finish icon into position.
+    var finishIcon = document.getElementById('finish');
+    finishIcon.setAttribute('x', Maze.SQUARE_SIZE * (Maze.finish_.x + 0.5) -
+        finishIcon.getAttribute('width') / 2);
+    finishIcon.setAttribute('y', Maze.SQUARE_SIZE * (Maze.finish_.y + 0.6) -
+        finishIcon.getAttribute('height'));
+  }
 
   // Make 'look' icon invisible and promote to top.
   var lookIcon = document.getElementById('look');
@@ -451,13 +489,44 @@ BlocklyApps.reset = function(first) {
   for (var i = 0, path; path = paths[i]; i++) {
     path.setAttribute('stroke', skin.look);
   }
+
+  // Nan's
+  // Move the init ball marker icons into position.
+  var ballId = 0;
+  var pegmanIcon = document.getElementById('pegman');
+  resetBalls();
+  for (var y = 0; y < Maze.ROWS; y++) {
+    for (var x = 0; x < Maze.COLS; x++) {
+      // Remove all balls from svg element, less efficient than checking if we
+      // need to remove, but much easier to code.
+      var ballIcon = document.getElementById('ball' + ballId);
+      if (ballIcon !== null) {
+        svg.removeChild(ballIcon);
+      }
+      // Place ball if one exists in cell.
+      if (getTile(Maze.balls_, x, y) !== 0 &&
+          getTile(Maze.balls_, x, y) !== undefined) {
+        ballIcon = document.createElementNS(Blockly.SVG_NS, 'image');
+        ballIcon.setAttribute('id', 'ball' + ballId);
+        Maze.setBallImage(ballIcon, x, y);
+        ballIcon.setAttribute('height', 50);
+        ballIcon.setAttribute('width', 42);
+        svg.insertBefore(ballIcon, pegmanIcon);
+        ballIcon.setAttribute('x',
+            Maze.SQUARE_SIZE * (x + 0.5) - ballIcon.getAttribute('width') / 2);
+        ballIcon.setAttribute('y',
+            Maze.SQUARE_SIZE * (y + 0.6) - ballIcon.getAttribute('height'));
+      }
+      ++ballId;
+    }
+  }
 };
 
 /**
  * Click the run button.  Start the program.
  */
 Maze.runButtonClick = function() {
-  // Only allow a single top block on levels 1 and 2.
+  // Only allow a single top block on some levels.
   if (level.singleTopBlock &&
       Blockly.mainWorkspace.getTopBlocks().length > 1) {
     window.alert(commonMsg.oneTopBlock());
@@ -489,7 +558,7 @@ Maze.ResultType = {
 
 var displayFeedback = function() {
   BlocklyApps.displayFeedback({
-    app: 'maze',
+    app: 'maze', //XXX
     finalLevel: false //TODO: Get from server or otherwise parameterize
   });
 };
@@ -499,7 +568,7 @@ var displayFeedback = function() {
  */
 Maze.execute = function() {
   BlocklyApps.log = [];
-  BlocklyApps.ticks = 50;
+  BlocklyApps.ticks = 50; //TODO: Set higher for some levels
   var code = Blockly.Generator.workspaceToCode('JavaScript');
   Maze.result = Maze.ResultType.UNSET;
 
@@ -627,6 +696,11 @@ Maze.animate = function() {
     case 'finish':
       Maze.scheduleFinish(true);
       break;
+    case 'putdown':
+      Maze.schedulePutDownBall();
+      break;
+    case 'pickup':
+      Maze.schedulePickUpBall();
     default:
       // action[0] is null if generated by BlocklyApps.checkTimeout().
       break;
@@ -752,6 +826,98 @@ Maze.displayPegman = function(x, y, d) {
 };
 
 /**
+ * Schedule to put down a ball at pegman's current position.
+ */
+Maze.schedulePutDownBall = function() {
+  var x = Maze.pegmanX;
+  var y = Maze.pegmanY;
+  var ballId = x + Maze.COLS * y;
+  var ballIcon;
+  var pegmanIcon = document.getElementById('pegman');
+  if (Maze.balls_[y][x] < -1 || Maze.balls_[y][x] > 0) {
+    // There is already a ball at the position
+    ballIcon = document.getElementById('ball' + ballId);
+    ++Maze.balls_[y][x];
+    Maze.setBallImage(ballIcon, x, y);
+    ballIcon.setAttribute('x', Maze.SQUARE_SIZE * (x + 0.5) -
+                          ballIcon.getAttribute('width') / 2);
+    ballIcon.setAttribute('y', Maze.SQUARE_SIZE * (y + 0.6) -
+                          ballIcon.getAttribute('height'));
+  } else if (Maze.balls_[y][x] == 0) {
+    // If not, create a new ballIcon for the current location
+    var svg = document.getElementById('svgMaze');
+    ballIcon = document.createElementNS(Blockly.SVG_NS, 'image');
+    ballIcon.setAttribute('id', 'ball' + ballId);
+    ballIcon.setAttribute('height', 50);
+    ballIcon.setAttribute('width', 42);
+    svg.insertBefore(ballIcon, pegmanIcon);
+
+    ++Maze.balls_[y][x];
+    Maze.setBallImage(ballIcon, x, y);
+    ballIcon.setAttribute('x', Maze.SQUARE_SIZE * (x + 0.5) -
+                          ballIcon.getAttribute('width') / 2);
+    ballIcon.setAttribute('y', Maze.SQUARE_SIZE * (y + 0.6) -
+                          ballIcon.getAttribute('height'));
+  } else if (Maze.balls_[y][x] == -1) {
+    // Remove the ballIcon
+    ballIcon = document.getElementById('ball' + ballId);
+    var svg = document.getElementById('svgMaze');
+    svg.removeChild(ballIcon);
+     ++Maze.balls_[y][x];
+  }
+};
+
+/**
+ * Set the image based on the number of balls in the location.
+ * @param ballIcon Ball icon that shows the number of balls at location [y,x].
+ * @param {number} x Horizontal grid (or fraction thereof).
+ * @param {number} y Vertical grid (or fraction thereof).
+ */
+Maze.setBallImage = function(ballIcon, x, y) {
+  ballIcon.setAttributeNS(
+    'http://www.w3.org/1999/xlink', 'xlink:href',
+    skin.ball(Maze.balls_[y][x]))
+};
+
+/**
+ * Schedule to put down a bll at pegman's current location.
+ */
+Maze.schedulePickUpBall = function() {
+  var x = Maze.pegmanX;
+  var y = Maze.pegmanY;
+  var ballId = x + Maze.COLS * y;
+  var ballIcon;
+  var pegmanIcon = document.getElementById('pegman');
+  if (Maze.balls_[y][x] > 1 || Maze.balls_[y][x] < 0) {
+    // The ballIcon should still exist after picking up a ball
+    Maze.balls_[y][x] = Maze.balls_[y][x] - 1;
+    ballIcon = document.getElementById('ball' + ballId);
+    Maze.setBallImage(ballIcon, x, y);
+  } else if (Maze.balls_[y][x] == 0) {
+    // Create ballIcon
+    Maze.balls_[y][x] = Maze.balls_[y][x] - 1;
+    var svg = document.getElementById('svgMaze');
+    ballIcon = document.createElementNS(Blockly.SVG_NS, 'image');
+    ballIcon.setAttribute('id', 'ball' + ballId);
+    ballIcon.setAttribute('height', 50);
+    ballIcon.setAttribute('width', 42);
+    svg.insertBefore(ballIcon, pegmanIcon);
+
+    Maze.setBallImage(ballIcon, x, y);
+    ballIcon.setAttribute('x', Maze.SQUARE_SIZE * (x + 0.5) -
+                          ballIcon.getAttribute('width') / 2);
+    ballIcon.setAttribute('y', Maze.SQUARE_SIZE * (y + 0.6) -
+                          ballIcon.getAttribute('height'));
+  } else if (Maze.balls_[y][x] == 1) {
+    // Need to remove this ballIcon
+    ballIcon = document.getElementById('ball' + ballId);
+    var svg = document.getElementById('svgMaze');
+    svg.removeChild(ballIcon);
+    Maze.balls_[y][x] = Maze.balls_[y][x] - 1;
+  }
+};
+
+/**
  * Display the look icon at Pegman's current location,
  * in the specified direction.
  * @param {!Direction} d Direction (0 - 3).
@@ -854,6 +1020,9 @@ Maze.turnRight = function(id) {
 Maze.isPathForward = function(id) {
   return Maze.isPath(0, id);
 };
+Maze.noPathForward = function(id) {
+  return !Maze.isPath(0, id);
+};
 
 Maze.isPathRight = function(id) {
   return Maze.isPath(1, id);
@@ -865,6 +1034,57 @@ Maze.isPathBackward = function(id) {
 
 Maze.isPathLeft = function(id) {
   return Maze.isPath(3, id);
+};
+
+Maze.ballsPresent = function(id) {
+  var x = Maze.pegmanX;
+  var y = Maze.pegmanY;
+  if (Maze.balls_[y][x] > 0)
+    return true;
+  else
+    return false;
+};
+
+Maze.holesPresent = function(id) {
+  var x = Maze.pegmanX;
+  var y = Maze.pegmanY;
+  if (Maze.balls_[y][x] < 0)
+    return true;
+  else
+    return false;
+};
+
+Maze.currentPositionNotClear = function(id) {
+  var x = Maze.pegmanX;
+  var y = Maze.pegmanY;
+  if (Maze.balls_[y][x] != 0)
+    return true;
+  else
+    return false;
+};
+
+var atFinish = function() {
+  return !Maze.finish_ ||
+      (Maze.pegmanX == Maze.finish_.x && Maze.pegmanY == Maze.finish_.y);
+};
+
+var areBallsRight = function() {
+  for (var y = 0; y < Maze.ROWS; y++) {
+    for (var x = 0; x < Maze.COLS; x++) {
+      if (getTile(Maze.balls_, x, y) != getTile(Maze.finalBallMap, x, y)) {
+        return false;
+      }
+    }
+  }
+  return true;
+};
+
+var checkSuccess = function() {
+  if (atFinish() && areBallsRight()) {
+    // Finished.  Terminate the user's program.
+    BlocklyApps.log.push(['finish', null]);
+    throw true;
+  }
 };
 
 // Core functions.
@@ -903,11 +1123,11 @@ Maze.move = function(direction, id) {
       break;
   }
   BlocklyApps.log.push([command, id]);
-  if (Maze.pegmanX == Maze.finish_.x && Maze.pegmanY == Maze.finish_.y) {
-    // Finished.  Terminate the user's program.
-    BlocklyApps.log.push(['finish', null]);
-    throw true;
-  }
+  checkSuccess(id);
+};
+
+Maze.notFinish = function(id) {
+    return !checkSuccess(id);
 };
 
 /**
@@ -976,4 +1196,27 @@ Maze.setIdealBlockMessage = function() {
   var idealNumMsg = document.getElementById('idealNumberMessage');
   var idealNumText = document.createTextNode(Maze.IDEAL_BLOCK_NUM);
   idealNumMsg.appendChild(idealNumText);
+};
+/**
+ * Attempt to put down the ball marker.
+ * @param {string} id ID of block that triggered this action.
+ */
+Maze.putDownBall = function(id) {
+    BlocklyApps.log.push(['putdown', id]);
+    var x = Maze.pegmanX;
+    var y = Maze.pegmanY;
+    Maze.balls_[y][x] = Maze.balls_[y][x] + 1;
+    Maze.checkSuccess(id);
+};
+
+/**
+ * Attempt to pick up the ball marker.
+ * @param {string} id ID of block that triggered this action.
+ */
+Maze.pickUpBall = function(id) {
+    BlocklyApps.log.push(['pickup', id]);
+    var x = Maze.pegmanX;
+    var y = Maze.pegmanY;
+    Maze.balls_[y][x] = Maze.balls_[y][x] - 1;
+    Maze.checkSuccess(id);
 };
