@@ -77,6 +77,9 @@ BlocklyApps.getNumberParamFromUrl = function(name, minValue, maxValue) {
  * Common startup tasks for all apps.
  */
 BlocklyApps.init = function(config) {
+  if (config == null) {
+    config = {};
+  }
   // Store configuration.
   onAttempt = config.onAttempt || function(report) {
     console.log('Attempt!');
