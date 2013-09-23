@@ -689,7 +689,7 @@ Turtle.checkAnswer = function() {
 
   // If the current level is a free play, always return the free play
   // result type
-  if (Turtle.freePlay) {
+  if (Turtle.FREE_PLAY) {
     feedbackType = BlocklyApps.TestResults.FREE_PLAY;
   }
 
