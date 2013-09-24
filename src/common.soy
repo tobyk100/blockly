@@ -20,16 +20,6 @@
 {/template}
 
 /**
- * Storage dialog.
- */
-{template .storageDialog private="true"}
-  <div id="dialogStorage" class="dialogHiddenContent">
-    <div id="containerStorage"></div>
-    {call apps.ok /}
-  </div>
-{/template}
-
-/**
  * OK button for dialogs.
  */
 {template .ok private="true"}
@@ -53,14 +43,6 @@
           the program created by the user."}See generated JavaScript code.{/msg}"
           onclick="BlocklyApps.showCode();">
           <img src='{$ij.baseUrl}media/1x1.gif' alt="code" class="code icon21">
-        </button>
-        <button id="linkButton" class="notext" style="display: none;"
-          title="{msg meaning="Maze.linkTooltip" desc="tooltip (pop-up help) for
-          button; pressing the button causes the user's program to be saved and
-          for a URL to be provided for retrieving it.  The word 'blocks' is as
-          in children's toy blocks."}Save and link to blocks.{/msg}"
-          onclick="BlocklyStorage.link();">
-          <img src='{$ij.baseUrl}media/1x1.gif' alt="link" class="link icon21">
         </button>
       </td>
       <td>

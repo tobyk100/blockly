@@ -591,14 +591,6 @@
     {param appInstance}Turtle{/param}
   {/call}
 
-  <div id="toolbarDiv">
-    <button title="{msg meaning="Turtle.codeTooltip" desc="TODO"}See generated JavaScript code.{/msg}" onclick="BlocklyApps.showCode(this);">
-      <img src='{$ij.baseUrl}media/1x1.gif' class="code icon21">
-    </button>
-    <button id="linkButton" title="{msg meaning="Turtle.codeTooltip" desc="TODO"}See generated JavaScript code.{/msg}" onclick="BlocklyStorage.link();">
-      <img src='{$ij.baseUrl}media/1x1.gif' class="link icon21">
-    </button>
-  </div>
   {call .toolbox /}
   <div id="blockly"></div>
   {call .feedback /}
@@ -610,7 +602,6 @@
 {template .feedback}
   {call apps.dialog /}
   {call apps.codeDialog /}
-  {call apps.storageDialog /}
   <div id="help" class="dialogHiddenContent">
     <div style="padding-bottom: 0.7ex;"><br>
       {call apps.feedback}
