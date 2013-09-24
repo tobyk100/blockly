@@ -508,6 +508,7 @@ var displayFeedback = function() {
   BlocklyApps.displayFeedback({
     app: 'karel',
     skin: skin.id,
+    feedbackType: Maze.testResults,
     finalLevel: false //TODO: Get from server or otherwise parameterize
   });
 };
@@ -520,10 +521,12 @@ Maze.execute = function() {
   BlocklyApps.ticks = 1000;
   var code = Blockly.Generator.workspaceToCode('JavaScript');
   Maze.result = Maze.ResultType.UNSET;
+  Maze.testResults = BlocklyApps.TestResults.NO_TESTS_RUN;
 
   // Check for empty top level blocks to warn user about bugs,
   // especially ones that lead to infinite loops.
   if (BlocklyApps.hasEmptyTopLevelBlocks()) {
+    Maze.testResults = BlocklyApps.TestResults.EMPTY_BLOCK_FAIL;
     displayFeedback();
     return;
   }
@@ -553,6 +556,12 @@ Maze.execute = function() {
       alert(e);
     }
   }
+  
+  // If we know they succeeded, mark levelComplete true
+  // Note that we have not yet animated the succesful run
+  BlocklyApps.levelComplete = (Maze.result == Maze.ResultType.SUCCESS);
+  
+  Maze.testResults = BlocklyApps.getTestResults();
 
   // Report result to server.
   BlocklyApps.report('maze', levelId,
@@ -577,7 +586,6 @@ Maze.animate = function() {
   var action = BlocklyApps.log.shift();
   if (!action) {
     BlocklyApps.highlight(null);
-    BlocklyApps.levelComplete = (Maze.result == Maze.ResultType.SUCCESS);
     if (Maze.result == Maze.ResultType.TIMEOUT) {
       displayFeedback();
     } else {
@@ -639,7 +647,16 @@ Maze.animate = function() {
       Maze.pegmanD = Maze.constrainDirection4(Maze.pegmanD + 1);
       break;
     case 'finish':
-      Maze.scheduleFinish(true);
+      // Only schedule victory animation for certain conditions:
+      switch (Maze.testResults) {
+        case BlocklyApps.TestResults.FREE_PLAY:
+        case BlocklyApps.TestResults.TOO_MANY_BLOCKS_FAIL:
+        case BlocklyApps.TestResults.ALL_PASS:
+          Maze.scheduleFinish(true);
+          break;
+        default:
+          break;
+      }
       // window.setTimeout(Maze.giveFeedback, 1000);
       break;
     // Nan's

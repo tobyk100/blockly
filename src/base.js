@@ -450,17 +450,12 @@ BlocklyApps.updateCapacity = function() {
 // Methods for determining and displaying feedback.
 
 /**
- * Display feedback based on test results.  The test results can be
- * explicitly provied so a specific application (namely Turtle) can generate
- * test results in its own way and display feedback.
+ * Display feedback based on test results.  The test results must be
+ * explicitly provided.
  * @param {?number} opt_feedbackType Test results (a constant property of
  *     BlocklyApps.TestResults).
  */
 BlocklyApps.displayFeedback = function(options) {
-  if (!options) {
-    options = {};
-  }
-  options.feedbackType = options.feedbackType || BlocklyApps.getTestResults();
   BlocklyApps.hideFeedback();
   BlocklyApps.setErrorFeedback(options);
   BlocklyApps.prepareFeedback(options);
