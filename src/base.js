@@ -404,7 +404,7 @@ BlocklyApps.displayFeedback = function(options) {
   BlocklyApps.setErrorFeedback(options);
   BlocklyApps.prepareFeedback(options);
   BlocklyApps.displayCloseDialogButtons(options.feedbackType);
-  BlocklyApps.showHelp(true, options.feedbackType);
+  BlocklyApps.showHelp(options.feedbackType);
 };
 
 /**
@@ -733,12 +733,10 @@ BlocklyApps.resetButtonClick = function() {
  * @param {boolean} animate Animate the pop-up opening.
  * @param {number} feedbackType If defined, the results of end of level tests.
  */
-BlocklyApps.showHelp = function(animate, feedbackType) {
+BlocklyApps.showHelp = function(feedbackType) {
   feedbackType = typeof feedbackType !== 'undefined' ?
       feedbackType : BlocklyApps.NO_TESTS_RUN;
   var help = document.getElementById('help');
-  var button = document.getElementById('helpButton');
-  button.removeAttribute('disabled');
 
   var style = {
     width: '50%',
@@ -753,7 +751,7 @@ BlocklyApps.showHelp = function(animate, feedbackType) {
     }
   }
   BlocklyApps.displayCloseDialogButtons(feedbackType);
-  dialog.show(help, button, animate, true, style);
+  dialog.show(help, null, false, true, style);
 };
 
 /**
