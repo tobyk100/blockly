@@ -131,36 +131,31 @@ Turtle.init = function() {
   Turtle.speedSlider = new Slider(10, 35, 130, sliderSvg);
 
   // Add the starting block(s).
-  // An href with #key trigers an AJAX call to retrieve saved blocks.
-  if ('BlocklyStorage' in window && window.location.hash.length > 1) {
-    BlocklyStorage.retrieveXml(window.location.hash.substring(1));
-  } else {
-    if (BlocklyApps.PAGE == 3 &&
-        (BlocklyApps.LEVEL == 8 || BlocklyApps.LEVEL == 9)) {
-      var notReadyMsg;
-      if (BlocklyApps.LEVEL == 8) {
-        notReadyMsg = msg.drawAHouseNotDefined8();
-      } else {
-        notReadyMsg = msg.drawAHouseNotDefined9();
-      }
-      var xml = window.sessionStorage.turtle3Blocks;
-      if (xml === undefined) {
-        window.alert(notReadyMsg);
-      } else {
-        var dom = Blockly.Xml.textToDom(xml);
-        Blockly.Xml.domToWorkspace(Blockly.mainWorkspace, dom);
-        if (!BlocklyApps.getUserBlocks_().some(
-          levels.defineWithArg_('draw a house', 'height')['test'])) {
-          window.alert(notReadyMsg);
-        }
-      }
+  if (BlocklyApps.PAGE == 3 &&
+      (BlocklyApps.LEVEL == 8 || BlocklyApps.LEVEL == 9)) {
+    var notReadyMsg;
+    if (BlocklyApps.LEVEL == 8) {
+      notReadyMsg = msg.drawAHouseNotDefined8();
     } else {
-      var xml = document.getElementById('start_blocks').innerHTML;
-      if (xml) {
-        xml = '<xml>' + xml + '</xml>';
-        var dom = Blockly.Xml.textToDom(xml);
-        Blockly.Xml.domToWorkspace(Blockly.mainWorkspace, dom);
+      notReadyMsg = msg.drawAHouseNotDefined9();
+    }
+    var xml = window.sessionStorage.turtle3Blocks;
+    if (xml === undefined) {
+      window.alert(notReadyMsg);
+    } else {
+      var dom = Blockly.Xml.textToDom(xml);
+      Blockly.Xml.domToWorkspace(Blockly.mainWorkspace, dom);
+      if (!BlocklyApps.getUserBlocks_().some(
+        levels.defineWithArg_('draw a house', 'height')['test'])) {
+        window.alert(notReadyMsg);
       }
+    }
+  } else {
+    var xml = document.getElementById('start_blocks').innerHTML;
+    if (xml) {
+      xml = '<xml>' + xml + '</xml>';
+      var dom = Blockly.Xml.textToDom(xml);
+      Blockly.Xml.domToWorkspace(Blockly.mainWorkspace, dom);
     }
   }
 

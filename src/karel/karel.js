@@ -397,15 +397,6 @@ Maze.init = function(config) {
 };
 
 /**
- * Save the blocks for a one-time reload.
- */
-Maze.saveToStorage = function() {
-  var xml = Blockly.Xml.workspaceToDom(Blockly.mainWorkspace);
-  var text = Blockly.Xml.domToText(xml);
-  window.sessionStorage.loadOnceBlocks = text;
-};
-
-/**
  * Reset the maze to the start position and kill any pending animation tasks.
  * @param {boolean} first True if an opening animation is to be played.
  */

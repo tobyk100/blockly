@@ -123,25 +123,12 @@ BlocklyApps.initReadonly = function() {
 };
 
 /**
- * Load blocks saved in session/local storage.
- * @param {string} defaultXml Text representation of default blocks.
+ * @param {string} blocksXml Text representation of blocks.
  */
-BlocklyApps.loadBlocks = function(defaultXml) {
-  if (window.sessionStorage.loadOnceBlocks) {
-    // Language switching stores the blocks during the reload.
-    var text = window.sessionStorage.loadOnceBlocks;
-    delete window.sessionStorage.loadOnceBlocks;
-    var xml = Blockly.Xml.textToDom(text);
-    Blockly.Xml.domToWorkspace(Blockly.mainWorkspace, xml);
-  } else if (defaultXml) {
-    // Load the editor with default starting blocks.
-    var xml = Blockly.Xml.textToDom(defaultXml);
-    Blockly.Xml.domToWorkspace(Blockly.mainWorkspace, xml);
-  } else if ('BlocklyStorage' in window) {
-    // Restore saved blocks in a separate thread so that subsequent
-    // initialization is not affected from a failed load.
-    window.setTimeout(BlocklyStorage.restoreBlocks, 0);
-  }
+BlocklyApps.loadBlocks = function(blocksXml) {
+  // Load the editor with default starting blocks.
+  var xml = Blockly.Xml.textToDom(blocksXml);
+  Blockly.Xml.domToWorkspace(Blockly.mainWorkspace, xml);
 };
 
 /**
@@ -205,32 +192,6 @@ BlocklyApps.checkTimeout = function(opt_id) {
 BlocklyApps.hideDialog = function(opt_animate) {
   dialog.hide(opt_animate);
   BlocklyApps.hideInterstitial();
-};
-
-/**
- * Display a storage-related modal dialog.
- * @param {string} message Text to alert.
- */
-BlocklyApps.storageAlert = function(message) {
-  var container = document.getElementById('containerStorage');
-  container.innerHTML = '';
-  var lines = message.split('\n');
-  for (var i = 0; i < lines.length; i++) {
-    var p = document.createElement('p');
-    p.appendChild(document.createTextNode(lines[i]));
-    container.appendChild(p);
-  }
-
-  var content = document.getElementById('dialogStorage');
-  var origin = document.getElementById('linkButton');
-  var style = {
-    width: '50%',
-    left: '25%',
-    top: '5em'
-  };
-  dialog.show(content, origin, true, true, style, function() {
-    content.parentNode.removeChild(content);
-  });
 };
 
 /**

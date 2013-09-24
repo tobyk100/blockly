@@ -373,11 +373,11 @@ Maze.init = function(config) {
   window.addEventListener('resize', BlocklyApps.onResize);
   BlocklyApps.onResize();
 
-  var defaultXml =
+  var blocksXml =
       '<xml>' +
       '  <block type="maze_moveForward" x="70" y="70"></block>' +
       '</xml>';
-  BlocklyApps.loadBlocks(defaultXml);
+  BlocklyApps.loadBlocks(blocksXml);
 
   // Locate the start and finish squares.
   for (var y = 0; y < Maze.ROWS; y++) {
@@ -399,15 +399,6 @@ Maze.init = function(config) {
   } else {
     document.getElementById('helpButton').setAttribute('disabled', 'disabled');
   }
-};
-
-/**
- * Save the blocks for a one-time reload.
- */
-Maze.saveToStorage = function() {
-  var xml = Blockly.Xml.workspaceToDom(Blockly.mainWorkspace);
-  var text = Blockly.Xml.domToText(xml);
-  window.sessionStorage.loadOnceBlocks = text;
 };
 
 /**
