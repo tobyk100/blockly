@@ -417,6 +417,9 @@ module.exports = {
     'toolbox': toolbox(2, 6),
     'ideal': 3,
     'requiredBlocks': [
+      [{'test': 'turnRight',
+        'type': 'maze_turn',
+        'titles': {'DIR': 'turnRight'}}],
       [{'test': 'moveForward', 'type': 'maze_moveForward'}],
       [{'test': 'for', 'type': 'controls_repeat'}]
     ],
@@ -503,6 +506,9 @@ module.exports = {
     'toolbox': toolbox(2, 10),
     'ideal': 3,
     'requiredBlocks': [
+      [{'test': 'turnRight',
+        'type': 'maze_turn',
+        'titles': {'DIR': 'turnRight'}}],
       [{'test': 'moveForward', 'type': 'maze_moveForward'}],
       [{'test': 'while', 'type': 'maze_forever'}]
     ],
