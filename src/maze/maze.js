@@ -58,7 +58,7 @@ BlocklyApps.IDEAL_BLOCK_NUM = level.ideal;
 BlocklyApps.REQUIRED_BLOCKS = level.requiredBlocks;
 
 //The number of blocks to show as feedback.
-BlocklyApps.NUM_REQUIRED_BLOCKS_TO_FLAG = 10;
+BlocklyApps.NUM_REQUIRED_BLOCKS_TO_FLAG = 1;
 
 BlocklyApps.INTERSTITIALS = level.interstitials || {};
 
