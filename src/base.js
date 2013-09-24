@@ -452,7 +452,7 @@ BlocklyApps.updateCapacity = function() {
 /**
  * Display feedback based on test results.  The test results must be
  * explicitly provided.
- * @param {?number} opt_feedbackType Test results (a constant property of
+ * @param {{feedbackType: number}} Test results (a constant property of
  *     BlocklyApps.TestResults).
  */
 BlocklyApps.displayFeedback = function(options) {
