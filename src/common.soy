@@ -65,6 +65,17 @@
 {/template}
 
 /**
+ * A spot for the server to inject some HTML for help content.
+ */
+{template .helpArea}
+  {if $ij.helpHtml }
+    <div id="helpArea">
+      {$ij.helpHtml |noAutoescape}
+    </div>
+  {/if}
+{/template}
+
+/**
  * @param? appSpecific Contains feedback entries for a particular app.
  */
 {template .feedback}
