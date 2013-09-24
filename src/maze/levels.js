@@ -715,9 +715,9 @@ module.exports = {
       [{'test': 'isPathForward',
         'type': 'maze_ifElse',
         'titles': {'DIR': 'isPathForward'}}],
-      [{'test': 'isPathRight',
-        'type': 'maze_if',
-        'titles': {'DIR': 'isPathRight'}}],
+      [{'test': 'turnRight',
+        'type': 'maze_turn',
+        'titles': {'DIR': 'turnRight'}}],
       [{'test': 'while', 'type': 'maze_forever'}]
     ],
     'startDirection': Direction.EAST,
