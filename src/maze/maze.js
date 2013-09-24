@@ -60,8 +60,6 @@ BlocklyApps.REQUIRED_BLOCKS = level.requiredBlocks;
 //The number of blocks to show as feedback.
 BlocklyApps.NUM_REQUIRED_BLOCKS_TO_FLAG = 1;
 
-BlocklyApps.INTERSTITIALS = level.interstitials || {};
-
 // Default Scalings
 Maze.scale = {
   'snapRadius': 1,
@@ -79,7 +77,6 @@ var skin = skins.load(BlocklyApps.BASE_URL, skinId);
 exports.config = {
   skin: skin,
   level: level,
-  interstitials: BlocklyApps.INTERSTITIALS,
   baseUrl: BlocklyApps.BASE_URL
 };
 
@@ -392,13 +389,6 @@ Maze.init = function(config) {
 
   BlocklyApps.reset(true);
   Blockly.addChangeListener(function() {BlocklyApps.updateCapacity()});
-
-  var interstitial = BlocklyApps.INTERSTITIALS.before;
-  if (interstitial) {
-    BlocklyApps.showHelp(false, undefined);
-  } else {
-    document.getElementById('helpButton').setAttribute('disabled', 'disabled');
-  }
 };
 
 /**

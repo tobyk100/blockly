@@ -217,9 +217,6 @@ var BLOCK_DATA = [
     },
     // Level 2: Square (without repeat).
     {
-      interstitials: {
-        before: {}
-      },
       ideal: 7,
       requiredBlocks: [
         [MOVE_FORWARD_INLINE],
@@ -231,9 +228,6 @@ var BLOCK_DATA = [
     },
     // Level 3: Square (with repeat).
     {
-      interstitials: {
-        before: {}
-      },
       ideal: 3,
       requiredBlocks: [
         [MOVE_FORWARD_INLINE],
@@ -244,9 +238,6 @@ var BLOCK_DATA = [
     },
     // Level 4: Triangle.
     {
-      interstitials: {
-        before: {}
-      },
       ideal: 3,
       requiredBlocks: [
         [MOVE_FORWARD_INLINE],
@@ -263,9 +254,6 @@ var BLOCK_DATA = [
     },
     // Level 5: Envelope.
     {
-      interstitials: {
-        before: {}
-      },
       ideal: 6,
       requiredBlocks: [
         [repeat(3)],
@@ -276,9 +264,6 @@ var BLOCK_DATA = [
     },
     // Level 6: triangle and square.
     {
-      interstitials: {
-        before: {}
-      },
       ideal: 6,
       requiredBlocks: [
         [repeat(3)],
@@ -302,9 +287,6 @@ var BLOCK_DATA = [
     },
     // Level 8: spikes.
     {
-      interstitials: {
-        before: {}
-      },
       ideal: 4,
       requiredBlocks: [[repeat(8)]],
       requiredColors: 8,
@@ -317,9 +299,6 @@ var BLOCK_DATA = [
     },
     // Level 10: playground.
     {
-      interstitials: {
-        before: {}
-      },
       freePlay: true
     },
   ],
@@ -327,9 +306,6 @@ var BLOCK_DATA = [
   [
     // Level 1: Square.
     {
-      interstitials: {
-        before: {}
-      },
       ideal: 5,
       requiredBlocks: [
         [repeat(4)],
@@ -342,9 +318,6 @@ var BLOCK_DATA = [
     },
     // Level 2: Small green square.
     {
-      interstitials: {
-        before: {}
-      },
       ideal: 2,
       requiredBlocks: [
         [drawASquare('??')],
@@ -355,9 +328,6 @@ var BLOCK_DATA = [
     },
     // Level 3: Three squares.
     {
-      interstitials: {
-        before: {}
-      },
       ideal: 5,
       requiredBlocks: [
         [repeat(3)],
@@ -369,17 +339,11 @@ var BLOCK_DATA = [
     },
     // Level 4: 36 squares.
     {
-      interstitials: {
-        before: {}
-      },
       ideal: 5,
       freePlay: false
     },
     // Level 5: Different size squares.
     {
-      interstitials: {
-        before: {}
-      },
       ideal: 10,
       requiredBlocks: [
         [drawASquare('??')]
@@ -388,9 +352,6 @@ var BLOCK_DATA = [
     },
     // Level 6: For-loop squares.
     {
-      interstitials: {
-        before: {}
-      },
       ideal: 6,
       // This is not displayed properly.
       requiredBlocks: [[simpleBlock('variables_get_counter')]],
@@ -398,9 +359,6 @@ var BLOCK_DATA = [
     },
     // Level 7: Boxy spiral.
     {
-      interstitials: {
-        before: {}
-      },
       ideal: 8,
       requiredBlocks: [
         [simpleBlock('controls_for_counter')],
@@ -412,9 +370,6 @@ var BLOCK_DATA = [
     },
     // Level 8: Three snowmen.
     {
-      interstitials: {
-        before: {}
-      },
       ideal: 9,
       requiredBlocks: [
         [drawASnowman(150)],
@@ -433,9 +388,6 @@ var BLOCK_DATA = [
     },
     // Level 9: Snowman family.
     {
-      interstitials: {
-        before: {}
-      },
       ideal: 12,
       requiredBlocks: [
         [drawASnowman('??')],
@@ -460,9 +412,6 @@ var BLOCK_DATA = [
   [
     // Level 1: Call 'draw a square'.
     {
-      interstitials: {
-        before: {}
-      },
       ideal: 1,
       requiredBlocks: [
         [call('draw a square')]
@@ -471,10 +420,6 @@ var BLOCK_DATA = [
     },
     // Level 2: Create "draw a triangle".
     {
-      interstitials: {
-        before: {},
-        after: {}
-      },
       ideal: 7,
       requiredBlocks: [
         [repeat(3)],
@@ -507,9 +452,6 @@ var BLOCK_DATA = [
     },
     // Level 5: Create "draw a house".
     {
-      interstitials: {
-        before: {}
-      },
       ideal: 8,
       requiredBlocks: [
         [define('draw a house')],
@@ -523,9 +465,6 @@ var BLOCK_DATA = [
     },
     // Level 6: Add parameter to "draw a triangle".
     {
-      interstitials: {
-        before: {}
-      },
       ideal: 13,
       requiredBlocks: [
         [exports.defineWithArg_('draw a triangle', 'length')],
@@ -549,17 +488,11 @@ var BLOCK_DATA = [
     },
     // Level 8: Draw houses.
     {
-      interstitials: {
-        before: {}
-      },
       ideal: 27,
       freePlay: false
     },
     // Level 9: Draw houses with for loop.
     {
-      interstitials: {
-        after: {}
-      },
       ideal: 27,
       requiredBlocks: [
         [simpleBlock('controls_for_counter')],
@@ -603,7 +536,6 @@ exports.install = function(BlocklyApps, Turtle) {
       BlocklyApps.getNumberParamFromUrl('level', 1, BlocklyApps.MAX_LEVEL);
 
   var level = BLOCK_DATA[BlocklyApps.PAGE - 1][BlocklyApps.LEVEL - 1];
-  BlocklyApps.INTERSTITIALS = level.interstitials;
   BlocklyApps.IDEAL_BLOCK_NUM = level.ideal || Infinity;
   BlocklyApps.REQUIRED_BLOCKS = level.requiredBlocks || [];
   Turtle.REQUIRED_COLOURS = level.requiredColors;

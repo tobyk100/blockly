@@ -53,7 +53,6 @@ levels.install(BlocklyApps, Turtle);
 BlocklyApps.CHECK_FOR_EMPTY_BLOCKS = false;
 BlocklyApps.NUM_REQUIRED_BLOCKS_TO_FLAG = 1;
 BlocklyApps.FREE_BLOCKS = 'colour';
-BlocklyApps.INTERSTITIALS = {}; //XXX
 
 Turtle.HEIGHT = 400;
 Turtle.WIDTH = 400;
@@ -184,12 +183,6 @@ Turtle.init = function() {
 
   // Lazy-load the syntax-highlighting.
   window.setTimeout(BlocklyApps.importPrettify, 1);
-
-  if (BlocklyApps.INTERSTITIALS.before) {
-    BlocklyApps.showHelp(false, undefined);
-  } else {
-    document.getElementById('helpButton').setAttribute('disabled', 'disabled');
-  }
 };
 
 if (window.location.pathname.match(/readonly.html$/)) {
@@ -689,16 +682,6 @@ Turtle.checkAnswer = function() {
     app: 'turtle',
     feedbackType: feedbackType
   });
-};
-
-/**
- * Goes to the next level from an interstitial screen.
- */
-Turtle.continueButtonClick = function() {
-  document.getElementById('continueButton').style.display = 'none';
-  window.location = window.location.protocol + '//' + window.location.host +
-      window.location.pathname + '?page=' + BlocklyApps.PAGE + '&level=' +
-      BlocklyApps.LEVEL;
 };
 
 // Turtle API.

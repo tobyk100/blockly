@@ -1,27 +1,6 @@
 {namespace mazepage}
 
 /**
- * Interstitials.
- * @param class
- * @param interstitial
- */
-{template .interstitial}
-  <p class="{$class}">
-    {if $interstitial.images}
-      {foreach $img in $interstitial.images}
-        <img src="{$ij.baseUrl}{$img}"/>
-      {/foreach}
-    {/if}
-    {if $interstitial.blocks}
-      <iframe src="{$ij.baseUrl}maze/readonly.html?xml={$interstitial.blocks}"></iframe>
-    {/if}
-    {if $interstitial.videoId}
-      <iframe class="video" src="https://docs.google.com/file/d/{$interstitial.videoId}/preview;"></iframe>
-    {/if}
-  </p>
-{/template}
-
-/**
  * Web page structure.
  */
 {template .start}
@@ -34,43 +13,6 @@
   <div id="help" class="dialogHiddenContent">
     <div style="padding-bottom: 0.7ex;"><br>
       {call apps.feedback/}
-
-      /**
-       * Interstitials.
-       */
-      <div id="interstitial" style="display: none;">
-        <div style="margin-left: 50px;">
-          <div id="reinfbubble">
-            <span id="reinfMsg">
-              {if $ij.interstitials.before}
-                <span class="preInter">{$ij.interstitials.before.message}</span>
-              {/if}
-              {if $ij.interstitials.after}
-                <span class="postInter">{$ij.interstitials.after.message}</span>
-              {/if}
-            </span>
-          </div>
-          <img id="pegman_bubble" height=42 width=55 src="{$ij.baseUrl}maze/pegman_bubble.png">
-        </div>
-        /**
-         * Show image and/or video below avatar for these reinf levels.
-         */
-        {if $ij.interstitials.before}
-          {call .interstitial}
-            {param class}preInter{/param}
-            {param interstitial: $ij.interstitials.before /}
-          {/call}
-        {/if}
-        {if $ij.interstitials.after}
-          {call .interstitial}
-            {param class}postInter{/param}
-            {param interstitial: $ij.interstitials.after /}
-          {/call}
-        {/if}
-      </div>
-      /**
-       * End reinf level processing.
-       */
       <br>
       {call apps.feedbackButtons/}
     </div>
