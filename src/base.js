@@ -88,18 +88,6 @@ BlocklyApps.init = function(config) {
   onContinue = config.onContinue || function() {
     console.log('Continue!');
   };
-  // Disable the link button if page isn't backed by App Engine storage.
-  var linkButton = document.getElementById('linkButton');
-  if ('BlocklyStorage' in window) {
-    BlocklyStorage.HTTPREQUEST_ERROR = msg.httpRequestError();
-    BlocklyStorage.LINK_ALERT = msg.linkAlert();
-    BlocklyStorage.HASH_ERROR = msg.hashError();
-    BlocklyStorage.XML_ERROR = msg.xmlError();
-    // Swap out the BlocklyStorage's alert() for a nicer dialog.
-    BlocklyStorage.alert = BlocklyApps.storageAlert;
-  } else if (linkButton) {
-    linkButton.className = 'disabled';
-  }
 
   // Fixes viewport for small screens.
   var viewport = document.querySelector('meta[name="viewport"]');
@@ -135,14 +123,11 @@ BlocklyApps.initReadonly = function() {
 };
 
 /**
- * Load blocks saved on App Engine Storage or in session/local storage.
+ * Load blocks saved in session/local storage.
  * @param {string} defaultXml Text representation of default blocks.
  */
 BlocklyApps.loadBlocks = function(defaultXml) {
-  if ('BlocklyStorage' in window && window.location.hash.length > 1) {
-    // An href with #key trigers an AJAX call to retrieve saved blocks.
-    BlocklyStorage.retrieveXml(window.location.hash.substring(1));
-  } else if (window.sessionStorage.loadOnceBlocks) {
+  if (window.sessionStorage.loadOnceBlocks) {
     // Language switching stores the blocks during the reload.
     var text = window.sessionStorage.loadOnceBlocks;
     delete window.sessionStorage.loadOnceBlocks;

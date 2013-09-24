@@ -84,25 +84,10 @@
     "string": "Hint:",
     "description": "title - this indicates to the user that what follows are ways to improve and/or fix their code."
   },
-  "httpRequestError": {
-    "id": "6491926390857975299",
-    "string": "There was a problem with the request.",
-    "description": "alert - The URL is invalid or a server error occurred.  This message will be followed by technical information useful to engineers trying to understand the problem."
-  },
   "levelIncompleteError": {
     "id": "2245055276599312776",
     "string": "You are using all of the necessary types of blocks but not in the right way.",
     "description": "TODO"
-  },
-  "linkAlert": {
-    "id": "6192625840582724866",
-    "string": "Share your blocks with this link:\n\n%1",
-    "description": "alert - After the user has pressed a button to save his/her program, this provides the URL (%1) to retrieve the program.  The characters '\n\n' indicate that a blank line will be displayed before the URL (in English).  Leave those in unless you move %1 to the beginning or middle of the text, in which case you should use your judgment about where blank lines would be most useful."
-  },
-  "linkTooltip": {
-    "id": "5391382062551588177",
-    "string": "Save and link to blocks.",
-    "description": "tooltip - Clicking on this button will cause the current program to be saved and for a URL to be shown to later retrieve it."
   },
   "listVariable": {
     "id": "7314181232693154293",

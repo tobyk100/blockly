@@ -122,10 +122,6 @@ Turtle.init = function() {
   onresize();
   Blockly.fireUiEvent(window, 'resize');
 
-  if (!('BlocklyStorage' in window)) {
-    document.getElementById('linkButton').className = 'disabled';
-  }
-
   // Show the instructions.
   var msgKey = 'instructions' + BlocklyApps.PAGE + '_' + BlocklyApps.LEVEL;
   document.getElementById('prompt').innerHTML = msg[msgKey]();
