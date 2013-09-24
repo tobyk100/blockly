@@ -493,6 +493,7 @@ Maze.ResultType = {
 var displayFeedback = function() {
   BlocklyApps.displayFeedback({
     app: 'maze',
+    skin: skin.id,
     finalLevel: false //TODO: Get from server or otherwise parameterize
   });
 };

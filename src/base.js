@@ -636,7 +636,8 @@ BlocklyApps.setErrorFeedback = function(options) {
             .style.display = 'list-item';
         document.getElementById('feedbackBlocks').src =
             BlocklyApps.BASE_URL + options.app + '/readonly.html?xml=' +
-            BlocklyApps.generateXMLForBlocks(missingBlocks);
+            BlocklyApps.generateXMLForBlocks(missingBlocks) +
+            (options.skin ? '?skin=' + options.skin : '');
         document.getElementById('feedbackBlocks').style.display = 'block';
       }
       break;
