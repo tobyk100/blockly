@@ -81,7 +81,7 @@ Both of these tutorials are found on code.org/learn or csedweek.org/learn. At th
 6. [Hack]
 7. Merge in most up-to-date changes, repeat as needed:
   1. `git fetch codedotorg`
-  2. `git merge codedotorg/mooc`
+  2. `git merge codedotorg/master`
 8. Push changes to your fork, repeat as desired.
 9. Initiate pull request on your fork's page, targeting this repository.
 10. Find the pull request you initiated and assign it to someone. This requires
