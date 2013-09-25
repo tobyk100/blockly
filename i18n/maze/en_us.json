@@ -1,4 +1,9 @@
 {
+  "ballsPresent": {
+    "id": "4050999966626457535",
+    "string": "there is a pile",
+    "description": "Indicates the presence of at least one ball, as in 'he brought a ball, there are now balls present'"
+  },
   "capacity0": {
     "id": "7083250244318947033",
     "string": "You have<x id='START_SPAN'/>0<x id='END_SPAN'/> blocks left.",
@@ -59,6 +64,11 @@
     "string": "Congratulations! You have solved the final level.",
     "description": "alert - This is displayed when the user solves the most difficult level."
   },
+  "holesPresent": {
+    "id": "4787297942415818764",
+    "string": "there is a hole",
+    "description": "Indicates the lack of any balls, as in 'she took the last ball, there are now no balls present'"
+  },
   "ifTooltip": {
     "id": "4874525273235336318",
     "string": "If there is a path in the specified direction, then do some actions.",
@@ -94,6 +104,21 @@
     "string": "No",
     "description": "No indicates that this option is incorrect."
   },
+  "noPathAhead": {
+    "id": "3929450303285114841",
+    "string": "path is blocked",
+    "description": "condensed form of 'if there is a no path ahead', as in: 'if no path ahead, go forward'."
+  },
+  "noPathLeft": {
+    "id": "3597718516419494722",
+    "string": "no path to the left",
+    "description": "condensed form of 'if there is a no path to the left', as in: 'if no path to the left, turn left'."
+  },
+  "noPathRight": {
+    "id": "144914298205682744",
+    "string": "no path to the right",
+    "description": "condensed form of 'if there is a no path to the right', as in: 'if no path to the right, turn right'."
+  },
   "numBlocksNeeded": {
     "id": "857707012901609467",
     "string": "This level can be solved with %1 blocks.",
@@ -119,9 +144,55 @@
     "string": "if path to the right",
     "description": "condensed form of 'if there is a path to the right', as in: 'if path to the right, turn right'."
   },
+  "pickUpBall": {
+    "id": "5268364470656255036",
+    "string": "remove 1",
+    "description": "verb - imperative or infinitive for a person picking up a ball."
+  },
+  "pickUpBallTooltip": {
+    "string": "TODO"
+  },
+  "pickupTower": {
+    "id": "885793977251639445",
+    "string": "pickup tower",
+    "description": "Place a tower up off the ground"
+  },
+  "putDown5": {
+    "id": "979916318881432671",
+    "string": "put down 5",
+    "description": "place 5 balls on the square."
+  },
+  "putDownBall": {
+    "id": "820940435620302045",
+    "string": "fill 1",
+    "description": "verb - imperative or infinitive for a person putting down a ball."
+  },
+  "putDownBallTooltip": {
+    "string": "TODO"
+  },
+  "putdownTower": {
+    "id": "471029618522690538",
+    "string": "put down tower",
+    "description": "Place a tower on the ground"
+  },
   "repeatUntil": {
     "id": "5000330788075193694",
     "string": "repeat until",
+    "description": "verb - imperative or infinitive to repeat the following commands.  The phrase is followed by the symbol denoting the end of the maze."
+  },
+  "repeatUntilBlocked": {
+    "id": "5669566230124297065",
+    "string": "while path ahead",
+    "description": "verb - imperative or infinitive to repeat the following commands.  The phrase is followed by the symbol denoting the end of the maze."
+  },
+  "repeatUntilFinish": {
+    "id": "1290859655665631564",
+    "string": "repeat until finish",
+    "description": "verb - imperative or infinitive to repeat the following commands.  The phrase is followed by the symbol denoting the end of the maze."
+  },
+  "repeatWhileCurrentNotClear": {
+    "id": "1129624636896695060",
+    "string": "while",
     "description": "verb - imperative or infinitive to repeat the following commands.  The phrase is followed by the symbol denoting the end of the maze."
   },
   "resetProgram": {
@@ -153,6 +224,11 @@
     "id": "2672041123505998510",
     "string": "Turns me left or right by 90 degrees.",
     "description": "tooltip (pop-up help) - Pegman is the humanoid icon used in Google Maps. See picture at http://goo.gl/9I64i (http://maps.google.com/intl/en/help/maps/streetview/learn/pegman.html). The term 'space' refers to a single square within a maze."
+  },
+  "while": {
+    "id": "3456647281718039043",
+    "string": "while",
+    "description": "condensed form of 'while something is true'"
   },
   "whileTooltip": {
     "id": "1190064103412776740",

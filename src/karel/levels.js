@@ -70,25 +70,25 @@ var WHILE_OPT_PATH_AHEAD = {
   'titles': {'DIR': 'isPathForward'}
 };
 
-// This tests for and creates the "maze_if" block.
-var IF = {'test': 'if', 'type': 'maze_if'};
+// This tests for and creates the "karel_if" block.
+var IF = {'test': 'if', 'type': 'karel_if'};
 
-// This tests for and creates the "maze_if" block with the option "ballsPresent" selected.
+// This tests for and creates the "karel_if" block with the option "ballsPresent" selected.
 var IF_OPT_BALLS_PRESENT = {
   'test': 'if (Maze.ballsPresent',
-  'type': 'maze_if',
+  'type': 'karel_if',
   'titles': {'DIR': 'ballsPresent'}
 };
 
-// This tests for and creates the "maze_if" block with the option "holesPresent" selected.
+// This tests for and creates the "karel_if" block with the option "holesPresent" selected.
 var IF_OPT_HOLES_PRESENT = {
   'test': 'if (Maze.holesPresent',
-  'type': 'maze_if',
+  'type': 'karel_if',
   'titles': {'DIR': 'holesPresent'}
 };
 
-// This tests for and creates the "maze_ifElse" block.
-var IF_ELSE = {'test': '} else {', 'type': 'maze_ifElse'};
+// This tests for and creates the "karel_ifElse" block.
+var IF_ELSE = {'test': '} else {', 'type': 'karel_ifElse'};
 
 // This tests for and creates the "fill num" blcok.
 var fill = function(num) {
