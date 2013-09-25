@@ -79,26 +79,6 @@
     "string": "hide turtle",
     "description": "TODO"
   },
-  "instructions4_1": {
-    "id": "",
-    "string": "Now you have learned how to draw different shapes, can you create a program that draws the house you made with tangram pieces?",
-    "description": "TODO"
-  },
-  "instructions4_2": {
-    "id": "",
-    "string": "Now you have learned how to draw different shapes, can you create a program that draws the square you made with two triangles?",
-    "description": "TODO"
-  },
-  "instructions4_3": {
-    "id": "",
-    "string": "Now you have learned how to draw different shapes, can you create a program that draws the arrow you made with tangram pieces?",
-    "description": "TODO"
-  },
-  "instructions4_4": {
-    "id": "",
-    "string": "Now you have learned how to draw different shapes, can you create a program that draws the ship you made with tangram pieces?",
-    "description": "TODO"
-  },
   "jumpBackward": {
     "id": "4466869966303893630",
     "string": "jump backward by",
