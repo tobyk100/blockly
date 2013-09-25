@@ -1211,7 +1211,7 @@ Maze.putDownBall = function(id) {
     var x = Maze.pegmanX;
     var y = Maze.pegmanY;
     Maze.balls_[y][x] = Maze.balls_[y][x] + 1;
-    Maze.checkSuccess(id);
+    checkSuccess(id);
 };
 
 /**
@@ -1223,5 +1223,5 @@ Maze.pickUpBall = function(id) {
     var x = Maze.pegmanX;
     var y = Maze.pegmanY;
     Maze.balls_[y][x] = Maze.balls_[y][x] - 1;
-    Maze.checkSuccess(id);
+    checkSuccess(id);
 };
