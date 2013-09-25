@@ -82,7 +82,7 @@ Maze.initialBallMap = level.initialBalls;
 Maze.finalBallMap = level.finalBalls;
 
 var getTile = function(map, x, y) {
-  if (map) {
+  if (map && map[y]) {
     return map[y][x];
   }
 };
