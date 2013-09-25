@@ -730,7 +730,6 @@ BlocklyApps.resetButtonClick = function() {
 
 /**
  * Show the help pop-up.
- * @param {boolean} animate Animate the pop-up opening.
  * @param {number} feedbackType If defined, the results of end of level tests.
  */
 BlocklyApps.showHelp = function(feedbackType) {
