@@ -181,7 +181,7 @@ Maze.drawMap = function() {
 
   // Fill-in hint bubble.
   var hint = document.getElementById('hint');
-  hint.innerHTML = msg[level.instructions]();
+  hint.innerHTML = level.instructions;
 
   if (skin.background) {
     var tile = document.createElementNS(Blockly.SVG_NS, 'image');
@@ -329,6 +329,10 @@ Maze.init = function(config) {
     config = {};
   }
   BlocklyApps.init(config);
+  // Override the current level with caller supplied parameters.
+  for (var prop in config.level) {
+    level[prop] = config.level[prop];
+  }
 
   var rtl = BlocklyApps.isRtl();
   var toolbox = document.getElementById('toolbox');
