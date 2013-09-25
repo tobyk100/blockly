@@ -22,4 +22,12 @@ window.turtleMain = function(options) {
 
   blocks.install(Blockly);
 
+  window.addEventListener('load', function() {
+    if (options.readonly) {
+      BlocklyApps.initReadonly();
+    } else {
+      Turtle.init(options);
+    }
+  });
+
 };

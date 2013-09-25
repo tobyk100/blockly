@@ -175,12 +175,6 @@ Turtle.init = function(config) {
   window.setTimeout(BlocklyApps.importPrettify, 1);
 };
 
-if (window.location.pathname.match(/readonly.html$/)) {
-  window.addEventListener('load', BlocklyApps.initReadonly);
-} else {
-  window.addEventListener('load', Turtle.init);
-}
-
 /**
  * Add count of blocks used, not counting colour blocks.
  */
