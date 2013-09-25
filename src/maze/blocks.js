@@ -138,8 +138,6 @@ exports.install = function(blockly, skin) {
     init: function() {
       this.setColour(210);
       this.appendDummyInput()
-          .appendTitle('if');
-      this.appendDummyInput()
           .appendTitle(new blockly.FieldDropdown(this.DIRECTIONS), 'DIR');
       this.setInputsInline(true);
       this.appendStatementInput('DO')
@@ -167,8 +165,6 @@ exports.install = function(blockly, skin) {
     helpUrl: '',
     init: function() {
       this.setColour(210);
-      this.appendDummyInput()
-          .appendTitle('if');
       this.appendDummyInput()
           .appendTitle(new blockly.FieldDropdown(this.DIRECTIONS), 'DIR');
       this.setInputsInline(true);

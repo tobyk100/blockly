@@ -308,7 +308,8 @@ var LEVELS = {
       [turnRightRestricted(90)],
       [MOVE_FORWARD_INLINE],
       [SET_COLOUR_PICKER],
-      [MOVE_BACKWARD_INLINE]
+      [repeat(4)],
+      [MOVE_BACKWARD_INLINE, MOVE_FORWARD_INLINE]
     ],
     requiredColors: Colours.GREEN,
     freePlay: false
