@@ -384,21 +384,6 @@
     "string": "Turns the turtle left or right by the specified number of degrees.",
     "description": "TODO"
   },
-  "turtle1": {
-    "id": "3561533632409117166",
-    "string": "Turtle 1",
-    "description": "brief title - Specifies that this is Blockly's '''Turtle 1''' tutorial."
-  },
-  "turtle2": {
-    "id": "5693651952632842190",
-    "string": "Turtle 2",
-    "description": "brief title - Specifies that this is Blockly's '''Turtle 2''' tutorial."
-  },
-  "turtle3": {
-    "id": "9192320043405678363",
-    "string": "Turtle 3",
-    "description": "brief title - Specifies that this is Blockly's '''Turtle 3''' tutorial."
-  },
   "turtleVisibilityTooltip": {
     "id": "9016285072881975083",
     "string": "Makes the turtle (green circle and arrow) visible or invisible.",

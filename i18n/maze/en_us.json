@@ -74,11 +74,6 @@
     "string": "Save and link to blocks.",
     "description": "tooltip (pop-up help) for button; pressing the button causes the user's program to be saved and for a URL to be provided for retrieving it.  The word 'blocks' is as in children's toy blocks."
   },
-  "maze": {
-    "id": "34428208008617605",
-    "string": "Maze",
-    "description": "brief title - Specifies that this is Blockly's '''Maze''' tutorial."
-  },
   "moveForward": {
     "id": "4138774728570944645",
     "string": "move forward",
