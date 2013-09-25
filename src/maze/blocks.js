@@ -49,6 +49,43 @@ exports.install = function(blockly, skin) {
     return 'Maze.moveForward(\'block_id_' + this.id + '\');\n';
   };
 
+  blockly.Language.maze_putDownBall = {
+    // Block for putting down a ball.
+    helpUrl: 'http://code.google.com/p/blockly/wiki/PutDown',
+    init: function() {
+      this.setColour(290);
+      this.appendDummyInput()
+          .appendTitle(msg.putDownBall());
+      this.setPreviousStatement(true);
+      this.setNextStatement(true);
+      this.setTooltip(msg.putDownBallTooltip());
+    }
+  };
+
+  generator.maze_putDownBall = function() {
+    // Generate JavaScript for putting down a ball.
+    return 'Maze.putDownBall(\'block_id_' + this.id + '\');\n';
+  };
+
+  // Nan's
+  blockly.Language.maze_pickUpBall = {
+    // Block for putting down a ball.
+    helpUrl: 'http://code.google.com/p/blockly/wiki/PickUp',
+    init: function() {
+      this.setColour(290);
+      this.appendDummyInput()
+          .appendTitle(msg.pickUpBall());
+      this.setPreviousStatement(true);
+      this.setNextStatement(true);
+      this.setTooltip(msg.pickUpBallTooltip());
+    }
+  };
+
+  generator.maze_pickUpBall = function() {
+    // Generate JavaScript for putting down a ball.
+    return 'Maze.pickUpBall(\'block_id_' + this.id + '\');\n';
+  };
+
   blockly.Language.maze_turn = {
     // Block for turning left or right.
     helpUrl: 'http://code.google.com/p/blockly/wiki/Turn',
@@ -101,7 +138,10 @@ exports.install = function(blockly, skin) {
     init: function() {
       this.setColour(210);
       this.appendDummyInput()
+          .appendTitle('if');
+      this.appendDummyInput()
           .appendTitle(new blockly.FieldDropdown(this.DIRECTIONS), 'DIR');
+      this.setInputsInline(true);
       this.appendStatementInput('DO')
           .appendTitle(msg.doCode());
       this.setTooltip(msg.ifTooltip());
@@ -128,7 +168,10 @@ exports.install = function(blockly, skin) {
     init: function() {
       this.setColour(210);
       this.appendDummyInput()
+          .appendTitle('if');
+      this.appendDummyInput()
           .appendTitle(new blockly.FieldDropdown(this.DIRECTIONS), 'DIR');
+      this.setInputsInline(true);
       this.appendStatementInput('DO')
           .appendTitle(msg.doCode());
       this.appendStatementInput('ELSE')
@@ -153,6 +196,125 @@ exports.install = function(blockly, skin) {
     return code;
   };
 
+  blockly.Language.karel_if = {
+    // Block for 'if' conditional if there is a path.
+    helpUrl: '',
+    init: function() {
+      this.setColour(210);
+      this.appendDummyInput()
+          .appendTitle('if');
+      this.appendDummyInput()
+          .appendTitle(new blockly.FieldDropdown(this.DIRECTIONS), 'DIR');
+      this.setInputsInline(true);
+      this.appendStatementInput('DO')
+          .appendTitle(msg.doCode());
+      this.setTooltip(msg.ifTooltip());
+      this.setPreviousStatement(true);
+      this.setNextStatement(true);
+    }
+  };
+
+  generator.karel_if = function() {
+    // Generate JavaScript for 'if' conditional if there is a path.
+    var argument = 'Maze.' + this.getTitleValue('DIR') +
+        '(\'block_id_' + this.id + '\')';
+    var branch = generator.statementToCode(this, 'DO');
+    var code = 'if (' + argument + ') {\n' + branch + '}\n';
+    return code;
+  };
+
+  blockly.Language.karel_if.DIRECTIONS = [
+       [msg.ballsPresent(), 'ballsPresent'],
+       [msg.holesPresent(), 'holesPresent'],
+       [msg.pathAhead(), 'isPathForward']
+  //     [msg.noPathAhead(), 'noPathForward']
+  ];
+
+
+  blockly.Language.karel_ifElse = {
+    // Block for 'if/else' conditional if there is a path.
+    helpUrl: '',
+    init: function() {
+      this.setColour(210);
+      this.appendDummyInput()
+          .appendTitle('if');
+      this.appendDummyInput()
+          .appendTitle(new blockly.FieldDropdown(this.DIRECTIONS), 'DIR');
+      this.setInputsInline(true);
+      this.appendStatementInput('DO')
+          .appendTitle(msg.doCode());
+      this.appendStatementInput('ELSE')
+          .appendTitle(msg.elseCode());
+      this.setTooltip(msg.ifelseTooltip());
+      this.setPreviousStatement(true);
+      this.setNextStatement(true);
+    }
+  };
+
+  generator.karel_ifElse = function() {
+    // Generate JavaScript for 'if/else' conditional if there is a path.
+    var argument = 'Maze.' + this.getTitleValue('DIR') +
+        '(\'block_id_' + this.id + '\')';
+    var branch0 = generator.statementToCode(this, 'DO');
+    var branch1 = generator.statementToCode(this, 'ELSE');
+    var code = 'if (' + argument + ') {\n' + branch0 +
+               '} else {\n' + branch1 + '}\n';
+    return code;
+  };
+
+  blockly.Language.karel_ifElse.DIRECTIONS =
+      blockly.Language.karel_if.DIRECTIONS;
+
+  blockly.Language.maze_whileNotClear = {
+    helpUrl: 'http://code.google.com/p/blockly/wiki/Repeat',
+    init: function() {
+      this.setColour(120);
+      this.appendDummyInput()
+          .appendTitle(new blockly.FieldDropdown(this.DIRECTIONS), 'DIR');
+      this.appendStatementInput('DO')
+          .appendTitle(msg.doCode());
+      this.setPreviousStatement(true);
+      this.setNextStatement(true);
+      this.setTooltip(msg.whileTooltip());
+    }
+  };
+
+  generator.maze_whileNotClear = function() {
+    var argument = 'Maze.' + this.getTitleValue('DIR')
+        + '(\'block_id_' + this.id + '\')';
+    var branch = generator.statementToCode(this, 'DO');
+    branch = BlocklyApps.INFINITE_LOOP_TRAP.replace(/%1/g,
+        '\'block_id_' + this.id + '\'') + branch;
+    return 'while (' + argument + ') {\n' + branch + '}\n';
+  };
+
+  blockly.Language.maze_whileNotClear.DIRECTIONS = [
+    [msg.while() + ' ' + msg.ballsPresent(), 'ballsPresent'],
+    [msg.while() + ' ' + msg.holesPresent(), 'holesPresent']
+  ];
+
+  blockly.Language.maze_untilBlocked = {
+    helpUrl: 'http://code.google.com/p/blockly/wiki/Repeat',
+    init: function() {
+      this.setColour(120);
+      this.appendDummyInput()
+          .appendTitle(msg.repeatUntilBlocked());
+      this.appendStatementInput('DO')
+          .appendTitle(msg.doCode());
+      this.setPreviousStatement(true);
+      this.setNextStatement(true);
+      this.setTooltip(msg.whileTooltip());
+    }
+  };
+
+  generator.maze_untilBlocked = function() {
+    var argument = 'Maze.isPathForward' + '(\'block_id_' + this.id + '\')';
+    branch = BlocklyApps.INFINITE_LOOP_TRAP.replace(/%1/g,
+        '\'block_id_' + this.id + '\'') + branch;
+    var branch = generator.statementToCode(this, 'DO');
+    return 'while (' + argument + ') {\n' + branch + '}\n';
+  };
+
   blockly.Language.maze_forever = {
     // Do forever loop.
     helpUrl: 'http://code.google.com/p/blockly/wiki/Repeat',
@@ -175,5 +337,37 @@ exports.install = function(blockly, skin) {
         '\'block_id_' + this.id + '\'') + branch;
     return 'while (true) {\n' + branch + '}\n';
   };
+
+  blockly.Language.maze_untilBlockedOrNotClear = {
+    helpUrl: 'http://code.google.com/p/blockly/wiki/Repeat',
+    init: function() {
+      this.setColour(120);
+      this.appendDummyInput()
+          .appendTitle(new blockly.FieldDropdown(this.DIRECTIONS), 'DIR');
+      this.appendStatementInput('DO')
+          .appendTitle(msg.doCode());
+      this.setPreviousStatement(true);
+      this.setNextStatement(true);
+      this.setTooltip(msg.whileTooltip());
+    }
+  };
+
+  generator.maze_untilBlockedOrNotClear = function() {
+    var argument = 'Maze.' + this.getTitleValue('DIR')
+        + '(\'block_id_' + this.id + '\')';
+    var branch = generator.statementToCode(this, 'DO');
+    branch = BlocklyApps.INFINITE_LOOP_TRAP.replace(/%1/g,
+        '\'block_id_' + this.id + '\'') + branch;
+    return 'while (' + argument + ') {\n' + branch + '}\n';
+  };
+
+  blockly.Language.maze_untilBlockedOrNotClear.DIRECTIONS = [
+       [msg.while() + ' ' + msg.ballsPresent(), 'ballsPresent'],
+       [msg.while() + ' ' + msg.holesPresent(), 'holesPresent'],
+       [msg.repeatUntilBlocked(), 'isPathForward']
+  ];
+
+  delete blockly.Language.procedures_defreturn;
+  delete blockly.Language.procedures_ifreturn;
 
 };

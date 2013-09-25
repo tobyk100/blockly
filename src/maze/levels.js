@@ -1,4 +1,5 @@
 var Direction = require('../tiles').Direction;
+var karelLevels = require('./karelLevels');
 
 //TODO: Fix hacky level-number-dependent toolbox.
 var toolbox = function(page, level) {
@@ -685,3 +686,8 @@ module.exports = {
     ]
   }
 };
+
+// Merge in Karel levels.
+for (var levelId in karelLevels) {
+  module.exports['karel_' + levelId] = karelLevels[levelId];
+}

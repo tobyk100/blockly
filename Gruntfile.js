@@ -2,8 +2,7 @@ var config = {};
 
 var APPS = [
   'maze',
-  'turtle',
-  'karel'
+  'turtle'
 ];
 
 config.clean = {

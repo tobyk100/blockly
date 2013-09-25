@@ -1,53 +1,6 @@
 {namespace karelpage}
 
 /**
- * Web page structure.
- */
-{template .start}
-
-  /**
-   * For processing the window input after finishing a level.
-   */
-  {call apps.dialog /}
-  {call apps.codeDialog /}
-  <div id="help" class="dialogHiddenContent">
-    <div style="padding-bottom: 0.7ex;"><br>
-      {call apps.feedback/}
-      {call apps.feedbackButtons/}
-    </div>
-  </div>
-  </div>
-  <br><br>
-
-  <div id="visualization">
-    <div id="hintBubble">
-      <div id="hint"></div>
-    </div>
-    <svg xmlns="http://www.w3.org/2000/svg" version="1.1" id="svgMaze">
-      <g id="look">
-        <path d="M 0,-15 a 15 15 0 0 1 15 15" />
-        <path d="M 0,-35 a 35 35 0 0 1 35 35" />
-        <path d="M 0,-55 a 55 55 0 0 1 55 55" />
-      </g>
-    </svg>
-    <div id="capacityBubble">
-      <div id="capacity"></div>
-    </div>
-  </div>
-
-  {call apps.gameButtons}
-    {param appInstance}Maze{/param}
-  {/call}
-  {call apps.helpArea /}
-
-  {$ij.level.toolbox |noAutoescape}
-  <div id="blockly"></div>
-
-  {call apps.dialog /}
-  {call apps.codeDialog /}
-{/template}
-
-/**
  * Toolboxes for each level.
  */
 {template .toolbox}
@@ -193,7 +146,7 @@
           </statement>
         </block>
       {case 9}
-        <block type="maze_if" x="20" y="70">
+        <block type="karel_if" x="20" y="70">
           <title name="DIR">ballsPresent</title>
         </block>
         <block type="procedures_defnoreturn" x="20" y="200" editable=false

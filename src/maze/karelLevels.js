@@ -70,25 +70,25 @@ var WHILE_OPT_PATH_AHEAD = {
   'titles': {'DIR': 'isPathForward'}
 };
 
-// This tests for and creates the "maze_if" block.
-var IF = {'test': 'if', 'type': 'maze_if'};
+// This tests for and creates the "karel_if" block.
+var IF = {'test': 'if', 'type': 'karel_if'};
 
-// This tests for and creates the "maze_if" block with the option "ballsPresent" selected.
+// This tests for and creates the "karel_if" block with the option "ballsPresent" selected.
 var IF_OPT_BALLS_PRESENT = {
   'test': 'if (Maze.ballsPresent',
-  'type': 'maze_if',
+  'type': 'karel_if',
   'titles': {'DIR': 'ballsPresent'}
 };
 
-// This tests for and creates the "maze_if" block with the option "holesPresent" selected.
+// This tests for and creates the "karel_if" block with the option "holesPresent" selected.
 var IF_OPT_HOLES_PRESENT = {
   'test': 'if (Maze.holesPresent',
-  'type': 'maze_if',
+  'type': 'karel_if',
   'titles': {'DIR': 'holesPresent'}
 };
 
-// This tests for and creates the "maze_ifElse" block.
-var IF_ELSE = {'test': '} else {', 'type': 'maze_ifElse'};
+// This tests for and creates the "karel_ifElse" block.
+var IF_ELSE = {'test': '} else {', 'type': 'karel_ifElse'};
 
 // This tests for and creates the "fill num" blcok.
 var fill = function(num) {
@@ -154,7 +154,7 @@ module.exports = {
       [ 1, 1, 1, 1, 1, 1, 1, 1 ],
       [ 1, 1, 1, 1, 1, 1, 1, 1 ],
       [ 1, 1, 1, 1, 1, 1, 1, 1 ],
-      [ 2, 1, 1, 1, 3, 1, 1, 1 ]
+      [ 2, 1, 1, 1, 1, 1, 1, 1 ]
     ],
     'startDirection': Direction.EAST,
     'initialBalls': [
@@ -192,7 +192,7 @@ module.exports = {
       [ 1, 1, 1, 1, 1, 1, 1, 1 ],
       [ 1, 1, 1, 1, 1, 1, 1, 1 ],
       [ 1, 1, 1, 1, 1, 1, 1, 1 ],
-      [ 1, 1, 2, 3, 1, 1, 1, 1 ],
+      [ 1, 1, 2, 1, 1, 1, 1, 1 ],
       [ 1, 1, 1, 1, 1, 1, 1, 1 ],
       [ 1, 1, 1, 1, 1, 1, 1, 1 ],
       [ 1, 1, 1, 1, 1, 1, 1, 1 ]
@@ -233,7 +233,7 @@ module.exports = {
       [ 1, 1, 1, 1, 1, 1, 1, 1 ],
       [ 1, 1, 1, 1, 1, 1, 1, 1 ],
       [ 1, 1, 1, 1, 1, 1, 1, 1 ],
-      [ 1, 1, 1, 1, 2, 3, 1, 1 ],
+      [ 1, 1, 1, 1, 2, 1, 1, 1 ],
       [ 1, 1, 1, 1, 1, 1, 1, 1 ],
       [ 1, 1, 1, 1, 1, 1, 1, 1 ],
       [ 1, 1, 1, 1, 1, 1, 1, 1 ]
@@ -274,7 +274,7 @@ module.exports = {
       [ 1, 1, 1, 1, 1, 1, 1, 1 ],
       [ 1, 1, 1, 1, 1, 1, 1, 1 ],
       [ 1, 1, 1, 1, 1, 1, 1, 1 ],
-      [ 1, 1, 1, 5, 1, 1, 1, 1 ],
+      [ 1, 1, 1, 2, 1, 1, 1, 1 ],
       [ 1, 1, 1, 1, 1, 1, 1, 1 ],
       [ 1, 1, 1, 1, 1, 1, 1, 1 ],
       [ 1, 1, 1, 1, 1, 1, 1, 1 ]
@@ -321,7 +321,7 @@ module.exports = {
       [ 1, 1, 1, 1, 1, 1, 1, 1 ],
       [ 1, 1, 1, 1, 1, 1, 1, 1 ],
       [ 1, 1, 1, 1, 1, 1, 1, 1 ],
-      [ 2, 1, 1, 1, 1, 3, 0, 0 ]
+      [ 2, 1, 1, 1, 1, 1, 0, 0 ]
     ],
     'startDirection': Direction.EAST,
     'initialBalls': [
@@ -364,7 +364,7 @@ module.exports = {
       [ 1, 1, 1, 1, 1, 1, 1, 1 ],
       [ 1, 1, 1, 1, 1, 1, 1, 1 ],
       [ 1, 1, 1, 1, 1, 1, 1, 1 ],
-      [ 2, 1, 1, 1, 1, 3, 1, 1 ]
+      [ 2, 1, 1, 1, 1, 1, 1, 1 ]
     ],
     'startDirection': Direction.EAST,
     'initialBalls': [
@@ -407,7 +407,7 @@ module.exports = {
       [ 1, 1, 1, 1, 1, 1, 1, 1 ],
       [ 1, 1, 1, 1, 1, 1, 1, 1 ],
       [ 1, 1, 1, 2, 1, 1, 1, 1 ],
-      [ 1, 1, 1, 3, 1, 1, 1, 1 ],
+      [ 1, 1, 1, 1, 1, 1, 1, 1 ],
       [ 1, 1, 1, 1, 1, 1, 1, 1 ],
       [ 1, 1, 1, 1, 1, 1, 1, 1 ],
       [ 1, 1, 1, 1, 1, 1, 1, 1 ],
@@ -452,7 +452,7 @@ module.exports = {
       [ 1, 1, 1, 1, 1, 1, 1, 1 ],
       [ 1, 1, 1, 1, 1, 1, 1, 1 ],
       [ 1, 1, 1, 1, 1, 1, 1, 1 ],
-      [ 2, 1, 1, 1, 1, 1, 1, 3 ],
+      [ 2, 1, 1, 1, 1, 1, 1, 1 ],
       [ 1, 1, 1, 1, 1, 1, 1, 1 ],
       [ 1, 1, 1, 1, 1, 1, 1, 1 ]
     ],
@@ -542,7 +542,7 @@ module.exports = {
       [ 1, 1, 1, 1, 1, 1, 1, 1 ],
       [ 1, 1, 1, 1, 1, 1, 1, 1 ],
       [ 1, 1, 1, 1, 1, 1, 1, 1 ],
-      [ 2, 1, 1, 1, 1, 1, 1, 3 ]
+      [ 2, 1, 1, 1, 1, 1, 1, 1 ]
     ],
     'startDirection': Direction.EAST,
     'initialBalls': [
@@ -631,7 +631,7 @@ module.exports = {
       [ 1, 1, 1, 1, 1, 1, 1, 1 ],
       [ 1, 1, 1, 1, 1, 1, 1, 1 ],
       [ 1, 1, 1, 1, 1, 1, 1, 1 ],
-      [ 1, 1, 3, 1, 1, 1, 1, 1 ],
+      [ 1, 1, 1, 1, 1, 1, 1, 1 ],
       [ 1, 1, 1, 1, 1, 1, 1, 1 ],
       [ 1, 1, 1, 1, 1, 1, 1, 1 ],
       [ 2, 1, 1, 1, 1, 1, 1, 1 ]
@@ -719,7 +719,7 @@ module.exports = {
       [ 1, 1, 1, 1, 1, 1, 1, 1 ],
       [ 1, 1, 1, 1, 1, 1, 1, 1 ],
       [ 1, 1, 1, 1, 1, 1, 1, 1 ],
-      [ 2, 1, 1, 1, 1, 3, 0, 0 ]
+      [ 2, 1, 1, 1, 1, 1, 0, 0 ]
     ],
     'startDirection': Direction.EAST,
     'initialBalls': [
@@ -765,7 +765,7 @@ module.exports = {
       [ 1, 1, 1, 1, 1, 1, 1, 1 ],
       [ 1, 1, 1, 1, 1, 1, 1, 1 ],
       [ 1, 1, 1, 1, 1, 1, 1, 1 ],
-      [ 1, 1, 1, 3, 1, 1, 1, 1 ],
+      [ 1, 1, 1, 1, 1, 1, 1, 1 ],
       [ 1, 1, 1, 1, 1, 1, 1, 1 ],
       [ 1, 1, 1, 1, 1, 1, 1, 1 ],
       [ 2, 1, 1, 1, 1, 1, 1, 1 ]
@@ -812,7 +812,7 @@ module.exports = {
       [ 1, 1, 1, 1, 1, 1, 1, 1 ],
       [ 1, 1, 1, 1, 1, 1, 1, 1 ],
       [ 1, 1, 1, 1, 1, 1, 1, 1 ],
-      [ 2, 1, 1, 1, 1, 1, 3, 1 ]
+      [ 2, 1, 1, 1, 1, 1, 1, 1 ]
     ],
     'startDirection': Direction.EAST,
     'initialBalls': [
@@ -849,7 +849,7 @@ module.exports = {
       [ 1, 1, 1, 1, 1, 1, 1, 1 ],
       [ 1, 1, 1, 1, 1, 1, 1, 1 ],
       [ 1, 1, 1, 1, 1, 1, 1, 1 ],
-      [ 2, 1, 1, 1, 1, 1, 1, 3 ],
+      [ 2, 1, 1, 1, 1, 1, 1, 1 ],
       [ 1, 1, 1, 1, 1, 1, 1, 1 ],
       [ 1, 1, 1, 1, 1, 1, 1, 1 ],
       [ 1, 1, 1, 1, 1, 1, 1, 1 ],
@@ -938,7 +938,7 @@ module.exports = {
       [ 1, 1, 1, 1, 1, 1, 1, 1 ],
       [ 1, 1, 1, 1, 1, 1, 1, 1 ],
       [ 1, 1, 1, 1, 1, 1, 1, 1 ],
-      [ 2, 4, 1, 4, 1, 4, 3, 0 ]
+      [ 2, 4, 1, 4, 1, 4, 1, 0 ]
     ],
     'startDirection': Direction.EAST,
     'initialBalls': [
@@ -982,7 +982,7 @@ module.exports = {
       [ 1, 1, 1, 1, 1, 1, 1, 1 ],
       [ 1, 1, 1, 1, 1, 1, 1, 1 ],
       [ 1, 1, 1, 1, 1, 1, 1, 1 ],
-      [ 1, 1, 1, 1, 1, 1, 3, 1 ],
+      [ 1, 1, 1, 1, 1, 1, 1, 1 ],
       [ 1, 1, 1, 1, 1, 1, 1, 1 ],
       [ 1, 1, 1, 1, 1, 1, 1, 1 ],
       [ 2, 1, 1, 1, 1, 1, 1, 1 ]
@@ -1033,7 +1033,7 @@ module.exports = {
       [ 1, 1, 1, 1, 1, 1, 1, 1 ],
       [ 1, 1, 1, 1, 1, 1, 1, 1 ],
       [ 1, 1, 1, 1, 1, 1, 1, 1 ],
-      [ 1, 1, 1, 1, 1, 1, 3, 1 ],
+      [ 1, 1, 1, 1, 1, 1, 1, 1 ],
       [ 2, 1, 1, 1, 1, 1, 1, 1 ]
     ],
     'startDirection': Direction.EAST,
@@ -1075,7 +1075,7 @@ module.exports = {
       [ 1, 1, 1, 1, 1, 1, 1, 1 ],
       [ 1, 1, 1, 1, 1, 1, 1, 1 ],
       [ 1, 1, 1, 1, 1, 1, 1, 1 ],
-      [ 2, 4, 1, 1, 4, 1, 4, 3 ]
+      [ 2, 4, 1, 1, 4, 1, 4, 1 ]
     ],
     'startDirection': Direction.EAST,
     'initialBalls': [
