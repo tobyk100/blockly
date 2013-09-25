@@ -603,8 +603,8 @@ Turtle.checkAnswer = function() {
 
   // Allow some number of pixels to be off, but be stricter
   // for certain levels.
-  BlocklyApps.levelComplete = answers.isCorrect(level, delta,
-      Turtle.PAGE == 1 && Turtle.LEVEL == 9 ? 10 : 150);
+  var permittedErrors = Turtle.PAGE == 1 && Turtle.LEVEL == 9 ? 10 : 150;
+  BlocklyApps.levelComplete = answers.isCorrect(delta, permittedErrors);
   var feedbackType = BlocklyApps.getTestResults();
 
   BlocklyApps.report('turtle', Turtle.LEVEL,
