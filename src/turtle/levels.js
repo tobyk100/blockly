@@ -1,5 +1,21 @@
 var Colours = require('./core').Colours;
 
+//TODO: Fix hacky level-number-dependent toolbox.
+var toolbox = function(page, level) {
+  return turtlepage.toolbox({}, null, {
+    page: page,
+    level: level
+  });
+};
+
+//TODO: Fix hacky level-number-dependent startBlocks.
+var startBlocks = function(page, level) {
+  return turtlepage.startBlocks({}, null, {
+    page: page,
+    level: level
+  });
+};
+
 /**
  * Sets BlocklyApp constants that depend on the page and level.
  * This encapsulates many functions used for BlocklyApps.REQUIRED_BLOCKS.
@@ -206,338 +222,399 @@ exports.defineWithArg_ = function(func_name, arg_name) {
 /**
  * Information about level-specific requirements.
  */
-var BLOCK_DATA = [
-  // Page 1.
-  [
-    // Level 1: El.
-    {
-      ideal: 3,
-      requiredBlocks: [[MOVE_FORWARD_INLINE], [turnRightRestricted(90)]],
-      freePlay: false
-    },
-    // Level 2: Square (without repeat).
-    {
-      ideal: 7,
-      requiredBlocks: [
-        [MOVE_FORWARD_INLINE],
-        [turnRightRestricted(90)],
-        [SET_COLOUR_PICKER]
-      ],
-      requiredColours: 4,
-      freePlay: false
-    },
-    // Level 3: Square (with repeat).
-    {
-      ideal: 3,
-      requiredBlocks: [
-        [MOVE_FORWARD_INLINE],
-        [turnRightRestricted(90)],
-        [repeat(4)]
-      ],
-      freePlay: false
-    },
-    // Level 4: Triangle.
-    {
-      ideal: 3,
-      requiredBlocks: [
-        [MOVE_FORWARD_INLINE],
-        [repeat(3)],
-        [{
-          test: 'turnRight',
-          type: 'draw_turn_by_constant',
-          titles: {VALUE: '???'}
-        }],
-        [SET_COLOUR_RANDOM]
-      ],
-      requiredColors: 3,
-      freePlay: false
-    },
-    // Level 5: Envelope.
-    {
-      ideal: 6,
-      requiredBlocks: [
-        [repeat(3)],
-        [turnRightRestricted(120)],
-        [MOVE_FORWARD_INLINE]
-      ],
-      freePlay: false
-    },
-    // Level 6: triangle and square.
-    {
-      ideal: 6,
-      requiredBlocks: [
-        [repeat(3)],
-        [turnRightRestricted(120)],
-        [MOVE_FORWARD_INLINE],
-        [MOVE_BACKWARD_INLINE]
-      ],
-      freePlay: false
-    },
-    // Level 7: glasses.
-    {
-      ideal: 8,
-      requiredBlocks: [
-        [turnRightRestricted(90)],
-        [MOVE_FORWARD_INLINE],
-        [SET_COLOUR_PICKER],
-        [MOVE_BACKWARD_INLINE]
-      ],
-      requiredColors: Colours.GREEN,
-      freePlay: false
-    },
-    // Level 8: spikes.
-    {
-      ideal: 4,
-      requiredBlocks: [[repeat(8)]],
-      requiredColors: 8,
-      freePlay: false
-    },
-    // Level 9: circle.
-    {
-      ideal: 3,
-      freePlay: false
-    },
-    // Level 10: playground.
-    {
-      freePlay: true
-    },
-  ],
-  // Page 2.
-  [
-    // Level 1: Square.
-    {
-      ideal: 5,
-      requiredBlocks: [
-        [repeat(4)],
-        [turnRight(90)],
-        [move(100)],
-        [SET_COLOUR_PICKER]
-      ],
-      requiredColors: 1,
-      freePlay: false
-    },
-    // Level 2: Small green square.
-    {
-      ideal: 2,
-      requiredBlocks: [
-        [drawASquare('??')],
-        [SET_COLOUR_PICKER]
-      ],
-      requiredColors: Colours.GREEN,
-      freePlay: false
-    },
-    // Level 3: Three squares.
-    {
-      ideal: 5,
-      requiredBlocks: [
-        [repeat(3)],
-        [drawASquare(100)],
-        [turnRight(120)],
-        [SET_COLOUR_RANDOM]
-      ],
-      freePlay: false
-    },
-    // Level 4: 36 squares.
-    {
-      ideal: 5,
-      freePlay: false
-    },
-    // Level 5: Different size squares.
-    {
-      ideal: 10,
-      requiredBlocks: [
-        [drawASquare('??')]
-      ],
-      freePlay: false
-    },
-    // Level 6: For-loop squares.
-    {
-      ideal: 6,
-      // This is not displayed properly.
-      requiredBlocks: [[simpleBlock('variables_get_counter')]],
-      freePlay: false
-    },
-    // Level 7: Boxy spiral.
-    {
-      ideal: 8,
-      requiredBlocks: [
-        [simpleBlock('controls_for_counter')],
-        [move('??')],
-        [simpleBlock('variables_get_counter')],
-        [turnRight(90)]
-      ],
-      freePlay: false
-    },
-    // Level 8: Three snowmen.
-    {
-      ideal: 9,
-      requiredBlocks: [
-        [drawASnowman(150)],
-        [turnRight(90)],
-        [turnLeft(90)],
-        [{
-          test: 'jump',
-          type: 'jump',
-          values: {'VALUE': makeMathNumber(100)}
-        }],
-        [simpleBlock('jump')],
-        [simpleBlock('draw_colour')]
-      ],
-      requiredColors: 3,
-      freePlay: false
-    },
-    // Level 9: Snowman family.
-    {
-      ideal: 12,
-      requiredBlocks: [
-        [drawASnowman('??')],
-        [simpleBlock('controls_for_counter')],
-        [simpleBlock('variables_get_counter')],
-        [turnRight(90)],
-        [turnLeft(90)],
-        [{
-          test: 'jump',
-          type: 'jump',
-          values: {'VALUE': makeMathNumber(60)}
-        }]
-      ],
-      freePlay: false
-    },
-    // Level 10: playground.
-    {
-      freePlay: true
-    }
-  ],
-  // Page 3.
-  [
-    // Level 1: Call 'draw a square'.
-    {
-      ideal: 1,
-      requiredBlocks: [
-        [call('draw a square')]
-      ],
-      freePlay: false
-    },
-    // Level 2: Create "draw a triangle".
-    {
-      ideal: 7,
-      requiredBlocks: [
-        [repeat(3)],
-        [move(100)],
-        [turnRight(120)],
-        [call('draw a triangle')]
-      ],
-      freePlay: false
-    },
-    // Level 3: Fence the animals.
-    {
-      ideal: 7,
-      requiredBlocks: [
-        [call('draw a triangle')],
-        [move(100)],
-        [call('draw a square')]
-      ],
-      freePlay: false
-    },
-    // Level 4: House the lion.
-    {
-      ideal: 6,
-      requiredBlocks: [
-        [call('draw a square')],
-        [move(100)],
-        [turnRight(30)],
-        [call('draw a triangle')]
-      ],
-      freePlay: false
-    },
-    // Level 5: Create "draw a house".
-    {
-      ideal: 8,
-      requiredBlocks: [
-        [define('draw a house')],
-        [call('draw a square')],
-        [move(100)],
-        [turnRight(30)],
-        [call('draw a triangle')],
-        [call('draw a house')]
-      ],
-      freePlay: false
-    },
-    // Level 6: Add parameter to "draw a triangle".
-    {
-      ideal: 13,
-      requiredBlocks: [
-        [exports.defineWithArg_('draw a triangle', 'length')],
-        [simpleBlock('variables_get_length')],
-        [callWithArg('draw a triangle', 'length')]
-      ],
-      requiredColors: 2,
-      freePlay: false
-    },
-    // Level 7: Add parameter to "draw a house".
-    {
-      ideal: 13,
-      requiredBlocks: [
-        [exports.defineWithArg_('draw a house', 'height')],
-        [callWithArg('draw a square', 'length')],
-        [callWithArg('draw a triangle', 'length')],
-        [simpleBlock('variables_get_height')],
-        [callWithArg('draw a house', 'height')]
-      ],
-      freePlay: false
-    },
-    // Level 8: Draw houses.
-    {
-      ideal: 27,
-      freePlay: false
-    },
-    // Level 9: Draw houses with for loop.
-    {
-      ideal: 27,
-      requiredBlocks: [
-        [simpleBlock('controls_for_counter')],
-        [simpleBlock('variables_get_counter')],
-        [SET_COLOUR_RANDOM]
-      ],
-      requiredColors: 3,
-      freePlay: false
-    },
-    // Level 10: playground.
-    {
-      freePlay: true
-    }
-  ],
-  // Page 4.
-  [
-    // Level 1: playground.
-    {
-      freePlay: true
-    },
-    // Level 2: playground.
-    {
-      freePlay: true
-    },
-    // Level 3: playground.
-    {
-      freePlay: true
-    },
-    // Level 4: playground.
-    {
-      freePlay: true
-    }
-  ]
-];
+var LEVELS = {
+  // Level 1: El.
+  '1_1': {
+    ideal: 3,
+    toolbox: toolbox(1, 1),
+    startBlocks: startBlocks(1, 1),
+    requiredBlocks: [[MOVE_FORWARD_INLINE], [turnRightRestricted(90)]],
+    freePlay: false
+  },
+  // Level 2: Square (without repeat).
+  '1_2': {
+    ideal: 7,
+    toolbox: toolbox(1, 2),
+    startBlocks: startBlocks(1, 2),
+    requiredBlocks: [
+      [MOVE_FORWARD_INLINE],
+      [turnRightRestricted(90)],
+      [SET_COLOUR_PICKER]
+    ],
+    requiredColours: 4,
+    freePlay: false
+  },
+  // Level 3: Square (with repeat).
+  '1_3': {
+    ideal: 3,
+    toolbox: toolbox(1, 3),
+    startBlocks: startBlocks(1, 3),
+    requiredBlocks: [
+      [MOVE_FORWARD_INLINE],
+      [turnRightRestricted(90)],
+      [repeat(4)]
+    ],
+    freePlay: false
+  },
+  // Level 4: Triangle.
+  '1_4': {
+    ideal: 3,
+    toolbox: toolbox(1, 4),
+    startBlocks: startBlocks(1, 4),
+    requiredBlocks: [
+      [MOVE_FORWARD_INLINE],
+      [repeat(3)],
+      [{
+        test: 'turnRight',
+        type: 'draw_turn_by_constant',
+        titles: {VALUE: '???'}
+      }],
+      [SET_COLOUR_RANDOM]
+    ],
+    requiredColors: 3,
+    freePlay: false
+  },
+  // Level 5: Envelope.
+  '1_5': {
+    ideal: 6,
+    toolbox: toolbox(1, 5),
+    startBlocks: startBlocks(1, 5),
+    requiredBlocks: [
+      [repeat(3)],
+      [turnRightRestricted(120)],
+      [MOVE_FORWARD_INLINE]
+    ],
+    freePlay: false
+  },
+  // Level 6: triangle and square.
+  '1_6': {
+    ideal: 6,
+    toolbox: toolbox(1, 6),
+    startBlocks: startBlocks(1, 6),
+    requiredBlocks: [
+      [repeat(3)],
+      [turnRightRestricted(120)],
+      [MOVE_FORWARD_INLINE],
+      [MOVE_BACKWARD_INLINE]
+    ],
+    freePlay: false
+  },
+  // Level 7: glasses.
+  '1_7': {
+    ideal: 8,
+    toolbox: toolbox(1, 7),
+    startBlocks: startBlocks(1, 7),
+    requiredBlocks: [
+      [turnRightRestricted(90)],
+      [MOVE_FORWARD_INLINE],
+      [SET_COLOUR_PICKER],
+      [MOVE_BACKWARD_INLINE]
+    ],
+    requiredColors: Colours.GREEN,
+    freePlay: false
+  },
+  // Level 8: spikes.
+  '1_8': {
+    ideal: 4,
+    toolbox: toolbox(1, 8),
+    startBlocks: startBlocks(1, 8),
+    requiredBlocks: [[repeat(8)]],
+    requiredColors: 8,
+    freePlay: false
+  },
+  // Level 9: circle.
+  '1_9': {
+    ideal: 3,
+    toolbox: toolbox(1, 9),
+    startBlocks: startBlocks(1, 9),
+    freePlay: false,
+    sliderSpeed: 0.9
+  },
+  // Level 10: playground.
+  '1_10': {
+    freePlay: true
+  },
+  // Formerly Page 2.
+  // Level 1: Square.
+  '2_1': {
+    ideal: 5,
+    toolbox: toolbox(2, 1),
+    startBlocks: startBlocks(2, 1),
+    requiredBlocks: [
+      [repeat(4)],
+      [turnRight(90)],
+      [move(100)],
+      [SET_COLOUR_PICKER]
+    ],
+    requiredColors: 1,
+    freePlay: false
+  },
+  // Level 2: Small green square.
+  '2_2': {
+    ideal: 2,
+    toolbox: toolbox(2, 2),
+    startBlocks: startBlocks(2, 2),
+    requiredBlocks: [
+      [drawASquare('??')],
+      [SET_COLOUR_PICKER]
+    ],
+    requiredColors: Colours.GREEN,
+    freePlay: false
+  },
+  // Level 3: Three squares.
+  '2_3': {
+    ideal: 5,
+    toolbox: toolbox(2, 3),
+    startBlocks: startBlocks(2, 3),
+    requiredBlocks: [
+      [repeat(3)],
+      [drawASquare(100)],
+      [turnRight(120)],
+      [SET_COLOUR_RANDOM]
+    ],
+    freePlay: false
+  },
+  // Level 4: 36 squares.
+  '2_4': {
+    ideal: 5,
+    toolbox: toolbox(2, 4),
+    startBlocks: startBlocks(2, 4),
+    freePlay: false
+  },
+  // Level 5: Different size squares.
+  '2_5': {
+    ideal: 10,
+    toolbox: toolbox(2, 5),
+    startBlocks: startBlocks(2, 5),
+    requiredBlocks: [
+      [drawASquare('??')]
+    ],
+    freePlay: false
+  },
+  // Level 6: For-loop squares.
+  '2_6': {
+    ideal: 6,
+    toolbox: toolbox(2, 6),
+    startBlocks: startBlocks(2, 6),
+    // This is not displayed properly.
+    requiredBlocks: [[simpleBlock('variables_get_counter')]],
+    freePlay: false
+  },
+  // Level 7: Boxy spiral.
+  '2_7': {
+    ideal: 8,
+    toolbox: toolbox(2, 7),
+    startBlocks: startBlocks(2, 7),
+    requiredBlocks: [
+      [simpleBlock('controls_for_counter')],
+      [move('??')],
+      [simpleBlock('variables_get_counter')],
+      [turnRight(90)]
+    ],
+    freePlay: false
+  },
+  // Level 8: Three snowmen.
+  '2_8': {
+    ideal: 9,
+    toolbox: toolbox(2, 8),
+    startBlocks: startBlocks(2, 8),
+    requiredBlocks: [
+      [drawASnowman(150)],
+      [turnRight(90)],
+      [turnLeft(90)],
+      [{
+        test: 'jump',
+        type: 'jump',
+        values: {'VALUE': makeMathNumber(100)}
+      }],
+      [simpleBlock('jump')],
+      [simpleBlock('draw_colour')]
+    ],
+    requiredColors: 3,
+    freePlay: false,
+    sliderSpeed: 0.9
+  },
+  // Level 9: Snowman family.
+  '2_9': {
+    ideal: 12,
+    toolbox: toolbox(2, 9),
+    startBlocks: startBlocks(2, 9),
+    requiredBlocks: [
+      [drawASnowman('??')],
+      [simpleBlock('controls_for_counter')],
+      [simpleBlock('variables_get_counter')],
+      [turnRight(90)],
+      [turnLeft(90)],
+      [{
+        test: 'jump',
+        type: 'jump',
+        values: {'VALUE': makeMathNumber(60)}
+      }]
+    ],
+    freePlay: false,
+    sliderSpeed: 0.9
+  },
+  // Level 10: playground.
+  '2_10': {
+    freePlay: true,
+    toolbox: toolbox(2, 10),
+    startBlocks: startBlocks(2, 10)
+  },
+  // Formerly Page 3.
+  // Level 1: Call 'draw a square'.
+  '3_1': {
+    ideal: 1,
+    toolbox: toolbox(3, 1),
+    startBlocks: startBlocks(3, 1),
+    requiredBlocks: [
+      [call('draw a square')]
+    ],
+    freePlay: false
+  },
+  // Level 2: Create "draw a triangle".
+  '3_2': {
+    ideal: 7,
+    toolbox: toolbox(3, 2),
+    startBlocks: startBlocks(3, 2),
+    requiredBlocks: [
+      [repeat(3)],
+      [move(100)],
+      [turnRight(120)],
+      [call('draw a triangle')]
+    ],
+    freePlay: false
+  },
+  // Level 3: Fence the animals.
+  '3_3': {
+    ideal: 7,
+    toolbox: toolbox(3, 3),
+    startBlocks: startBlocks(3, 3),
+    requiredBlocks: [
+      [call('draw a triangle')],
+      [move(100)],
+      [call('draw a square')]
+    ],
+    freePlay: false
+  },
+  // Level 4: House the lion.
+  '3_4': {
+    ideal: 6,
+    toolbox: toolbox(3, 4),
+    startBlocks: startBlocks(3, 4),
+    requiredBlocks: [
+      [call('draw a square')],
+      [move(100)],
+      [turnRight(30)],
+      [call('draw a triangle')]
+    ],
+    freePlay: false
+  },
+  // Level 5: Create "draw a house".
+  '3_5': {
+    ideal: 8,
+    toolbox: toolbox(3, 5),
+    startBlocks: startBlocks(3, 5),
+    requiredBlocks: [
+      [define('draw a house')],
+      [call('draw a square')],
+      [move(100)],
+      [turnRight(30)],
+      [call('draw a triangle')],
+      [call('draw a house')]
+    ],
+    freePlay: false
+  },
+  // Level 6: Add parameter to "draw a triangle".
+  '3_6': {
+    ideal: 13,
+    toolbox: toolbox(3, 6),
+    startBlocks: startBlocks(3, 6),
+    requiredBlocks: [
+      [exports.defineWithArg_('draw a triangle', 'length')],
+      [simpleBlock('variables_get_length')],
+      [callWithArg('draw a triangle', 'length')]
+    ],
+    requiredColors: 2,
+    freePlay: false
+  },
+  // Level 7: Add parameter to "draw a house".
+  '3_7': {
+    ideal: 13,
+    toolbox: toolbox(3, 7),
+    startBlocks: startBlocks(3, 7),
+    requiredBlocks: [
+      [exports.defineWithArg_('draw a house', 'height')],
+      [callWithArg('draw a square', 'length')],
+      [callWithArg('draw a triangle', 'length')],
+      [simpleBlock('variables_get_height')],
+      [callWithArg('draw a house', 'height')]
+    ],
+    freePlay: false
+  },
+  // Level 8: Draw houses.
+  '3_8': {
+    ideal: 27,
+    toolbox: toolbox(3, 8),
+    startBlocks: startBlocks(3, 8),
+    freePlay: false
+  },
+  // Level 9: Draw houses with for loop.
+  '3_9': {
+    ideal: 27,
+    toolbox: toolbox(3, 9),
+    startBlocks: startBlocks(3, 9),
+    requiredBlocks: [
+      [simpleBlock('controls_for_counter')],
+      [simpleBlock('variables_get_counter')],
+      [SET_COLOUR_RANDOM]
+    ],
+    requiredColors: 3,
+    freePlay: false
+  },
+  // Level 10: playground.
+  '3_10': {
+    freePlay: true,
+    toolbox: toolbox(3, 10),
+    startBlocks: startBlocks(3, 10)
+  },
+  // Formerly Page 4.
+  // Level 1: playground.
+  '4_1': {
+    freePlay: true,
+    toolbox: toolbox(4, 1),
+    startBlocks: startBlocks(4, 1)
+  },
+  // Level 2: playground.
+  '4_2': {
+    freePlay: true,
+    toolbox: toolbox(4, 2),
+    startBlocks: startBlocks(4, 2)
+  },
+  // Level 3: playground.
+  '4_3': {
+    freePlay: true,
+    toolbox: toolbox(4, 3),
+    startBlocks: startBlocks(4, 3)
+  },
+  // Level 4: playground.
+  '4_4': {
+    freePlay: true,
+    toolbox: toolbox(4, 4),
+    startBlocks: startBlocks(4, 4)
+  }
+};
 
 exports.install = function(BlocklyApps, Turtle) {
-  // Set constants with information extracted from the URL.
-  BlocklyApps.PAGE = BlocklyApps.getNumberParamFromUrl('page', 1, 4);
-  BlocklyApps.MAX_LEVEL = BlocklyApps.PAGE == 4? 4 : 10;
-  BlocklyApps.LEVEL =
-      BlocklyApps.getNumberParamFromUrl('level', 1, BlocklyApps.MAX_LEVEL);
+  var levelId = BlocklyApps.getStringParamFromUrl('level', '1_1');
 
-  var level = BLOCK_DATA[BlocklyApps.PAGE - 1][BlocklyApps.LEVEL - 1];
+  //TODO: Remove PAGE and LEVEL variables
+  var split = levelId.split('_');
+  Turtle.PAGE = Number(split[0]);
+  Turtle.LEVEL = Number(split[1]);
+
+  // Set constants with information extracted from the URL.
+  var level = LEVELS[levelId];
   BlocklyApps.IDEAL_BLOCK_NUM = level.ideal || Infinity;
   BlocklyApps.REQUIRED_BLOCKS = level.requiredBlocks || [];
-  Turtle.REQUIRED_COLOURS = level.requiredColors;
-  Turtle.FREE_PLAY = level.freePlay;
+  return level;
 };

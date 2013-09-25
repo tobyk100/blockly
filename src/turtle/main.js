@@ -1,6 +1,5 @@
 window.BlocklyApps = require('../base');
 window.Turtle = require('./turtle');
-require('./answers'); //XXX Mutates Turtle
 var blocks = require('./blocks');
 
 window.turtleMain = function(options) {
@@ -10,8 +9,8 @@ window.turtleMain = function(options) {
   }
 
   var config = {
-    page: BlocklyApps.PAGE,
-    level: BlocklyApps.LEVEL,
+    page: Turtle.PAGE,
+    level: Turtle.LEVEL,
     baseUrl: BlocklyApps.BASE_URL
   };
 
