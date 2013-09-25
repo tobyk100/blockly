@@ -79,11 +79,6 @@
     "string": "Save and link to blocks.",
     "description": "tooltip (pop-up help) for button; pressing the button causes the user's program to be saved and for a URL to be provided for retrieving it.  The word 'blocks' is as in children's toy blocks."
   },
-  "maze": {
-    "id": "4947809466496978707",
-    "string": "Farmer&amp;nbsp;&amp;nbsp;<x id='PAGE'/>",
-    "description": "brief title - Specifies that this is Blockly's '''Maze''' tutorial."
-  },
   "moveForward": {
     "id": "6005707509822211432",
     "string": "move forward",
@@ -169,36 +164,6 @@
     "id": "471029618522690538",
     "string": "put down tower",
     "description": "Place a tower on the ground"
-  },
-  "q10right": {
-    "id": "2865770337752480735",
-    "string": "That's right!",
-    "description": "Congratulating the user on correctly answering the question."
-  },
-  "q10wrong": {
-    "id": "5238516985457537713",
-    "string": "No - Try tracking my direction while following the program.",
-    "description": "tracking is suggesting to the user that they should follow each instruction and follow how that will affect the movement. A 'program' is a set of instructions that tell the computer what to do next."
-  },
-  "q4right": {
-    "id": "1775354388524175835",
-    "string": "That's right! Good job.",
-    "description": "Congratulating the user on correctly answering the question."
-  },
-  "q4wrong": {
-    "id": "3269298963580773141",
-    "string": "No - Try tracking my direction while following the program.",
-    "description": "tracking is suggesting to the user that they should follow each instruction and follow how that will affect the movement. A 'program' is a set of instructions that tell the computer what to do next."
-  },
-  "q5right": {
-    "id": "4318072147009246027",
-    "string": "You got it right!",
-    "description": "Congratulating the user on correctly answering the question."
-  },
-  "q5wrong": {
-    "id": "783174224955555486",
-    "string": "No - Try tracking my direction while following the program.",
-    "description": "tracking is suggesting to the user that they should follow each instruction and follow how that will affect the movement. A 'program' is a set of instructions that tell the computer what to do next."
   },
   "repeatUntilBlocked": {
     "id": "5669566230124297065",

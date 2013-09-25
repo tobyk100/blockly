@@ -185,13 +185,12 @@ BlocklyApps.checkTimeout = function(opt_id) {
 };
 
 /**
- * Hide the dialog pop-up and interstitials.
+ * Hide the dialog pop-up.
  * @param {boolean} opt_animate Animate the dialog closing.  Defaults to true.
  *     Requires that origin was not null when dialog was opened.
  */
 BlocklyApps.hideDialog = function(opt_animate) {
   dialog.hide(opt_animate);
-  BlocklyApps.hideInterstitial();
 };
 
 /**
@@ -365,12 +364,6 @@ BlocklyApps.TestResults = {
 };
 
 /**
- * The interstital setting for each level defined in the application.
- * @type {!Array=}
- */
-BlocklyApps.INTERSTITIALS = undefined;
-
-/**
  * Updates the document's 'capacity' element's innerHTML with a message
  * indicating how many more blocks are permitted.  The capacity
  * is retrieved from Blockly.mainWorkspace.remainingCapacity().
@@ -406,7 +399,7 @@ BlocklyApps.displayFeedback = function(options) {
   BlocklyApps.setErrorFeedback(options);
   BlocklyApps.prepareFeedback(options);
   BlocklyApps.displayCloseDialogButtons(options.feedbackType);
-  BlocklyApps.showHelp(true, options.feedbackType);
+  BlocklyApps.showHelp(options.feedbackType);
 };
 
 /**
@@ -672,16 +665,11 @@ BlocklyApps.hideFeedback = function() {
 };
 
 /**
- * Either show an interstitial or go to the next level.
+ * Hide the feedback dialog and raise the continue event.
  */
 BlocklyApps.continueClicked = function() {
-  var interstitial = document.getElementById('interstitial').style.display;
-  if (interstitial == 'none' && BlocklyApps.INTERSTITIALS.after) {
-    BlocklyApps.showInterstitial();
-  } else {
-    BlocklyApps.hideDialog(false);
-    onContinue();
-  }
+  BlocklyApps.hideDialog(false);
+  onContinue();
 };
 
 /**
@@ -726,34 +714,6 @@ BlocklyApps.displayCloseDialogButtons = function(feedbackType) {
 };
 
 /**
- * Show the interstitial content.
- */
-BlocklyApps.showInterstitial = function() {
-  if (BlocklyApps.levelComplete) {
-    if (BlocklyApps.INTERSTITIALS.after) {
-      var preInterArray = document.querySelectorAll('.preInter');
-      for (var r = 0, preInter; preInter = preInterArray[r]; r++) {
-        preInter.style.display = 'none';
-      }
-      var postInterArray = document.querySelectorAll('.postInter');
-      for (var s = 0, postInter; postInter = postInterArray[s]; s++) {
-          postInter.style.display = 'block';
-      }
-      document.getElementById('interstitial').style.display = 'block';
-    }
-  } else if (BlocklyApps.INTERSTITIALS.before) {
-    document.getElementById('interstitial').style.display = 'block';
-  }
-};
-
-/**
- * Hide the interstitial content.
- */
-BlocklyApps.hideInterstitial = function() {
-  document.getElementById('interstitial').style.display = 'none';
-};
-
-/**
  * Click the reset button.  Reset the application.
  */
 BlocklyApps.resetButtonClick = function() {
@@ -765,15 +725,12 @@ BlocklyApps.resetButtonClick = function() {
 
 /**
  * Show the help pop-up.
- * @param {boolean} animate Animate the pop-up opening.
  * @param {number} feedbackType If defined, the results of end of level tests.
  */
-BlocklyApps.showHelp = function(animate, feedbackType) {
+BlocklyApps.showHelp = function(feedbackType) {
   feedbackType = typeof feedbackType !== 'undefined' ?
       feedbackType : BlocklyApps.NO_TESTS_RUN;
   var help = document.getElementById('help');
-  var button = document.getElementById('helpButton');
-  button.removeAttribute('disabled');
 
   var style = {
     width: '50%',
@@ -788,7 +745,7 @@ BlocklyApps.showHelp = function(animate, feedbackType) {
     }
   }
   BlocklyApps.displayCloseDialogButtons(feedbackType);
-  dialog.show(help, button, animate, true, style);
+  dialog.show(help, null, false, true, style);
 };
 
 /**

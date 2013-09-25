@@ -39,16 +39,12 @@ var Maze = module.exports;
 var levelId = BlocklyApps.getStringParamFromUrl('level', '1_1');
 var level = levels[levelId];
 
-Maze.MAX_REINF = 0;
-Maze.REINF = BlocklyApps.getNumberParamFromUrl('reinf', 1, Maze.MAX_REINF);
-
 var skinId = BlocklyApps.getStringParamFromUrl('skin', 'farmer');
 var skin = skins.load(BlocklyApps.BASE_URL, skinId);
 
 exports.config = {
   skin: skin,
   level: level,
-  interstitials: BlocklyApps.INTERSTITIALS,
   baseUrl: BlocklyApps.BASE_URL
 };
 
@@ -90,8 +86,6 @@ BlocklyApps.REQUIRED_BLOCKS = level.requiredBlocks;
 
 //The number of blocks to show as feedback.
 BlocklyApps.NUM_REQUIRED_BLOCKS_TO_FLAG = 1;
-
-BlocklyApps.INTERSTITIALS = level.interstitials || {};
 
 // Default Scalings
 Maze.scale = {
@@ -391,13 +385,6 @@ Maze.init = function(config) {
 
   BlocklyApps.reset(true);
   Blockly.addChangeListener(function() {BlocklyApps.updateCapacity()});
-
-  var interstitial = BlocklyApps.INTERSTITIALS.before;
-  if (interstitial) {
-    BlocklyApps.showHelp(false, undefined);
-  } else {
-    document.getElementById('helpButton').setAttribute('disabled', 'disabled');
-  }
 };
 
 /**

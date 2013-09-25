@@ -27,30 +27,6 @@ html[dir="RTL"] .farSide {
   top: 10px;
 }
 
-/* Levels */
-.tab {
-  font-weight: bold;
-  padding: 6px 12px;
-  text-decoration: none;
-  color: #000;
-}
-.previous {
-  color: #0DA38A;
-}
-.selected {
-  color: white;
-  border-radius: 20px;
-  border: 0;
-  background: #0DA38A;
-}
-.doubleDigit {
-  padding: 8px 8px;
-  margin-left: 4px;
-}
-.singleDigit {
-  padding: 6px 12px;
-}
-
 /* Buttons */
 button {
   margin: 5px;
@@ -168,19 +144,6 @@ input[type="radio"] {
   line-height: 28px;
 }
 
-/* Interstitial content */
-#reinfbubble {
-  width: 70%;
-  padding: 7px;
-  border: 1px solid #CCB;
-  border-radius: 15px;
-  background-color: #ff7;
-  display: block;
-}
-#reinfmsg {
-  font-weight: bold;
-  text-align: left;
-}
 #hintBubble {
   position: absolute;
   left: 10px;
@@ -193,20 +156,4 @@ input[type="radio"] {
   color: #fff;
   padding: 5px 1em;
   font-size: large;
-}
-.postInter {
-  display: none;
-}
-.video {
-  width: 94%;
-  height: 315px;
-  margin-left: 3%;
-  margin-right: 3%;
-}
-.stars {
-  display: none;
-  margin-left: auto;
-  margin-right: auto;
-  height: 79px;
-  width: 300px;
 }

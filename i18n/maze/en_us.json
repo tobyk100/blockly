@@ -74,11 +74,6 @@
     "string": "Save and link to blocks.",
     "description": "tooltip (pop-up help) for button; pressing the button causes the user's program to be saved and for a URL to be provided for retrieving it.  The word 'blocks' is as in children's toy blocks."
   },
-  "maze": {
-    "id": "34428208008617605",
-    "string": "Maze",
-    "description": "brief title - Specifies that this is Blockly's '''Maze''' tutorial."
-  },
   "moveForward": {
     "id": "4138774728570944645",
     "string": "move forward",
@@ -123,76 +118,6 @@
     "id": "8496210457380227143",
     "string": "if path to the right",
     "description": "condensed form of 'if there is a path to the right', as in: 'if path to the right, turn right'."
-  },
-  "q3right": {
-    "id": "3861275221935187198",
-    "string": "That's right!",
-    "description": "Congratulating the user on correctly answering the question."
-  },
-  "q3wrong": {
-    "id": "1851166057196506938",
-    "string": "No - Try tracking my direction while following the program.",
-    "description": "tracking is suggesting to the user that they should follow each instruction and follow how that will affect the movement. A 'program' is a set of instructions that tell the computer what to do next."
-  },
-  "q5right": {
-    "id": "7407757177156067975",
-    "string": "That's right!",
-    "description": "Congratulating the user on correctly answering the question."
-  },
-  "q5wrong": {
-    "id": "6537484406802177826",
-    "string": "No - Try tracking my direction while following the program.",
-    "description": "Tracking is suggesting to the user that they should follow each instruction and follow how that will affect the movement. A 'program' is a set of instructions that tell the computer what to do next."
-  },
-  "q9right": {
-    "id": "4038729554513968964",
-    "string": "That's right!",
-    "description": "Congratulating the user on correctly answering the question."
-  },
-  "q9wrong": {
-    "id": "2825528106134845336",
-    "string": "No - Try tracking my direction while following the program.",
-    "description": "tracking is suggesting to the user that they should follow each instruction and follow how that will affect the movement. A 'program' is a set of instructions that tell the computer what to do next."
-  },
-  "reinfMsg1": {
-    "id": "5850143700221065216",
-    "string": "Watch the video below and learn how to use blocks to make me move.",
-    "description": "instructions - introduction to the Maze tutorial."
-  },
-  "reinfMsg2": {
-    "id": "5897990846340419751",
-    "string": "A repeat block repeats the blocks inside it until I reach the red marker.",
-    "description": "instructions - 'block' refers to a child's stackable toys. A 'repeat' block is used to repeat blocks over and over. The red marker is the goal to be reached in the maze."
-  },
-  "reinfMsg3": {
-    "id": "114543133414971626",
-    "string": "Which direction am I facing after this program ends?",
-    "description": "instructions - program' refers to a series of instructions that tell the computer what to do next."
-  },
-  "reinfMsg4": {
-    "id": "6165004760147466146",
-    "string": "Here is an 'if' block: I will turn in a particular direction if there is a path in that direction. For example if there is a path to the left, I will turn left.",
-    "description": "instructions - An example of an 'if' block is if there is a path to the left, turn left."
-  },
-  "reinfMsg5": {
-    "id": "6519485570134958266",
-    "string": "We can place 'if' blocks inside 'repeat' blocks. Where am I when this program ends? Click on the correct picture below.",
-    "description": "instructions - An example of an 'if' block is if there is a path to the left, turn left. A 'repeat' block is used to repeat blocks over and over. 'program' refers to a series of instructions that tell the computer what to do next."
-  },
-  "reinfMsg6": {
-    "id": "4587493155338925060",
-    "string": "<x id='START_STRONG'/>Remember:<x id='END_STRONG'/><x id='START_UNORDERED_LIST'/><x id='START_ITEM'/>'repeat' blocks perform an action multiple times without additional blocks.<x id='END_ITEM'/><x id='START_ITEM'/>'if' blocks check if there is a path in a certain direction.<x id='END_ITEM'/><x id='END_UNORDERED_LIST'/>",
-    "description": "instructions - A 'repeat' block is used to repeat blocks over and over. "
-  },
-  "reinfMsg8": {
-    "id": "301005848168874563",
-    "string": "Here is an 'if-else' block: I move forward if there is a path ahead, otherwise I turn left.",
-    "description": "instructions - An example of an 'if-else' block is if there is a path ahead move forward, else turn left."
-  },
-  "reinfMsg9": {
-    "id": "8932595450551335067",
-    "string": "Will the blocks below move me to the red marker?",
-    "description": "instructions - 'block' refers to a child's stackable toys. A 'repeat' block is used to repeat blocks over and over. The red marker is the goal to be reached in the maze."
   },
   "repeatUntil": {
     "id": "5000330788075193694",

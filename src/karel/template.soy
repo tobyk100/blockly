@@ -13,23 +13,6 @@
   <div id="help" class="dialogHiddenContent">
     <div style="padding-bottom: 0.7ex;"><br>
       {call apps.feedback/}
-
-      /**
-       * Interstitial levels.
-       */
-      <div id="interstitial" style="display: none;">
-        <div style="margin-left: 50px;">
-          <div id="reinfbubble">
-            <span id="reinfMsg">
-            </span>
-          </div>
-          <img id="pegman_bubble" height=42 width=55 src="{$ij.baseUrl}karel/pegman_bubble.png">
-        </div>
-      </div>
-      /**
-       * End reinf level processing.
-       */
-      <br>
       {call apps.feedbackButtons/}
     </div>
   </div>
@@ -55,6 +38,7 @@
   {call apps.gameButtons}
     {param appInstance}Maze{/param}
   {/call}
+  {call apps.helpArea /}
 
   {$ij.level.toolbox |noAutoescape}
   <div id="blockly"></div>
