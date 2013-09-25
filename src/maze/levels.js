@@ -18,12 +18,6 @@ module.exports = {
   '1_1': {
     'instructions': 'instructions1_1',
     'toolbox': toolbox(1, 1),
-    'interstitials': {
-      before: {
-        message: 'reinfMsg1',
-        videoId: '0BybP3F7DhXrUSFRhMnBGLUVPZTA'
-      }
-    },
     'ideal': 2,
     'requiredBlocks': [
       [{'test': 'moveForward', 'type': 'maze_moveForward'}]
@@ -48,13 +42,6 @@ module.exports = {
   '1_2': {
     'instructions': 'instructions1_2',
     'toolbox': toolbox(1, 2),
-    'interstitials': {
-      after: {
-        message: 'reinfMsg3',
-        images: ['maze/dirs.png', 'maze/dirs2.png'],
-        blocks: '%3Cblock%20type%3D%22maze_turn%22%20x%3D%2226%22%20y%3D%2222%22%3E%3Ctitle%20name%3D%22DIR%22%3EturnLeft%3C%2Ftitle%3E%3Cnext%3E%3Cblock%20type%3D%22maze_turn%22%3E%3Ctitle%20name%3D%22DIR%22%3EturnLeft%3C%2Ftitle%3E%3Cnext%3E%3Cblock%20type%3D%22maze_turn%22%3E%3Ctitle%20name%3D%22DIR%22%3EturnRight%3C%2Ftitle%3E%3Cnext%3E%3Cblock%20type%3D%22maze_turn%22%3E%3Ctitle%20name%3D%22DIR%22%3EturnLeft%3C%2Ftitle%3E%3C%2Fblock%3E%3C%2Fnext%3E%3C%2Fblock%3E%3C%2Fnext%3E%3C%2Fblock%3E%3C%2Fnext%3E%3C%2Fblock%3E'
-      }
-    },
     'ideal': 5,
     'requiredBlocks': [
       [{'test': 'moveForward', 'type': 'maze_moveForward'}],
@@ -80,13 +67,6 @@ module.exports = {
   '1_3': {
     'instructions': 'instructions1_3',
     'toolbox': toolbox(1, 3),
-    'interstitials': {
-      before: {
-        message: 'reinfMsg2',
-        videoId: '0BybP3F7DhXrUU2FCODdJdXRKVTQ',
-        blocks: '%3Cblock%20type%3D%22maze_forever%22%20x%3D%2220%22%20y%3D%2222%22%3E%3Cstatement%20name%3D%22DO%22%3E%3Cblock%20type%3D%22maze_moveForward%22%3E%3C%2Fblock%3E%3C%2Fstatement%3E%3C%2Fblock%3E'
-      }
-    },
     'ideal': 2,
     'requiredBlocks': [
       [{'test': 'while', 'type': 'maze_forever'}],
@@ -141,18 +121,6 @@ module.exports = {
   '1_5': {
     'instructions': 'instructions1_5',
     'toolbox': toolbox(1, 5),
-    'interstitials': {
-      before: {
-        message: 'reinfMsg4',
-        videoId: '0BybP3F7DhXrUSFRhMnBGLUVPZTA',
-        blocks: '%3Cblock%20type%3D%22maze_if%22%20x%3D%2215%22%20y%3D%2214%22%3E%3Ctitle%20name%3D%22DIR%22%3EisPathLeft%3C%2Ftitle%3E%3Cstatement%20name%3D%22DO%22%3E%3Cblock%20type%3D%22maze_turn%22%3E%3Ctitle%20name%3D%22DIR%22%3EturnLeft%3C%2Ftitle%3E%3C%2Fblock%3E%3C%2Fstatement%3E%3C%2Fblock%3E'
-      },
-      after: {
-        message: 'reinfMsg5',
-        images: ['maze/repeat_block2.png'],
-        blocks: '%3Cblock%20type%3D%22maze_forever%22%20x%3D%2210%22%20y%3D%2212%22%3E%3Cstatement%20name%3D%22DO%22%3E%3Cblock%20type%3D%22maze_if%22%3E%3Ctitle%20name%3D%22DIR%22%3EisPathRight%3C%2Ftitle%3E%3Cstatement%20name%3D%22DO%22%3E%3Cblock%20type%3D%22maze_turn%22%3E%3Ctitle%20name%3D%22DIR%22%3EturnRight%3C%2Ftitle%3E%3C%2Fblock%3E%3C%2Fstatement%3E%3Cnext%3E%3Cblock%20type%3D%22maze_moveForward%22%3E%3C%2Fblock%3E%3C%2Fnext%3E%3C%2Fblock%3E%3C%2Fstatement%3E%3C%2Fblock%3E'
-      }
-    },
     'ideal': 4,
     'requiredBlocks': [
       [{'test': 'while', 'type': 'maze_forever'}],
@@ -178,11 +146,6 @@ module.exports = {
   '1_6': {
     'instructions': 'instructions1_6',
     'toolbox': toolbox(1, 6),
-    'interstitials': {
-      before: {
-        message: 'reinfMsg6'
-      }
-    },
     'ideal': 4,
     'requiredBlocks': [
       [{'test': 'while', 'type': 'maze_forever'}],
@@ -250,17 +213,6 @@ module.exports = {
   '1_9': {
     'instructions': 'instructions1_9',
     'toolbox': toolbox(1, 9),
-    'interstitials': {
-      before: {
-        message: 'reinfMsg8',
-        blocks: '%3Cblock%20type%3D%22maze_ifElse%22%20x%3D%226%22%20y%3D%2216%22%3E%3Ctitle%20name%3D%22DIR%22%3EisPathForward%3C%2Ftitle%3E%3Cstatement%20name%3D%22DO%22%3E%3Cblock%20type%3D%22maze_moveForward%22%3E%3C%2Fblock%3E%3C%2Fstatement%3E%3Cstatement%20name%3D%22ELSE%22%3E%3Cblock%20type%3D%22maze_turn%22%3E%3Ctitle%20name%3D%22DIR%22%3EturnLeft%3C%2Ftitle%3E%3C%2Fblock%3E%3C%2Fstatement%3E%3C%2Fblock%3E'
-      },
-      after: {
-        message: 'reinfMsg9',
-        images: ['maze/ifelse.png'],
-        blocks: '%3Cblock%20type%3D%22maze_ifElse%22%20x%3D%2222%22%20y%3D%2221%22%3E%3Ctitle%20name%3D%22DIR%22%3EisPathForward%3C%2Ftitle%3E%3Cstatement%20name%3D%22DO%22%3E%3Cblock%20type%3D%22maze_moveForward%22%3E%3C%2Fblock%3E%3C%2Fstatement%3E%3Cstatement%20name%3D%22ELSE%22%3E%3Cblock%20type%3D%22maze_ifElse%22%3E%3Ctitle%20name%3D%22DIR%22%3EisPathLeft%3C%2Ftitle%3E%3Cstatement%20name%3D%22DO%22%3E%3Cblock%20type%3D%22maze_turn%22%3E%3Ctitle%20name%3D%22DIR%22%3EturnLeft%3C%2Ftitle%3E%3C%2Fblock%3E%3C%2Fstatement%3E%3Cstatement%20name%3D%22ELSE%22%3E%3Cblock%20type%3D%22maze_if%22%3E%3Ctitle%20name%3D%22DIR%22%3EisPathRight%3C%2Ftitle%3E%3Cstatement%20name%3D%22DO%22%3E%3Cblock%20type%3D%22maze_turn%22%3E%3Ctitle%20name%3D%22DIR%22%3EturnRight%3C%2Ftitle%3E%3Cnext%3E%3Cblock%20type%3D%22maze_moveForward%22%3E%3C%2Fblock%3E%3C%2Fnext%3E%3C%2Fblock%3E%3C%2Fstatement%3E%3C%2Fblock%3E%3C%2Fstatement%3E%3C%2Fblock%3E%3C%2Fstatement%3E%3C%2Fblock%3E'
-      }
-    },
     'ideal': 6,
     'requiredBlocks': [
       [{'test': 'while', 'type': 'maze_forever'}],
@@ -417,6 +369,9 @@ module.exports = {
     'toolbox': toolbox(2, 6),
     'ideal': 3,
     'requiredBlocks': [
+      [{'test': 'turnRight',
+        'type': 'maze_turn',
+        'titles': {'DIR': 'turnRight'}}],
       [{'test': 'moveForward', 'type': 'maze_moveForward'}],
       [{'test': 'for', 'type': 'controls_repeat'}]
     ],
@@ -503,6 +458,9 @@ module.exports = {
     'toolbox': toolbox(2, 10),
     'ideal': 3,
     'requiredBlocks': [
+      [{'test': 'turnRight',
+        'type': 'maze_turn',
+        'titles': {'DIR': 'turnRight'}}],
       [{'test': 'moveForward', 'type': 'maze_moveForward'}],
       [{'test': 'while', 'type': 'maze_forever'}]
     ],
@@ -575,13 +533,14 @@ module.exports = {
     'toolbox': toolbox(2, 13),
     'ideal': 4,
     'requiredBlocks': [
+      [{'test': 'moveForward', 'type': 'maze_moveForward'}],
+      [{'test': 'turnLeft',
+        'type': 'maze_turn',
+        'titles': {'DIR': 'turnLeft'}}],
       [{'test': 'isPathLeft',
         'type': 'maze_if',
         'titles': {'DIR': 'isPathLeft'}}],
-      [{'test': 'while', 'type': 'maze_forever'}],
-      [{'test': 'turnLeft',
-        'type': 'maze_turn',
-        'titles': {'DIR': 'turnLeft'}}]
+      [{'test': 'while', 'type': 'maze_forever'}]
     ],
     'startDirection': Direction.EAST,
     'map': [
@@ -600,13 +559,14 @@ module.exports = {
     'toolbox': toolbox(2, 14),
     'ideal': 4,
     'requiredBlocks': [
+      [{'test': 'moveForward', 'type': 'maze_moveForward'}],
+      [{'test': 'turnRight',
+        'type': 'maze_turn',
+        'titles': {'DIR': 'turnRight'}}],
       [{'test': 'isPathRight',
         'type': 'maze_if',
         'titles': {'DIR': 'isPathRight'}}],
-      [{'test': 'while', 'type': 'maze_forever'}],
-      [{'test': 'turnRight',
-        'type': 'maze_turn',
-        'titles': {'DIR': 'turnRight'}}]
+      [{'test': 'while', 'type': 'maze_forever'}]
     ],
     'startDirection': Direction.EAST,
     'map': [
@@ -625,13 +585,14 @@ module.exports = {
     'toolbox': toolbox(2, 15),
     'ideal': 4,
     'requiredBlocks': [
+      [{'test': 'moveForward', 'type': 'maze_moveForward'}],
+      [{'test': 'turnRight',
+        'type': 'maze_turn',
+        'titles': {'DIR': 'turnRight'}}],
       [{'test': 'isPathRight',
         'type': 'maze_if',
         'titles': {'DIR': 'isPathRight'}}],
-      [{'test': 'while', 'type': 'maze_forever'}],
-      [{'test': 'turnRight',
-        'type': 'maze_turn',
-        'titles': {'DIR': 'turnRight'}}]
+      [{'test': 'while', 'type': 'maze_forever'}]
     ],
     'startDirection': Direction.EAST,
     'map': [
@@ -650,13 +611,14 @@ module.exports = {
     'toolbox': toolbox(2, 16),
     'ideal': 4,
     'requiredBlocks': [
+      [{'test': 'moveForward', 'type': 'maze_moveForward'}],
+      [{'test': 'turnRight',
+        'type': 'maze_turn',
+        'titles': {'DIR': 'turnRight'}}],
       [{'test': 'isPathRight',
         'type': 'maze_if',
         'titles': {'DIR': 'isPathRight'}}],
-      [{'test': 'while', 'type': 'maze_forever'}],
-      [{'test': 'turnRight',
-        'type': 'maze_turn',
-        'titles': {'DIR': 'turnRight'}}]
+      [{'test': 'while', 'type': 'maze_forever'}]
     ],
     'startDirection': Direction.EAST,
     'map': [
@@ -675,9 +637,13 @@ module.exports = {
     'toolbox': toolbox(2, 17),
     'ideal': 6,
     'requiredBlocks': [
+      [{'test': 'moveForward', 'type': 'maze_moveForward'}],
       [{'test': 'isPathForward',
         'type': 'maze_ifElse',
         'titles': {'DIR': 'isPathForward'}}],
+      [{'test': 'turnLeft',
+        'type': 'maze_turn',
+        'titles': {'DIR': 'turnLeft'}}],
       [{'test': 'while', 'type': 'maze_forever'}]
     ],
     'startDirection': Direction.EAST,
@@ -697,9 +663,13 @@ module.exports = {
     'toolbox': toolbox(2, 18),
     'ideal': 5,
     'requiredBlocks': [
+      [{'test': 'moveForward', 'type': 'maze_moveForward'}],
       [{'test': 'isPathForward',
         'type': 'maze_ifElse',
         'titles': {'DIR': 'isPathForward'}}],
+      [{'test': 'turnRight',
+        'type': 'maze_turn',
+        'titles': {'DIR': 'turnRight'}}],
       [{'test': 'while', 'type': 'maze_forever'}]
     ],
     'startDirection': Direction.EAST,

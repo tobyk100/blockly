@@ -74,125 +74,10 @@
     "string": "If there is a path in the specified direction, then do the first block of actions. Otherwise, do the second block of actions.",
     "description": "tooltip (pop-up help) - 'path' refers to a path through a maze."
   },
-  "instructions1_1": {
-    "id": "511535435235111626",
-    "string": "Help me flatten the field on my farm so it's ready for planting. Move me to the pile of dirt to remove it.",
-    "description": "TODO"
-  },
-  "instructions1_10": {
-    "id": "388541572179212146",
-    "string": "It's nighttime, and I can't tell how large the piles are. Now I don't have all the options I used to have on the while block. Move me along the field, and if there is a pile, remove it.",
-    "description": "TODO"
-  },
-  "instructions1_11": {
-    "id": "4396755987596871156",
-    "string": "It's still dark outside. Move me along the field. If there is a pile, remove it, and if there is a hole, fill it in.",
-    "description": "TODO"
-  },
-  "instructions1_2": {
-    "id": "8681810675525840996",
-    "string": "Move me to the hole and fill it with two shovelfuls of dirt.",
-    "description": "TODO"
-  },
-  "instructions1_3": {
-    "id": "4732731109682389752",
-    "string": "Move me to the pile of dirt and tell me how many shovelfuls to remove using as few blocks as possible.",
-    "description": "TODO"
-  },
-  "instructions1_4": {
-    "id": "6961885717405359269",
-    "string": "Make me remove the 4 piles.",
-    "description": "TODO"
-  },
-  "instructions1_5": {
-    "id": "647788441440746219",
-    "string": "Make me fill in all the holes. Each hole needs 5 shovelfuls of dirt.",
-    "description": "TODO"
-  },
-  "instructions1_6": {
-    "id": "8233180769854710662",
-    "string": "Make me remove all the piles of dirt, using as few blocks as possible. Check out the new option in the dropdown menu on the while block.",
-    "description": "TODO"
-  },
-  "instructions1_7": {
-    "id": "835698657432741186",
-    "string": "I don't know how many shovelfuls of dirt this hole needs. Write a program that makes me fill it until it's even.",
-    "description": "TODO"
-  },
-  "instructions1_8": {
-    "id": "1446396878836001668",
-    "string": "Make me fill in the hole at the end of the field, using as few blocks as possible.",
-    "description": "TODO"
-  },
-  "instructions1_9": {
-    "id": "7689400048197260467",
-    "string": "Make me remove all the piles, using as few blocks as possible.",
-    "description": "TODO"
-  },
-  "instructions2_1": {
-    "id": "2762549004539079372",
-    "string": "Try using the blocks to help me remove all the piles and fill in all the holes on the ground.",
-    "description": "TODO"
-  },
-  "instructions2_10": {
-    "id": "7388270388391736213",
-    "string": "Move me across the field, and use the functions to help me remove all the piles and fill all the holes.",
-    "description": "TODO"
-  },
-  "instructions2_11": {
-    "id": "4415678893021929841",
-    "string": "Use the new function, &quot;remove 1 and avoid the cow&quot;, to make me level out the piles.",
-    "description": "TODO"
-  },
-  "instructions2_2": {
-    "id": "6063060740727772843",
-    "string": "Use the new function block called &quot;fill 5&quot; to help me fill in this hole.",
-    "description": "TODO"
-  },
-  "instructions2_3": {
-    "id": "614565985458201541",
-    "string": "Use the function block to make me fill in all the holes.",
-    "description": "TODO"
-  },
-  "instructions2_4": {
-    "id": "4451667761105342733",
-    "string": "Define a new function that removes 7 shovelfuls. Then use it to write a program that helps me remove all the piles.",
-    "description": "TODO"
-  },
-  "instructions2_5": {
-    "id": "271859688095231445",
-    "string": "Create a new function that removes 3 shovelfuls from a pile, and use it to help me level out all the piles.",
-    "description": "TODO"
-  },
-  "instructions2_6": {
-    "id": "5672757975804035474",
-    "string": "Use the new functions, &quot;fill 8&quot; and &quot;remove 8&quot;, to help me level out the pile and fill in the hole.",
-    "description": "TODO"
-  },
-  "instructions2_7": {
-    "id": "662393348385954208",
-    "string": "There's a cow in my field! Write a new function that helps me avoid the cow and remove the pile.",
-    "description": "TODO"
-  },
-  "instructions2_8": {
-    "id": "3639152755537095722",
-    "string": "Use the function, &quot;avoid the cow and remove 1&quot;, to help me remove all the piles.",
-    "description": "TODO"
-  },
-  "instructions2_9": {
-    "id": "5658777069008500316",
-    "string": "Use one of the new functions to help me remove all of the piles on the ground with as few blocks as possible.",
-    "description": "TODO"
-  },
   "linkTooltip": {
     "id": "5239330244422677114",
     "string": "Save and link to blocks.",
     "description": "tooltip (pop-up help) for button; pressing the button causes the user's program to be saved and for a URL to be provided for retrieving it.  The word 'blocks' is as in children's toy blocks."
-  },
-  "maze": {
-    "id": "4947809466496978707",
-    "string": "Farmer&amp;nbsp;&amp;nbsp;<x id='PAGE'/>",
-    "description": "brief title - Specifies that this is Blockly's '''Maze''' tutorial."
   },
   "moveForward": {
     "id": "6005707509822211432",
@@ -279,36 +164,6 @@
     "id": "471029618522690538",
     "string": "put down tower",
     "description": "Place a tower on the ground"
-  },
-  "q10right": {
-    "id": "2865770337752480735",
-    "string": "That's right!",
-    "description": "Congratulating the user on correctly answering the question."
-  },
-  "q10wrong": {
-    "id": "5238516985457537713",
-    "string": "No - Try tracking my direction while following the program.",
-    "description": "tracking is suggesting to the user that they should follow each instruction and follow how that will affect the movement. A 'program' is a set of instructions that tell the computer what to do next."
-  },
-  "q4right": {
-    "id": "1775354388524175835",
-    "string": "That's right! Good job.",
-    "description": "Congratulating the user on correctly answering the question."
-  },
-  "q4wrong": {
-    "id": "3269298963580773141",
-    "string": "No - Try tracking my direction while following the program.",
-    "description": "tracking is suggesting to the user that they should follow each instruction and follow how that will affect the movement. A 'program' is a set of instructions that tell the computer what to do next."
-  },
-  "q5right": {
-    "id": "4318072147009246027",
-    "string": "You got it right!",
-    "description": "Congratulating the user on correctly answering the question."
-  },
-  "q5wrong": {
-    "id": "783174224955555486",
-    "string": "No - Try tracking my direction while following the program.",
-    "description": "tracking is suggesting to the user that they should follow each instruction and follow how that will affect the movement. A 'program' is a set of instructions that tell the computer what to do next."
   },
   "repeatUntilBlocked": {
     "id": "5669566230124297065",

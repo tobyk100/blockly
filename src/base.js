@@ -88,18 +88,6 @@ BlocklyApps.init = function(config) {
   onContinue = config.onContinue || function() {
     console.log('Continue!');
   };
-  // Disable the link button if page isn't backed by App Engine storage.
-  var linkButton = document.getElementById('linkButton');
-  if ('BlocklyStorage' in window) {
-    BlocklyStorage.HTTPREQUEST_ERROR = msg.httpRequestError();
-    BlocklyStorage.LINK_ALERT = msg.linkAlert();
-    BlocklyStorage.HASH_ERROR = msg.hashError();
-    BlocklyStorage.XML_ERROR = msg.xmlError();
-    // Swap out the BlocklyStorage's alert() for a nicer dialog.
-    BlocklyStorage.alert = BlocklyApps.storageAlert;
-  } else if (linkButton) {
-    linkButton.className = 'disabled';
-  }
 
   // Fixes viewport for small screens.
   var viewport = document.querySelector('meta[name="viewport"]');
@@ -135,28 +123,12 @@ BlocklyApps.initReadonly = function() {
 };
 
 /**
- * Load blocks saved on App Engine Storage or in session/local storage.
- * @param {string} defaultXml Text representation of default blocks.
+ * @param {string} blocksXml Text representation of blocks.
  */
-BlocklyApps.loadBlocks = function(defaultXml) {
-  if ('BlocklyStorage' in window && window.location.hash.length > 1) {
-    // An href with #key trigers an AJAX call to retrieve saved blocks.
-    BlocklyStorage.retrieveXml(window.location.hash.substring(1));
-  } else if (window.sessionStorage.loadOnceBlocks) {
-    // Language switching stores the blocks during the reload.
-    var text = window.sessionStorage.loadOnceBlocks;
-    delete window.sessionStorage.loadOnceBlocks;
-    var xml = Blockly.Xml.textToDom(text);
-    Blockly.Xml.domToWorkspace(Blockly.mainWorkspace, xml);
-  } else if (defaultXml) {
-    // Load the editor with default starting blocks.
-    var xml = Blockly.Xml.textToDom(defaultXml);
-    Blockly.Xml.domToWorkspace(Blockly.mainWorkspace, xml);
-  } else if ('BlocklyStorage' in window) {
-    // Restore saved blocks in a separate thread so that subsequent
-    // initialization is not affected from a failed load.
-    window.setTimeout(BlocklyStorage.restoreBlocks, 0);
-  }
+BlocklyApps.loadBlocks = function(blocksXml) {
+  // Load the editor with default starting blocks.
+  var xml = Blockly.Xml.textToDom(blocksXml);
+  Blockly.Xml.domToWorkspace(Blockly.mainWorkspace, xml);
 };
 
 /**
@@ -213,39 +185,12 @@ BlocklyApps.checkTimeout = function(opt_id) {
 };
 
 /**
- * Hide the dialog pop-up and interstitials.
+ * Hide the dialog pop-up.
  * @param {boolean} opt_animate Animate the dialog closing.  Defaults to true.
  *     Requires that origin was not null when dialog was opened.
  */
 BlocklyApps.hideDialog = function(opt_animate) {
   dialog.hide(opt_animate);
-  BlocklyApps.hideInterstitial();
-};
-
-/**
- * Display a storage-related modal dialog.
- * @param {string} message Text to alert.
- */
-BlocklyApps.storageAlert = function(message) {
-  var container = document.getElementById('containerStorage');
-  container.innerHTML = '';
-  var lines = message.split('\n');
-  for (var i = 0; i < lines.length; i++) {
-    var p = document.createElement('p');
-    p.appendChild(document.createTextNode(lines[i]));
-    container.appendChild(p);
-  }
-
-  var content = document.getElementById('dialogStorage');
-  var origin = document.getElementById('linkButton');
-  var style = {
-    width: '50%',
-    left: '25%',
-    top: '5em'
-  };
-  dialog.show(content, origin, true, true, style, function() {
-    content.parentNode.removeChild(content);
-  });
 };
 
 /**
@@ -419,12 +364,6 @@ BlocklyApps.TestResults = {
 };
 
 /**
- * The interstital setting for each level defined in the application.
- * @type {!Array=}
- */
-BlocklyApps.INTERSTITIALS = undefined;
-
-/**
  * Updates the document's 'capacity' element's innerHTML with a message
  * indicating how many more blocks are permitted.  The capacity
  * is retrieved from Blockly.mainWorkspace.remainingCapacity().
@@ -450,22 +389,17 @@ BlocklyApps.updateCapacity = function() {
 // Methods for determining and displaying feedback.
 
 /**
- * Display feedback based on test results.  The test results can be
- * explicitly provied so a specific application (namely Turtle) can generate
- * test results in its own way and display feedback.
- * @param {?number} opt_feedbackType Test results (a constant property of
+ * Display feedback based on test results.  The test results must be
+ * explicitly provided.
+ * @param {{feedbackType: number}} Test results (a constant property of
  *     BlocklyApps.TestResults).
  */
 BlocklyApps.displayFeedback = function(options) {
-  if (!options) {
-    options = {};
-  }
-  options.feedbackType = options.feedbackType || BlocklyApps.getTestResults();
   BlocklyApps.hideFeedback();
   BlocklyApps.setErrorFeedback(options);
   BlocklyApps.prepareFeedback(options);
   BlocklyApps.displayCloseDialogButtons(options.feedbackType);
-  BlocklyApps.showHelp(true, options.feedbackType);
+  BlocklyApps.showHelp(options.feedbackType);
 };
 
 /**
@@ -636,7 +570,8 @@ BlocklyApps.setErrorFeedback = function(options) {
             .style.display = 'list-item';
         document.getElementById('feedbackBlocks').src =
             BlocklyApps.BASE_URL + options.app + '/readonly.html?xml=' +
-            BlocklyApps.generateXMLForBlocks(missingBlocks);
+            BlocklyApps.generateXMLForBlocks(missingBlocks) +
+            (options.skin ? '&skin=' + options.skin : '');
         document.getElementById('feedbackBlocks').style.display = 'block';
       }
       break;
@@ -730,16 +665,11 @@ BlocklyApps.hideFeedback = function() {
 };
 
 /**
- * Either show an interstitial or go to the next level.
+ * Hide the feedback dialog and raise the continue event.
  */
 BlocklyApps.continueClicked = function() {
-  var interstitial = document.getElementById('interstitial').style.display;
-  if (interstitial == 'none' && BlocklyApps.INTERSTITIALS.after) {
-    BlocklyApps.showInterstitial();
-  } else {
-    BlocklyApps.hideDialog(false);
-    onContinue();
-  }
+  BlocklyApps.hideDialog(false);
+  onContinue();
 };
 
 /**
@@ -784,34 +714,6 @@ BlocklyApps.displayCloseDialogButtons = function(feedbackType) {
 };
 
 /**
- * Show the interstitial content.
- */
-BlocklyApps.showInterstitial = function() {
-  if (BlocklyApps.levelComplete) {
-    if (BlocklyApps.INTERSTITIALS.after) {
-      var preInterArray = document.querySelectorAll('.preInter');
-      for (var r = 0, preInter; preInter = preInterArray[r]; r++) {
-        preInter.style.display = 'none';
-      }
-      var postInterArray = document.querySelectorAll('.postInter');
-      for (var s = 0, postInter; postInter = postInterArray[s]; s++) {
-          postInter.style.display = 'block';
-      }
-      document.getElementById('interstitial').style.display = 'block';
-    }
-  } else if (BlocklyApps.INTERSTITIALS.before) {
-    document.getElementById('interstitial').style.display = 'block';
-  }
-};
-
-/**
- * Hide the interstitial content.
- */
-BlocklyApps.hideInterstitial = function() {
-  document.getElementById('interstitial').style.display = 'none';
-};
-
-/**
  * Click the reset button.  Reset the application.
  */
 BlocklyApps.resetButtonClick = function() {
@@ -823,15 +725,12 @@ BlocklyApps.resetButtonClick = function() {
 
 /**
  * Show the help pop-up.
- * @param {boolean} animate Animate the pop-up opening.
  * @param {number} feedbackType If defined, the results of end of level tests.
  */
-BlocklyApps.showHelp = function(animate, feedbackType) {
+BlocklyApps.showHelp = function(feedbackType) {
   feedbackType = typeof feedbackType !== 'undefined' ?
       feedbackType : BlocklyApps.NO_TESTS_RUN;
   var help = document.getElementById('help');
-  var button = document.getElementById('helpButton');
-  button.removeAttribute('disabled');
 
   var style = {
     width: '50%',
@@ -846,7 +745,7 @@ BlocklyApps.showHelp = function(animate, feedbackType) {
     }
   }
   BlocklyApps.displayCloseDialogButtons(feedbackType);
-  dialog.show(help, button, animate, true, style);
+  dialog.show(help, null, false, true, style);
 };
 
 /**

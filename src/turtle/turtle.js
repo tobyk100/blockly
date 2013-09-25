@@ -23,6 +23,8 @@
  */
 'use strict';
 
+window.Turtle = module.exports;
+
 /**
  * Create a namespace for the application.
  */
@@ -31,15 +33,7 @@ var Slider = require('../slider');
 var msg = require('../../build/en_us/i18n/turtle');
 var levels = require('./levels');
 var Colours = require('./core').Colours;
-
-/**
- * Colour requirements for this level, if any.  Values and their meanings are:
- * - 1: There must be at least one non-black colour.
- * - 2 or higher: There must be the specified number of colours (black okay).
- * - string: The entire picture must use the named colour.
- * @type{number|string}
- */
-Turtle.REQUIRED_COLOURS = null;
+var answers = require('./answers');
 
 /**
  * Template used to generate a regular expression string checking that
@@ -48,12 +42,11 @@ Turtle.REQUIRED_COLOURS = null;
  */
 Turtle.PROCEDURE_CALL_TEMPLATE_ = 'procedures_callnoreturn[^e]*e="%1"';
 
-levels.install(BlocklyApps, Turtle);
+var level = levels.install(BlocklyApps, Turtle);
 
 BlocklyApps.CHECK_FOR_EMPTY_BLOCKS = false;
 BlocklyApps.NUM_REQUIRED_BLOCKS_TO_FLAG = 1;
 BlocklyApps.FREE_BLOCKS = 'colour';
-BlocklyApps.INTERSTITIALS = {}; //XXX
 
 Turtle.HEIGHT = 400;
 Turtle.WIDTH = 400;
@@ -77,22 +70,23 @@ Turtle.visible = true;
 /**
  * Initialize Blockly and the turtle.  Called on page load.
  */
-Turtle.init = function() {
-  if (BlocklyApps.REINF) {
-    return;
+Turtle.init = function(config) {
+  if (!config) {
+    config = {};
   }
-  BlocklyApps.init();
+  if (!config.level) {
+    config.level = {};
+  }
+
+  BlocklyApps.init(config);
 
   var rtl = BlocklyApps.isRtl();
-  var toolbox = document.getElementById('toolbox');
-  Blockly.inject(document.getElementById('blockly'),
-      {path: BlocklyApps.BASE_URL,
-       rtl: rtl,
-       toolbox: toolbox,
-       trashcan: true});
-  if (BlocklyApps.LEVEL == 1) {
-    Blockly.SNAP_RADIUS *= 2;
-  }
+  Blockly.inject(document.getElementById('blockly'), {
+    path: BlocklyApps.BASE_URL,
+    rtl: rtl,
+    toolbox: level.toolbox,
+    trashcan: true
+  });
 
   // Add to reserved word list: API, local variables in execution evironment
   // (execute) and the infinite loop detection function.
@@ -122,50 +116,38 @@ Turtle.init = function() {
   onresize();
   Blockly.fireUiEvent(window, 'resize');
 
-  if (!('BlocklyStorage' in window)) {
-    document.getElementById('linkButton').className = 'disabled';
-  }
-
   // Show the instructions.
-  var msgKey = 'instructions' + BlocklyApps.PAGE + '_' + BlocklyApps.LEVEL;
-  document.getElementById('prompt').innerHTML = msg[msgKey]();
+  var instructions = config.level.instructions || '';
+  document.getElementById('prompt').innerHTML = instructions;
 
   // Initialize the slider.
   var sliderSvg = document.getElementById('slider');
   Turtle.speedSlider = new Slider(10, 35, 130, sliderSvg);
 
   // Add the starting block(s).
-  // An href with #key trigers an AJAX call to retrieve saved blocks.
-  if ('BlocklyStorage' in window && window.location.hash.length > 1) {
-    BlocklyStorage.retrieveXml(window.location.hash.substring(1));
-  } else {
-    if (BlocklyApps.PAGE == 3 &&
-        (BlocklyApps.LEVEL == 8 || BlocklyApps.LEVEL == 9)) {
-      var notReadyMsg;
-      if (BlocklyApps.LEVEL == 8) {
-        notReadyMsg = msg.drawAHouseNotDefined8();
-      } else {
-        notReadyMsg = msg.drawAHouseNotDefined9();
-      }
-      var xml = window.sessionStorage.turtle3Blocks;
-      if (xml === undefined) {
-        window.alert(notReadyMsg);
-      } else {
-        var dom = Blockly.Xml.textToDom(xml);
-        Blockly.Xml.domToWorkspace(Blockly.mainWorkspace, dom);
-        if (!BlocklyApps.getUserBlocks_().some(
-          levels.defineWithArg_('draw a house', 'height')['test'])) {
-          window.alert(notReadyMsg);
-        }
-      }
+  if (Turtle.PAGE == 3 &&
+      (Turtle.LEVEL == 8 || Turtle.LEVEL == 9)) {
+    var notReadyMsg;
+    if (Turtle.LEVEL == 8) {
+      notReadyMsg = msg.drawAHouseNotDefined8();
     } else {
-      var xml = document.getElementById('start_blocks').innerHTML;
-      if (xml) {
-        xml = '<xml>' + xml + '</xml>';
-        var dom = Blockly.Xml.textToDom(xml);
-        Blockly.Xml.domToWorkspace(Blockly.mainWorkspace, dom);
+      notReadyMsg = msg.drawAHouseNotDefined9();
+    }
+    var xml = window.sessionStorage.turtle3Blocks;
+    if (xml === undefined) {
+      window.alert(notReadyMsg);
+    } else {
+      var dom = Blockly.Xml.textToDom(xml);
+      Blockly.Xml.domToWorkspace(Blockly.mainWorkspace, dom);
+      if (!BlocklyApps.getUserBlocks_().some(
+        levels.defineWithArg_('draw a house', 'height')['test'])) {
+        window.alert(notReadyMsg);
       }
     }
+  } else if (level.startBlocks) {
+    var xml = '<xml>' + level.startBlocks + '</xml>';
+    var dom = Blockly.Xml.textToDom(xml);
+    Blockly.Xml.domToWorkspace(Blockly.mainWorkspace, dom);
   }
 
   // Get the canvases and set their initial contents.
@@ -177,15 +159,13 @@ Turtle.init = function() {
   Turtle.drawAnswer();
   BlocklyApps.reset();
 
-  // Special case to increase speed on levels that have lots of steps.
-  if ((BlocklyApps.PAGE == 1 && BlocklyApps.LEVEL == 9) ||
-      (BlocklyApps.PAGE == 2 &&
-          (BlocklyApps.LEVEL >= 8 && BlocklyApps.LEVEL <= 9))) {
-    Turtle.speedSlider.setValue(.9);
+  // Change default speed (eg Speed up levels that have lots of steps).
+  if (level.sliderSpeed) {
+    Turtle.speedSlider.setValue(level.sliderSpeed);
   }
 
-  // Add display of blocks used unless on final playground level.
-  if (BlocklyApps.LEVEL != BlocklyApps.MAX_LEVEL) {
+  // Add display of blocks used unless free play.
+  if (!level.freePlay) {
     Blockly.addChangeListener(function() {
       Turtle.updateBlockCount();
     });
@@ -193,12 +173,6 @@ Turtle.init = function() {
 
   // Lazy-load the syntax-highlighting.
   window.setTimeout(BlocklyApps.importPrettify, 1);
-
-  if (BlocklyApps.INTERSTITIALS.before) {
-    BlocklyApps.showHelp(false, undefined);
-  } else {
-    document.getElementById('helpButton').setAttribute('disabled', 'disabled');
-  }
 };
 
 if (window.location.pathname.match(/readonly.html$/)) {
@@ -222,7 +196,7 @@ Turtle.updateBlockCount = function() {
 Turtle.drawAnswer = function() {
   BlocklyApps.log = [];
   BlocklyApps.ticks = Infinity;
-  Turtle.answer();
+  answers.drawAnswer();
   BlocklyApps.reset();
   while (BlocklyApps.log.length) {
     var tuple = BlocklyApps.log.shift();
@@ -254,8 +228,8 @@ Turtle.placeImage = function(filename, coordinates) {
  * Draw the images for this page and level onto Turtle.ctxImages.
  */
 Turtle.drawImages = function() {
-  if (BlocklyApps.PAGE == 3) {
-    switch (BlocklyApps.LEVEL) {
+  if (Turtle.PAGE == 3) {
+    switch (Turtle.LEVEL) {
       case 3:
         Turtle.placeImage('cat.svg', [[170, 247], [170, 47]]);
         Turtle.placeImage('cow.svg', [[182, 147]]);
@@ -307,11 +281,11 @@ BlocklyApps.reset = function(ignore) {
   Turtle.visible = true;
 
   // For special cases, use a different initial location.
-  if (BlocklyApps.PAGE == 2 &&
-      (BlocklyApps.LEVEL == 8 || BlocklyApps.LEVEL == 9)) {
+  if (Turtle.PAGE == 2 &&
+      (Turtle.LEVEL == 8 || Turtle.LEVEL == 9)) {
     Turtle.x = 100;
-  } else if (BlocklyApps.PAGE == 3) {
-    switch (BlocklyApps.LEVEL) {
+  } else if (Turtle.PAGE == 3) {
+    switch (Turtle.LEVEL) {
       case 3:
       case 6:
       case 7:
@@ -448,7 +422,7 @@ Turtle.animate = function() {
   if (!tuple) {
     document.getElementById('spinner').style.visibility = 'hidden';
     Blockly.mainWorkspace.highlightBlock(null);
-    if (BlocklyApps.LEVEL != BlocklyApps.MAX_LEVEL) {
+    if (!level.freePlay) {
       Turtle.checkAnswer();
     }
     return;
@@ -569,25 +543,29 @@ Turtle.hexStringToColourName = function(hex) {
 
 /**
  * Check whether any required colours are present.
- * This uses Turtle.REQUIRED_COLOURS and Turtle.coloursUsed.
+ * This uses level.requiredColors and Turtle.coloursUsed.
  * @return {number|string} The appropriate value in Turtle.ColourResults or
  *     the name of a missing required colour.
  */
 Turtle.checkRequiredColours = function() {
-  if (!Turtle.REQUIRED_COLOURS) {
+  // level.requiredColors values and their meanings are:
+  // - 1: There must be at least one non-black colour.
+  // - 2 or higher: There must be the specified number of colours (black okay).
+  // - string: The entire picture must use the named colour.
+  if (!level.requiredColors) {
     return Turtle.ColourResults.OK;
   }
   if (Turtle.coloursUsed == 0) {
     return Turtle.ColourResults.NONE;
-  } else if (typeof Turtle.REQUIRED_COLOURS == 'string') {
+  } else if (typeof level.requiredColors == 'string') {
     for (var i = 0; i < Turtle.coloursUsed.length; i++) {
-      if (Turtle.coloursUsed[i] == Turtle.REQUIRED_COLOURS) {
+      if (Turtle.coloursUsed[i] == level.requiredColors) {
         return Turtle.coloursUsed.length == 1 ? Turtle.ColourResults.OK :
             Turtle.ColourResults.EXTRA;
       }
-      return Turtle.hexStringToColourName(Turtle.REQUIRED_COLOURS);
+      return Turtle.hexStringToColourName(level.requiredColors);
     }
-  } else if (Turtle.REQUIRED_COLOURS == 1) {
+  } else if (level.requiredColors == 1) {
     // Any colour but black is acceptable.
     if (Turtle.coloursUsed.length == 1 &&
         Turtle.coloursUsed[0] == Colours.BLACK) {
@@ -596,8 +574,8 @@ Turtle.checkRequiredColours = function() {
       return Turtle.ColourResults.OK;
     }
   } else {
-    // Turtle.REQUIRED_COLOURS must be a number greater than 1.
-    var surplus = Turtle.coloursUsed.length - Turtle.REQUIRED_COLOURS;
+    // level.requiredColors must be a number greater than 1.
+    var surplus = Turtle.coloursUsed.length - level.requiredColors;
     if (surplus > 0) {
       return Turtle.ColourResult.EXTRA;
     } else if (surplus == 0) {
@@ -631,16 +609,16 @@ Turtle.checkAnswer = function() {
 
   // Allow some number of pixels to be off, but be stricter
   // for certain levels.
-  BlocklyApps.levelComplete = Turtle.isCorrect(delta,
-      BlocklyApps.PAGE == 1 && BlocklyApps.LEVEL == 9 ? 10 : 150);
+  BlocklyApps.levelComplete = answers.isCorrect(level, delta,
+      Turtle.PAGE == 1 && Turtle.LEVEL == 9 ? 10 : 150);
   var feedbackType = BlocklyApps.getTestResults();
 
-  BlocklyApps.report('turtle', BlocklyApps.LEVEL,
+  BlocklyApps.report('turtle', Turtle.LEVEL,
                      BlocklyApps.levelComplete,
                      BlocklyApps.stripCode(Turtle.code));
   if (BlocklyApps.levelComplete) {
-    if (BlocklyApps.PAGE == 3 &&
-        (BlocklyApps.LEVEL == 7 || BlocklyApps.LEVEL == 8)) {
+    if (Turtle.PAGE == 3 &&
+        (Turtle.LEVEL == 7 || Turtle.LEVEL == 8)) {
       // Store the blocks for the next level.
       var xml = Blockly.Xml.workspaceToDom(Blockly.mainWorkspace);
       var text = Blockly.Xml.domToText(xml);
@@ -651,7 +629,7 @@ Turtle.checkAnswer = function() {
   // Level 9 of Turtle 3 is a special case.  Do not let the user proceed
   // if they used too many blocks, since it would allow them to miss the
   // point of the level.
-  if (BlocklyApps.PAGE == 3 && BlocklyApps.LEVEL == 9 &&
+  if (Turtle.PAGE == 3 && Turtle.LEVEL == 9 &&
       feedbackType == BlocklyApps.TestResults.TOO_MANY_BLOCKS_FAIL) {
     // TODO: Add more helpful error message.
     feedbackType = BlocklyApps.TestResults.OTHER_1_STAR_FAIL;
@@ -661,7 +639,7 @@ Turtle.checkAnswer = function() {
     // Check that they didn't use a crazy large repeat value when drawing a
     // circle.  This complains if the limit doesn't start with 3.
     // Note that this level does not use colour, so no need to check for that.
-    if (BlocklyApps.PAGE == 1 && BlocklyApps.LEVEL == 9) {
+    if (Turtle.PAGE == 1 && Turtle.LEVEL == 9) {
       var code = Blockly.Generator.workspaceToCode('JavaScript');
       if (code.indexOf('count < 3') == -1) {
           feedbackType = BlocklyApps.TestResults.OTHER_2_STAR_FAIL;
@@ -677,7 +655,7 @@ Turtle.checkAnswer = function() {
           message = msg.notBlackColour();
         } else if (colourResult == Turtle.ColourResults.TOO_FEW) {
           message = msg.tooFewColours();
-          message = message.replace('%1', Turtle.REQUIRED_COLOURS);
+          message = message.replace('%1', level.requiredColors);
           message = message.replace('%2', Turtle.coloursUsed.length);
         } else if (typeof colourResult == 'string') {
           message = msg.wrongColour().replace('%1', colourResult);
@@ -689,7 +667,7 @@ Turtle.checkAnswer = function() {
 
   // If the current level is a free play, always return the free play
   // result type
-  if (Turtle.freePlay) {
+  if (level.freePlay) {
     feedbackType = BlocklyApps.TestResults.FREE_PLAY;
   }
 
@@ -698,16 +676,6 @@ Turtle.checkAnswer = function() {
     app: 'turtle',
     feedbackType: feedbackType
   });
-};
-
-/**
- * Goes to the next level from an interstitial screen.
- */
-Turtle.continueButtonClick = function() {
-  document.getElementById('continueButton').style.display = 'none';
-  window.location = window.location.protocol + '//' + window.location.host +
-      window.location.pathname + '?page=' + BlocklyApps.PAGE + '&level=' +
-      BlocklyApps.LEVEL;
 };
 
 // Turtle API.

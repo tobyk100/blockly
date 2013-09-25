@@ -48,7 +48,6 @@ BlocklyApps.INTERSTITIALS = level.interstitials || {};
 exports.config = {
   skin: skin,
   level: level,
-  interstitials: BlocklyApps.INTERSTITIALS,
   baseUrl: BlocklyApps.BASE_URL
 };
 
@@ -98,7 +97,7 @@ var getTile = function(map, x, y) {
 BlocklyApps.REQUIRED_BLOCKS = level.requiredBlocks;
 
 //The number of blocks to show as feedback.
-BlocklyApps.NUM_REQUIRED_BLOCKS_TO_FLAG = 10;
+BlocklyApps.NUM_REQUIRED_BLOCKS_TO_FLAG = 1;
 
 // Default Scalings
 Maze.scale = {
@@ -196,7 +195,7 @@ Maze.drawMap = function() {
   var hintBubble = document.getElementById('hintBubble');
   hintBubble.style.width = (Maze.MAZE_WIDTH - 20) + 'px';
   var hint = document.getElementById('hint');
-  hint.innerHTML = mazeMsg[level.instructions]();
+  hint.innerHTML = level.instructions;
 
   if (skin.background) {
     var tile = document.createElementNS(Blockly.SVG_NS, 'image');
@@ -367,6 +366,10 @@ Maze.init = function(config) {
     config = {};
   }
   BlocklyApps.init(config);
+  // Override the current level with caller supplied parameters.
+  for (var prop in config.level) {
+    level[prop] = config.level[prop];
+  }
 
   var rtl = BlocklyApps.isRtl();
   var toolbox = document.getElementById('toolbox');
@@ -422,22 +425,6 @@ Maze.init = function(config) {
 
   BlocklyApps.reset(true);
   Blockly.addChangeListener(function() {BlocklyApps.updateCapacity()});
-
-  var interstitial = BlocklyApps.INTERSTITIALS.before;
-  if (interstitial) {
-    BlocklyApps.showHelp(false, undefined);
-  } else {
-    document.getElementById('helpButton').setAttribute('disabled', 'disabled');
-  }
-};
-
-/**
- * Save the blocks for a one-time reload.
- */
-Maze.saveToStorage = function() {
-  var xml = Blockly.Xml.workspaceToDom(Blockly.mainWorkspace);
-  var text = Blockly.Xml.domToText(xml);
-  window.sessionStorage.loadOnceBlocks = text;
 };
 
 /**
@@ -559,6 +546,8 @@ Maze.ResultType = {
 var displayFeedback = function() {
   BlocklyApps.displayFeedback({
     app: 'maze', //XXX
+    skin: skin.id,
+    feedbackType: Maze.testResults,
     finalLevel: false //TODO: Get from server or otherwise parameterize
   });
 };
@@ -571,10 +560,12 @@ Maze.execute = function() {
   BlocklyApps.ticks = 50; //TODO: Set higher for some levels
   var code = Blockly.Generator.workspaceToCode('JavaScript');
   Maze.result = Maze.ResultType.UNSET;
+  Maze.testResults = BlocklyApps.TestResults.NO_TESTS_RUN;
 
   // Check for empty top level blocks to warn user about bugs,
   // especially ones that lead to infinite loops.
   if (BlocklyApps.hasEmptyTopLevelBlocks()) {
+    Maze.testResults = BlocklyApps.TestResults.EMPTY_BLOCK_FAIL;
     displayFeedback();
     return;
   }
@@ -610,6 +601,12 @@ Maze.execute = function() {
       return;
     }
   }
+  
+  // If we know they succeeded, mark levelComplete true
+  // Note that we have not yet animated the succesful run
+  BlocklyApps.levelComplete = (Maze.result == Maze.ResultType.SUCCESS);
+
+  Maze.testResults = BlocklyApps.getTestResults();
 
   // Report result to server.
   BlocklyApps.report('maze', levelId,
@@ -631,7 +628,6 @@ Maze.animate = function() {
   var action = BlocklyApps.log.shift();
   if (!action) {
     BlocklyApps.highlight(null);
-    BlocklyApps.levelComplete = (Maze.result == Maze.ResultType.SUCCESS);
     if (Maze.result == Maze.ResultType.TIMEOUT) {
       displayFeedback();
     } else {
@@ -694,7 +690,16 @@ Maze.animate = function() {
       Maze.pegmanD = Maze.constrainDirection4(Maze.pegmanD + 1);
       break;
     case 'finish':
-      Maze.scheduleFinish(true);
+      // Only schedule victory animation for certain conditions:
+      switch (Maze.testResults) {
+        case BlocklyApps.TestResults.FREE_PLAY:
+        case BlocklyApps.TestResults.TOO_MANY_BLOCKS_FAIL:
+        case BlocklyApps.TestResults.ALL_PASS:
+          Maze.scheduleFinish(true);
+          break;
+        default:
+          break;
+      }
       break;
     case 'putdown':
       Maze.schedulePutDownBall();

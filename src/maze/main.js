@@ -8,6 +8,11 @@ window.mazeMain = function(options) {
     options = {};
   }
 
+  //TODO: Untangle app initialization & template rendering, move this in there.
+  if (options.helpHtml) {
+    Maze.config.helpHtml = options.helpHtml;
+  }
+
   if (!options.readonly) {
     document.write(mazepage.start({}, null, Maze.config));
   }

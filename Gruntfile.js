@@ -97,7 +97,7 @@ config.watch = {
     tasks: ['browserify']
   },
   style: {
-    files: ['scss/**/*.scss', 'sass/**/*.sass'],
+    files: ['style/**/*.scss', 'sass/**/*.sass'],
     tasks: ['sass']
   },
   content: {
