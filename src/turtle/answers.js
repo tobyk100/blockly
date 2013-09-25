@@ -23,68 +23,71 @@
  */
 'use strict';
 
+var setRandomVisibleColour = function() {
+  var num = Math.floor(Math.random() * Math.pow(2, 24));
+  // Make sure at least one component is below 0x80 and the rest
+  // below 0xA0, to prevent too light of colours.
+  num &= 0x9f7f9f;
+  var colour = '#' + ('00000' + num.toString(16)).substr(-6);
+  Turtle.penColour(colour);
+};
+
+var drawSquare = function(length, random_colour) {
+  for (var count = 0; count < 4; count++) {
+    if (random_colour) {
+      setRandomVisibleColour();
+    }
+    Turtle.moveForward(length);
+    Turtle.turnRight(90);
+  }
+};
+
+var drawTriangle = function(length, random_colour) {
+  for (var count = 0; count < 3; count++) {
+    if (random_colour) {
+      setRandomVisibleColour();
+    }
+    Turtle.moveForward(length);
+    Turtle.turnRight(120);
+  }
+};
+
+var drawSnowman = function(height) {
+  Turtle.turnLeft(90);
+  var distances = [height * .5, height * .3, height * .2];
+  for (var i = 0; i < 6; i++) {
+    var distance = distances[i < 3 ? i : 5 - i] / 57.5;
+    for (var d = 0; d < 180; d += 2) {
+      Turtle.moveForward(distance);
+      Turtle.turnRight(2);
+    }
+    if (i != 2) {
+      Turtle.turnRight(180);
+    }
+  }
+  Turtle.turnLeft(90);
+};
+
+var drawHouse = function(length) {
+  drawSquare(length);
+  Turtle.moveForward(length);
+  Turtle.turnRight(30);
+  drawTriangle(length);
+  Turtle.turnRight(60);
+  Turtle.moveForward(length);
+  Turtle.turnLeft(90);
+  Turtle.moveBackward(length);
+};
+
 /**
  * Sample solutions for each level.
  * To create an answer, just solve the level in Blockly, then paste the
  * resulting JavaScript here, moving any functions to the beginning of
  * this function.
  */
-Turtle.answer = function() {
-  // Helper functions.
-  function setRandomVisibleColour() {
-    var num = Math.floor(Math.random() * Math.pow(2, 24));
-    // Make sure at least one component is below 0x80 and the rest
-    // below 0xA0, to prevent too light of colours.
-    num &= 0x9f7f9f;
-    var colour = '#' + ('00000' + num.toString(16)).substr(-6);
-    Turtle.penColour(colour);
-  }
-  function drawSquare(length, random_colour) {
-    for (var count = 0; count < 4; count++) {
-      if (random_colour) {
-        setRandomVisibleColour();
-      }
-      Turtle.moveForward(length);
-      Turtle.turnRight(90);
-    }
-  }
-  function drawTriangle(length, random_colour) {
-    for (var count = 0; count < 3; count++) {
-      if (random_colour) {
-        setRandomVisibleColour();
-      }
-      Turtle.moveForward(length);
-      Turtle.turnRight(120);
-    }
-  }
-  function drawSnowman(height) {
-    Turtle.turnLeft(90);
-    var distances = [height * .5, height * .3, height * .2];
-    for (var i = 0; i < 6; i++) {
-      var distance = distances[i < 3 ? i : 5 - i] / 57.5;
-      for (var d = 0; d < 180; d += 2) {
-        Turtle.moveForward(distance);
-        Turtle.turnRight(2);
-      }
-      if (i != 2) {
-        Turtle.turnRight(180);
-      }
-    }
-    Turtle.turnLeft(90);
-  }
-  function drawHouse(length) {
-    drawSquare(length);
-    Turtle.moveForward(length);
-    Turtle.turnRight(30);
-    drawTriangle(length);
-    Turtle.turnRight(60);
-    Turtle.moveForward(length);
-    Turtle.turnLeft(90);
-    Turtle.moveBackward(length);
-  }
-
-  if (BlocklyApps.PAGE == 1) {
-    switch (BlocklyApps.LEVEL) {
+exports.drawAnswer = function() {
+  if (Turtle.PAGE == 1) {
+    switch (Turtle.LEVEL) {
       case 1:
         // El.
         Turtle.moveForward(100);
@@ -139,8 +142,8 @@ Turtle.answer = function() {
         }
         break;
     }
-  } else if (BlocklyApps.PAGE == 2) {
-    switch (BlocklyApps.LEVEL) {
+  } else if (Turtle.PAGE == 2) {
+    switch (Turtle.LEVEL) {
       case 1:
         // Single square in some color.
         setRandomVisibleColour();
@@ -202,8 +205,8 @@ Turtle.answer = function() {
         }
         break;
     }
-  } else if (BlocklyApps.PAGE == 3) {
-    switch (BlocklyApps.LEVEL) {
+  } else if (Turtle.PAGE == 3) {
+    switch (Turtle.LEVEL) {
       case 1:
         // Draw a square.
         drawSquare(100);
@@ -259,7 +262,6 @@ Turtle.answer = function() {
  * @param {number} permittedErrors Number of pixels allowed to be wrong.
  * @return {boolean} True if the level is solved, false otherwise.
  */
-Turtle.isCorrect = function(pixelErrors, permittedErrors) {
-  return BlocklyApps.LEVEL < BlocklyApps.MAX_LEVEL &&
-  pixelErrors < permittedErrors;
+exports.isCorrect = function(pixelErrors, permittedErrors) {
+  return pixelErrors < permittedErrors;
 };
