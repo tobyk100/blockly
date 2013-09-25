@@ -416,9 +416,7 @@ Turtle.animate = function() {
   if (!tuple) {
     document.getElementById('spinner').style.visibility = 'hidden';
     Blockly.mainWorkspace.highlightBlock(null);
-    if (!level.freePlay) {
-      Turtle.checkAnswer();
-    }
+    Turtle.checkAnswer();
     return;
   }
   var command = tuple.shift();
