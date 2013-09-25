@@ -124,36 +124,6 @@
     "string": "if path to the right",
     "description": "condensed form of 'if there is a path to the right', as in: 'if path to the right, turn right'."
   },
-  "q3right": {
-    "id": "3861275221935187198",
-    "string": "That's right!",
-    "description": "Congratulating the user on correctly answering the question."
-  },
-  "q3wrong": {
-    "id": "1851166057196506938",
-    "string": "No - Try tracking my direction while following the program.",
-    "description": "tracking is suggesting to the user that they should follow each instruction and follow how that will affect the movement. A 'program' is a set of instructions that tell the computer what to do next."
-  },
-  "q5right": {
-    "id": "7407757177156067975",
-    "string": "That's right!",
-    "description": "Congratulating the user on correctly answering the question."
-  },
-  "q5wrong": {
-    "id": "6537484406802177826",
-    "string": "No - Try tracking my direction while following the program.",
-    "description": "Tracking is suggesting to the user that they should follow each instruction and follow how that will affect the movement. A 'program' is a set of instructions that tell the computer what to do next."
-  },
-  "q9right": {
-    "id": "4038729554513968964",
-    "string": "That's right!",
-    "description": "Congratulating the user on correctly answering the question."
-  },
-  "q9wrong": {
-    "id": "2825528106134845336",
-    "string": "No - Try tracking my direction while following the program.",
-    "description": "tracking is suggesting to the user that they should follow each instruction and follow how that will affect the movement. A 'program' is a set of instructions that tell the computer what to do next."
-  },
   "repeatUntil": {
     "id": "5000330788075193694",
     "string": "repeat until",
