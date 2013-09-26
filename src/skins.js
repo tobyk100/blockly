@@ -41,8 +41,7 @@ exports.load = function(baseUrl, id) {
     obstacle: root + 'obstacle.png',
     graph: config.graph,
     look: config.look,
-    //TODO: rename ball/check/hole/pile
-    ball: function(n) {
+    dirt: function(n) {
       var MAX = 10;
       var MIN = -MAX;
       var prefix;
@@ -53,7 +52,7 @@ exports.load = function(baseUrl, id) {
       } else {
         prefix = '' + n;
       }
-      //TODO: This really should be a sprite sheet.
+      //TODO: This really should be a dirt sprite sheet.
       return root + prefix + 'check.png';
     }
   };

@@ -1,8 +1,8 @@
 {
-  "ballsPresent": {
+  "pilePresent": {
     "id": "4050999966626457535",
     "string": "there is a pile",
-    "description": "Indicates the presence of at least one ball, as in 'he brought a ball, there are now balls present'"
+    "description": "Indicates the presence of a dirt pile at least one unit high. As in 'he put dirt on the group, there is now a pile present'"
   },
   "capacity0": {
     "id": "7083250244318947033",
@@ -64,10 +64,10 @@
     "string": "Congratulations! You have solved the final level.",
     "description": "alert - This is displayed when the user solves the most difficult level."
   },
-  "holesPresent": {
+  "holePresent": {
     "id": "4787297942415818764",
     "string": "there is a hole",
-    "description": "Indicates the lack of any balls, as in 'she took the last ball, there are now no balls present'"
+    "description": "Indicates a dirt hole at least one unit deep. As in 'he dig a hole, there is now a hole present'."
   },
   "ifTooltip": {
     "id": "4874525273235336318",
@@ -144,31 +144,21 @@
     "string": "if path to the right",
     "description": "condensed form of 'if there is a path to the right', as in: 'if path to the right, turn right'."
   },
-  "pickUpBall": {
+  "dig": {
     "id": "5268364470656255036",
-    "string": "remove 1",
-    "description": "verb - imperative or infinitive for a person picking up a ball."
+    "string": "dig",
+    "description": "verb - imperative or infinitive for a person digging a hole."
   },
-  "pickUpBallTooltip": {
-    "string": "TODO"
+  "digTooltip": {
+    "string": "remove 1 unit of dirt"
   },
-  "pickupTower": {
-    "id": "885793977251639445",
-    "string": "pickup tower",
-    "description": "Place a tower up off the ground"
-  },
-  "putDown5": {
-    "id": "979916318881432671",
-    "string": "put down 5",
-    "description": "place 5 balls on the square."
-  },
-  "putDownBall": {
+  "fill": {
     "id": "820940435620302045",
-    "string": "fill 1",
-    "description": "verb - imperative or infinitive for a person putting down a ball."
+    "string": "fill",
+    "description": "verb - imperative or infinitive for a person filling a hole."
   },
-  "putDownBallTooltip": {
-    "string": "TODO"
+  "fillTooltip": {
+    "string": "place 1 unit of dirt"
   },
   "putdownTower": {
     "id": "471029618522690538",

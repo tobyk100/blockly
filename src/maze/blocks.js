@@ -50,41 +50,41 @@ exports.install = function(blockly, skin) {
     return 'Maze.moveForward(\'block_id_' + this.id + '\');\n';
   };
 
-  blockly.Blocks.maze_putDownBall = {
-    // Block for putting down a ball.
+  blockly.Blocks.maze_fill = {
+    // Block for putting dirt on to a tile.
     helpUrl: 'http://code.google.com/p/blockly/wiki/PutDown',
     init: function() {
       this.setColour(290);
       this.appendDummyInput()
-          .appendTitle(msg.putDownBall());
+          .appendTitle(msg.fill());
       this.setPreviousStatement(true);
       this.setNextStatement(true);
-      this.setTooltip(msg.putDownBallTooltip());
+      this.setTooltip(msg.fillTooltip());
     }
   };
 
-  generator.maze_putDownBall = function() {
-    // Generate JavaScript for putting down a ball.
-    return 'Maze.putDownBall(\'block_id_' + this.id + '\');\n';
+  generator.maze_fill = function() {
+    // Generate JavaScript for putting dirt on to a tile.
+    return 'Maze.fill(\'block_id_' + this.id + '\');\n';
   };
 
   // Nan's
-  blockly.Blocks.maze_pickUpBall = {
-    // Block for putting down a ball.
+  blockly.Blocks.maze_dig = {
+    // Block for putting for removing dirt from a tile.
     helpUrl: 'http://code.google.com/p/blockly/wiki/PickUp',
     init: function() {
       this.setColour(290);
       this.appendDummyInput()
-          .appendTitle(msg.pickUpBall());
+          .appendTitle(msg.dig());
       this.setPreviousStatement(true);
       this.setNextStatement(true);
-      this.setTooltip(msg.pickUpBallTooltip());
+      this.setTooltip(msg.digTooltip());
     }
   };
 
-  generator.maze_pickUpBall = function() {
-    // Generate JavaScript for putting down a ball.
-    return 'Maze.pickUpBall(\'block_id_' + this.id + '\');\n';
+  generator.maze_dig = function() {
+    // Generate JavaScript for removing dirt from a tile.
+    return 'Maze.dig(\'block_id_' + this.id + '\');\n';
   };
 
   blockly.Blocks.maze_turn = {
@@ -221,8 +221,8 @@ exports.install = function(blockly, skin) {
   };
 
   blockly.Blocks.karel_if.DIRECTIONS = [
-       [msg.ballsPresent(), 'ballsPresent'],
-       [msg.holesPresent(), 'holesPresent'],
+       [msg.pilePresent(), 'pilePresent'],
+       [msg.holePresent(), 'holePresent'],
        [msg.pathAhead(), 'isPathForward']
   //     [msg.noPathAhead(), 'noPathForward']
   ];
@@ -285,8 +285,8 @@ exports.install = function(blockly, skin) {
   };
 
   blockly.Blocks.maze_whileNotClear.DIRECTIONS = [
-    [msg.while() + ' ' + msg.ballsPresent(), 'ballsPresent'],
-    [msg.while() + ' ' + msg.holesPresent(), 'holesPresent']
+    [msg.while() + ' ' + msg.pilePresent(), 'pilePresent'],
+    [msg.while() + ' ' + msg.holePresent(), 'holePresent']
   ];
 
   blockly.Blocks.maze_untilBlocked = {
@@ -355,8 +355,8 @@ exports.install = function(blockly, skin) {
   };
 
   blockly.Blocks.maze_untilBlockedOrNotClear.DIRECTIONS = [
-       [msg.while() + ' ' + msg.ballsPresent(), 'ballsPresent'],
-       [msg.while() + ' ' + msg.holesPresent(), 'holesPresent'],
+       [msg.while() + ' ' + msg.pilePresent(), 'pilePresent'],
+       [msg.while() + ' ' + msg.holePresent(), 'holePresent'],
        [msg.repeatUntilBlocked(), 'isPathForward']
   ];
 

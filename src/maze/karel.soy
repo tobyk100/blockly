@@ -30,7 +30,7 @@
       {case 5}
         <block type="maze_untilBlocked" x="70" y="70"></block>
       {case 6}
-        <block type="maze_pickUpBall" x="70" y="70"></block>
+        <block type="maze_dig" x="70" y="70"></block>
       {case 7}
         <block type="maze_turn" x="70" y="70">
               <title name="DIR">turnRight</title>
@@ -79,18 +79,18 @@
       {case 7}
         <block type="procedures_callnoreturn" x="20" y="70" editable="false"
           deletable="false">
-          <mutation name="avoid the cow and remove 1"></mutation>
+          <mutation name="avoid the cow and dig"></mutation>
         </block>
         <block type="procedures_defnoreturn" x="20" y="200" editable="false"
           deletable="false">
           <mutation></mutation>
-          <title name="NAME">avoid the cow and remove 1</title>
+          <title name="NAME">avoid the cow and dig</title>
         </block>
       {case 8}
         <block type="procedures_defnoreturn" x="20" y="200" editable="false"
           deletable="false">
           <mutation></mutation>
-          <title name="NAME">avoid the cow and remove 1</title>
+          <title name="NAME">avoid the cow and dig</title>
           <statement name="STACK">
             <block type="maze_turn" editable="false" deletable="false"
               movable="false">
@@ -117,7 +117,7 @@
                                       editable="false" deletable="false"
                                       movable="false">
                                       <next>
-                                        <block type="maze_pickUpBall"
+                                        <block type="maze_dig"
                                           editable="false" deletable="false"
                                           movable="false">
                                           <next>
@@ -147,7 +147,7 @@
         </block>
       {case 9}
         <block type="karel_if" x="20" y="70">
-          <title name="DIR">ballsPresent</title>
+          <title name="DIR">pilePresent</title>
         </block>
         <block type="procedures_defnoreturn" x="20" y="200" editable="false"
           deletable="false">
@@ -162,7 +162,7 @@
                   movable="false">
                   <title name="TIMES">4</title>
                   <statement name="DO">
-                    <block type="maze_pickUpBall" editable="false"
+                    <block type="maze_dig" editable="false"
                       deletable="false" movable="false">
                       <next>
                         <block type="maze_moveForward" editable="false"
@@ -216,7 +216,7 @@
                   movable="false">
                   <title name="TIMES">2</title>
                   <statement name="DO">
-                    <block type="maze_putDownBall" editable="false"
+                    <block type="maze_fill" editable="false"
                       deletable="false" movable="false">
                       <next>
                         <block type="maze_moveForward" editable="false"
@@ -271,7 +271,7 @@
                   movable="false">
                   <title name="TIMES">4</title>
                   <statement name="DO">
-                    <block type="maze_pickUpBall" editable="false"
+                    <block type="maze_dig" editable="false"
                       deletable="false" movable="false">
                       <next>
                         <block type="maze_moveForward" editable="false"
@@ -325,7 +325,7 @@
                   movable="false">
                   <title name="TIMES">2</title>
                   <statement name="DO">
-                    <block type="maze_putDownBall" editable="false"
+                    <block type="maze_fill" editable="false"
                       deletable="false" movable="false">
                       <next>
                         <block type="maze_moveForward" editable="false"
@@ -370,9 +370,9 @@
         <block type="procedures_defnoreturn" x="20" y="200" editable="false"
           deletable="false">
           <mutation></mutation>
-          <title name="NAME">remove 1 and avoid the cow</title>
+          <title name="NAME">dig and avoid the cow</title>
           <statement name="STACK">
-            <block type="maze_pickUpBall" editable="false" deletable="false"
+            <block type="maze_dig" editable="false" deletable="false"
               movable="false">
               <next>
                 <block type="maze_turn" editable="false" deletable="false"
@@ -442,7 +442,7 @@
         movable="false">
         <title name="TIMES">{$shovelfuls}</title>
         <statement name="DO">
-          <block type="maze_putDownBall" editable="false" deletable="false"
+          <block type="maze_fill" editable="false" deletable="false"
             movable="false">
           </block>
         </statement>
@@ -465,7 +465,7 @@
         movable="false">
         <title name="TIMES">{$shovelfuls}</title>
         <statement name="DO">
-          <block type="maze_pickUpBall" editable="false" deletable="false"
+          <block type="maze_dig" editable="false" deletable="false"
             movable="false">
           </block>
         </statement>

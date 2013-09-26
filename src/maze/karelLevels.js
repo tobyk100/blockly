@@ -23,11 +23,11 @@ var MOVE_FORWARD = {
     'type': 'maze_moveForward'
 };
 
-// This tests for and creates the "pickUpBall" block.
-var PICK_UP_BALL = {'test': 'pickUpBall', 'type': 'maze_pickUpBall'};
+// This tests for and creates the "dig" block.
+var DIG = {'test': 'dig', 'type': 'maze_dig'};
 
-// This tests for and creates the "putDownBall" block.
-var PUT_DOWN_BALL = {'test': 'putDownBall', 'type': 'maze_putDownBall'};
+// This tests for and creates the "fill" block.
+var FILL = {'test': 'fill', 'type': 'maze_fill'};
 
 // This tests for and creates the "controls_repeat" block.
 var REPEAT = {
@@ -56,11 +56,11 @@ var UNTIL_BLOCKED = {
   'type': 'maze_untilBlocked'
 };
 
-// This tests for and creates the "maze_untilBlockedOrNotClear" block with the option "ballsPresent" selected.
-var WHILE_OPT_BALLS_PRESENT = {
-  'test': 'while (Maze.ballsPresent',
+// This tests for and creates the "maze_untilBlockedOrNotClear" block with the option "pilePresent" selected.
+var WHILE_OPT_PILE_PRESENT = {
+  'test': 'while (Maze.pilePresent',
   'type': 'maze_untilBlockedOrNotClear',
-  'titles': {'DIR': 'ballsPresent'}
+  'titles': {'DIR': 'pilePresent'}
 };
 
 // This tests for and creates the "maze_untilBlockedOrNotClear" block with the option "isPathForward" selected.
@@ -73,49 +73,49 @@ var WHILE_OPT_PATH_AHEAD = {
 // This tests for and creates the "karel_if" block.
 var IF = {'test': 'if', 'type': 'karel_if'};
 
-// This tests for and creates the "karel_if" block with the option "ballsPresent" selected.
-var IF_OPT_BALLS_PRESENT = {
-  'test': 'if (Maze.ballsPresent',
+// This tests for and creates the "karel_if" block with the option "pilePresent" selected.
+var IF_OPT_PILE_PRESENT = {
+  'test': 'if (Maze.pilePresent',
   'type': 'karel_if',
-  'titles': {'DIR': 'ballsPresent'}
+  'titles': {'DIR': 'pilePresent'}
 };
 
-// This tests for and creates the "karel_if" block with the option "holesPresent" selected.
-var IF_OPT_HOLES_PRESENT = {
-  'test': 'if (Maze.holesPresent',
+// This tests for and creates the "karel_if" block with the option "holePresent" selected.
+var IF_OPT_HOLE_PRESENT = {
+  'test': 'if (Maze.holePresent',
   'type': 'karel_if',
-  'titles': {'DIR': 'holesPresent'}
+  'titles': {'DIR': 'holePresent'}
 };
 
 // This tests for and creates the "karel_ifElse" block.
 var IF_ELSE = {'test': '} else {', 'type': 'karel_ifElse'};
 
-// This tests for and creates the "fill num" blcok.
+// This tests for and creates the "fill num" block.
 var fill = function(num) {
   return {'test': 'fill_' + num + '();',
           'type': 'procedures_callnoreturn',
           'titles': {'NAME': 'fill ' + num}};
 };
 
-// This tests for and creates the "remove num" blcok.
+// This tests for and creates the "dig num" blcok.
 var remove = function(num) {
   return {'test': 'remove_' + num + '();',
           'type': 'procedures_callnoreturn',
-          'titles': {'NAME': 'remove ' + num}};
+          'titles': {'NAME': 'dig ' + num}};
 };
 
-// This tests for and creates the "avoid the cow and remove 1" blcok.
+// This tests for and creates the "avoid the cow and dig" blcok.
 var AVOID_OBSTACLE_AND_REMOVE = {
-  'test': 'avoid_the_cow_and_remove_1();',
+  'test': 'avoid_the_cow_and_dig();',
   'type': 'procedures_callnoreturn',
-  'titles': {'NAME': 'avoid the cow and remove 1'}
+  'titles': {'NAME': 'avoid the cow and dig'}
 };
 
-// This tests for and creates the "remove 1 and avoid the cow" blcok.
+// This tests for and creates the "dig and avoid the cow" blcok.
 var AVOID_OBSTACLE_AND_REMOVE = {
   'test': 'remove_1_and_avoid_the_cow();',
   'type': 'procedures_callnoreturn',
-  'titles': {'NAME': 'avoid the cow and remove 1'}
+  'titles': {'NAME': 'avoid the cow and dig'}
 };
 
 // This tests for and creates the "remove piles" block.
@@ -141,7 +141,7 @@ module.exports = {
     'startBlocks': startBlocks(1, 1),
     'ideal': 5,
     'requiredBlocks': [
-      [MOVE_FORWARD], [PICK_UP_BALL]
+      [MOVE_FORWARD], [DIG]
     ],
     'scale': {
       'snapRadius': 2.0
@@ -157,7 +157,7 @@ module.exports = {
       [ 2, 1, 1, 1, 1, 1, 1, 1 ]
     ],
     'startDirection': Direction.EAST,
-    'initialBalls': [
+    'initialDirt': [
       [ 0, 0, 0, 0, 0, 0, 0, 0 ],
       [ 0, 0, 0, 0, 0, 0, 0, 0 ],
       [ 0, 0, 0, 0, 0, 0, 0, 0 ],
@@ -167,7 +167,7 @@ module.exports = {
       [ 0, 0, 0, 0, 0, 0, 0, 0 ],
       [ 0, 0, 0, 0, 1, 0, 0, 0 ]
     ],
-    'finalBalls': [
+    'finalDirt': [
       [ 0, 0, 0, 0, 0, 0, 0, 0 ],
       [ 0, 0, 0, 0, 0, 0, 0, 0 ],
       [ 0, 0, 0, 0, 0, 0, 0, 0 ],
@@ -185,7 +185,7 @@ module.exports = {
     'startBlocks': startBlocks(1, 2),
     'ideal': 3,
     'requiredBlocks': [
-      [MOVE_FORWARD], [PUT_DOWN_BALL]
+      [MOVE_FORWARD], [FILL]
     ],
     'map': [
       [ 1, 1, 1, 1, 1, 1, 1, 1 ],
@@ -198,7 +198,7 @@ module.exports = {
       [ 1, 1, 1, 1, 1, 1, 1, 1 ]
     ],
     'startDirection': Direction.EAST,
-    'initialBalls': [
+    'initialDirt': [
       [ 0, 0, 0, 0, 0, 0, 0, 0 ],
       [ 0, 0, 0, 0, 0, 0, 0, 0 ],
       [ 0, 0, 0, 0, 0, 0, 0, 0 ],
@@ -208,7 +208,7 @@ module.exports = {
       [ 0, 0, 0, 0, 0, 0, 0, 0 ],
       [ 0, 0, 0, 0, 0, 0, 0, 0 ]
     ],
-    'finalBalls': [
+    'finalDirt': [
       [ 0, 0, 0, 0, 0, 0, 0, 0 ],
       [ 0, 0, 0, 0, 0, 0, 0, 0 ],
       [ 0, 0, 0, 0, 0, 0, 0, 0 ],
@@ -226,7 +226,7 @@ module.exports = {
     'startBlocks': startBlocks(1, 3),
     'ideal': 3,
     'requiredBlocks': [
-      [MOVE_FORWARD], [PICK_UP_BALL], [REPEAT]
+      [MOVE_FORWARD], [DIG], [REPEAT]
     ],
     'map': [
       [ 1, 1, 1, 1, 1, 1, 1, 1 ],
@@ -239,7 +239,7 @@ module.exports = {
       [ 1, 1, 1, 1, 1, 1, 1, 1 ]
     ],
     'startDirection': Direction.EAST,
-    'initialBalls': [
+    'initialDirt': [
       [ 0, 0, 0, 0, 0, 0, 0, 0 ],
       [ 0, 0, 0, 0, 0, 0, 0, 0 ],
       [ 0, 0, 0, 0, 0, 0, 0, 0 ],
@@ -249,7 +249,7 @@ module.exports = {
       [ 0, 0, 0, 0, 0, 0, 0, 0 ],
       [ 0, 0, 0, 0, 0, 0, 0, 0 ]
     ],
-    'finalBalls': [
+    'finalDirt': [
       [ 0, 0, 0, 0, 0, 0, 0, 0 ],
       [ 0, 0, 0, 0, 0, 0, 0, 0 ],
       [ 0, 0, 0, 0, 0, 0, 0, 0 ],
@@ -267,7 +267,7 @@ module.exports = {
     'startBlocks': startBlocks(1, 4),
     'ideal': 4,
     'requiredBlocks': [
-      [MOVE_FORWARD], [PICK_UP_BALL], [TURN_LEFT], [REPEAT]
+      [MOVE_FORWARD], [DIG], [TURN_LEFT], [REPEAT]
     ],
     'map': [
       [ 1, 1, 1, 1, 1, 1, 1, 1 ],
@@ -280,7 +280,7 @@ module.exports = {
       [ 1, 1, 1, 1, 1, 1, 1, 1 ]
     ],
     'startDirection': Direction.EAST,
-    'initialBalls': [
+    'initialDirt': [
       [ 0, 0, 0, 0, 0, 0, 0, 0 ],
       [ 0, 0, 0, 0, 0, 0, 0, 0 ],
       [ 0, 0, 0, 0, 0, 0, 0, 0 ],
@@ -290,7 +290,7 @@ module.exports = {
       [ 0, 0, 0, 0, 0, 0, 0, 0 ],
       [ 0, 0, 0, 0, 0, 0, 0, 0 ]
     ],
-    'finalBalls': [
+    'finalDirt': [
       [ 0, 0, 0, 0, 0, 0, 0, 0 ],
       [ 0, 0, 0, 0, 0, 0, 0, 0 ],
       [ 0, 0, 0, 0, 0, 0, 0, 0 ],
@@ -308,7 +308,7 @@ module.exports = {
     'startBlocks': startBlocks(1, 5),
     'ideal': 5,
     'requiredBlocks': [
-      [MOVE_FORWARD], [PUT_DOWN_BALL], [REPEAT], [UNTIL_BLOCKED]
+      [MOVE_FORWARD], [FILL], [REPEAT], [UNTIL_BLOCKED]
     ],
     'scale': {
       'stepSpeed': 3
@@ -324,7 +324,7 @@ module.exports = {
       [ 2, 1, 1, 1, 1, 1, 0, 0 ]
     ],
     'startDirection': Direction.EAST,
-    'initialBalls': [
+    'initialDirt': [
       [ 0, 0, 0, 0, 0, 0, 0, 0 ],
       [ 0, 0, 0, 0, 0, 0, 0, 0 ],
       [ 0, 0, 0, 0, 0, 0, 0, 0 ],
@@ -334,7 +334,7 @@ module.exports = {
       [ 0, 0, 0, 0, 0, 0, 0, 0 ],
       [ 0, -5, -5, -5, -5, -5, 0, 0 ]
     ],
-    'finalBalls': [
+    'finalDirt': [
       [ 0, 0, 0, 0, 0, 0, 0, 0 ],
       [ 0, 0, 0, 0, 0, 0, 0, 0 ],
       [ 0, 0, 0, 0, 0, 0, 0, 0 ],
@@ -353,8 +353,8 @@ module.exports = {
     'ideal': 3,
     'requiredBlocks': [
       [MOVE_FORWARD],
-      [PICK_UP_BALL],
-      [WHILE_OPT_BALLS_PRESENT, REPEAT]
+      [DIG],
+      [WHILE_OPT_PILE_PRESENT, REPEAT]
     ],
     'map': [
       [ 1, 1, 1, 1, 1, 1, 1, 1 ],
@@ -367,7 +367,7 @@ module.exports = {
       [ 2, 1, 1, 1, 1, 1, 1, 1 ]
     ],
     'startDirection': Direction.EAST,
-    'initialBalls': [
+    'initialDirt': [
       [ 0, 0, 0, 0, 0, 0, 0, 0 ],
       [ 0, 0, 0, 0, 0, 0, 0, 0 ],
       [ 0, 0, 0, 0, 0, 0, 0, 0 ],
@@ -377,7 +377,7 @@ module.exports = {
       [ 0, 0, 0, 0, 0, 0, 0, 0 ],
       [ 1, 1, 1, 1, 1, 1, 0, 0 ]
     ],
-    'finalBalls': [
+    'finalDirt': [
       [ 0, 0, 0, 0, 0, 0, 0, 0 ],
       [ 0, 0, 0, 0, 0, 0, 0, 0 ],
       [ 0, 0, 0, 0, 0, 0, 0, 0 ],
@@ -397,8 +397,8 @@ module.exports = {
     'requiredBlocks': [
       [TURN_RIGHT],
       [MOVE_FORWARD],
-      [PUT_DOWN_BALL],
-      [WHILE_OPT_BALLS_PRESENT]
+      [FILL],
+      [WHILE_OPT_PILE_PRESENT]
     ],
     'scale': {
       'stepSpeed': 3
@@ -414,7 +414,7 @@ module.exports = {
       [ 1, 1, 1, 1, 1, 1, 1, 1 ]
     ],
     'startDirection': Direction.EAST,
-    'initialBalls': [
+    'initialDirt': [
       [ 0, 0, 0, 0, 0, 0, 0, 0 ],
       [ 0, 0, 0, 0, 0, 0, 0, 0 ],
       [ 0, 0, 0, 0, 0, 0, 0, 0 ],
@@ -424,7 +424,7 @@ module.exports = {
       [ 0, 0, 0, 0, 0, 0, 0, 0 ],
       [ 0, 0, 0, 0, 0, 0, 0, 0 ]
     ],
-    'finalBalls': [
+    'finalDirt': [
       [ 0, 0, 0, 0, 0, 0, 0, 0 ],
       [ 0, 0, 0, 0, 0, 0, 0, 0 ],
       [ 0, 0, 0, 0, 0, 0, 0, 0 ],
@@ -443,7 +443,7 @@ module.exports = {
     'ideal': 3,
     'requiredBlocks': [
       [MOVE_FORWARD],
-      [PUT_DOWN_BALL],
+      [FILL],
       [WHILE_OPT_PATH_AHEAD, REPEAT]
     ],
     'map': [
@@ -457,7 +457,7 @@ module.exports = {
       [ 1, 1, 1, 1, 1, 1, 1, 1 ]
     ],
     'startDirection': Direction.EAST,
-    'initialBalls': [
+    'initialDirt': [
       [ 0, 0, 0, 0, 0, 0, 0, 0 ],
       [ 0, 0, 0, 0, 0, 0, 0, 0 ],
       [ 0, 0, 0, 0, 0, 0, 0, 0 ],
@@ -467,7 +467,7 @@ module.exports = {
       [ 0, 0, 0, 0, 0, 0, 0, 0 ],
       [ 0, 0, 0, 0, 0, 0, 0, 0 ]
     ],
-    'finalBalls': [
+    'finalDirt': [
       [ 0, 0, 0, 0, 0, 0, 0, 0 ],
       [ 0, 0, 0, 0, 0, 0, 0, 0 ],
       [ 0, 0, 0, 0, 0, 0, 0, 0 ],
@@ -486,7 +486,7 @@ module.exports = {
     'ideal': 9,
     'requiredBlocks': [
       [MOVE_FORWARD],
-      [PICK_UP_BALL],
+      [DIG],
       [WHILE_OPT_PATH_AHEAD, REPEAT],
       [TURN_LEFT]
     ],
@@ -501,7 +501,7 @@ module.exports = {
       [ 2, 1, 1, 1, 1, 0, 1, 1 ]
     ],
     'startDirection': Direction.EAST,
-    'initialBalls': [
+    'initialDirt': [
       [ 0, 0, 0, 0, 0, 0, 0, 0 ],
       [ 0, 0, 0, 0, 0, 0, 0, 0 ],
       [ 0, 0, 0, 0, 1, 0, 0, 0 ],
@@ -511,7 +511,7 @@ module.exports = {
       [ 0, 0, 0, 0, 1, 0, 0, 0 ],
       [ 0, 1, 1, 1, 1, 0, 0, 0 ]
     ],
-    'finalBalls': [
+    'finalDirt': [
       [ 0, 0, 0, 0, 0, 0, 0, 0 ],
       [ 0, 0, 0, 0, 0, 0, 0, 0 ],
       [ 0, 0, 0, 0, 0, 0, 0, 0 ],
@@ -530,8 +530,8 @@ module.exports = {
     'ideal': 4,
     'requiredBlocks': [
       [MOVE_FORWARD],
-      [PICK_UP_BALL],
-      [IF_OPT_BALLS_PRESENT],
+      [DIG],
+      [IF_OPT_PILE_PRESENT],
       [UNTIL_BLOCKED, REPEAT]
     ],
     'map': [
@@ -545,7 +545,7 @@ module.exports = {
       [ 2, 1, 1, 1, 1, 1, 1, 1 ]
     ],
     'startDirection': Direction.EAST,
-    'initialBalls': [
+    'initialDirt': [
       [ 0, 0, 0, 0, 0, 0, 0, 0 ],
       [ 0, 0, 0, 0, 0, 0, 0, 0 ],
       [ 0, 0, 0, 0, 0, 0, 0, 0 ],
@@ -555,7 +555,7 @@ module.exports = {
       [ 0, 0, 0, 0, 0, 0, 0, 0 ],
       [ 0, 1, 0, 0, 1, 1, 0, 1 ]
     ],
-    'finalBalls': [
+    'finalDirt': [
       [ 0, 0, 0, 0, 0, 0, 0, 0 ],
       [ 0, 0, 0, 0, 0, 0, 0, 0 ],
       [ 0, 0, 0, 0, 0, 0, 0, 0 ],
@@ -574,10 +574,10 @@ module.exports = {
     'ideal': 6,
     'requiredBlocks': [
       [MOVE_FORWARD],
-      [PICK_UP_BALL],
-      [PUT_DOWN_BALL],
-      [IF_OPT_BALLS_PRESENT],
-      [IF_OPT_HOLES_PRESENT],
+      [DIG],
+      [FILL],
+      [IF_OPT_PILE_PRESENT],
+      [IF_OPT_HOLE_PRESENT],
       [UNTIL_BLOCKED, REPEAT]
     ],
     'map': [
@@ -591,7 +591,7 @@ module.exports = {
       [ 2, 1, 1, 1, 1, 1, 1, 1 ]
     ],
     'startDirection': Direction.EAST,
-    'initialBalls': [
+    'initialDirt': [
       [ 0, 0, 0, 0, 0, 0, 0, 0 ],
       [ 0, 0, 0, 0, 0, 0, 0, 0 ],
       [ 0, 0, 0, 0, 0, 0, 0, 0 ],
@@ -601,7 +601,7 @@ module.exports = {
       [ 0, 0, 0, 0, 0, 0, 0, 0 ],
       [ 0, -1, 0, 0, -1, 1, 1, 0 ]
     ],
-    'finalBalls': [
+    'finalDirt': [
       [ 0, 0, 0, 0, 0, 0, 0, 0 ],
       [ 0, 0, 0, 0, 0, 0, 0, 0 ],
       [ 0, 0, 0, 0, 0, 0, 0, 0 ],
@@ -621,7 +621,7 @@ module.exports = {
     'startBlocks': startBlocks(2, 1),
     'ideal': null,
     'requiredBlocks': [
-      [TURN_LEFT], [MOVE_FORWARD], [PICK_UP_BALL], [TURN_RIGHT]
+      [TURN_LEFT], [MOVE_FORWARD], [DIG], [TURN_RIGHT]
     ],
     'scale': {
       'stepSpeed': 3
@@ -637,7 +637,7 @@ module.exports = {
       [ 2, 1, 1, 1, 1, 1, 1, 1 ]
     ],
     'startDirection': Direction.EAST,
-    'initialBalls': [
+    'initialDirt': [
       [ 0, 0, 0, 0, 0, 0, 0, 0 ],
       [ 0, 0, 0, 0, 0, 0, 0, 0 ],
       [ 0, 0, 0, 0, 0, 0, 0, 0 ],
@@ -647,7 +647,7 @@ module.exports = {
       [ 1, -1, 1, 0, 0, 0, 0, 0 ],
       [ 1, -1, 1, 0, 0, 0, 0, 0 ]
     ],
-    'finalBalls': [
+    'finalDirt': [
       [ 0, 0, 0, 0, 0, 0, 0, 0 ],
       [ 0, 0, 0, 0, 0, 0, 0, 0 ],
       [ 0, 0, 0, 0, 0, 0, 0, 0 ],
@@ -678,7 +678,7 @@ module.exports = {
       [ 2, 1, 1, 1, 1, 1, 1, 1 ]
     ],
     'startDirection': Direction.EAST,
-    'initialBalls': [
+    'initialDirt': [
       [ 0, 0, 0, 0, 0, 0, 0, 0 ],
       [ 0, 0, 0, 0, 0, 0, 0, 0 ],
       [ 0, 0, 0, 0, 0, 0, 0, 0 ],
@@ -688,7 +688,7 @@ module.exports = {
       [ 0, 0, 0, 0, 0, 0, 0, 0 ],
       [ 0, -5, 0, 0, 0, 0, 0, 0 ]
     ],
-    'finalBalls': [
+    'finalDirt': [
       [ 0, 0, 0, 0, 0, 0, 0, 0 ],
       [ 0, 0, 0, 0, 0, 0, 0, 0 ],
       [ 0, 0, 0, 0, 0, 0, 0, 0 ],
@@ -722,7 +722,7 @@ module.exports = {
       [ 2, 1, 1, 1, 1, 1, 0, 0 ]
     ],
     'startDirection': Direction.EAST,
-    'initialBalls': [
+    'initialDirt': [
       [ 0, 0, 0, 0, 0, 0, 0, 0 ],
       [ 0, 0, 0, 0, 0, 0, 0, 0 ],
       [ 0, 0, 0, 0, 0, 0, 0, 0 ],
@@ -732,7 +732,7 @@ module.exports = {
       [ 0, 0, 0, 0, 0, 0, 0, 0 ],
       [ 0, -5, -5, -5, -5, -5, 0, 0 ]
     ],
-    'finalBalls': [
+    'finalDirt': [
       [ 0, 0, 0, 0, 0, 0, 0, 0 ],
       [ 0, 0, 0, 0, 0, 0, 0, 0 ],
       [ 0, 0, 0, 0, 0, 0, 0, 0 ],
@@ -750,7 +750,7 @@ module.exports = {
     'startBlocks': startBlocks(2, 4),
     'ideal': 12,
     'requiredBlocks': [
-      [PICK_UP_BALL],
+      [DIG],
       [REPEAT],
       [remove(7)],
       [MOVE_FORWARD],
@@ -771,7 +771,7 @@ module.exports = {
       [ 2, 1, 1, 1, 1, 1, 1, 1 ]
     ],
     'startDirection': Direction.EAST,
-    'initialBalls': [
+    'initialDirt': [
       [ 0, 0, 0, 0, 0, 0, 0, 0 ],
       [ 0, 0, 0, 0, 0, 0, 0, 0 ],
       [ 0, 0, 0, 0, 0, 0, 0, 0 ],
@@ -781,7 +781,7 @@ module.exports = {
       [ 0, 7, 0, 0, 0, 0, 0, 0 ],
       [ 7, 0, 0, 0, 0, 0, 0, 0 ]
     ],
-    'finalBalls': [
+    'finalDirt': [
       [ 0, 0, 0, 0, 0, 0, 0, 0 ],
       [ 0, 0, 0, 0, 0, 0, 0, 0 ],
       [ 0, 0, 0, 0, 0, 0, 0, 0 ],
@@ -799,7 +799,7 @@ module.exports = {
     'startBlocks': startBlocks(2, 5),
     'ideal': 8,
     'requiredBlocks': [
-      [PICK_UP_BALL],
+      [DIG],
       [REPEAT],
       [remove(3)],
       [MOVE_FORWARD]
@@ -815,7 +815,7 @@ module.exports = {
       [ 2, 1, 1, 1, 1, 1, 1, 1 ]
     ],
     'startDirection': Direction.EAST,
-    'initialBalls': [
+    'initialDirt': [
       [ 0, 0, 0, 0, 0, 0, 0, 0 ],
       [ 0, 0, 0, 0, 0, 0, 0, 0 ],
       [ 0, 0, 0, 0, 0, 0, 0, 0 ],
@@ -825,7 +825,7 @@ module.exports = {
       [ 0, 0, 0, 0, 0, 0, 0, 0 ],
       [ 0, 3, 0, 3, 0, 3, 0, 0 ]
     ],
-    'finalBalls': [
+    'finalDirt': [
       [ 0, 0, 0, 0, 0, 0, 0, 0 ],
       [ 0, 0, 0, 0, 0, 0, 0, 0 ],
       [ 0, 0, 0, 0, 0, 0, 0, 0 ],
@@ -856,7 +856,7 @@ module.exports = {
       [ 1, 1, 1, 1, 1, 1, 1, 1 ]
     ],
     'startDirection': Direction.EAST,
-    'initialBalls': [
+    'initialDirt': [
       [ 0, 0, 0, 0, 0, 0, 0, 0 ],
       [ 0, 0, 0, 0, 0, 0, 0, 0 ],
       [ 0, 0, 0, 0, 0, 0, 0, 0 ],
@@ -866,7 +866,7 @@ module.exports = {
       [ 0, 0, 0, 0, 0, 0, 0, 0 ],
       [ 0, 0, 0, 0, 0, 0, 0, 0 ]
     ],
-    'finalBalls': [
+    'finalDirt': [
       [ 0, 0, 0, 0, 0, 0, 0, 0 ],
       [ 0, 0, 0, 0, 0, 0, 0, 0 ],
       [ 0, 0, 0, 0, 0, 0, 0, 0 ],
@@ -884,7 +884,7 @@ module.exports = {
     'startBlocks': startBlocks(2, 7),
     'ideal': 10,
     'requiredBlocks': [
-      [TURN_LEFT], [MOVE_FORWARD], [TURN_RIGHT], [PICK_UP_BALL]
+      [TURN_LEFT], [MOVE_FORWARD], [TURN_RIGHT], [DIG]
     ],
     'map': [
       [ 1, 1, 1, 1, 1, 1, 1, 1 ],
@@ -897,7 +897,7 @@ module.exports = {
       [ 2, 4, 1, 0, 0, 0, 0, 0 ]
     ],
     'startDirection': Direction.EAST,
-    'initialBalls': [
+    'initialDirt': [
       [ 0, 0, 0, 0, 0, 0, 0, 0 ],
       [ 0, 0, 0, 0, 0, 0, 0, 0 ],
       [ 0, 0, 0, 0, 0, 0, 0, 0 ],
@@ -907,7 +907,7 @@ module.exports = {
       [ 0, 0, 0, 0, 0, 0, 0, 0 ],
       [ 0, 0, 1, 0, 0, 0, 0, 0 ]
     ],
-    'finalBalls': [
+    'finalDirt': [
       [ 0, 0, 0, 0, 0, 0, 0, 0 ],
       [ 0, 0, 0, 0, 0, 0, 0, 0 ],
       [ 0, 0, 0, 0, 0, 0, 0, 0 ],
@@ -941,7 +941,7 @@ module.exports = {
       [ 2, 4, 1, 4, 1, 4, 1, 0 ]
     ],
     'startDirection': Direction.EAST,
-    'initialBalls': [
+    'initialDirt': [
       [ 0, 0, 0, 0, 0, 0, 0, 0 ],
       [ 0, 0, 0, 0, 0, 0, 0, 0 ],
       [ 0, 0, 0, 0, 0, 0, 0, 0 ],
@@ -951,7 +951,7 @@ module.exports = {
       [ 0, 0, 0, 0, 0, 0, 0, 0 ],
       [ 0, 0, 1, 0, 1, 0, 1, 0 ]
     ],
-    'finalBalls': [
+    'finalDirt': [
       [ 0, 0, 0, 0, 0, 0, 0, 0 ],
       [ 0, 0, 0, 0, 0, 0, 0, 0 ],
       [ 0, 0, 0, 0, 0, 0, 0, 0 ],
@@ -971,7 +971,7 @@ module.exports = {
     'requiredBlocks': [
       [REMOVE_PILES],
       [MOVE_FORWARD],
-      [IF_OPT_BALLS_PRESENT],
+      [IF_OPT_PILE_PRESENT],
       [UNTIL_BLOCKED, REPEAT]
     ],
     'scale': {
@@ -988,7 +988,7 @@ module.exports = {
       [ 2, 1, 1, 1, 1, 1, 1, 1 ]
     ],
     'startDirection': Direction.EAST,
-    'initialBalls': [
+    'initialDirt': [
       [ 0, 0, 0, 0, 0, 0, 0, 0 ],
       [ 0, 0, 0, 0, 0, 0, 0, 0 ],
       [ 0, 0, 0, 0, 0, 0, 0, 0 ],
@@ -998,7 +998,7 @@ module.exports = {
       [ 1, 0, 1, 1, 0, 1, 1, 0 ],
       [ 1, 0, 1, 1, 0, 1, 1, 0 ]
     ],
-    'finalBalls': [
+    'finalDirt': [
       [ 0, 0, 0, 0, 0, 0, 0, 0 ],
       [ 0, 0, 0, 0, 0, 0, 0, 0 ],
       [ 0, 0, 0, 0, 0, 0, 0, 0 ],
@@ -1019,8 +1019,8 @@ module.exports = {
       [REMOVE_PILES],
       [MOVE_FORWARD],
       [FILL_HOLES],
-      [IF_OPT_BALLS_PRESENT],
-      [IF_OPT_HOLES_PRESENT],
+      [IF_OPT_PILE_PRESENT],
+      [IF_OPT_HOLE_PRESENT],
       [UNTIL_BLOCKED, REPEAT]
     ],
     'scale': {
@@ -1037,7 +1037,7 @@ module.exports = {
       [ 2, 1, 1, 1, 1, 1, 1, 1 ]
     ],
     'startDirection': Direction.EAST,
-    'initialBalls': [
+    'initialDirt': [
       [ 0, 0, 0, 0, 0, 0, 0, 0 ],
       [ 0, 0, 0, 0, 0, 0, 0, 0 ],
       [ 0, 0, 0, 0, 0, 0, 0, 0 ],
@@ -1047,7 +1047,7 @@ module.exports = {
       [ 1, -1, 1, -1, -1, 1, -1, 0 ],
       [ 1, -1, 1, -1, -1, 1, -1, 0 ]
     ],
-    'finalBalls': [
+    'finalDirt': [
       [ 0, 0, 0, 0, 0, 0, 0, 0 ],
       [ 0, 0, 0, 0, 0, 0, 0, 0 ],
       [ 0, 0, 0, 0, 0, 0, 0, 0 ],
@@ -1078,7 +1078,7 @@ module.exports = {
       [ 2, 4, 1, 1, 4, 1, 4, 1 ]
     ],
     'startDirection': Direction.EAST,
-    'initialBalls': [
+    'initialDirt': [
       [ 0, 0, 0, 0, 0, 0, 0, 0 ],
       [ 0, 0, 0, 0, 0, 0, 0, 0 ],
       [ 0, 0, 0, 0, 0, 0, 0, 0 ],
@@ -1088,7 +1088,7 @@ module.exports = {
       [ 0, 0, 0, 0, 0, 0, 0, 0 ],
       [ 1, 0, 1, 1, 0, 1, 0, 1 ]
     ],
-    'finalBalls': [
+    'finalDirt': [
       [ 0, 0, 0, 0, 0, 0, 0, 0 ],
       [ 0, 0, 0, 0, 0, 0, 0, 0 ],
       [ 0, 0, 0, 0, 0, 0, 0, 0 ],
