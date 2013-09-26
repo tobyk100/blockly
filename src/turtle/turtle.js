@@ -102,7 +102,7 @@ Turtle.init = function(config) {
     var parentStyle = window.getComputedStyle ?
                       window.getComputedStyle(blocklyDivParent) :
                       blocklyDivParent.currentStyle.width;  // IE
-    var parentWidth = parseInt(parentStyle.width);
+    var parentWidth = parseInt(parentStyle.width, 10);
 
     blocklyDiv.style.width = (parentWidth - 440) + 'px';
     blocklyDiv.style.height = (window.innerHeight - top - 20 +
@@ -134,13 +134,13 @@ Turtle.init = function(config) {
     } else {
       notReadyMsg = msg.drawAHouseNotDefined9();
     }
-    xml = window.sessionStorage.turtle3Blocks;
-    if (xml === undefined) {
+    var storedXml = window.sessionStorage.turtle3Blocks;
+    if (storedXml === undefined) {
       window.alert(notReadyMsg);
     } else {
-      BlocklyApps.loadBlocks(xml);
+      BlocklyApps.loadBlocks(storedXml);
       if (!BlocklyApps.getUserBlocks_().some(
-        levels.defineWithArg_('draw a house', 'height')['test'])) {
+        levels.defineWithArg_('draw a house', 'height').test)) {
         window.alert(notReadyMsg);
       }
     }
@@ -206,7 +206,7 @@ Turtle.drawAnswer = function() {
  * @param {!Array} coordinates List of x-y pairs.
  */
 Turtle.placeImage = function(filename, coordinates) {
-  var img = new Image;
+  var img = new Image();
   img.onload = function() {
     for (var i = 0; i < coordinates.length; i++) {
       Turtle.ctxImages.drawImage(img, coordinates[i][0], coordinates[i][1]);
@@ -393,7 +393,7 @@ Turtle.execute = function() {
     // Null is thrown for infinite loop.
     // Otherwise, abnormal termination is a user error.
     if (e !== null) {
-      alert(e);
+      window.alert(e);
     }
   }
 
@@ -439,16 +439,17 @@ Turtle.step = function(command, values) {
         Turtle.ctxScratch.beginPath();
         Turtle.ctxScratch.moveTo(Turtle.x, Turtle.y);
       }
-      // Fall through...
+      /* falls through */
     case 'JF':  // Jump forward
       var distance = values[0];
+      var bump;
       if (distance) {
         Turtle.x += distance * Math.sin(2 * Math.PI * Turtle.heading / 360);
         Turtle.y -= distance * Math.cos(2 * Math.PI * Turtle.heading / 360);
-        var bump = 0;
+        bump = 0;
       } else {
         // WebKit (unlike Gecko) draws nothing for a zero-length line.
-        var bump = 0.1;
+        bump = 0.1;
       }
       if (command == 'FD' && Turtle.penDownValue) {
         Turtle.ctxScratch.lineTo(Turtle.x, Turtle.y + bump);
@@ -545,7 +546,7 @@ Turtle.checkRequiredColours = function() {
   if (!level.requiredColors) {
     return Turtle.ColourResults.OK;
   }
-  if (Turtle.coloursUsed == 0) {
+  if (Turtle.coloursUsed === 0) {
     return Turtle.ColourResults.NONE;
   } else if (typeof level.requiredColors == 'string') {
     for (var i = 0; i < Turtle.coloursUsed.length; i++) {
@@ -568,7 +569,7 @@ Turtle.checkRequiredColours = function() {
     var surplus = Turtle.coloursUsed.length - level.requiredColors;
     if (surplus > 0) {
       return Turtle.ColourResult.EXTRA;
-    } else if (surplus == 0) {
+    } else if (surplus === 0) {
       return Turtle.ColourResults.OK;
     } else {
       return Turtle.ColourResults.TOO_FEW;
@@ -592,7 +593,7 @@ Turtle.checkAnswer = function() {
   // Pixels are in RGBA format.  Only check the Alpha bytes.
   for (var i = 3; i < len; i += 4) {
     // Check the Alpha byte.
-    if ((userImage.data[i] == 0) != (answerImage.data[i] == 0)) {
+    if ((userImage.data[i] === 0) != (answerImage.data[i] === 0)) {
       delta++;
     }
   }

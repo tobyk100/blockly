@@ -276,8 +276,8 @@ exports.install = function(blockly, skin) {
   };
 
   generator.maze_whileNotClear = function() {
-    var argument = 'Maze.' + this.getTitleValue('DIR')
-        + '(\'block_id_' + this.id + '\')';
+    var argument = 'Maze.' + this.getTitleValue('DIR') +
+      '(\'block_id_' + this.id + '\')';
     var branch = generator.statementToCode(this, 'DO');
     branch = BlocklyApps.INFINITE_LOOP_TRAP.replace(/%1/g,
         '\'block_id_' + this.id + '\'') + branch;
@@ -349,8 +349,8 @@ exports.install = function(blockly, skin) {
   };
 
   generator.maze_untilBlockedOrNotClear = function() {
-    var argument = 'Maze.' + this.getTitleValue('DIR')
-        + '(\'block_id_' + this.id + '\')';
+    var argument = 'Maze.' + this.getTitleValue('DIR') +
+        '(\'block_id_' + this.id + '\')';
     var branch = generator.statementToCode(this, 'DO');
     branch = BlocklyApps.INFINITE_LOOP_TRAP.replace(/%1/g,
         '\'block_id_' + this.id + '\'') + branch;

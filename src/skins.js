@@ -24,10 +24,6 @@ var CONFIGS = {
     look: '#FFF'
   },
 
-  pvz: {
-    look: '#FFF'
-  },
-
   panda: {
     look: '#000'
   }

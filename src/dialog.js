@@ -51,20 +51,21 @@ var stopDialogKeyDown = function() {
  * @return {!Object} Contains height, width, x, and y properties.
  */
 var getBBox = function(element) {
+  var x, y, width, height;
   if (element.getBBox) {
     // SVG element.
     var bBox = element.getBBox();
-    var height = bBox.height;
-    var width = bBox.width;
+    height = bBox.height;
+    width = bBox.width;
     var xy = Blockly.getAbsoluteXY_(element);
-    var x = xy.x;
-    var y = xy.y;
+    x = xy.x;
+    y = xy.y;
   } else {
     // HTML element.
-    var height = element.offsetHeight;
-    var width = element.offsetWidth;
-    var x = 0;
-    var y = 0;
+    height = element.offsetHeight;
+    width = element.offsetWidth;
+    x = 0;
+    y = 0;
     do {
       x += element.offsetLeft;
       y += element.offsetTop;
@@ -127,10 +128,10 @@ exports.show = function(content, origin, animate, modal, style, disposeFunc) {
   dialogOrigin = origin;
   dialogDispose = function() {
     stopDialogKeyDown();
-    if (disposeFunc != null) {
+    if (disposeFunc) {
       disposeFunc();
     }
-  }
+  };
   var dialog = document.getElementById('dialog');
   var shadow = document.getElementById('dialogShadow');
   var border = document.getElementById('dialogBorder');
@@ -173,8 +174,10 @@ exports.hide = function(opt_animate) {
     return;
   }
   isDialogVisible = false;
-  dialogDispose && dialogDispose();
-  dialogDispose = null;
+  if (dialogDispose) {
+    dialogDispose();
+    dialogDispose = null;
+  }
   var origin = (opt_animate === false) ? null : dialogOrigin;
   var dialog = document.getElementById('dialog');
   var shadow = document.getElementById('dialogShadow');
