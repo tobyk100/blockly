@@ -26,6 +26,7 @@
 var BlocklyApps = module.exports;
 var msg = require('../build/en_us/i18n/common');
 var dialog = require('./dialog');
+var parseXmlElement = require('./xml').parseElement;
 
 //TODO: These should be members of a BlocklyApp instance.
 var onAttempt;
@@ -110,24 +111,22 @@ BlocklyApps.isRtl = function() {
  * Blockly.Xml.domToText(Blockly.Xml.workspaceToDom(Blockly.mainWorkspace)).slice(5, -6)
  */
 BlocklyApps.initReadonly = function() {
-  Blockly.inject(document.getElementById('blockly'),
-      {path: BlocklyApps.BASE_URL,
-       readOnly: true,
-       rtl: BlocklyApps.isRtl(),
-       scrollbars: false});
+  Blockly.inject(document.getElementById('blockly'), {
+    path: BlocklyApps.BASE_URL,
+    readOnly: true,
+    rtl: BlocklyApps.isRtl(),
+    scrollbars: false
+  });
 
-  // Add the blocks.
-  var xml = BlocklyApps.getStringParamFromUrl('xml', '');
-  var parsed_xml = Blockly.Xml.textToDom('<xml>' + xml + '</xml>');
-  Blockly.Xml.domToWorkspace(Blockly.mainWorkspace, parsed_xml);
+  BlocklyApps.loadBlocks(BlocklyApps.getStringParamFromUrl('xml', ''));
 };
 
 /**
+ * Load the editor with blocks.
  * @param {string} blocksXml Text representation of blocks.
  */
 BlocklyApps.loadBlocks = function(blocksXml) {
-  // Load the editor with default starting blocks.
-  var xml = Blockly.Xml.textToDom(blocksXml);
+  var xml = parseXmlElement(blocksXml);
   Blockly.Xml.domToWorkspace(Blockly.mainWorkspace, xml);
 };
 

@@ -419,8 +419,7 @@ Maze.init = function(config) {
 
   var startBlocks = level.startBlocks ||
       '<block type="maze_moveForward" x="70" y="70"></block>';
-  var xml = '<xml>' + startBlocks + '</xml>';
-  BlocklyApps.loadBlocks(xml);
+  BlocklyApps.loadBlocks(startBlocks);
 
   BlocklyApps.reset(true);
   Blockly.addChangeListener(function() {BlocklyApps.updateCapacity()});

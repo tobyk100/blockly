@@ -125,6 +125,7 @@ Turtle.init = function(config) {
   Turtle.speedSlider = new Slider(10, 35, 130, sliderSvg);
 
   // Add the starting block(s).
+  var xml, dom;
   if (Turtle.PAGE == 3 &&
       (Turtle.LEVEL == 8 || Turtle.LEVEL == 9)) {
     var notReadyMsg;
@@ -133,21 +134,18 @@ Turtle.init = function(config) {
     } else {
       notReadyMsg = msg.drawAHouseNotDefined9();
     }
-    var xml = window.sessionStorage.turtle3Blocks;
+    xml = window.sessionStorage.turtle3Blocks;
     if (xml === undefined) {
       window.alert(notReadyMsg);
     } else {
-      var dom = Blockly.Xml.textToDom(xml);
-      Blockly.Xml.domToWorkspace(Blockly.mainWorkspace, dom);
+      BlocklyApps.loadBlocks(xml);
       if (!BlocklyApps.getUserBlocks_().some(
         levels.defineWithArg_('draw a house', 'height')['test'])) {
         window.alert(notReadyMsg);
       }
     }
   } else if (level.startBlocks) {
-    var xml = '<xml>' + level.startBlocks + '</xml>';
-    var dom = Blockly.Xml.textToDom(xml);
-    Blockly.Xml.domToWorkspace(Blockly.mainWorkspace, dom);
+    BlocklyApps.loadBlocks(level.startBlocks);
   }
 
   // Get the canvases and set their initial contents.
