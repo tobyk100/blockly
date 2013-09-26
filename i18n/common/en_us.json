@@ -151,7 +151,7 @@
   },
   "rinfFeedbackMsg": {
     "id": "",
-    "string": "Does this look like what you want?",
+    "string": "Does this look like what you want? Hint: You can press the space key to see your drawing.",
     "description": "TODO"
   }
 }
