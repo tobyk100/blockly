@@ -29,6 +29,7 @@ var mazeMsg = require('../../build/en_us/i18n/maze');
 var levels = require('./levels');
 var skins = require('../skins');
 var tiles = require('../tiles');
+var codegen = require('../codegen');
 
 var Direction = tiles.Direction;
 
@@ -615,7 +616,7 @@ Maze.execute = function() {
 
   // Report result to server.
   BlocklyApps.report('maze', levelId,
-      Maze.result === Maze.ResultType.SUCCESS, BlocklyApps.stripCode(code));
+      Maze.result === Maze.ResultType.SUCCESS, codegen.strip(code));
 
   // BlocklyApps.log now contains a transcript of all the user's actions.
   // Reset the maze and animate the transcript.
