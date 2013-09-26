@@ -320,6 +320,12 @@ BlocklyApps.log = null;
 BlocklyApps.ticks = null;
 
 /**
+ * The number of attempts (how many times the run button has been pressed)
+ * @type {?number}
+ */
+BlocklyApps.attempt = 0;
+
+/**
  * Reset the playing field to the start position and kill any pending
  * animation tasks.  This will benerally be replaced by an application.
  * @param {boolean} first True if an opening animation is to be played.
