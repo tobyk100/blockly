@@ -63,7 +63,7 @@ var WHILE_OPT_PILE_PRESENT = {
   'titles': {'DIR': 'pilePresent'}
 };
 
-// This tests for and creates the "maze_untilBlockedOrNotClear" block with the option "holesPresent" selected.
+// This tests for and creates the "maze_untilBlockedOrNotClear" block with the option "holePresent" selected.
 var WHILE_OPT_HOLE_PRESENT = {
   'test': 'while (Maze.holePresent',
   'type': 'maze_untilBlockedOrNotClear',
