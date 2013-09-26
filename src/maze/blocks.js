@@ -305,9 +305,9 @@ exports.install = function(blockly, skin) {
 
   generator.maze_untilBlocked = function() {
     var argument = 'Maze.isPathForward' + '(\'block_id_' + this.id + '\')';
+    var branch = generator.statementToCode(this, 'DO');
     branch = BlocklyApps.INFINITE_LOOP_TRAP.replace(/%1/g,
         '\'block_id_' + this.id + '\'') + branch;
-    var branch = generator.statementToCode(this, 'DO');
     return 'while (' + argument + ') {\n' + branch + '}\n';
   };
 
