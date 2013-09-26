@@ -46,14 +46,14 @@ exports.install = function(blockly) {
   blockly.FieldColour.COLUMNS = 4;
 
   // Block definitions.
-  blockly.Language.draw_move_by_constant = {
+  blockly.Blocks.draw_move_by_constant = {
     // Block for moving forward or backward the internal number of pixels.
     helpUrl: 'http://www.example.com/',
     init: function() {
       this.setColour(160);
       this.appendDummyInput()
           .appendTitle(new blockly.FieldDropdown(
-              blockly.Language.draw_move.DIRECTIONS), 'DIR');
+              blockly.Blocks.draw_move.DIRECTIONS), 'DIR');
       this.appendDummyInput()
           .appendTitle(new blockly.FieldTextInput('100',
             blockly.FieldTextInput.numberValidator), 'VALUE')
@@ -74,14 +74,14 @@ exports.install = function(blockly) {
   };
 
 
-  blockly.Language.draw_turn_by_constant_restricted = {
+  blockly.Blocks.draw_turn_by_constant_restricted = {
     // Block for turning either left or right from among a fixed set of angles.
     helpUrl: '',
     init: function() {
       this.setColour(160);
       this.appendDummyInput()
           .appendTitle(new blockly.FieldDropdown(
-              blockly.Language.draw_turn.DIRECTIONS), 'DIR');
+              blockly.Blocks.draw_turn.DIRECTIONS), 'DIR');
       this.appendDummyInput()
           .appendTitle(new blockly.FieldDropdown(this.VALUE), 'VALUE')
           .appendTitle(msg.degrees());
@@ -92,7 +92,7 @@ exports.install = function(blockly) {
     }
   };
 
-  blockly.Language.draw_turn_by_constant_restricted.VALUE =
+  blockly.Blocks.draw_turn_by_constant_restricted.VALUE =
       [30, 45, 60, 90, 120, 135, 150, 180].
       map(function(t) {return [String(t), String(t)];});
 
@@ -104,14 +104,14 @@ exports.install = function(blockly) {
         '(' + value + ', \'block_id_' + this.id + '\');\n';
   };
 
-  blockly.Language.draw_turn_by_constant = {
+  blockly.Blocks.draw_turn_by_constant = {
     // Block for turning left or right any number of degrees.
     helpUrl: '',
     init: function() {
       this.setColour(160);
       this.appendDummyInput()
           .appendTitle(new blockly.FieldDropdown(
-              blockly.Language.draw_turn.DIRECTIONS), 'DIR');
+              blockly.Blocks.draw_turn.DIRECTIONS), 'DIR');
       this.appendDummyInput()
           .appendTitle(new blockly.FieldTextInput('90',
               blockly.FieldTextInput.numberValidator), 'VALUE')
@@ -139,14 +139,14 @@ exports.install = function(blockly) {
   };
 
 
-  blockly.Language.draw_turn_inline_restricted = {
+  blockly.Blocks.draw_turn_inline_restricted = {
     // Block for turning either left or right from among a fixed set of angles.
     helpUrl: '',
     init: function() {
       this.setColour(160);
       this.appendDummyInput()
           .appendTitle(new blockly.FieldDropdown(
-              blockly.Language.draw_turn.DIRECTIONS), 'DIR');
+              blockly.Blocks.draw_turn.DIRECTIONS), 'DIR');
       this.appendDummyInput()
           .appendTitle(new blockly.FieldDropdown(this.VALUE), 'VALUE')
           .appendTitle(msg.degrees());
@@ -157,7 +157,7 @@ exports.install = function(blockly) {
     }
   };
 
-  blockly.Language.draw_turn_inline_restricted.VALUE =
+  blockly.Blocks.draw_turn_inline_restricted.VALUE =
       [30, 45, 60, 90, 120, 135, 150, 180].
       map(function(t) {return [String(t), String(t)];});
 
@@ -169,14 +169,14 @@ exports.install = function(blockly) {
         '(' + value + ', \'block_id_' + this.id + '\');\n';
   };
 
-  blockly.Language.draw_turn_inline = {
+  blockly.Blocks.draw_turn_inline = {
     // Block for turning left or right any number of degrees.
     helpUrl: '',
     init: function() {
       this.setColour(160);
       this.appendDummyInput()
           .appendTitle(new blockly.FieldDropdown(
-              blockly.Language.draw_turn.DIRECTIONS), 'DIR');
+              blockly.Blocks.draw_turn.DIRECTIONS), 'DIR');
       this.appendDummyInput()
           .appendTitle(new blockly.FieldTextInput('90',
               blockly.FieldTextInput.numberValidator), 'VALUE')
@@ -195,7 +195,7 @@ exports.install = function(blockly) {
         '(' + value + ', \'block_id_' + this.id + '\');\n';
   };
 
-  blockly.Language.variables_get_counter = {
+  blockly.Blocks.variables_get_counter = {
     // Variable getter.
     category: null,  // Variables are handled specially.
     helpUrl: blockly.LANG_VARIABLES_GET_HELPURL,
@@ -214,7 +214,7 @@ exports.install = function(blockly) {
 
   generator.variables_get_counter = generator.variables_get;
 
-  blockly.Language.variables_get_length = {
+  blockly.Blocks.variables_get_length = {
     // Variable getter.
     category: null,  // Variables are handled specially.
     helpUrl: blockly.LANG_VARIABLES_GET_HELPURL,
@@ -233,7 +233,7 @@ exports.install = function(blockly) {
 
   generator.variables_get_length = generator.variables_get;
 
-  blockly.Language.variables_get_height = {
+  blockly.Blocks.variables_get_height = {
     // Variable getter.
     category: null,  // Variables are handled specially.
     helpUrl: blockly.LANG_VARIABLES_GET_HELPURL,
@@ -252,7 +252,7 @@ exports.install = function(blockly) {
 
   generator.variables_get_height = generator.variables_get;
 
-  blockly.Language.variables_get_sides = {
+  blockly.Blocks.variables_get_sides = {
     // Variable getter.
     category: null,  // Variables are handled specially.
     helpUrl: blockly.LANG_VARIABLES_GET_HELPURL,
@@ -273,7 +273,7 @@ exports.install = function(blockly) {
 
   // Create a fake "draw a square" function so it can be made available to users
   // without being shown in the workspace.
-  blockly.Language.draw_a_square = {
+  blockly.Blocks.draw_a_square = {
     // Draw a square.
     init: function() {
       this.setColour(290);
@@ -309,7 +309,7 @@ exports.install = function(blockly) {
 
   // Create a fake "draw a snowman" function so it can be made available to
   // users without being shown in the workspace.
-  blockly.Language.draw_a_snowman = {
+  blockly.Blocks.draw_a_snowman = {
     // Draw a circle in front of the turtle, ending up on the opposite side.
     init: function() {
       this.setColour(290);
@@ -360,9 +360,9 @@ exports.install = function(blockly) {
       'Turtle.turnLeft(90);\n'].join('\n');
   };
 
-  // This is a modified copy of blockly.Language.controls_for with the
+  // This is a modified copy of blockly.Blocks.controls_for with the
   // variable named "counter" hardcoded.
-  blockly.Language.controls_for_counter = {
+  blockly.Blocks.controls_for_counter = {
     // For loop with hardcoded loop variable.
     helpUrl: blockly.LANG_CONTROLS_FOR_HELPURL,
     init: function() {
@@ -416,12 +416,12 @@ exports.install = function(blockly) {
   generator.controls_for_counter = generator.controls_for;
 
   // Delete these standard blocks.
-  delete blockly.Language.procedures_defreturn;
-  delete blockly.Language.procedures_ifreturn;
+  delete blockly.Blocks.procedures_defreturn;
+  delete blockly.Blocks.procedures_ifreturn;
 
   // General blocks.
 
-  blockly.Language.draw_move = {
+  blockly.Blocks.draw_move = {
     // Block for moving forward or backwards.
     helpUrl: '',
     init: function() {
@@ -429,7 +429,7 @@ exports.install = function(blockly) {
       this.appendValueInput('VALUE')
           .setCheck('Number')
           .appendTitle(new blockly.FieldDropdown(
-              blockly.Language.draw_move.DIRECTIONS), 'DIR');
+              blockly.Blocks.draw_move.DIRECTIONS), 'DIR');
       this.appendDummyInput()
           .appendTitle(msg.dots());
       this.setInputsInline(true);
@@ -439,7 +439,7 @@ exports.install = function(blockly) {
     }
   };
 
-  blockly.Language.draw_move.DIRECTIONS =
+  blockly.Blocks.draw_move.DIRECTIONS =
       [[msg.moveForward(), 'moveForward'],
        [msg.moveBackward(), 'moveBackward']];
 
@@ -451,7 +451,7 @@ exports.install = function(blockly) {
         '(' + value + ', \'block_id_' + this.id + '\');\n';
   };
 
-  blockly.Language.jump = {
+  blockly.Blocks.jump = {
     // Block for moving forward or backwards.
     helpUrl: '',
     init: function() {
@@ -459,7 +459,7 @@ exports.install = function(blockly) {
       this.appendValueInput('VALUE')
           .setCheck('Number')
           .appendTitle(new blockly.FieldDropdown(
-              blockly.Language.jump.DIRECTIONS), 'DIR');
+              blockly.Blocks.jump.DIRECTIONS), 'DIR');
       this.appendDummyInput()
           .appendTitle(msg.dots());
       this.setInputsInline(true);
@@ -469,7 +469,7 @@ exports.install = function(blockly) {
     }
   };
 
-  blockly.Language.jump.DIRECTIONS =
+  blockly.Blocks.jump.DIRECTIONS =
       [[msg.jumpForward(), 'jumpForward'],
        [msg.jumpBackward(), 'jumpBackward']];
 
@@ -481,7 +481,7 @@ exports.install = function(blockly) {
         '(' + value + ', \'block_id_' + this.id + '\');\n';
   };
 
-  blockly.Language.draw_turn = {
+  blockly.Blocks.draw_turn = {
     // Block for turning left or right.
     helpUrl: '',
     init: function() {
@@ -489,7 +489,7 @@ exports.install = function(blockly) {
       this.appendValueInput('VALUE')
           .setCheck('Number')
           .appendTitle(new blockly.FieldDropdown(
-              blockly.Language.draw_turn.DIRECTIONS), 'DIR');
+              blockly.Blocks.draw_turn.DIRECTIONS), 'DIR');
       this.appendDummyInput()
           .appendTitle(msg.degrees());
       this.setInputsInline(true);
@@ -499,7 +499,7 @@ exports.install = function(blockly) {
     }
   };
 
-  blockly.Language.draw_turn.DIRECTIONS =
+  blockly.Blocks.draw_turn.DIRECTIONS =
       [[msg.turnRight(), 'turnRight'],
        [msg.turnLeft(), 'turnLeft']];
 
@@ -511,7 +511,7 @@ exports.install = function(blockly) {
         '(' + value + ', \'block_id_' + this.id + '\');\n';
   };
 
-  blockly.Language.draw_width = {
+  blockly.Blocks.draw_width = {
     // Block for setting the pen width.
     helpUrl: '',
     init: function() {
@@ -532,7 +532,7 @@ exports.install = function(blockly) {
     return 'Turtle.penWidth(' + width + ', \'block_id_' + this.id + '\');\n';
   };
 
-  blockly.Language.draw_pen = {
+  blockly.Blocks.draw_pen = {
     // Block for pen up/down.
     helpUrl: '',
     init: function() {
@@ -545,7 +545,7 @@ exports.install = function(blockly) {
     }
   };
 
-  blockly.Language.draw_pen.STATE =
+  blockly.Blocks.draw_pen.STATE =
       [[msg.penUp(), 'penUp'],
        [msg.penDown(), 'penDown']];
 
@@ -555,7 +555,7 @@ exports.install = function(blockly) {
         '(\'block_id_' + this.id + '\');\n';
   };
 
-  blockly.Language.draw_colour = {
+  blockly.Blocks.draw_colour = {
     // Block for setting the colour.
     helpUrl: '',
     init: function() {
@@ -578,7 +578,7 @@ exports.install = function(blockly) {
         this.id + '\');\n';
   };
 
-  blockly.Language.turtle_visibility = {
+  blockly.Blocks.turtle_visibility = {
     // Block for changing turtle visiblity.
     helpUrl: '',
     init: function() {
@@ -591,7 +591,7 @@ exports.install = function(blockly) {
     }
   };
 
-  blockly.Language.turtle_visibility.STATE =
+  blockly.Blocks.turtle_visibility.STATE =
       [[msg.hideTurtle(), 'hideTurtle'],
        [msg.showTurtle(), 'showTurtle']];
 
