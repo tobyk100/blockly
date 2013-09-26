@@ -24,6 +24,7 @@
 'use strict';
 
 var msg = require('../../build/en_us/i18n/maze');
+var codegen = require('../codegen');
 
 // Install extensions to Blockly's language and JavaScript generator.
 exports.install = function(blockly, skin) {
@@ -279,8 +280,7 @@ exports.install = function(blockly, skin) {
     var argument = 'Maze.' + this.getTitleValue('DIR') +
       '(\'block_id_' + this.id + '\')';
     var branch = generator.statementToCode(this, 'DO');
-    branch = BlocklyApps.INFINITE_LOOP_TRAP.replace(/%1/g,
-        '\'block_id_' + this.id + '\'') + branch;
+    branch = codegen.loopTrap(this.id) + branch;
     return 'while (' + argument + ') {\n' + branch + '}\n';
   };
 
@@ -305,9 +305,8 @@ exports.install = function(blockly, skin) {
 
   generator.maze_untilBlocked = function() {
     var argument = 'Maze.isPathForward' + '(\'block_id_' + this.id + '\')';
-    branch = BlocklyApps.INFINITE_LOOP_TRAP.replace(/%1/g,
-        '\'block_id_' + this.id + '\'') + branch;
     var branch = generator.statementToCode(this, 'DO');
+    branch = codegen.loopTrap(this.id) + branch;
     return 'while (' + argument + ') {\n' + branch + '}\n';
   };
 
@@ -329,8 +328,7 @@ exports.install = function(blockly, skin) {
   generator.maze_forever = function() {
     // Generate JavaScript for do forever loop.
     var branch = generator.statementToCode(this, 'DO');
-    branch = BlocklyApps.INFINITE_LOOP_TRAP.replace(/%1/g,
-        '\'block_id_' + this.id + '\'') + branch;
+    branch = codegen.loopTrap(this.id) + branch;
     return 'while (true) {\n' + branch + '}\n';
   };
 
@@ -352,8 +350,7 @@ exports.install = function(blockly, skin) {
     var argument = 'Maze.' + this.getTitleValue('DIR') +
         '(\'block_id_' + this.id + '\')';
     var branch = generator.statementToCode(this, 'DO');
-    branch = BlocklyApps.INFINITE_LOOP_TRAP.replace(/%1/g,
-        '\'block_id_' + this.id + '\'') + branch;
+    branch = codegen.loopTrap(this.id) + branch;
     return 'while (' + argument + ') {\n' + branch + '}\n';
   };
 

@@ -34,6 +34,7 @@ var msg = require('../../build/en_us/i18n/turtle');
 var levels = require('./levels');
 var Colours = require('./core').Colours;
 var answers = require('./answers');
+var codegen = require('../codegen');
 
 /**
  * Template used to generate a regular expression string checking that
@@ -609,7 +610,7 @@ Turtle.checkAnswer = function() {
 
   BlocklyApps.report('turtle', Turtle.LEVEL,
                      BlocklyApps.levelComplete,
-                     BlocklyApps.stripCode(Turtle.code));
+                     codegen.strip(Turtle.code));
   if (BlocklyApps.levelComplete) {
     if (Turtle.PAGE == 3 &&
         (Turtle.LEVEL == 7 || Turtle.LEVEL == 8)) {

@@ -27,6 +27,7 @@ var BlocklyApps = module.exports;
 var msg = require('../build/en_us/i18n/common');
 var dialog = require('./dialog');
 var parseXmlElement = require('./xml').parseElement;
+var codegen = require('./codegen');
 
 //TODO: These should be members of a BlocklyApp instance.
 var onAttempt;
@@ -193,32 +194,12 @@ BlocklyApps.hideDialog = function(opt_animate) {
 };
 
 /**
- * JavaScript code used to bail out of infinite loops.
- */
-BlocklyApps.INFINITE_LOOP_TRAP = '  BlocklyApps.checkTimeout();\n';
-
-/**
- * Convert the user's code to raw JavaScript.
- * @param {string} code Generated code.
- * @return {string} The code without serial numbers and timeout checks.
- */
-BlocklyApps.stripCode = function(code) {
-  // Strip out serial numbers.
-  code = code.replace(/(,\s*)?'block_id_\d+'\)/g, ')');
-  // Remove timeouts.
-  var regex = new RegExp(BlocklyApps.INFINITE_LOOP_TRAP
-      .replace('(%1)', '\\((\'\\d+\')?\\)'), 'g');
-  return code.replace(regex, '');
-};
-
-/**
  * Show the user's code in raw JavaScript.
  * @param {Element} origin Animate the dialog opening/closing from/to this
  *     DOM element.  If null, don't show any animations for opening or closing.
  */
 BlocklyApps.showCode = function(origin) {
-  var code = Blockly.Generator.workspaceToCode('JavaScript');
-  code = BlocklyApps.stripCode(code);
+  var code = codegen.workspaceCode(Blockly);
   var pre = document.getElementById('containerCode');
   pre.innerHTML = '';
   // Inject the code as a textNode, then extract with innerHTML, thus escaping.
@@ -407,8 +388,7 @@ BlocklyApps.displayFeedback = function(options) {
  * @return {boolean} true if block is empty (no blocks are nested inside).
  */
 BlocklyApps.hasEmptyTopLevelBlocks = function() {
-  var code = Blockly.Generator.workspaceToCode('JavaScript');
-  code = BlocklyApps.stripCode(code);
+  var code = codegen.workspaceCode(Blockly);
   return (/\{\s*\}/).test(code);
 };
 
