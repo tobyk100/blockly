@@ -610,6 +610,7 @@ Turtle.checkAnswer = function() {
 
   BlocklyApps.report('turtle', Turtle.LEVEL,
                      BlocklyApps.levelComplete,
+                     feedbackType,
                      codegen.strip(Turtle.code));
   if (BlocklyApps.levelComplete) {
     if (Turtle.PAGE == 3 &&
