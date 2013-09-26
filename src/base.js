@@ -333,15 +333,15 @@ BlocklyApps.reset = function(first) {};
  */
 BlocklyApps.TestResults = {
   NO_TESTS_RUN: -1,          // Default.
-  FREE_PLAY: -2,             // 0 stars, try again or continue.
+  FREE_PLAY: 0,              // 0 stars, try again or continue.
   EMPTY_BLOCK_FAIL: 1,       // 0 stars.
-  MISSING_BLOCK_FAIL: 2,     // 1 star.
-  TOO_FEW_BLOCKS_FAIL: 3,    // 0 stars.
-  LEVEL_INCOMPLETE_FAIL: 4,  // 0 stars.
-  TOO_MANY_BLOCKS_FAIL: 5,   // 2 stars.
-  OTHER_1_STAR_FAIL: 6,      // Application-specific 1-star failure.
-  OTHER_2_STAR_FAIL: 7,      // Application-specific 2-star failure.
-  ALL_PASS: 0                // 3 stars.
+  TOO_FEW_BLOCKS_FAIL: 2,    // 0 stars.
+  LEVEL_INCOMPLETE_FAIL: 3,  // 0 stars.
+  MISSING_BLOCK_FAIL: 10,    // 1 star.
+  OTHER_1_STAR_FAIL: 11,     // Application-specific 1-star failure.
+  TOO_MANY_BLOCKS_FAIL: 20,  // 2 stars.
+  OTHER_2_STAR_FAIL: 21,     // Application-specific 2-star failure.
+  ALL_PASS: 100              // 3 stars.
 };
 
 /**
@@ -587,13 +587,15 @@ BlocklyApps.setErrorFeedback = function(options) {
  * @param {number} id A unique identifier generated when the page was loaded.
  * @param {string} levelId The ID of the current level.
  * @param {number} result An indicator of the success of the code.
+ * @param {number} testResult More specific data on success or failure of code.
  * @param {string} program The user program, which will get URL-encoded.
  */
-BlocklyApps.report = function(app, levelId, result, program) {
+BlocklyApps.report = function(app, levelId, result, testResult, program) {
   var report = {
     app: app,
     level: levelId,
     result: result,
+    testResult: testResult,
     program: encodeURIComponent(program),
     // TODO(toby): implement stats
     attempt: 1,
