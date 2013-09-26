@@ -404,7 +404,7 @@ module.exports = {
     'requiredBlocks': [
       [TURN_RIGHT],
       [MOVE_FORWARD],
-      [PUT_DOWN_BALL],
+      [FILL],
       [WHILE_OPT_HOLE_PRESENT]
     ],
     'scale': {
