@@ -662,7 +662,7 @@ module.exports = {
   '2_18': {
     'instructions': 'instructions2_18',
     'toolbox': toolbox(2, 18),
-    'ideal': 5,
+    'ideal': 4,
     'requiredBlocks': [
       [{'test': 'moveForward', 'type': 'maze_moveForward'}],
       [{'test': 'isPathForward',
