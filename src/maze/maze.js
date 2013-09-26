@@ -535,6 +535,7 @@ Maze.runButtonClick = function() {
   resetButton.style.display = 'inline';
   Blockly.mainWorkspace.traceOn(true);
   BlocklyApps.reset(false);
+  BlocklyApps.attempts++;
   Maze.execute();
 };
 

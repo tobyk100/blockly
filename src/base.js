@@ -323,7 +323,14 @@ BlocklyApps.ticks = null;
  * The number of attempts (how many times the run button has been pressed)
  * @type {?number}
  */
-BlocklyApps.attempt = 0;
+BlocklyApps.attempts = 0;
+
+/**
+ * Stores the time at init. The delta to current time is used for logging
+ * and reporting to capture how long it took to arrive at an attempt.
+ * @type {?number}
+ */
+BlocklyApps.initTime = Date.now();
 
 /**
  * Reset the playing field to the start position and kill any pending
@@ -603,9 +610,8 @@ BlocklyApps.report = function(app, levelId, result, testResult, program) {
     result: result,
     testResult: testResult,
     program: encodeURIComponent(program),
-    // TODO(toby): implement stats
-    attempt: 1,
-    time: 1
+    attempt: BlocklyApps.attempts,
+    time: (Date.now() - BlocklyApps.initTime)
   };
   onAttempt(report);
 };

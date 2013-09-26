@@ -377,6 +377,7 @@ Turtle.runButtonClick = function() {
   document.getElementById('resetButton').style.display = 'inline';
   document.getElementById('spinner').style.visibility = 'visible';
   Blockly.mainWorkspace.traceOn(true);
+  BlocklyApps.attempts++;
   Turtle.execute();
 };
 
