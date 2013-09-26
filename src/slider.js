@@ -123,13 +123,12 @@ Slider.mouseOver_ = function(e) {
   if (!Slider.activeSlider_) {
     return;
   }
-  var node = e.target;
   // Find the root SVG object.
-  do {
+  for (var node = e.target; node; node = node.parentNode) {
     if (node == Slider.activeSlider_.SVG_) {
       return;
     }
-  } while (node = node.parentNode);
+  }
   Slider.knobMouseUp_(e);
 };
 
@@ -151,7 +150,9 @@ Slider.knobMouseMove_ = function(e) {
 
   thisSlider.value_ = (x - thisSlider.KNOB_MIN_X_) /
       (thisSlider.KNOB_MAX_X_ - thisSlider.KNOB_MIN_X_);
-  thisSlider.changeFunc_ && thisSlider.changeFunc_(thisSlider.value_);
+  if (thisSlider.changeFunc_) {
+    thisSlider.changeFunc_(thisSlider.value_);
+  }
 };
 
 /**

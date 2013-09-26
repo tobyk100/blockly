@@ -342,8 +342,8 @@ exports.install = function(blockly) {
       // Don't change it without changing REQUIRED_BLOCKS.
       '// draw_a_snowman',
       'Turtle.turnLeft(90);',
-      'var ' + distancesVar + ' = [' + value + ' * .5, ' + value + ' * .3,' +
-          value + ' * .2];',
+      'var ' + distancesVar + ' = [' + value + ' * 0.5, ' + value + ' * 0.3,' +
+          value + ' * 0.2];',
       'for (var ' + loopVar + ' = 0; ' + loopVar + ' < 6; ' +
           loopVar + '++) {\n',
       '  var ' + distanceVar + ' = ' + distancesVar + '[' + loopVar +
@@ -402,9 +402,11 @@ exports.install = function(blockly) {
       var option = {enabled: true};
       var name = this.getTitleValue('VAR');
       option.text = blockly.LANG_VARIABLES_SET_CREATE_GET.replace('%1', name);
-      var xmlTitle = goog.dom.createDom('title', null, name);
+      var xmlTitle = document.createElement('title');
+      xmlTitle.appendChild(document.createTextNode(name));
       xmlTitle.setAttribute('name', 'VAR');
-      var xmlBlock = goog.dom.createDom('block', null, xmlTitle);
+      var xmlBlock = document.createElement('block');
+      xmlBlock.appendChild(xmlTitle);
       xmlBlock.setAttribute('type', 'variables_get_counter');
       option.callback = blockly.ContextMenu.callbackFactory(this, xmlBlock);
       options.push(option);

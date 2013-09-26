@@ -21,7 +21,7 @@
  * @fileoverview Common support code for Blockly apps.
  * @author fraser@google.com (Neil Fraser)
  */
-'use strict';
+"use strict";
 
 var BlocklyApps = module.exports;
 var msg = require('../build/en_us/i18n/common');
@@ -78,7 +78,7 @@ BlocklyApps.getNumberParamFromUrl = function(name, minValue, maxValue) {
  * Common startup tasks for all apps.
  */
 BlocklyApps.init = function(config) {
-  if (config == null) {
+  if (!config) {
     config = {};
   }
   // Store configuration.
@@ -102,7 +102,7 @@ BlocklyApps.init = function(config) {
  * Returns true if the current HTML page is in right-to-left language mode.
  */
 BlocklyApps.isRtl = function() {
-  document.head.parentElement.getAttribute('dir') == 'rtl';
+  return document.head.parentElement.getAttribute('dir') == 'rtl';
 };
 
 /**
@@ -145,8 +145,8 @@ BlocklyApps.onResize = function() {
   var parentStyle = window.getComputedStyle ?
                     window.getComputedStyle(blocklyDivParent) :
                     blocklyDivParent.currentStyle.width;  // IE
-  var parentWidth = parseInt(parentStyle.width);
-  var parentHeight = window.innerHeight - parseInt(blocklyDiv.style.top) +
+  var parentWidth = parseInt(parentStyle.width, 10);
+  var parentHeight = window.innerHeight - parseInt(blocklyDiv.style.top, 10) +
     scrollY - 20;
 
   blocklyDiv.style.width = (parentWidth - svg.clientWidth - 40) + 'px';
@@ -250,7 +250,8 @@ BlocklyApps.addTouchEvents = function() {
   }
   // Treat ontouchend as equivalent to onclick for buttons.
   var buttons = document.getElementsByTagName('button');
-  for (var i = 0, button; button = buttons[i]; i++) {
+  for (var i = 0; i < buttons.length; i++) {
+    var button = buttons[i];
     if (!button.ontouchend) {
       button.ontouchend = button.onclick;
     }
@@ -374,9 +375,9 @@ BlocklyApps.updateCapacity = function() {
     p.style.display = 'none';
   } else {
     p.style.display = 'inline';
-    if (cap == 0) {
+    if (cap === 0) {
       p.innerHTML = msg.capacity0();
-    } else if (cap == 1) {
+    } else if (cap === 1) {
       p.innerHTML = msg.capacity1();
     } else {
       cap = Number(cap);
@@ -408,7 +409,7 @@ BlocklyApps.displayFeedback = function(options) {
 BlocklyApps.hasEmptyTopLevelBlocks = function() {
   var code = Blockly.Generator.workspaceToCode('JavaScript');
   code = BlocklyApps.stripCode(code);
-  return /\{\s*\}/.test(code);
+  return (/\{\s*\}/).test(code);
 };
 
 /**
@@ -416,7 +417,7 @@ BlocklyApps.hasEmptyTopLevelBlocks = function() {
  * @return {boolean} true if all blocks are present, false otherwise.
  */
 BlocklyApps.hasAllRequiredBlocks = function() {
-  return BlocklyApps.getMissingRequiredBlocks().length == 0;
+  return BlocklyApps.getMissingRequiredBlocks().length === 0;
 };
 
 /**
@@ -656,7 +657,8 @@ BlocklyApps.prepareFeedback = function(options) {
 BlocklyApps.hideFeedback = function() {
   document.getElementById('levelFeedbackText').style.display = 'none';
   var feedbackArray = document.querySelectorAll('.feedback');
-  for (var f = 0, feedback; feedback = feedbackArray[f]; f++) {
+  for (var i = 0; i < feedbackArray.length; i++) {
+    var feedback = feedbackArray[i];
     feedback.style.display = 'none';
   }
   document.getElementById('tryAgainButton').style.display = 'none';
@@ -765,10 +767,10 @@ BlocklyApps.setTextForElement = function(id, text) {
 
 /**
  * Creates the XML for blocks to be displayed in a read-only frame.
- * @param {Array} blockArray An array of blocks to display (with optional args).
+ * @param {Array} blocks An array of blocks to display (with optional args).
  * @return {string} The generated string of XML.
  */
-BlocklyApps.generateXMLForBlocks = function(blockArray) {
+BlocklyApps.generateXMLForBlocks = function(blocks) {
   var blockXMLStrings = [];
   var blockX = 10;  // Prevent left output plugs from being cut off.
   var blockY = 0;
@@ -776,36 +778,38 @@ BlocklyApps.generateXMLForBlocks = function(blockArray) {
   var blockYPadding = 120;
   var blocksPerLine = 2;
   var iframeHeight = parseInt(document.getElementById('feedbackBlocks')
-          .style.height);
-  for (var i = 0, block; block = blockArray[i]; i++) {
-    if (block) {
-      blockXMLStrings.push('<block', ' type="', block['type'], '" x= "',
-                          blockX.toString(), '" y="', blockY, '">');
-      if (block['titles']) {
-        var titleNames = Object.keys(block['titles']);
-        for (var k = 0, name; name = titleNames[k]; k++) {
-          blockXMLStrings.push('<title name="', name, '">',
-                              block['titles'][name], '</title>');
-        }
+          .style.height, 10);
+  var k, name;
+  for (var i = 0; i < blocks.length; i++) {
+    var block = blocks[i];
+    blockXMLStrings.push('<block', ' type="', block.type, '" x= "',
+                        blockX.toString(), '" y="', blockY, '">');
+    if (block.titles) {
+      var titleNames = Object.keys(block.titles);
+      for (k = 0; k < titleNames.length; k++) {
+        name = titleNames[k];
+        blockXMLStrings.push('<title name="', name, '">',
+                            block.titles[name], '</title>');
       }
-      if (block['values']) {
-        var valueNames = Object.keys(block['values']);
-        for (var k = 0, name; name = valueNames[k]; k++) {
-          blockXMLStrings.push('<value name="', name, '">',
-                              block['values'][name], '</title>');
-        }
+    }
+    if (block.values) {
+      var valueNames = Object.keys(block.values);
+      for (k = 0; k < valueNames.length; k++) {
+        name = valueNames[k];
+        blockXMLStrings.push('<value name="', name, '">',
+                            block.values[name], '</title>');
       }
-      if (block['extra']) {
-        blockXMLStrings.append(block['extra']);
-      }
-      blockXMLStrings.push('</block>');
-      if ((i + 1) % blocksPerLine == 0) {
-        blockY += blockYPadding;
-        iframeHeight += blockYPadding;
-        blockX = 0;
-      } else {
-        blockX += blockXPadding;
-      }
+    }
+    if (block.extra) {
+      blockXMLStrings.append(block.extra);
+    }
+    blockXMLStrings.push('</block>');
+    if ((i + 1) % blocksPerLine === 0) {
+      blockY += blockYPadding;
+      iframeHeight += blockYPadding;
+      blockX = 0;
+    } else {
+      blockX += blockXPadding;
     }
     document.getElementById('feedbackBlocks').style.height =
         iframeHeight + 'px';

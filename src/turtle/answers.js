@@ -54,7 +54,7 @@ var drawTriangle = function(length, random_colour) {
 
 var drawSnowman = function(height) {
   Turtle.turnLeft(90);
-  var distances = [height * .5, height * .3, height * .2];
+  var distances = [height * 0.5, height * 0.3, height * 0.2];
   for (var i = 0; i < 6; i++) {
     var distance = distances[i < 3 ? i : 5 - i] / 57.5;
     for (var d = 0; d < 180; d += 2) {
@@ -86,6 +86,7 @@ var drawHouse = function(length) {
  * this function.
  */
 exports.drawAnswer = function() {
+  var count, len;
   if (Turtle.PAGE == 1) {
     switch (Turtle.LEVEL) {
       case 1:
@@ -127,7 +128,7 @@ exports.drawAnswer = function() {
         break;
       case 8:
         // Spiky.
-        for (var count = 0; count < 8; count++) {
+        for (count = 0; count < 8; count++) {
           setRandomVisibleColour();
           Turtle.moveForward(100);
           Turtle.moveBackward(100);
@@ -136,7 +137,7 @@ exports.drawAnswer = function() {
         break;
       case 9:
         // Circle.
-        for (var count = 0; count < 360; count++) {
+        for (count = 0; count < 360; count++) {
           Turtle.moveForward(1);
           Turtle.turnRight(1);
         }
@@ -156,7 +157,7 @@ exports.drawAnswer = function() {
         break;
       case 3:
         // Three squares, 120 degrees apart, in random colors.
-        for (var count = 0; count < 3; count++) {
+        for (count = 0; count < 3; count++) {
           setRandomVisibleColour();
           drawSquare(100);
           Turtle.turnRight(120);
@@ -164,7 +165,7 @@ exports.drawAnswer = function() {
         break;
       case 4:
         // 36 squares, 10 degrees apart, in random colors.
-        for (var count = 0; count < 36; count++) {
+        for (count = 0; count < 36; count++) {
           setRandomVisibleColour();
           drawSquare(100);
           Turtle.turnRight(10);
@@ -173,13 +174,13 @@ exports.drawAnswer = function() {
       case 5:  // Draw without using for-loop.  (Fall through to next case.)
       case 6:
         // Squares with sides of 50, 60, 70, 80, and 90 pixels.
-        for (var len = 50; len <= 90; len += 10) {
+        for (len = 50; len <= 90; len += 10) {
           drawSquare(len);
         }
         break;
       case 7:
         // Mini-spiral.
-        for (var len = 25; len <= 60; len += 5) {
+        for (len = 25; len <= 60; len += 5) {
           Turtle.moveForward(len);
           Turtle.turnRight(90);
         }
@@ -247,7 +248,7 @@ exports.drawAnswer = function() {
         drawHouse(100);
         break;
       case 9:
-        for (var count = 50; count <= 150; count += 50) {
+        for (count = 50; count <= 150; count += 50) {
           setRandomVisibleColour();
           drawHouse(count);
         }

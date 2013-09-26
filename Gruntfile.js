@@ -121,9 +121,15 @@ config.watch = {
 
 config.jshint = {
   options: {
+    node: true,
     browser: true,
     globals: {
-      Blockly: true
+      Blockly: true,
+      //TODO: Eliminate the globals below here.
+      BlocklyApps: true,
+      Maze: true,
+      Turtle: true,
+      prettyPrintOne: true
     }
   },
   all: ['Gruntfile.js', 'src/**/*.js', 'test/**/*.js']
