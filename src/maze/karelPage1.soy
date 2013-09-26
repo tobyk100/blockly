@@ -6,9 +6,9 @@
   <block type="maze_moveForward"></block>
   <block type="maze_turn"><title name="DIR">turnLeft</title></block>
   <block type="maze_turn"><title name="DIR">turnRight</title></block>
-  <block type="maze_pickUpBall"></block>
+  <block type="maze_dig"></block>
   {if $ij.level > 1}
-    <block type="maze_putDownBall"></block>
+    <block type="maze_fill"></block>
     {if $ij.level > 2}
       <block type="controls_repeat"></block>
       {if $ij.level > 9}
