@@ -31,7 +31,7 @@ exports.install = function(blockly, skin) {
   var generator = blockly.Generator.get('JavaScript');
   blockly.JavaScript = generator;
 
-  blockly.Language.maze_moveForward = {
+  blockly.Blocks.maze_moveForward = {
     // Block for moving forward.
     helpUrl: 'http://code.google.com/p/blockly/wiki/Move',
     init: function() {
@@ -49,7 +49,7 @@ exports.install = function(blockly, skin) {
     return 'Maze.moveForward(\'block_id_' + this.id + '\');\n';
   };
 
-  blockly.Language.maze_putDownBall = {
+  blockly.Blocks.maze_putDownBall = {
     // Block for putting down a ball.
     helpUrl: 'http://code.google.com/p/blockly/wiki/PutDown',
     init: function() {
@@ -68,7 +68,7 @@ exports.install = function(blockly, skin) {
   };
 
   // Nan's
-  blockly.Language.maze_pickUpBall = {
+  blockly.Blocks.maze_pickUpBall = {
     // Block for putting down a ball.
     helpUrl: 'http://code.google.com/p/blockly/wiki/PickUp',
     init: function() {
@@ -86,7 +86,7 @@ exports.install = function(blockly, skin) {
     return 'Maze.pickUpBall(\'block_id_' + this.id + '\');\n';
   };
 
-  blockly.Language.maze_turn = {
+  blockly.Blocks.maze_turn = {
     // Block for turning left or right.
     helpUrl: 'http://code.google.com/p/blockly/wiki/Turn',
     init: function() {
@@ -99,7 +99,7 @@ exports.install = function(blockly, skin) {
     }
   };
 
-  blockly.Language.maze_turn.DIRECTIONS =
+  blockly.Blocks.maze_turn.DIRECTIONS =
       [[msg.turnLeft() + ' \u27F2', 'turnLeft'],
        [msg.turnRight() + ' \u27F3', 'turnRight']];
 
@@ -109,7 +109,7 @@ exports.install = function(blockly, skin) {
     return 'Maze.' + dir + '(\'block_id_' + this.id + '\');\n';
   };
 
-  blockly.Language.maze_isPath = {
+  blockly.Blocks.maze_isPath = {
     // Block for checking if there a path.
     helpUrl: '',
     init: function() {
@@ -121,7 +121,7 @@ exports.install = function(blockly, skin) {
     }
   };
 
-  blockly.Language.maze_isPath.DIRECTIONS =
+  blockly.Blocks.maze_isPath.DIRECTIONS =
       [[msg.pathAhead(), 'isPathForward'],
        [msg.pathLeft() + ' \u27F2', 'isPathLeft'],
        [msg.pathRight() + ' \u27F3', 'isPathRight']];
@@ -132,7 +132,7 @@ exports.install = function(blockly, skin) {
     return [code, generator.ORDER_FUNCTION_CALL];
   };
 
-  blockly.Language.maze_if = {
+  blockly.Blocks.maze_if = {
     // Block for 'if' conditional if there is a path.
     helpUrl: '',
     init: function() {
@@ -148,8 +148,8 @@ exports.install = function(blockly, skin) {
     }
   };
 
-  blockly.Language.maze_if.DIRECTIONS =
-      blockly.Language.maze_isPath.DIRECTIONS;
+  blockly.Blocks.maze_if.DIRECTIONS =
+      blockly.Blocks.maze_isPath.DIRECTIONS;
 
   generator.maze_if = function() {
     // Generate JavaScript for 'if' conditional if there is a path.
@@ -160,7 +160,7 @@ exports.install = function(blockly, skin) {
     return code;
   };
 
-  blockly.Language.maze_ifElse = {
+  blockly.Blocks.maze_ifElse = {
     // Block for 'if/else' conditional if there is a path.
     helpUrl: '',
     init: function() {
@@ -178,8 +178,8 @@ exports.install = function(blockly, skin) {
     }
   };
 
-  blockly.Language.maze_ifElse.DIRECTIONS =
-      blockly.Language.maze_isPath.DIRECTIONS;
+  blockly.Blocks.maze_ifElse.DIRECTIONS =
+      blockly.Blocks.maze_isPath.DIRECTIONS;
 
   generator.maze_ifElse = function() {
     // Generate JavaScript for 'if/else' conditional if there is a path.
@@ -192,7 +192,7 @@ exports.install = function(blockly, skin) {
     return code;
   };
 
-  blockly.Language.karel_if = {
+  blockly.Blocks.karel_if = {
     // Block for 'if' conditional if there is a path.
     helpUrl: '',
     init: function() {
@@ -219,7 +219,7 @@ exports.install = function(blockly, skin) {
     return code;
   };
 
-  blockly.Language.karel_if.DIRECTIONS = [
+  blockly.Blocks.karel_if.DIRECTIONS = [
        [msg.ballsPresent(), 'ballsPresent'],
        [msg.holesPresent(), 'holesPresent'],
        [msg.pathAhead(), 'isPathForward']
@@ -227,7 +227,7 @@ exports.install = function(blockly, skin) {
   ];
 
 
-  blockly.Language.karel_ifElse = {
+  blockly.Blocks.karel_ifElse = {
     // Block for 'if/else' conditional if there is a path.
     helpUrl: '',
     init: function() {
@@ -258,10 +258,10 @@ exports.install = function(blockly, skin) {
     return code;
   };
 
-  blockly.Language.karel_ifElse.DIRECTIONS =
-      blockly.Language.karel_if.DIRECTIONS;
+  blockly.Blocks.karel_ifElse.DIRECTIONS =
+      blockly.Blocks.karel_if.DIRECTIONS;
 
-  blockly.Language.maze_whileNotClear = {
+  blockly.Blocks.maze_whileNotClear = {
     helpUrl: 'http://code.google.com/p/blockly/wiki/Repeat',
     init: function() {
       this.setColour(120);
@@ -284,12 +284,12 @@ exports.install = function(blockly, skin) {
     return 'while (' + argument + ') {\n' + branch + '}\n';
   };
 
-  blockly.Language.maze_whileNotClear.DIRECTIONS = [
+  blockly.Blocks.maze_whileNotClear.DIRECTIONS = [
     [msg.while() + ' ' + msg.ballsPresent(), 'ballsPresent'],
     [msg.while() + ' ' + msg.holesPresent(), 'holesPresent']
   ];
 
-  blockly.Language.maze_untilBlocked = {
+  blockly.Blocks.maze_untilBlocked = {
     helpUrl: 'http://code.google.com/p/blockly/wiki/Repeat',
     init: function() {
       this.setColour(120);
@@ -311,7 +311,7 @@ exports.install = function(blockly, skin) {
     return 'while (' + argument + ') {\n' + branch + '}\n';
   };
 
-  blockly.Language.maze_forever = {
+  blockly.Blocks.maze_forever = {
     // Do forever loop.
     helpUrl: 'http://code.google.com/p/blockly/wiki/Repeat',
     init: function() {
@@ -334,7 +334,7 @@ exports.install = function(blockly, skin) {
     return 'while (true) {\n' + branch + '}\n';
   };
 
-  blockly.Language.maze_untilBlockedOrNotClear = {
+  blockly.Blocks.maze_untilBlockedOrNotClear = {
     helpUrl: 'http://code.google.com/p/blockly/wiki/Repeat',
     init: function() {
       this.setColour(120);
@@ -357,13 +357,13 @@ exports.install = function(blockly, skin) {
     return 'while (' + argument + ') {\n' + branch + '}\n';
   };
 
-  blockly.Language.maze_untilBlockedOrNotClear.DIRECTIONS = [
+  blockly.Blocks.maze_untilBlockedOrNotClear.DIRECTIONS = [
        [msg.while() + ' ' + msg.ballsPresent(), 'ballsPresent'],
        [msg.while() + ' ' + msg.holesPresent(), 'holesPresent'],
        [msg.repeatUntilBlocked(), 'isPathForward']
   ];
 
-  delete blockly.Language.procedures_defreturn;
-  delete blockly.Language.procedures_ifreturn;
+  delete blockly.Blocks.procedures_defreturn;
+  delete blockly.Blocks.procedures_ifreturn;
 
 };
