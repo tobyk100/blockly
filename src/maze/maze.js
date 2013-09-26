@@ -236,13 +236,12 @@ Maze.drawMap = function() {
 
   // Draw the tiles making up the maze map.
 
-  // Return a value of '0' if the specified square is wall obstacle, or out
-  // of bounds '1' otherwise (empty, obstacle, start, finish).
+  // Return a value of '0' if the specified square is wall or out of bounds '1'
+  // otherwise (empty, obstacle, start, finish).
   var normalize = function(x, y) {
     return ((Maze.map[y] === undefined) ||
             (Maze.map[y][x] === undefined) ||
-            (Maze.map[y][x] == Maze.SquareType.WALL) ||
-            (Maze.map[y][x] == Maze.SquareType.OBSTACLE)) ? '0' : '1';
+            (Maze.map[y][x] == Maze.SquareType.WALL)) ? '0' : '1';
   };
 
   // Compute and draw the tile for each square.
@@ -601,7 +600,7 @@ Maze.execute = function() {
       return;
     }
   }
-  
+
   // If we know they succeeded, mark levelComplete true
   // Note that we have not yet animated the succesful run
   BlocklyApps.levelComplete = (Maze.result == Maze.ResultType.SUCCESS);

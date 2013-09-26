@@ -333,6 +333,8 @@ var LEVELS = {
   },
   // Level 10: playground.
   '1_10': {
+    toolbox: toolbox(1, 10),
+    startBlocks: startBlocks(1, 10),
     freePlay: true
   },
   // Formerly Page 2.

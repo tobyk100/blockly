@@ -23,7 +23,7 @@
  */
 'use strict';
 
-var Colours = require('./core');
+var Colours = require('./core').Colours;
 var msg = require('../../build/en_us/i18n/turtle');
 
 // Install extensions to Blockly's language and JavaScript generator.
@@ -299,7 +299,7 @@ exports.install = function(blockly) {
     return [
         // The generated comment helps detect required blocks.
         // Don't change it without changing REQUIRED_BLOCKS.
-        '// draw_a_square',  
+        '// draw_a_square',
         'for (var ' + loopVar + ' = 0; ' + loopVar + ' < 4; ' +
               loopVar + '++) {',
         '  Turtle.moveForward(' + value_length + ');',
@@ -340,7 +340,7 @@ exports.install = function(blockly) {
     return [
       // The generated comment helps detect required blocks.
       // Don't change it without changing REQUIRED_BLOCKS.
-      '// draw_a_snowman',  
+      '// draw_a_snowman',
       'Turtle.turnLeft(90);',
       'var ' + distancesVar + ' = [' + value + ' * .5, ' + value + ' * .3,' +
           value + ' * .2];',
