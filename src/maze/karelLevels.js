@@ -63,6 +63,13 @@ var WHILE_OPT_PILE_PRESENT = {
   'titles': {'DIR': 'pilePresent'}
 };
 
+// This tests for and creates the "maze_untilBlockedOrNotClear" block with the option "holePresent" selected.
+var WHILE_OPT_HOLE_PRESENT = {
+  'test': 'while (Maze.holePresent',
+  'type': 'maze_untilBlockedOrNotClear',
+  'titles': {'DIR': 'holePresent'}
+};
+
 // This tests for and creates the "maze_untilBlockedOrNotClear" block with the option "isPathForward" selected.
 var WHILE_OPT_PATH_AHEAD = {
   'test': 'while (Maze.isPathForward',
@@ -398,7 +405,7 @@ module.exports = {
       [TURN_RIGHT],
       [MOVE_FORWARD],
       [FILL],
-      [WHILE_OPT_PILE_PRESENT]
+      [WHILE_OPT_HOLE_PRESENT]
     ],
     'scale': {
       'stepSpeed': 3
