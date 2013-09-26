@@ -90,6 +90,9 @@ BlocklyApps.init = function(config) {
   onContinue = config.onContinue || function() {
     console.log('Continue!');
   };
+  
+  // Record time at initialization.
+  BlocklyApps.initTime = new Date().getTime();
 
   // Fixes viewport for small screens.
   var viewport = document.querySelector('meta[name="viewport"]');
@@ -330,7 +333,7 @@ BlocklyApps.attempts = 0;
  * and reporting to capture how long it took to arrive at an attempt.
  * @type {?number}
  */
-BlocklyApps.initTime = Date.now();
+BlocklyApps.initTime;
 
 /**
  * Reset the playing field to the start position and kill any pending
@@ -611,7 +614,7 @@ BlocklyApps.report = function(app, levelId, result, testResult, program) {
     testResult: testResult,
     program: encodeURIComponent(program),
     attempt: BlocklyApps.attempts,
-    time: (Date.now() - BlocklyApps.initTime)
+    time: ((new Date().getTime()) - BlocklyApps.initTime)
   };
   onAttempt(report);
 };
