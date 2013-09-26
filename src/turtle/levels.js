@@ -288,14 +288,14 @@ var LEVELS = {
   },
   // Level 6: triangle and square.
   '1_6': {
-    ideal: 6,
+    ideal: 7,
     toolbox: toolbox(1, 6),
     startBlocks: startBlocks(1, 6),
     requiredBlocks: [
       [repeat(3)],
       [turnRightRestricted(120)],
       [MOVE_FORWARD_INLINE],
-      [MOVE_BACKWARD_INLINE]
+      [MOVE_BACKWARD_INLINE, MOVE_FORWARD_INLINE]
     ],
     freePlay: false
   },
