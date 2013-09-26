@@ -146,7 +146,7 @@
   },
   "dig": {
     "id": "5268364470656255036",
-    "string": "dig",
+    "string": "remove 1",
     "description": "verb - imperative or infinitive for a person digging a hole."
   },
   "digTooltip": {
@@ -154,7 +154,7 @@
   },
   "fill": {
     "id": "820940435620302045",
-    "string": "fill",
+    "string": "fill 1",
     "description": "verb - imperative or infinitive for a person filling a hole."
   },
   "fillTooltip": {
