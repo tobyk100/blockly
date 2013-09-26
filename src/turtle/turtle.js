@@ -602,7 +602,10 @@ Turtle.checkAnswer = function() {
   // Allow some number of pixels to be off, but be stricter
   // for certain levels.
   var permittedErrors = Turtle.PAGE == 1 && Turtle.LEVEL == 9 ? 10 : 150;
-  BlocklyApps.levelComplete = answers.isCorrect(delta, permittedErrors);
+  // Test whether the current level is a free play level, or the level has
+  // been completed
+  BlocklyApps.levelComplete =
+      level.freePlay || answers.isCorrect(delta, permittedErrors);
   var feedbackType = BlocklyApps.getTestResults();
 
   BlocklyApps.report('turtle', Turtle.LEVEL,
@@ -663,7 +666,6 @@ Turtle.checkAnswer = function() {
     feedbackType = BlocklyApps.TestResults.FREE_PLAY;
   }
 
-  // All levels on Page 4 are free play levels, always return the free play
   BlocklyApps.displayFeedback({
     app: 'turtle',
     feedbackType: feedbackType
