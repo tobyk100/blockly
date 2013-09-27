@@ -198,14 +198,14 @@ exports.install = function(blockly) {
   blockly.Blocks.variables_get_counter = {
     // Variable getter.
     category: null,  // Variables are handled specially.
-    helpUrl: blockly.LANG_VARIABLES_GET_HELPURL,
+    helpUrl: blockly.Msg.VARIABLES_GET_HELPURL,
     init: function() {
       this.setColour(330);
       this.appendDummyInput()
-          .appendTitle(blockly.LANG_VARIABLES_GET_TITLE)
+          .appendTitle(blockly.Msg.VARIABLES_GET_TITLE)
           .appendTitle(new blockly.FieldLabel(msg.loopVariable()), 'VAR');
       this.setOutput(true);
-      this.setTooltip(blockly.LANG_VARIABLES_GET_TOOLTIP);
+      this.setTooltip(blockly.Msg.VARIABLES_GET_TOOLTIP);
     },
     getVars: function() {
       return [this.getTitleValue('VAR')];
@@ -217,14 +217,14 @@ exports.install = function(blockly) {
   blockly.Blocks.variables_get_length = {
     // Variable getter.
     category: null,  // Variables are handled specially.
-    helpUrl: blockly.LANG_VARIABLES_GET_HELPURL,
+    helpUrl: blockly.Msg.VARIABLES_GET_HELPURL,
     init: function() {
       this.setColour(330);
       this.appendDummyInput()
-          .appendTitle(blockly.LANG_VARIABLES_GET_TITLE)
+          .appendTitle(blockly.Msg.VARIABLES_GET_TITLE)
           .appendTitle(new blockly.FieldLabel('length'), 'VAR');
       this.setOutput(true);
-      this.setTooltip(blockly.LANG_VARIABLES_GET_TOOLTIP);
+      this.setTooltip(blockly.Msg.VARIABLES_GET_TOOLTIP);
     },
     getVars: function() {
       return [this.getTitleValue('VAR')];
@@ -236,14 +236,14 @@ exports.install = function(blockly) {
   blockly.Blocks.variables_get_height = {
     // Variable getter.
     category: null,  // Variables are handled specially.
-    helpUrl: blockly.LANG_VARIABLES_GET_HELPURL,
+    helpUrl: blockly.Msg.VARIABLES_GET_HELPURL,
     init: function() {
       this.setColour(330);
       this.appendDummyInput()
-          .appendTitle(blockly.LANG_VARIABLES_GET_TITLE)
+          .appendTitle(blockly.Msg.VARIABLES_GET_TITLE)
           .appendTitle(new blockly.FieldLabel('height'), 'VAR');
       this.setOutput(true);
-      this.setTooltip(blockly.LANG_VARIABLES_GET_TOOLTIP);
+      this.setTooltip(blockly.Msg.VARIABLES_GET_TOOLTIP);
     },
     getVars: function() {
       return [this.getTitleValue('VAR')];
@@ -255,14 +255,14 @@ exports.install = function(blockly) {
   blockly.Blocks.variables_get_sides = {
     // Variable getter.
     category: null,  // Variables are handled specially.
-    helpUrl: blockly.LANG_VARIABLES_GET_HELPURL,
+    helpUrl: blockly.Msg.VARIABLES_GET_HELPURL,
     init: function() {
       this.setColour(330);
       this.appendDummyInput()
-          .appendTitle(blockly.LANG_VARIABLES_GET_TITLE)
+          .appendTitle(blockly.Msg.VARIABLES_GET_TITLE)
           .appendTitle(new blockly.FieldLabel('sides'), 'VAR');
       this.setOutput(true);
-      this.setTooltip(blockly.LANG_VARIABLES_GET_TOOLTIP);
+      this.setTooltip(blockly.Msg.VARIABLES_GET_TOOLTIP);
     },
     getVars: function() {
       return [this.getTitleValue('VAR')];
@@ -364,35 +364,35 @@ exports.install = function(blockly) {
   // variable named "counter" hardcoded.
   blockly.Blocks.controls_for_counter = {
     // For loop with hardcoded loop variable.
-    helpUrl: blockly.LANG_CONTROLS_FOR_HELPURL,
+    helpUrl: blockly.Msg.CONTROLS_FOR_HELPURL,
     init: function() {
       this.setColour(120);
       this.appendDummyInput()
-          .appendTitle(blockly.LANG_CONTROLS_FOR_INPUT_WITH)
+          .appendTitle(blockly.Msg.CONTROLS_FOR_INPUT_WITH)
           .appendTitle(new blockly.FieldLabel(msg.loopVariable()),
                        'VAR');
       this.appendValueInput('FROM')
           .setCheck('Number')
           .setAlign(blockly.ALIGN_RIGHT)
-          .appendTitle(blockly.LANG_CONTROLS_FOR_INPUT_FROM);
+          .appendTitle(blockly.Msg.CONTROLS_FOR_INPUT_FROM);
       this.appendValueInput('TO')
           .setCheck('Number')
           .setAlign(blockly.ALIGN_RIGHT)
-          .appendTitle(blockly.LANG_CONTROLS_FOR_INPUT_TO);
+          .appendTitle(blockly.Msg.CONTROLS_FOR_INPUT_TO);
       this.appendValueInput('BY')
           .setCheck('Number')
           .setAlign(blockly.ALIGN_RIGHT)
-          .appendTitle(blockly.LANG_CONTROLS_FOR_INPUT_BY);
-      if (blockly.LANG_CONTROLS_FOR_TAIL) {
+          .appendTitle(blockly.Msg.CONTROLS_FOR_INPUT_BY);
+      if (blockly.Msg.CONTROLS_FOR_TAIL) {
         this.appendDummyInput()
-            .appendTitle(blockly.LANG_CONTROLS_FOR_TAIL);
+            .appendTitle(blockly.Msg.CONTROLS_FOR_TAIL);
       }
       this.appendStatementInput('DO')
-          .appendTitle(blockly.LANG_CONTROLS_FOR_INPUT_DO);
+          .appendTitle(blockly.Msg.CONTROLS_FOR_INPUT_DO);
       this.setPreviousStatement(true);
       this.setNextStatement(true);
       this.setInputsInline(true);
-      this.setTooltip(blockly.LANG_CONTROLS_FOR_TOOLTIP.replace(
+      this.setTooltip(blockly.Msg.CONTROLS_FOR_TOOLTIP.replace(
           '%1', this.getTitleValue('VAR')));
     },
     getVars: function() {
@@ -401,7 +401,7 @@ exports.install = function(blockly) {
     customContextMenu: function(options) {
       var option = {enabled: true};
       var name = this.getTitleValue('VAR');
-      option.text = blockly.LANG_VARIABLES_SET_CREATE_GET.replace('%1', name);
+      option.text = blockly.Msg.VARIABLES_SET_CREATE_GET.replace('%1', name);
       var xmlTitle = document.createElement('title');
       xmlTitle.appendChild(document.createTextNode(name));
       xmlTitle.setAttribute('name', 'VAR');
