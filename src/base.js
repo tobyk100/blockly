@@ -28,6 +28,7 @@ var msg = require('../build/en_us/i18n/common');
 var dialog = require('./dialog');
 var parseXmlElement = require('./xml').parseElement;
 var codegen = require('./codegen');
+var readonly = require('./readonly.hbs');
 
 //TODO: These should be members of a BlocklyApp instance.
 var onAttempt;
@@ -74,15 +75,16 @@ BlocklyApps.isRtl = function() {
  * XML argument may be generated from the console with:
  * Blockly.Xml.domToText(Blockly.Xml.workspaceToDom(Blockly.mainWorkspace)).slice(5, -6)
  */
-BlocklyApps.initReadonly = function() {
+BlocklyApps.initReadonly = function(options) {
   Blockly.inject(document.getElementById('blockly'), {
-    path: BlocklyApps.BASE_URL,
+    path: options.baseUrl,
     readOnly: true,
     rtl: BlocklyApps.isRtl(),
     scrollbars: false
   });
-
-  BlocklyApps.loadBlocks(BlocklyApps.getStringParamFromUrl('xml', ''));
+  BlocklyApps.loadBlocks(options.blocks);
+  console.log('readonly!');
+  console.log(options.blocks);
 };
 
 /**
@@ -458,6 +460,58 @@ BlocklyApps.getTestResults = function() {
 };
 
 /**
+ * Creates the XML for blocks to be displayed in a read-only frame.
+ * @param {Array} blocks An array of blocks to display (with optional args).
+ * @return {string} The generated string of XML.
+ */
+var generateXMLForBlocks = function(blocks) {
+  var blockXMLStrings = [];
+  var blockX = 10;  // Prevent left output plugs from being cut off.
+  var blockY = 0;
+  var blockXPadding = 200;
+  var blockYPadding = 120;
+  var blocksPerLine = 2;
+  var iframeHeight = parseInt(document.getElementById('feedbackBlocks')
+          .style.height, 10);
+  var k, name;
+  for (var i = 0; i < blocks.length; i++) {
+    var block = blocks[i];
+    blockXMLStrings.push('<block', ' type="', block.type, '" x= "',
+                        blockX.toString(), '" y="', blockY, '">');
+    if (block.titles) {
+      var titleNames = Object.keys(block.titles);
+      for (k = 0; k < titleNames.length; k++) {
+        name = titleNames[k];
+        blockXMLStrings.push('<title name="', name, '">',
+                            block.titles[name], '</title>');
+      }
+    }
+    if (block.values) {
+      var valueNames = Object.keys(block.values);
+      for (k = 0; k < valueNames.length; k++) {
+        name = valueNames[k];
+        blockXMLStrings.push('<value name="', name, '">',
+                            block.values[name], '</title>');
+      }
+    }
+    if (block.extra) {
+      blockXMLStrings.append(block.extra);
+    }
+    blockXMLStrings.push('</block>');
+    if ((i + 1) % blocksPerLine === 0) {
+      blockY += blockYPadding;
+      iframeHeight += blockYPadding;
+      blockX = 0;
+    } else {
+      blockX += blockXPadding;
+    }
+    document.getElementById('feedbackBlocks').style.height =
+        iframeHeight + 'px';
+  }
+  return blockXMLStrings.join('');
+};
+
+/**
  * Sets appropriate feedback for when the modal dialog is displayed.
  * @param {number} feedbackType A constant property of BlocklyApps.TestResults,
  *     typically produced by BlocklyApps.getTestResults().
@@ -488,11 +542,20 @@ BlocklyApps.setErrorFeedback = function(options) {
       if (missingBlocks.length) {
         document.getElementById('missingBlocksError')
             .style.display = 'list-item';
-        document.getElementById('feedbackBlocks').src =
-            BlocklyApps.BASE_URL + options.app + '/readonly.html?xml=' +
-            BlocklyApps.generateXMLForBlocks(missingBlocks) +
-            (options.skin ? '&skin=' + options.skin : '');
-        document.getElementById('feedbackBlocks').style.display = 'block';
+        var html = readonly({
+          app: options.app,
+          skinId: options.skin,
+          blocks: generateXMLForBlocks(missingBlocks)
+        });
+        // Fill in the iframe on the next event tick.
+        window.setTimeout(function() {
+          var iframe = document.getElementById('feedbackBlocks');
+          iframe.style.display = 'block';
+          var doc = iframe.contentDocument || iframe.contentWindow.document;
+          doc.open();
+          doc.write(html);
+          doc.close();
+        }, 1);
       }
       break;
 
@@ -685,56 +748,4 @@ BlocklyApps.setTextForElement = function(id, text) {
     element.appendChild(document.createTextNode(text));
   }
   return element;
-};
-
-/**
- * Creates the XML for blocks to be displayed in a read-only frame.
- * @param {Array} blocks An array of blocks to display (with optional args).
- * @return {string} The generated string of XML.
- */
-BlocklyApps.generateXMLForBlocks = function(blocks) {
-  var blockXMLStrings = [];
-  var blockX = 10;  // Prevent left output plugs from being cut off.
-  var blockY = 0;
-  var blockXPadding = 200;
-  var blockYPadding = 120;
-  var blocksPerLine = 2;
-  var iframeHeight = parseInt(document.getElementById('feedbackBlocks')
-          .style.height, 10);
-  var k, name;
-  for (var i = 0; i < blocks.length; i++) {
-    var block = blocks[i];
-    blockXMLStrings.push('<block', ' type="', block.type, '" x= "',
-                        blockX.toString(), '" y="', blockY, '">');
-    if (block.titles) {
-      var titleNames = Object.keys(block.titles);
-      for (k = 0; k < titleNames.length; k++) {
-        name = titleNames[k];
-        blockXMLStrings.push('<title name="', name, '">',
-                            block.titles[name], '</title>');
-      }
-    }
-    if (block.values) {
-      var valueNames = Object.keys(block.values);
-      for (k = 0; k < valueNames.length; k++) {
-        name = valueNames[k];
-        blockXMLStrings.push('<value name="', name, '">',
-                            block.values[name], '</title>');
-      }
-    }
-    if (block.extra) {
-      blockXMLStrings.append(block.extra);
-    }
-    blockXMLStrings.push('</block>');
-    if ((i + 1) % blocksPerLine === 0) {
-      blockY += blockYPadding;
-      iframeHeight += blockYPadding;
-      blockX = 0;
-    } else {
-      blockX += blockXPadding;
-    }
-    document.getElementById('feedbackBlocks').style.height =
-        iframeHeight + 'px';
-  }
-  return encodeURIComponent(blockXMLStrings.join(''));
 };

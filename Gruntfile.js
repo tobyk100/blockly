@@ -70,7 +70,12 @@ APPS.forEach(function(app) {
   var dest = 'build/browserified/' + app + '.js';
   var files = {};
   files[dest] = [src];
-  config.browserify[app] = {files: files};
+  config.browserify[app] = {
+    files: files,
+    options: {
+      transform: ['hbsfy']
+    }
+  };
 });
 
 config.concat = {
@@ -110,7 +115,7 @@ config.express = {
 
 config.watch = {
   src: {
-    files: ['src/**/*.js'],
+    files: ['src/**/*.js', 'src/**/*.hbs'],
     tasks: ['build:js']
   },
   style: {
