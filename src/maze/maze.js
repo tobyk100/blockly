@@ -38,19 +38,8 @@ var Direction = tiles.Direction;
  */
 var Maze = module.exports;
 
-var levelId = BlocklyApps.getStringParamFromUrl('level', '1_1');
-var level = levels[levelId];
-
-var skinId = BlocklyApps.getStringParamFromUrl('skin', 'pegman');
-var skin = skins.load(BlocklyApps.BASE_URL, skinId);
-
-BlocklyApps.INTERSTITIALS = level.interstitials || {};
-
-exports.config = {
-  skin: skin,
-  level: level,
-  baseUrl: BlocklyApps.BASE_URL
-};
+var level;
+var skin;
 
 /**
  * Milliseconds between each animation frame.
@@ -74,28 +63,11 @@ Maze.SquareType = {
 //TODO: Make configurable.
 BlocklyApps.CHECK_FOR_EMPTY_BLOCKS = true;
 
-/**
- * Load level configuration.
- */
-Maze.map = level.map;
-BlocklyApps.IDEAL_BLOCK_NUM = level.ideal;
-Maze.initialDirtMap = level.initialDirt;
-Maze.finalDirtMap = level.finalDirt;
-
 var getTile = function(map, x, y) {
   if (map && map[y]) {
     return map[y][x];
   }
 };
-
-/**
- * Blocks that are expected to be used on each level.
- * The block will be displayed as feedback in the order below.
- * 'test' is the string that will be searched for in the code.
- * 'type' is the type of block to be generated as feedback.
- * 'titles' are optional and create a more specific block of the given type.
- */
-BlocklyApps.REQUIRED_BLOCKS = level.requiredBlocks;
 
 //The number of blocks to show as feedback.
 BlocklyApps.NUM_REQUIRED_BLOCKS_TO_FLAG = 1;
@@ -106,40 +78,46 @@ Maze.scale = {
   'stepSpeed': 5
 };
 
-// Override scalars.
-for (var key in level.scale) {
-  Maze.scale[key] = level.scale[key];
-}
+var loadLevel = function(levelId) {
+  level = levels[levelId];
+  level.id = levelId;
 
-// Add blank row at top for hint bubble.
-Maze.map.unshift(new Array(Maze.map[0].length));
-if (Maze.initialDirtMap) {
-  Maze.initialDirtMap.unshift(new Array(Maze.initialDirtMap[0].length));
-}
-if (Maze.finalDirtMap) {
-  Maze.finalDirtMap.unshift(new Array(Maze.finalDirtMap[0].length));
-}
+  // Load maps.
+  Maze.map = level.map;
+  BlocklyApps.IDEAL_BLOCK_NUM = level.ideal;
+  Maze.initialDirtMap = level.initialDirt;
+  Maze.finalDirtMap = level.finalDirt;
+  Maze.startDirection = level.startDirection;
+  BlocklyApps.REQUIRED_BLOCKS = level.requiredBlocks;
 
-/**
- * Measure maze dimensions and set sizes.
- * ROWS: Number of tiles down.
- * COLS: Number of tiles across.
- * SQUARE_SIZE: Pixel height and width of each maze square (i.e. tile).
- */
-Maze.ROWS = Maze.map.length;
-Maze.COLS = Maze.map[0].length;
-Maze.SQUARE_SIZE = 50;
-Maze.PEGMAN_HEIGHT = 52;
-Maze.PEGMAN_WIDTH = 49;
+  // Override scalars.
+  for (var key in level.scale) {
+    Maze.scale[key] = level.scale[key];
+  }
 
-Maze.MAZE_WIDTH = Maze.SQUARE_SIZE * Maze.COLS;
-Maze.MAZE_HEIGHT = Maze.SQUARE_SIZE * Maze.ROWS;
-Maze.PATH_WIDTH = Maze.SQUARE_SIZE / 3;
+  // Add blank row at top for hint bubble.
+  Maze.map.unshift(new Array(Maze.map[0].length));
+  if (Maze.initialDirtMap) {
+    Maze.initialDirtMap.unshift(new Array(Maze.initialDirtMap[0].length));
+  }
+  if (Maze.finalDirtMap) {
+    Maze.finalDirtMap.unshift(new Array(Maze.finalDirtMap[0].length));
+  }
 
-/**
- * Starting direction.
- */
-Maze.startDirection = level.startDirection;
+  // Measure maze dimensions and set sizes.
+  // ROWS: Number of tiles down.
+  Maze.ROWS = Maze.map.length;
+  // COLS: Number of tiles across.
+  Maze.COLS = Maze.map[0].length;
+  // Pixel height and width of each maze square (i.e. tile).
+  Maze.SQUARE_SIZE = 50;
+  Maze.PEGMAN_HEIGHT = 52;
+  Maze.PEGMAN_WIDTH = 49;
+
+  Maze.MAZE_WIDTH = Maze.SQUARE_SIZE * Maze.COLS;
+  Maze.MAZE_HEIGHT = Maze.SQUARE_SIZE * Maze.ROWS;
+  Maze.PATH_WIDTH = Maze.SQUARE_SIZE / 3;
+};
 
 /**
  * PIDs of animation tasks currently executing.
@@ -172,7 +150,7 @@ Maze.tile_SHAPES = {
   'null4': [1, 3]
 };
 
-Maze.drawMap = function() {
+var drawMap = function() {
   var svg = document.getElementById('svgMaze');
   var x, y, k, tile;
 
@@ -365,9 +343,14 @@ var resetDirt = function() {
  * Initialize Blockly and the maze.  Called on page load.
  */
 Maze.init = function(config) {
-  if (!config) {
-    config = {};
-  }
+
+  skin = config.skin;
+  loadLevel(config.levelId);
+
+  config.level = level;
+  var html = mazepage.start({}, null, config);
+  document.getElementById(config.containerId).innerHTML = html;
+
   BlocklyApps.init(config);
   // Override the current level with caller supplied parameters.
   for (var prop in config.level) {
@@ -385,11 +368,12 @@ Maze.init = function(config) {
    */
   Blockly.HSV_SATURATION = 0.6;
 
-  Blockly.inject(document.getElementById('blockly'),
-      {path: BlocklyApps.BASE_URL,
-       rtl: rtl,
-       toolbox: toolbox,
-       trashcan: true});
+  Blockly.inject(document.getElementById('blockly'), {
+    path: BlocklyApps.BASE_URL,
+    rtl: rtl,
+    toolbox: toolbox,
+    trashcan: true
+  });
   Blockly.loadAudio_(['maze/win.mp3', 'maze/win.ogg'], 'win');
   Blockly.loadAudio_(['maze/whack.mp3', 'maze/whack.ogg'], 'whack');
   Blockly.SNAP_RADIUS *= Maze.scale.snapRadius;
@@ -411,7 +395,7 @@ Maze.init = function(config) {
 
   resetDirt();
 
-  Maze.drawMap();
+  drawMap();
 
   window.addEventListener('scroll', function() {
       BlocklyApps.onResize();
@@ -429,6 +413,7 @@ Maze.init = function(config) {
   Blockly.addChangeListener(function() {
     BlocklyApps.updateCapacity();
   });
+
 };
 
 /**
@@ -617,7 +602,7 @@ Maze.execute = function() {
   // Report result to server.
   BlocklyApps.report(
     'maze',
-    levelId,
+    level.id,
     Maze.result === Maze.ResultType.SUCCESS,
     Maze.testResults,
     codegen.strip(code));

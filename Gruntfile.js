@@ -1,3 +1,5 @@
+var path = require('path');
+
 var config = {};
 
 var APPS = [
@@ -12,14 +14,19 @@ config.clean = {
 config.copy = {
   static: {
     files: [
-      {expand: true, cwd: 'static/', src: ['**'], dest: 'dist/'}
-    ]
-  },
-  vendor: {
-    files: [
-      {expand: true, cwd: 'lib/blockly', src: ['*.js'], dest: 'dist/'},
-      {expand: true, cwd: 'lib/prettify', src: ['*'], dest: 'dist/'},
-      {expand: true, cwd: 'lib/soy', src: ['*.js'], dest: 'dist/_soy/'},
+      {
+        expand: true,
+        cwd: 'static/',
+        src: ['**'],
+        dest: 'dist/media'
+      },
+      {
+        expand: true,
+        cwd: 'lib/blockly/media',
+        src: ['**'],
+        //TODO: Would be preferrable to separate Blockly media.
+        dest: 'dist/media'
+      }
     ]
   }
 };
@@ -27,14 +34,13 @@ config.copy = {
 config.sass = {
   all: {
     files: {
-      'dist/common.css': 'style/common.scss',
-      'dist/style.css': 'style/style.scss'
+      'dist/css/common.css': 'style/common.scss'
     }
   }
 };
 APPS.forEach(function(app) {
   var src = 'style/' + app + '/style.scss';
-  var dest = 'dist/' + app + '/style.css';
+  var dest = 'dist/css/' + app + '.css';
   config.sass.all.files[dest] = src;
 });
 
@@ -58,34 +64,46 @@ config.messages = {
   }
 };
 
-config.concat = {};
-APPS.forEach(function(app) {
-  config.concat['templates_' + app] = {
-    src: ['build/templates/common.js', 'build/templates/' + app + '/**/*.js'],
-    dest: 'dist/' + app + '/generated/en_us.js'
-  };
-});
-
 config.browserify = {};
 APPS.forEach(function(app) {
   var src = 'src/' + app + '/main.js';
-  var dest = 'dist/' + app + '/' + app + '.js';
+  var dest = 'build/browserified/' + app + '.js';
   var files = {};
   files[dest] = [src];
   config.browserify[app] = {files: files};
 });
 
-config.connect = {
+config.concat = {
+  vendor: {
+    src: [
+      'lib/soy/*.js',
+      'lib/blockly/blockly_compressed.js',
+      'lib/blockly/blocks_compressed.js',
+      'lib/blockly/javascript_compressed.js',
+      'lib/blockly/en.js'
+    ],
+    dest: 'dist/js/vendor.js'
+  }
+};
+
+APPS.forEach(function(app) {
+  config.concat[app] = {
+    src: [
+      'build/templates/common.js',
+      'build/templates/' + app + '/**/*.js',
+      'build/browserified/' + app + '.js'
+    ],
+    dest: 'dist/js/' + app + '.js'
+  };
+});
+
+config.express = {
   server: {
     options: {
-      base: 'dist',
-      middleware: function(connect, options) {
-        return [
-          require('connect-livereload')(),
-          connect.static(options.base),
-          connect.directory(options.base)
-        ];
-      }
+      port: 8000,
+      bases: path.resolve(__dirname, 'dist'),
+      server: path.resolve(__dirname, './src/dev/server.js'),
+      livereload: true
     }
   }
 };
@@ -93,15 +111,19 @@ config.connect = {
 config.watch = {
   src: {
     files: ['src/**/*.js'],
-    tasks: ['browserify']
+    tasks: ['build:js']
   },
   style: {
-    files: ['style/**/*.scss', 'sass/**/*.sass'],
-    tasks: ['sass']
+    files: ['style/**/*.scss', 'style/**/*.sass'],
+    tasks: ['build:css']
   },
   content: {
-    files: ['lib/**/*.js', 'static/**/*'],
+    files: ['static/**/*'],
     tasks: ['copy']
+  },
+  vendor_js: {
+    files: ['lib/**/*.js'],
+    tasks: ['concat:vendor']
   },
   templates: {
     files: ['src/**/*.soy'],
@@ -109,7 +131,7 @@ config.watch = {
   },
   messages: {
     files: ['i18n/**/*.json'],
-    tasks: ['messages', 'browserify']
+    tasks: ['messages', 'build:js']
   },
   dist: {
     files: ['dist/**/*'],
@@ -143,7 +165,7 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-copy');
   grunt.loadNpmTasks('grunt-contrib-concat');
   grunt.loadNpmTasks('grunt-contrib-jshint');
-  grunt.loadNpmTasks('grunt-contrib-connect');
+  grunt.loadNpmTasks('grunt-express');
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-soy-compile');
   grunt.loadNpmTasks('grunt-browserify');
@@ -152,16 +174,19 @@ module.exports = function(grunt) {
   grunt.loadTasks('tasks');
 
   grunt.registerTask('build:templates', ['soycompile', 'concat']);
+  grunt.registerTask('build:js', ['browserify', 'concat']);
+  grunt.registerTask('build:css', ['sass']);
 
   grunt.registerTask('build', [
     'messages',
-    'build:templates',
+    'soycompile',
     'browserify',
     'copy',
+    'concat',
     'sass'
   ]);
 
-  grunt.registerTask('dev', ['connect:server', 'watch']);
+  grunt.registerTask('dev', ['express:server', 'watch']);
 
   grunt.registerTask('default', ['clean:all', 'build']);
 
