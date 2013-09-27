@@ -31,7 +31,7 @@ var CONFIGS = {
 };
 
 exports.load = function(baseUrl, id) {
-  var root = baseUrl + 'skins/' + id + '/';
+  var root = baseUrl + 'media/skins/' + id + '/';
   var config = CONFIGS[id];
   var skin = {
     id: id,

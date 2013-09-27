@@ -36,44 +36,7 @@ var onContinue;
 /**
  * The parent directory of the apps. Contains common.js.
  */
-BlocklyApps.BASE_URL = (function() {
-  // This implementation gaurantees the correct absolute path regardless of
-  // hosting solution.
-  var scripts = document.getElementsByTagName('script');
-  // Scripts are executed synchronously so this script is the most recently
-  // loaded.
-  var thisScript = scripts[scripts.length - 1];
-  var baseUrl = thisScript.src;
-  var parentUrl = baseUrl.substring(0, baseUrl.lastIndexOf('/') + 1);
-  return parentUrl + '../'; //XXX
-})();
-
-/**
- * Extracts a parameter from the URL.
- * If the parameter is absent default_value is returned.
- * @param {string} name The name of the parameter.
- * @param {string} defaultValue Value to return if paramater not found.
- * @return {string} The parameter value or the default value if not found.
- */
-BlocklyApps.getStringParamFromUrl = function(name, defaultValue) {
-  var val =
-      window.location.search.match(new RegExp('[?&]' + name + '=([^&]+)'));
-  return val ? decodeURIComponent(val[1].replace(/\+/g, '%20')) : defaultValue;
-};
-
-/**
- * Extracts a numeric parameter from the URL.
- * If the parameter is absent or less than min_value, min_value is
- * returned.  If it is greater than max_value, max_value is returned.
- * @param {string} name The name of the parameter.
- * @param {number} minValue The minimum legal value.
- * @param {number} maxValue The maximum legal value.
- * @return {number} A number in the range [min_value, max_value].
- */
-BlocklyApps.getNumberParamFromUrl = function(name, minValue, maxValue) {
-  var val = Number(BlocklyApps.getStringParamFromUrl(name, 'NaN'));
-  return isNaN(val) ? minValue : Math.min(Math.max(minValue, val), maxValue);
-};
+BlocklyApps.BASE_URL = undefined;
 
 /**
  * Common startup tasks for all apps.
@@ -207,11 +170,6 @@ BlocklyApps.showCode = function(origin) {
   pre.innerHTML = '';
   // Inject the code as a textNode, then extract with innerHTML, thus escaping.
   pre.appendChild(document.createTextNode(code));
-  if (typeof prettyPrintOne == 'function') {
-    code = pre.innerHTML;
-    code = prettyPrintOne(code, 'js');
-    pre.innerHTML = code;
-  }
 
   var content = document.getElementById('dialogCode');
   var style = {
@@ -244,24 +202,6 @@ BlocklyApps.addTouchEvents = function() {
 
 // Add events for touch devices when the window is done loading.
 window.addEventListener('load', BlocklyApps.addTouchEvents, false);
-
-/**
- * Load the Prettify CSS and JavaScript.
- */
-BlocklyApps.importPrettify = function() {
-  // <link rel="stylesheet" type="text/css" href="../prettify.css">
-  var link = document.createElement('link');
-  link.setAttribute('rel', 'stylesheet');
-  link.setAttribute('type', 'text/css');
-  link.setAttribute('href', BlocklyApps.BASE_URL + 'prettify.css');
-  document.head.appendChild(link);
-  // <script type="text/javascript" src="../prettify.js"></script>
-  var script = document.createElement('script');
-  script.setAttribute('type', 'text/javascript');
-  script.setAttribute('src', BlocklyApps.BASE_URL + 'prettify.js');
-  document.head.appendChild(script);
-};
-
 
 // The following properties get their non-default values set by the application.
 

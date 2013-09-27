@@ -1,3 +1,5 @@
+$root: '../../media/maze/';
+
 body {
   background-color: #F2F2F2;
   font-family: sans-serif;
@@ -49,7 +51,7 @@ button.disabled, button[disabled=disabled] {
 .icon21 {
   height: 21px;
   width: 21px;
-  background-image: url(icons.png);
+  background-image: url("#{$root}icons.png");
 }
 .code {
   background-position: -21px 0px;

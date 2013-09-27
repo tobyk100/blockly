@@ -608,9 +608,7 @@ var LEVELS = {
   }
 };
 
-exports.install = function(BlocklyApps, Turtle) {
-  var levelId = BlocklyApps.getStringParamFromUrl('level', '1_1');
-
+exports.install = function(BlocklyApps, Turtle, levelId) {
   //TODO: Remove PAGE and LEVEL variables
   var split = levelId.split('_');
   Turtle.PAGE = Number(split[0]);
