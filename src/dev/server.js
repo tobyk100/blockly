@@ -3,8 +3,8 @@ var express = require('express');
 var app = express();
 
 app.set('views', __dirname);
-app.set('view engine', 'html');
-app.engine('html', require('hbs').__express);
+app.set('view engine', 'hbs');
+app.engine('hbs', require('hbs').__express);
 
 var baseUrl = function(req) {
   return req.protocol + '://' + req.get('Host') + '/';

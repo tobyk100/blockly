@@ -8,7 +8,7 @@ module.exports = function(app, options) {
 
   window.addEventListener('load', function() {
     if (options.readonly) {
-      BlocklyApps.initReadonly();
+      BlocklyApps.initReadonly(options);
     } else {
       app.init(options);
     }
