@@ -431,6 +431,7 @@ var LEVELS = {
         values: {'VALUE': makeMathNumber(100)}
       }],
       [simpleBlock('jump')],
+      [repeat(3)],
       [simpleBlock('draw_colour')]
     ],
     requiredColors: 3,
