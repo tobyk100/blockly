@@ -90,6 +90,9 @@ BlocklyApps.init = function(config) {
   onContinue = config.onContinue || function() {
     console.log('Continue!');
   };
+  
+  // Record time at initialization.
+  BlocklyApps.initTime = new Date().getTime();
 
   // Fixes viewport for small screens.
   var viewport = document.querySelector('meta[name="viewport"]');
@@ -318,6 +321,19 @@ BlocklyApps.log = null;
  * @type {?number}
  */
 BlocklyApps.ticks = null;
+
+/**
+ * The number of attempts (how many times the run button has been pressed)
+ * @type {?number}
+ */
+BlocklyApps.attempts = 0;
+
+/**
+ * Stores the time at init. The delta to current time is used for logging
+ * and reporting to capture how long it took to arrive at an attempt.
+ * @type {?number}
+ */
+BlocklyApps.initTime;
 
 /**
  * Reset the playing field to the start position and kill any pending
@@ -597,9 +613,8 @@ BlocklyApps.report = function(app, levelId, result, testResult, program) {
     result: result,
     testResult: testResult,
     program: encodeURIComponent(program),
-    // TODO(toby): implement stats
-    attempt: 1,
-    time: 1
+    attempt: BlocklyApps.attempts,
+    time: ((new Date().getTime()) - BlocklyApps.initTime)
   };
   onAttempt(report);
 };
