@@ -19,11 +19,6 @@
     "string": "You have <x id='START_SPAN'/>%1<x id='END_SPAN'/>blocks left.",
     "description": "warning - Only %1 more blocks may be used, where %1 is an integer greater than 1.  Do not alter the portions between pointy brackets (< and >), although you may move them within the phrase."
   },
-  "codeTooltip": {
-    "id": "5729392237036335843",
-    "string": "See generated JavaScript code.",
-    "description": "tooltip (pop-up help) for button; pressing the button causes a program in the JavaScript computer language to be displayed, based on the program created by the user."
-  },
   "continue": {
     "id": "7849089032479822046",
     "string": "Continue",
@@ -184,21 +179,6 @@
     "id": "1129624636896695060",
     "string": "while",
     "description": "verb - imperative or infinitive to repeat the following commands.  The phrase is followed by the symbol denoting the end of the maze."
-  },
-  "resetProgram": {
-    "id": "8086403647682698529",
-    "string": "Reset",
-    "description": "button label - Pressing the button causes Pegman return to the start of the maze (but does not delete the user's program.)"
-  },
-  "runProgram": {
-    "id": "4313402333478865653",
-    "string": "Run",
-    "description": "button label - Pressing the button runs the computer program the user has written."
-  },
-  "tryAgain": {
-    "id": "3844507338825329004",
-    "string": "Try again",
-    "description": "button - Closes the dialog and stays on the current level"
   },
   "turnLeft": {
     "id": "6082253890512898845",
