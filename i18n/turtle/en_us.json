@@ -101,7 +101,7 @@
   },
   "jumpTooltip": {
     "id": "7563511320497497010",
-    "string": "Moves the turtle forward without leaving any marks.",
+    "string": "Moves the turtle without leaving any marks.",
     "description": "TODO"
   },
   "lengthParameter": {
