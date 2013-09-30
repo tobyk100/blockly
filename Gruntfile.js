@@ -163,6 +163,13 @@ config.jshint = {
   all: ['Gruntfile.js', 'src/**/*.js', 'test/**/*.js']
 };
 
+config.release = {
+  options: {
+    folder: 'dist',
+    tagName: 'v<%= version %>'
+  }
+};
+
 module.exports = function(grunt) {
 
   grunt.initConfig(config);
@@ -176,6 +183,7 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-soy-compile');
   grunt.loadNpmTasks('grunt-browserify');
   grunt.loadNpmTasks('grunt-sass');
+  grunt.loadNpmTasks('grunt-release');
 
   grunt.loadTasks('tasks');
 
