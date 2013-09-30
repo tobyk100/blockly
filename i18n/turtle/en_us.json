@@ -99,7 +99,7 @@
     "string": "jump forward by",
     "description": "TODO"
   },
-  "jumpForwardTooltip": {
+  "jumpTooltip": {
     "id": "7563511320497497010",
     "string": "Moves the turtle forward without leaving any marks.",
     "description": "TODO"
