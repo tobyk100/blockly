@@ -52,18 +52,18 @@
  */
 {template .spiral}
   {if $i <= 60}
-    <block type="draw_move" {if $i == 25}x="300" y="100"{/if} inline="false" editable="false" disabled="true">
+    <block type="draw_move" {if $i == 25}x="300" y="100"{/if} inline="false" editable="false" deletable="false" disabled="true">
       <title name="DIR">moveForward</title>
       <value name="VALUE">
-        <block type="math_number" disabled="true">
+        <block type="math_number" editable="false" deletable="false" disabled="true">
           <title name="NUM">{$i}</title>
         </block>
       </value>
       <next>
-        <block type="draw_turn" inline="false" editable="false" disabled="true">
+        <block type="draw_turn" inline="false" editable="false" deletable="false" disabled="true">
           <title name="DIR">turnRight</title>
           <value name="VALUE">
-            <block type="math_number" disabled="true">
+            <block type="math_number" editable="false" deletable="false" disabled="true">
               <title name="NUM">90</title>
             </block>
           </value>
