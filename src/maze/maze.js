@@ -535,6 +535,7 @@ Maze.runButtonClick = function() {
   resetButton.style.display = 'inline';
   Blockly.mainWorkspace.traceOn(true);
   BlocklyApps.reset(false);
+  BlocklyApps.attempts++;
   Maze.execute();
 };
 
@@ -591,8 +592,9 @@ Maze.execute = function() {
       Maze: Maze
     });
     Maze.result = Maze.ResultType.FAILURE;
+    stepSpeed = 150;
   } catch (e) {
-    // A boolean is thrown for normal termination.
+    // A boolean is thrown for normal termination. XXX Except when it isn't...
     // Abnormal termination is a user error.
     if (e === Infinity) {
       Maze.result = Maze.ResultType.TIMEOUT;

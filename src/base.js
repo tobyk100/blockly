@@ -90,6 +90,9 @@ BlocklyApps.init = function(config) {
   onContinue = config.onContinue || function() {
     console.log('Continue!');
   };
+  
+  // Record time at initialization.
+  BlocklyApps.initTime = new Date().getTime();
 
   // Fixes viewport for small screens.
   var viewport = document.querySelector('meta[name="viewport"]');
@@ -318,6 +321,19 @@ BlocklyApps.log = null;
  * @type {?number}
  */
 BlocklyApps.ticks = null;
+
+/**
+ * The number of attempts (how many times the run button has been pressed)
+ * @type {?number}
+ */
+BlocklyApps.attempts = 0;
+
+/**
+ * Stores the time at init. The delta to current time is used for logging
+ * and reporting to capture how long it took to arrive at an attempt.
+ * @type {?number}
+ */
+BlocklyApps.initTime;
 
 /**
  * Reset the playing field to the start position and kill any pending
@@ -597,9 +613,8 @@ BlocklyApps.report = function(app, levelId, result, testResult, program) {
     result: result,
     testResult: testResult,
     program: encodeURIComponent(program),
-    // TODO(toby): implement stats
-    attempt: 1,
-    time: 1
+    attempt: BlocklyApps.attempts,
+    time: ((new Date().getTime()) - BlocklyApps.initTime)
   };
   onAttempt(report);
 };
@@ -764,7 +779,7 @@ BlocklyApps.generateXMLForBlocks = function(blocks) {
   var k, name;
   for (var i = 0; i < blocks.length; i++) {
     var block = blocks[i];
-    blockXMLStrings.push('<block', ' type="', block.type, '" x= "',
+    blockXMLStrings.push('<block', ' type="', block.type, '" x="',
                         blockX.toString(), '" y="', blockY, '">');
     if (block.titles) {
       var titleNames = Object.keys(block.titles);
@@ -779,7 +794,7 @@ BlocklyApps.generateXMLForBlocks = function(blocks) {
       for (k = 0; k < valueNames.length; k++) {
         name = valueNames[k];
         blockXMLStrings.push('<value name="', name, '">',
-                            block.values[name], '</title>');
+                            block.values[name], '</value>');
       }
     }
     if (block.extra) {
