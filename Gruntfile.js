@@ -12,6 +12,14 @@ config.clean = {
 };
 
 config.copy = {
+  package: {
+    files: [
+      {
+        src: ['package.json'],
+        dest: 'dist/'
+      }
+    ]
+  },
   static: {
     files: [
       {
