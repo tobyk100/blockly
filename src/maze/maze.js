@@ -586,7 +586,10 @@ Maze.execute = function() {
   // The animation should be fast if execution was successful, slow otherwise
   // to help the user see the mistake.
   try {
-    eval(code);
+    codegen.evalWith(code, {
+      BlocklyApps: BlocklyApps,
+      Maze: Maze
+    });
     Maze.result = Maze.ResultType.FAILURE;
   } catch (e) {
     // A boolean is thrown for normal termination.

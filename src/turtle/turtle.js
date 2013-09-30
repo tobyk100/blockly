@@ -389,7 +389,10 @@ Turtle.execute = function() {
 
   Turtle.code = Blockly.Generator.workspaceToCode('JavaScript');
   try {
-    eval(Turtle.code);
+    codegen.evalWith(Turtle.code, {
+      BlocklyApps: BlocklyApps,
+      Turtle: Turtle
+    });
   } catch (e) {
     // Null is thrown for infinite loop.
     // Otherwise, abnormal termination is a user error.
