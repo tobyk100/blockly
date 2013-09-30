@@ -779,7 +779,7 @@ BlocklyApps.generateXMLForBlocks = function(blocks) {
   var k, name;
   for (var i = 0; i < blocks.length; i++) {
     var block = blocks[i];
-    blockXMLStrings.push('<block', ' type="', block.type, '" x= "',
+    blockXMLStrings.push('<block', ' type="', block.type, '" x="',
                         blockX.toString(), '" y="', blockY, '">');
     if (block.titles) {
       var titleNames = Object.keys(block.titles);
@@ -794,7 +794,7 @@ BlocklyApps.generateXMLForBlocks = function(blocks) {
       for (k = 0; k < valueNames.length; k++) {
         name = valueNames[k];
         blockXMLStrings.push('<value name="', name, '">',
-                            block.values[name], '</title>');
+                            block.values[name], '</value>');
       }
     }
     if (block.extra) {

@@ -3,6 +3,7 @@ module.exports = function(grunt) {
 
   var path = require('path');
   var fs = require('fs');
+  var MessageFormat = require('messageformat');
 
   grunt.registerMultiTask('messages', 'Compile messages', function() {
 
@@ -11,6 +12,7 @@ module.exports = function(grunt) {
     var destBase = this.data.destBase;
 
     locales.forEach(function(locale) {
+      var mf = new MessageFormat(locale);
       var pattern = srcBase + '/**/' + locale + '.json';
       var files = grunt.file.expandMapping(pattern, destBase, {
         expand: true,
@@ -26,9 +28,9 @@ module.exports = function(grunt) {
         var code = '';
         Object.keys(messages).forEach(function(key) {
           var string = messages[key].string;
-          code += 'exports.' + key + ' = function() {\n';
-          code += '  return ' + JSON.stringify(string) + ';\n';
-          code += '};\n';
+          code += 'exports.' + key + ' = ';
+          code += mf.precompile(mf.parse(string));
+          code += ';\n\n';
         });
 
         grunt.file.write(file.dest, code);
