@@ -90,7 +90,7 @@ BlocklyApps.init = function(config) {
   onContinue = config.onContinue || function() {
     console.log('Continue!');
   };
-  
+
   // Record time at initialization.
   BlocklyApps.initTime = new Date().getTime();
 
