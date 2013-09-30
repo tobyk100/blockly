@@ -34,20 +34,10 @@
     "string": "Variables",
     "description": "TODO"
   },
-  "codeTooltip": {
-    "id": "2144789925684885720",
-    "string": "See generated JavaScript code.",
-    "description": "TODO"
-  },
   "colourTooltip": {
     "id": "3919378580309876148",
     "string": "Changes the color of the pen.",
     "description": "TODO"
-  },
-  "continue": {
-    "id": "4025711230282642462",
-    "string": "Continue",
-    "description": "button - Closes the dialog and continues to the next level"
   },
   "degrees": {
     "id": "893046754428386132",
@@ -159,16 +149,6 @@
     "string": "pen up",
     "description": "TODO"
   },
-  "resetProgram": {
-    "id": "2599109327728834397",
-    "string": "Reset",
-    "description": "TODO"
-  },
-  "runProgram": {
-    "id": "8801900916913964496",
-    "string": "Run",
-    "description": "TODO"
-  },
   "setColour": {
     "id": "8582408810273452213",
     "string": "set color",
@@ -198,11 +178,6 @@
     "id": "1757525824513667617",
     "string": "You need to use at least %1 different colors on this level.  You used only %2.",
     "description": "TODO"
-  },
-  "tryAgain": {
-    "id": "8285768475184396675",
-    "string": "Try again",
-    "description": "button - Closes the dialog and stays on the current level"
   },
   "turnLeft": {
     "id": "6078028329780496695",
