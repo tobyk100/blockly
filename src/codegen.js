@@ -17,8 +17,7 @@ exports.strip = function(code) {
   // Strip out serial numbers.
   code = code.replace(/(,\s*)?'block_id_\d+'\)/g, ')');
   // Remove timeouts.
-  var regex = new RegExp(INFINITE_LOOP_TRAP
-      .replace('(%1)', '\\((\'\\d+\')?\\)'), 'g');
+  var regex = new RegExp(INFINITE_LOOP_TRAP.replace(/\(.*\)/, '\(.*\)'), 'g');
   return code.replace(regex, '');
 };
 
