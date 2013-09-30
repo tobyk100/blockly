@@ -47,6 +47,38 @@
 {/template}
 
 /**
+ * Spiral needs a named helper template for recursion.
+ * @param i Loop control variable.
+ */
+{template .spiral}
+  {if $i <= 60}
+    <block type="draw_move" {if $i == 25}x="300" y="100"{/if} inline="false" editable="false" disabled="true">
+      <title name="DIR">moveForward</title>
+      <value name="VALUE">
+        <block type="math_number" disabled="true">
+          <title name="NUM">{$i}</title>
+        </block>
+      </value>
+      <next>
+        <block type="draw_turn" inline="false" editable="false" disabled="true">
+          <title name="DIR">turnRight</title>
+          <value name="VALUE">
+            <block type="math_number" disabled="true">
+              <title name="NUM">90</title>
+            </block>
+          </value>
+          <next>
+            {call .spiral}
+              {param i: $i + 5 /}
+            {/call}
+          </next>
+        </block>
+      </next>
+    </block>
+  {/if}
+{/template}
+
+/**
  * Define the starting blocks for each page and level.
  * These are referenced from turtle.js.
  */
@@ -183,30 +215,9 @@
         </statement>
       </block>
     {elseif $ij.level == 7}
-      {for $i in range(25, 61, 5)}
-        <block type="draw_move" {if $i == 25}x="300" y="100"{/if} inline="false" editable="false" disabled="true">
-          <title name="DIR">moveForward</title>
-            <value name="VALUE">
-              <block type="math_number" disabled="true">
-                <title name="NUM">{$i}</title>
-              </block>
-            </value>
-            <next>
-              <block type="draw_turn" inline="false" editable="false" disabled="true">
-                <title name="DIR">turnRight</title>
-                <value name="VALUE">
-                  <block type="math_number" disabled="true">
-                    <title name="NUM">90</title>
-                  </block>
-                </value>
-                <next>
-      {/for}
-      {for $i in range(5, 25, 5)}
-              </block>
-            </next>
-          </block>
-        </next>
-      {/for}
+      {call .spiral}
+        {param i: 25 /}
+      {/call}
     {elseif $ij.level == 8 or $ij.level == 9}
       <block type="draw_a_snowman" x="20" y="20">
         <value name="VALUE">
