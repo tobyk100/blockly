@@ -156,7 +156,8 @@ config.jshint = {
       BlocklyApps: true,
       Maze: true,
       Turtle: true,
-      prettyPrintOne: true
+      mazepage: true,
+      turtlepage: true
     }
   },
   all: ['Gruntfile.js', 'src/**/*.js', 'test/**/*.js']
