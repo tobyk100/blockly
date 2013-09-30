@@ -393,6 +393,7 @@ Maze.init = function(config) {
     BlocklyApps.updateCapacity();
   });
 
+  BlocklyApps.callout(config.callouts);
 };
 
 /**
