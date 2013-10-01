@@ -215,7 +215,7 @@ exports.defineWithArg_ = function(func_name, arg_name) {
     },
     type: 'procedures_defnoreturn',
     titles: {'NAME': func_name},
-    extra: '<mutation><arg name="' + arg_name + '"></arg>'
+    extra: '<mutation><arg name="' + arg_name + '"></arg></mutation>'
   };
 };
 
@@ -325,7 +325,7 @@ var LEVELS = {
   },
   // Level 9: circle.
   '1_9': {
-    ideal: 3,
+    ideal: 0,
     toolbox: toolbox(1, 9),
     startBlocks: startBlocks(1, 9),
     freePlay: false,
@@ -543,7 +543,7 @@ var LEVELS = {
   },
   // Level 7: Add parameter to "draw a house".
   '3_7': {
-    ideal: 13,
+    ideal: 11,
     toolbox: toolbox(3, 7),
     startBlocks: startBlocks(3, 7),
     requiredBlocks: [

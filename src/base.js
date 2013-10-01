@@ -798,7 +798,7 @@ BlocklyApps.generateXMLForBlocks = function(blocks) {
       }
     }
     if (block.extra) {
-      blockXMLStrings.append(block.extra);
+      blockXMLStrings.push(block.extra);
     }
     blockXMLStrings.push('</block>');
     if ((i + 1) % blocksPerLine === 0) {
