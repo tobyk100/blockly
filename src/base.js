@@ -159,24 +159,30 @@ BlocklyApps.hideDialog = function(opt_animate) {
 };
 
 /**
- * Show the user's code in raw JavaScript.
- * @param {Element} origin Animate the dialog opening/closing from/to this
- *     DOM element.  If null, don't show any animations for opening or closing.
+ * Retrieve a DOM text node containing the user's generated Javascript code.
  */
-BlocklyApps.showCode = function(origin) {
-  var code = codegen.workspaceCode(Blockly);
-  var pre = document.getElementById('containerCode');
-  pre.innerHTML = '';
+BlocklyApps.getGeneratedCodeElement = function() {
   // Inject the code as a textNode, then extract with innerHTML, thus escaping.
+<<<<<<< HEAD
   pre.appendChild(document.createTextNode(code));
+=======
+  var unescapedCodeString = codegen.workspaceCode(Blockly);
+  var codeNode = document.createTextNode(unescapedCodeString);
+  if (typeof prettyPrintOne == 'function') { 
+    codeNode.innerHTML = prettyPrintOne(unescapedCodeString, 'js');
+  }
+  return codeNode;
+}
+>>>>>>> Add generated code in JS to level completion modal (sans styling)
 
-  var content = document.getElementById('dialogCode');
-  var style = {
-    width: '40%',
-    left: '30%',
-    top: '5em'
-  };
-  dialog.show(content, origin, true, true, style);
+/**
+ * Show the user's code in raw JavaScript.
+ * @param {Element} showLinkElement The link element from which the code display is triggered.
+ */
+BlocklyApps.showGeneratedCode = function(showLinkElement) {
+  var container = document.getElementById('generatedCodeContainer');
+  container.appendChild(BlocklyApps.getGeneratedCodeElement());
+  showLinkElement.display = 'none';
 };
 
 /**
@@ -610,7 +616,7 @@ BlocklyApps.setErrorFeedback = function(options) {
   }
   if (BlocklyApps.levelComplete) {
       BlocklyApps.setTextForElement('linesOfCodeFeedbackMsg', msg.numLinesOfCodeWritten({numLines: 5}));
-      document.getElementById('linesOfCodeFeedbackMsg').style.display = 'block';
+      BlocklyApps.setTextForElement('showLinesOfCodeLink', msg.showGeneratedCode());
   }
 };
 

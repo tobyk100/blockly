@@ -10,16 +10,6 @@
 {/template}
 
 /**
- * Code dialog.
- */
-{template .codeDialog private="true"}
-  <div id="dialogCode" class="dialogHiddenContent">
-    <pre id="containerCode"></pre>
-    {call apps.ok /}
-  </div>
-{/template}
-
-/**
  * OK button for dialogs.
  */
 {template .ok private="true"}
@@ -36,15 +26,6 @@
 {template .gameButtons}
   <table id="gameButtons" width="400" style="padding-top: 10px;">
     <tr>
-      <td style="width: 190px; text-align: center; vertical-align: top;">
-        <button class="notext" title="{msg meaning="Apps.codeTooltip"
-          desc="tooltip (pop-up help) for button; pressing the button causes a
-          program in the JavaScript computer language to be displayed, based on
-          the program created by the user."}See generated JavaScript code.{/msg}"
-          onclick="BlocklyApps.showCode();">
-          <img src='{$ij.baseUrl}media/1x1.gif' alt="code" class="code icon21">
-        </button>
-      </td>
       <td>
         <button id="runButton" class="launch" onclick="{$appInstance}.runButtonClick();">
             <img src="{$ij.baseUrl}media/1x1.gif" class="run icon21">{msg meaning="Apps.runProgram"
@@ -103,7 +84,9 @@
       {$appSpecific |noAutoescape}
     {/if}
   </ul>  // feedbackText
-  <div id="linesOfCodeFeedbackMsg" class="feedback"/>
+  <div id="linesOfCodeFeedbackMsg" class="levelFeedbackText"></div>
+  <a id="showLinesOfCodeLink" href="javascript:;" onclick="BlocklyApps.showGeneratedCode(this);"></a>
+  <div id="generatedCodeContainer" class="generatedCode"></div>
   <iframe id="feedbackBlocks" class="feedback" style="margin-left: 50px;
     height: 80px; width: 500px; border: none; display: none;" src="about:blank"></iframe>
 {/template}
