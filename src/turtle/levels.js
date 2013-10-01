@@ -215,7 +215,7 @@ exports.defineWithArg_ = function(func_name, arg_name) {
     },
     type: 'procedures_defnoreturn',
     titles: {'NAME': func_name},
-    extra: '<mutation><arg name="' + arg_name + '"></arg>'
+    extra: '<mutation><arg name="' + arg_name + '"></arg></mutation>'
   };
 };
 
