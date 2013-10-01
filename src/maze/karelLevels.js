@@ -628,7 +628,7 @@ module.exports = {
     'startBlocks': startBlocks(2, 1),
     'ideal': null,
     'requiredBlocks': [
-      [TURN_LEFT], [MOVE_FORWARD], [DIG], [TURN_RIGHT]
+      [TURN_LEFT], [MOVE_FORWARD], [DIG], [FILL], [TURN_RIGHT]
     ],
     'scale': {
       'stepSpeed': 3
