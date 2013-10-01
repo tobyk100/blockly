@@ -104,25 +104,25 @@ var fill = function(num) {
           'titles': {'NAME': 'fill ' + num}};
 };
 
-// This tests for and creates the "dig num" blcok.
+// This tests for and creates the "remove num" blcok.
 var remove = function(num) {
   return {'test': 'remove_' + num + '();',
           'type': 'procedures_callnoreturn',
-          'titles': {'NAME': 'dig ' + num}};
+          'titles': {'NAME': 'remove ' + num}};
 };
 
-// This tests for and creates the "avoid the cow and dig" blcok.
+// This tests for and creates the "avoid the cow and remove 1" blcok.
 var AVOID_OBSTACLE_AND_REMOVE = {
-  'test': 'avoid_the_cow_and_dig();',
+  'test': 'avoid_the_cow_and_remove_1();',
   'type': 'procedures_callnoreturn',
-  'titles': {'NAME': 'avoid the cow and dig'}
+  'titles': {'NAME': 'avoid the cow and remove 1'}
 };
 
-// This tests for and creates the "dig and avoid the cow" blcok.
-var AVOID_OBSTACLE_AND_REMOVE = {
+// This tests for and creates the "remove 1 and avoid the cow" blcok.
+var REMOVE_AND_AVOID_OBSTACLE = {
   'test': 'remove_1_and_avoid_the_cow();',
   'type': 'procedures_callnoreturn',
-  'titles': {'NAME': 'avoid the cow and dig'}
+  'titles': {'NAME': 'avoid the cow and remove 1'}
 };
 
 // This tests for and creates the "remove piles" block.
@@ -670,7 +670,7 @@ module.exports = {
     'instructions': 'instructions2_2',
     'toolbox': toolbox(2, 2),
     'startBlocks': startBlocks(2, 2),
-    'ideal': 5,
+    'ideal': 2,
     'requiredBlocks': [
       [MOVE_FORWARD], [fill(5)]
     ],
@@ -711,7 +711,7 @@ module.exports = {
     'instructions': 'instructions2_3',
     'toolbox': toolbox(2, 3),
     'startBlocks': startBlocks(2, 3),
-    'ideal': 7,
+    'ideal': 4,
     'requiredBlocks': [
       [MOVE_FORWARD], [fill(5)], [UNTIL_BLOCKED, REPEAT]
     ],
@@ -755,7 +755,7 @@ module.exports = {
     'instructions': 'instructions2_4',
     'toolbox': toolbox(2, 4),
     'startBlocks': startBlocks(2, 4),
-    'ideal': 12,
+    'ideal': 8,
     'requiredBlocks': [
       [DIG],
       [REPEAT],
@@ -804,11 +804,11 @@ module.exports = {
     'instructions': 'instructions2_5',
     'toolbox': toolbox(2, 5),
     'startBlocks': startBlocks(2, 5),
-    'ideal': 8,
+    'ideal': 6,
     'requiredBlocks': [
       [DIG],
       [REPEAT],
-      [remove(3)],
+      [remove(6)],
       [MOVE_FORWARD]
     ],
     'map': [
@@ -830,7 +830,7 @@ module.exports = {
       [ 0, 0, 0, 0, 0, 0, 0, 0 ],
       [ 0, 0, 0, 0, 0, 0, 0, 0 ],
       [ 0, 0, 0, 0, 0, 0, 0, 0 ],
-      [ 0, 3, 0, 3, 0, 3, 0, 0 ]
+      [ 0, 6, 0, 6, 0, 6, 0, 0 ]
     ],
     'finalDirt': [
       [ 0, 0, 0, 0, 0, 0, 0, 0 ],
@@ -848,7 +848,7 @@ module.exports = {
     'instructions': 'instructions2_6',
     'toolbox': toolbox(2, 6),
     'startBlocks': startBlocks(2, 6),
-    'ideal': 10,
+    'ideal': 4,
     'requiredBlocks': [
       [remove(8)], [fill(8)], [MOVE_FORWARD], [UNTIL_BLOCKED, REPEAT]
     ],
@@ -889,7 +889,7 @@ module.exports = {
     'instructions': 'instructions2_7',
     'toolbox': toolbox(2, 7),
     'startBlocks': startBlocks(2, 7),
-    'ideal': 10,
+    'ideal': 8,
     'requiredBlocks': [
       [TURN_LEFT], [MOVE_FORWARD], [TURN_RIGHT], [DIG]
     ],
@@ -930,7 +930,7 @@ module.exports = {
     'instructions': 'instructions2_8',
     'toolbox': toolbox(2, 8),
     'startBlocks': startBlocks(2, 8),
-    'ideal': 12,
+    'ideal': 2,
     'requiredBlocks': [
       [REPEAT], [AVOID_OBSTACLE_AND_REMOVE]
     ],
@@ -974,7 +974,7 @@ module.exports = {
     'instructions': 'instructions2_9',
     'toolbox': toolbox(2, 9),
     'startBlocks': startBlocks(2, 9),
-    'ideal': 24,
+    'ideal': 4,
     'requiredBlocks': [
       [REMOVE_PILES],
       [MOVE_FORWARD],
@@ -1021,13 +1021,13 @@ module.exports = {
     'instructions': 'instructions2_10',
     'toolbox': toolbox(2, 10),
     'startBlocks': startBlocks(2, 10),
-    'ideal': 26,
+    'ideal': 6,
     'requiredBlocks': [
       [REMOVE_PILES],
       [MOVE_FORWARD],
       [FILL_HOLES],
-      [IF_OPT_PILE_PRESENT],
-      [IF_OPT_HOLE_PRESENT],
+      [IF_OPT_PILE_PRESENT, IF_ELSE],
+      [IF_OPT_HOLE_PRESENT, IF_ELSE],
       [UNTIL_BLOCKED, REPEAT]
     ],
     'scale': {
