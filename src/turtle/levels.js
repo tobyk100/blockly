@@ -325,7 +325,7 @@ var LEVELS = {
   },
   // Level 9: circle.
   '1_9': {
-    ideal: 3,
+    ideal: 0,
     toolbox: toolbox(1, 9),
     startBlocks: startBlocks(1, 9),
     freePlay: false,
