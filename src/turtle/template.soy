@@ -298,7 +298,7 @@
       /*  Define "draw a triangle".  */
       {call .polygon}
         {param title}draw a triangle{/param}
-        {param modifiers}{if $ij.level == 6}x="20" y="190"{else}x="360" y="20" editable="false" deletable="false"{/if}{/param}
+        {param modifiers}{if $ij.level == 6}x="20" y="190"{else}x="360" y="20" editable="false" deletable="false" movable="false"{/if}{/param}
         {param sides: 3 /}
         {param length}{if $ij.level >= 7}0{else}100{/if}{/param}
       {/call}

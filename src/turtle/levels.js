@@ -543,7 +543,7 @@ var LEVELS = {
   },
   // Level 7: Add parameter to "draw a house".
   '3_7': {
-    ideal: 13,
+    ideal: 11,
     toolbox: toolbox(3, 7),
     startBlocks: startBlocks(3, 7),
     requiredBlocks: [
