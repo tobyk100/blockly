@@ -127,7 +127,7 @@ Maze.pidList = [];
 // Map each possible shape to a sprite.
 // Input: Binary string representing Centre/North/West/South/East squares.
 // Output: [x, y] coordinates of each tile's sprite in tiles.png.
-Maze.tile_SHAPES = {
+var TILE_SHAPES = {
   '10010': [4, 0],  // Dead ends
   '10001': [3, 3],
   '11000': [0, 1],
@@ -236,7 +236,7 @@ var drawMap = function() {
           normalize(x - 1, y);   // East.
 
       // Draw the tile.
-      if (!Maze.tile_SHAPES[tile]) {
+      if (!TILE_SHAPES[tile]) {
         // Empty square.  Use null0 for large areas, with null1-4 for borders.
         if (tile == '00000' && Math.random() > 0.3) {
           tile = 'null0';
@@ -244,8 +244,8 @@ var drawMap = function() {
           tile = 'null' + Math.floor(1 + Math.random() * 4);
         }
       }
-      var left = Maze.tile_SHAPES[tile][0];
-      var top = Maze.tile_SHAPES[tile][1];
+      var left = TILE_SHAPES[tile][0];
+      var top = TILE_SHAPES[tile][1];
       // Tile's clipPath element.
       var tileClip = document.createElementNS(Blockly.SVG_NS, 'clipPath');
       tileClip.setAttribute('id', 'tileClipPath' + tileId);
@@ -1194,24 +1194,25 @@ Maze.isPath = function(direction, id) {
 };
 
 /**
- * Updates the tooManyBlocksError message with the ideal number of blocks so the
- *     student can better understand how to improve their code.
+ * Updates the tooManyBlocksError message with the ideal number of blocks so
+ * the student can better understand how to improve their code.
  */
 Maze.setIdealBlockMessage = function() {
   var idealNumMsg = document.getElementById('idealNumberMessage');
   var idealNumText = document.createTextNode(Maze.IDEAL_BLOCK_NUM);
   idealNumMsg.appendChild(idealNumText);
 };
+
 /**
  * Attempt to add dirt.
  * @param {string} id ID of block that triggered this action.
  */
 Maze.fill = function(id) {
-    BlocklyApps.log.push(['putdown', id]);
-    var x = Maze.pegmanX;
-    var y = Maze.pegmanY;
-    Maze.dirt_[y][x] = Maze.dirt_[y][x] + 1;
-    checkSuccess(id);
+  BlocklyApps.log.push(['putdown', id]);
+  var x = Maze.pegmanX;
+  var y = Maze.pegmanY;
+  Maze.dirt_[y][x] = Maze.dirt_[y][x] + 1;
+  checkSuccess(id);
 };
 
 /**
@@ -1219,9 +1220,9 @@ Maze.fill = function(id) {
  * @param {string} id ID of block that triggered this action.
  */
 Maze.dig = function(id) {
-    BlocklyApps.log.push(['pickup', id]);
-    var x = Maze.pegmanX;
-    var y = Maze.pegmanY;
-    Maze.dirt_[y][x] = Maze.dirt_[y][x] - 1;
-    checkSuccess(id);
+  BlocklyApps.log.push(['pickup', id]);
+  var x = Maze.pegmanX;
+  var y = Maze.pegmanY;
+  Maze.dirt_[y][x] = Maze.dirt_[y][x] - 1;
+  checkSuccess(id);
 };
