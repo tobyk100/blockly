@@ -529,7 +529,7 @@ Maze.runButtonClick = function() {
 /**
  * Outcomes of running the user program.
  */
-Maze.ResultType = {
+var ResultType = {
   UNSET: 0,
   SUCCESS: 1,
   FAILURE: -1,
@@ -553,7 +553,7 @@ Maze.execute = function() {
   BlocklyApps.log = [];
   BlocklyApps.ticks = 50; //TODO: Set higher for some levels
   var code = Blockly.Generator.workspaceToCode('JavaScript');
-  Maze.result = Maze.ResultType.UNSET;
+  Maze.result = ResultType.UNSET;
   Maze.testResults = BlocklyApps.TestResults.NO_TESTS_RUN;
 
   // Check for empty top level blocks to warn user about bugs,
@@ -578,23 +578,23 @@ Maze.execute = function() {
       BlocklyApps: BlocklyApps,
       Maze: Maze
     });
-    Maze.result = Maze.ResultType.FAILURE;
+    Maze.result = ResultType.FAILURE;
     stepSpeed = 150;
   } catch (e) {
     // A boolean is thrown for normal termination. XXX Except when it isn't...
     // Abnormal termination is a user error.
     if (e === Infinity) {
-      Maze.result = Maze.ResultType.TIMEOUT;
+      Maze.result = ResultType.TIMEOUT;
       stepSpeed = 0;  // Go infinitely fast so program ends quickly.
     } else if (e === true) {
-      Maze.result = Maze.ResultType.SUCCESS;
+      Maze.result = ResultType.SUCCESS;
       stepSpeed = 100;
     } else if (e === false) {
-      Maze.result = Maze.ResultType.ERROR;
+      Maze.result = ResultType.ERROR;
       stepSpeed = 150;
     } else {
       // Syntax error, can't happen.
-      Maze.result = Maze.ResultType.ERROR;
+      Maze.result = ResultType.ERROR;
       window.alert(e);
       return;
     }
@@ -602,7 +602,7 @@ Maze.execute = function() {
 
   // If we know they succeeded, mark levelComplete true
   // Note that we have not yet animated the succesful run
-  BlocklyApps.levelComplete = (Maze.result == Maze.ResultType.SUCCESS);
+  BlocklyApps.levelComplete = (Maze.result == ResultType.SUCCESS);
 
   Maze.testResults = BlocklyApps.getTestResults();
 
@@ -613,7 +613,7 @@ Maze.execute = function() {
   BlocklyApps.report(
     'maze',
     level.id,
-    Maze.result === Maze.ResultType.SUCCESS,
+    Maze.result === ResultType.SUCCESS,
     Maze.testResults,
     textBlocks);
 
@@ -633,7 +633,7 @@ Maze.animate = function() {
   var action = BlocklyApps.log.shift();
   if (!action) {
     BlocklyApps.highlight(null);
-    if (Maze.result == Maze.ResultType.TIMEOUT) {
+    if (Maze.result == ResultType.TIMEOUT) {
       displayFeedback();
     } else {
       window.setTimeout(function() {
