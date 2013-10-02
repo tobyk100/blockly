@@ -348,14 +348,16 @@ Maze.init = function(config) {
   loadLevel(config.levelId);
 
   config.level = level;
-  var html = mazepage.start({}, null, config);
-  document.getElementById(config.containerId).innerHTML = html;
 
-  BlocklyApps.init(config);
   // Override the current level with caller supplied parameters.
   for (var prop in config.level) {
     level[prop] = config.level[prop];
   }
+
+  var html = mazepage.start({}, null, config);
+  document.getElementById(config.containerId).innerHTML = html;
+
+  BlocklyApps.init(config);
 
   var rtl = BlocklyApps.isRtl();
   var toolbox = document.getElementById('toolbox');
