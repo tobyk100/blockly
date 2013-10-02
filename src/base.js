@@ -530,6 +530,28 @@ var generateXMLForBlocks = function(blocks) {
   return blockXMLStrings.join('');
 };
 
+var showFeedbackBlocks = function(options) {
+  var missingBlocks = BlocklyApps.getMissingRequiredBlocks();
+  if (missingBlocks.length == 0) {
+    return;
+  }
+  document.getElementById('missingBlocksError').style.display = 'list-item';
+  var html = readonly({
+    app: options.app,
+    skinId: options.skin,
+    blocks: generateXMLForBlocks(missingBlocks)
+  });
+  // Fill in the iframe on the next event tick.
+  window.setTimeout(function() {
+    var iframe = document.getElementById('feedbackBlocks');
+    iframe.style.display = 'block';
+    var doc = iframe.contentDocument || iframe.contentWindow.document;
+    doc.open();
+    doc.write(html);
+    doc.close();
+  }, 1);
+};
+
 /**
  * Sets appropriate feedback for when the modal dialog is displayed.
  * @param {number} feedbackType A constant property of BlocklyApps.TestResults,
@@ -556,40 +578,11 @@ BlocklyApps.setErrorFeedback = function(options) {
       break;
     // Zero star for failing to use required blocks and not completed level.
     case BlocklyApps.TestResults.MISSING_BLOCK_UNFINISHED:
-      // For each error type in the array, display the corresponding error.
-      var missingBlocks = BlocklyApps.getMissingRequiredBlocks();
-      if (missingBlocks.length) {
-        document.getElementById('missingBlocksError')
-            .style.display = 'list-item';
-        document.getElementById('feedbackBlocks').src =
-            BlocklyApps.BASE_URL + options.app + '/readonly.html?xml=' +
-            BlocklyApps.generateXMLForBlocks(missingBlocks) +
-            (options.skin ? '&skin=' + options.skin : '');
-        document.getElementById('feedbackBlocks').style.display = 'block';
-      }
+      showFeedbackBlocks(options)
       break;
     // One star for failing to use required blocks but only if level completed.
     case BlocklyApps.TestResults.MISSING_BLOCK_FINISHED:
-      // For each error type in the array, display the corresponding error.
-      var missingBlocks = BlocklyApps.getMissingRequiredBlocks();
-      if (missingBlocks.length) {
-        document.getElementById('missingBlocksError')
-            .style.display = 'list-item';
-        var html = readonly({
-          app: options.app,
-          skinId: options.skin,
-          blocks: generateXMLForBlocks(missingBlocks)
-        });
-        // Fill in the iframe on the next event tick.
-        window.setTimeout(function() {
-          var iframe = document.getElementById('feedbackBlocks');
-          iframe.style.display = 'block';
-          var doc = iframe.contentDocument || iframe.contentWindow.document;
-          doc.open();
-          doc.write(html);
-          doc.close();
-        }, 1);
-      }
+      showFeedbackBlocks(options);
       break;
 
     // Two stars for using too many blocks.
