@@ -86,8 +86,6 @@ BlocklyApps.initReadonly = function(options) {
     scrollbars: false
   });
   BlocklyApps.loadBlocks(options.blocks);
-  console.log('readonly!');
-  console.log(options.blocks);
 };
 
 /**
