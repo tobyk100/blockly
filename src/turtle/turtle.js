@@ -214,7 +214,7 @@ Turtle.placeImage = function(filename, coordinates) {
     }
     Turtle.display();
   };
-  img.src = filename;
+  img.src = BlocklyApps.BASE_URL + 'media/turtle/' + filename;
 };
 
 /**
