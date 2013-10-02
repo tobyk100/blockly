@@ -537,6 +537,7 @@ var showFeedbackBlocks = function(options) {
   }
   document.getElementById('missingBlocksError').style.display = 'list-item';
   var html = readonly({
+    baseUrl: BlocklyApps.BASE_URL,
     app: options.app,
     skinId: options.skin,
     blocks: generateXMLForBlocks(missingBlocks)
