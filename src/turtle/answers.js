@@ -23,13 +23,15 @@
  */
 'use strict';
 
+var api = require('./api');
+
 var setRandomVisibleColour = function() {
   var num = Math.floor(Math.random() * Math.pow(2, 24));
   // Make sure at least one component is below 0x80 and the rest
   // below 0xA0, to prevent too light of colours.
   num &= 0x9f7f9f;
   var colour = '#' + ('00000' + num.toString(16)).substr(-6);
-  Turtle.penColour(colour);
+  api.penColour(colour);
 };
 
 var drawSquare = function(length, random_colour) {
@@ -37,8 +39,8 @@ var drawSquare = function(length, random_colour) {
     if (random_colour) {
       setRandomVisibleColour();
     }
-    Turtle.moveForward(length);
-    Turtle.turnRight(90);
+    api.moveForward(length);
+    api.turnRight(90);
   }
 };
 
@@ -47,36 +49,36 @@ var drawTriangle = function(length, random_colour) {
     if (random_colour) {
       setRandomVisibleColour();
     }
-    Turtle.moveForward(length);
-    Turtle.turnRight(120);
+    api.moveForward(length);
+    api.turnRight(120);
   }
 };
 
 var drawSnowman = function(height) {
-  Turtle.turnLeft(90);
+  api.turnLeft(90);
   var distances = [height * 0.5, height * 0.3, height * 0.2];
   for (var i = 0; i < 6; i++) {
     var distance = distances[i < 3 ? i : 5 - i] / 57.5;
     for (var d = 0; d < 180; d += 2) {
-      Turtle.moveForward(distance);
-      Turtle.turnRight(2);
+      api.moveForward(distance);
+      api.turnRight(2);
     }
     if (i != 2) {
-      Turtle.turnRight(180);
+      api.turnRight(180);
     }
   }
-  Turtle.turnLeft(90);
+  api.turnLeft(90);
 };
 
 var drawHouse = function(length) {
   drawSquare(length);
-  Turtle.moveForward(length);
-  Turtle.turnRight(30);
+  api.moveForward(length);
+  api.turnRight(30);
   drawTriangle(length);
-  Turtle.turnRight(60);
-  Turtle.moveForward(length);
-  Turtle.turnLeft(90);
-  Turtle.moveBackward(length);
+  api.turnRight(60);
+  api.moveForward(length);
+  api.turnLeft(90);
+  api.moveBackward(length);
 };
 
 /**
@@ -91,9 +93,9 @@ exports.drawAnswer = function() {
     switch (Turtle.LEVEL) {
       case 1:
         // El.
-        Turtle.moveForward(100);
-        Turtle.turnRight(90);
-        Turtle.moveForward(100);
+        api.moveForward(100);
+        api.turnRight(90);
+        api.moveForward(100);
         break;
       case 2:
         // Square.
@@ -115,31 +117,31 @@ exports.drawAnswer = function() {
       case 6:
         // Triangle and square.
         drawTriangle(100);
-        Turtle.turnRight(180);
+        api.turnRight(180);
         drawSquare(100);
         break;
       case 7:
         // Glasses.
-        Turtle.penColour('#00cc00');  // blue
-        Turtle.turnRight(90);
+        api.penColour('#00cc00');  // blue
+        api.turnRight(90);
         drawSquare(100);
-        Turtle.moveBackward(150);
+        api.moveBackward(150);
         drawSquare(100);
         break;
       case 8:
         // Spiky.
         for (count = 0; count < 8; count++) {
           setRandomVisibleColour();
-          Turtle.moveForward(100);
-          Turtle.moveBackward(100);
-          Turtle.turnRight(45);
+          api.moveForward(100);
+          api.moveBackward(100);
+          api.turnRight(45);
         }
         break;
       case 9:
         // Circle.
         for (count = 0; count < 360; count++) {
-          Turtle.moveForward(1);
-          Turtle.turnRight(1);
+          api.moveForward(1);
+          api.turnRight(1);
         }
         break;
     }
@@ -152,7 +154,7 @@ exports.drawAnswer = function() {
         break;
       case 2:
         // Single green square.
-        Turtle.penColour('#00ff00');  // green
+        api.penColour('#00ff00');  // green
         drawSquare(50);
         break;
       case 3:
@@ -160,7 +162,7 @@ exports.drawAnswer = function() {
         for (count = 0; count < 3; count++) {
           setRandomVisibleColour();
           drawSquare(100);
-          Turtle.turnRight(120);
+          api.turnRight(120);
         }
         break;
       case 4:
@@ -168,7 +170,7 @@ exports.drawAnswer = function() {
         for (count = 0; count < 36; count++) {
           setRandomVisibleColour();
           drawSquare(100);
-          Turtle.turnRight(10);
+          api.turnRight(10);
         }
         break;
       case 5:  // Draw without using for-loop.  (Fall through to next case.)
@@ -181,8 +183,8 @@ exports.drawAnswer = function() {
       case 7:
         // Mini-spiral.
         for (len = 25; len <= 60; len += 5) {
-          Turtle.moveForward(len);
-          Turtle.turnRight(90);
+          api.moveForward(len);
+          api.turnRight(90);
         }
         break;
       case 8:
@@ -190,9 +192,9 @@ exports.drawAnswer = function() {
         for (var i = 0; i < 3; i++) {
           setRandomVisibleColour();
           drawSnowman(150);
-          Turtle.turnRight(90);
-          Turtle.jumpForward(100);
-          Turtle.turnLeft(90);
+          api.turnRight(90);
+          api.jumpForward(100);
+          api.turnLeft(90);
         }
         break;
       case 9:
@@ -200,9 +202,9 @@ exports.drawAnswer = function() {
         for (var height = 110; height >= 70; height -= 10) {
           setRandomVisibleColour();
           drawSnowman(height);
-          Turtle.turnRight(90);
-          Turtle.jumpForward(60);
-          Turtle.turnLeft(90);
+          api.turnRight(90);
+          api.jumpForward(60);
+          api.turnLeft(90);
         }
         break;
     }
@@ -218,9 +220,9 @@ exports.drawAnswer = function() {
         break;
       case 3:
         drawTriangle(100);
-        Turtle.moveForward(100);
+        api.moveForward(100);
         drawSquare(100);
-        Turtle.moveForward(100);
+        api.moveForward(100);
         drawTriangle(100);
         break;
       case 4:
@@ -234,7 +236,7 @@ exports.drawAnswer = function() {
       case 6:
         setRandomVisibleColour();
         drawTriangle(100);
-        Turtle.moveForward(100);
+        api.moveForward(100);
         setRandomVisibleColour();
         drawTriangle(200);
         break;
