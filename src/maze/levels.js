@@ -1,4 +1,4 @@
-var Direction = require('../tiles').Direction;
+var Direction = require('./tiles').Direction;
 var karelLevels = require('./karelLevels');
 
 //TODO: Fix hacky level-number-dependent toolbox.
