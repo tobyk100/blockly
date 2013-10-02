@@ -163,9 +163,6 @@ BlocklyApps.hideDialog = function(opt_animate) {
  */
 BlocklyApps.getGeneratedCodeElement = function() {
   // Inject the code as a textNode, then extract with innerHTML, thus escaping.
-<<<<<<< HEAD
-  pre.appendChild(document.createTextNode(code));
-=======
   var unescapedCodeString = codegen.workspaceCode(Blockly);
   var codeNode = document.createTextNode(unescapedCodeString);
   if (typeof prettyPrintOne == 'function') { 
@@ -173,16 +170,16 @@ BlocklyApps.getGeneratedCodeElement = function() {
   }
   return codeNode;
 }
->>>>>>> Add generated code in JS to level completion modal (sans styling)
 
 /**
  * Show the user's code in raw JavaScript.
  * @param {Element} showLinkElement The link element from which the code display is triggered.
  */
 BlocklyApps.showGeneratedCode = function(showLinkElement) {
-  var container = document.getElementById('generatedCodeContainer');
-  container.appendChild(BlocklyApps.getGeneratedCodeElement());
-  showLinkElement.display = 'none';
+  var pre = document.getElementById('generatedCodeContainer');
+  pre.appendChild(BlocklyApps.getGeneratedCodeElement());
+  pre.parentNode.style.display = 'block';
+  showLinkElement.style.display = 'none';
 };
 
 /**
@@ -566,20 +563,20 @@ BlocklyApps.setErrorFeedback = function(options) {
   switch (options.feedbackType) {
     // Give hint, not stars, for empty block or not finishing level.
     case BlocklyApps.TestResults.EMPTY_BLOCK_FAIL:
-      document.getElementById('emptyBlocksError').style.display = 'list-item';
+      document.getElementById('emptyBlocksError').style.display = 'block';
       break;
     case BlocklyApps.TestResults.TOO_FEW_BLOCKS_FAIL:
-      document.getElementById('tooFewBlocksError').style.display = 'list-item';
+      document.getElementById('tooFewBlocksError').style.display = 'block';
       break;
     case BlocklyApps.TestResults.LEVEL_INCOMPLETE_FAIL:
       document.getElementById('levelIncompleteError')
-          .style.display = 'list-item';
+          .style.display = 'block';
       break;
 
     // For completing level, user gets at least one star.
     case BlocklyApps.TestResults.OTHER_1_STAR_FAIL:
       document.getElementById('appSpecificOneStarFeedback')
-            .style.display = 'list-item';
+            .style.display = 'block';
       break;
     // Zero star for failing to use required blocks and not completed level.
     case BlocklyApps.TestResults.MISSING_BLOCK_UNFINISHED:
@@ -597,11 +594,11 @@ BlocklyApps.setErrorFeedback = function(options) {
           msg.numBlocksNeeded().replace(
               '%1', BlocklyApps.IDEAL_BLOCK_NUM).replace(
                   '%2', BlocklyApps.getNumBlocksUsed())).style.display =
-                      'list-item';
+                      'block';
       break;
     case BlocklyApps.TestResults.OTHER_2_STAR_FAIL:
       document.getElementById('appSpecificTwoStarFeedback')
-            .style.display = 'list-item';
+            .style.display = 'block';
       break;
 
     // Three stars!
@@ -610,12 +607,13 @@ BlocklyApps.setErrorFeedback = function(options) {
 
     // Free plays
     case BlocklyApps.TestResults.FREE_PLAY:
-      document.getElementById('reinfFeedbackMsg').style.display = 'list-item';
+      document.getElementById('reinfFeedbackMsg').style.display = 'block';
       break;
   }
   if (BlocklyApps.levelComplete) {
-      BlocklyApps.setTextForElement('linesOfCodeFeedbackMsg', msg.numLinesOfCodeWritten({numLines: 5}));
+      BlocklyApps.setTextForElement('linesOfCodeFeedbackMsg', msg.numLinesOfCodeWritten({numLines: BlocklyApps.getNumBlocksUsed()}));
       BlocklyApps.setTextForElement('showLinesOfCodeLink', msg.showGeneratedCode());
+      BlocklyApps.setTextForElement('generatedCodeInfoMsg', msg.generatedCodeInfo());
   }
 };
 
@@ -651,23 +649,18 @@ BlocklyApps.prepareFeedback = function(options) {
   if (!options) {
     options = {};
   }
-  // Determine colour and buttons.
-  var feedbackText = document.getElementById('levelFeedbackText');
+  // Determine buttons.
   if (options.feedbackType == BlocklyApps.TestResults.ALL_PASS) {
-    feedbackText.style.color = 'green';
-    feedbackText.style.textAlign = 'center';
     document.getElementById('hintTitle').style.display = 'none';
     if (options.finalLevel) {
-      document.getElementById('finalLevelMsg').style.display = 'list-item';
+      document.getElementById('finalLevelMsg').style.display = 'block';
     } else {
-      document.getElementById('nextLevelMsg').style.display = 'list-item';
+      document.getElementById('nextLevelMsg').style.display = 'block';
     }
   } else {
-    feedbackText.style.color = 'red';
-    feedbackText.style.textAlign = 'left';
     document.getElementById('hintTitle').style.display = 'inline';
   }
-  feedbackText.style.display = 'block';
+  document.getElementById('levelFeedbackText').style.display = 'inline';
 };
 
 /**
