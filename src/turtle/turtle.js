@@ -37,13 +37,6 @@ var Colours = require('./core').Colours;
 var answers = require('./answers');
 var codegen = require('../codegen');
 
-/**
- * Template used to generate a regular expression string checking that
- * the procedure whose name replaces '%1' is called.
- * @private
- */
-Turtle.PROCEDURE_CALL_TEMPLATE_ = 'procedures_callnoreturn[^e]*e="%1"';
-
 var level;
 
 BlocklyApps.CHECK_FOR_EMPTY_BLOCKS = false;
