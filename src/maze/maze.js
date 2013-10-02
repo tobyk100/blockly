@@ -51,7 +51,7 @@ var stepSpeed;
  * as a 2D array of SquareType values.
  * @enum {number}
  */
-Maze.SquareType = {
+var SquareType = {
   WALL: 0,
   OPEN: 1,
   START: 2,
@@ -221,7 +221,7 @@ var drawMap = function() {
   var normalize = function(x, y) {
     return ((Maze.map[y] === undefined) ||
             (Maze.map[y][x] === undefined) ||
-            (Maze.map[y][x] == Maze.SquareType.WALL)) ? '0' : '1';
+            (Maze.map[y][x] == SquareType.WALL)) ? '0' : '1';
   };
 
   // Compute and draw the tile for each square.
@@ -308,7 +308,7 @@ var drawMap = function() {
   // Add obstacles.
   for (y = 0; y < Maze.ROWS; y++) {
     for (x = 0; x < Maze.COLS; x++) {
-      if (Maze.map[y][x] == Maze.SquareType.OBSTACLE) {
+      if (Maze.map[y][x] == SquareType.OBSTACLE) {
         var obsIcon = document.createElementNS(Blockly.SVG_NS, 'image');
         obsIcon.setAttribute('height', 40);
         obsIcon.setAttribute('width', 40);
@@ -382,12 +382,12 @@ Maze.init = function(config) {
   // Locate the start and finish squares.
   for (var y = 0; y < Maze.ROWS; y++) {
     for (var x = 0; x < Maze.COLS; x++) {
-      if (Maze.map[y][x] == Maze.SquareType.START) {
+      if (Maze.map[y][x] == SquareType.START) {
         Maze.start_ = {x: x, y: y};
-      } else if (Maze.map[y][x] == Maze.SquareType.FINISH) {
+      } else if (Maze.map[y][x] == SquareType.FINISH) {
         Maze.finish_ = {x: x, y: y};
       // Nan's
-      } else if (Maze.map[y][x] == Maze.SquareType.STARTANDFINISH) {
+      } else if (Maze.map[y][x] == SquareType.STARTANDFINISH) {
         Maze.start_ = {x: x, y: y};
         Maze.finish_ = {x: x, y: y};
       }
@@ -504,6 +504,7 @@ BlocklyApps.reset = function(first) {
 /**
  * Click the run button.  Start the program.
  */
+// XXX This is the only method used by the templates!
 Maze.runButtonClick = function() {
   // Only allow a single top block on some levels.
   if (level.singleTopBlock &&
@@ -1187,8 +1188,8 @@ Maze.isPath = function(direction, id) {
   if (id) {
     BlocklyApps.log.push([command, id]);
   }
-  return square !== Maze.SquareType.WALL &&
-        square !== Maze.SquareType.OBSTACLE &&
+  return square !== SquareType.WALL &&
+        square !== SquareType.OBSTACLE &&
         square !== undefined;
 };
 
