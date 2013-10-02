@@ -681,7 +681,7 @@
         <category name="{msg meaning="Turtle.catVariables" desc="TODO"}Variables{/msg}">
           <block type="variables_get_counter"></block>
         </category>
-      {elseif $ij.page == 3 and $ij.level >= 6}
+      {elseif $ij.page == 3 and $ij.level >= 6 and $ij.level < 10}
         <category name="{msg meaning="Turtle.catVariables" desc="TODO"}Variables{/msg}">
           {if $ij.level >= 9}
             <block type="variables_get_counter"></block>
@@ -689,9 +689,12 @@
           {if $ij.level >= 7}
             <block type="variables_get_height"></block>
           {/if}
-          {if $ij.level == 6 or $ij.level == 10}
+          {if $ij.level == 6}
             <block type="variables_get_length"></block>
           {/if}
+        </category>
+      {elseif $ij.page == 3 and $ij.level == 10}
+        <category name="{msg meaning="Turtle.catVariables" desc="TODO"}Variables{/msg}" custom="VARIABLE">
         </category>
       {/if}
     {elseif $ij.page == 4}
