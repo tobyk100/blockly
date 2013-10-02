@@ -522,7 +522,7 @@ var generateXMLForBlocks = function(blocks) {
     document.getElementById('feedbackBlocks').style.height =
         iframeHeight + 'px';
   }
-  return encodeURIComponent(blockXMLStrings.join(''));
+  return blockXMLStrings.join('');
 };
 
 /**
