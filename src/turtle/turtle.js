@@ -76,6 +76,7 @@ Turtle.init = function(config) {
 
   level = levels.install(BlocklyApps, Turtle, config.levelId);
 
+  config.level = config.level || {};
   var instructions = config.level.instructions || '';
 
   config.page = Turtle.PAGE;
