@@ -273,7 +273,7 @@ BlocklyApps.attempts = 0;
  * and reporting to capture how long it took to arrive at an attempt.
  * @type {?number}
  */
-BlocklyApps.initTime;
+BlocklyApps.initTime = undefined;
 
 /**
  * Reset the playing field to the start position and kill any pending
@@ -532,7 +532,7 @@ var generateXMLForBlocks = function(blocks) {
 
 var showFeedbackBlocks = function(options) {
   var missingBlocks = BlocklyApps.getMissingRequiredBlocks();
-  if (missingBlocks.length == 0) {
+  if (missingBlocks.length === 0) {
     return;
   }
   document.getElementById('missingBlocksError').style.display = 'list-item';
@@ -578,7 +578,7 @@ BlocklyApps.setErrorFeedback = function(options) {
       break;
     // Zero star for failing to use required blocks and not completed level.
     case BlocklyApps.TestResults.MISSING_BLOCK_UNFINISHED:
-      showFeedbackBlocks(options)
+      showFeedbackBlocks(options);
       break;
     // One star for failing to use required blocks but only if level completed.
     case BlocklyApps.TestResults.MISSING_BLOCK_FINISHED:

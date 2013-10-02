@@ -1,4 +1,6 @@
 var INFINITE_LOOP_TRAP = '  BlocklyApps.checkTimeout();\n';
+var INFINITE_LOOP_TRAP_RE =
+    new RegExp(INFINITE_LOOP_TRAP.replace(/\(.*\)/, '\\(.*\\)'), 'g');
 
 /**
  * Returns javascript code to call a timeout check with an optional block id.
@@ -17,8 +19,7 @@ exports.strip = function(code) {
   // Strip out serial numbers.
   code = code.replace(/(,\s*)?'block_id_\d+'\)/g, ')');
   // Remove timeouts.
-  var regex = new RegExp(INFINITE_LOOP_TRAP.replace(/\(.*\)/, '\(.*\)'), 'g');
-  return code.replace(regex, '');
+  return code.replace(INFINITE_LOOP_TRAP_RE, '');
 };
 
 /**
