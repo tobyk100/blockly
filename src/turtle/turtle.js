@@ -611,18 +611,19 @@ Turtle.checkAnswer = function() {
   BlocklyApps.levelComplete =
       level.freePlay || answers.isCorrect(delta, permittedErrors);
   var feedbackType = BlocklyApps.getTestResults();
+  
+  var xml = Blockly.Xml.workspaceToDom(Blockly.mainWorkspace);  
+  var textBlocks = Blockly.Xml.domToText(xml);
 
   BlocklyApps.report('turtle', Turtle.LEVEL,
                      BlocklyApps.levelComplete,
                      feedbackType,
-                     codegen.strip(Turtle.code));
+                     textBlocks);
   if (BlocklyApps.levelComplete) {
     if (Turtle.PAGE == 3 &&
         (Turtle.LEVEL == 7 || Turtle.LEVEL == 8)) {
       // Store the blocks for the next level.
-      var xml = Blockly.Xml.workspaceToDom(Blockly.mainWorkspace);
-      var text = Blockly.Xml.domToText(xml);
-      window.sessionStorage.turtle3Blocks = text;
+      window.sessionStorage.turtle3Blocks = textBlocks;
     }
   }
 
