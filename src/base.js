@@ -165,17 +165,34 @@ BlocklyApps.getGeneratedCodeElement = function() {
   // Inject the code as a textNode, then extract with innerHTML, thus escaping.
   var unescapedCodeString = codegen.workspaceCode(Blockly);
   var codeNode = document.createTextNode(unescapedCodeString);
-  if (typeof prettyPrintOne == 'function') { 
+  if (typeof prettyPrintOne === 'function') { 
     codeNode.innerHTML = prettyPrintOne(unescapedCodeString, 'js');
   }
   return codeNode;
 }
 
+ /**
+  * Show the user's code in raw JavaScript in its own modal popup.
+  * @param {Element} origin Animate the dialog opening/closing from/to this
+  *     DOM element.  If null, don't show any animations for opening or closing.
+  */
+BlocklyApps.showGeneratedCode = function(origin) {
+  var pre = document.getElementById('containerCode');
+  pre.appendChild(BlocklyApps.getGeneratedCodeElement());
+  var content = document.getElementById('dialogCode');
+  var style = {
+    width: '40%',
+    left: '30%',
+    top: '5em'
+  };
+  dialog.show(content, origin, true, true, style);
+}
+
 /**
- * Show the user's code in raw JavaScript.
+ * Show the user's code in raw JavaScript in the feedback modal popup.
  * @param {Element} showLinkElement The link element from which the code display is triggered.
  */
-BlocklyApps.showGeneratedCode = function(showLinkElement) {
+BlocklyApps.showGeneratedCodeInFeedback = function(showLinkElement) {
   var pre = document.getElementById('generatedCodeContainer');
   pre.appendChild(BlocklyApps.getGeneratedCodeElement());
   pre.parentNode.style.display = 'block';
