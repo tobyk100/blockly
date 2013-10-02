@@ -76,6 +76,8 @@ Turtle.init = function(config) {
 
   level = levels.install(BlocklyApps, Turtle, config.levelId);
 
+  var instructions = config.level.instructions || '';
+
   config.page = Turtle.PAGE;
   config.level = Turtle.LEVEL;
   var html = turtlepage.start({}, null, config);
@@ -120,7 +122,6 @@ Turtle.init = function(config) {
   Blockly.fireUiEvent(window, 'resize');
 
   // Show the instructions.
-  var instructions = config.level.instructions || '';
   document.getElementById('prompt').innerHTML = instructions;
 
   // Initialize the slider.
