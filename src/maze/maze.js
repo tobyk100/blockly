@@ -347,13 +347,12 @@ Maze.init = function(config) {
   skin = config.skin;
   loadLevel(config.levelId);
 
-  config.level = level;
-
   // Override the current level with caller supplied parameters.
   for (var prop in config.level) {
     level[prop] = config.level[prop];
   }
 
+  config.level = level;
   var html = mazepage.start({}, null, config);
   document.getElementById(config.containerId).innerHTML = html;
 
