@@ -288,16 +288,17 @@ BlocklyApps.reset = function(first) {};
  * EMPTY_BLOCKS_FAIL can only occur if BlocklyApps.CHECK_FOR_EMPTY_BLOCKS true.
  */
 BlocklyApps.TestResults = {
-  NO_TESTS_RUN: -1,          // Default.
-  FREE_PLAY: 0,              // 0 stars, try again or continue.
-  EMPTY_BLOCK_FAIL: 1,       // 0 stars.
-  TOO_FEW_BLOCKS_FAIL: 2,    // 0 stars.
-  LEVEL_INCOMPLETE_FAIL: 3,  // 0 stars.
-  MISSING_BLOCK_FAIL: 10,    // 1 star.
-  OTHER_1_STAR_FAIL: 11,     // Application-specific 1-star failure.
-  TOO_MANY_BLOCKS_FAIL: 20,  // 2 stars.
-  OTHER_2_STAR_FAIL: 21,     // Application-specific 2-star failure.
-  ALL_PASS: 100              // 3 stars.
+  NO_TESTS_RUN: -1,           // Default.
+  FREE_PLAY: 0,               // 0 stars, try again or continue.
+  EMPTY_BLOCK_FAIL: 1,        // 0 stars.
+  TOO_FEW_BLOCKS_FAIL: 2,     // 0 stars.
+  LEVEL_INCOMPLETE_FAIL: 3,   // 0 stars.
+  MISSING_BLOCK_UNFINISHED: 4,// 0 star.
+  MISSING_BLOCK_FINISHED: 10, // 1 star.
+  OTHER_1_STAR_FAIL: 11,      // Application-specific 1-star failure.
+  TOO_MANY_BLOCKS_FAIL: 20,   // 2 stars.
+  OTHER_2_STAR_FAIL: 21,      // Application-specific 2-star failure.
+  ALL_PASS: 100               // 3 stars.
 };
 
 /**
@@ -455,7 +456,11 @@ BlocklyApps.getTestResults = function() {
     return BlocklyApps.TestResults.EMPTY_BLOCK_FAIL;
   }
   if (!BlocklyApps.hasAllRequiredBlocks()) {
-    return BlocklyApps.TestResults.MISSING_BLOCK_FAIL;
+    if (BlocklyApps.levelComplete) {
+      return BlocklyApps.TestResults.MISSING_BLOCK_FINISHED;
+    } else {
+      return BlocklyApps.TestResults.MISSING_BLOCK_UNFINISHED;
+    }
   }
   var numBlocksUsed = BlocklyApps.getNumBlocksUsed();
   if (!BlocklyApps.levelComplete) {
@@ -549,8 +554,22 @@ BlocklyApps.setErrorFeedback = function(options) {
       document.getElementById('appSpecificOneStarFeedback')
             .style.display = 'list-item';
       break;
+    // Zero star for failing to use required blocks and not completed level.
+    case BlocklyApps.TestResults.MISSING_BLOCK_UNFINISHED:
+      // For each error type in the array, display the corresponding error.
+      var missingBlocks = BlocklyApps.getMissingRequiredBlocks();
+      if (missingBlocks.length) {
+        document.getElementById('missingBlocksError')
+            .style.display = 'list-item';
+        document.getElementById('feedbackBlocks').src =
+            BlocklyApps.BASE_URL + options.app + '/readonly.html?xml=' +
+            BlocklyApps.generateXMLForBlocks(missingBlocks) +
+            (options.skin ? '&skin=' + options.skin : '');
+        document.getElementById('feedbackBlocks').style.display = 'block';
+      }
+      break;
     // One star for failing to use required blocks but only if level completed.
-    case BlocklyApps.TestResults.MISSING_BLOCK_FAIL:
+    case BlocklyApps.TestResults.MISSING_BLOCK_FINISHED:
       // For each error type in the array, display the corresponding error.
       var missingBlocks = BlocklyApps.getMissingRequiredBlocks();
       if (missingBlocks.length) {
@@ -699,7 +718,7 @@ BlocklyApps.displayCloseDialogButtons = function(feedbackType) {
       tryAgainButton.style.display = 'inline';
       returnToLevelButton.style.display = 'none';
       break;
-    case BlocklyApps.TestResults.MISSING_BLOCK_FAIL:
+    case BlocklyApps.TestResults.MISSING_BLOCK_FINISHED:
     case BlocklyApps.TestResults.OTHER_1_STAR_FAIL:
       tryAgainButton.style.display = 'inline';
       continueButton.style.display = 'none';
