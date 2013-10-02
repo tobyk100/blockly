@@ -215,7 +215,7 @@ exports.defineWithArg_ = function(func_name, arg_name) {
     },
     type: 'procedures_defnoreturn',
     titles: {'NAME': func_name},
-    extra: '<mutation><arg name="' + arg_name + '"></arg>'
+    extra: '<mutation><arg name="' + arg_name + '"></arg></mutation>'
   };
 };
 
@@ -325,7 +325,7 @@ var LEVELS = {
   },
   // Level 9: circle.
   '1_9': {
-    ideal: 3,
+    ideal: 0,
     toolbox: toolbox(1, 9),
     startBlocks: startBlocks(1, 9),
     freePlay: false,
@@ -431,6 +431,7 @@ var LEVELS = {
         values: {'VALUE': makeMathNumber(100)}
       }],
       [simpleBlock('jump')],
+      [repeat(3)],
       [simpleBlock('draw_colour')]
     ],
     requiredColors: 3,
@@ -542,7 +543,7 @@ var LEVELS = {
   },
   // Level 7: Add parameter to "draw a house".
   '3_7': {
-    ideal: 13,
+    ideal: 11,
     toolbox: toolbox(3, 7),
     startBlocks: startBlocks(3, 7),
     requiredBlocks: [
@@ -607,9 +608,7 @@ var LEVELS = {
   }
 };
 
-exports.install = function(BlocklyApps, Turtle) {
-  var levelId = BlocklyApps.getStringParamFromUrl('level', '1_1');
-
+exports.install = function(BlocklyApps, Turtle, levelId) {
   //TODO: Remove PAGE and LEVEL variables
   var split = levelId.split('_');
   Turtle.PAGE = Number(split[0]);

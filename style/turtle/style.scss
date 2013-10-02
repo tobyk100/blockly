@@ -1,3 +1,5 @@
+$root: '../../media/turtle/';
+
 /* Instructions. */
 #bubble {
   width: 385px;
@@ -81,7 +83,7 @@ button.disabled {
 .icon21 {
   height: 21px;
   width: 21px;
-  background-image: url(icons.png);
+  background-image: url("#{$root}icons.png");
 }
 .code {
  background-position: -42px 0px;

@@ -1,7 +1,6 @@
 {
   "name": "blockly-mooc",
-  "version": "0.0.1",
-  "dependencies": {},
+  "version": "0.0.3",
   "repository": "https://github.com/code-dot-org/blockly.git",
   "engines": {
     "node": "~0.10.18"
@@ -15,10 +14,14 @@
     "grunt-contrib-concat": "~0.3.0",
     "grunt-contrib-jshint": "~0.6.4",
     "grunt-contrib-watch": "~0.5.3",
-    "grunt-contrib-connect": "~0.5.0",
     "connect-livereload": "~0.3.0",
     "grunt-browserify": "~1.2.4",
     "grunt-sass": "~0.6.1",
-    "messageformat": "~0.1.6"
+    "messageformat": "~0.1.6",
+    "handlebars-runtime": "~1.0.12",
+    "hbsfy": "~0.1.5",
+    "grunt-express": "~1.2.0",
+    "hbs": "~2.4.0",
+    "grunt-release": "~0.6.0"
   }
 }

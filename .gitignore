@@ -1,6 +1,7 @@
 # System
 *.pyc
 .DS_Store
+npm-debug.log
 
 # Generated
 build/

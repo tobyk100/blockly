@@ -1,30 +1,10 @@
-window.BlocklyApps = require('../base');
+var appMain = require('../appMain');
 window.Maze = require('./maze');
 var blocks = require('./blocks');
+var skins = require('../skins');
 
 window.mazeMain = function(options) {
-
-  if (!options) {
-    options = {};
-  }
-
-  //TODO: Untangle app initialization & template rendering, move this in there.
-  if (options.helpHtml) {
-    Maze.config.helpHtml = options.helpHtml;
-  }
-
-  if (!options.readonly) {
-    document.write(mazepage.start({}, null, Maze.config));
-  }
-
-  blocks.install(Blockly, Maze.config.skin);
-
-  window.addEventListener('load', function() {
-    if (options.readonly) {
-      BlocklyApps.initReadonly();
-    } else {
-      Maze.init(options);
-    }
-  });
-
+  options.skin = skins.load(options.baseUrl, options.skinId);
+  options.blocksModule = blocks;
+  appMain(window.Maze, options);
 };

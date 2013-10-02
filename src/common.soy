@@ -37,7 +37,7 @@
   <table id="gameButtons" width="400" style="padding-top: 10px;">
     <tr>
       <td style="width: 190px; text-align: center; vertical-align: top;">
-        <button class="notext" title="{msg meaning="Maze.codeTooltip"
+        <button class="notext" title="{msg meaning="Apps.codeTooltip"
           desc="tooltip (pop-up help) for button; pressing the button causes a
           program in the JavaScript computer language to be displayed, based on
           the program created by the user."}See generated JavaScript code.{/msg}"
@@ -47,7 +47,7 @@
       </td>
       <td>
         <button id="runButton" class="launch" onclick="{$appInstance}.runButtonClick();">
-            <img src="{$ij.baseUrl}media/1x1.gif" class="run icon21">{msg meaning="Maze.runProgram"
+            <img src="{$ij.baseUrl}media/1x1.gif" class="run icon21">{msg meaning="Apps.runProgram"
             desc="button label - Pressing the button runs the computer program the user has
             written."}Run{/msg}
           </button>
@@ -55,7 +55,7 @@
         <button id="resetButton" class="launch"
           onclick="BlocklyApps.resetButtonClick();" style="display: none">
             <img src="{$ij.baseUrl}media/1x1.gif" class="stop icon21">
-              {msg meaning="Maze.resetProgram" desc="button label -
+              {msg meaning="Apps.resetProgram" desc="button label -
                 Pressing the button causes Pegman return to the start of the maze
                 (but does not delete the user's program.)"}Reset{/msg}
           </button>
@@ -104,7 +104,7 @@
     {/if}
   </ul>  // feedbackText
   <iframe id="feedbackBlocks" class="feedback" style="margin-left: 50px;
-    height: 80px; width: 500px; border: none; display: none;" src=""></iframe>
+    height: 80px; width: 500px; border: none; display: none;" src="about:blank"></iframe>
 {/template}
 
 /**
@@ -115,12 +115,12 @@
   <div style="text-align: center">
     <button id="tryAgainButton" class="launch" style="display: none"
       onclick="BlocklyApps.tryAgainClicked();">
-      {msg meaning="Turtle.tryAgain" desc="button - Closes the dialog and
+      {msg meaning="Apps.tryAgain" desc="button - Closes the dialog and
         stays on the current level"}Try again{/msg}
     </button>
     <button id="continueButton" class="launch" style="display: none"
       onclick="BlocklyApps.continueClicked();">
-        {msg meaning="Turtle.continue" desc="button - Closes the dialog and
+        {msg meaning="Apps.continue" desc="button - Closes the dialog and
           continues to the next level"}Continue{/msg}
     </button>
   </div>

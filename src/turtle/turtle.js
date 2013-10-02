@@ -28,6 +28,7 @@ window.Turtle = module.exports;
 /**
  * Create a namespace for the application.
  */
+var BlocklyApps = require('../base');
 var Turtle = module.exports;
 var Slider = require('../slider');
 var msg = require('../../build/en_us/i18n/turtle');
@@ -43,7 +44,7 @@ var codegen = require('../codegen');
  */
 Turtle.PROCEDURE_CALL_TEMPLATE_ = 'procedures_callnoreturn[^e]*e="%1"';
 
-var level = levels.install(BlocklyApps, Turtle);
+var level;
 
 BlocklyApps.CHECK_FOR_EMPTY_BLOCKS = false;
 BlocklyApps.NUM_REQUIRED_BLOCKS_TO_FLAG = 1;
@@ -72,12 +73,13 @@ Turtle.visible = true;
  * Initialize Blockly and the turtle.  Called on page load.
  */
 Turtle.init = function(config) {
-  if (!config) {
-    config = {};
-  }
-  if (!config.level) {
-    config.level = {};
-  }
+
+  level = levels.install(BlocklyApps, Turtle, config.levelId);
+
+  config.page = Turtle.PAGE;
+  config.level = Turtle.LEVEL;
+  var html = turtlepage.start({}, null, config);
+  document.getElementById(config.containerId).innerHTML = html;
 
   BlocklyApps.init(config);
 
@@ -170,8 +172,6 @@ Turtle.init = function(config) {
     });
   }
 
-  // Lazy-load the syntax-highlighting.
-  window.setTimeout(BlocklyApps.importPrettify, 1);
 };
 
 /**
