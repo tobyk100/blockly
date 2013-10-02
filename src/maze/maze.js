@@ -386,7 +386,6 @@ Maze.init = function(config) {
         Maze.start_ = {x: x, y: y};
       } else if (Maze.map[y][x] == SquareType.FINISH) {
         Maze.finish_ = {x: x, y: y};
-      // Nan's
       } else if (Maze.map[y][x] == SquareType.STARTANDFINISH) {
         Maze.start_ = {x: x, y: y};
         Maze.finish_ = {x: x, y: y};
@@ -450,7 +449,6 @@ BlocklyApps.reset = function(first) {
   var svg = document.getElementById('svgMaze');
 
   if (Maze.finish_) {
-
     // Move the finish icon into position.
     var finishIcon = document.getElementById('finish');
     finishIcon.setAttribute('x', Maze.SQUARE_SIZE * (Maze.finish_.x + 0.5) -
@@ -469,7 +467,6 @@ BlocklyApps.reset = function(first) {
     path.setAttribute('stroke', skin.look);
   }
 
-  // Nan's
   // Move the init dirt marker icons into position.
   var dirtId = 0;
   var pegmanIcon = document.getElementById('pegman');
