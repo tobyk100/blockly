@@ -36,13 +36,7 @@ var levels = require('./levels');
 var Colours = require('./core').Colours;
 var answers = require('./answers');
 var codegen = require('../codegen');
-
-/**
- * Template used to generate a regular expression string checking that
- * the procedure whose name replaces '%1' is called.
- * @private
- */
-Turtle.PROCEDURE_CALL_TEMPLATE_ = 'procedures_callnoreturn[^e]*e="%1"';
+var api = require('./api');
 
 var level;
 
@@ -355,7 +349,7 @@ Turtle.execute = function() {
   try {
     codegen.evalWith(Turtle.code, {
       BlocklyApps: BlocklyApps,
-      Turtle: Turtle
+      Turtle: api
     });
   } catch (e) {
     // Null is thrown for infinite loop.
@@ -639,54 +633,4 @@ Turtle.checkAnswer = function() {
     app: 'turtle',
     feedbackType: feedbackType
   });
-};
-
-// Turtle API.
-
-Turtle.moveForward = function(distance, id) {
-  BlocklyApps.log.push(['FD', distance, id]);
-};
-
-Turtle.moveBackward = function(distance, id) {
-  BlocklyApps.log.push(['FD', -distance, id]);
-};
-
-Turtle.jumpForward = function(distance, id) {
-  BlocklyApps.log.push(['JF', distance, id]);
-};
-
-Turtle.jumpBackward = function(distance, id) {
-  BlocklyApps.log.push(['JF', -distance, id]);
-};
-
-Turtle.turnRight = function(angle, id) {
-  BlocklyApps.log.push(['RT', angle, id]);
-};
-
-Turtle.turnLeft = function(angle, id) {
-  BlocklyApps.log.push(['RT', -angle, id]);
-};
-
-Turtle.penUp = function(id) {
-  BlocklyApps.log.push(['PU', id]);
-};
-
-Turtle.penDown = function(id) {
-  BlocklyApps.log.push(['PD', id]);
-};
-
-Turtle.penWidth = function(width, id) {
-  BlocklyApps.log.push(['PW', Math.max(width, 0), id]);
-};
-
-Turtle.penColour = function(colour, id) {
-  BlocklyApps.log.push(['PC', colour, id]);
-};
-
-Turtle.hideTurtle = function(id) {
-  BlocklyApps.log.push(['HT', id]);
-};
-
-Turtle.showTurtle = function(id) {
-  BlocklyApps.log.push(['ST', id]);
 };

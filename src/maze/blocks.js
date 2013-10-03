@@ -68,7 +68,6 @@ exports.install = function(blockly, skin) {
     return 'Maze.fill(\'block_id_' + this.id + '\');\n';
   };
 
-  // Nan's
   blockly.Blocks.maze_dig = {
     // Block for putting for removing dirt from a tile.
     helpUrl: 'http://code.google.com/p/blockly/wiki/PickUp',
