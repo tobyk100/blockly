@@ -498,7 +498,21 @@ var LEVELS = {
       [move(100)],
       [call('draw a square')]
     ],
-    freePlay: false
+    freePlay: false,
+    images: [
+      {
+        filename: 'cat.svg',
+        position: [170, 247]
+      },
+      {
+        filename: 'cat.svg',
+        position: [170, 47]
+      },
+      {
+        filename: 'cow.svg',
+        position: [182, 147]
+      }
+    ]
   },
   // Level 4: House the lion.
   '3_4': {
@@ -511,7 +525,13 @@ var LEVELS = {
       [turnRight(30)],
       [call('draw a triangle')]
     ],
-    freePlay: false
+    freePlay: false,
+    images: [
+      {
+        filename: 'cow.svg',
+        position: [187, 97]
+      }
+    ]
   },
   // Level 5: Create "draw a house".
   '3_5': {
@@ -526,7 +546,17 @@ var LEVELS = {
       [call('draw a triangle')],
       [call('draw a house')]
     ],
-    freePlay: false
+    freePlay: false,
+    images: [
+      {
+        filename: 'cat.svg',
+        position: [170, 90]
+      },
+      {
+        filename: 'cat.svg',
+        position: [222, 90]
+      }
+    ]
   },
   // Level 6: Add parameter to "draw a triangle".
   '3_6': {
@@ -539,7 +569,17 @@ var LEVELS = {
       [callWithArg('draw a triangle', 'length')]
     ],
     requiredColors: 2,
-    freePlay: false
+    freePlay: false,
+    images: [
+      {
+        filename: 'lion.svg',
+        position: [185, 100]
+      },
+      {
+        filename: 'cat.svg',
+        position: [175, 248]
+      }
+    ]
   },
   // Level 7: Add parameter to "draw a house".
   '3_7': {
@@ -553,14 +593,38 @@ var LEVELS = {
       [simpleBlock('variables_get_height')],
       [callWithArg('draw a house', 'height')]
     ],
-    freePlay: false
+    freePlay: false,
+    images: [
+      {
+        filename: 'elephant.svg',
+        position: [205, 220]
+      }
+    ]
   },
   // Level 8: Draw houses.
   '3_8': {
     ideal: 27,
     toolbox: toolbox(3, 8),
     startBlocks: startBlocks(3, 8),
-    freePlay: false
+    freePlay: false,
+    images: [
+      {
+        filename: 'cat.svg',
+        position: [16, 170]
+      },
+      {
+        filename: 'lion.svg',
+        position: [15, 250]
+      },
+      {
+        filename: 'elephant.svg',
+        position: [127, 220]
+      },
+      {
+        filename: 'cow.svg',
+        position: [255, 250]
+      }
+    ]
   },
   // Level 9: Draw houses with for loop.
   '3_9': {
@@ -573,7 +637,21 @@ var LEVELS = {
       [SET_COLOUR_RANDOM]
     ],
     requiredColors: 3,
-    freePlay: false
+    freePlay: false,
+    images: [
+      {
+        filename: 'cat.svg',
+        position: [-10, 270]
+      },
+      {
+        filename: 'cow.svg',
+        position: [53, 250]
+      },
+      {
+        filename: 'elephant.svg',
+        position: [175, 220]
+      }
+    ]
   },
   // Level 10: playground.
   '3_10': {
