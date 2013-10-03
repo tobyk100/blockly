@@ -329,7 +329,8 @@ var LEVELS = {
     toolbox: toolbox(1, 9),
     startBlocks: startBlocks(1, 9),
     freePlay: false,
-    sliderSpeed: 0.9
+    sliderSpeed: 0.9,
+    permittedErrors: 10
   },
   // Level 10: playground.
   '1_10': {

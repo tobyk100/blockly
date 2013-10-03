@@ -562,14 +562,19 @@ Turtle.checkAnswer = function() {
 
   // Allow some number of pixels to be off, but be stricter
   // for certain levels.
-  var permittedErrors = Turtle.PAGE == 1 && Turtle.LEVEL == 9 ? 10 : 150;
+  var permittedErrors;
+  if (level.permittedErrors !== undefined) {
+    permittedErrors = level.permittedErrors;
+  } else {
+    permittedErrors = 150;
+  }
   // Test whether the current level is a free play level, or the level has
   // been completed
   BlocklyApps.levelComplete =
       level.freePlay || answers.isCorrect(delta, permittedErrors);
   var feedbackType = BlocklyApps.getTestResults();
-  
-  var xml = Blockly.Xml.workspaceToDom(Blockly.mainWorkspace);  
+
+  var xml = Blockly.Xml.workspaceToDom(Blockly.mainWorkspace);
   var textBlocks = Blockly.Xml.domToText(xml);
 
   BlocklyApps.report('turtle', Turtle.LEVEL,
