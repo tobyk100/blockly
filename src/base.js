@@ -551,7 +551,7 @@ var showFeedbackBlocks = function(options) {
   if (missingBlocks.length === 0) {
     return;
   }
-  document.getElementById('missingBlocksError').style.display = 'list-item';
+  document.getElementById('missingBlocksError').style.display = 'block';
   var html = readonly({
     baseUrl: BlocklyApps.BASE_URL,
     app: options.app,
