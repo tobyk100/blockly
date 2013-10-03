@@ -418,6 +418,7 @@ var LEVELS = {
   },
   // Level 8: Three snowmen.
   '2_8': {
+    initialX: 100,
     ideal: 9,
     toolbox: toolbox(2, 8),
     startBlocks: startBlocks(2, 8),
@@ -440,6 +441,7 @@ var LEVELS = {
   },
   // Level 9: Snowman family.
   '2_9': {
+    initialX: 100,
     ideal: 12,
     toolbox: toolbox(2, 9),
     startBlocks: startBlocks(2, 9),
@@ -490,6 +492,7 @@ var LEVELS = {
   },
   // Level 3: Fence the animals.
   '3_3': {
+    initialY: 350,
     ideal: 7,
     toolbox: toolbox(3, 3),
     startBlocks: startBlocks(3, 3),
@@ -560,6 +563,7 @@ var LEVELS = {
   },
   // Level 6: Add parameter to "draw a triangle".
   '3_6': {
+    initialY: 350,
     ideal: 13,
     toolbox: toolbox(3, 6),
     startBlocks: startBlocks(3, 6),
@@ -583,6 +587,7 @@ var LEVELS = {
   },
   // Level 7: Add parameter to "draw a house".
   '3_7': {
+    initialY: 350,
     ideal: 11,
     toolbox: toolbox(3, 7),
     startBlocks: startBlocks(3, 7),
@@ -603,6 +608,8 @@ var LEVELS = {
   },
   // Level 8: Draw houses.
   '3_8': {
+    initialX: 20,
+    initialY: 350,
     ideal: 27,
     toolbox: toolbox(3, 8),
     startBlocks: startBlocks(3, 8),
@@ -628,6 +635,8 @@ var LEVELS = {
   },
   // Level 9: Draw houses with for loop.
   '3_9': {
+    initialX: 20,
+    initialY: 350,
     ideal: 27,
     toolbox: toolbox(3, 9),
     startBlocks: startBlocks(3, 9),

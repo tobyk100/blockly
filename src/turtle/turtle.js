@@ -248,22 +248,11 @@ BlocklyApps.reset = function(ignore) {
   Turtle.visible = true;
 
   // For special cases, use a different initial location.
-  if (Turtle.PAGE == 2 &&
-      (Turtle.LEVEL == 8 || Turtle.LEVEL == 9)) {
-    Turtle.x = 100;
-  } else if (Turtle.PAGE == 3) {
-    switch (Turtle.LEVEL) {
-      case 3:
-      case 6:
-      case 7:
-        Turtle.y = 350;
-        break;
-      case 8:
-      case 9:
-        Turtle.x = 20;
-        Turtle.y = 350;
-        break;
-    }
+  if (level.initialX) {
+    Turtle.x = level.initialX;
+  }
+  if (level.initialY) {
+    Turtle.y = level.initialY;
   }
   // Clear the display.
   Turtle.ctxScratch.canvas.width = Turtle.ctxScratch.canvas.width;
