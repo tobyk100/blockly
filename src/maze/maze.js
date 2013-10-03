@@ -1021,12 +1021,6 @@ Maze.checkSuccess = function() {
   }
 };
 
-// Core functions.
-
-Maze.notFinish = function(id) {
-  return !checkSuccess(id);
-};
-
 /**
  * Updates the tooManyBlocksError message with the ideal number of blocks so
  * the student can better understand how to improve their code.
