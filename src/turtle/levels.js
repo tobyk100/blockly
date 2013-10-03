@@ -606,7 +606,8 @@ var LEVELS = {
         filename: 'elephant.svg',
         position: [205, 220]
       }
-    ]
+    ],
+    storeWorkspace: true
   },
   // Level 8: Draw houses.
   '3_8': {
@@ -633,7 +634,9 @@ var LEVELS = {
         filename: 'cow.svg',
         position: [255, 250]
       }
-    ]
+    ],
+    loadWorkspace: 'drawAHouseNotDefined8',
+    storeWorkspace: true
   },
   // Level 9: Draw houses with for loop.
   '3_9': {
@@ -663,7 +666,8 @@ var LEVELS = {
         position: [175, 220]
       }
     ],
-    failForTooManyBlocks: true
+    failForTooManyBlocks: true,
+    loadWorkspace: 'drawAHouseNotDefined9'
   },
   // Level 10: playground.
   '3_10': {

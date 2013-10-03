@@ -125,14 +125,9 @@ Turtle.init = function(config) {
 
   // Add the starting block(s).
   var xml, dom;
-  if (Turtle.PAGE == 3 &&
-      (Turtle.LEVEL == 8 || Turtle.LEVEL == 9)) {
-    var notReadyMsg;
-    if (Turtle.LEVEL == 8) {
-      notReadyMsg = msg.drawAHouseNotDefined8();
-    } else {
-      notReadyMsg = msg.drawAHouseNotDefined9();
-    }
+  if (level.loadWorkspace) {
+    //XXX This is a pretty hacky way to resolve this error message.
+    var notReadyMsg = msg[level.loadWorkspace]();
     var storedXml = window.sessionStorage.turtle3Blocks;
     if (storedXml === undefined) {
       window.alert(notReadyMsg);
@@ -582,8 +577,7 @@ Turtle.checkAnswer = function() {
                      feedbackType,
                      textBlocks);
   if (BlocklyApps.levelComplete) {
-    if (Turtle.PAGE == 3 &&
-        (Turtle.LEVEL == 7 || Turtle.LEVEL == 8)) {
+    if (level.storeWorkspace) {
       // Store the blocks for the next level.
       window.sessionStorage.turtle3Blocks = textBlocks;
     }
