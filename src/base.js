@@ -166,7 +166,7 @@ BlocklyApps.getGeneratedCodeElement = function() {
   var unescapedCodeString = codegen.workspaceCode(Blockly);
   var codeNode = document.createTextNode(unescapedCodeString);
   return codeNode;
-}
+};
 
  /**
   * Show the user's code in raw JavaScript in its own modal popup.
@@ -183,7 +183,7 @@ BlocklyApps.showGeneratedCode = function(origin) {
     top: '5em'
   };
   dialog.show(content, origin, true, true, style);
-}
+};
 
 /**
  * Show the user's code in raw JavaScript in the feedback modal popup.
