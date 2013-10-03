@@ -165,9 +165,6 @@ BlocklyApps.getGeneratedCodeElement = function() {
   // Inject the code as a textNode, then extract with innerHTML, thus escaping.
   var unescapedCodeString = codegen.workspaceCode(Blockly);
   var codeNode = document.createTextNode(unescapedCodeString);
-  if (typeof prettyPrintOne === 'function') { 
-    codeNode.innerHTML = prettyPrintOne(unescapedCodeString, 'js');
-  }
   return codeNode;
 }
 
