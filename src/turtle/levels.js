@@ -661,7 +661,8 @@ var LEVELS = {
         filename: 'elephant.svg',
         position: [175, 220]
       }
-    ]
+    ],
+    failForTooManyBlocks: true
   },
   // Level 10: playground.
   '3_10': {

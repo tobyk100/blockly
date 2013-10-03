@@ -589,10 +589,9 @@ Turtle.checkAnswer = function() {
     }
   }
 
-  // Level 9 of Turtle 3 is a special case.  Do not let the user proceed
-  // if they used too many blocks, since it would allow them to miss the
-  // point of the level.
-  if (Turtle.PAGE == 3 && Turtle.LEVEL == 9 &&
+  // For levels where using too many blocks would allow students
+  // to miss the point, convert that feedback to a failure.
+  if (level.failForTooManyBlocks &&
       feedbackType == BlocklyApps.TestResults.TOO_MANY_BLOCKS_FAIL) {
     // TODO: Add more helpful error message.
     feedbackType = BlocklyApps.TestResults.OTHER_1_STAR_FAIL;
