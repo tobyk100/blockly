@@ -171,9 +171,5 @@
   "showGeneratedCode": {
     "string": "Show code",
     "description": "Link label for displaying the user's generated code"
-  },
-  "generatedCodeInfo": {
-    "string": "The blocks for your program can also be represented in Javascript, the world's most popular programming language:",
-    "description": "Informational message about user's generated Javascript code"
   }
 }

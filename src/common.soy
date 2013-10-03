@@ -60,37 +60,33 @@
  * @param? appSpecific Contains feedback entries for a particular app.
  */
 {template .feedback}
-    <span id="levelFeedbackText">
-              <span id="hintTitle" class="feedback">{msg meaning="Apps.hintTitle" desc="IBID"}{/msg}Hints:</span>
-    <div id="nextLevelMsg" class="feedback" style="display: none;">{msg
-      meaning="Apps.nextLevel" desc="IBID"}Congratulations! You have completed this level.{/msg}</div>
-    <div id="finalLevelMsg" class="feedback" style="display: none;">{msg
+    <ul id="levelFeedbackText">
+              <span id="hintTitle" class="feedback" style="display: none; margin-left: -30px">{msg meaning="Apps.hintTitle" desc="IBID"}{/msg}Hints:</span>
+    <li id="nextLevelMsg" class="feedback" style="display: none; margin-left: -40px;">{msg
+      meaning="Apps.nextLevel" desc="IBID"}Congratulations! You have completed this level.{/msg}</li>
+    <li id="finalLevelMsg" class="feedback" style="display: none; margin-left: -40px;">{msg
       meaning="Apps.finalLevelMsg" desc="alert - This is displayed when
       the user solves the most difficult level."}Congratulations! You
-      have solved the final level.{/msg}</div>
-    <div id="emptyBlocksError" class="feedback" style="display: none">
-      {msg meaning="Apps.emptyBlocksErrorMsg" desc="IBID"}There are one or more empty blocks. Try to fill them with other blocks.{/msg}</div>
-    <div id="missingBlocksError" class="feedback" style="display: none">
-      {msg meaning="Apps.missingBlocksErrorMsg" desc="IBID"}Try one or more of the blocks below to solve this level.{/msg}</div>
-    <div id="tooManyBlocksError" class="feedback" style="display: none">
-      {msg meaning="Apps.tooManyBlocksMsg" desc="IBID"}This level can be solved with <span id="idealNumberMessage"></span> blocks.{/msg}</div>
-    <div id="tooFewBlocksError" class="feedback" style="display: none">
-      {msg meaning="Apps.tooFewBlocksMsg" desc="IBID"}You are using all of the necessary types of blocks, but try using more  of these types of blocks to complete this level.{/msg}</div>
-    <div id="levedivncompleteError" class="feedback" style="display: none">
-      {msg meaning="Apps.levedivncompleteError" desc="IBID"}You are using all of the necessary types of blocks but not in the right way.{/msg}</div>
-    <div id="rinfFeedbackMsg" class="feedback" style="display: none">
-      {msg meaning="Apps.rinfFeedbackMsg" desc="IBID"}Does this look divke what you want? Hint: You can press the space key to see your drawing.{/msg}</div>
+      have solved the final level.{/msg}</li>
+    <li id="emptyBlocksError" class="feedback" style="display: none">
+      {msg meaning="Apps.emptyBlocksErrorMsg" desc="IBID"}There are one or more empty blocks. Try to fill them with other blocks.{/msg}</li>
+    <li id="missingBlocksError" class="feedback" style="display: none">
+      {msg meaning="Apps.missingBlocksErrorMsg" desc="IBID"}Try one or more of the blocks below to solve this level.{/msg}</li>
+    <li id="tooManyBlocksError" class="feedback" style="display: none">
+      {msg meaning="Apps.tooManyBlocksMsg" desc="IBID"}This level can be solved with <span id="idealNumberMessage"></span> blocks.{/msg}</li>
+    <li id="tooFewBlocksError" class="feedback" style="display: none">
+      {msg meaning="Apps.tooFewBlocksMsg" desc="IBID"}You are using all of the necessary types of blocks, but try using more  of these types of blocks to complete this level.{/msg}</li>
+    <li id="levelIncompleteError" class="feedback" style="display: none">
+      {msg meaning="Apps.levelIncompleteError" desc="IBID"}You are using all of the necessary types of blocks but not in the right way.{/msg}</li>
+    <li id="rinfFeedbackMsg" class="feedback" style="display: none">
+      {msg meaning="Apps.rinfFeedbackMsg" desc="IBID"}Does this look like what you want? Hint: You can press the space key to see your drawing.{/msg}</li>
     {if $appSpecific}
       {$appSpecific |noAutoescape}
     {/if}
-  </span>  // feedbackText
-  <div id="linesOfCodeFeedbackMsg" class="linesOfCodeMsg"></div>
+  </ul>  // feedbackText
+  <div id="linesOfCodeFeedbackMsg" class="levelFeedbackText"></div>
   <a id="showLinesOfCodeLink" href="javascript:;" onclick="BlocklyApps.showGeneratedCode(this);"></a>
-  <span style="display:none">
-  <hr/>
-  <div id="generatedCodeInfoMsg"></div>
-  <pre id="generatedCodeContainer" class="generatedCode"></pre>
-  </span>
+  <div id="generatedCodeContainer" class="generatedCode"></div>
   <iframe id="feedbackBlocks" class="feedback" style="margin-left: 50px;
     height: 80px; width: 500px; border: none; display: none;" src="about:blank"></iframe>
 {/template}
