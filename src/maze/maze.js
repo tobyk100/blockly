@@ -549,6 +549,9 @@ var displayFeedback = function() {
  * Execute the user's code.  Heaven help us...
  */
 Maze.execute = function() {
+  var xmlDom = Blockly.Xml.workspaceToDom(Blockly.mainWorkspace);
+  var xmlText = Blockly.Xml.domToPrettyText(xmlDom);
+  console.log(xmlText);
   BlocklyApps.log = [];
   BlocklyApps.ticks = 50; //TODO: Set higher for some levels
   var code = Blockly.Generator.workspaceToCode('JavaScript');
