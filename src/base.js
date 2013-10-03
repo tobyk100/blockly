@@ -22,6 +22,7 @@
  * @author fraser@google.com (Neil Fraser)
  */
 "use strict";
+
 var BlocklyApps = module.exports;
 var msg = require('../build/en_us/i18n/common');
 var dialog = require('./dialog');
@@ -607,10 +608,6 @@ BlocklyApps.setErrorFeedback = function(options) {
     case BlocklyApps.TestResults.FREE_PLAY:
       document.getElementById('reinfFeedbackMsg').style.display = 'list-item';
       break;
-  }
-  if (BlocklyApps.levelComplete) {
-      BlocklyApps.setTextForElement('linesOfCodeFeedbackMsg', msg.numLinesOfCodeWritten({numLines: 5}));
-      document.getElementById('linesOfCodeFeedbackMsg').style.display = 'block';
   }
 };
 

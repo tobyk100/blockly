@@ -1,6 +1,6 @@
 module.exports = function(grunt) {
   'use strict';
-  var MessageFormat = require('messageformat');
+
   var path = require('path');
   var fs = require('fs');
   var MessageFormat = require('messageformat');
@@ -21,12 +21,11 @@ module.exports = function(grunt) {
           return path.join(destBase, locale, filename);
         }
       });
-      var mf = new MessageFormat(locale);
       files.forEach(function(file) {
 
         var messages = grunt.file.readJSON(file.src[0]);
 
-        var code = 'var MessageFormat = require("messageformat");\n\n';
+        var code = '';
         Object.keys(messages).forEach(function(key) {
           var string = messages[key].string;
           code += 'exports.' + key + ' = ';
