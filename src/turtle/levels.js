@@ -738,11 +738,6 @@ var LEVELS = {
 };
 
 exports.install = function(BlocklyApps, Turtle, levelId) {
-  //TODO: Remove PAGE and LEVEL variables
-  var split = levelId.split('_');
-  Turtle.PAGE = Number(split[0]);
-  Turtle.LEVEL = Number(split[1]);
-
   var level = LEVELS[levelId];
   level.id = levelId;
   BlocklyApps.IDEAL_BLOCK_NUM = level.ideal || Infinity;

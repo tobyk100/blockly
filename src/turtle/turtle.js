@@ -72,8 +72,6 @@ Turtle.init = function(config) {
   config.level = config.level || {};
   var instructions = config.level.instructions || '';
 
-  config.page = Turtle.PAGE;
-  config.level = Turtle.LEVEL;
   var html = turtlepage.start({}, null, config);
   document.getElementById(config.containerId).innerHTML = html;
 
