@@ -330,7 +330,8 @@ var LEVELS = {
     startBlocks: startBlocks(1, 9),
     freePlay: false,
     sliderSpeed: 0.9,
-    permittedErrors: 10
+    permittedErrors: 10,
+    failForCircleRepeatValue: true
   },
   // Level 10: playground.
   '1_10': {

@@ -601,7 +601,7 @@ Turtle.checkAnswer = function() {
     // Check that they didn't use a crazy large repeat value when drawing a
     // circle.  This complains if the limit doesn't start with 3.
     // Note that this level does not use colour, so no need to check for that.
-    if (Turtle.PAGE == 1 && Turtle.LEVEL == 9) {
+    if (level.failForCircleRepeatValue) {
       var code = Blockly.Generator.workspaceToCode('JavaScript');
       if (code.indexOf('count < 3') == -1) {
           feedbackType = BlocklyApps.TestResults.OTHER_2_STAR_FAIL;
