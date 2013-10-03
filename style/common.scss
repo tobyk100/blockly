@@ -130,7 +130,7 @@ input[type="radio"] {
 #dialog button {
   min-width: 4em;
 }
-.levelFeedbackText {
+#levelFeedbackText {
   border: 0;
   text-align: center;
   overflow: hidden;
@@ -143,11 +143,7 @@ input[type="radio"] {
 .feedback {
   line-height: 28px;
 }
-.generatedCode {
-  width: '40%';
-  left: '30%';
-  top: '5em';
-}
+
 #hintBubble {
   position: absolute;
   left: 10px;

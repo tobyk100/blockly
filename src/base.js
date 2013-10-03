@@ -159,30 +159,24 @@ BlocklyApps.hideDialog = function(opt_animate) {
 };
 
 /**
- * Retrieve a DOM text node containing the user's generated Javascript code.
- */
-BlocklyApps.getGeneratedCodeElement = function() {
-  // Inject the code as a textNode, then extract with innerHTML, thus escaping.
-<<<<<<< HEAD
-  pre.appendChild(document.createTextNode(code));
-=======
-  var unescapedCodeString = codegen.workspaceCode(Blockly);
-  var codeNode = document.createTextNode(unescapedCodeString);
-  if (typeof prettyPrintOne == 'function') { 
-    codeNode.innerHTML = prettyPrintOne(unescapedCodeString, 'js');
-  }
-  return codeNode;
-}
->>>>>>> Add generated code in JS to level completion modal (sans styling)
-
-/**
  * Show the user's code in raw JavaScript.
- * @param {Element} showLinkElement The link element from which the code display is triggered.
+ * @param {Element} origin Animate the dialog opening/closing from/to this
+ *     DOM element.  If null, don't show any animations for opening or closing.
  */
-BlocklyApps.showGeneratedCode = function(showLinkElement) {
-  var container = document.getElementById('generatedCodeContainer');
-  container.appendChild(BlocklyApps.getGeneratedCodeElement());
-  showLinkElement.display = 'none';
+BlocklyApps.showCode = function(origin) {
+  var code = codegen.workspaceCode(Blockly);
+  var pre = document.getElementById('containerCode');
+  pre.innerHTML = '';
+  // Inject the code as a textNode, then extract with innerHTML, thus escaping.
+  pre.appendChild(document.createTextNode(code));
+
+  var content = document.getElementById('dialogCode');
+  var style = {
+    width: '40%',
+    left: '30%',
+    top: '5em'
+  };
+  dialog.show(content, origin, true, true, style);
 };
 
 /**
@@ -616,7 +610,7 @@ BlocklyApps.setErrorFeedback = function(options) {
   }
   if (BlocklyApps.levelComplete) {
       BlocklyApps.setTextForElement('linesOfCodeFeedbackMsg', msg.numLinesOfCodeWritten({numLines: 5}));
-      BlocklyApps.setTextForElement('showLinesOfCodeLink', msg.showGeneratedCode());
+      document.getElementById('linesOfCodeFeedbackMsg').style.display = 'block';
   }
 };
 

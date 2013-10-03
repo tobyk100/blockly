@@ -26,12 +26,12 @@ module.exports = function(grunt) {
 
         var messages = grunt.file.readJSON(file.src[0]);
 
-        var code = 'var MessageFormat = require("messageformat");';
+        var code = 'var MessageFormat = require("messageformat");\n\n';
         Object.keys(messages).forEach(function(key) {
-          code += ';\n\n';
           var string = messages[key].string;
           code += 'exports.' + key + ' = ';
           code += mf.precompile(mf.parse(string));
+          code += ';\n\n';
         });
 
         grunt.file.write(file.dest, code);
