@@ -12,6 +12,7 @@ module.exports = function(grunt) {
     var destBase = this.data.destBase;
 
     locales.forEach(function(locale) {
+      var mf = new MessageFormat(locale);
       var pattern = srcBase + '/**/' + locale + '.json';
       var files = grunt.file.expandMapping(pattern, destBase, {
         expand: true,
