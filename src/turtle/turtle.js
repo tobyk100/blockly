@@ -206,14 +206,12 @@ Turtle.drawAnswer = function() {
  * Place an image at the specified coordinates.
  * Code from http://stackoverflow.com/questions/5495952. Thanks, Phrogz.
  * @param {string} filename Relative path to image.
- * @param {!Array} coordinates List of x-y pairs.
+ * @param {!Array} position An x-y pair.
  */
-Turtle.placeImage = function(filename, coordinates) {
+Turtle.placeImage = function(filename, position) {
   var img = new Image();
   img.onload = function() {
-    for (var i = 0; i < coordinates.length; i++) {
-      Turtle.ctxImages.drawImage(img, coordinates[i][0], coordinates[i][1]);
-    }
+    Turtle.ctxImages.drawImage(img, position[0], position[1]);
     Turtle.display();
   };
   img.src = BlocklyApps.BASE_URL + 'media/turtle/' + filename;
@@ -223,42 +221,16 @@ Turtle.placeImage = function(filename, coordinates) {
  * Draw the images for this page and level onto Turtle.ctxImages.
  */
 Turtle.drawImages = function() {
-  if (Turtle.PAGE == 3) {
-    switch (Turtle.LEVEL) {
-      case 3:
-        Turtle.placeImage('cat.svg', [[170, 247], [170, 47]]);
-        Turtle.placeImage('cow.svg', [[182, 147]]);
-        break;
-      case 4:
-        Turtle.placeImage('lion.svg', [[197, 97]]);
-        break;
-      case 5:
-        Turtle.placeImage('cat.svg', [[170, 90], [222, 90]]);
-        break;
-      case 6:
-        Turtle.placeImage('lion.svg', [[185, 100]]);
-        Turtle.placeImage('cat.svg', [[175, 248]]);
-        break;
-      case 7:
-        Turtle.placeImage('elephant.svg', [[205, 220]]);
-        break;
-      case 8:
-        Turtle.placeImage('cat.svg', [[16, 170]]);
-        Turtle.placeImage('lion.svg', [[15, 250]]);
-        Turtle.placeImage('elephant.svg', [[127, 220]]);
-        Turtle.placeImage('cow.svg', [[255, 250]]);
-        break;
-      case 9:
-        Turtle.placeImage('cat.svg', [[-10, 270]]);
-        Turtle.placeImage('cow.svg', [[53, 250]]);
-        Turtle.placeImage('elephant.svg', [[175, 220]]);
-        break;
-    }
-
-    Turtle.ctxImages.globalCompositeOperation = 'copy';
-    Turtle.ctxImages.drawImage(Turtle.ctxScratch.canvas, 0, 0);
-    Turtle.ctxImages.globalCompositeOperation = 'source-over';
+  if (!level.images) {
+    return;
   }
+  for (var i = 0; i < level.images.length; i++) {
+    var image = level.images[i];
+    Turtle.placeImage(image.filename, image.position);
+  }
+  Turtle.ctxImages.globalCompositeOperation = 'copy';
+  Turtle.ctxImages.drawImage(Turtle.ctxScratch.canvas, 0, 0);
+  Turtle.ctxImages.globalCompositeOperation = 'source-over';
 };
 
 /**
