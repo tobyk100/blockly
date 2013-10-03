@@ -125,14 +125,9 @@ Turtle.init = function(config) {
 
   // Add the starting block(s).
   var xml, dom;
-  if (Turtle.PAGE == 3 &&
-      (Turtle.LEVEL == 8 || Turtle.LEVEL == 9)) {
-    var notReadyMsg;
-    if (Turtle.LEVEL == 8) {
-      notReadyMsg = msg.drawAHouseNotDefined8();
-    } else {
-      notReadyMsg = msg.drawAHouseNotDefined9();
-    }
+  if (level.loadWorkspace) {
+    //XXX This is a pretty hacky way to resolve this error message.
+    var notReadyMsg = msg[level.loadWorkspace]();
     var storedXml = window.sessionStorage.turtle3Blocks;
     if (storedXml === undefined) {
       window.alert(notReadyMsg);
@@ -562,14 +557,19 @@ Turtle.checkAnswer = function() {
 
   // Allow some number of pixels to be off, but be stricter
   // for certain levels.
-  var permittedErrors = Turtle.PAGE == 1 && Turtle.LEVEL == 9 ? 10 : 150;
+  var permittedErrors;
+  if (level.permittedErrors !== undefined) {
+    permittedErrors = level.permittedErrors;
+  } else {
+    permittedErrors = 150;
+  }
   // Test whether the current level is a free play level, or the level has
   // been completed
   BlocklyApps.levelComplete =
       level.freePlay || answers.isCorrect(delta, permittedErrors);
   var feedbackType = BlocklyApps.getTestResults();
-  
-  var xml = Blockly.Xml.workspaceToDom(Blockly.mainWorkspace);  
+
+  var xml = Blockly.Xml.workspaceToDom(Blockly.mainWorkspace);
   var textBlocks = Blockly.Xml.domToText(xml);
 
   BlocklyApps.report('turtle', Turtle.LEVEL,
@@ -577,17 +577,15 @@ Turtle.checkAnswer = function() {
                      feedbackType,
                      textBlocks);
   if (BlocklyApps.levelComplete) {
-    if (Turtle.PAGE == 3 &&
-        (Turtle.LEVEL == 7 || Turtle.LEVEL == 8)) {
+    if (level.storeWorkspace) {
       // Store the blocks for the next level.
       window.sessionStorage.turtle3Blocks = textBlocks;
     }
   }
 
-  // Level 9 of Turtle 3 is a special case.  Do not let the user proceed
-  // if they used too many blocks, since it would allow them to miss the
-  // point of the level.
-  if (Turtle.PAGE == 3 && Turtle.LEVEL == 9 &&
+  // For levels where using too many blocks would allow students
+  // to miss the point, convert that feedback to a failure.
+  if (level.failForTooManyBlocks &&
       feedbackType == BlocklyApps.TestResults.TOO_MANY_BLOCKS_FAIL) {
     // TODO: Add more helpful error message.
     feedbackType = BlocklyApps.TestResults.OTHER_1_STAR_FAIL;
@@ -597,7 +595,7 @@ Turtle.checkAnswer = function() {
     // Check that they didn't use a crazy large repeat value when drawing a
     // circle.  This complains if the limit doesn't start with 3.
     // Note that this level does not use colour, so no need to check for that.
-    if (Turtle.PAGE == 1 && Turtle.LEVEL == 9) {
+    if (level.failForCircleRepeatValue) {
       var code = Blockly.Generator.workspaceToCode('JavaScript');
       if (code.indexOf('count < 3') == -1) {
           feedbackType = BlocklyApps.TestResults.OTHER_2_STAR_FAIL;
