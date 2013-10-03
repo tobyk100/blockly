@@ -350,7 +350,7 @@ BlocklyApps.updateCapacity = function() {
  */
 BlocklyApps.displayFeedback = function(options) {
   BlocklyApps.hideFeedback();
-  BlocklyApps.setErrorFeedback(options);
+  BlocklyApps.setLevelFeedback(options);
   BlocklyApps.prepareFeedback(options);
   BlocklyApps.displayCloseDialogButtons(options.feedbackType);
   BlocklyApps.showHelp(options.feedbackType);
@@ -574,7 +574,7 @@ var showFeedbackBlocks = function(options) {
  * @param {number} feedbackType A constant property of BlocklyApps.TestResults,
  *     typically produced by BlocklyApps.getTestResults().
  */
-BlocklyApps.setErrorFeedback = function(options) {
+BlocklyApps.setLevelFeedback = function(options) {
   switch (options.feedbackType) {
     // Give hint, not stars, for empty block or not finishing level.
     case BlocklyApps.TestResults.EMPTY_BLOCK_FAIL:
