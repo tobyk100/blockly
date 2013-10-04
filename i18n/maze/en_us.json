@@ -126,6 +126,10 @@
   },
   "pathAhead": {
     "id": "3293197141663117591",
+    "string": "path ahead",
+    "description": "condensed form of 'if there is a path ahead', as in: 'if path ahead, go forward'."
+  },
+  "ifPathAhead": {
     "string": "if path ahead",
     "description": "condensed form of 'if there is a path ahead', as in: 'if path ahead, go forward'."
   },
