@@ -1,4 +1,5 @@
 var Colours = require('./core').Colours;
+var answer = require('./answers').answer;
 
 //TODO: Fix hacky level-number-dependent toolbox.
 var toolbox = function(page, level) {
@@ -225,6 +226,7 @@ exports.defineWithArg_ = function(func_name, arg_name) {
 var LEVELS = {
   // Level 1: El.
   '1_1': {
+    answer: answer(1, 1),
     ideal: 3,
     toolbox: toolbox(1, 1),
     startBlocks: startBlocks(1, 1),
@@ -233,6 +235,7 @@ var LEVELS = {
   },
   // Level 2: Square (without repeat).
   '1_2': {
+    answer: answer(1, 2),
     ideal: 7,
     toolbox: toolbox(1, 2),
     startBlocks: startBlocks(1, 2),
@@ -246,6 +249,7 @@ var LEVELS = {
   },
   // Level 3: Square (with repeat).
   '1_3': {
+    answer: answer(1, 3),
     ideal: 3,
     toolbox: toolbox(1, 3),
     startBlocks: startBlocks(1, 3),
@@ -258,6 +262,7 @@ var LEVELS = {
   },
   // Level 4: Triangle.
   '1_4': {
+    answer: answer(1, 4),
     ideal: 3,
     toolbox: toolbox(1, 4),
     startBlocks: startBlocks(1, 4),
@@ -276,6 +281,7 @@ var LEVELS = {
   },
   // Level 5: Envelope.
   '1_5': {
+    answer: answer(1, 5),
     ideal: 6,
     toolbox: toolbox(1, 5),
     startBlocks: startBlocks(1, 5),
@@ -288,6 +294,7 @@ var LEVELS = {
   },
   // Level 6: triangle and square.
   '1_6': {
+    answer: answer(1, 6),
     ideal: 7,
     toolbox: toolbox(1, 6),
     startBlocks: startBlocks(1, 6),
@@ -301,6 +308,7 @@ var LEVELS = {
   },
   // Level 7: glasses.
   '1_7': {
+    answer: answer(1, 7),
     ideal: 8,
     toolbox: toolbox(1, 7),
     startBlocks: startBlocks(1, 7),
@@ -316,6 +324,7 @@ var LEVELS = {
   },
   // Level 8: spikes.
   '1_8': {
+    answer: answer(1, 8),
     ideal: 4,
     toolbox: toolbox(1, 8),
     startBlocks: startBlocks(1, 8),
@@ -325,6 +334,7 @@ var LEVELS = {
   },
   // Level 9: circle.
   '1_9': {
+    answer: answer(1, 9),
     ideal: 0,
     toolbox: toolbox(1, 9),
     startBlocks: startBlocks(1, 9),
@@ -335,6 +345,7 @@ var LEVELS = {
   },
   // Level 10: playground.
   '1_10': {
+    answer: answer(1, 10),
     toolbox: toolbox(1, 10),
     startBlocks: startBlocks(1, 10),
     freePlay: true
@@ -342,6 +353,7 @@ var LEVELS = {
   // Formerly Page 2.
   // Level 1: Square.
   '2_1': {
+    answer: answer(2, 1),
     ideal: 5,
     toolbox: toolbox(2, 1),
     startBlocks: startBlocks(2, 1),
@@ -356,6 +368,7 @@ var LEVELS = {
   },
   // Level 2: Small green square.
   '2_2': {
+    answer: answer(2, 2),
     ideal: 2,
     toolbox: toolbox(2, 2),
     startBlocks: startBlocks(2, 2),
@@ -368,6 +381,7 @@ var LEVELS = {
   },
   // Level 3: Three squares.
   '2_3': {
+    answer: answer(2, 3),
     ideal: 5,
     toolbox: toolbox(2, 3),
     startBlocks: startBlocks(2, 3),
@@ -381,6 +395,7 @@ var LEVELS = {
   },
   // Level 4: 36 squares.
   '2_4': {
+    answer: answer(3, 4),
     ideal: 5,
     toolbox: toolbox(2, 4),
     startBlocks: startBlocks(2, 4),
@@ -388,6 +403,7 @@ var LEVELS = {
   },
   // Level 5: Different size squares.
   '2_5': {
+    answer: answer(2, 5),
     ideal: 10,
     toolbox: toolbox(2, 5),
     startBlocks: startBlocks(2, 5),
@@ -398,6 +414,7 @@ var LEVELS = {
   },
   // Level 6: For-loop squares.
   '2_6': {
+    answer: answer(2, 6),
     ideal: 6,
     toolbox: toolbox(2, 6),
     startBlocks: startBlocks(2, 6),
@@ -407,6 +424,7 @@ var LEVELS = {
   },
   // Level 7: Boxy spiral.
   '2_7': {
+    answer: answer(2, 7),
     ideal: 8,
     toolbox: toolbox(2, 7),
     startBlocks: startBlocks(2, 7),
@@ -420,6 +438,7 @@ var LEVELS = {
   },
   // Level 8: Three snowmen.
   '2_8': {
+    answer: answer(2, 8),
     initialX: 100,
     ideal: 9,
     toolbox: toolbox(2, 8),
@@ -443,6 +462,7 @@ var LEVELS = {
   },
   // Level 9: Snowman family.
   '2_9': {
+    answer: answer(2, 9),
     initialX: 100,
     ideal: 12,
     toolbox: toolbox(2, 9),
@@ -464,6 +484,7 @@ var LEVELS = {
   },
   // Level 10: playground.
   '2_10': {
+    answer: answer(2, 10),
     freePlay: true,
     toolbox: toolbox(2, 10),
     startBlocks: startBlocks(2, 10)
@@ -471,6 +492,7 @@ var LEVELS = {
   // Formerly Page 3.
   // Level 1: Call 'draw a square'.
   '3_1': {
+    answer: answer(3, 1),
     ideal: 1,
     toolbox: toolbox(3, 1),
     startBlocks: startBlocks(3, 1),
@@ -481,6 +503,7 @@ var LEVELS = {
   },
   // Level 2: Create "draw a triangle".
   '3_2': {
+    answer: answer(3, 2),
     ideal: 7,
     toolbox: toolbox(3, 2),
     startBlocks: startBlocks(3, 2),
@@ -494,6 +517,7 @@ var LEVELS = {
   },
   // Level 3: Fence the animals.
   '3_3': {
+    answer: answer(3, 3),
     initialY: 350,
     ideal: 7,
     toolbox: toolbox(3, 3),
@@ -521,6 +545,7 @@ var LEVELS = {
   },
   // Level 4: House the lion.
   '3_4': {
+    answer: answer(3, 4),
     ideal: 6,
     toolbox: toolbox(3, 4),
     startBlocks: startBlocks(3, 4),
@@ -540,6 +565,7 @@ var LEVELS = {
   },
   // Level 5: Create "draw a house".
   '3_5': {
+    answer: answer(3, 5),
     ideal: 8,
     toolbox: toolbox(3, 5),
     startBlocks: startBlocks(3, 5),
@@ -565,6 +591,7 @@ var LEVELS = {
   },
   // Level 6: Add parameter to "draw a triangle".
   '3_6': {
+    answer: answer(3, 6),
     initialY: 350,
     ideal: 13,
     toolbox: toolbox(3, 6),
@@ -589,6 +616,7 @@ var LEVELS = {
   },
   // Level 7: Add parameter to "draw a house".
   '3_7': {
+    answer: answer(3, 7),
     initialY: 350,
     ideal: 11,
     toolbox: toolbox(3, 7),
@@ -611,6 +639,7 @@ var LEVELS = {
   },
   // Level 8: Draw houses.
   '3_8': {
+    answer: answer(3, 8),
     initialX: 20,
     initialY: 350,
     ideal: 27,
@@ -640,6 +669,7 @@ var LEVELS = {
   },
   // Level 9: Draw houses with for loop.
   '3_9': {
+    answer: answer(3, 9),
     initialX: 20,
     initialY: 350,
     ideal: 27,
@@ -671,6 +701,7 @@ var LEVELS = {
   },
   // Level 10: playground.
   '3_10': {
+    answer: answer(3, 10),
     freePlay: true,
     toolbox: toolbox(3, 10),
     startBlocks: startBlocks(3, 10)
@@ -678,24 +709,28 @@ var LEVELS = {
   // Formerly Page 4.
   // Level 1: playground.
   '4_1': {
+    answer: answer(4, 1),
     freePlay: true,
     toolbox: toolbox(4, 1),
     startBlocks: startBlocks(4, 1)
   },
   // Level 2: playground.
   '4_2': {
+    answer: answer(4, 2),
     freePlay: true,
     toolbox: toolbox(4, 2),
     startBlocks: startBlocks(4, 2)
   },
   // Level 3: playground.
   '4_3': {
+    answer: answer(4, 3),
     freePlay: true,
     toolbox: toolbox(4, 3),
     startBlocks: startBlocks(4, 3)
   },
   // Level 4: playground.
   '4_4': {
+    answer: answer(4, 4),
     freePlay: true,
     toolbox: toolbox(4, 4),
     startBlocks: startBlocks(4, 4)
@@ -703,13 +738,8 @@ var LEVELS = {
 };
 
 exports.install = function(BlocklyApps, Turtle, levelId) {
-  //TODO: Remove PAGE and LEVEL variables
-  var split = levelId.split('_');
-  Turtle.PAGE = Number(split[0]);
-  Turtle.LEVEL = Number(split[1]);
-
-  // Set constants with information extracted from the URL.
   var level = LEVELS[levelId];
+  level.id = levelId;
   BlocklyApps.IDEAL_BLOCK_NUM = level.ideal || Infinity;
   BlocklyApps.REQUIRED_BLOCKS = level.requiredBlocks || [];
   return level;

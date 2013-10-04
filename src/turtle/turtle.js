@@ -34,7 +34,6 @@ var Slider = require('../slider');
 var msg = require('../../build/en_us/i18n/turtle');
 var levels = require('./levels');
 var Colours = require('./core').Colours;
-var answers = require('./answers');
 var codegen = require('../codegen');
 var api = require('./api');
 
@@ -73,8 +72,6 @@ Turtle.init = function(config) {
   config.level = config.level || {};
   var instructions = config.level.instructions || '';
 
-  config.page = Turtle.PAGE;
-  config.level = Turtle.LEVEL;
   var html = turtlepage.start({}, null, config);
   document.getElementById(config.containerId).innerHTML = html;
 
@@ -178,9 +175,7 @@ Turtle.updateBlockCount = function() {
  * On startup draw the expected answer and save it to the answer canvas.
  */
 Turtle.drawAnswer = function() {
-  BlocklyApps.log = [];
-  BlocklyApps.ticks = Infinity;
-  answers.drawAnswer();
+  BlocklyApps.log = level.answer;
   BlocklyApps.reset();
   while (BlocklyApps.log.length) {
     var tuple = BlocklyApps.log.shift();
@@ -535,6 +530,16 @@ Turtle.checkRequiredColours = function() {
 };
 
 /**
+ * Validate whether the user's answer is correct.
+ * @param {number} pixelErrors Number of pixels that are wrong.
+ * @param {number} permittedErrors Number of pixels allowed to be wrong.
+ * @return {boolean} True if the level is solved, false otherwise.
+ */
+var isCorrect = function(pixelErrors, permittedErrors) {
+  return pixelErrors < permittedErrors;
+};
+
+/**
  * Verify if the answer is correct.
  * If so, move on to next level.
  */
@@ -566,13 +571,13 @@ Turtle.checkAnswer = function() {
   // Test whether the current level is a free play level, or the level has
   // been completed
   BlocklyApps.levelComplete =
-      level.freePlay || answers.isCorrect(delta, permittedErrors);
+      level.freePlay || isCorrect(delta, permittedErrors);
   var feedbackType = BlocklyApps.getTestResults();
 
   var xml = Blockly.Xml.workspaceToDom(Blockly.mainWorkspace);
   var textBlocks = Blockly.Xml.domToText(xml);
 
-  BlocklyApps.report('turtle', Turtle.LEVEL,
+  BlocklyApps.report('turtle', level.id,
                      BlocklyApps.levelComplete,
                      feedbackType,
                      textBlocks);

@@ -82,15 +82,19 @@ var drawHouse = function(length) {
 };
 
 /**
- * Sample solutions for each level.
+ * Returns the log of a sample solutions for each level.
  * To create an answer, just solve the level in Blockly, then paste the
  * resulting JavaScript here, moving any functions to the beginning of
  * this function.
+ *
+ * Warning: Has side effects to BlocklyApps.
  */
-exports.drawAnswer = function() {
+exports.answer = function(page, level) {
+  BlocklyApps.log = [];
+  BlocklyApps.ticks = Infinity;
   var count, len;
-  if (Turtle.PAGE == 1) {
-    switch (Turtle.LEVEL) {
+  if (page == 1) {
+    switch (level) {
       case 1:
         // El.
         api.moveForward(100);
@@ -145,8 +149,8 @@ exports.drawAnswer = function() {
         }
         break;
     }
-  } else if (Turtle.PAGE == 2) {
-    switch (Turtle.LEVEL) {
+  } else if (page == 2) {
+    switch (level) {
       case 1:
         // Single square in some color.
         setRandomVisibleColour();
@@ -208,8 +212,8 @@ exports.drawAnswer = function() {
         }
         break;
     }
-  } else if (Turtle.PAGE == 3) {
-    switch (Turtle.LEVEL) {
+  } else if (page == 3) {
+    switch (level) {
       case 1:
         // Draw a square.
         drawSquare(100);
@@ -257,14 +261,6 @@ exports.drawAnswer = function() {
         break;
     }
   }
-};
-
-/**
- * Validate whether the user's answer is correct.
- * @param {number} pixelErrors Number of pixels that are wrong.
- * @param {number} permittedErrors Number of pixels allowed to be wrong.
- * @return {boolean} True if the level is solved, false otherwise.
- */
-exports.isCorrect = function(pixelErrors, permittedErrors) {
-  return pixelErrors < permittedErrors;
+  BlocklyApps.reset();
+  return BlocklyApps.log;
 };
