@@ -22,7 +22,6 @@
  * @author fraser@google.com (Neil Fraser)
  */
 "use strict";
-
 var BlocklyApps = module.exports;
 var msg = require('../build/en_us/i18n/common');
 var dialog = require('./dialog');
@@ -104,7 +103,7 @@ BlocklyApps.onResize = function() {
   var blocklyDiv = document.getElementById('blockly');
   var visualization = document.getElementById('visualization');
   var top = visualization.offsetTop;
-  var scrollY = window.scrollY;
+  var scrollY = window.pageYOffset;
   blocklyDiv.style.top = Math.max(top, scrollY) + 'px';
   var svg = document.getElementById('svgMaze');
 
@@ -160,17 +159,23 @@ BlocklyApps.hideDialog = function(opt_animate) {
 };
 
 /**
- * Show the user's code in raw JavaScript.
- * @param {Element} origin Animate the dialog opening/closing from/to this
- *     DOM element.  If null, don't show any animations for opening or closing.
+ * Retrieve a DOM text node containing the user's generated Javascript code.
  */
-BlocklyApps.showCode = function(origin) {
-  var code = codegen.workspaceCode(Blockly);
-  var pre = document.getElementById('containerCode');
-  pre.innerHTML = '';
+BlocklyApps.getGeneratedCodeElement = function() {
   // Inject the code as a textNode, then extract with innerHTML, thus escaping.
-  pre.appendChild(document.createTextNode(code));
+  var unescapedCodeString = codegen.workspaceCode(Blockly);
+  var codeNode = document.createTextNode(unescapedCodeString);
+  return codeNode;
+};
 
+ /**
+  * Show the user's code in raw JavaScript in its own modal popup.
+  * @param {Element} origin Animate the dialog opening/closing from/to this
+  *     DOM element.  If null, don't show any animations for opening or closing.
+  */
+BlocklyApps.showGeneratedCode = function(origin) {
+  var pre = document.getElementById('containerCode');
+  pre.appendChild(BlocklyApps.getGeneratedCodeElement());
   var content = document.getElementById('dialogCode');
   var style = {
     width: '40%',
@@ -178,6 +183,17 @@ BlocklyApps.showCode = function(origin) {
     top: '5em'
   };
   dialog.show(content, origin, true, true, style);
+};
+
+/**
+ * Show the user's code in raw JavaScript in the feedback modal popup.
+ * @param {Element} showLinkElement The link element from which the code display is triggered.
+ */
+BlocklyApps.showGeneratedCodeInFeedback = function(showLinkElement) {
+  var pre = document.getElementById('generatedCodeContainer');
+  pre.appendChild(BlocklyApps.getGeneratedCodeElement());
+  pre.parentNode.style.display = 'block';
+  showLinkElement.style.display = 'none';
 };
 
 /**
@@ -334,7 +350,7 @@ BlocklyApps.updateCapacity = function() {
  */
 BlocklyApps.displayFeedback = function(options) {
   BlocklyApps.hideFeedback();
-  BlocklyApps.setErrorFeedback(options);
+  BlocklyApps.setLevelFeedback(options);
   BlocklyApps.prepareFeedback(options);
   BlocklyApps.displayCloseDialogButtons(options.feedbackType);
   BlocklyApps.showHelp(options.feedbackType);
@@ -535,7 +551,7 @@ var showFeedbackBlocks = function(options) {
   if (missingBlocks.length === 0) {
     return;
   }
-  document.getElementById('missingBlocksError').style.display = 'list-item';
+  document.getElementById('missingBlocksError').style.display = 'block';
   var html = readonly({
     baseUrl: BlocklyApps.BASE_URL,
     app: options.app,
@@ -558,24 +574,24 @@ var showFeedbackBlocks = function(options) {
  * @param {number} feedbackType A constant property of BlocklyApps.TestResults,
  *     typically produced by BlocklyApps.getTestResults().
  */
-BlocklyApps.setErrorFeedback = function(options) {
+BlocklyApps.setLevelFeedback = function(options) {
   switch (options.feedbackType) {
     // Give hint, not stars, for empty block or not finishing level.
     case BlocklyApps.TestResults.EMPTY_BLOCK_FAIL:
-      document.getElementById('emptyBlocksError').style.display = 'list-item';
+      document.getElementById('emptyBlocksError').style.display = 'block';
       break;
     case BlocklyApps.TestResults.TOO_FEW_BLOCKS_FAIL:
-      document.getElementById('tooFewBlocksError').style.display = 'list-item';
+      document.getElementById('tooFewBlocksError').style.display = 'block';
       break;
     case BlocklyApps.TestResults.LEVEL_INCOMPLETE_FAIL:
       document.getElementById('levelIncompleteError')
-          .style.display = 'list-item';
+          .style.display = 'block';
       break;
 
     // For completing level, user gets at least one star.
     case BlocklyApps.TestResults.OTHER_1_STAR_FAIL:
       document.getElementById('appSpecificOneStarFeedback')
-            .style.display = 'list-item';
+            .style.display = 'block';
       break;
     // Zero star for failing to use required blocks and not completed level.
     case BlocklyApps.TestResults.MISSING_BLOCK_UNFINISHED:
@@ -593,11 +609,11 @@ BlocklyApps.setErrorFeedback = function(options) {
           msg.numBlocksNeeded().replace(
               '%1', BlocklyApps.IDEAL_BLOCK_NUM).replace(
                   '%2', BlocklyApps.getNumBlocksUsed())).style.display =
-                      'list-item';
+                      'block';
       break;
     case BlocklyApps.TestResults.OTHER_2_STAR_FAIL:
       document.getElementById('appSpecificTwoStarFeedback')
-            .style.display = 'list-item';
+            .style.display = 'block';
       break;
 
     // Three stars!
@@ -606,10 +622,28 @@ BlocklyApps.setErrorFeedback = function(options) {
 
     // Free plays
     case BlocklyApps.TestResults.FREE_PLAY:
-      document.getElementById('reinfFeedbackMsg').style.display = 'list-item';
+      document.getElementById('reinfFeedbackMsg').style.display = 'block';
       break;
   }
+  if (BlocklyApps.canContinueToNextLevel(options.feedbackType)) {
+    document.getElementById('generatedCodeInfoContainer').style.display = 'inline';
+    BlocklyApps.setTextForElement('linesOfCodeFeedbackMsg', msg.numLinesOfCodeWritten({numLines: BlocklyApps.getNumBlocksUsed()}));
+    BlocklyApps.setTextForElement('showLinesOfCodeLink', msg.showGeneratedCode());
+    BlocklyApps.setTextForElement('generatedCodeInfoMsg', msg.generatedCodeInfo());
+  }
 };
+
+/**
+ * Determines whether the user can proceed to the next level, based on the level feedback
+ * @param {number} feedbackType A constant property of BlocklyApps.TestResults,
+ *     typically produced by BlocklyApps.getTestResults(). 
+ */
+BlocklyApps.canContinueToNextLevel = function(feedbackType) {
+  return (feedbackType === BlocklyApps.TestResults.ALL_PASS ||
+    feedbackType === BlocklyApps.TestResults.TOO_MANY_BLOCKS_FAIL ||
+    feedbackType ===  BlocklyApps.TestResults.OTHER_2_STAR_FAIL ||
+    feedbackType ===  BlocklyApps.TestResults.FREE_PLAY);
+}
 
 /**
  * Report back to the server, if available.
@@ -643,23 +677,18 @@ BlocklyApps.prepareFeedback = function(options) {
   if (!options) {
     options = {};
   }
-  // Determine colour and buttons.
-  var feedbackText = document.getElementById('levelFeedbackText');
+  // Determine buttons.
   if (options.feedbackType == BlocklyApps.TestResults.ALL_PASS) {
-    feedbackText.style.color = 'green';
-    feedbackText.style.textAlign = 'center';
     document.getElementById('hintTitle').style.display = 'none';
     if (options.finalLevel) {
-      document.getElementById('finalLevelMsg').style.display = 'list-item';
+      document.getElementById('finalLevelMsg').style.display = 'block';
     } else {
-      document.getElementById('nextLevelMsg').style.display = 'list-item';
+      document.getElementById('nextLevelMsg').style.display = 'block';
     }
   } else {
-    feedbackText.style.color = 'red';
-    feedbackText.style.textAlign = 'left';
     document.getElementById('hintTitle').style.display = 'inline';
   }
-  feedbackText.style.display = 'block';
+  document.getElementById('levelFeedbackText').style.display = 'inline';
 };
 
 /**
@@ -699,29 +728,24 @@ BlocklyApps.displayCloseDialogButtons = function(feedbackType) {
   var continueButton = document.getElementById('continueButton');
   var tryAgainButton = document.getElementById('tryAgainButton');
   var returnToLevelButton = document.getElementById('returnToLevelButton');
-  switch (feedbackType) {
-    case BlocklyApps.TestResults.ALL_PASS:
-      continueButton.style.display = 'inline';
+  if (BlocklyApps.canContinueToNextLevel(feedbackType)) {
+    continueButton.style.display = 'inline';
+    returnToLevelButton.style.display = 'none';
+    if (feedbackType === BlocklyApps.TestResults.ALL_PASS) {
       tryAgainButton.style.display = 'none';
-      returnToLevelButton.style.display = 'none';
-      break;
-    case BlocklyApps.TestResults.TOO_MANY_BLOCKS_FAIL:
-    case BlocklyApps.TestResults.OTHER_2_STAR_FAIL:
-    case BlocklyApps.TestResults.FREE_PLAY:
-      continueButton.style.display = 'inline';
+    } else {
+      tryAgainButton.style.display = 'inline';
+    }
+  } else {
+    continueButton.style.display = 'none';
+    if (feedbackType === BlocklyApps.TestResults.MISSING_BLOCK_FINISHED ||
+      feedbackType === BlocklyApps.TestResults.OTHER_1_STAR_FAIL) {
       tryAgainButton.style.display = 'inline';
       returnToLevelButton.style.display = 'none';
-      break;
-    case BlocklyApps.TestResults.MISSING_BLOCK_FINISHED:
-    case BlocklyApps.TestResults.OTHER_1_STAR_FAIL:
-      tryAgainButton.style.display = 'inline';
-      continueButton.style.display = 'none';
-      returnToLevelButton.style.display = 'none';
-      break;
-    default:
+    } else {
       returnToLevelButton.style.display = 'block';
-      continueButton.style.display = 'none';
       tryAgainButton.style.display = 'none';
+    }
   }
 };
 

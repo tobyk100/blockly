@@ -54,7 +54,19 @@ var getBBox = function(element) {
   var x, y, width, height;
   if (element.getBBox) {
     // SVG element.
-    var bBox = element.getBBox();
+    if (navigator.userAgent.indexOf("MSIE") >= 0 || navigator.userAgent.indexOf("Trident") >= 0) {
+        textElement.style.display = "inline";   /* reqd for IE */
+        var bBox = {
+            x: textElement.getBBox().x,
+            y: textElement.getBBox().y,
+            width: textElement.scrollWidth,
+            height: textElement.scrollHeight
+        };
+    }
+    else {
+        var bBox = element.getBBox();
+    }
+
     height = bBox.height;
     width = bBox.width;
     var xy = Blockly.getAbsoluteXY_(element);

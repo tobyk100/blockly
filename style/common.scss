@@ -7,8 +7,8 @@ h1 {
   font-weight: normal;
   font-size: 140%;
 }
-a:hover {
-  color: #f00;
+a {
+  color: #0596CE;
 }
 .farSide {
   text-align: right;
@@ -38,8 +38,8 @@ button {
   color: #000;
 }
 button.launch {
-  border: 1px solid #0DA38A;
-  background-color: #0DA38A;
+  border: 1px solid #FFA000;
+  background-color: #FFA000;
   color: #fff;
   font-size: large;
   min-width: 96px;
@@ -100,7 +100,6 @@ input[type="radio"] {
   position: absolute;
   background-color: #fff;
   color: #000;
-  border: 1px solid #000;
   border-radius: 6px;
   box-shadow: 5px 5px 5px #888;
 }
@@ -130,20 +129,26 @@ input[type="radio"] {
 #dialog button {
   min-width: 4em;
 }
-#levelFeedbackText {
-  border: 0;
-  text-align: center;
-  overflow: hidden;
-  font-size: 16pt;
-  font-family: Arial;
-  margin: 30px 10px;
-  padding-left: 40px;
-  line-height: 28px;
-}
 .feedback {
+  font-size: 30px;
+  font-family: Arial;
+  margin: 20px 0px 20px 0px;
   line-height: 28px;
+  color: #7E5BA0;
+  font-weight: bold;
 }
-
+.linesOfCodeMsg {
+  font-family: Arial;
+  font-size: 20px;
+  color: #5A6A73;
+  margin-top: 35px;
+}
+.generatedCode { 
+  color: #7E5BA0;
+  background-color: white;
+  border: none;
+  font-size: 14px
+}
 #hintBubble {
   position: absolute;
   left: 10px;

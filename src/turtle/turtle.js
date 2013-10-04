@@ -36,13 +36,7 @@ var levels = require('./levels');
 var Colours = require('./core').Colours;
 var answers = require('./answers');
 var codegen = require('../codegen');
-
-/**
- * Template used to generate a regular expression string checking that
- * the procedure whose name replaces '%1' is called.
- * @private
- */
-Turtle.PROCEDURE_CALL_TEMPLATE_ = 'procedures_callnoreturn[^e]*e="%1"';
+var api = require('./api');
 
 var level;
 
@@ -112,7 +106,7 @@ Turtle.init = function(config) {
 
     blocklyDiv.style.width = (parentWidth - 440) + 'px';
     blocklyDiv.style.height = (window.innerHeight - top - 20 +
-        window.scrollY) + 'px';
+        window.pageYOffset) + 'px';
   };
   window.addEventListener('scroll', function() {
       onresize();
@@ -131,14 +125,9 @@ Turtle.init = function(config) {
 
   // Add the starting block(s).
   var xml, dom;
-  if (Turtle.PAGE == 3 &&
-      (Turtle.LEVEL == 8 || Turtle.LEVEL == 9)) {
-    var notReadyMsg;
-    if (Turtle.LEVEL == 8) {
-      notReadyMsg = msg.drawAHouseNotDefined8();
-    } else {
-      notReadyMsg = msg.drawAHouseNotDefined9();
-    }
+  if (level.loadWorkspace) {
+    //XXX This is a pretty hacky way to resolve this error message.
+    var notReadyMsg = msg[level.loadWorkspace]();
     var storedXml = window.sessionStorage.turtle3Blocks;
     if (storedXml === undefined) {
       window.alert(notReadyMsg);
@@ -206,14 +195,12 @@ Turtle.drawAnswer = function() {
  * Place an image at the specified coordinates.
  * Code from http://stackoverflow.com/questions/5495952. Thanks, Phrogz.
  * @param {string} filename Relative path to image.
- * @param {!Array} coordinates List of x-y pairs.
+ * @param {!Array} position An x-y pair.
  */
-Turtle.placeImage = function(filename, coordinates) {
+Turtle.placeImage = function(filename, position) {
   var img = new Image();
   img.onload = function() {
-    for (var i = 0; i < coordinates.length; i++) {
-      Turtle.ctxImages.drawImage(img, coordinates[i][0], coordinates[i][1]);
-    }
+    Turtle.ctxImages.drawImage(img, position[0], position[1]);
     Turtle.display();
   };
   img.src = BlocklyApps.BASE_URL + 'media/turtle/' + filename;
@@ -223,42 +210,16 @@ Turtle.placeImage = function(filename, coordinates) {
  * Draw the images for this page and level onto Turtle.ctxImages.
  */
 Turtle.drawImages = function() {
-  if (Turtle.PAGE == 3) {
-    switch (Turtle.LEVEL) {
-      case 3:
-        Turtle.placeImage('cat.svg', [[170, 247], [170, 47]]);
-        Turtle.placeImage('cow.svg', [[182, 147]]);
-        break;
-      case 4:
-        Turtle.placeImage('lion.svg', [[197, 97]]);
-        break;
-      case 5:
-        Turtle.placeImage('cat.svg', [[170, 90], [222, 90]]);
-        break;
-      case 6:
-        Turtle.placeImage('lion.svg', [[185, 100]]);
-        Turtle.placeImage('cat.svg', [[175, 248]]);
-        break;
-      case 7:
-        Turtle.placeImage('elephant.svg', [[205, 220]]);
-        break;
-      case 8:
-        Turtle.placeImage('cat.svg', [[16, 170]]);
-        Turtle.placeImage('lion.svg', [[15, 250]]);
-        Turtle.placeImage('elephant.svg', [[127, 220]]);
-        Turtle.placeImage('cow.svg', [[255, 250]]);
-        break;
-      case 9:
-        Turtle.placeImage('cat.svg', [[-10, 270]]);
-        Turtle.placeImage('cow.svg', [[53, 250]]);
-        Turtle.placeImage('elephant.svg', [[175, 220]]);
-        break;
-    }
-
-    Turtle.ctxImages.globalCompositeOperation = 'copy';
-    Turtle.ctxImages.drawImage(Turtle.ctxScratch.canvas, 0, 0);
-    Turtle.ctxImages.globalCompositeOperation = 'source-over';
+  if (!level.images) {
+    return;
   }
+  for (var i = 0; i < level.images.length; i++) {
+    var image = level.images[i];
+    Turtle.placeImage(image.filename, image.position);
+  }
+  Turtle.ctxImages.globalCompositeOperation = 'copy';
+  Turtle.ctxImages.drawImage(Turtle.ctxScratch.canvas, 0, 0);
+  Turtle.ctxImages.globalCompositeOperation = 'source-over';
 };
 
 /**
@@ -276,22 +237,11 @@ BlocklyApps.reset = function(ignore) {
   Turtle.visible = true;
 
   // For special cases, use a different initial location.
-  if (Turtle.PAGE == 2 &&
-      (Turtle.LEVEL == 8 || Turtle.LEVEL == 9)) {
-    Turtle.x = 100;
-  } else if (Turtle.PAGE == 3) {
-    switch (Turtle.LEVEL) {
-      case 3:
-      case 6:
-      case 7:
-        Turtle.y = 350;
-        break;
-      case 8:
-      case 9:
-        Turtle.x = 20;
-        Turtle.y = 350;
-        break;
-    }
+  if (level.initialX) {
+    Turtle.x = level.initialX;
+  }
+  if (level.initialY) {
+    Turtle.y = level.initialY;
   }
   // Clear the display.
   Turtle.ctxScratch.canvas.width = Turtle.ctxScratch.canvas.width;
@@ -394,7 +344,7 @@ Turtle.execute = function() {
   try {
     codegen.evalWith(Turtle.code, {
       BlocklyApps: BlocklyApps,
-      Turtle: Turtle
+      Turtle: api
     });
   } catch (e) {
     // Null is thrown for infinite loop.
@@ -607,14 +557,19 @@ Turtle.checkAnswer = function() {
 
   // Allow some number of pixels to be off, but be stricter
   // for certain levels.
-  var permittedErrors = Turtle.PAGE == 1 && Turtle.LEVEL == 9 ? 10 : 150;
+  var permittedErrors;
+  if (level.permittedErrors !== undefined) {
+    permittedErrors = level.permittedErrors;
+  } else {
+    permittedErrors = 150;
+  }
   // Test whether the current level is a free play level, or the level has
   // been completed
   BlocklyApps.levelComplete =
       level.freePlay || answers.isCorrect(delta, permittedErrors);
   var feedbackType = BlocklyApps.getTestResults();
-  
-  var xml = Blockly.Xml.workspaceToDom(Blockly.mainWorkspace);  
+
+  var xml = Blockly.Xml.workspaceToDom(Blockly.mainWorkspace);
   var textBlocks = Blockly.Xml.domToText(xml);
 
   BlocklyApps.report('turtle', Turtle.LEVEL,
@@ -622,17 +577,15 @@ Turtle.checkAnswer = function() {
                      feedbackType,
                      textBlocks);
   if (BlocklyApps.levelComplete) {
-    if (Turtle.PAGE == 3 &&
-        (Turtle.LEVEL == 7 || Turtle.LEVEL == 8)) {
+    if (level.storeWorkspace) {
       // Store the blocks for the next level.
       window.sessionStorage.turtle3Blocks = textBlocks;
     }
   }
 
-  // Level 9 of Turtle 3 is a special case.  Do not let the user proceed
-  // if they used too many blocks, since it would allow them to miss the
-  // point of the level.
-  if (Turtle.PAGE == 3 && Turtle.LEVEL == 9 &&
+  // For levels where using too many blocks would allow students
+  // to miss the point, convert that feedback to a failure.
+  if (level.failForTooManyBlocks &&
       feedbackType == BlocklyApps.TestResults.TOO_MANY_BLOCKS_FAIL) {
     // TODO: Add more helpful error message.
     feedbackType = BlocklyApps.TestResults.OTHER_1_STAR_FAIL;
@@ -642,7 +595,7 @@ Turtle.checkAnswer = function() {
     // Check that they didn't use a crazy large repeat value when drawing a
     // circle.  This complains if the limit doesn't start with 3.
     // Note that this level does not use colour, so no need to check for that.
-    if (Turtle.PAGE == 1 && Turtle.LEVEL == 9) {
+    if (level.failForCircleRepeatValue) {
       var code = Blockly.Generator.workspaceToCode('JavaScript');
       if (code.indexOf('count < 3') == -1) {
           feedbackType = BlocklyApps.TestResults.OTHER_2_STAR_FAIL;
@@ -678,54 +631,4 @@ Turtle.checkAnswer = function() {
     app: 'turtle',
     feedbackType: feedbackType
   });
-};
-
-// Turtle API.
-
-Turtle.moveForward = function(distance, id) {
-  BlocklyApps.log.push(['FD', distance, id]);
-};
-
-Turtle.moveBackward = function(distance, id) {
-  BlocklyApps.log.push(['FD', -distance, id]);
-};
-
-Turtle.jumpForward = function(distance, id) {
-  BlocklyApps.log.push(['JF', distance, id]);
-};
-
-Turtle.jumpBackward = function(distance, id) {
-  BlocklyApps.log.push(['JF', -distance, id]);
-};
-
-Turtle.turnRight = function(angle, id) {
-  BlocklyApps.log.push(['RT', angle, id]);
-};
-
-Turtle.turnLeft = function(angle, id) {
-  BlocklyApps.log.push(['RT', -angle, id]);
-};
-
-Turtle.penUp = function(id) {
-  BlocklyApps.log.push(['PU', id]);
-};
-
-Turtle.penDown = function(id) {
-  BlocklyApps.log.push(['PD', id]);
-};
-
-Turtle.penWidth = function(width, id) {
-  BlocklyApps.log.push(['PW', Math.max(width, 0), id]);
-};
-
-Turtle.penColour = function(colour, id) {
-  BlocklyApps.log.push(['PC', colour, id]);
-};
-
-Turtle.hideTurtle = function(id) {
-  BlocklyApps.log.push(['HT', id]);
-};
-
-Turtle.showTurtle = function(id) {
-  BlocklyApps.log.push(['ST', id]);
 };

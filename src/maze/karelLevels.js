@@ -1,5 +1,5 @@
 var BlocklyAppLevels = require('../level_base');
-var Direction = require('../tiles').Direction;
+var Direction = require('./tiles').Direction;
 
 //TODO: Fix hacky level-number-dependent toolbox.
 var toolbox = function(page, level) {

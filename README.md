@@ -69,6 +69,7 @@ Both of these tutorials are found on code.org/learn or csedweek.org/learn. At th
 - 80 character line length.
 - 2 space indent.
 - 4 space indent on long line breaks.
+- `grunt jshint` should report 0 warnings or errors.
 
 ### Quick Start
 
