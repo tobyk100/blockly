@@ -350,7 +350,7 @@ BlocklyApps.updateCapacity = function() {
  */
 BlocklyApps.displayFeedback = function(options) {
   BlocklyApps.hideFeedback();
-  BlocklyApps.setErrorFeedback(options);
+  BlocklyApps.setLevelFeedback(options);
   BlocklyApps.prepareFeedback(options);
   BlocklyApps.displayCloseDialogButtons(options.feedbackType);
   BlocklyApps.showHelp(options.feedbackType);
@@ -574,7 +574,7 @@ var showFeedbackBlocks = function(options) {
  * @param {number} feedbackType A constant property of BlocklyApps.TestResults,
  *     typically produced by BlocklyApps.getTestResults().
  */
-BlocklyApps.setErrorFeedback = function(options) {
+BlocklyApps.setLevelFeedback = function(options) {
   switch (options.feedbackType) {
     // Give hint, not stars, for empty block or not finishing level.
     case BlocklyApps.TestResults.EMPTY_BLOCK_FAIL:
@@ -625,12 +625,25 @@ BlocklyApps.setErrorFeedback = function(options) {
       document.getElementById('reinfFeedbackMsg').style.display = 'block';
       break;
   }
-  if (BlocklyApps.levelComplete) {
-      BlocklyApps.setTextForElement('linesOfCodeFeedbackMsg', msg.numLinesOfCodeWritten({numLines: BlocklyApps.getNumBlocksUsed()}));
-      BlocklyApps.setTextForElement('showLinesOfCodeLink', msg.showGeneratedCode());
-      BlocklyApps.setTextForElement('generatedCodeInfoMsg', msg.generatedCodeInfo());
+  if (BlocklyApps.canContinueToNextLevel(options.feedbackType)) {
+    document.getElementById('generatedCodeInfoContainer').style.display = 'inline';
+    BlocklyApps.setTextForElement('linesOfCodeFeedbackMsg', msg.numLinesOfCodeWritten({numLines: BlocklyApps.getNumBlocksUsed()}));
+    BlocklyApps.setTextForElement('showLinesOfCodeLink', msg.showGeneratedCode());
+    BlocklyApps.setTextForElement('generatedCodeInfoMsg', msg.generatedCodeInfo());
   }
 };
+
+/**
+ * Determines whether the user can proceed to the next level, based on the level feedback
+ * @param {number} feedbackType A constant property of BlocklyApps.TestResults,
+ *     typically produced by BlocklyApps.getTestResults(). 
+ */
+BlocklyApps.canContinueToNextLevel = function(feedbackType) {
+  return (feedbackType === BlocklyApps.TestResults.ALL_PASS ||
+    feedbackType === BlocklyApps.TestResults.TOO_MANY_BLOCKS_FAIL ||
+    feedbackType ===  BlocklyApps.TestResults.OTHER_2_STAR_FAIL ||
+    feedbackType ===  BlocklyApps.TestResults.FREE_PLAY);
+}
 
 /**
  * Report back to the server, if available.
@@ -715,29 +728,24 @@ BlocklyApps.displayCloseDialogButtons = function(feedbackType) {
   var continueButton = document.getElementById('continueButton');
   var tryAgainButton = document.getElementById('tryAgainButton');
   var returnToLevelButton = document.getElementById('returnToLevelButton');
-  switch (feedbackType) {
-    case BlocklyApps.TestResults.ALL_PASS:
-      continueButton.style.display = 'inline';
+  if (BlocklyApps.canContinueToNextLevel(feedbackType)) {
+    continueButton.style.display = 'inline';
+    returnToLevelButton.style.display = 'none';
+    if (feedbackType === BlocklyApps.TestResults.ALL_PASS) {
       tryAgainButton.style.display = 'none';
-      returnToLevelButton.style.display = 'none';
-      break;
-    case BlocklyApps.TestResults.TOO_MANY_BLOCKS_FAIL:
-    case BlocklyApps.TestResults.OTHER_2_STAR_FAIL:
-    case BlocklyApps.TestResults.FREE_PLAY:
-      continueButton.style.display = 'inline';
+    } else {
+      tryAgainButton.style.display = 'inline';
+    }
+  } else {
+    continueButton.style.display = 'none';
+    if (feedbackType === BlocklyApps.TestResults.MISSING_BLOCK_FINISHED ||
+      feedbackType === BlocklyApps.TestResults.OTHER_1_STAR_FAIL) {
       tryAgainButton.style.display = 'inline';
       returnToLevelButton.style.display = 'none';
-      break;
-    case BlocklyApps.TestResults.MISSING_BLOCK_FINISHED:
-    case BlocklyApps.TestResults.OTHER_1_STAR_FAIL:
-      tryAgainButton.style.display = 'inline';
-      continueButton.style.display = 'none';
-      returnToLevelButton.style.display = 'none';
-      break;
-    default:
+    } else {
       returnToLevelButton.style.display = 'block';
-      continueButton.style.display = 'none';
       tryAgainButton.style.display = 'none';
+    }
   }
 };
 

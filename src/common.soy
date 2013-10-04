@@ -103,15 +103,17 @@
       {$appSpecific |noAutoescape}
     {/if}
   </span>  // feedbackText
-  <div id="linesOfCodeFeedbackMsg" class="linesOfCodeMsg"></div>
-  <a id="showLinesOfCodeLink" href="javascript:;" onclick="BlocklyApps.showGeneratedCodeInFeedback(this);"></a>
-  <span style="display:none">
-  <hr/>
-  <div id="generatedCodeInfoMsg"></div>
-  <pre id="generatedCodeContainer" class="generatedCode"></pre>
-  </span>
   <iframe id="feedbackBlocks" class="feedback" style="margin-left: 50px;
     height: 80px; width: 500px; border: none; display: none;" src="about:blank"></iframe>
+  <span id="generatedCodeInfoContainer" style="display:none">
+    <div id="linesOfCodeFeedbackMsg" class="linesOfCodeMsg"></div>
+    <a id="showLinesOfCodeLink" href="javascript:;" onclick="BlocklyApps.showGeneratedCodeInFeedback(this);"></a>
+  </span>
+  <span style="display:none">
+    <hr/>
+    <div id="generatedCodeInfoMsg"></div>
+    <pre id="generatedCodeContainer" class="generatedCode"></pre>
+  </span>
 {/template}
 
 /**
