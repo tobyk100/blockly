@@ -1,4 +1,4 @@
-var BlocklyAppLevels = require('../level_base');
+var levelBase = require('../level_base');
 var Colours = require('./core').Colours;
 
 //TODO: Fix hacky level-number-dependent toolbox.
@@ -428,7 +428,7 @@ var LEVELS = {
     toolbox: toolbox(3, 1),
     startBlocks: startBlocks(3, 1),
     requiredBlocks: [
-      [BlocklyAppLevels.call('draw a square')]
+      [levelBase.call('draw a square')]
     ],
     freePlay: false
   },
@@ -441,7 +441,7 @@ var LEVELS = {
       [repeat(3)],
       [move(100)],
       [turnRight(120)],
-      [BlocklyAppLevels.call('draw a triangle')]
+      [levelBase.call('draw a triangle')]
     ],
     freePlay: false
   },
@@ -452,9 +452,9 @@ var LEVELS = {
     toolbox: toolbox(3, 3),
     startBlocks: startBlocks(3, 3),
     requiredBlocks: [
-      [BlocklyAppLevels.call('draw a triangle')],
+      [levelBase.call('draw a triangle')],
       [move(100)],
-      [BlocklyAppLevels.call('draw a square')]
+      [levelBase.call('draw a square')]
     ],
     freePlay: false,
     images: [
@@ -478,10 +478,10 @@ var LEVELS = {
     toolbox: toolbox(3, 4),
     startBlocks: startBlocks(3, 4),
     requiredBlocks: [
-      [BlocklyAppLevels.call('draw a square')],
+      [levelBase.call('draw a square')],
       [move(100)],
       [turnRight(30)],
-      [BlocklyAppLevels.call('draw a triangle')]
+      [levelBase.call('draw a triangle')]
     ],
     freePlay: false,
     images: [
@@ -497,12 +497,12 @@ var LEVELS = {
     toolbox: toolbox(3, 5),
     startBlocks: startBlocks(3, 5),
     requiredBlocks: [
-      [BlocklyAppLevels.define('draw a house')],
-      [BlocklyAppLevels.call('draw a square')],
+      [levelBase.define('draw a house')],
+      [levelBase.call('draw a square')],
       [move(100)],
       [turnRight(30)],
-      [BlocklyAppLevels.call('draw a triangle')],
-      [BlocklyAppLevels.call('draw a house')]
+      [levelBase.call('draw a triangle')],
+      [levelBase.call('draw a house')]
     ],
     freePlay: false,
     images: [
@@ -525,7 +525,7 @@ var LEVELS = {
     requiredBlocks: [
       [exports.defineWithArg_('draw a triangle', 'length')],
       [simpleBlock('variables_get_length')],
-      [BlocklyAppLevels.callWithArg('draw a triangle', 'length')]
+      [levelBase.callWithArg('draw a triangle', 'length')]
     ],
     requiredColors: 2,
     freePlay: false,
@@ -548,10 +548,10 @@ var LEVELS = {
     startBlocks: startBlocks(3, 7),
     requiredBlocks: [
       [exports.defineWithArg_('draw a house', 'height')],
-      [BlocklyAppLevels.callWithArg('draw a square', 'length')],
-      [BlocklyAppLevels.callWithArg('draw a triangle', 'length')],
+      [levelBase.callWithArg('draw a square', 'length')],
+      [levelBase.callWithArg('draw a triangle', 'length')],
       [simpleBlock('variables_get_height')],
-      [BlocklyAppLevels.callWithArg('draw a house', 'height')]
+      [levelBase.callWithArg('draw a house', 'height')]
     ],
     freePlay: false,
     images: [

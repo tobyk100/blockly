@@ -1,7 +1,5 @@
 // Functions for checking required blocks.
 
-var BlocklyAppLevels = module.exports;
-
 /**
  * Generate a required blocks dictionary for a call to a procedure that does
  * not have a return value.
@@ -9,7 +7,7 @@ var BlocklyAppLevels = module.exports;
  * @return {Object} A required blocks dictionary able to check for and
  *     generate the specified block.
  */
-BlocklyAppLevels.call = function(name) {
+exports.call = function(name) {
   return {test: function(block) {
     return block.type == 'procedures_callnoreturn' &&
         block.getTitleValue('NAME') == name; },
@@ -24,7 +22,7 @@ BlocklyAppLevels.call = function(name) {
  * @return {Object} A required blocks dictionary able to check for and
  *     generate the specified block.
  */
-BlocklyAppLevels.callWithArg = function(func_name, arg_name) {
+exports.callWithArg = function(func_name, arg_name) {
   return {test: function(block) {
     return block.type == 'procedures_callnoreturn' &&
         block.getTitleValue('NAME') == func_name; },
@@ -42,7 +40,7 @@ BlocklyAppLevels.callWithArg = function(func_name, arg_name) {
  * @return {Object} A required blocks dictionary able to check for and
  *     generate the specified block.
  */
-BlocklyAppLevels.define = function(name) {
+exports.define = function(name) {
   return {test: function(block) {
     return block.type == 'procedures_defnoreturn' &&
         block.getTitleValue('NAME') == name; },
