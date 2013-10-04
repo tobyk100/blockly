@@ -1,3 +1,4 @@
+var BlocklyAppLevels = require('../level_base');
 var Direction = require('../tiles').Direction;
 
 //TODO: Fix hacky level-number-dependent toolbox.
@@ -1447,7 +1448,9 @@ module.exports = {
     'startBlocks': startBlocks(3, 8),
     'ideal': 14,
     'requiredBlocks': [
-      [MOVE_FORWARD], [TURN_LEFT], [REPEAT], [DIG], [FILL]
+      [MOVE_FORWARD], [TURN_LEFT], [REPEAT], [DIG], [FILL],
+      [BlocklyAppLevels.call('fill square')],
+      [BlocklyAppLevels.call('remove square')]
     ],
     'scale': {
       'snapRadius': 4.0

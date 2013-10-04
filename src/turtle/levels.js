@@ -1,3 +1,4 @@
+var BlocklyAppLevels = require('../level_base');
 var Colours = require('./core').Colours;
 
 //TODO: Fix hacky level-number-dependent toolbox.
@@ -63,54 +64,6 @@ var repeat = function(count) {
   return {test: function(block) {return block.type == 'controls_repeat';},
           type: 'controls_repeat', titles: {'TIMES': count}};
 };
-
-/**
- * Generate a required blocks dictionary for a call to a procedure that does
- * not have a return value.
- * @param {string} name The name of the procedure being called.
- * @return {Object} A required blocks dictionary able to check for and
- *     generate the specified block.
- */
-function call(name) {
-  return {test: function(block) {
-    return block.type == 'procedures_callnoreturn' &&
-        block.getTitleValue('NAME') == name; },
-          type: 'procedures_callnoreturn',
-          titles: {'NAME': name}};
-}
-
-/**
- * Generate a required blocks dictionary for a call to a procedure with a
- * single argument.
- * @param {string} func_name The name of the procedure being called.
- * @return {Object} A required blocks dictionary able to check for and
- *     generate the specified block.
- */
-function callWithArg(func_name, arg_name) {
-  return {test: function(block) {
-    return block.type == 'procedures_callnoreturn' &&
-        block.getTitleValue('NAME') == func_name; },
-          type: 'procedures_callnoreturn',
-          extra: '<mutation name="' + func_name + '"><arg name="' + arg_name +
-          '"></arg></mutation>'
-         };
-}
-
-/**
- * Generate a required blocks dictionary for the definition of a procedure
- * that does not have a return value.  This does not check if any arguments
- * are defined for the procedure.
- * @param {string} name The name of the procedure being defined.
- * @return {Object} A required blocks dictionary able to check for and
- *     generate the specified block.
- */
-function define(name) {
-  return {test: function(block) {
-    return block.type == 'procedures_defnoreturn' &&
-        block.getTitleValue('NAME') == name; },
-          type: 'procedures_defnoreturn',
-          titles: {'NAME': name}};
-}
 
 // The remaining internal functions are specific to Turtle.
 
@@ -471,7 +424,7 @@ var LEVELS = {
     toolbox: toolbox(3, 1),
     startBlocks: startBlocks(3, 1),
     requiredBlocks: [
-      [call('draw a square')]
+      [BlocklyAppLevels.call('draw a square')]
     ],
     freePlay: false
   },
@@ -484,7 +437,7 @@ var LEVELS = {
       [repeat(3)],
       [move(100)],
       [turnRight(120)],
-      [call('draw a triangle')]
+      [BlocklyAppLevels.call('draw a triangle')]
     ],
     freePlay: false
   },
@@ -494,9 +447,9 @@ var LEVELS = {
     toolbox: toolbox(3, 3),
     startBlocks: startBlocks(3, 3),
     requiredBlocks: [
-      [call('draw a triangle')],
+      [BlocklyAppLevels.call('draw a triangle')],
       [move(100)],
-      [call('draw a square')]
+      [BlocklyAppLevels.call('draw a square')]
     ],
     freePlay: false
   },
@@ -506,10 +459,10 @@ var LEVELS = {
     toolbox: toolbox(3, 4),
     startBlocks: startBlocks(3, 4),
     requiredBlocks: [
-      [call('draw a square')],
+      [BlocklyAppLevels.call('draw a square')],
       [move(100)],
       [turnRight(30)],
-      [call('draw a triangle')]
+      [BlocklyAppLevels.call('draw a triangle')]
     ],
     freePlay: false
   },
@@ -519,12 +472,12 @@ var LEVELS = {
     toolbox: toolbox(3, 5),
     startBlocks: startBlocks(3, 5),
     requiredBlocks: [
-      [define('draw a house')],
-      [call('draw a square')],
+      [BlocklyAppLevels.define('draw a house')],
+      [BlocklyAppLevels.call('draw a square')],
       [move(100)],
       [turnRight(30)],
-      [call('draw a triangle')],
-      [call('draw a house')]
+      [BlocklyAppLevels.call('draw a triangle')],
+      [BlocklyAppLevels.call('draw a house')]
     ],
     freePlay: false
   },
@@ -536,7 +489,7 @@ var LEVELS = {
     requiredBlocks: [
       [exports.defineWithArg_('draw a triangle', 'length')],
       [simpleBlock('variables_get_length')],
-      [callWithArg('draw a triangle', 'length')]
+      [BlocklyAppLevels.callWithArg('draw a triangle', 'length')]
     ],
     requiredColors: 2,
     freePlay: false
@@ -548,10 +501,10 @@ var LEVELS = {
     startBlocks: startBlocks(3, 7),
     requiredBlocks: [
       [exports.defineWithArg_('draw a house', 'height')],
-      [callWithArg('draw a square', 'length')],
-      [callWithArg('draw a triangle', 'length')],
+      [BlocklyAppLevels.callWithArg('draw a square', 'length')],
+      [BlocklyAppLevels.callWithArg('draw a triangle', 'length')],
       [simpleBlock('variables_get_height')],
-      [callWithArg('draw a house', 'height')]
+      [BlocklyAppLevels.callWithArg('draw a house', 'height')]
     ],
     freePlay: false
   },
