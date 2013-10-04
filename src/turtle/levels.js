@@ -4,7 +4,7 @@ var answer = require('./answers').answer;
 
 //TODO: Fix hacky level-number-dependent toolbox.
 var toolbox = function(page, level) {
-  return turtlepage.toolbox({}, null, {
+  return require('./toolbox.xml.ejs')({
     page: page,
     level: level
   });
