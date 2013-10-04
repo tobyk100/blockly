@@ -81,7 +81,7 @@ APPS.forEach(function(app) {
   config.browserify[app] = {
     files: files,
     options: {
-      transform: ['hbsfy']
+      transform: ['./src/dev/ejsify']
     }
   };
 });
@@ -123,7 +123,7 @@ config.express = {
 
 config.watch = {
   src: {
-    files: ['src/**/*.js', 'src/**/*.hbs'],
+    files: ['src/**/*.js', 'src/**/*.ejs'],
     tasks: ['build:js']
   },
   style: {

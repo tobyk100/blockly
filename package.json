@@ -19,10 +19,10 @@
     "grunt-sass": "~0.6.1",
     "messageformat": "~0.1.6",
     "handlebars-runtime": "~1.0.12",
-    "hbsfy": "~0.1.5",
     "grunt-express": "~1.2.0",
-    "hbs": "~2.4.0",
     "grunt-release": "~0.6.0",
-    "express": "~3.4.0"
+    "express": "~3.4.0",
+    "ejs": "~0.8.4",
+    "through": "~2.3.4"
   }
 }

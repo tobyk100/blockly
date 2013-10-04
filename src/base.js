@@ -27,7 +27,7 @@ var msg = require('../build/en_us/i18n/common');
 var dialog = require('./dialog');
 var parseXmlElement = require('./xml').parseElement;
 var codegen = require('./codegen');
-var readonly = require('./readonly.hbs');
+var readonly = require('./readonly.html.ejs');
 
 //TODO: These should be members of a BlocklyApp instance.
 var onAttempt;
@@ -582,10 +582,13 @@ var showFeedbackBlocks = function(options) {
   }
   document.getElementById('missingBlocksError').style.display = 'block';
   var html = readonly({
-    baseUrl: BlocklyApps.BASE_URL,
     app: options.app,
-    skinId: options.skin,
-    blocks: generateXMLForBlocks(missingBlocks)
+    options: {
+      readonly: true,
+      baseUrl: BlocklyApps.BASE_URL,
+      skinId: options.skin,
+      blocks: generateXMLForBlocks(missingBlocks)
+    }
   });
   // Fill in the iframe on the next event tick.
   window.setTimeout(function() {

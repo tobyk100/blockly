@@ -1,10 +1,12 @@
 var url = require('url');
 var express = require('express');
+var ejs = require('ejs');
+
 var app = express();
 
 app.set('views', __dirname);
-app.set('view engine', 'hbs');
-app.engine('hbs', require('hbs').__express);
+app.set('view engine', 'html.ejs');
+app.engine('html.ejs', ejs.__express);
 
 var baseUrl = function(req) {
   return req.protocol + '://' + req.get('Host') + '/';
@@ -23,9 +25,12 @@ app.get('/maze', function(req, res) {
   });
   res.render('app', {
     app: 'maze',
-    levelId: req.query.level,
-    skinId: req.query.skin,
-    baseUrl: baseUrl(req)
+    options: {
+      containerId: 'blocklyApp',
+      levelId: req.query.level,
+      skinId: req.query.skin,
+      baseUrl: baseUrl(req)
+    }
   });
 });
 
@@ -35,8 +40,11 @@ app.get('/turtle', function(req, res) {
   } else {
     res.render('app', {
       app: 'turtle',
-      levelId: req.query.level,
-      baseUrl: baseUrl(req)
+      options: {
+        containerId: 'blocklyApp',
+        levelId: req.query.level,
+        baseUrl: baseUrl(req)
+      }
     });
   }
 });

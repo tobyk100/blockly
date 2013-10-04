@@ -3,15 +3,10 @@
 <head>
   <meta charset="utf-8">
   <title>Blockly</title>
-  <script type="text/javascript" src="{{baseUrl}}/js/vendor.js"></script>
-  <script type="text/javascript" src="{{baseUrl}}/js/{{app}}.js"></script>
+  <script type="text/javascript" src="<%= options.baseUrl %>/js/vendor.js"></script>
+  <script type="text/javascript" src="<%= options.baseUrl %>/js/<%= app %>.js"></script>
   <script type="text/javascript">
-    {{app}}Main({
-      baseUrl: '{{baseUrl}}',
-      readonly: true,
-      skinId: '{{skinId}}',
-      blocks: '{{{blocks}}}'
-    });
+    <%= app %>Main(<%-: options | json %>);
   </script>
   <style>
     html, body {
