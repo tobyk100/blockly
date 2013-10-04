@@ -7,8 +7,10 @@
   <xml id="toolbox" style="display: none;">
     {if $ij.page == 1}
       {call page1.toolbox /}
-    {else}
+    {elseif $ij.page == 2}
       {call page2.toolbox /}
+    {elseif $ij.page == 3}
+      {call page3.toolbox /}
     {/if}
   </xml>
 {/template}
@@ -473,6 +475,226 @@
             </block>
           </next>
         </block>
+      {case 3}
+        <block type="maze_moveForward" x="70" y="70">
+          <next>
+            <block type="maze_turn">
+              <title name="DIR">turnLeft</title>
+              <next>
+                <block type="maze_moveForward">
+                  <next>
+                    <block type="controls_repeat">
+                      <title name="TIMES">10</title>
+                      <statement name="DO">
+                        <block type="maze_dig"></block>
+                      </statement>
+                      <next>
+                        <block type="maze_turn">
+                          <title name="DIR">turnRight</title>
+                          <next>
+                            <block type="maze_moveForward">
+                              <next>
+                                <block type="maze_turn">
+                                  <title name="DIR">turnLeft</title>
+                                  <next>
+                                    <block type="maze_moveForward">
+                                      <next>
+                                        <block type="controls_repeat">
+                                          <title name="TIMES">10</title>
+                                          <statement name="DO">
+                                            <block type="maze_dig"></block>
+                                          </statement>
+                                        </block>
+                                      </next>
+                                    </block>
+                                  </next>
+                                </block>
+                              </next>
+                            </block>
+                          </next>
+                        </block>
+                      </next>
+                    </block>
+                  </next>
+                </block>
+              </next>
+            </block>
+          </next>
+        </block>
+      {case 4}
+        <block type="controls_repeat" x="70" y="70">
+          <title name="TIMES">5</title>
+          <statement name="DO">
+            <block type="maze_moveForward"></block>
+          </statement>
+          <next>
+            <block type="maze_untilBlockedOrNotClear">
+              <title name="DIR">pilePresent</title>
+              <statement name="DO">
+                <block type="maze_fill"></block>
+              </statement>
+            </block>
+          </next>
+        </block>
+      {case 5}
+        <block type="controls_repeat" x="70" y="70">
+          <title name="TIMES">7</title>
+          <statement name="DO">
+            <block type="maze_moveForward">
+              <next>
+                <block type="maze_dig">
+                  <next>
+                    <block type="maze_turn">
+                      <title name="DIR">turnLeft</title>
+                      <next>
+                        <block type="maze_moveForward">
+                          <next>
+                            <block type="maze_turn">
+                              <title name="DIR">turnRight</title>
+                            </block>
+                          </next>
+                        </block>
+                      </next>
+                    </block>
+                  </next>
+                </block>
+              </next>
+            </block>
+          </statement>
+        </block>
+      {case 6}
+        <block type="controls_repeat" x="70" y="70">
+          <title name="TIMES">7</title>
+          <statement name="DO">
+            <block type="maze_moveForward">
+              <next>
+                <block type="karel_if">
+                  <title name="DIR">pilePresent</title>
+                  <statement name="DO">
+                    <block type="maze_dig"></block>
+                  </statement>
+                  <next>
+                    <block type="maze_turn">
+                      <title name="DIR">turnLeft</title>
+                      <next>
+                        <block type="maze_moveForward">
+                          <next>
+                            <block type="maze_turn">
+                              <title name="DIR">turnRight</title>
+                            </block>
+                          </next>
+                        </block>
+                      </next>
+                    </block>
+                  </next>
+                </block>
+              </next>
+            </block>
+          </statement>
+        </block>
+      {case 7}
+        <block type="procedures_callnoreturn" x="20" y="70"
+          editable="false" deletable="false" movable="false">
+          <mutation name="remove square"></mutation>
+        </block>
+        <block type="procedures_defnoreturn" x="20" y="200"
+          editable="false" deletable="false" movable="false">
+          <mutation></mutation>
+          <title name="NAME">remove square</title>
+          <statement name="STACK">
+            <block type="controls_repeat">
+              <title name="TIMES">4</title>
+              <statement name="DO">
+                <block type="controls_repeat">
+                  <title name="TIMES">2</title>
+                  <statement name="DO">
+                    <block type="maze_moveForward">
+                      <next>
+                        <block type="maze_dig"></block>
+                      </next>
+                    </block>
+                  </statement>
+                  <next>
+                    <block type="maze_turn">
+                      <title name="DIR">turnLeft</title>
+                    </block>
+                  </next>
+                </block>
+              </statement>
+            </block>
+          </statement>
+        </block>
+      {case 8}
+        <block type="procedures_callnoreturn" x="20" y="70">
+          <mutation name="fill square"></mutation>
+          <next>
+            <block type="controls_repeat">
+              <title name="TIMES">5</title>
+              <statement name="DO">
+                <block type="maze_moveForward"></block>
+              </statement>
+              <next>
+                <block type="procedures_callnoreturn">
+                  <mutation name="remove square"></mutation>
+                </block>
+              </next>
+            </block>
+          </next>
+        </block>
+        <block type="procedures_defnoreturn" deletable="false" movable="false"
+          editable="false" x="20" y="250">
+          <mutation></mutation>
+          <title name="NAME">remove square</title>
+          <statement name="STACK">
+            <block type="controls_repeat">
+              <title name="TIMES">4</title>
+              <statement name="DO">
+                <block type="controls_repeat">
+                  <title name="TIMES">2</title>
+                  <statement name="DO">
+                    <block type="maze_moveForward">
+                      <next>
+                        <block type="maze_dig"></block>
+                      </next>
+                    </block>
+                  </statement>
+                  <next>
+                    <block type="maze_turn">
+                      <title name="DIR">turnLeft</title>
+                    </block>
+                  </next>
+                </block>
+              </statement>
+            </block>
+          </statement>
+        </block>
+        <block type="procedures_defnoreturn" deletable="false" movable="false"
+          editable="false" x="350" y="250">
+          <mutation></mutation>
+          <title name="NAME">fill square</title>
+          <statement name="STACK">
+            <block type="controls_repeat">
+              <title name="TIMES">4</title>
+              <statement name="DO">
+                <block type="controls_repeat">
+                  <title name="TIMES">2</title>
+                  <statement name="DO">
+                    <block type="maze_moveForward">
+                      <next>
+                        <block type="maze_fill"></block>
+                      </next>
+                    </block>
+                  </statement>
+                  <next>
+                    <block type="maze_turn">
+                      <title name="DIR">turnLeft</title>
+                    </block>
+                  </next>
+                </block>
+              </statement>
+            </block>
+          </statement>
+        </block>
     {/switch}
   {/if}
 {/template}
@@ -520,35 +742,5 @@
         </statement>
        </block>
     </statement>
-  </block>
-{/template}
-/**
- * @param? doStatement An optional statement for the do statement in the loop.
- * @param? upperLimit The upper limit of the for loop.
- */
-{template .controlsFor autoescape="false"}
-  <block type="controls_for">
-    <value name="FROM">
-      <block type="math_number">
-        <title name="NUM">1</title>
-      </block>
-    </value>
-    <value name="TO">
-      <block type="math_number">
-        <title name="NUM">
-          {$upperLimit ? $upperLimit : 10}
-        </title>
-      </block>
-    </value>
-    <value name="BY">
-      <block type="math_number">
-        <title name="NUM">1</title>
-      </block>
-    </value>
-    {if $doStatement}
-      <statement name="DO">
-         {$doStatement}
-      </statement>
-    {/if}
   </block>
 {/template}
