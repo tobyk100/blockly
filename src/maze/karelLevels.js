@@ -1492,9 +1492,10 @@ module.exports = {
     'instructions': 'instructions3_9',
     'toolbox': toolbox(3, 9),
     'startBlocks': startBlocks(3, 9),
-    'ideal': 11,
+    'ideal': 10,
     'requiredBlocks': [
-      [MOVE_FORWARD], [REPEAT_EXT], [DIG], [CONTROLS_FOR], [VARIABLES_GET]
+      [MOVE_FORWARD], [REPEAT_EXT], [DIG], [CONTROLS_FOR],
+      [levelBase.callWithArg('remove pile', 'height')], [VARIABLES_GET]
     ],
     'scale': {
       'snapRadius': 4.0
