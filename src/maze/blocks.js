@@ -122,7 +122,7 @@ exports.install = function(blockly, skin) {
   };
 
   blockly.Blocks.maze_isPath.DIRECTIONS =
-      [[msg.pathAhead(), 'isPathForward'],
+      [[msg.ifPathAhead(), 'isPathForward'],
        [msg.pathLeft() + ' \u27F2', 'isPathLeft'],
        [msg.pathRight() + ' \u27F3', 'isPathRight']];
 
