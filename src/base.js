@@ -626,9 +626,10 @@ BlocklyApps.setLevelFeedback = function(options) {
       break;
   }
   if (BlocklyApps.canContinueToNextLevel(options.feedbackType)) {
-      BlocklyApps.setTextForElement('linesOfCodeFeedbackMsg', msg.numLinesOfCodeWritten({numLines: BlocklyApps.getNumBlocksUsed()}));
-      BlocklyApps.setTextForElement('showLinesOfCodeLink', msg.showGeneratedCode());
-      BlocklyApps.setTextForElement('generatedCodeInfoMsg', msg.generatedCodeInfo());
+    document.getElementById('generatedCodeInfoContainer').style.display = 'inline';
+    BlocklyApps.setTextForElement('linesOfCodeFeedbackMsg', msg.numLinesOfCodeWritten({numLines: BlocklyApps.getNumBlocksUsed()}));
+    BlocklyApps.setTextForElement('showLinesOfCodeLink', msg.showGeneratedCode());
+    BlocklyApps.setTextForElement('generatedCodeInfoMsg', msg.generatedCodeInfo());
   }
 };
 
