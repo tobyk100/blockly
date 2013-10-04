@@ -1,3 +1,4 @@
+var levelBase = require('../level_base');
 var Direction = require('./tiles').Direction;
 
 //TODO: Fix hacky level-number-dependent toolbox.
@@ -34,6 +35,28 @@ var REPEAT = {
     'test': function(block) {
       return block.type == 'controls_repeat';},
     'type': 'controls_repeat'
+};
+
+// This tests for and creates the "controls_repeat_ext" block.
+var REPEAT_EXT = {
+    'test': function(block) {
+      return block.type == 'controls_repeat_ext';},
+    'type': 'controls_repeat_ext'
+};
+
+// This tests for and creates the "controls_for" block.
+var CONTROLS_FOR = {
+    'test': function(block) {
+      return block.type == 'controls_for';},
+    'type': 'controls_for'
+};
+
+// This tests for and creates the "variables_get" block.
+var VARIABLES_GET = {
+    'test': function(block) {
+      return block.type == 'variables_get';},
+    'type': 'variables_get',
+    'titles': {'VAR': 'i'}
 };
 
 // This tests for and creates the "maze_turn" block turning left.
@@ -1105,6 +1128,407 @@ module.exports = {
       [ 0, 0, 0, 0, 0, 0, 0, 0 ],
       [ 0, 0, 0, 0, 0, 0, 0, 0 ]
     ]
-  }
+  },
 
+  // Page 3 to Debug
+
+  'debug_seq_1': {
+    'instructions': 'instructions3_1',
+    'toolbox': toolbox(3, 1),
+    'startBlocks': startBlocks(3, 1),
+    'ideal': 7,
+    'requiredBlocks': [
+      [MOVE_FORWARD], [DIG], [FILL], [TURN_LEFT], [TURN_RIGHT]
+    ],
+    'scale': {
+      'snapRadius': 2.0
+    },
+    'map': [
+      [ 1, 1, 1, 1, 1, 1, 1, 1 ],
+      [ 1, 1, 1, 1, 1, 1, 1, 1 ],
+      [ 1, 1, 1, 1, 1, 1, 1, 1 ],
+      [ 1, 1, 1, 1, 1, 1, 1, 1 ],
+      [ 1, 1, 4, 1, 1, 1, 1, 1 ],
+      [ 1, 1, 2, 1, 1, 1, 1, 1 ],
+      [ 1, 1, 1, 1, 1, 1, 1, 1 ],
+      [ 1, 1, 1, 1, 1, 1, 1, 1 ]
+    ],
+    'startDirection': Direction.EAST,
+    'initialDirt': [
+      [ 0, 0, 0, 0, 0, 0, 0, 0 ],
+      [ 0, 0, 0, 0, 0, 0, 0, 0 ],
+      [ 0, 0, 0, 0, 0, 0, 0, 0 ],
+      [ 0, 0, 0, 0, 0, 0, 0, 0 ],
+      [ 0, 0, 0, -1, 1, 0, 0, 0 ],
+      [ 0, 0, 0, 0, 0, 0, 0, 0 ],
+      [ 0, 0, 0, 0, 0, 0, 0, 0 ],
+      [ 0, 0, 0, 0, 0, 0, 0, 0 ]
+    ],
+    'finalDirt': [
+      [ 0, 0, 0, 0, 0, 0, 0, 0 ],
+      [ 0, 0, 0, 0, 0, 0, 0, 0 ],
+      [ 0, 0, 0, 0, 0, 0, 0, 0 ],
+      [ 0, 0, 0, 0, 0, 0, 0, 0 ],
+      [ 0, 0, 0, 0, 0, 0, 0, 0 ],
+      [ 0, 0, 0, 0, 0, 0, 0, 0 ],
+      [ 0, 0, 0, 0, 0, 0, 0, 0 ],
+      [ 0, 0, 0, 0, 0, 0, 0, 0 ]
+    ]
+  },
+
+  'debug_seq_2': {
+    'instructions': 'instructions3_2',
+    'toolbox': toolbox(3, 2),
+    'startBlocks': startBlocks(3, 2),
+    'ideal': 7,
+    'requiredBlocks': [
+      [MOVE_FORWARD], [DIG], [TURN_LEFT]
+    ],
+    'scale': {
+      'snapRadius': 2.0
+    },
+    'map': [
+      [ 1, 1, 1, 1, 1, 1, 1, 1 ],
+      [ 1, 1, 1, 1, 1, 1, 1, 1 ],
+      [ 1, 1, 1, 1, 1, 1, 1, 1 ],
+      [ 1, 1, 2, 1, 1, 1, 1, 1 ],
+      [ 1, 1, 1, 1, 1, 1, 1, 1 ],
+      [ 1, 1, 1, 1, 1, 1, 1, 1 ],
+      [ 1, 1, 1, 1, 1, 1, 1, 1 ],
+      [ 1, 1, 1, 1, 1, 1, 1, 1 ]
+    ],
+    'startDirection': Direction.SOUTH,
+    'initialDirt': [
+      [ 0, 0, 0, 0, 0, 0, 0, 0 ],
+      [ 0, 0, 0, 0, 0, 0, 0, 0 ],
+      [ 0, 0, 0, 0, 0, 0, 0, 0 ],
+      [ 0, 0, 0, 0, 0, 0, 0, 0 ],
+      [ 0, 0, 0, 0, 0, 0, 0, 0 ],
+      [ 0, 0, 0, 0, 0, 1, 0, 0 ],
+      [ 0, 0, 0, 0, 0, 0, 0, 0 ],
+      [ 0, 0, 0, 0, 0, 0, 0, 0 ]
+    ],
+    'finalDirt': [
+      [ 0, 0, 0, 0, 0, 0, 0, 0 ],
+      [ 0, 0, 0, 0, 0, 0, 0, 0 ],
+      [ 0, 0, 0, 0, 0, 0, 0, 0 ],
+      [ 0, 0, 0, 0, 0, 0, 0, 0 ],
+      [ 0, 0, 0, 0, 0, 0, 0, 0 ],
+      [ 0, 0, 0, 0, 0, 0, 0, 0 ],
+      [ 0, 0, 0, 0, 0, 0, 0, 0 ],
+      [ 0, 0, 0, 0, 0, 0, 0, 0 ]
+    ]
+  },
+
+  'debug_repeat': {
+    'instructions': 'instructions3_3',
+    'toolbox': toolbox(3, 3),
+    'startBlocks': startBlocks(3, 3),
+    'ideal': 11,
+    'requiredBlocks': [
+      [MOVE_FORWARD], [DIG], [TURN_LEFT], [TURN_RIGHT], [REPEAT]
+    ],
+    'scale': {
+      'snapRadius': 2.0
+    },
+    'map': [
+      [ 1, 1, 1, 1, 1, 1, 1, 1 ],
+      [ 1, 1, 1, 1, 1, 1, 1, 1 ],
+      [ 1, 1, 1, 1, 1, 1, 1, 1 ],
+      [ 1, 1, 2, 1, 1, 1, 1, 1 ],
+      [ 1, 1, 1, 1, 1, 1, 1, 1 ],
+      [ 1, 1, 1, 1, 1, 1, 1, 1 ],
+      [ 1, 1, 1, 1, 1, 1, 1, 1 ],
+      [ 1, 1, 1, 1, 1, 1, 1, 1 ]
+    ],
+    'startDirection': Direction.SOUTH,
+    'initialDirt': [
+      [ 0, 0, 0, 0, 0, 0, 0, 0 ],
+      [ 0, 0, 0, 0, 0, 0, 0, 0 ],
+      [ 0, 0, 0, 0, 0, 0, 0, 0 ],
+      [ 0, 0, 0, 0, 0, 0, 0, 0 ],
+      [ 0, 0, 0, 5, 0, 0, 0, 0 ],
+      [ 0, 0, 0, 0, 7, 0, 0, 0 ],
+      [ 0, 0, 0, 0, 0, 0, 0, 0 ],
+      [ 0, 0, 0, 0, 0, 0, 0, 0 ]
+    ],
+    'finalDirt': [
+      [ 0, 0, 0, 0, 0, 0, 0, 0 ],
+      [ 0, 0, 0, 0, 0, 0, 0, 0 ],
+      [ 0, 0, 0, 0, 0, 0, 0, 0 ],
+      [ 0, 0, 0, 0, 0, 0, 0, 0 ],
+      [ 0, 0, 0, 0, 0, 0, 0, 0 ],
+      [ 0, 0, 0, 0, 0, 0, 0, 0 ],
+      [ 0, 0, 0, 0, 0, 0, 0, 0 ],
+      [ 0, 0, 0, 0, 0, 0, 0, 0 ]
+    ]
+  },
+
+  'debug_while': {
+    'instructions': 'instructions3_4',
+    'toolbox': toolbox(3, 4),
+    'startBlocks': startBlocks(3, 4),
+    'ideal': 4,
+    'requiredBlocks': [
+      [MOVE_FORWARD], [REPEAT], [FILL], [WHILE_OPT_HOLE_PRESENT]
+    ],
+    'scale': {
+      'snapRadius': 4.0
+    },
+    'map': [
+      [ 1, 1, 1, 1, 1, 1, 1, 1 ],
+      [ 1, 1, 1, 1, 1, 1, 1, 1 ],
+      [ 1, 1, 1, 1, 1, 1, 1, 1 ],
+      [ 1, 1, 1, 1, 1, 1, 1, 1 ],
+      [ 1, 2, 1, 1, 1, 1, 1, 1 ],
+      [ 1, 1, 1, 1, 1, 1, 1, 1 ],
+      [ 1, 1, 1, 1, 1, 1, 1, 1 ],
+      [ 1, 1, 1, 1, 1, 1, 1, 1 ]
+    ],
+    'startDirection': Direction.EAST,
+    'initialDirt': [
+      [ 0, 0, 0, 0, 0, 0, 0, 0 ],
+      [ 0, 0, 0, 0, 0, 0, 0, 0 ],
+      [ 0, 0, 0, 0, 0, 0, 0, 0 ],
+      [ 0, 0, 0, 0, 0, 0, 0, 0 ],
+      [ 0, 0, 0, 0, 0, 0, -15, 0 ],
+      [ 0, 0, 0, 0, 0, 0, 0, 0 ],
+      [ 0, 0, 0, 0, 0, 0, 0, 0 ],
+      [ 0, 0, 0, 0, 0, 0, 0, 0 ]
+    ],
+    'finalDirt': [
+      [ 0, 0, 0, 0, 0, 0, 0, 0 ],
+      [ 0, 0, 0, 0, 0, 0, 0, 0 ],
+      [ 0, 0, 0, 0, 0, 0, 0, 0 ],
+      [ 0, 0, 0, 0, 0, 0, 0, 0 ],
+      [ 0, 0, 0, 0, 0, 0, 0, 0 ],
+      [ 0, 0, 0, 0, 0, 0, 0, 0 ],
+      [ 0, 0, 0, 0, 0, 0, 0, 0 ],
+      [ 0, 0, 0, 0, 0, 0, 0, 0 ]
+    ]
+  },
+
+  'debug_if': {
+    'instructions': 'instructions3_5',
+    'toolbox': toolbox(3, 5),
+    'startBlocks': startBlocks(3, 5),
+    'ideal': 7,
+    'requiredBlocks': [
+      [MOVE_FORWARD], [TURN_LEFT], [TURN_RIGHT],
+      [REPEAT], [DIG], [IF_OPT_PILE_PRESENT]
+    ],
+    'scale': {
+      'snapRadius': 2.0
+    },
+    'map': [
+      [ 1, 1, 1, 1, 1, 1, 0, 1 ],
+      [ 1, 1, 1, 1, 1, 0, 1, 1 ],
+      [ 1, 1, 1, 1, 0, 1, 1, 0 ],
+      [ 1, 1, 1, 0, 1, 1, 0, 1 ],
+      [ 1, 1, 0, 1, 1, 0, 1, 1 ],
+      [ 1, 0, 1, 1, 0, 1, 1, 1 ],
+      [ 0, 1, 1, 0, 1, 1, 1, 1 ],
+      [ 2, 1, 0, 1, 1, 1, 1, 1 ]
+    ],
+    'startDirection': Direction.EAST,
+    'initialDirt': [
+      [ 0, 0, 0, 0, 0, 0, 0, 0 ],
+      [ 0, 0, 0, 0, 0, 0, 0, 1 ],
+      [ 0, 0, 0, 0, 0, 0, 0, 0 ],
+      [ 0, 0, 0, 0, 0, 1, 0, 0 ],
+      [ 0, 0, 0, 0, 1, 0, 0, 0 ],
+      [ 0, 0, 0, 0, 0, 0, 0, 0 ],
+      [ 0, 0, 1, 0, 0, 0, 0, 0 ],
+      [ 0, 0, 0, 0, 0, 0, 0, 0 ]
+    ],
+    'finalDirt': [
+      [ 0, 0, 0, 0, 0, 0, 0, 0 ],
+      [ 0, 0, 0, 0, 0, 0, 0, 0 ],
+      [ 0, 0, 0, 0, 0, 0, 0, 0 ],
+      [ 0, 0, 0, 0, 0, 0, 0, 0 ],
+      [ 0, 0, 0, 0, 0, 0, 0, 0 ],
+      [ 0, 0, 0, 0, 0, 0, 0, 0 ],
+      [ 0, 0, 0, 0, 0, 0, 0, 0 ],
+      [ 0, 0, 0, 0, 0, 0, 0, 0 ]
+    ]
+  },
+
+  'debug_if_else': {
+    'instructions': 'instructions3_6',
+    'toolbox': toolbox(3, 6),
+    'startBlocks': startBlocks(3, 6),
+    'ideal': 8,
+    'requiredBlocks': [
+      [MOVE_FORWARD], [TURN_LEFT], [TURN_RIGHT],
+      [REPEAT], [DIG], [FILL], [IF_ELSE]
+    ],
+    'scale': {
+      'snapRadius': 2.0
+    },
+    'map': [
+      [ 1, 1, 1, 1, 1, 1, 0, 1 ],
+      [ 1, 1, 1, 1, 1, 0, 1, 1 ],
+      [ 1, 1, 1, 1, 0, 1, 1, 0 ],
+      [ 1, 1, 1, 0, 1, 1, 0, 1 ],
+      [ 1, 1, 0, 1, 1, 0, 1, 1 ],
+      [ 1, 0, 1, 1, 0, 1, 1, 1 ],
+      [ 0, 1, 1, 0, 1, 1, 1, 1 ],
+      [ 2, 1, 0, 1, 1, 1, 1, 1 ]
+    ],
+    'startDirection': Direction.EAST,
+    'initialDirt': [
+      [ 0, 0, 0, 0, 0, 0, 0, 0 ],
+      [ 0, 0, 0, 0, 0, 0, 0, -1 ],
+      [ 0, 0, 0, 0, 0, 0, 1, 0 ],
+      [ 0, 0, 0, 0, 0, 1, 0, 0 ],
+      [ 0, 0, 0, 0, -1, 0, 0, 0 ],
+      [ 0, 0, 0, -1, 0, 0, 0, 0 ],
+      [ 0, 0, 1, 0, 0, 0, 0, 0 ],
+      [ 0, -1, 0, 0, 0, 0, 0, 0 ]
+    ],
+    'finalDirt': [
+      [ 0, 0, 0, 0, 0, 0, 0, 0 ],
+      [ 0, 0, 0, 0, 0, 0, 0, 0 ],
+      [ 0, 0, 0, 0, 0, 0, 0, 0 ],
+      [ 0, 0, 0, 0, 0, 0, 0, 0 ],
+      [ 0, 0, 0, 0, 0, 0, 0, 0 ],
+      [ 0, 0, 0, 0, 0, 0, 0, 0 ],
+      [ 0, 0, 0, 0, 0, 0, 0, 0 ],
+      [ 0, 0, 0, 0, 0, 0, 0, 0 ]
+    ]
+  },
+
+  'debug_function_1': {
+    'instructions': 'instructions3_7',
+    'toolbox': toolbox(3, 7),
+    'startBlocks': startBlocks(3, 7),
+    'ideal': 7,
+    'requiredBlocks': [
+      [MOVE_FORWARD], [TURN_LEFT], [REPEAT], [DIG]
+    ],
+    'scale': {
+      'snapRadius': 2.0
+    },
+    'map': [
+      [ 1, 1, 1, 1, 1, 1, 1, 1 ],
+      [ 1, 1, 1, 1, 1, 1, 1, 1 ],
+      [ 1, 1, 1, 1, 1, 1, 1, 1 ],
+      [ 1, 1, 1, 1, 1, 1, 1, 1 ],
+      [ 1, 1, 1, 1, 1, 1, 1, 1 ],
+      [ 1, 1, 2, 1, 1, 1, 1, 1 ],
+      [ 1, 1, 1, 1, 1, 1, 1, 1 ],
+      [ 1, 1, 1, 1, 1, 1, 1, 1 ]
+    ],
+    'startDirection': Direction.EAST,
+    'initialDirt': [
+      [ 0, 0, 0, 0, 0, 0, 0, 0 ],
+      [ 0, 0, 0, 0, 0, 0, 0, 0 ],
+      [ 0, 0, 1, 1, 1, 1, 0, 0 ],
+      [ 0, 0, 1, 0, 0, 1, 0, 0 ],
+      [ 0, 0, 1, 0, 0, 1, 0, 0 ],
+      [ 0, 0, 1, 1, 1, 1, 0, 0 ],
+      [ 0, 0, 0, 0, 0, 0, 0, 0 ],
+      [ 0, 0, 0, 0, 0, 0, 0, 0 ]
+    ],
+    'finalDirt': [
+      [ 0, 0, 0, 0, 0, 0, 0, 0 ],
+      [ 0, 0, 0, 0, 0, 0, 0, 0 ],
+      [ 0, 0, 0, 0, 0, 0, 0, 0 ],
+      [ 0, 0, 0, 0, 0, 0, 0, 0 ],
+      [ 0, 0, 0, 0, 0, 0, 0, 0 ],
+      [ 0, 0, 0, 0, 0, 0, 0, 0 ],
+      [ 0, 0, 0, 0, 0, 0, 0, 0 ],
+      [ 0, 0, 0, 0, 0, 0, 0, 0 ]
+    ]
+  },
+
+  'debug_function_2': {
+    'instructions': 'instructions3_8',
+    'toolbox': toolbox(3, 8),
+    'startBlocks': startBlocks(3, 8),
+    'ideal': 14,
+    'requiredBlocks': [
+      [MOVE_FORWARD], [TURN_LEFT], [REPEAT], [DIG], [FILL],
+      [levelBase.call('fill square')],
+      [levelBase.call('remove square')]
+    ],
+    'scale': {
+      'snapRadius': 4.0
+    },
+    'map': [
+      [ 1, 1, 1, 1, 1, 1, 1, 1 ],
+      [ 1, 1, 1, 1, 1, 1, 1, 1 ],
+      [ 1, 1, 1, 1, 1, 1, 1, 1 ],
+      [ 1, 1, 1, 1, 1, 1, 1, 1 ],
+      [ 1, 1, 1, 1, 1, 1, 1, 1 ],
+      [ 2, 1, 1, 1, 1, 1, 1, 1 ],
+      [ 1, 1, 1, 1, 1, 1, 1, 1 ],
+      [ 1, 1, 1, 1, 1, 1, 1, 1 ]
+    ],
+    'startDirection': Direction.EAST,
+    'initialDirt': [
+      [ 0, 0, 0, 0, 0, 0, 0, 0 ],
+      [ 0, 0, 0, 0, 0, 0, 0, 0 ],
+      [ 0, 0, 0, 0, 0, 0, 0, 0 ],
+      [ 1, 1, 1, 0, 0, -1, -1, -1 ],
+      [ 1, 0, 1, 0, 0, -1, 0, -1 ],
+      [ 1, 1, 1, 0, 0, -1, -1, -1 ],
+      [ 0, 0, 0, 0, 0, 0, 0, 0 ],
+      [ 0, 0, 0, 0, 0, 0, 0, 0 ]
+    ],
+    'finalDirt': [
+      [ 0, 0, 0, 0, 0, 0, 0, 0 ],
+      [ 0, 0, 0, 0, 0, 0, 0, 0 ],
+      [ 0, 0, 0, 0, 0, 0, 0, 0 ],
+      [ 0, 0, 0, 0, 0, 0, 0, 0 ],
+      [ 0, 0, 0, 0, 0, 0, 0, 0 ],
+      [ 0, 0, 0, 0, 0, 0, 0, 0 ],
+      [ 0, 0, 0, 0, 0, 0, 0, 0 ],
+      [ 0, 0, 0, 0, 0, 0, 0, 0 ]
+    ]
+  },
+
+  'debug_function_3': {
+    'instructions': 'instructions3_9',
+    'toolbox': toolbox(3, 9),
+    'startBlocks': startBlocks(3, 9),
+    'ideal': 11,
+    'requiredBlocks': [
+      [MOVE_FORWARD], [REPEAT_EXT], [DIG], [CONTROLS_FOR], [VARIABLES_GET]
+    ],
+    'scale': {
+      'snapRadius': 4.0
+    },
+    'map': [
+      [ 1, 1, 1, 1, 1, 1, 1, 1 ],
+      [ 1, 1, 1, 1, 1, 1, 1, 1 ],
+      [ 1, 1, 1, 1, 1, 1, 1, 1 ],
+      [ 1, 1, 1, 1, 1, 1, 1, 1 ],
+      [ 1, 1, 1, 1, 1, 1, 1, 1 ],
+      [ 1, 2, 1, 1, 1, 1, 1, 1 ],
+      [ 1, 1, 1, 1, 1, 1, 1, 1 ],
+      [ 1, 1, 1, 1, 1, 1, 1, 1 ]
+    ],
+    'startDirection': Direction.EAST,
+    'initialDirt': [
+      [ 0, 0, 0, 0, 0, 0, 0, 0 ],
+      [ 0, 0, 0, 0, 0, 0, 0, 0 ],
+      [ 0, 0, 0, 0, 0, 0, 0, 0 ],
+      [ 0, 0, 0, 0, 0, 0, 0, 0 ],
+      [ 0, 0, 0, 0, 0, 0, 0, 0 ],
+      [ 0, 1, 2, 3, 4, 5, 6, 0 ],
+      [ 0, 0, 0, 0, 0, 0, 0, 0 ],
+      [ 0, 0, 0, 0, 0, 0, 0, 0 ]
+    ],
+    'finalDirt': [
+      [ 0, 0, 0, 0, 0, 0, 0, 0 ],
+      [ 0, 0, 0, 0, 0, 0, 0, 0 ],
+      [ 0, 0, 0, 0, 0, 0, 0, 0 ],
+      [ 0, 0, 0, 0, 0, 0, 0, 0 ],
+      [ 0, 0, 0, 0, 0, 0, 0, 0 ],
+      [ 0, 0, 0, 0, 0, 0, 0, 0 ],
+      [ 0, 0, 0, 0, 0, 0, 0, 0 ],
+      [ 0, 0, 0, 0, 0, 0, 0, 0 ]
+    ]
+  }
 };
