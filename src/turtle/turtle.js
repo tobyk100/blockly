@@ -112,7 +112,7 @@ Turtle.init = function(config) {
 
     blocklyDiv.style.width = (parentWidth - 440) + 'px';
     blocklyDiv.style.height = (window.innerHeight - top - 20 +
-        window.scrollY) + 'px';
+        window.pageYOffset) + 'px';
   };
   window.addEventListener('scroll', function() {
       onresize();

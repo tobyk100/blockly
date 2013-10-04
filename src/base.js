@@ -103,7 +103,7 @@ BlocklyApps.onResize = function() {
   var blocklyDiv = document.getElementById('blockly');
   var visualization = document.getElementById('visualization');
   var top = visualization.offsetTop;
-  var scrollY = window.scrollY;
+  var scrollY = window.pageYOffset;
   blocklyDiv.style.top = Math.max(top, scrollY) + 'px';
   var svg = document.getElementById('svgMaze');
 
