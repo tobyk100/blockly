@@ -165,11 +165,8 @@ BlocklyApps.getGeneratedCodeElement = function() {
   // Inject the code as a textNode, then extract with innerHTML, thus escaping.
   var unescapedCodeString = codegen.workspaceCode(Blockly);
   var codeNode = document.createTextNode(unescapedCodeString);
-  if (typeof prettyPrintOne === 'function') { 
-    codeNode.innerHTML = prettyPrintOne(unescapedCodeString, 'js');
-  }
   return codeNode;
-}
+};
 
  /**
   * Show the user's code in raw JavaScript in its own modal popup.
@@ -186,7 +183,7 @@ BlocklyApps.showGeneratedCode = function(origin) {
     top: '5em'
   };
   dialog.show(content, origin, true, true, style);
-}
+};
 
 /**
  * Show the user's code in raw JavaScript in the feedback modal popup.
@@ -554,7 +551,7 @@ var showFeedbackBlocks = function(options) {
   if (missingBlocks.length === 0) {
     return;
   }
-  document.getElementById('missingBlocksError').style.display = 'list-item';
+  document.getElementById('missingBlocksError').style.display = 'block';
   var html = readonly({
     baseUrl: BlocklyApps.BASE_URL,
     app: options.app,

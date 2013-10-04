@@ -329,7 +329,9 @@ var LEVELS = {
     toolbox: toolbox(1, 9),
     startBlocks: startBlocks(1, 9),
     freePlay: false,
-    sliderSpeed: 0.9
+    sliderSpeed: 0.9,
+    permittedErrors: 10,
+    failForCircleRepeatValue: true
   },
   // Level 10: playground.
   '1_10': {
@@ -418,6 +420,7 @@ var LEVELS = {
   },
   // Level 8: Three snowmen.
   '2_8': {
+    initialX: 100,
     ideal: 9,
     toolbox: toolbox(2, 8),
     startBlocks: startBlocks(2, 8),
@@ -440,6 +443,7 @@ var LEVELS = {
   },
   // Level 9: Snowman family.
   '2_9': {
+    initialX: 100,
     ideal: 12,
     toolbox: toolbox(2, 9),
     startBlocks: startBlocks(2, 9),
@@ -490,6 +494,7 @@ var LEVELS = {
   },
   // Level 3: Fence the animals.
   '3_3': {
+    initialY: 350,
     ideal: 7,
     toolbox: toolbox(3, 3),
     startBlocks: startBlocks(3, 3),
@@ -498,7 +503,21 @@ var LEVELS = {
       [move(100)],
       [call('draw a square')]
     ],
-    freePlay: false
+    freePlay: false,
+    images: [
+      {
+        filename: 'cat.svg',
+        position: [170, 247]
+      },
+      {
+        filename: 'cat.svg',
+        position: [170, 47]
+      },
+      {
+        filename: 'cow.svg',
+        position: [182, 147]
+      }
+    ]
   },
   // Level 4: House the lion.
   '3_4': {
@@ -511,7 +530,13 @@ var LEVELS = {
       [turnRight(30)],
       [call('draw a triangle')]
     ],
-    freePlay: false
+    freePlay: false,
+    images: [
+      {
+        filename: 'cow.svg',
+        position: [187, 97]
+      }
+    ]
   },
   // Level 5: Create "draw a house".
   '3_5': {
@@ -526,10 +551,21 @@ var LEVELS = {
       [call('draw a triangle')],
       [call('draw a house')]
     ],
-    freePlay: false
+    freePlay: false,
+    images: [
+      {
+        filename: 'cat.svg',
+        position: [170, 90]
+      },
+      {
+        filename: 'cat.svg',
+        position: [222, 90]
+      }
+    ]
   },
   // Level 6: Add parameter to "draw a triangle".
   '3_6': {
+    initialY: 350,
     ideal: 13,
     toolbox: toolbox(3, 6),
     startBlocks: startBlocks(3, 6),
@@ -539,10 +575,21 @@ var LEVELS = {
       [callWithArg('draw a triangle', 'length')]
     ],
     requiredColors: 2,
-    freePlay: false
+    freePlay: false,
+    images: [
+      {
+        filename: 'lion.svg',
+        position: [185, 100]
+      },
+      {
+        filename: 'cat.svg',
+        position: [175, 248]
+      }
+    ]
   },
   // Level 7: Add parameter to "draw a house".
   '3_7': {
+    initialY: 350,
     ideal: 11,
     toolbox: toolbox(3, 7),
     startBlocks: startBlocks(3, 7),
@@ -553,17 +600,48 @@ var LEVELS = {
       [simpleBlock('variables_get_height')],
       [callWithArg('draw a house', 'height')]
     ],
-    freePlay: false
+    freePlay: false,
+    images: [
+      {
+        filename: 'elephant.svg',
+        position: [205, 220]
+      }
+    ],
+    storeWorkspace: true
   },
   // Level 8: Draw houses.
   '3_8': {
+    initialX: 20,
+    initialY: 350,
     ideal: 27,
     toolbox: toolbox(3, 8),
     startBlocks: startBlocks(3, 8),
-    freePlay: false
+    freePlay: false,
+    images: [
+      {
+        filename: 'cat.svg',
+        position: [16, 170]
+      },
+      {
+        filename: 'lion.svg',
+        position: [15, 250]
+      },
+      {
+        filename: 'elephant.svg',
+        position: [127, 220]
+      },
+      {
+        filename: 'cow.svg',
+        position: [255, 250]
+      }
+    ],
+    loadWorkspace: 'drawAHouseNotDefined8',
+    storeWorkspace: true
   },
   // Level 9: Draw houses with for loop.
   '3_9': {
+    initialX: 20,
+    initialY: 350,
     ideal: 27,
     toolbox: toolbox(3, 9),
     startBlocks: startBlocks(3, 9),
@@ -573,7 +651,23 @@ var LEVELS = {
       [SET_COLOUR_RANDOM]
     ],
     requiredColors: 3,
-    freePlay: false
+    freePlay: false,
+    images: [
+      {
+        filename: 'cat.svg',
+        position: [-10, 270]
+      },
+      {
+        filename: 'cow.svg',
+        position: [53, 250]
+      },
+      {
+        filename: 'elephant.svg',
+        position: [175, 220]
+      }
+    ],
+    failForTooManyBlocks: true,
+    loadWorkspace: 'drawAHouseNotDefined9'
   },
   // Level 10: playground.
   '3_10': {

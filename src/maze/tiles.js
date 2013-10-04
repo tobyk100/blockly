@@ -11,3 +11,17 @@ exports.Direction = {
   SOUTH: 2,
   WEST: 3
 };
+
+/**
+ * The types of squares in the maze, which is represented
+ * as a 2D array of SquareType values.
+ * @enum {number}
+ */
+exports.SquareType = {
+  WALL: 0,
+  OPEN: 1,
+  START: 2,
+  FINISH: 3,
+  OBSTACLE: 4,
+  STARTANDFINISH: 5
+};

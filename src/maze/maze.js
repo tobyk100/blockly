@@ -28,10 +28,12 @@ var commonMsg = require('../../build/en_us/i18n/common');
 var mazeMsg = require('../../build/en_us/i18n/maze');
 var levels = require('./levels');
 var skins = require('../skins');
-var tiles = require('../tiles');
+var tiles = require('./tiles');
 var codegen = require('../codegen');
+var api = require('./api');
 
 var Direction = tiles.Direction;
+var SquareType = tiles.SquareType;
 
 /**
  * Create a namespace for the application.
@@ -45,20 +47,6 @@ var skin;
  * Milliseconds between each animation frame.
  */
 var stepSpeed;
-
-/**
- * The types of squares in the maze, which is represented
- * as a 2D array of SquareType values.
- * @enum {number}
- */
-Maze.SquareType = {
-  WALL: 0,
-  OPEN: 1,
-  START: 2,
-  FINISH: 3,
-  OBSTACLE: 4,
-  STARTANDFINISH: 5
-};
 
 //TODO: Make configurable.
 BlocklyApps.CHECK_FOR_EMPTY_BLOCKS = true;
@@ -127,7 +115,7 @@ Maze.pidList = [];
 // Map each possible shape to a sprite.
 // Input: Binary string representing Centre/North/West/South/East squares.
 // Output: [x, y] coordinates of each tile's sprite in tiles.png.
-Maze.tile_SHAPES = {
+var TILE_SHAPES = {
   '10010': [4, 0],  // Dead ends
   '10001': [3, 3],
   '11000': [0, 1],
@@ -221,7 +209,7 @@ var drawMap = function() {
   var normalize = function(x, y) {
     return ((Maze.map[y] === undefined) ||
             (Maze.map[y][x] === undefined) ||
-            (Maze.map[y][x] == Maze.SquareType.WALL)) ? '0' : '1';
+            (Maze.map[y][x] == SquareType.WALL)) ? '0' : '1';
   };
 
   // Compute and draw the tile for each square.
@@ -236,7 +224,7 @@ var drawMap = function() {
           normalize(x - 1, y);   // East.
 
       // Draw the tile.
-      if (!Maze.tile_SHAPES[tile]) {
+      if (!TILE_SHAPES[tile]) {
         // Empty square.  Use null0 for large areas, with null1-4 for borders.
         if (tile == '00000' && Math.random() > 0.3) {
           tile = 'null0';
@@ -244,8 +232,8 @@ var drawMap = function() {
           tile = 'null' + Math.floor(1 + Math.random() * 4);
         }
       }
-      var left = Maze.tile_SHAPES[tile][0];
-      var top = Maze.tile_SHAPES[tile][1];
+      var left = TILE_SHAPES[tile][0];
+      var top = TILE_SHAPES[tile][1];
       // Tile's clipPath element.
       var tileClip = document.createElementNS(Blockly.SVG_NS, 'clipPath');
       tileClip.setAttribute('id', 'tileClipPath' + tileId);
@@ -308,7 +296,7 @@ var drawMap = function() {
   // Add obstacles.
   for (y = 0; y < Maze.ROWS; y++) {
     for (x = 0; x < Maze.COLS; x++) {
-      if (Maze.map[y][x] == Maze.SquareType.OBSTACLE) {
+      if (Maze.map[y][x] == SquareType.OBSTACLE) {
         var obsIcon = document.createElementNS(Blockly.SVG_NS, 'image');
         obsIcon.setAttribute('height', 40);
         obsIcon.setAttribute('width', 40);
@@ -375,19 +363,18 @@ Maze.init = function(config) {
     toolbox: toolbox,
     trashcan: true
   });
-  Blockly.loadAudio_(['maze/win.mp3', 'maze/win.ogg'], 'win');
-  Blockly.loadAudio_(['maze/whack.mp3', 'maze/whack.ogg'], 'whack');
+  Blockly.loadAudio_(['media/maze/win.mp3', 'media/maze/win.ogg'], 'win');
+  Blockly.loadAudio_(['media/maze/whack.mp3', 'media/maze/whack.ogg'], 'whack');
   Blockly.SNAP_RADIUS *= Maze.scale.snapRadius;
 
   // Locate the start and finish squares.
   for (var y = 0; y < Maze.ROWS; y++) {
     for (var x = 0; x < Maze.COLS; x++) {
-      if (Maze.map[y][x] == Maze.SquareType.START) {
+      if (Maze.map[y][x] == SquareType.START) {
         Maze.start_ = {x: x, y: y};
-      } else if (Maze.map[y][x] == Maze.SquareType.FINISH) {
+      } else if (Maze.map[y][x] == SquareType.FINISH) {
         Maze.finish_ = {x: x, y: y};
-      // Nan's
-      } else if (Maze.map[y][x] == Maze.SquareType.STARTANDFINISH) {
+      } else if (Maze.map[y][x] == SquareType.STARTANDFINISH) {
         Maze.start_ = {x: x, y: y};
         Maze.finish_ = {x: x, y: y};
       }
@@ -450,7 +437,6 @@ BlocklyApps.reset = function(first) {
   var svg = document.getElementById('svgMaze');
 
   if (Maze.finish_) {
-
     // Move the finish icon into position.
     var finishIcon = document.getElementById('finish');
     finishIcon.setAttribute('x', Maze.SQUARE_SIZE * (Maze.finish_.x + 0.5) -
@@ -469,7 +455,6 @@ BlocklyApps.reset = function(first) {
     path.setAttribute('stroke', skin.look);
   }
 
-  // Nan's
   // Move the init dirt marker icons into position.
   var dirtId = 0;
   var pegmanIcon = document.getElementById('pegman');
@@ -504,6 +489,7 @@ BlocklyApps.reset = function(first) {
 /**
  * Click the run button.  Start the program.
  */
+// XXX This is the only method used by the templates!
 Maze.runButtonClick = function() {
   // Only allow a single top block on some levels.
   if (level.singleTopBlock &&
@@ -528,7 +514,7 @@ Maze.runButtonClick = function() {
 /**
  * Outcomes of running the user program.
  */
-Maze.ResultType = {
+var ResultType = {
   UNSET: 0,
   SUCCESS: 1,
   FAILURE: -1,
@@ -552,7 +538,7 @@ Maze.execute = function() {
   BlocklyApps.log = [];
   BlocklyApps.ticks = 50; //TODO: Set higher for some levels
   var code = Blockly.Generator.workspaceToCode('JavaScript');
-  Maze.result = Maze.ResultType.UNSET;
+  Maze.result = ResultType.UNSET;
   Maze.testResults = BlocklyApps.TestResults.NO_TESTS_RUN;
 
   // Check for empty top level blocks to warn user about bugs,
@@ -575,25 +561,25 @@ Maze.execute = function() {
   try {
     codegen.evalWith(code, {
       BlocklyApps: BlocklyApps,
-      Maze: Maze
+      Maze: api
     });
-    Maze.result = Maze.ResultType.FAILURE;
+    Maze.result = ResultType.FAILURE;
     stepSpeed = 150;
   } catch (e) {
     // A boolean is thrown for normal termination. XXX Except when it isn't...
     // Abnormal termination is a user error.
     if (e === Infinity) {
-      Maze.result = Maze.ResultType.TIMEOUT;
+      Maze.result = ResultType.TIMEOUT;
       stepSpeed = 0;  // Go infinitely fast so program ends quickly.
     } else if (e === true) {
-      Maze.result = Maze.ResultType.SUCCESS;
+      Maze.result = ResultType.SUCCESS;
       stepSpeed = 100;
     } else if (e === false) {
-      Maze.result = Maze.ResultType.ERROR;
+      Maze.result = ResultType.ERROR;
       stepSpeed = 150;
     } else {
       // Syntax error, can't happen.
-      Maze.result = Maze.ResultType.ERROR;
+      Maze.result = ResultType.ERROR;
       window.alert(e);
       return;
     }
@@ -601,7 +587,7 @@ Maze.execute = function() {
 
   // If we know they succeeded, mark levelComplete true
   // Note that we have not yet animated the succesful run
-  BlocklyApps.levelComplete = (Maze.result == Maze.ResultType.SUCCESS);
+  BlocklyApps.levelComplete = (Maze.result == ResultType.SUCCESS);
 
   Maze.testResults = BlocklyApps.getTestResults();
 
@@ -612,7 +598,7 @@ Maze.execute = function() {
   BlocklyApps.report(
     'maze',
     level.id,
-    Maze.result === Maze.ResultType.SUCCESS,
+    Maze.result === ResultType.SUCCESS,
     Maze.testResults,
     textBlocks);
 
@@ -632,7 +618,7 @@ Maze.animate = function() {
   var action = BlocklyApps.log.shift();
   if (!action) {
     BlocklyApps.highlight(null);
-    if (Maze.result == Maze.ResultType.TIMEOUT) {
+    if (Maze.result == ResultType.TIMEOUT) {
       displayFeedback();
     } else {
       window.setTimeout(function() {
@@ -1011,62 +997,6 @@ Maze.constrainDirection16 = function(d) {
   return d;
 };
 
-// API
-// Human-readable aliases.
-
-Maze.moveForward = function(id) {
-  Maze.move(0, id);
-};
-
-Maze.moveBackward = function(id) {
-  Maze.move(2, id);
-};
-
-Maze.turnLeft = function(id) {
-  Maze.turn(0, id);
-};
-
-Maze.turnRight = function(id) {
-  Maze.turn(1, id);
-};
-
-Maze.isPathForward = function(id) {
-  return Maze.isPath(0, id);
-};
-Maze.noPathForward = function(id) {
-  return !Maze.isPath(0, id);
-};
-
-Maze.isPathRight = function(id) {
-  return Maze.isPath(1, id);
-};
-
-Maze.isPathBackward = function(id) {
-  return Maze.isPath(2, id);
-};
-
-Maze.isPathLeft = function(id) {
-  return Maze.isPath(3, id);
-};
-
-Maze.pilePresent = function(id) {
-  var x = Maze.pegmanX;
-  var y = Maze.pegmanY;
-  return Maze.dirt_[y][x] > 0;
-};
-
-Maze.holePresent = function(id) {
-  var x = Maze.pegmanX;
-  var y = Maze.pegmanY;
-  return Maze.dirt_[y][x] < 0;
-};
-
-Maze.currentPositionNotClear = function(id) {
-  var x = Maze.pegmanX;
-  var y = Maze.pegmanY;
-  return Maze.dirt_[y][x] !== 0;
-};
-
 var atFinish = function() {
   return !Maze.finish_ ||
       (Maze.pegmanX == Maze.finish_.x && Maze.pegmanY == Maze.finish_.y);
@@ -1083,7 +1013,7 @@ var isDirtCorrect = function() {
   return true;
 };
 
-var checkSuccess = function() {
+Maze.checkSuccess = function() {
   if (atFinish() && isDirtCorrect()) {
     // Finished.  Terminate the user's program.
     BlocklyApps.log.push(['finish', null]);
@@ -1091,136 +1021,12 @@ var checkSuccess = function() {
   }
 };
 
-// Core functions.
-
 /**
- * Attempt to move pegman forward or backward.
- * @param {number} direction Direction to move (0 = forward, 2 = backward).
- * @param {string} id ID of block that triggered this action.
- * @throws {true} If the end of the maze is reached.
- * @throws {false} If Pegman collides with a wall.
- */
-Maze.move = function(direction, id) {
-  if (!Maze.isPath(direction, null)) {
-    BlocklyApps.log.push(['fail_' + (direction ? 'backward' : 'forward'), id]);
-    throw false;
-  }
-  // If moving backward, flip the effective direction.
-  var effectiveDirection = Maze.pegmanD + direction;
-  var command;
-  switch (Maze.constrainDirection4(effectiveDirection)) {
-    case Direction.NORTH:
-      Maze.pegmanY--;
-      command = 'north';
-      break;
-    case Direction.EAST:
-      Maze.pegmanX++;
-      command = 'east';
-      break;
-    case Direction.SOUTH:
-      Maze.pegmanY++;
-      command = 'south';
-      break;
-    case Direction.WEST:
-      Maze.pegmanX--;
-      command = 'west';
-      break;
-  }
-  BlocklyApps.log.push([command, id]);
-  checkSuccess(id);
-};
-
-Maze.notFinish = function(id) {
-    return !checkSuccess(id);
-};
-
-/**
- * Turn pegman left or right.
- * @param {number} direction Direction to turn (0 = left, 1 = right).
- * @param {string} id ID of block that triggered this action.
- */
-Maze.turn = function(direction, id) {
-  if (direction) {
-    // Right turn (clockwise).
-    Maze.pegmanD++;
-    BlocklyApps.log.push(['right', id]);
-  } else {
-    // Left turn (counterclockwise).
-    Maze.pegmanD--;
-    BlocklyApps.log.push(['left', id]);
-  }
-  Maze.pegmanD = Maze.constrainDirection4(Maze.pegmanD);
-};
-
-/**
- * Is there a path next to pegman?
- * @param {number} direction Direction to look
- *     (0 = forward, 1 = right, 2 = backward, 3 = left).
- * @param {?string} id ID of block that triggered this action.
- *     Null if called as a helper function in Maze.move().
- * @return {boolean} True if there is a path.
- */
-Maze.isPath = function(direction, id) {
-  var effectiveDirection = Maze.pegmanD + direction;
-  var square;
-  var command;
-  switch (Maze.constrainDirection4(effectiveDirection)) {
-    case Direction.NORTH:
-      square = Maze.map[Maze.pegmanY - 1] &&
-          Maze.map[Maze.pegmanY - 1][Maze.pegmanX];
-      command = 'look_north';
-      break;
-    case Direction.EAST:
-      square = Maze.map[Maze.pegmanY][Maze.pegmanX + 1];
-      command = 'look_east';
-      break;
-    case Direction.SOUTH:
-      square = Maze.map[Maze.pegmanY + 1] &&
-          Maze.map[Maze.pegmanY + 1][Maze.pegmanX];
-      command = 'look_south';
-      break;
-    case Direction.WEST:
-      square = Maze.map[Maze.pegmanY][Maze.pegmanX - 1];
-      command = 'look_west';
-      break;
-  }
-  if (id) {
-    BlocklyApps.log.push([command, id]);
-  }
-  return square !== Maze.SquareType.WALL &&
-        square !== Maze.SquareType.OBSTACLE &&
-        square !== undefined;
-};
-
-/**
- * Updates the tooManyBlocksError message with the ideal number of blocks so the
- *     student can better understand how to improve their code.
+ * Updates the tooManyBlocksError message with the ideal number of blocks so
+ * the student can better understand how to improve their code.
  */
 Maze.setIdealBlockMessage = function() {
   var idealNumMsg = document.getElementById('idealNumberMessage');
   var idealNumText = document.createTextNode(Maze.IDEAL_BLOCK_NUM);
   idealNumMsg.appendChild(idealNumText);
-};
-/**
- * Attempt to add dirt.
- * @param {string} id ID of block that triggered this action.
- */
-Maze.fill = function(id) {
-    BlocklyApps.log.push(['putdown', id]);
-    var x = Maze.pegmanX;
-    var y = Maze.pegmanY;
-    Maze.dirt_[y][x] = Maze.dirt_[y][x] + 1;
-    checkSuccess(id);
-};
-
-/**
- * Attempt to remove dirt.
- * @param {string} id ID of block that triggered this action.
- */
-Maze.dig = function(id) {
-    BlocklyApps.log.push(['pickup', id]);
-    var x = Maze.pegmanX;
-    var y = Maze.pegmanY;
-    Maze.dirt_[y][x] = Maze.dirt_[y][x] - 1;
-    checkSuccess(id);
 };
