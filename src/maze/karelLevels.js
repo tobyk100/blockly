@@ -36,6 +36,28 @@ var REPEAT = {
     'type': 'controls_repeat'
 };
 
+// This tests for and creates the "controls_repeat_ext" block.
+var REPEAT_EXT = {
+    'test': function(block) {
+      return block.type == 'controls_repeat_ext';},
+    'type': 'controls_repeat_ext'
+};
+
+// This tests for and creates the "controls_for" block.
+var CONTROLS_FOR = {
+    'test': function(block) {
+      return block.type == 'controls_for';},
+    'type': 'controls_for'
+};
+
+// This tests for and creates the "variables_get" block.
+var VARIABLES_GET = {
+    'test': function(block) {
+      return block.type == 'variables_get';},
+    'type': 'variables_get',
+    'titles': {'VAR': 'i'}
+};
+
 // This tests for and creates the "maze_turn" block turning left.
 var TURN_LEFT = {
   'test': 'turnLeft',
@@ -1467,9 +1489,9 @@ module.exports = {
     'instructions': 'instructions3_9',
     'toolbox': toolbox(3, 9),
     'startBlocks': startBlocks(3, 9),
-    'ideal': 14,
+    'ideal': 11,
     'requiredBlocks': [
-      [MOVE_FORWARD], [TURN_LEFT], [REPEAT], [DIG], [FILL]
+      [MOVE_FORWARD], [REPEAT_EXT], [DIG], [CONTROLS_FOR], [VARIABLES_GET]
     ],
     'scale': {
       'snapRadius': 4.0
