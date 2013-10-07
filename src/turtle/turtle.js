@@ -122,8 +122,8 @@ Turtle.init = function(config) {
 
   // Add the starting block(s).
   var xml, dom;
-  console.log("testing " + config.userXml);
-  if (level.loadWorkspace) {
+  // If userXml is passed in
+  if (config.userXml) {
     //XXX This is a pretty hacky way to resolve this error message.
     var notReadyMsg = msg[level.loadWorkspace]();
     var storedXml = config.userXml;
@@ -131,10 +131,6 @@ Turtle.init = function(config) {
       window.alert(notReadyMsg);
     } else {
       BlocklyApps.loadBlocks(storedXml);
-      if (!BlocklyApps.getUserBlocks_().some(
-        levels.defineWithArg_('draw a house', 'height').test)) {
-        window.alert(notReadyMsg);
-      }
     }
   } else if (level.startBlocks) {
     BlocklyApps.loadBlocks(level.startBlocks);

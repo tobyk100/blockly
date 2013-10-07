@@ -393,9 +393,23 @@ Maze.init = function(config) {
   BlocklyApps.onResize();
   Blockly.svgResize();
 
-  var startBlocks = level.startBlocks ||
+  // Add the starting block(s).
+  var xml, dom;
+  // If userXml is passed in
+  if (config.userXml) {
+    //XXX This is a pretty hacky way to resolve this error message.
+    var notReadyMsg = msg[level.loadWorkspace]();
+    var storedXml = config.userXml;
+    if (storedXml === undefined) {
+      window.alert(notReadyMsg);
+    } else {
+      BlocklyApps.loadBlocks(storedXml);
+    }
+  } else if (level.startBlocks) {
+    var startBlocks = level.startBlocks ||
       '<block type="maze_moveForward" x="70" y="70"></block>';
-  BlocklyApps.loadBlocks(startBlocks);
+    BlocklyApps.loadBlocks(startBlocks);
+  }
 
   BlocklyApps.reset(true);
   Blockly.addChangeListener(function() {
