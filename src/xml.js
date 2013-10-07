@@ -7,7 +7,9 @@ exports.serialize = function(node) {
 // Parses a single root element string.
 exports.parseElement = function(text) {
   var parser = new DOMParser();
-  var dom = parser.parseFromString('<xml>' + text + '</xml>', 'text/xml');
+  var dom = text.indexOf('<xml>') == 0 ?
+      parser.parseFromString(text, 'text/xml') :
+      parser.parseFromString('<xml>' + text + '</xml>', 'text/xml');
   var errors = dom.getElementsByTagName("parsererror");
   var element = dom.firstChild;
   if (!element) {
