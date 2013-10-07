@@ -636,7 +636,7 @@ BlocklyApps.setLevelFeedback = function(options) {
 /**
  * Determines whether the user can proceed to the next level, based on the level feedback
  * @param {number} feedbackType A constant property of BlocklyApps.TestResults,
- *     typically produced by BlocklyApps.getTestResults(). 
+ *     typically produced by BlocklyApps.getTestResults().
  */
 BlocklyApps.canContinueToNextLevel = function(feedbackType) {
   return (feedbackType === BlocklyApps.TestResults.ALL_PASS ||
