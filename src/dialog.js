@@ -51,20 +51,20 @@ var stopDialogKeyDown = function() {
  * @return {!Object} Contains height, width, x, and y properties.
  */
 var getBBox = function(element) {
-  var x, y, width, height;
+  var x, y, width, height, bBox;
   if (element.getBBox) {
     // SVG element.
     if (navigator.userAgent.indexOf("MSIE") >= 0 || navigator.userAgent.indexOf("Trident") >= 0) {
-        textElement.style.display = "inline";   /* reqd for IE */
-        var bBox = {
-            x: textElement.getBBox().x,
-            y: textElement.getBBox().y,
-            width: textElement.scrollWidth,
-            height: textElement.scrollHeight
-        };
+      textElement.style.display = "inline";   /* reqd for IE */
+      bBox = {
+          x: textElement.getBBox().x,
+          y: textElement.getBBox().y,
+          width: textElement.scrollWidth,
+          height: textElement.scrollHeight
+      };
     }
     else {
-        var bBox = element.getBBox();
+      bBox = element.getBBox();
     }
 
     height = bBox.height;

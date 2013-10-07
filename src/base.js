@@ -643,7 +643,7 @@ BlocklyApps.canContinueToNextLevel = function(feedbackType) {
     feedbackType === BlocklyApps.TestResults.TOO_MANY_BLOCKS_FAIL ||
     feedbackType ===  BlocklyApps.TestResults.OTHER_2_STAR_FAIL ||
     feedbackType ===  BlocklyApps.TestResults.FREE_PLAY);
-}
+};
 
 /**
  * Report back to the server, if available.

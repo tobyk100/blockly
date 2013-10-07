@@ -8,12 +8,15 @@
  *     generate the specified block.
  */
 exports.call = function(name) {
-  return {test: function(block) {
-    return block.type == 'procedures_callnoreturn' &&
-        block.getTitleValue('NAME') == name; },
-          type: 'procedures_callnoreturn',
-          titles: {'NAME': name}};
-}
+  return {
+    test: function(block) {
+      return block.type == 'procedures_callnoreturn' &&
+          block.getTitleValue('NAME') == name;
+    },
+    type: 'procedures_callnoreturn',
+    titles: {'NAME': name}
+  };
+};
 
 /**
  * Generate a required blocks dictionary for a call to a procedure with a
@@ -23,14 +26,16 @@ exports.call = function(name) {
  *     generate the specified block.
  */
 exports.callWithArg = function(func_name, arg_name) {
-  return {test: function(block) {
-    return block.type == 'procedures_callnoreturn' &&
-        block.getTitleValue('NAME') == func_name; },
-          type: 'procedures_callnoreturn',
-          extra: '<mutation name="' + func_name + '"><arg name="' + arg_name +
-          '"></arg></mutation>'
-         };
-}
+  return {
+    test: function(block) {
+      return block.type == 'procedures_callnoreturn' &&
+          block.getTitleValue('NAME') == func_name;
+    },
+    type: 'procedures_callnoreturn',
+    extra: '<mutation name="' + func_name + '"><arg name="' + arg_name +
+        '"></arg></mutation>'
+  };
+};
 
 /**
  * Generate a required blocks dictionary for the definition of a procedure
@@ -41,9 +46,12 @@ exports.callWithArg = function(func_name, arg_name) {
  *     generate the specified block.
  */
 exports.define = function(name) {
-  return {test: function(block) {
-    return block.type == 'procedures_defnoreturn' &&
-        block.getTitleValue('NAME') == name; },
-          type: 'procedures_defnoreturn',
-          titles: {'NAME': name}};
-}
+  return {
+    test: function(block) {
+      return block.type == 'procedures_defnoreturn' &&
+          block.getTitleValue('NAME') == name;
+    },
+    type: 'procedures_defnoreturn',
+    titles: {'NAME': name}
+  };
+};
