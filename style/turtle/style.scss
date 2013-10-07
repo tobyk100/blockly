@@ -1,17 +1,5 @@
 $root: '/blockly/media/turtle/'; //TODO: Parameterize for asset pipeline
 
-/* Instructions. */
-#bubble {
-  width: 385px;
-  padding: 7px;
-  border: 1px solid #CCB;
-  border-radius: 15px;
-  background-color: #ff7;
-}
-#prompt {
-  font-weight: bold;
-}
-
 /* Buttons */
 // This differs from common.css.
 button {
