@@ -168,7 +168,12 @@ config.jshint = {
       turtlepage: true
     }
   },
-  all: ['Gruntfile.js', 'src/**/*.js', 'test/**/*.js']
+  all: [
+    'Gruntfile.js',
+    'tasks/**/*.js',
+    'src/**/*.js',
+    'test/**/*.js'
+  ]
 };
 
 config.release = {
