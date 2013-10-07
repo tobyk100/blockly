@@ -1,5 +1,8 @@
-<% /*
+<%
 
+var msg = require('../../build/en_us/i18n/turtle');
+
+/*
 TOOLBOX.
 
 PAGE 1
@@ -81,34 +84,33 @@ Level 8 [modify end location of "create a house"]
 Level 9 [call "draw a house" with for loop]
 Level 10 [free play]
 
-*/ %>
-
+*/ -%>
 <xml id="toolbox" style="display: none;">
-  <% if (page == 1) { %>
+  <% if (page == 1) { -%>
     <block type="draw_move_by_constant"></block>
     <block type="draw_turn_by_constant<% if (level <= 8) { %>_restricted<% } %>">
       <title name="VALUE">90</title>
     </block>
-    <% if (level >= 2) { %>
+    <% if (level >= 2) { -%>
       <block type="draw_colour">
         <value name="COLOUR">
           <block type="colour_picker"></block>
         </value>
       </block>
-    <% } %>
-    <% if (level >= 4) { %>   // Out of numeric order to make colour blocks adjacent.
+    <% } -%>
+    <% if (level >= 4) { /* Out of numeric order to make colour blocks adjacent. */ -%>
       <block type="draw_colour">
         <value name="COLOUR">
           <block type="colour_random"></block>
         </value>
       </block>
-    <% } %>
-    <% if (level >= 3) { %>
+    <% } -%>
+    <% if (level >= 3) { -%>
       <block type="controls_repeat">
         <title name="TIMES">4</title>
       </block>
-    <% } %>
-    <% if (level == 10) { %>
+    <% } -%>
+    <% if (level == 10) { -%>
       <block type="draw_width" inline="false" x="158" y="67">
         <value name="WIDTH">
           <block type="math_number">
@@ -116,10 +118,10 @@ Level 10 [free play]
           </block>
         </value>
       </block>
-    <% } %>
-  <% } else if (page == 2 || page == 3) { %>
-    // Actions: draw_move, draw_turn.
-    <category name="{msg meaning="Turtle.catTurtle" desc="TODO"}Actions{/msg}">
+    <% } -%>
+  <% } else if (page == 2 || page == 3) { -%>
+    <% // Actions: draw_move, draw_turn. -%>
+    <category name="<%= msg.catTurtle() %>">
       <block type="draw_move">
         <value name="VALUE">
           <block type="math_number">
@@ -127,7 +129,7 @@ Level 10 [free play]
           </block>
         </value>
       </block>
-      <% if (page == 2 && level >= 8) { %>
+      <% if (page == 2 && level >= 8) { -%>
         <block type="jump">
           <value name="VALUE">
             <block type="math_number">
@@ -135,7 +137,7 @@ Level 10 [free play]
             </block>
           </value>
         </block>
-      <% } %>
+      <% } -%>
       <block type="draw_turn">
         <value name="VALUE">
           <block type="math_number">
@@ -144,8 +146,8 @@ Level 10 [free play]
         </value>
       </block>
     </category>
-    // Colour: draw_colour with colour_picker and colour_random.
-    <category name="{msg meaning="Turtle.catColour" desc="TODO"}Color{/msg}">
+    <% // Colour: draw_colour with colour_picker and colour_random. -%>
+    <category name="<%= msg.catColour() %>">
       <block type="draw_colour">
         <value name="COLOUR">
           <block type="colour_picker"></block>
@@ -157,9 +159,9 @@ Level 10 [free play]
         </value>
       </block>
     </category>
-    // Functions differ depending on page and level.
-    <% if (page == 2 && level >= 2) { %>
-      <category name="{msg meaning="Turtle.catProcedures" desc="TODO"}Functions{/msg}">
+    <% // Functions differ depending on page and level. -%>
+    <% if (page == 2 && level >= 2) { -%>
+      <category name="<%= msg.catProcedures() %>">
         <block type="draw_a_square" inline="true">
           <value name="VALUE">
             <block type="math_number">
@@ -167,7 +169,7 @@ Level 10 [free play]
             </block>
           </value>
         </block>
-        <% if (level >= 8) { %>
+        <% if (level >= 8) { -%>
           <block type="draw_a_snowman" inline="true">
             <value name="VALUE">
               <block type="math_number">
@@ -175,12 +177,12 @@ Level 10 [free play]
               </block>
             </value>
           </block>
-        <% } %>
+        <% } -%>
       </category>
-    <% } else if (page == 3) { %>
-      <% if (level == 1) { %>
-        // Don't use custom category yet, since it allows function definition.
-        <category name="{msg meaning="Turtle.catProcedures" desc="TODO"}Functions{/msg}">
+    <% } else if (page == 3) { -%>
+      <% if (level == 1) { -%>
+        <% // Don't use custom category yet, since it allows function definition. -%>
+        <category name="<%= msg.catProcedures() %>">
           <block type="procedures_callnoreturn">
             <mutation name="draw a circle"></mutation>
           </block>
@@ -188,13 +190,13 @@ Level 10 [free play]
             <mutation name="draw a square"></mutation>
           </block>
         </category>
-      {else}
-        <category name="{msg meaning="Turtle.catProcedures" desc="TODO"}Functions{/msg}" custom="PROCEDURE"></category>
-      <% } %>
-    <% } %>
-    // Control: controls_for_counter (from page 2, level 6) and repeat.
-    <category name="{msg meaning="Turtle.catControl" desc="TODO"}Loops{/msg}">
-      <% if ((page == 2 && level >= 6) || (page == 3 && level >= 9)) { %>
+      <% } else { %>
+        <category name="<%= msg.catProcedures() %>" custom="PROCEDURE"></category>
+      <% } -%>
+    <% } -%>
+    <% // Control: controls_for_counter (from page 2, level 6) and repeat. -%>
+    <category name="<%= msg.catControl() %>">
+      <% if ((page == 2 && level >= 6) || (page == 3 && level >= 9)) { -%>
         <block type="controls_for_counter">
           <value name="FROM">
             <block type="math_number">
@@ -212,15 +214,15 @@ Level 10 [free play]
             </block>
           </value>
         </block>
-      <% } %>
+      <% } -%>
       <block type="controls_repeat">
         <title name="TIMES">4</title>
       </block>
     </category>
-    // Math: Just number blocks until final level.
-    <category name="{msg meaning="Turtle.catMath" desc="TODO"}Math{/msg}">
+    <% // Math: Just number blocks until final level. -%>
+    <category name="<%= msg.catMath() %>">
       <block type="math_number"></block>
-      <% if (level == 10) { %>
+      <% if (level == 10) { -%>
         <block type="math_arithmetic" inline="true"></block>
         <block type="math_random_int">
           <value name="FROM">
@@ -235,40 +237,40 @@ Level 10 [free play]
         </value>
       </block>
       <block type="math_random_float"></block>
-    <% } %>
+    <% } -%>
     </category>
-    // Variables depends on page and level, although we never use the custom category
-    // because we want to offer simplified getters and no setters.
-    <% if (page == 2 && level >= 6) { %>
-      <category name="{msg meaning="Turtle.catVariables" desc="TODO"}Variables{/msg}">
+    <% // Variables depends on page and level, although we never use the custom category -%>
+    <% // because we want to offer simplified getters and no setters. -%>
+    <% if (page == 2 && level >= 6) { -%>
+      <category name="<%= msg.catVariables() %>">
         <block type="variables_get_counter"></block>
       </category>
-    <% } else if (page == 3 && level >= 6 && level < 10) { %>
-      <category name="{msg meaning="Turtle.catVariables" desc="TODO"}Variables{/msg}">
-        <% if (level >= 9) { %>
+    <% } else if (page == 3 && level >= 6 && level < 10) { -%>
+      <category name="<%= msg.catVariables() %>">
+        <% if (level >= 9) { -%>
           <block type="variables_get_counter"></block>
-        <% } %>
-        <% if (level >= 7) { %>
+        <% } -%>
+        <% if (level >= 7) { -%>
           <block type="variables_get_height"></block>
-        <% } %>
-        <% if (level == 6) { %>
+        <% } -%>
+        <% if (level == 6) { -%>
           <block type="variables_get_length"></block>
-        <% } %>
+        <% } -%>
       </category>
-    <% } else if (page == 3 && level == 10) { %>
-      <category name="{msg meaning="Turtle.catVariables" desc="TODO"}Variables{/msg}" custom="VARIABLE">
+    <% } else if (page == 3 && level == 10) { -%>
+      <category name="<%= msg.catVariables() %>" custom="VARIABLE">
       </category>
-    <% } %>
-  <% } else if (page == 4) { %>
-    // Actions: draw_move, draw_turn.
-    <category name="{msg meaning="Turtle.catTurtle" desc="TODO"}Actions{/msg}">
-      <block type="draw_move_by_constant"></block>">
+    <% } -%>
+  <% } else if (page == 4) { -%>
+    <% // Actions: draw_move, draw_turn. -%>
+    <category name="<%= msg.catTurtle() %>">
+      <block type="draw_move_by_constant"></block>
       <block type="draw_turn_by_constant">
         <title name="VALUE">90</title>
       </block>
     </category>
-    // Colour: draw_colour with colour_picker and colour_random.
-    <category name="{msg meaning="Turtle.catColour" desc="TODO"}Color{/msg}">
+    <% // Colour: draw_colour with colour_picker and colour_random. -%>
+    <category name="<%= msg.catColour() %>">
       <block type="draw_colour">
         <value name="COLOUR">
           <block type="colour_picker"></block>
@@ -280,10 +282,10 @@ Level 10 [free play]
         </value>
       </block>
     </category>
-    <category name="{msg meaning="Turtle.catControl" desc="TODO"}Loops{/msg}">
+    <category name="<%= msg.catControl() %>">
       <block type="controls_repeat">
         <title name="TIMES">4</title>
       </block>
     </category>
-  <% } %>
+  <% } -%>
 </xml>

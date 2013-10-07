@@ -12,7 +12,7 @@ var toolbox = function(page, level) {
 
 //TODO: Fix hacky level-number-dependent startBlocks.
 var startBlocks = function(page, level) {
-  return turtlepage.startBlocks({}, null, {
+  return require('./startBlocks.xml.ejs')({
     page: page,
     level: level
   });
