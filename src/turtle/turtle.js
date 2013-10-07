@@ -122,10 +122,11 @@ Turtle.init = function(config) {
 
   // Add the starting block(s).
   var xml, dom;
+  console.log("testing " + config.userXml);
   if (level.loadWorkspace) {
     //XXX This is a pretty hacky way to resolve this error message.
     var notReadyMsg = msg[level.loadWorkspace]();
-    var storedXml = window.sessionStorage.turtle3Blocks;
+    var storedXml = config.userXml;
     if (storedXml === undefined) {
       window.alert(notReadyMsg);
     } else {
