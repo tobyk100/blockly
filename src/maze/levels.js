@@ -3,7 +3,7 @@ var karelLevels = require('./karelLevels');
 
 //TODO: Fix hacky level-number-dependent toolbox.
 var toolbox = function(page, level) {
-  return mazepage.toolbox({}, null, {
+  return require('./toolboxes/maze.xml.ejs')({
     page: page,
     level: level
   });
@@ -691,3 +691,5 @@ module.exports = {
 for (var levelId in karelLevels) {
   module.exports['karel_' + levelId] = karelLevels[levelId];
 }
+
+console.log(JSON.stringify(module.exports));

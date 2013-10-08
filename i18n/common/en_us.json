@@ -4,10 +4,19 @@
     "string": "Blockly",
     "description": "The project name.  If readers of your language would know approximately how to pronounce 'Blockly', leave unchanged.  Otherwise, include a transliteration in parentheses, such as the Russian: 'Blockly (Блoкли)'."
   },
+  "catActions": {
+    "string": "Actions",
+    "description": "category - Blocks related to moving the avatar."
+  },
   "catColour": {
     "id": "5532942470899034153",
     "string": "Colour",
     "description": "category - Blocks related to [https://code.google.com/p/blockly/wiki/Colour colour]."
+  },
+  "catCondition": {
+    "id": "5532942470899034153",
+    "string": "Conditionals",
+    "description": "category - Blocks related to conditionals."
   },
   "catLists": {
     "id": "7880221162350996120",
