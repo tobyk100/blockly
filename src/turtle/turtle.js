@@ -77,13 +77,8 @@ Turtle.init = function(config) {
 
   BlocklyApps.init(config);
 
-  var rtl = BlocklyApps.isRtl();
-  Blockly.inject(document.getElementById('blockly'), {
-    path: BlocklyApps.BASE_URL,
-    rtl: rtl,
-    toolbox: level.toolbox,
-    trashcan: true
-  });
+  var div = document.getElementById('blockly');
+  BlocklyApps.inject(div, { toolbox: level.toolbox });
 
   // Add to reserved word list: API, local variables in execution evironment
   // (execute) and the infinite loop detection function.
@@ -150,6 +145,7 @@ Turtle.init = function(config) {
     });
   }
 
+  BlocklyApps.callout(config.callouts);
 };
 
 /**
