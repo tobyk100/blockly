@@ -70,6 +70,10 @@ Turtle.init = function(config) {
   level = levels.install(BlocklyApps, Turtle, config.levelId);
 
   config.level = config.level || {};
+  // Override the current level with caller supplied parameters.
+  for (var prop in config.level) {
+    level[prop] = config.level[prop];
+  }
   var instructions = config.level.instructions || '';
 
   var html = turtlepage.start({}, null, config);
@@ -116,13 +120,8 @@ Turtle.init = function(config) {
   Turtle.speedSlider = new Slider(10, 35, 130, sliderSvg);
 
   // Add the starting block(s).
-  var xml, dom;
-  // If userXml is passed in
-  if (config.userXml) {
-    BlocklyApps.loadBlocks(config.userXml);
-  } else if (level.startBlocks) {
-    BlocklyApps.loadBlocks(level.startBlocks);
-  }
+  // If config.level.startBlocks is passed in, it overrides level.startBlocks
+  BlocklyApps.loadBlocks(level.startBlocks);
 
   // Get the canvases and set their initial contents.
   Turtle.ctxDisplay = document.getElementById('display').getContext('2d');
@@ -567,12 +566,6 @@ Turtle.checkAnswer = function() {
                      BlocklyApps.levelComplete,
                      feedbackType,
                      textBlocks);
-  if (BlocklyApps.levelComplete) {
-    if (level.storeWorkspace) {
-      // Store the blocks for the next level.
-      window.sessionStorage.turtle3Blocks = textBlocks;
-    }
-  }
 
   // For levels where using too many blocks would allow students
   // to miss the point, convert that feedback to a failure.
