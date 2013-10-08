@@ -83,15 +83,6 @@ var loadLevel = function(levelId) {
     Maze.scale[key] = level.scale[key];
   }
 
-  // Add blank row at top for hint bubble.
-  Maze.map.unshift(new Array(Maze.map[0].length));
-  if (Maze.initialDirtMap) {
-    Maze.initialDirtMap.unshift(new Array(Maze.initialDirtMap[0].length));
-  }
-  if (Maze.finalDirtMap) {
-    Maze.finalDirtMap.unshift(new Array(Maze.finalDirtMap[0].length));
-  }
-
   // Measure maze dimensions and set sizes.
   // ROWS: Number of tiles down.
   Maze.ROWS = Maze.map.length;
@@ -160,9 +151,9 @@ var drawMap = function() {
   buttonTable.style.width = Maze.MAZE_WIDTH + 'px';
 
   // Size and fill-in hint bubble.
-  var hintBubble = document.getElementById('hintBubble');
+  var hintBubble = document.getElementById('bubble');
   hintBubble.style.width = (Maze.MAZE_WIDTH - 20) + 'px';
-  var hint = document.getElementById('hint');
+  var hint = document.getElementById('prompt');
   hint.innerHTML = level.instructions;
 
   if (skin.background) {

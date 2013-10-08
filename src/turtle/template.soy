@@ -366,9 +366,7 @@
  */
 {template .start}
   // First column has prompt, capacity, canvas, slider, and buttons.
-  <div id="bubble">
-    <div id="prompt"></div>
-  </div>
+  {call apps.instructions /}
   <div id="blockCount"></div>
   <div id="visualization">
     <canvas id="scratch" width="400" height="400" style="display: none"></canvas>
