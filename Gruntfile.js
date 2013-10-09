@@ -177,7 +177,10 @@ config.jshint = {
 config.release = {
   options: {
     folder: 'dist',
-    tagName: 'v<%= version %>'
+    tagName: 'v<%= version %>',
+    //XXX Temporarily disabling npm publishing because the package.json in
+    // dist doesn't match the bumped version number.
+    npm: false,
   }
 };
 
