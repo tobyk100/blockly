@@ -143,8 +143,6 @@ Turtle.init = function(config) {
       Turtle.updateBlockCount();
     });
   }
-
-  BlocklyApps.callout(config.callouts);
 };
 
 /**

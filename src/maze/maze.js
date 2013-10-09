@@ -388,8 +388,6 @@ Maze.init = function(config) {
   Blockly.addChangeListener(function() {
     BlocklyApps.updateCapacity();
   });
-
-  BlocklyApps.callout(config.callouts);
 };
 
 /**
