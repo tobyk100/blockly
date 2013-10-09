@@ -1,3 +1,5 @@
+<% var msg = require('../build/en_us/i18n/common'); %>
+
 <% var dialog = function() { -%>
   <div id="dialogShadow" class="dialogAnimate"></div>
   <div id="dialogBorder"></div>
@@ -13,7 +15,7 @@
 <% var ok = function() { -%>
   <div class="farSide" style="padding: 1ex 3ex 0">
     <button class="secondary" onclick="BlocklyApps.hideDialog(true)">
-      {{msg meaning="Apps.dialogOk" desc="IBID"}}OK{{/msg}}
+      <%= msg.dialogOK() %>
     </button>
   </div>
 <% }; -%>
@@ -33,28 +35,21 @@ var gameButtons = function(appInstance) { -%>
   <table id="gameButtons" width="400" style="padding-top: 10px;">
     <tr>
       <td style="width: 190px; text-align: center; vertical-align: top;">
-        <button class="notext" title="{msg meaning="Apps.codeTooltip"
-          desc="tooltip (popup help) for button; pressing the button causes a
-          program in the JavaScript computer language to be displayed, based on
-          the program created by the user."}See generated JavaScript code.{/msg}"
+        <button class="notext" title="<%= msg.codeTooltip() %>"
           onclick="BlocklyApps.showGeneratedCode();">
           <img src='<%= baseUrl %>media/1x1.gif' alt="code" class="code icon21">
         </button>
       </td>
       <td>
         <button id="runButton" class="launch" onclick="<%= appInstance %>.runButtonClick();">
-            <img src="<%= baseUrl %>media/1x1.gif" class="run icon21">{msg meaning="Apps.runProgram"
-            desc="button label - Pressing the button runs the computer program the user has
-            written."}Run{/msg}
-          </button>
+          <img src="<%= baseUrl %>media/1x1.gif" class="run icon21">
+          <%= msg.runProgram() %>
         </button>
         <button id="resetButton" class="launch"
           onclick="BlocklyApps.resetButtonClick();" style="display: none">
-            <img src="<%= baseUrl %>media/1x1.gif" class="stop icon21">
-              {msg meaning="Apps.resetProgram" desc="button label -
-                Pressing the button causes Pegman return to the start of the maze
-                (but does not delete the user's program.)"}Reset{/msg}
-          </button>
+          <img src="<%= baseUrl %>media/1x1.gif" class="stop icon21">
+            <%= msg.resetProgram() %>
+        </button>
       </td>
     </tr>
   </table>
@@ -75,27 +70,24 @@ var helpArea = function(html) { -%>
  */
 var feedback = function(appSpecific) { -%>
   <span id="levelFeedbackText">
-    <span id="hintTitle" class="feedback">{msg meaning="Apps.hintTitle" desc="IBID"}{/msg}Hints:</span>
-    <div id="nextLevelMsg" class="feedback" style="display: none;">{msg
-      meaning="Apps.nextLevel" desc="IBID"}Congratulations! You have completed this level.{/msg}</div>
-    <div id="finalLevelMsg" class="feedback" style="display: none;">{msg
-      meaning="Apps.finalLevelMsg" desc="alert - This is displayed when
-      the user solves the most difficult level."}Congratulations! You
-      have solved the final level.{/msg}</div>
+    <span id="hintTitle" class="feedback"><%= msg.hintTitle() %>Hints:</span>
+    <div id="nextLevelMsg" class="feedback" style="display: none;"><%= msg.nextLevel() %></div>
+    <div id="finalLevelMsg" class="feedback" style="display: none;"><%= msg.finalLevelMsg() %></div>
     <li id="levelIncompleteError" class="feedback" style="display: none">
-      {msg meaning="Apps.levelIncompleteError" desc="IBID"}You are using all of the necessary types of blocks but not in the right way.{/msg}</li>
+      <%= msg.levelIncompleteError() %>
+    </li>
     <div id="emptyBlocksError" class="feedback" style="display: none">
-      {msg meaning="Apps.emptyBlocksErrorMsg" desc="IBID"}There are one or more empty blocks. Try to fill them with other blocks.{/msg}</div>
+      <%= msg.emptyBlocksErrorMsg() %>
+    </div>
     <div id="missingBlocksError" class="feedback" style="display: none">
-      {msg meaning="Apps.missingBlocksErrorMsg" desc="IBID"}Try one or more of the blocks below to solve this level.{/msg}</div>
+      <%= msg.missingBlocksErrorMsg() %>
+    </div>
     <div id="tooManyBlocksError" class="feedback" style="display: none">
-      {msg meaning="Apps.tooManyBlocksMsg" desc="IBID"}This level can be solved with <span id="idealNumberMessage"></span> blocks.{/msg}</div>
+      <%= msg.tooManyBlocksMsg() %>
+    </div>
     <div id="tooFewBlocksError" class="feedback" style="display: none">
-      {msg meaning="Apps.tooFewBlocksMsg" desc="IBID"}You are using all of the necessary types of blocks, but try using more  of these types of blocks to complete this level.{/msg}</div>
-    <div id="levedivncompleteError" class="feedback" style="display: none">
-      {msg meaning="Apps.levedivncompleteError" desc="IBID"}You are using all of the necessary types of blocks but not in the right way.{/msg}</div>
-    <div id="rinfFeedbackMsg" class="feedback" style="display: none">
-      {msg meaning="Apps.rinfFeedbackMsg" desc="IBID"}Does this look divke what you want? Hint: You can press the space key to see your drawing.{/msg}</div>
+      <%= msg.tooFewBlocksMsg() %>
+    </div>
     <% if (appSpecific) { %>
       <%- appSpecific %>
     <% } %>
@@ -121,13 +113,11 @@ var feedbackButtons = function() { -%>
   <div style="text-align: center">
     <button id="tryAgainButton" class="launch" style="display: none"
       onclick="BlocklyApps.tryAgainClicked();">
-      {msg meaning="Apps.tryAgain" desc="button - Closes the dialog and
-        stays on the current level"}Try again{/msg}
+      <%= msg.tryAgain() %>
     </button>
     <button id="continueButton" class="launch" style="display: none"
       onclick="BlocklyApps.continueClicked();">
-        {msg meaning="Apps.continue" desc="button - Closes the dialog and
-          continues to the next level"}Continue{/msg}
+      <%= msg.continue() %>
     </button>
   </div>
 <% }; -%>
