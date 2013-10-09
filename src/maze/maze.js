@@ -24,14 +24,14 @@
 'use strict';
 
 var BlocklyApps = require('../base');
-var commonMsg = require('../../build/en_us/i18n/common');
-var mazeMsg = require('../../build/en_us/i18n/maze');
+var commonMsg = require('../../en_us/i18n/common');
+var mazeMsg = require('../../en_us/i18n/maze');
 var levels = require('./levels');
 var skins = require('../skins');
 var tiles = require('./tiles');
 var codegen = require('../codegen');
 var api = require('./api');
-var page = require('../page.html.ejs');
+var page = require('../page.html');
 
 var Direction = tiles.Direction;
 var SquareType = tiles.SquareType;
@@ -335,7 +335,7 @@ Maze.init = function(config) {
   var html = page({
     baseUrl: config.baseUrl,
     data: {
-      visualization: require('./visualization.html.ejs')()
+      visualization: require('./visualization.html')()
     }
   });
   document.getElementById(config.containerId).innerHTML = html;

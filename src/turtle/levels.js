@@ -4,7 +4,7 @@ var answer = require('./answers').answer;
 
 //TODO: Fix hacky level-number-dependent toolbox.
 var toolbox = function(page, level) {
-  return require('./toolbox.xml.ejs')({
+  return require('./toolbox.xml')({
     page: page,
     level: level
   });
@@ -12,7 +12,7 @@ var toolbox = function(page, level) {
 
 //TODO: Fix hacky level-number-dependent startBlocks.
 var startBlocks = function(page, level) {
-  return require('./startBlocks.xml.ejs')({
+  return require('./startBlocks.xml')({
     page: page,
     level: level
   });

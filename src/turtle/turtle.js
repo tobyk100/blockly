@@ -31,12 +31,12 @@ window.Turtle = module.exports;
 var BlocklyApps = require('../base');
 var Turtle = module.exports;
 var Slider = require('../slider');
-var msg = require('../../build/en_us/i18n/turtle');
+var msg = require('../../en_us/i18n/turtle');
 var levels = require('./levels');
 var Colours = require('./core').Colours;
 var codegen = require('../codegen');
 var api = require('./api');
-var page = require('../page.html.ejs');
+var page = require('../page.html');
 
 var level;
 
@@ -81,9 +81,9 @@ Turtle.init = function(config) {
     baseUrl: config.baseUrl,
     data: {
       appInstance: 'Turtle',
-      visualization: require('./visualization.html.ejs')(),
-      appFeedback: require('./appFeedback.html.ejs')(),
-      controls: require('./controls.html.ejs')({baseUrl: config.baseUrl})
+      visualization: require('./visualization.html')(),
+      appFeedback: require('./appFeedback.html')(),
+      controls: require('./controls.html')({baseUrl: config.baseUrl})
     }
   });
   document.getElementById(config.containerId).innerHTML = html;

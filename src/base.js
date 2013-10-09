@@ -23,11 +23,11 @@
  */
 "use strict";
 var BlocklyApps = module.exports;
-var msg = require('../build/en_us/i18n/common');
+var msg = require('../en_us/i18n/common');
 var dialog = require('./dialog');
 var parseXmlElement = require('./xml').parseElement;
 var codegen = require('./codegen');
-var readonly = require('./readonly.html.ejs');
+var readonly = require('./readonly.html');
 
 //TODO: These should be members of a BlocklyApp instance.
 var onAttempt;

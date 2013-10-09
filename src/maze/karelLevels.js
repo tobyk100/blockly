@@ -7,13 +7,13 @@ var toolbox = function(page, level) {
   // Must use switch, since browserify only works on requires with literals.
   switch (page) {
     case 1:
-      template = require('./toolboxes/karel1.xml.ejs');
+      template = require('./toolboxes/karel1.xml');
       break;
     case 2:
-      template = require('./toolboxes/karel2.xml.ejs');
+      template = require('./toolboxes/karel2.xml');
       break;
     case 3:
-      template = require('./toolboxes/karel3.xml.ejs');
+      template = require('./toolboxes/karel3.xml');
       break;
   };
   return template({level: level});
@@ -21,7 +21,7 @@ var toolbox = function(page, level) {
 
 //TODO: Fix hacky level-number-dependent startBlocks.
 var startBlocks = function(page, level) {
-  return require('./karelStartBlocks.xml.ejs')({
+  return require('./karelStartBlocks.xml')({
     page: page,
     level: level
   });

@@ -12,6 +12,16 @@ config.clean = {
 };
 
 config.copy = {
+  js: {
+    files: [
+      {
+        expand: true,
+        cwd: 'src/',
+        src: ['**/*.js'],
+        dest: 'build/js'
+      }
+    ]
+  },
   package: {
     files: [
       {
@@ -60,17 +70,21 @@ config.messages = {
   }
 };
 
+config.ejs = {
+  all: {
+    srcBase: 'src',
+    destBase: 'build/js'
+  }
+};
+
 config.browserify = {};
 APPS.forEach(function(app) {
-  var src = 'src/' + app + '/main.js';
+  var src = 'build/js/' + app + '/main.js';
   var dest = 'build/browserified/' + app + '.js';
   var files = {};
   files[dest] = [src];
   config.browserify[app] = {
-    files: files,
-    options: {
-      transform: ['./src/dev/ejsify']
-    }
+    files: files
   };
 });
 
@@ -109,13 +123,13 @@ config.express = {
 };
 
 config.watch = {
-  src: {
-    files: ['src/**/*.js', 'src/**/*.ejs'],
-    tasks: ['build:js']
+  js: {
+    files: ['src/**/*.js'],
+    tasks: ['copy:js', 'browserify']
   },
   style: {
     files: ['style/**/*.scss', 'style/**/*.sass'],
-    tasks: ['build:css']
+    tasks: ['sass']
   },
   content: {
     files: ['static/**/*'],
@@ -125,9 +139,13 @@ config.watch = {
     files: ['lib/**/*.js'],
     tasks: ['concat:vendor']
   },
+  ejs: {
+    files: ['src/**/*.ejs'],
+    tasks: ['ejs', 'browserify']
+  },
   messages: {
     files: ['i18n/**/*.json'],
-    tasks: ['messages', 'build:js']
+    tasks: ['messages', 'browserify']
   },
   dist: {
     files: ['dist/**/*'],
@@ -147,8 +165,6 @@ config.jshint = {
       BlocklyApps: true,
       Maze: true,
       Turtle: true,
-      mazepage: true,
-      turtlepage: true
     }
   },
   all: [
@@ -182,13 +198,13 @@ module.exports = function(grunt) {
 
   grunt.loadTasks('tasks');
 
-  grunt.registerTask('build:js', ['browserify', 'concat']);
-  grunt.registerTask('build:css', ['sass']);
-
   grunt.registerTask('build', [
     'messages',
+    'copy:js',
+    'ejs',
     'browserify',
-    'copy',
+    'copy:package',
+    'copy:static',
     'concat',
     'sass'
   ]);
