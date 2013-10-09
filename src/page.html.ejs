@@ -1,48 +1,35 @@
-{namespace apps}
-
-/**
- * Dialogs.
- */
-{template .dialog private="true"}
+<% var dialog = function() { -%>
   <div id="dialogShadow" class="dialogAnimate"></div>
   <div id="dialogBorder"></div>
   <div id="dialog"></div>
-{/template}
+<% }; -%>
 
-/**
- * Instructions.
- */
-{template .instructions}
+<% var instructions = function() { -%>
   <div id="bubble">
     <div id="prompt"></div>
   </div>
-{/template}
+<% }; -%>
 
-/**
- * Code dialog.
- */
-{template .codeDialog private="true"}
-  <div id="dialogCode" class="dialogHiddenContent">
-    <pre id="containerCode"></pre>
-    {call apps.ok /}
-  </div>
-{/template}
-
-/**
- * OK button for dialogs.
- */
-{template .ok private="true"}
+<% var ok = function() { -%>
   <div class="farSide" style="padding: 1ex 3ex 0">
     <button class="secondary" onclick="BlocklyApps.hideDialog(true)">
       {{msg meaning="Apps.dialogOk" desc="IBID"}}OK{{/msg}}
     </button>
   </div>
-{/template}
+<% }; -%>
 
+<% var codeDialog = function() { -%>
+  <div id="dialogCode" class="dialogHiddenContent">
+    <pre id="containerCode"></pre>
+    <% ok() -%>
+  </div>
+<% }; -%>
+
+<%
 /**
  * @param appInstance The name of the App object to run.
  */
-{template .gameButtons}
+var gameButtons = function(appInstance) { -%>
   <table id="gameButtons" width="400" style="padding-top: 10px;">
     <tr>
       <td style="width: 190px; text-align: center; vertical-align: top;">
@@ -51,19 +38,19 @@
           program in the JavaScript computer language to be displayed, based on
           the program created by the user."}See generated JavaScript code.{/msg}"
           onclick="BlocklyApps.showGeneratedCode();">
-          <img src='{$ij.baseUrl}media/1x1.gif' alt="code" class="code icon21">
+          <img src='<%= baseUrl %>media/1x1.gif' alt="code" class="code icon21">
         </button>
       </td>
       <td>
-        <button id="runButton" class="launch" onclick="{$appInstance}.runButtonClick();">
-            <img src="{$ij.baseUrl}media/1x1.gif" class="run icon21">{msg meaning="Apps.runProgram"
+        <button id="runButton" class="launch" onclick="<%= appInstance %>.runButtonClick();">
+            <img src="<%= baseUrl %>media/1x1.gif" class="run icon21">{msg meaning="Apps.runProgram"
             desc="button label - Pressing the button runs the computer program the user has
             written."}Run{/msg}
           </button>
         </button>
         <button id="resetButton" class="launch"
           onclick="BlocklyApps.resetButtonClick();" style="display: none">
-            <img src="{$ij.baseUrl}media/1x1.gif" class="stop icon21">
+            <img src="<%= baseUrl %>media/1x1.gif" class="stop icon21">
               {msg meaning="Apps.resetProgram" desc="button label -
                 Pressing the button causes Pegman return to the start of the maze
                 (but does not delete the user's program.)"}Reset{/msg}
@@ -71,25 +58,24 @@
       </td>
     </tr>
   </table>
-{/template}
+<% }; -%>
 
-/**
- * A spot for the server to inject some HTML for help content.
- */
-{template .helpArea}
-  {if $ij.helpHtml }
+<% // A spot for the server to inject some HTML for help content.
+var helpArea = function(html) { -%>
+  <% if (html) { -%>
     <div id="helpArea">
-      {$ij.helpHtml |noAutoescape}
+      <%- html %>
     </div>
-  {/if}
-{/template}
+  <% } -%>
+<% }; -%>
 
+<%
 /**
- * @param? appSpecific Contains feedback entries for a particular app.
+ * @param? appSpecific Template containing app specific feedback markup.
  */
-{template .feedback}
-    <span id="levelFeedbackText">
-              <span id="hintTitle" class="feedback">{msg meaning="Apps.hintTitle" desc="IBID"}{/msg}Hints:</span>
+var feedback = function(appSpecific) { -%>
+  <span id="levelFeedbackText">
+    <span id="hintTitle" class="feedback">{msg meaning="Apps.hintTitle" desc="IBID"}{/msg}Hints:</span>
     <div id="nextLevelMsg" class="feedback" style="display: none;">{msg
       meaning="Apps.nextLevel" desc="IBID"}Congratulations! You have completed this level.{/msg}</div>
     <div id="finalLevelMsg" class="feedback" style="display: none;">{msg
@@ -110,9 +96,9 @@
       {msg meaning="Apps.levedivncompleteError" desc="IBID"}You are using all of the necessary types of blocks but not in the right way.{/msg}</div>
     <div id="rinfFeedbackMsg" class="feedback" style="display: none">
       {msg meaning="Apps.rinfFeedbackMsg" desc="IBID"}Does this look divke what you want? Hint: You can press the space key to see your drawing.{/msg}</div>
-    {if $appSpecific}
-      {$appSpecific |noAutoescape}
-    {/if}
+    <% if (appSpecific) { %>
+      <%- appSpecific %>
+    <% } %>
   </span>  // feedbackText
   <iframe id="feedbackBlocks" class="feedback" style="margin-left: 50px;
     height: 80px; width: 500px; border: none; display: none;" src="about:blank"></iframe>
@@ -125,13 +111,13 @@
     <div id="generatedCodeInfoMsg"></div>
     <pre id="generatedCodeContainer" class="generatedCode"></pre>
   </span>
-{/template}
+<% }; -%>
 
-/**
- * Buttons on the feedback dialog.
- */
-{template .feedbackButtons}
-  <div id="returnToLevelButton" style="display: none;">{call apps.ok /}</div>
+<% // Buttons on the feedback dialog.
+var feedbackButtons = function() { -%>
+  <div id="returnToLevelButton" style="display: none;">
+    <% ok() %>
+  </div>
   <div style="text-align: center">
     <button id="tryAgainButton" class="launch" style="display: none"
       onclick="BlocklyApps.tryAgainClicked();">
@@ -144,4 +130,32 @@
           continues to the next level"}Continue{/msg}
     </button>
   </div>
-{/template}
+<% }; -%>
+
+
+<% instructions() %>
+<div id="blockCount"></div>
+
+<div id="visualization">
+  <%- data.visualization %>
+</div>
+
+<% gameButtons(data.appInstance) %>
+<% if (data.controls) { %>
+  <%- data.controls %>
+<% } %>
+<% helpArea(data.helpHtml) %>
+
+<div id="blockly"></div>
+
+<%
+  dialog()
+  codeDialog()
+%>
+
+<div id="help" class="dialogHiddenContent">
+  <div style="padding-bottom: 0.7ex;"><br>
+    <% feedback(data.appFeedback) %>
+  </div>
+  <% feedbackButtons() %>
+</div>

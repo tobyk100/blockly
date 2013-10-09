@@ -36,6 +36,7 @@ var levels = require('./levels');
 var Colours = require('./core').Colours;
 var codegen = require('../codegen');
 var api = require('./api');
+var page = require('../page.html.ejs');
 
 var level;
 
@@ -76,7 +77,15 @@ Turtle.init = function(config) {
   }
   var instructions = config.level.instructions || '';
 
-  var html = turtlepage.start({}, null, config);
+  var html = page({
+    baseUrl: config.baseUrl,
+    data: {
+      appInstance: 'Turtle',
+      visualization: require('./visualization.html.ejs')(),
+      appFeedback: require('./appFeedback.html.ejs')(),
+      controls: require('./controls.html.ejs')({baseUrl: config.baseUrl})
+    }
+  });
   document.getElementById(config.containerId).innerHTML = html;
 
   BlocklyApps.init(config);

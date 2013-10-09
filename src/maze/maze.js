@@ -31,6 +31,7 @@ var skins = require('../skins');
 var tiles = require('./tiles');
 var codegen = require('../codegen');
 var api = require('./api');
+var page = require('../page.html.ejs');
 
 var Direction = tiles.Direction;
 var SquareType = tiles.SquareType;
@@ -331,10 +332,15 @@ Maze.init = function(config) {
     level[prop] = config.level[prop];
   }
 
-  config.level = level;
-  var html = mazepage.start({}, null, config);
+  var html = page({
+    baseUrl: config.baseUrl,
+    data: {
+      visualization: require('./visualization.html.ejs')()
+    }
+  });
   document.getElementById(config.containerId).innerHTML = html;
 
+  config.level = level;
   BlocklyApps.init(config);
 
   /**
