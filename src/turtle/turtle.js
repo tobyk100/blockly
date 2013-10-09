@@ -94,7 +94,9 @@ Turtle.init = function(config) {
   BlocklyApps.init(config);
 
   var div = document.getElementById('blockly');
-  BlocklyApps.inject(div, { toolbox: level.toolbox });
+  BlocklyApps.inject(div, {
+    toolbox: level.toolbox
+  });
 
   // Add to reserved word list: API, local variables in execution evironment
   // (execute) and the infinite loop detection function.

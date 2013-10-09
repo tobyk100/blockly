@@ -335,6 +335,7 @@ Maze.init = function(config) {
   var html = page({
     baseUrl: config.baseUrl,
     data: {
+      appInstance: 'Maze',
       visualization: require('./visualization.html')()
     }
   });
@@ -352,7 +353,9 @@ Maze.init = function(config) {
   Blockly.HSV_SATURATION = 0.6;
 
   var div = document.getElementById('blockly');
-  BlocklyApps.inject(div);
+  BlocklyApps.inject(div, {
+    toolbox: level.toolbox
+  });
 
   Blockly.loadAudio_(['media/maze/win.mp3', 'media/maze/win.ogg'], 'win');
   Blockly.loadAudio_(['media/maze/whack.mp3', 'media/maze/whack.ogg'], 'whack');
