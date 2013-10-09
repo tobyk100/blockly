@@ -15,7 +15,7 @@ var toolbox = function(page, level) {
     case 3:
       template = require('./toolboxes/karel3.xml');
       break;
-  };
+  }
   return template({level: level});
 };
 

@@ -1,6 +1,6 @@
 module.exports = function(grunt) {
   'use strict';
-  var MessageFormat = require('messageformat');
+
   var path = require('path');
   var fs = require('fs');
   var MessageFormat = require('messageformat');

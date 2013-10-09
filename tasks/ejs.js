@@ -15,7 +15,7 @@ module.exports = function(grunt) {
     });
     code += ';\n';
     code += '  return function(locals) {\n';
-    code += '    return t(locals, require("ejs").filters);\n'
+    code += '    return t(locals, require("ejs").filters);\n';
     code += '  }\n';
     code += '}());';
     return code;
