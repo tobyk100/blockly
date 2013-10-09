@@ -1,3 +1,5 @@
+var BlocklyApps = require('../base');
+
 exports.moveForward = function(distance, id) {
   BlocklyApps.log.push(['FD', distance, id]);
 };

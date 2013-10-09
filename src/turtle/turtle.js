@@ -68,14 +68,17 @@ Turtle.visible = true;
  */
 Turtle.init = function(config) {
 
-  level = levels.install(BlocklyApps, Turtle, config.levelId);
+  level = levels[config.levelId];
+  level.id = config.levelId;
 
   config.level = config.level || {};
   // Override the current level with caller supplied parameters.
   for (var prop in config.level) {
     level[prop] = config.level[prop];
   }
-  var instructions = config.level.instructions || '';
+
+  BlocklyApps.IDEAL_BLOCK_NUM = level.ideal || Infinity;
+  BlocklyApps.REQUIRED_BLOCKS = level.requiredBlocks || [];
 
   var html = page({
     baseUrl: config.baseUrl,
@@ -122,6 +125,7 @@ Turtle.init = function(config) {
   Blockly.fireUiEvent(window, 'resize');
 
   // Show the instructions.
+  var instructions = config.level.instructions || '';
   document.getElementById('prompt').innerHTML = instructions;
 
   // Initialize the slider.

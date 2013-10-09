@@ -691,5 +691,3 @@ module.exports = {
 for (var levelId in karelLevels) {
   module.exports['karel_' + levelId] = karelLevels[levelId];
 }
-
-console.log(JSON.stringify(module.exports));

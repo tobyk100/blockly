@@ -24,6 +24,7 @@
 'use strict';
 
 var api = require('./api');
+var BlocklyApps = require('../base');
 
 var setRandomVisibleColour = function() {
   var num = Math.floor(Math.random() * Math.pow(2, 24));

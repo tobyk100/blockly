@@ -63,6 +63,9 @@ BlocklyApps.init = function(config) {
     viewport.setAttribute('content',
         'width=725, initial-scale=.35, user-scalable=no');
   }
+
+  // Add events for touch devices when the window is done loading.
+  window.addEventListener('load', BlocklyApps.addTouchEvents, false);
 };
 
 /**
@@ -244,9 +247,6 @@ BlocklyApps.addTouchEvents = function() {
     }
   }
 };
-
-// Add events for touch devices when the window is done loading.
-window.addEventListener('load', BlocklyApps.addTouchEvents, false);
 
 // The following properties get their non-default values set by the application.
 
