@@ -12,13 +12,23 @@ config.clean = {
 };
 
 config.copy = {
-  js: {
+  src: {
     files: [
       {
         expand: true,
         cwd: 'src/',
         src: ['**/*.js'],
         dest: 'build/js'
+      }
+    ]
+  },
+  browserified: {
+    files: [
+      {
+        expand: true,
+        cwd: 'build/browserified',
+        src: ['**/*.js'],
+        dest: 'dist/js'
       }
     ]
   },
@@ -100,17 +110,6 @@ config.concat = {
   }
 };
 
-APPS.forEach(function(app) {
-  config.concat[app] = {
-    src: [
-      'build/templates/common.js',
-      'build/templates/' + app + '/**/*.js',
-      'build/browserified/' + app + '.js'
-    ],
-    dest: 'dist/js/' + app + '.js'
-  };
-});
-
 config.express = {
   server: {
     options: {
@@ -125,7 +124,7 @@ config.express = {
 config.watch = {
   js: {
     files: ['src/**/*.js'],
-    tasks: ['copy:js', 'browserify']
+    tasks: ['copy:src', 'browserify', 'copy:browserified']
   },
   style: {
     files: ['style/**/*.scss', 'style/**/*.sass'],
@@ -141,11 +140,11 @@ config.watch = {
   },
   ejs: {
     files: ['src/**/*.ejs'],
-    tasks: ['ejs', 'browserify']
+    tasks: ['ejs', 'browserify', 'copy:browserified']
   },
   messages: {
     files: ['i18n/**/*.json'],
-    tasks: ['messages', 'browserify']
+    tasks: ['messages', 'browserify', 'copy:browserified']
   },
   dist: {
     files: ['dist/**/*'],
@@ -200,9 +199,10 @@ module.exports = function(grunt) {
 
   grunt.registerTask('build', [
     'messages',
-    'copy:js',
+    'copy:src',
     'ejs',
     'browserify',
+    'copy:browserified',
     'copy:package',
     'copy:static',
     'concat',
