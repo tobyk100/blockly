@@ -52,18 +52,6 @@ APPS.forEach(function(app) {
   config.sass.all.files[dest] = src;
 });
 
-config.soycompile = {
-  all: {
-    expand: true,
-    cwd: 'src/',
-    src: ["**/*.soy"],
-    dest: "build/templates/",
-    options: {
-      jarPath: "lib/soy/"
-    }
-  }
-};
-
 config.messages = {
   all: {
     locales: ['en_us'],
@@ -89,7 +77,6 @@ APPS.forEach(function(app) {
 config.concat = {
   vendor: {
     src: [
-      'lib/soy/*.js',
       'lib/blockly/blockly_compressed.js',
       'lib/blockly/blocks_compressed.js',
       'lib/blockly/javascript_compressed.js',
@@ -137,10 +124,6 @@ config.watch = {
   vendor_js: {
     files: ['lib/**/*.js'],
     tasks: ['concat:vendor']
-  },
-  templates: {
-    files: ['src/**/*.soy'],
-    tasks: ['build:templates']
   },
   messages: {
     files: ['i18n/**/*.json'],
@@ -193,20 +176,17 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-jshint');
   grunt.loadNpmTasks('grunt-express');
   grunt.loadNpmTasks('grunt-contrib-watch');
-  grunt.loadNpmTasks('grunt-soy-compile');
   grunt.loadNpmTasks('grunt-browserify');
   grunt.loadNpmTasks('grunt-sass');
   grunt.loadNpmTasks('grunt-release');
 
   grunt.loadTasks('tasks');
 
-  grunt.registerTask('build:templates', ['soycompile', 'concat']);
   grunt.registerTask('build:js', ['browserify', 'concat']);
   grunt.registerTask('build:css', ['sass']);
 
   grunt.registerTask('build', [
     'messages',
-    'soycompile',
     'browserify',
     'copy',
     'concat',
