@@ -191,5 +191,13 @@
   "typeFuncs": {
     "string": "// Available functions:%1<br><br><br>",
     "description": "Hint text to describe functions that can be typed into the JS code editor"
+  },
+  "toolboxHeader": {
+    "string": "Blocks",
+    "description": "A label for the toolbox"
+  },
+  "workspaceHeader": {
+    "string": "Assemble your blocks here.",
+    "description": "A label for the workspace"
   }
 }

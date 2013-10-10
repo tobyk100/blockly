@@ -190,3 +190,20 @@ input[type="radio"] {
   background-color: #1180BE;
   text-align: center;
 }
+
+#headers {
+  $height: 40px;
+  background-color: #7665a0;
+  div {
+    text-align: center;
+    display: inline-block;
+    height: $height;
+  }
+  span {
+    color: white;
+    line-height: $height;
+  }
+  #toolbox-header {
+    border-right: 1px solid gray;
+  }
+}
