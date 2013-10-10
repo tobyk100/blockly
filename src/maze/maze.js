@@ -90,8 +90,8 @@ var loadLevel = function(levelId) {
   Maze.COLS = Maze.map[0].length;
   // Pixel height and width of each maze square (i.e. tile).
   Maze.SQUARE_SIZE = 50;
-  Maze.PEGMAN_HEIGHT = 52*1.25;
-  Maze.PEGMAN_WIDTH = 49*1.25;
+  Maze.PEGMAN_HEIGHT = 52;
+  Maze.PEGMAN_WIDTH = 49;
 
   Maze.MAZE_WIDTH = Maze.SQUARE_SIZE * Maze.COLS;
   Maze.MAZE_HEIGHT = Maze.SQUARE_SIZE * Maze.ROWS;
@@ -800,7 +800,7 @@ Maze.scheduleFinish = function(sound) {
 Maze.displayPegman = function(x, y, d) {
   var pegmanIcon = document.getElementById('pegman');
   pegmanIcon.setAttribute('x',
-      x * Maze.SQUARE_SIZE - d * Maze.PEGMAN_WIDTH - 8);// + 1);
+      x * Maze.SQUARE_SIZE - d * Maze.PEGMAN_WIDTH + 1);
   pegmanIcon.setAttribute('y',
       Maze.SQUARE_SIZE * (y + 0.5) - Maze.PEGMAN_HEIGHT / 2 - 8);
 
