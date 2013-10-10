@@ -179,5 +179,17 @@
   "generatedCodeInfo": {
     "string": "The blocks for your program can also be represented in Javascript, the world's most popular programming language:",
     "description": "Informational message about user's generated Javascript code"
+  },
+  "typeCode": {
+    "string": "// Type your JavaScript code below these instructions.",
+    "description": "hint text - type code here"
+  },
+  "typeHint": {
+    "string": "// Note that the parentheses and semicolons are required.",
+    "description": "hint text - parens and semicolon needed"
+  },
+  "typeFuncs": {
+    "string": "// Available functions:%1<br><br><br>",
+    "description": "Hint text to describe functions that can be typed into the JS code editor"
   }
 }

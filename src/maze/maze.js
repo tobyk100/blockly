@@ -379,13 +379,21 @@ Maze.init = function(config) {
 
   drawMap();
 
+  if (level.editCode) {
+    document.getElementById('codeTextbox').style.display = 'block';
+    div.style.display = 'none';
+  }
+
   window.addEventListener('scroll', function() {
       BlocklyApps.onResize();
       Blockly.fireUiEvent(window, 'resize');
     });
   window.addEventListener('resize', BlocklyApps.onResize);
   BlocklyApps.onResize();
-  Blockly.svgResize();
+
+  if (!level.editCode) {
+    Blockly.svgResize();
+  }
 
   // Add the starting block(s).
   var startBlocks = level.startBlocks ||
@@ -544,6 +552,22 @@ Maze.execute = function() {
     return;
   }
 
+  if (level.editCode) {
+    // Check for innerText && textContent (for IE compat).
+    var codeTextbox = document.getElementById('codeTextbox');
+    code = codeTextbox.innerText || codeTextbox.textContent;
+    // Insert aliases from level codeBlocks into code
+    if (level.codeFunctions) {
+      for (var i = 0; i < level.codeFunctions.length; i++) {
+        var codeFunction = level.codeFunctions[i];
+        if (codeFunction.alias) {
+          code = codeFunction.func +
+              " = function() { " + codeFunction.alias + " };" + code;
+        }
+      }
+    }
+  }
+
   // Try running the user's code.  There are four possible outcomes:
   // 1. If pegman reaches the finish [SUCCESS], true is thrown.
   // 2. If the program is terminated due to running too long [TIMEOUT],
@@ -585,6 +609,12 @@ Maze.execute = function() {
   BlocklyApps.levelComplete = (Maze.result == ResultType.SUCCESS);
 
   Maze.testResults = BlocklyApps.getTestResults();
+
+  if (level.editCode) {
+    Maze.testResults = BlocklyApps.levelComplete ?
+      BlocklyApps.TestResults.ALL_PASS :
+      BlocklyApps.TestResults.TOO_FEW_BLOCKS_FAIL;
+  }
 
   var xml = Blockly.Xml.workspaceToDom(Blockly.mainWorkspace);
   var textBlocks = Blockly.Xml.domToText(xml);
