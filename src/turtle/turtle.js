@@ -68,14 +68,7 @@ Turtle.visible = true;
  */
 Turtle.init = function(config) {
 
-  level = levels[config.levelId];
-  level.id = config.levelId;
-
-  config.level = config.level || {};
-  // Override the current level with caller supplied parameters.
-  for (var prop in config.level) {
-    level[prop] = config.level[prop];
-  }
+  level = config.level;
 
   BlocklyApps.IDEAL_BLOCK_NUM = level.ideal || Infinity;
   BlocklyApps.REQUIRED_BLOCKS = level.requiredBlocks || [];

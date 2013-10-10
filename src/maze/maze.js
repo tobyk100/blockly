@@ -26,7 +26,6 @@
 var BlocklyApps = require('../base');
 var commonMsg = require('../../en_us/i18n/common');
 var mazeMsg = require('../../en_us/i18n/maze');
-var levels = require('./levels');
 var skins = require('../skins');
 var tiles = require('./tiles');
 var codegen = require('../codegen');
@@ -67,10 +66,7 @@ Maze.scale = {
   'stepSpeed': 5
 };
 
-var loadLevel = function(levelId) {
-  level = levels[levelId];
-  level.id = levelId;
-
+var loadLevel = function() {
   // Load maps.
   Maze.map = level.map;
   BlocklyApps.IDEAL_BLOCK_NUM = level.ideal;
@@ -325,12 +321,8 @@ var resetDirt = function() {
 Maze.init = function(config) {
 
   skin = config.skin;
-  loadLevel(config.levelId);
-
-  // Override the current level with caller supplied parameters.
-  for (var prop in config.level) {
-    level[prop] = config.level[prop];
-  }
+  level = config.level;
+  loadLevel();
 
   var html = page({
     baseUrl: config.baseUrl,
