@@ -198,10 +198,12 @@ input[type="radio"] {
     text-align: center;
     display: inline-block;
     height: $height;
-  }
-  span {
-    color: white;
-    line-height: $height;
+    margin-right: -4px;  // Fix inline block spacing issue.
+
+    span {
+      color: white;
+      line-height: $height;
+    }
   }
   #toolbox-header {
     border-right: 1px solid gray;
