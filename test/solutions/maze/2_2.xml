@@ -1,0 +1,11 @@
+<xml>
+  <block type="maze_moveForward" x="70" y="70">
+    <next>
+      <block type="maze_moveForward">
+        <next>
+          <block type="maze_moveForward"/>
+        </next>
+      </block>
+    </next>
+  </block>
+</xml>

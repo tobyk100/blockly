@@ -1,4 +1,9 @@
 window.BlocklyApps = require('./base');
+
+if (typeof global !== 'undefined') {
+  global.BlocklyApps = window.BlocklyApps;
+}
+
 var addReadyListener = require('./dom').addReadyListener;
 
 module.exports = function(app, levels, options) {

@@ -34,6 +34,9 @@ grunt
 # Run with live-reload server
 grunt dev
 open http://localhost:8000
+
+# Run tests (after a build, or while dev is running)
+grunt test
 ```
 
 ## Project Specification

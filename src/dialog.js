@@ -54,7 +54,8 @@ var getBBox = function(element) {
   var x, y, width, height, bBox;
   if (element.getBBox) {
     // SVG element.
-    if (navigator.userAgent.indexOf("MSIE") >= 0 || navigator.userAgent.indexOf("Trident") >= 0) {
+    if (window.navigator.userAgent.indexOf("MSIE") >= 0 ||
+        window.navigator.userAgent.indexOf("Trident") >= 0) {
       textElement.style.display = "inline";   /* reqd for IE */
       bBox = {
           x: textElement.getBBox().x,
