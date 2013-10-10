@@ -28,6 +28,7 @@ var dialog = require('./dialog');
 var parseXmlElement = require('./xml').parseElement;
 var codegen = require('./codegen');
 var readonly = require('./readonly.html');
+var addReadyListener = require('./dom').addReadyListener;
 
 //TODO: These should be members of a BlocklyApp instance.
 var onAttempt;
@@ -92,7 +93,7 @@ BlocklyApps.init = function(config) {
   }
 
   // Add events for touch devices when the window is done loading.
-  window.addEventListener('load', BlocklyApps.addTouchEvents, false);
+  addReadyListener(BlocklyApps.addTouchEvents);
 };
 
 /**

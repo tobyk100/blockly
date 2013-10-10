@@ -1,4 +1,5 @@
 window.BlocklyApps = require('./base');
+var addReadyListener = require('./dom').addReadyListener;
 
 module.exports = function(app, levels, options) {
 
@@ -18,7 +19,7 @@ module.exports = function(app, levels, options) {
 
   options.blocksModule.install(Blockly, options.skin);
 
-  window.addEventListener('load', function() {
+  addReadyListener(function() {
     if (options.readonly) {
       BlocklyApps.initReadonly(options);
     } else {
