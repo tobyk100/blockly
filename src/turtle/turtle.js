@@ -31,11 +31,12 @@ window.Turtle = module.exports;
 var BlocklyApps = require('../base');
 var Turtle = module.exports;
 var Slider = require('../slider');
-var msg = require('../../build/en_us/i18n/turtle');
+var msg = require('../../en_us/i18n/turtle');
 var levels = require('./levels');
 var Colours = require('./core').Colours;
 var codegen = require('../codegen');
 var api = require('./api');
+var page = require('../page.html');
 
 var level;
 
@@ -67,22 +68,35 @@ Turtle.visible = true;
  */
 Turtle.init = function(config) {
 
-  level = levels.install(BlocklyApps, Turtle, config.levelId);
+  level = levels[config.levelId];
+  level.id = config.levelId;
 
   config.level = config.level || {};
   // Override the current level with caller supplied parameters.
   for (var prop in config.level) {
     level[prop] = config.level[prop];
   }
-  var instructions = config.level.instructions || '';
 
-  var html = turtlepage.start({}, null, config);
+  BlocklyApps.IDEAL_BLOCK_NUM = level.ideal || Infinity;
+  BlocklyApps.REQUIRED_BLOCKS = level.requiredBlocks || [];
+
+  var html = page({
+    baseUrl: config.baseUrl,
+    data: {
+      appInstance: 'Turtle',
+      visualization: require('./visualization.html')(),
+      appFeedback: require('./appFeedback.html')(),
+      controls: require('./controls.html')({baseUrl: config.baseUrl})
+    }
+  });
   document.getElementById(config.containerId).innerHTML = html;
 
   BlocklyApps.init(config);
 
   var div = document.getElementById('blockly');
-  BlocklyApps.inject(div, { toolbox: level.toolbox });
+  BlocklyApps.inject(div, {
+    toolbox: level.toolbox
+  });
 
   // Add to reserved word list: API, local variables in execution evironment
   // (execute) and the infinite loop detection function.
@@ -113,6 +127,7 @@ Turtle.init = function(config) {
   Blockly.fireUiEvent(window, 'resize');
 
   // Show the instructions.
+  var instructions = config.level.instructions || '';
   document.getElementById('prompt').innerHTML = instructions;
 
   // Initialize the slider.

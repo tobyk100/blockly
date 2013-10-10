@@ -4,7 +4,7 @@ var answer = require('./answers').answer;
 
 //TODO: Fix hacky level-number-dependent toolbox.
 var toolbox = function(page, level) {
-  return turtlepage.toolbox({}, null, {
+  return require('./toolbox.xml')({
     page: page,
     level: level
   });
@@ -12,7 +12,7 @@ var toolbox = function(page, level) {
 
 //TODO: Fix hacky level-number-dependent startBlocks.
 var startBlocks = function(page, level) {
-  return turtlepage.startBlocks({}, null, {
+  return require('./startBlocks.xml')({
     page: page,
     level: level
   });
@@ -157,9 +157,8 @@ var SET_COLOUR_RANDOM = {test: 'penColour(colour_random',
  * @return A required block specification that tests for a call of the
  *     specified function with the specified argument name.  If not present,
  *     this contains the information to create such a block for display.
- * @private
  */
-exports.defineWithArg_ = function(func_name, arg_name) {
+var defineWithArg = function(func_name, arg_name) {
   return {
     test: function(block) {
       return block.type == 'procedures_defnoreturn' &&
@@ -176,7 +175,7 @@ exports.defineWithArg_ = function(func_name, arg_name) {
 /**
  * Information about level-specific requirements.
  */
-var LEVELS = {
+module.exports = {
   // Level 1: El.
   '1_1': {
     answer: answer(1, 1),
@@ -550,7 +549,7 @@ var LEVELS = {
     toolbox: toolbox(3, 6),
     startBlocks: startBlocks(3, 6),
     requiredBlocks: [
-      [exports.defineWithArg_('draw a triangle', 'length')],
+      [defineWithArg('draw a triangle', 'length')],
       [simpleBlock('variables_get_length')],
       [levelBase.callWithArg('draw a triangle', 'length')]
     ],
@@ -575,7 +574,7 @@ var LEVELS = {
     toolbox: toolbox(3, 7),
     startBlocks: startBlocks(3, 7),
     requiredBlocks: [
-      [exports.defineWithArg_('draw a house', 'height')],
+      [defineWithArg('draw a house', 'height')],
       [levelBase.callWithArg('draw a square', 'length')],
       [levelBase.callWithArg('draw a triangle', 'length')],
       [simpleBlock('variables_get_height')],
@@ -684,12 +683,4 @@ var LEVELS = {
     toolbox: toolbox(4, 4),
     startBlocks: startBlocks(4, 4)
   }
-};
-
-exports.install = function(BlocklyApps, Turtle, levelId) {
-  var level = LEVELS[levelId];
-  level.id = levelId;
-  BlocklyApps.IDEAL_BLOCK_NUM = level.ideal || Infinity;
-  BlocklyApps.REQUIRED_BLOCKS = level.requiredBlocks || [];
-  return level;
 };

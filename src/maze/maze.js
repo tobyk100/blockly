@@ -24,13 +24,14 @@
 'use strict';
 
 var BlocklyApps = require('../base');
-var commonMsg = require('../../build/en_us/i18n/common');
-var mazeMsg = require('../../build/en_us/i18n/maze');
+var commonMsg = require('../../en_us/i18n/common');
+var mazeMsg = require('../../en_us/i18n/maze');
 var levels = require('./levels');
 var skins = require('../skins');
 var tiles = require('./tiles');
 var codegen = require('../codegen');
 var api = require('./api');
+var page = require('../page.html');
 
 var Direction = tiles.Direction;
 var SquareType = tiles.SquareType;
@@ -331,10 +332,16 @@ Maze.init = function(config) {
     level[prop] = config.level[prop];
   }
 
-  config.level = level;
-  var html = mazepage.start({}, null, config);
+  var html = page({
+    baseUrl: config.baseUrl,
+    data: {
+      appInstance: 'Maze',
+      visualization: require('./visualization.html')()
+    }
+  });
   document.getElementById(config.containerId).innerHTML = html;
 
+  config.level = level;
   BlocklyApps.init(config);
 
   /**
@@ -346,7 +353,9 @@ Maze.init = function(config) {
   Blockly.HSV_SATURATION = 0.6;
 
   var div = document.getElementById('blockly');
-  BlocklyApps.inject(div);
+  BlocklyApps.inject(div, {
+    toolbox: level.toolbox
+  });
 
   Blockly.loadAudio_(['media/maze/win.mp3', 'media/maze/win.ogg'], 'win');
   Blockly.loadAudio_(['media/maze/whack.mp3', 'media/maze/whack.ogg'], 'whack');

@@ -4,10 +4,19 @@
     "string": "Blockly",
     "description": "The project name.  If readers of your language would know approximately how to pronounce 'Blockly', leave unchanged.  Otherwise, include a transliteration in parentheses, such as the Russian: 'Blockly (Блoкли)'."
   },
+  "catActions": {
+    "string": "Actions",
+    "description": "category - Blocks related to moving the avatar."
+  },
   "catColour": {
     "id": "5532942470899034153",
     "string": "Colour",
     "description": "category - Blocks related to [https://code.google.com/p/blockly/wiki/Colour colour]."
+  },
+  "catCondition": {
+    "id": "5532942470899034153",
+    "string": "Conditionals",
+    "description": "category - Blocks related to conditionals."
   },
   "catLists": {
     "id": "7880221162350996120",
@@ -59,7 +68,7 @@
     "string": "Cancel",
     "description": "Label on button for user to press when not wanting to proceed.\n{{Identical|Cancel}}"
   },
-  "dialogOk": {
+  "dialogOK": {
     "id": "3964361619617826429",
     "string": "OK",
     "description": "Label on button for user to press when done reading help information.\n{{Identical|OK}}"
@@ -158,11 +167,6 @@
     "id": "1502277686681186601",
     "string": "This level can be solved with <x id='START_SPAN'/><x id='END_SPAN'/> blocks.",
     "description": "alert - This is displayed when the user has used more blocks than is necessary."
-  },
-  "rinfFeedbackMsg": {
-    "id": "",
-    "string": "Does this look like what you want? Hint: You can press the space key to see your drawing.",
-    "description": "TODO"
   },
   "numLinesOfCodeWritten": {
     "string": "You wrote {numLines, plural, one {1 line} other {# lines}} of code",

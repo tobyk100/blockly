@@ -3,15 +3,25 @@ var Direction = require('./tiles').Direction;
 
 //TODO: Fix hacky level-number-dependent toolbox.
 var toolbox = function(page, level) {
-  return karelpage.toolbox({}, null, {
-    page: page,
-    level: level
-  });
+  var template;
+  // Must use switch, since browserify only works on requires with literals.
+  switch (page) {
+    case 1:
+      template = require('./toolboxes/karel1.xml');
+      break;
+    case 2:
+      template = require('./toolboxes/karel2.xml');
+      break;
+    case 3:
+      template = require('./toolboxes/karel3.xml');
+      break;
+  }
+  return template({level: level});
 };
 
 //TODO: Fix hacky level-number-dependent startBlocks.
 var startBlocks = function(page, level) {
-  return karelpage.startBlocks({}, null, {
+  return require('./karelStartBlocks.xml')({
     page: page,
     level: level
   });

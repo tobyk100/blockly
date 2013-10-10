@@ -12,6 +12,26 @@ config.clean = {
 };
 
 config.copy = {
+  src: {
+    files: [
+      {
+        expand: true,
+        cwd: 'src/',
+        src: ['**/*.js'],
+        dest: 'build/js'
+      }
+    ]
+  },
+  browserified: {
+    files: [
+      {
+        expand: true,
+        cwd: 'build/browserified',
+        src: ['**/*.js'],
+        dest: 'dist/js'
+      }
+    ]
+  },
   package: {
     files: [
       {
@@ -52,18 +72,6 @@ APPS.forEach(function(app) {
   config.sass.all.files[dest] = src;
 });
 
-config.soycompile = {
-  all: {
-    expand: true,
-    cwd: 'src/',
-    src: ["**/*.soy"],
-    dest: "build/templates/",
-    options: {
-      jarPath: "lib/soy/"
-    }
-  }
-};
-
 config.messages = {
   all: {
     locales: ['en_us'],
@@ -72,24 +80,27 @@ config.messages = {
   }
 };
 
+config.ejs = {
+  all: {
+    srcBase: 'src',
+    destBase: 'build/js'
+  }
+};
+
 config.browserify = {};
 APPS.forEach(function(app) {
-  var src = 'src/' + app + '/main.js';
+  var src = 'build/js/' + app + '/main.js';
   var dest = 'build/browserified/' + app + '.js';
   var files = {};
   files[dest] = [src];
   config.browserify[app] = {
-    files: files,
-    options: {
-      transform: ['hbsfy']
-    }
+    files: files
   };
 });
 
 config.concat = {
   vendor: {
     src: [
-      'lib/soy/*.js',
       'lib/blockly/blockly_compressed.js',
       'lib/blockly/blocks_compressed.js',
       'lib/blockly/javascript_compressed.js',
@@ -98,17 +109,6 @@ config.concat = {
     dest: 'dist/js/vendor.js'
   }
 };
-
-APPS.forEach(function(app) {
-  config.concat[app] = {
-    src: [
-      'build/templates/common.js',
-      'build/templates/' + app + '/**/*.js',
-      'build/browserified/' + app + '.js'
-    ],
-    dest: 'dist/js/' + app + '.js'
-  };
-});
 
 config.express = {
   server: {
@@ -122,13 +122,13 @@ config.express = {
 };
 
 config.watch = {
-  src: {
-    files: ['src/**/*.js', 'src/**/*.hbs'],
-    tasks: ['build:js']
+  js: {
+    files: ['src/**/*.js'],
+    tasks: ['copy:src', 'browserify', 'copy:browserified']
   },
   style: {
     files: ['style/**/*.scss', 'style/**/*.sass'],
-    tasks: ['build:css']
+    tasks: ['sass']
   },
   content: {
     files: ['static/**/*'],
@@ -138,13 +138,13 @@ config.watch = {
     files: ['lib/**/*.js'],
     tasks: ['concat:vendor']
   },
-  templates: {
-    files: ['src/**/*.soy'],
-    tasks: ['build:templates']
+  ejs: {
+    files: ['src/**/*.ejs'],
+    tasks: ['ejs', 'browserify', 'copy:browserified']
   },
   messages: {
     files: ['i18n/**/*.json'],
-    tasks: ['messages', 'build:js']
+    tasks: ['messages', 'browserify', 'copy:browserified']
   },
   dist: {
     files: ['dist/**/*'],
@@ -164,8 +164,6 @@ config.jshint = {
       BlocklyApps: true,
       Maze: true,
       Turtle: true,
-      mazepage: true,
-      turtlepage: true
     }
   },
   all: [
@@ -193,22 +191,20 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-jshint');
   grunt.loadNpmTasks('grunt-express');
   grunt.loadNpmTasks('grunt-contrib-watch');
-  grunt.loadNpmTasks('grunt-soy-compile');
   grunt.loadNpmTasks('grunt-browserify');
   grunt.loadNpmTasks('grunt-sass');
   grunt.loadNpmTasks('grunt-release');
 
   grunt.loadTasks('tasks');
 
-  grunt.registerTask('build:templates', ['soycompile', 'concat']);
-  grunt.registerTask('build:js', ['browserify', 'concat']);
-  grunt.registerTask('build:css', ['sass']);
-
   grunt.registerTask('build', [
     'messages',
-    'soycompile',
+    'copy:src',
+    'ejs',
     'browserify',
-    'copy',
+    'copy:browserified',
+    'copy:package',
+    'copy:static',
     'concat',
     'sass'
   ]);

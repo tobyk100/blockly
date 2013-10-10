@@ -23,11 +23,11 @@
  */
 "use strict";
 var BlocklyApps = module.exports;
-var msg = require('../build/en_us/i18n/common');
+var msg = require('../en_us/i18n/common');
 var dialog = require('./dialog');
 var parseXmlElement = require('./xml').parseElement;
 var codegen = require('./codegen');
-var readonly = require('./readonly.hbs');
+var readonly = require('./readonly.html');
 
 //TODO: These should be members of a BlocklyApp instance.
 var onAttempt;
@@ -63,6 +63,9 @@ BlocklyApps.init = function(config) {
     viewport.setAttribute('content',
         'width=725, initial-scale=.35, user-scalable=no');
   }
+
+  // Add events for touch devices when the window is done loading.
+  window.addEventListener('load', BlocklyApps.addTouchEvents, false);
 };
 
 /**
@@ -244,9 +247,6 @@ BlocklyApps.addTouchEvents = function() {
     }
   }
 };
-
-// Add events for touch devices when the window is done loading.
-window.addEventListener('load', BlocklyApps.addTouchEvents, false);
 
 // The following properties get their non-default values set by the application.
 
@@ -582,10 +582,13 @@ var showFeedbackBlocks = function(options) {
   }
   document.getElementById('missingBlocksError').style.display = 'block';
   var html = readonly({
-    baseUrl: BlocklyApps.BASE_URL,
     app: options.app,
-    skinId: options.skin,
-    blocks: generateXMLForBlocks(missingBlocks)
+    options: {
+      readonly: true,
+      baseUrl: BlocklyApps.BASE_URL,
+      skinId: options.skin,
+      blocks: generateXMLForBlocks(missingBlocks)
+    }
   });
   // Fill in the iframe on the next event tick.
   window.setTimeout(function() {
