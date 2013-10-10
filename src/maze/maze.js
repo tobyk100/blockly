@@ -90,8 +90,8 @@ var loadLevel = function(levelId) {
   Maze.COLS = Maze.map[0].length;
   // Pixel height and width of each maze square (i.e. tile).
   Maze.SQUARE_SIZE = 50;
-  Maze.PEGMAN_HEIGHT = 52;
-  Maze.PEGMAN_WIDTH = 49;
+  Maze.PEGMAN_HEIGHT = 52*1.25;
+  Maze.PEGMAN_WIDTH = 49*1.25;
 
   Maze.MAZE_WIDTH = Maze.SQUARE_SIZE * Maze.COLS;
   Maze.MAZE_HEIGHT = Maze.SQUARE_SIZE * Maze.ROWS;
@@ -279,8 +279,8 @@ var drawMap = function() {
     finishMarker.setAttribute('id', 'finish');
     finishMarker.setAttributeNS('http://www.w3.org/1999/xlink', 'xlink:href',
                                 skin.goal);
-    finishMarker.setAttribute('height', 34);
-    finishMarker.setAttribute('width', 20);
+    finishMarker.setAttribute('height', 34*1.25);
+    finishMarker.setAttribute('width', 40*1.25);
     svg.insertBefore(finishMarker, pegmanIcon);
   }
 
@@ -289,8 +289,8 @@ var drawMap = function() {
     for (x = 0; x < Maze.COLS; x++) {
       if (Maze.map[y][x] == SquareType.OBSTACLE) {
         var obsIcon = document.createElementNS(Blockly.SVG_NS, 'image');
-        obsIcon.setAttribute('height', 40);
-        obsIcon.setAttribute('width', 40);
+        obsIcon.setAttribute('height', 34*1.25);
+        obsIcon.setAttribute('width', 40*1.25);
         obsIcon.setAttributeNS(
           'http://www.w3.org/1999/xlink', 'xlink:href', skin.obstacle);
         obsIcon.setAttribute('x',
@@ -800,7 +800,7 @@ Maze.scheduleFinish = function(sound) {
 Maze.displayPegman = function(x, y, d) {
   var pegmanIcon = document.getElementById('pegman');
   pegmanIcon.setAttribute('x',
-      x * Maze.SQUARE_SIZE - d * Maze.PEGMAN_WIDTH + 1);
+      x * Maze.SQUARE_SIZE - d * Maze.PEGMAN_WIDTH - 8);// + 1);
   pegmanIcon.setAttribute('y',
       Maze.SQUARE_SIZE * (y + 0.5) - Maze.PEGMAN_HEIGHT / 2 - 8);
 
