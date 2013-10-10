@@ -191,22 +191,18 @@ BlocklyApps.onResize = function(gameWidth) {
 };
 
 BlocklyApps.resizeHeaders = function() {
-  var workspaceMetrics = Blockly.mainWorkspace.getMetrics();
-  var flyout = Blockly.mainWorkspace.flyout_ || Blockly.Toolbox.flyout_;
-  var toolboxMetrics = flyout.workspace_.getMetrics();
-
   var categories = Blockly.Toolbox.HtmlDiv;
-  var categoriesWidth = parseInt(categories ? getComputedStyle(categories).width : 0);
+  var categoriesWidth = categories ? getComputedStyle(categories).width : 0;
 
-  var workspaceWidth = workspaceMetrics ? workspaceMetrics.viewWidth : 0;
-  var toolboxWidth = toolboxMetrics ? toolboxMetrics.viewWidth : 0;
-  toolboxWidth += categoriesWidth;
+  var workspaceWidth = Blockly.getWorkspaceWidth();
+  var toolboxWidth = Blockly.getToolboxWidth();
+  toolboxWidth += parseInt(categoriesWidth);
 
   var workspaceHeader = document.getElementById('workspace-header');
   var toolboxHeader = document.getElementById('toolbox-header');
 
-  toolboxHeader.style.width = parseInt(toolboxWidth) + 'px';
-  workspaceHeader.style.width = parseInt(workspaceWidth - toolboxWidth) + 'px';
+  toolboxHeader.style.width = toolboxWidth + 'px';
+  workspaceHeader.style.width = (workspaceWidth - toolboxWidth) + 'px';
 };
 
 /**
