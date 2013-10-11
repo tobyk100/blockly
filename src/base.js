@@ -194,12 +194,14 @@ BlocklyApps.onResize = function(gameWidth) {
 };
 
 BlocklyApps.resizeHeaders = function() {
+  var categoriesWidth = 0;
   var categories = Blockly.Toolbox.HtmlDiv;
-  var categoriesWidth = categories ? getComputedStyle(categories).width : 0;
+  if (categories) {
+    categoriesWidth = parseInt(getComputedStyle(categories).width);
+  }
 
   var workspaceWidth = Blockly.getWorkspaceWidth();
   var toolboxWidth = Blockly.getToolboxWidth();
-  toolboxWidth += parseInt(categoriesWidth);
 
   var workspaceHeader = document.getElementById('workspace-header');
   var toolboxHeader = document.getElementById('toolbox-header');
@@ -207,7 +209,7 @@ BlocklyApps.resizeHeaders = function() {
 
   var showCodeWidth = parseInt(getComputedStyle(showCodeHeader).width);
 
-  toolboxHeader.style.width = toolboxWidth + 'px';
+  toolboxHeader.style.width = (categoriesWidth + toolboxWidth) + 'px';
   workspaceHeader.style.width = (workspaceWidth -
                                  toolboxWidth -
                                  showCodeWidth) + 'px';
