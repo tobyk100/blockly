@@ -172,8 +172,6 @@ BlocklyApps.onResize = function(gameWidth) {
   var blocklyDiv = document.getElementById('blockly');
   var visualization = document.getElementById('visualization');
   var codeTextbox = document.getElementById('codeTextbox');
-  var top = visualization.offsetTop;
-  var scrollY = window.pageYOffset;
 
   // resize either blockly or codetextbox
   var div = BlocklyApps.editCode ? codeTextbox : blocklyDiv;
@@ -182,14 +180,15 @@ BlocklyApps.onResize = function(gameWidth) {
   var parentStyle = window.getComputedStyle ?
                     window.getComputedStyle(blocklyDivParent) :
                     blocklyDivParent.currentStyle.width;  // IE
-  var parentWidth = parseInt(parentStyle.width, 10);
-  var parentHeight = window.innerHeight - parseInt(div.style.top, 10) +
-    scrollY - 20;
 
-  div.style.top = Math.max(top, scrollY) + 'px';
-  div.style.width = (parentWidth - gameWidth - 40) + 'px';
-  div.style.height = parentHeight + 'px';
+  var parentWidth = parseInt(parentStyle.width, 10);
+  var parentHeight = parseInt(parentStyle.height, 10);
+
+  div.style.top = blocklyDivParent.offsetTop + 'px';
+  div.style.width = Math.min(1200, (parentWidth - gameWidth - 40)) + 'px';
   div.style.marginLeft = (gameWidth + 15) + 'px';
+  div.style.height = parentHeight + 'px';
+
   BlocklyApps.resizeHeaders();
 };
 
