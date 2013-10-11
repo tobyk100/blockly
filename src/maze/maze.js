@@ -352,8 +352,8 @@ Maze.init = function(config) {
     toolbox: level.toolbox
   });
 
-  Blockly.loadAudio_(['media/maze/win.mp3', 'media/maze/win.ogg'], 'win');
-  Blockly.loadAudio_(['media/maze/whack.mp3', 'media/maze/whack.ogg'], 'whack');
+  Blockly.loadAudio_(skin.win, 'win');
+  Blockly.loadAudio_(skin.whack, 'whack');
   Blockly.SNAP_RADIUS *= Maze.scale.snapRadius;
 
   // Locate the start and finish squares.
