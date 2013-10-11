@@ -263,7 +263,7 @@ module.exports = {
   '2_1': {
     'instructions': 'instructions2_1',
     'toolbox': toolbox(2, 1),
-    'ideal': 2,
+    'ideal': 3,
     'requiredBlocks': [
       [{'test': 'moveForward', 'type': 'maze_moveForward'}],
     ],
@@ -282,7 +282,7 @@ module.exports = {
   '2_2': {
     'instructions': 'instructions2_2',
     'toolbox': toolbox(2, 2),
-    'ideal': 3,
+    'ideal': 2,
     'requiredBlocks': [
       [{'test': 'moveForward', 'type': 'maze_moveForward'}],
     ],
