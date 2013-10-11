@@ -92,7 +92,7 @@ BlocklyApps.init = function(config) {
     codeTextbox.addEventListener('keydown', codeKeyDown, true);
   }
 
-  var showCode= document.getElementById('show-code-header');
+  var showCode = document.getElementById('show-code-header');
   showCode.addEventListener('click', BlocklyApps.showGeneratedCode, false);
 
   // Add events for touch devices when the window is done loading.
@@ -168,7 +168,7 @@ BlocklyApps.loadBlocks = function(blocksXml) {
  *  Resizes the blockly workspace.
  */
 BlocklyApps.onResize = function(gameWidth) {
-  var gameWidth = gameWidth || 0;
+  gameWidth = gameWidth || 0;
   var blocklyDiv = document.getElementById('blockly');
   var visualization = document.getElementById('visualization');
   var codeTextbox = document.getElementById('codeTextbox');
@@ -197,7 +197,7 @@ BlocklyApps.resizeHeaders = function() {
   var categoriesWidth = 0;
   var categories = Blockly.Toolbox.HtmlDiv;
   if (categories) {
-    categoriesWidth = parseInt(getComputedStyle(categories).width);
+    categoriesWidth = parseInt(getComputedStyle(categories).width, 10);
   }
 
   var workspaceWidth = Blockly.getWorkspaceWidth();
@@ -207,7 +207,7 @@ BlocklyApps.resizeHeaders = function() {
   var toolboxHeader = document.getElementById('toolbox-header');
   var showCodeHeader = document.getElementById('show-code-header');
 
-  var showCodeWidth = parseInt(getComputedStyle(showCodeHeader).width);
+  var showCodeWidth = parseInt(getComputedStyle(showCodeHeader).width, 10);
 
   toolboxHeader.style.width = (categoriesWidth + toolboxWidth) + 'px';
   workspaceHeader.style.width = (workspaceWidth -
