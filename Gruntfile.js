@@ -32,14 +32,6 @@ config.copy = {
       }
     ]
   },
-  package: {
-    files: [
-      {
-        src: ['package.json'],
-        dest: 'dist/'
-      }
-    ]
-  },
   static: {
     files: [
       {
@@ -193,7 +185,7 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-browserify');
   grunt.loadNpmTasks('grunt-sass');
-  grunt.loadNpmTasks('grunt-release');
+  grunt.loadNpmTasks('grunt-release-bbloom');
 
   grunt.loadTasks('tasks');
 
@@ -203,7 +195,6 @@ module.exports = function(grunt) {
     'ejs',
     'browserify',
     'copy:browserified',
-    'copy:package',
     'copy:static',
     'concat',
     'sass'
