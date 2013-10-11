@@ -34,12 +34,6 @@
 var gameButtons = function(appInstance) { -%>
   <table id="gameButtons" width="400" style="padding-top: 10px;">
     <tr>
-      <td style="width: 190px; text-align: center; vertical-align: top;">
-        <button class="notext" title="<%= msg.codeTooltip() %>"
-          onclick="BlocklyApps.showGeneratedCode();">
-          <img src='<%= baseUrl %>media/1x1.gif' alt="code" class="code icon21">
-        </button>
-      </td>
       <td>
         <button id="runButton" class="launch" onclick="<%= appInstance %>.runButtonClick();">
           <img src="<%= baseUrl %>media/1x1.gif" class="run icon21">
@@ -148,8 +142,9 @@ var feedbackButtons = function() { -%>
 
 <div id="blockly">
   <div id="headers">
-    <div id="toolbox-header"><span><%= msg.toolboxHeader() %></span></div>
-    <div id="workspace-header"><span><%= msg.workspaceHeader() %></span></div>
+    <div id="toolbox-header" class="header"><span><%= msg.toolboxHeader() %></span></div>
+    <div id="workspace-header" class="header"><span><%= msg.workspaceHeader() %></span></div>
+    <div id="show-code-header" class="header"><span><%= msg.showCodeHeader() %></span></div>
   </div>
 </div>
 

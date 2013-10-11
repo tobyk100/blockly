@@ -92,6 +92,9 @@ BlocklyApps.init = function(config) {
     codeTextbox.addEventListener('keydown', codeKeyDown, true);
   }
 
+  var showCode = document.getElementById('show-code-header');
+  showCode.addEventListener('click', BlocklyApps.showGeneratedCode, false);
+
   // Add events for touch devices when the window is done loading.
   addReadyListener(BlocklyApps.addTouchEvents);
 };
@@ -165,7 +168,7 @@ BlocklyApps.loadBlocks = function(blocksXml) {
  *  Resizes the blockly workspace.
  */
 BlocklyApps.onResize = function(gameWidth) {
-  var gameWidth = gameWidth || 0;
+  gameWidth = gameWidth || 0;
   var blocklyDiv = document.getElementById('blockly');
   var visualization = document.getElementById('visualization');
   var codeTextbox = document.getElementById('codeTextbox');
@@ -191,18 +194,25 @@ BlocklyApps.onResize = function(gameWidth) {
 };
 
 BlocklyApps.resizeHeaders = function() {
+  var categoriesWidth = 0;
   var categories = Blockly.Toolbox.HtmlDiv;
-  var categoriesWidth = categories ? getComputedStyle(categories).width : 0;
+  if (categories) {
+    categoriesWidth = parseInt(getComputedStyle(categories).width, 10);
+  }
 
   var workspaceWidth = Blockly.getWorkspaceWidth();
   var toolboxWidth = Blockly.getToolboxWidth();
-  toolboxWidth += parseInt(categoriesWidth);
 
   var workspaceHeader = document.getElementById('workspace-header');
   var toolboxHeader = document.getElementById('toolbox-header');
+  var showCodeHeader = document.getElementById('show-code-header');
 
-  toolboxHeader.style.width = toolboxWidth + 'px';
-  workspaceHeader.style.width = (workspaceWidth - toolboxWidth) + 'px';
+  var showCodeWidth = parseInt(getComputedStyle(showCodeHeader).width, 10);
+
+  toolboxHeader.style.width = (categoriesWidth + toolboxWidth) + 'px';
+  workspaceHeader.style.width = (workspaceWidth -
+                                 toolboxWidth -
+                                 showCodeWidth) + 'px';
 };
 
 /**
@@ -272,8 +282,8 @@ BlocklyApps.getGeneratedCodeElement = function() {
   *     DOM element.  If null, don't show any animations for opening or closing.
   */
 BlocklyApps.showGeneratedCode = function(origin) {
-  var pre = document.getElementById('containerCode');
-  pre.appendChild(BlocklyApps.getGeneratedCodeElement());
+  BlocklyApps.setTextForElement('containerCode',
+                                BlocklyApps.getGeneratedCodeString());
   var content = document.getElementById('dialogCode');
   var style = {
     width: '40%',

@@ -199,5 +199,9 @@
   "workspaceHeader": {
     "string": "Assemble your blocks here.",
     "description": "A label for the workspace"
+  },
+  "showCodeHeader": {
+    "string": "Show Code",
+    "description": "A label for a button which shows the user's code."
   }
 }
