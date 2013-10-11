@@ -7,6 +7,10 @@
 
 var CONFIGS = {
 
+  astro: {
+    look: '#FFF'
+  },
+
   pegman: {
     background: false,
     look: '#000'
@@ -31,14 +35,21 @@ var CONFIGS = {
 };
 
 exports.load = function(baseUrl, id) {
-  var root = baseUrl + 'media/skins/' + id + '/';
+  var path = 'media/skins/' + id + '/';
+  var root = baseUrl + path;
   var config = CONFIGS[id];
   var skin = {
     id: id,
+    // Images
     avatar: root + 'avatar.png',
     tiles: root + 'tiles.png',
     goal: root + 'goal.png',
     obstacle: root + 'obstacle.png',
+    // Sounds
+    //TODO: Blockly should accept absolute sound paths.
+    win: [path + 'win.mpg', path + 'win.ogg'],
+    whack: [path + 'whack.mpg', path + 'whack.ogg'],
+    // Settings
     graph: config.graph,
     look: config.look,
     dirt: function(n) {
