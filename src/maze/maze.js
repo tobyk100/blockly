@@ -376,12 +376,17 @@ Maze.init = function(config) {
     div.style.display = 'none';
   }
 
+  var onresize = function() {
+    var width = document.getElementById('svgMaze').width.animVal.value;
+    BlocklyApps.onResize(width);
+  }
+
   window.addEventListener('scroll', function() {
-      BlocklyApps.onResize();
-      Blockly.fireUiEvent(window, 'resize');
-    });
-  window.addEventListener('resize', BlocklyApps.onResize);
-  BlocklyApps.onResize();
+    onresize();
+    Blockly.fireUiEvent(window, 'resize');
+  });
+  window.addEventListener('resize', onresize);
+  onresize();
 
   if (!level.editCode) {
     Blockly.svgResize();

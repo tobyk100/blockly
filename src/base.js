@@ -164,13 +164,13 @@ BlocklyApps.loadBlocks = function(blocksXml) {
 /**
  *  Resizes the blockly workspace.
  */
-BlocklyApps.onResize = function() {
+BlocklyApps.onResize = function(gameWidth) {
+  var gameWidth = gameWidth || 0;
   var blocklyDiv = document.getElementById('blockly');
   var visualization = document.getElementById('visualization');
   var codeTextbox = document.getElementById('codeTextbox');
   var top = visualization.offsetTop;
   var scrollY = window.pageYOffset;
-  var svg = document.getElementById('svgMaze');
 
   // resize either blockly or codetextbox
   var div = BlocklyApps.editCode ? codeTextbox : blocklyDiv;
@@ -184,9 +184,25 @@ BlocklyApps.onResize = function() {
     scrollY - 20;
 
   div.style.top = Math.max(top, scrollY) + 'px';
-  div.style.width = (parentWidth - svg.clientWidth - 40) + 'px';
+  div.style.width = (parentWidth - gameWidth - 40) + 'px';
   div.style.height = parentHeight + 'px';
-  div.style.marginLeft = (svg.clientWidth + 15) + 'px';
+  div.style.marginLeft = (gameWidth + 15) + 'px';
+  BlocklyApps.resizeHeaders();
+};
+
+BlocklyApps.resizeHeaders = function() {
+  var categories = Blockly.Toolbox.HtmlDiv;
+  var categoriesWidth = categories ? getComputedStyle(categories).width : 0;
+
+  var workspaceWidth = Blockly.getWorkspaceWidth();
+  var toolboxWidth = Blockly.getToolboxWidth();
+  toolboxWidth += parseInt(categoriesWidth);
+
+  var workspaceHeader = document.getElementById('workspace-header');
+  var toolboxHeader = document.getElementById('toolbox-header');
+
+  toolboxHeader.style.width = toolboxWidth + 'px';
+  workspaceHeader.style.width = (workspaceWidth - toolboxWidth) + 'px';
 };
 
 /**

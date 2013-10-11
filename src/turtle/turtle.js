@@ -95,22 +95,11 @@ Turtle.init = function(config) {
   // (execute) and the infinite loop detection function.
   Blockly.JavaScript.addReservedWords('Turtle,code');
 
-  var blocklyDiv = document.getElementById('blockly');
-  var visualization = document.getElementById('visualization');
-  var onresize = function(e) {
-    var top = visualization.offsetTop;
-    blocklyDiv.style.top = top + 'px';
-
-    var blocklyDivParent = blocklyDiv.parentNode;
-    var parentStyle = window.getComputedStyle ?
-                      window.getComputedStyle(blocklyDivParent) :
-                      blocklyDivParent.currentStyle.width;  // IE
-    var parentWidth = parseInt(parentStyle.width, 10);
-
-    blocklyDiv.style.width = (parentWidth - 440) + 'px';
-    blocklyDiv.style.height = (window.innerHeight - top - 20 +
-        window.pageYOffset) + 'px';
+  var onresize = function() {
+    var width = document.getElementById('display').width;
+    BlocklyApps.onResize(width);
   };
+
   window.addEventListener('scroll', function() {
       onresize();
       Blockly.fireUiEvent(window, 'resize');

@@ -146,7 +146,12 @@ var feedbackButtons = function() { -%>
 <% codeArea() %>
 <% helpArea(data.helpHtml) %>
 
-<div id="blockly"></div>
+<div id="blockly">
+  <div id="headers">
+    <div id="toolbox-header"><span><%= msg.toolboxHeader() %></span></div>
+    <div id="workspace-header"><span><%= msg.workspaceHeader() %></span></div>
+  </div>
+</div>
 
 <%
   dialog()
