@@ -92,6 +92,9 @@ BlocklyApps.init = function(config) {
     codeTextbox.addEventListener('keydown', codeKeyDown, true);
   }
 
+  var showCode= document.getElementById('show-code-header');
+  showCode.addEventListener('click', BlocklyApps.showGeneratedCode, false);
+
   // Add events for touch devices when the window is done loading.
   addReadyListener(BlocklyApps.addTouchEvents);
 };
@@ -277,8 +280,8 @@ BlocklyApps.getGeneratedCodeElement = function() {
   *     DOM element.  If null, don't show any animations for opening or closing.
   */
 BlocklyApps.showGeneratedCode = function(origin) {
-  var pre = document.getElementById('containerCode');
-  pre.appendChild(BlocklyApps.getGeneratedCodeElement());
+  BlocklyApps.setTextForElement('containerCode',
+                                BlocklyApps.getGeneratedCodeString());
   var content = document.getElementById('dialogCode');
   var style = {
     width: '40%',

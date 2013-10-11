@@ -1,3 +1,5 @@
+$cyan: #0094ca;
+$purple: #7665a0;
 body {
   background-color: #fff;
   font-family: 'Gotham A', 'Gotham B', sans-serif;
@@ -187,13 +189,13 @@ input[type="radio"] {
   margin-bottom: 15px;
   border: 1px solid #CCB;
   border-radius: 6px;
-  background-color: #1180BE;
+  background-color: $cyan;
   text-align: center;
 }
 
 #headers {
   $height: 40px;
-  background-color: #7665a0;
+  background-color: $purple;
   div {
     display: inline-block;
     margin-right: -4px;
@@ -212,5 +214,8 @@ input[type="radio"] {
   #show-code-header {
     width: 150px;
     border-left: 1px solid gray;
+    &:hover {
+      background-color: $cyan;
+    }
   }
 }
