@@ -22,6 +22,10 @@
     "grunt-release-bbloom": "~0.7.0",
     "express": "~3.4.0",
     "ejs": "~0.8.4",
-    "through": "~2.3.4"
+    "through": "~2.3.4",
+    "grunt-mocha-test": "~0.7.0",
+    "chai": "~1.8.0",
+    "jsdom": "~0.8.6",
+    "xmldom": "~0.1.16"
   }
 }

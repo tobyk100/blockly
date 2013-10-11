@@ -28,6 +28,7 @@ var dialog = require('./dialog');
 var parseXmlElement = require('./xml').parseElement;
 var codegen = require('./codegen');
 var readonly = require('./readonly.html');
+var addReadyListener = require('./dom').addReadyListener;
 
 //TODO: These should be members of a BlocklyApp instance.
 var onAttempt;
@@ -92,7 +93,7 @@ BlocklyApps.init = function(config) {
   }
 
   // Add events for touch devices when the window is done loading.
-  window.addEventListener('load', BlocklyApps.addTouchEvents, false);
+  addReadyListener(BlocklyApps.addTouchEvents);
 };
 
 /**
@@ -128,7 +129,12 @@ exports.inject = function(div, options) {
  * Returns true if the current HTML page is in right-to-left language mode.
  */
 BlocklyApps.isRtl = function() {
-  return document.head.parentElement.getAttribute('dir') == 'rtl';
+  var head = document.getElementsByTagName('head')[0];
+  if (head && head.parentElement) {
+    return head.parentElement.getAttribute('dir') == 'rtl';
+  } else {
+    return false;
+  }
 };
 
 /**
@@ -533,11 +539,12 @@ BlocklyApps.getMissingRequiredBlocks = function() {
  * @return {number} Number of blocks used.
  */
 BlocklyApps.getNumBlocksUsed = function() {
+  var i;
   if (BlocklyApps.editCode) {
     var codeLines = 0;
     // quick and dirty method to count non-blank lines that don't start with //
     var lines = BlocklyApps.getGeneratedCodeString().split("\n");
-    for (var i = 0; i < lines.length; i++) {
+    for (i = 0; i < lines.length; i++) {
       if ((lines[i].length > 1) && (lines[i][0] != '/' || lines[i][1] != '/')) {
         codeLines++;
       }
@@ -549,7 +556,7 @@ BlocklyApps.getNumBlocksUsed = function() {
     return blocks.length;
   }
   var count = 0;
-  for (var i = 0; i < blocks.length; i++) {
+  for (i = 0; i < blocks.length; i++) {
     if (!blocks[i].type.match(BlocklyApps.FREE_BLOCKS)) {
       count++;
     }

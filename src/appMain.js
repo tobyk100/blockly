@@ -1,5 +1,11 @@
 window.BlocklyApps = require('./base');
 
+if (typeof global !== 'undefined') {
+  global.BlocklyApps = window.BlocklyApps;
+}
+
+var addReadyListener = require('./dom').addReadyListener;
+
 module.exports = function(app, levels, options) {
 
   // If a levelId is not provided, then options.level is specified in full.
@@ -18,7 +24,7 @@ module.exports = function(app, levels, options) {
 
   options.blocksModule.install(Blockly, options.skin);
 
-  window.addEventListener('load', function() {
+  addReadyListener(function() {
     if (options.readonly) {
       BlocklyApps.initReadonly(options);
     } else {

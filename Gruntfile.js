@@ -166,6 +166,15 @@ config.jshint = {
   ]
 };
 
+config.mochaTest = {
+  all: {
+    options: {
+      reporter: 'spec'
+    },
+    src: ['test/**/*.js']
+  }
+};
+
 config.release = {
   options: {
     folder: 'dist',
@@ -177,15 +186,16 @@ module.exports = function(grunt) {
 
   grunt.initConfig(config);
 
+  grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-contrib-clean');
   grunt.loadNpmTasks('grunt-contrib-copy');
   grunt.loadNpmTasks('grunt-contrib-concat');
   grunt.loadNpmTasks('grunt-contrib-jshint');
   grunt.loadNpmTasks('grunt-express');
-  grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-browserify');
   grunt.loadNpmTasks('grunt-sass');
   grunt.loadNpmTasks('grunt-release-bbloom');
+  grunt.loadNpmTasks('grunt-mocha-test');
 
   grunt.loadTasks('tasks');
 
@@ -201,7 +211,8 @@ module.exports = function(grunt) {
   ]);
 
   grunt.registerTask('dev', ['express:server', 'watch']);
+  grunt.registerTask('test', ['jshint', 'mochaTest']);
 
-  grunt.registerTask('default', ['clean:all', 'build']);
+  grunt.registerTask('default', ['clean', 'build', 'test']);
 
 };
