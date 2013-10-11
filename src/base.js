@@ -200,9 +200,14 @@ BlocklyApps.resizeHeaders = function() {
 
   var workspaceHeader = document.getElementById('workspace-header');
   var toolboxHeader = document.getElementById('toolbox-header');
+  var showCodeHeader = document.getElementById('show-code-header');
+
+  var showCodeWidth = parseInt(getComputedStyle(showCodeHeader).width);
 
   toolboxHeader.style.width = toolboxWidth + 'px';
-  workspaceHeader.style.width = (workspaceWidth - toolboxWidth) + 'px';
+  workspaceHeader.style.width = (workspaceWidth -
+                                 toolboxWidth -
+                                 showCodeWidth) + 'px';
 };
 
 /**
