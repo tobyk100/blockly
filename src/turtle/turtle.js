@@ -31,11 +31,12 @@ window.Turtle = module.exports;
 var BlocklyApps = require('../base');
 var Turtle = module.exports;
 var Slider = require('../slider');
-var msg = require('../../build/en_us/i18n/turtle');
+var msg = require('../../en_us/i18n/turtle');
 var levels = require('./levels');
 var Colours = require('./core').Colours;
 var codegen = require('../codegen');
 var api = require('./api');
+var page = require('../page.html');
 
 var level;
 
@@ -67,43 +68,38 @@ Turtle.visible = true;
  */
 Turtle.init = function(config) {
 
-  level = levels.install(BlocklyApps, Turtle, config.levelId);
+  level = config.level;
 
-  config.level = config.level || {};
-  // Override the current level with caller supplied parameters.
-  for (var prop in config.level) {
-    level[prop] = config.level[prop];
-  }
-  var instructions = config.level.instructions || '';
+  BlocklyApps.IDEAL_BLOCK_NUM = level.ideal || Infinity;
+  BlocklyApps.REQUIRED_BLOCKS = level.requiredBlocks || [];
 
-  var html = turtlepage.start({}, null, config);
+  var html = page({
+    baseUrl: config.baseUrl,
+    data: {
+      appInstance: 'Turtle',
+      visualization: require('./visualization.html')(),
+      appFeedback: require('./appFeedback.html')(),
+      controls: require('./controls.html')({baseUrl: config.baseUrl})
+    }
+  });
   document.getElementById(config.containerId).innerHTML = html;
 
   BlocklyApps.init(config);
 
   var div = document.getElementById('blockly');
-  BlocklyApps.inject(div, { toolbox: level.toolbox });
+  BlocklyApps.inject(div, {
+    toolbox: level.toolbox
+  });
 
   // Add to reserved word list: API, local variables in execution evironment
   // (execute) and the infinite loop detection function.
   Blockly.JavaScript.addReservedWords('Turtle,code');
 
-  var blocklyDiv = document.getElementById('blockly');
-  var visualization = document.getElementById('visualization');
-  var onresize = function(e) {
-    var top = visualization.offsetTop;
-    blocklyDiv.style.top = top + 'px';
-
-    var blocklyDivParent = blocklyDiv.parentNode;
-    var parentStyle = window.getComputedStyle ?
-                      window.getComputedStyle(blocklyDivParent) :
-                      blocklyDivParent.currentStyle.width;  // IE
-    var parentWidth = parseInt(parentStyle.width, 10);
-
-    blocklyDiv.style.width = (parentWidth - 440) + 'px';
-    blocklyDiv.style.height = (window.innerHeight - top - 20 +
-        window.pageYOffset) + 'px';
+  var onresize = function() {
+    var width = document.getElementById('display').width;
+    BlocklyApps.onResize(width);
   };
+
   window.addEventListener('scroll', function() {
       onresize();
       Blockly.fireUiEvent(window, 'resize');
@@ -113,6 +109,7 @@ Turtle.init = function(config) {
   Blockly.fireUiEvent(window, 'resize');
 
   // Show the instructions.
+  var instructions = config.level.instructions || '';
   document.getElementById('prompt').innerHTML = instructions;
 
   // Initialize the slider.
@@ -143,8 +140,6 @@ Turtle.init = function(config) {
       Turtle.updateBlockCount();
     });
   }
-
-  BlocklyApps.callout(config.callouts);
 };
 
 /**

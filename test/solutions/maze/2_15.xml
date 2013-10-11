@@ -1,0 +1,17 @@
+<xml>
+  <block type="maze_forever" x="17" y="43">
+    <statement name="DO">
+      <block type="maze_if">
+        <title name="DIR">isPathRight</title>
+        <statement name="DO">
+          <block type="maze_turn">
+            <title name="DIR">turnRight</title>
+          </block>
+        </statement>
+        <next>
+          <block type="maze_moveForward"/>
+        </next>
+      </block>
+    </statement>
+  </block>
+</xml>

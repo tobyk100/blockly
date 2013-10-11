@@ -1,6 +1,6 @@
 module.exports = function(grunt) {
   'use strict';
-  var MessageFormat = require('messageformat');
+
   var path = require('path');
   var fs = require('fs');
   var MessageFormat = require('messageformat');
@@ -16,7 +16,7 @@ module.exports = function(grunt) {
       var files = grunt.file.expandMapping(pattern, destBase, {
         expand: true,
         rename: function(destBase, destPath) {
-          var filename = destPath.replace('/' + locale + '.json', '.js')
+          var filename = destPath.replace('/' + locale + '.json', '.js');
           return path.join(destBase, locale, filename);
         }
       });

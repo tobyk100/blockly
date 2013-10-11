@@ -24,7 +24,7 @@
 'use strict';
 
 var Colours = require('./core').Colours;
-var msg = require('../../build/en_us/i18n/turtle');
+var msg = require('../../en_us/i18n/turtle');
 
 // Install extensions to Blockly's language and JavaScript generator.
 exports.install = function(blockly, skin) {
@@ -200,7 +200,7 @@ exports.install = function(blockly, skin) {
     category: null,  // Variables are handled specially.
     helpUrl: blockly.Msg.VARIABLES_GET_HELPURL,
     init: function() {
-      this.setColour(330);
+      this.setHSV(312, 0.32, 0.62);
       this.appendDummyInput()
           .appendTitle(blockly.Msg.VARIABLES_GET_TITLE)
           .appendTitle(new blockly.FieldLabel(msg.loopVariable()), 'VAR');
@@ -219,7 +219,7 @@ exports.install = function(blockly, skin) {
     category: null,  // Variables are handled specially.
     helpUrl: blockly.Msg.VARIABLES_GET_HELPURL,
     init: function() {
-      this.setColour(330);
+      this.setHSV(312, 0.32, 0.62);
       this.appendDummyInput()
           .appendTitle(blockly.Msg.VARIABLES_GET_TITLE)
           .appendTitle(new blockly.FieldLabel('length'), 'VAR');
@@ -238,7 +238,7 @@ exports.install = function(blockly, skin) {
     category: null,  // Variables are handled specially.
     helpUrl: blockly.Msg.VARIABLES_GET_HELPURL,
     init: function() {
-      this.setColour(330);
+      this.setHSV(312, 0.32, 0.62);
       this.appendDummyInput()
           .appendTitle(blockly.Msg.VARIABLES_GET_TITLE)
           .appendTitle(new blockly.FieldLabel('height'), 'VAR');
@@ -257,7 +257,7 @@ exports.install = function(blockly, skin) {
     category: null,  // Variables are handled specially.
     helpUrl: blockly.Msg.VARIABLES_GET_HELPURL,
     init: function() {
-      this.setColour(330);
+      this.setHSV(312, 0.32, 0.62);
       this.appendDummyInput()
           .appendTitle(blockly.Msg.VARIABLES_GET_TITLE)
           .appendTitle(new blockly.FieldLabel('sides'), 'VAR');
@@ -276,7 +276,7 @@ exports.install = function(blockly, skin) {
   blockly.Blocks.draw_a_square = {
     // Draw a square.
     init: function() {
-      this.setColour(290);
+      this.setHSV(94, 0.84, 0.60);
       this.appendDummyInput()
           .appendTitle(msg.drawASquare());
       this.appendValueInput('VALUE')
@@ -312,7 +312,7 @@ exports.install = function(blockly, skin) {
   blockly.Blocks.draw_a_snowman = {
     // Draw a circle in front of the turtle, ending up on the opposite side.
     init: function() {
-      this.setColour(290);
+      this.setHSV(94, 0.84, 0.60);
       this.appendDummyInput()
           .appendTitle(msg.drawASnowman());
       this.appendValueInput('VALUE')
@@ -366,7 +366,7 @@ exports.install = function(blockly, skin) {
     // For loop with hardcoded loop variable.
     helpUrl: blockly.Msg.CONTROLS_FOR_HELPURL,
     init: function() {
-      this.setColour(120);
+      this.setHSV(62, 0.98, 0.75);
       this.appendDummyInput()
           .appendTitle(blockly.Msg.CONTROLS_FOR_INPUT_WITH)
           .appendTitle(new blockly.FieldLabel(msg.loopVariable()),
@@ -559,7 +559,7 @@ exports.install = function(blockly, skin) {
     // Block for setting the colour.
     helpUrl: '',
     init: function() {
-      this.setColour(20);
+      this.setHSV(42, 0.89, 0.99);
       this.appendValueInput('COLOUR')
           .setCheck('Colour')
           .appendTitle(msg.setColour());

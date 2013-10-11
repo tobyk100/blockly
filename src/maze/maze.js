@@ -24,13 +24,13 @@
 'use strict';
 
 var BlocklyApps = require('../base');
-var commonMsg = require('../../build/en_us/i18n/common');
-var mazeMsg = require('../../build/en_us/i18n/maze');
-var levels = require('./levels');
+var commonMsg = require('../../en_us/i18n/common');
+var mazeMsg = require('../../en_us/i18n/maze');
 var skins = require('../skins');
 var tiles = require('./tiles');
 var codegen = require('../codegen');
 var api = require('./api');
+var page = require('../page.html');
 
 var Direction = tiles.Direction;
 var SquareType = tiles.SquareType;
@@ -66,10 +66,7 @@ Maze.scale = {
   'stepSpeed': 5
 };
 
-var loadLevel = function(levelId) {
-  level = levels[levelId];
-  level.id = levelId;
-
+var loadLevel = function() {
   // Load maps.
   Maze.map = level.map;
   BlocklyApps.IDEAL_BLOCK_NUM = level.ideal;
@@ -324,17 +321,19 @@ var resetDirt = function() {
 Maze.init = function(config) {
 
   skin = config.skin;
-  loadLevel(config.levelId);
+  level = config.level;
+  loadLevel();
 
-  // Override the current level with caller supplied parameters.
-  for (var prop in config.level) {
-    level[prop] = config.level[prop];
-  }
-
-  config.level = level;
-  var html = mazepage.start({}, null, config);
+  var html = page({
+    baseUrl: config.baseUrl,
+    data: {
+      appInstance: 'Maze',
+      visualization: require('./visualization.html')()
+    }
+  });
   document.getElementById(config.containerId).innerHTML = html;
 
+  config.level = level;
   BlocklyApps.init(config);
 
   /**
@@ -346,7 +345,9 @@ Maze.init = function(config) {
   Blockly.HSV_SATURATION = 0.6;
 
   var div = document.getElementById('blockly');
-  BlocklyApps.inject(div);
+  BlocklyApps.inject(div, {
+    toolbox: level.toolbox
+  });
 
   Blockly.loadAudio_(['media/maze/win.mp3', 'media/maze/win.ogg'], 'win');
   Blockly.loadAudio_(['media/maze/whack.mp3', 'media/maze/whack.ogg'], 'whack');
@@ -370,13 +371,26 @@ Maze.init = function(config) {
 
   drawMap();
 
+  if (level.editCode) {
+    document.getElementById('codeTextbox').style.display = 'block';
+    div.style.display = 'none';
+  }
+
+  var onresize = function() {
+    var width = document.getElementById('svgMaze').width.animVal.value;
+    BlocklyApps.onResize(width);
+  }
+
   window.addEventListener('scroll', function() {
-      BlocklyApps.onResize();
-      Blockly.fireUiEvent(window, 'resize');
-    });
-  window.addEventListener('resize', BlocklyApps.onResize);
-  BlocklyApps.onResize();
-  Blockly.svgResize();
+    onresize();
+    Blockly.fireUiEvent(window, 'resize');
+  });
+  window.addEventListener('resize', onresize);
+  onresize();
+
+  if (!level.editCode) {
+    Blockly.svgResize();
+  }
 
   // Add the starting block(s).
   var startBlocks = level.startBlocks ||
@@ -388,8 +402,6 @@ Maze.init = function(config) {
   Blockly.addChangeListener(function() {
     BlocklyApps.updateCapacity();
   });
-
-  BlocklyApps.callout(config.callouts);
 };
 
 /**
@@ -537,6 +549,22 @@ Maze.execute = function() {
     return;
   }
 
+  if (level.editCode) {
+    // Check for innerText && textContent (for IE compat).
+    var codeTextbox = document.getElementById('codeTextbox');
+    code = codeTextbox.innerText || codeTextbox.textContent;
+    // Insert aliases from level codeBlocks into code
+    if (level.codeFunctions) {
+      for (var i = 0; i < level.codeFunctions.length; i++) {
+        var codeFunction = level.codeFunctions[i];
+        if (codeFunction.alias) {
+          code = codeFunction.func +
+              " = function() { " + codeFunction.alias + " };" + code;
+        }
+      }
+    }
+  }
+
   // Try running the user's code.  There are four possible outcomes:
   // 1. If pegman reaches the finish [SUCCESS], true is thrown.
   // 2. If the program is terminated due to running too long [TIMEOUT],
@@ -578,6 +606,12 @@ Maze.execute = function() {
   BlocklyApps.levelComplete = (Maze.result == ResultType.SUCCESS);
 
   Maze.testResults = BlocklyApps.getTestResults();
+
+  if (level.editCode) {
+    Maze.testResults = BlocklyApps.levelComplete ?
+      BlocklyApps.TestResults.ALL_PASS :
+      BlocklyApps.TestResults.TOO_FEW_BLOCKS_FAIL;
+  }
 
   var xml = Blockly.Xml.workspaceToDom(Blockly.mainWorkspace);
   var textBlocks = Blockly.Xml.domToText(xml);

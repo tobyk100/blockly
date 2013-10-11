@@ -1,0 +1,21 @@
+<xml>
+  <block type="controls_repeat" x="30" y="49">
+    <title name="TIMES">6</title>
+    <statement name="DO">
+      <block type="maze_moveForward"/>
+    </statement>
+    <next>
+      <block type="maze_turn">
+        <title name="DIR">turnRight</title>
+        <next>
+          <block type="controls_repeat">
+            <title name="TIMES">6</title>
+            <statement name="DO">
+              <block type="maze_moveForward"/>
+            </statement>
+          </block>
+        </next>
+      </block>
+    </next>
+  </block>
+</xml>

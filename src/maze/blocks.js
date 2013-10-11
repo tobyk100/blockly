@@ -23,7 +23,7 @@
  */
 'use strict';
 
-var msg = require('../../build/en_us/i18n/maze');
+var msg = require('../../en_us/i18n/maze');
 var codegen = require('../codegen');
 
 // Install extensions to Blockly's language and JavaScript generator.
@@ -113,7 +113,7 @@ exports.install = function(blockly, skin) {
     // Block for checking if there a path.
     helpUrl: '',
     init: function() {
-      this.setColour(210);
+      this.setHSV(196, 1.0, 0.79);
       this.setOutput(true, 'Boolean');
       this.appendDummyInput()
           .appendTitle(new blockly.FieldDropdown(this.DIRECTIONS), 'DIR');
@@ -136,7 +136,7 @@ exports.install = function(blockly, skin) {
     // Block for 'if' conditional if there is a path.
     helpUrl: '',
     init: function() {
-      this.setColour(210);
+      this.setHSV(196, 1.0, 0.79);
       this.appendDummyInput()
           .appendTitle(new blockly.FieldDropdown(this.DIRECTIONS), 'DIR');
       this.setInputsInline(true);
@@ -164,7 +164,7 @@ exports.install = function(blockly, skin) {
     // Block for 'if/else' conditional if there is a path.
     helpUrl: '',
     init: function() {
-      this.setColour(210);
+      this.setHSV(196, 1.0, 0.79);
       this.appendDummyInput()
           .appendTitle(new blockly.FieldDropdown(this.DIRECTIONS), 'DIR');
       this.setInputsInline(true);
@@ -196,7 +196,7 @@ exports.install = function(blockly, skin) {
     // Block for 'if' conditional if there is a path.
     helpUrl: '',
     init: function() {
-      this.setColour(210);
+      this.setHSV(196, 1.0, 0.79);
       this.appendDummyInput()
           .appendTitle('if');
       this.appendDummyInput()
@@ -231,7 +231,7 @@ exports.install = function(blockly, skin) {
     // Block for 'if/else' conditional if there is a path.
     helpUrl: '',
     init: function() {
-      this.setColour(210);
+      this.setHSV(196, 1.0, 0.79);
       this.appendDummyInput()
           .appendTitle('if');
       this.appendDummyInput()
@@ -264,7 +264,7 @@ exports.install = function(blockly, skin) {
   blockly.Blocks.maze_whileNotClear = {
     helpUrl: 'http://code.google.com/p/blockly/wiki/Repeat',
     init: function() {
-      this.setColour(120);
+      this.setHSV(62, 0.98, 0.75);
       this.appendDummyInput()
           .appendTitle(new blockly.FieldDropdown(this.DIRECTIONS), 'DIR');
       this.appendStatementInput('DO')
@@ -291,7 +291,7 @@ exports.install = function(blockly, skin) {
   blockly.Blocks.maze_untilBlocked = {
     helpUrl: 'http://code.google.com/p/blockly/wiki/Repeat',
     init: function() {
-      this.setColour(120);
+      this.setHSV(62, 0.98, 0.75);
       this.appendDummyInput()
           .appendTitle(msg.repeatUntilBlocked());
       this.appendStatementInput('DO')
@@ -313,7 +313,7 @@ exports.install = function(blockly, skin) {
     // Do forever loop.
     helpUrl: 'http://code.google.com/p/blockly/wiki/Repeat',
     init: function() {
-      this.setColour(120);
+      this.setHSV(62, 0.89, 0.75);
       this.appendDummyInput()
           .appendTitle(msg.repeatUntil())
           .appendTitle(new blockly.FieldImage(skin.goal, 12, 16));
@@ -334,7 +334,7 @@ exports.install = function(blockly, skin) {
   blockly.Blocks.maze_untilBlockedOrNotClear = {
     helpUrl: 'http://code.google.com/p/blockly/wiki/Repeat',
     init: function() {
-      this.setColour(120);
+      this.setHSV(62, 0.89, 0.75);
       this.appendDummyInput()
           .appendTitle(new blockly.FieldDropdown(this.DIRECTIONS), 'DIR');
       this.appendStatementInput('DO')
