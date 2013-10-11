@@ -347,7 +347,7 @@ module.exports = {
   },
   // Level 4: 36 squares.
   '2_4': {
-    answer: answer(3, 4),
+    answer: answer(2, 4),
     ideal: 5,
     toolbox: toolbox(2, 4),
     startBlocks: startBlocks(2, 4),
