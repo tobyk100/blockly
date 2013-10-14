@@ -24,6 +24,10 @@ var CONFIGS = {
     look: '#FFF'
   },
 
+  birds: {
+    look: '#FFF'
+  },
+
   mouse: {
     look: '#FFF'
   },
