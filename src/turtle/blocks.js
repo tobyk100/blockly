@@ -366,7 +366,7 @@ exports.install = function(blockly, skin) {
     // For loop with hardcoded loop variable.
     helpUrl: blockly.Msg.CONTROLS_FOR_HELPURL,
     init: function() {
-      this.setHSV(62, 0.98, 0.75);
+      this.setHSV(322, 0.90, 0.95);
       this.appendDummyInput()
           .appendTitle(blockly.Msg.CONTROLS_FOR_INPUT_WITH)
           .appendTitle(new blockly.FieldLabel(msg.loopVariable()),
