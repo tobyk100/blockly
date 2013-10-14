@@ -264,7 +264,7 @@ exports.install = function(blockly, skin) {
   blockly.Blocks.maze_whileNotClear = {
     helpUrl: 'http://code.google.com/p/blockly/wiki/Repeat',
     init: function() {
-      this.setHSV(62, 0.98, 0.75);
+      this.setHSV(322, 0.90, 0.95);
       this.appendDummyInput()
           .appendTitle(new blockly.FieldDropdown(this.DIRECTIONS), 'DIR');
       this.appendStatementInput('DO')
@@ -291,7 +291,7 @@ exports.install = function(blockly, skin) {
   blockly.Blocks.maze_untilBlocked = {
     helpUrl: 'http://code.google.com/p/blockly/wiki/Repeat',
     init: function() {
-      this.setHSV(62, 0.98, 0.75);
+      this.setHSV(322, 0.90, 0.95);
       this.appendDummyInput()
           .appendTitle(msg.repeatUntilBlocked());
       this.appendStatementInput('DO')
@@ -313,7 +313,7 @@ exports.install = function(blockly, skin) {
     // Do forever loop.
     helpUrl: 'http://code.google.com/p/blockly/wiki/Repeat',
     init: function() {
-      this.setHSV(62, 0.89, 0.75);
+      this.setHSV(322, 0.90, 0.95);
       this.appendDummyInput()
           .appendTitle(msg.repeatUntil())
           .appendTitle(new blockly.FieldImage(skin.goal, 12, 16));
