@@ -222,6 +222,12 @@ var drawMap = function() {
         } else {
           tile = 'null' + Math.floor(1 + Math.random() * 4);
         }
+
+        // For the first 3 levels in maze, only show the null0 image.
+        console.log(level);
+        if (level.id == '2_1' || level.id == '2_2' || level.id == '2_3') {
+          tile = 'null0';
+        }
       }
       var left = TILE_SHAPES[tile][0];
       var top = TILE_SHAPES[tile][1];
