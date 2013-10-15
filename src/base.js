@@ -769,12 +769,17 @@ BlocklyApps.setLevelFeedback = function(options) {
       break;
   }
   if (BlocklyApps.canContinueToNextLevel(options.feedbackType)) {
+    console.log(options.lineInfo);
     BlocklyApps.resetGeneratedCodeInFeedback(document.getElementById('showLinesOfCodeLink'));
     document.getElementById('generatedCodeInfoContainer').style.display = 'inline';
     BlocklyApps.setTextForElement('totalLinesOfCodeFeedbackMsg',
         msg.totalNumLinesOfCodeWritten({ numLines: options.lineInfo.totalLines }));
     BlocklyApps.setTextForElement('linesOfCodeFeedbackMsg',
         msg.numLinesOfCodeWritten({ numLines: options.lineInfo.lines }));
+    // If totalLines of code == lines of code, remove the linesOfCodeFeedbackMsg
+    if (options.lineInfo.totalLines === options.lineInfo.lines) {
+      document.getElementById('linesOfCodeFeedbackMsg').style.display = 'none';
+    }
     BlocklyApps.setTextForElement('showLinesOfCodeLink', msg.showGeneratedCode());
     BlocklyApps.setTextForElement('generatedCodeInfoMsg', BlocklyApps.editCode ?
         "" : msg.generatedCodeInfo());
