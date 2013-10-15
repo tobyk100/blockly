@@ -387,7 +387,7 @@ Maze.init = function(config) {
   var onresize = function() {
     var width = document.getElementById('svgMaze').width.animVal.value;
     BlocklyApps.onResize(width);
-  }
+  };
 
   window.addEventListener('scroll', function() {
     onresize();

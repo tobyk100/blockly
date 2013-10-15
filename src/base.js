@@ -480,7 +480,7 @@ BlocklyApps.countLinesOfCode = function() {
   var lines = BlocklyApps.getNumBlocksUsed();
   var totalLines = sessionStorage.getItem(BlocklyApps.LINES_OF_CODE) ||
                    0;
-  totalLines = parseInt(totalLines, 10) + lines
+  totalLines = parseInt(totalLines, 10) + lines;
   return { 'lines': lines, 'totalLines': totalLines };
 };
 
