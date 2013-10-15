@@ -638,7 +638,9 @@ Maze.execute = function() {
   // BlocklyApps.log now contains a transcript of all the user's actions.
   // Reset the maze and animate the transcript.
   BlocklyApps.reset(false);
-  Maze.pidList.push(window.setTimeout(Maze.animate, stepSpeed));
+  // Speeding up specific levels
+  var scaledStepSpeed = stepSpeed * Maze.scale.stepSpeed;
+  Maze.pidList.push(window.setTimeout(Maze.animate, scaledStepSpeed));
 };
 
 /**
