@@ -351,7 +351,7 @@ module.exports = {
       [MOVE_FORWARD], [FILL], [REPEAT], [UNTIL_BLOCKED]
     ],
     'scale': {
-      'stepSpeed': 3
+      'stepSpeed': 5
     },
     'map': [
       [ 1, 1, 1, 1, 1, 1, 1, 1 ],
@@ -1150,9 +1150,6 @@ module.exports = {
     'requiredBlocks': [
       [MOVE_FORWARD], [DIG], [FILL], [TURN_LEFT], [TURN_RIGHT]
     ],
-    'scale': {
-      'snapRadius': 2.0
-    },
     'map': [
       [ 1, 1, 1, 1, 1, 1, 1, 1 ],
       [ 1, 1, 1, 1, 1, 1, 1, 1 ],
@@ -1194,9 +1191,6 @@ module.exports = {
     'requiredBlocks': [
       [MOVE_FORWARD], [DIG], [TURN_LEFT]
     ],
-    'scale': {
-      'snapRadius': 2.0
-    },
     'map': [
       [ 1, 1, 1, 1, 1, 1, 1, 1 ],
       [ 1, 1, 1, 1, 1, 1, 1, 1 ],
@@ -1238,9 +1232,6 @@ module.exports = {
     'requiredBlocks': [
       [MOVE_FORWARD], [DIG], [TURN_LEFT], [TURN_RIGHT], [REPEAT]
     ],
-    'scale': {
-      'snapRadius': 2.0
-    },
     'map': [
       [ 1, 1, 1, 1, 1, 1, 1, 1 ],
       [ 1, 1, 1, 1, 1, 1, 1, 1 ],
@@ -1283,7 +1274,7 @@ module.exports = {
       [MOVE_FORWARD], [REPEAT], [FILL], [WHILE_OPT_HOLE_PRESENT]
     ],
     'scale': {
-      'snapRadius': 4.0
+      'stepSpeed': 3
     },
     'map': [
       [ 1, 1, 1, 1, 1, 1, 1, 1 ],
@@ -1327,9 +1318,6 @@ module.exports = {
       [MOVE_FORWARD], [TURN_LEFT], [TURN_RIGHT],
       [REPEAT], [DIG], [IF_OPT_PILE_PRESENT]
     ],
-    'scale': {
-      'snapRadius': 2.0
-    },
     'map': [
       [ 1, 1, 1, 1, 1, 1, 0, 1 ],
       [ 1, 1, 1, 1, 1, 0, 1, 1 ],
@@ -1372,9 +1360,6 @@ module.exports = {
       [MOVE_FORWARD], [TURN_LEFT], [TURN_RIGHT],
       [REPEAT], [DIG], [FILL], [IF_ELSE]
     ],
-    'scale': {
-      'snapRadius': 2.0
-    },
     'map': [
       [ 1, 1, 1, 1, 1, 1, 0, 1 ],
       [ 1, 1, 1, 1, 1, 0, 1, 1 ],
@@ -1416,9 +1401,6 @@ module.exports = {
     'requiredBlocks': [
       [MOVE_FORWARD], [TURN_LEFT], [REPEAT], [DIG]
     ],
-    'scale': {
-      'snapRadius': 2.0
-    },
     'map': [
       [ 1, 1, 1, 1, 1, 1, 1, 1 ],
       [ 1, 1, 1, 1, 1, 1, 1, 1 ],
@@ -1463,7 +1445,7 @@ module.exports = {
       [levelBase.call('remove square')]
     ],
     'scale': {
-      'snapRadius': 4.0
+      'stepSpeed': 3
     },
     'map': [
       [ 1, 1, 1, 1, 1, 1, 1, 1 ],
@@ -1508,7 +1490,7 @@ module.exports = {
       [levelBase.callWithArg('remove pile', 'height')], [VARIABLES_GET]
     ],
     'scale': {
-      'snapRadius': 4.0
+      'stepSpeed': 3
     },
     'map': [
       [ 1, 1, 1, 1, 1, 1, 1, 1 ],

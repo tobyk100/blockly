@@ -392,6 +392,9 @@ module.exports = {
     'instructions': 'instructions2_7',
     'toolbox': toolbox(2, 7),
     'ideal': 5,
+    'scale': {
+      'stepSpeed': 3
+    },
     'requiredBlocks': [
       [{'test': 'moveForward', 'type': 'maze_moveForward'}],
       [{'test': 'for', 'type': 'controls_repeat'}],
@@ -415,6 +418,9 @@ module.exports = {
     'instructions': 'instructions2_8',
     'toolbox': toolbox(2, 8),
     'ideal': 5,
+    'scale': {
+      'stepSpeed': 3
+    },
     'requiredBlocks': [
       [{'test': 'moveForward', 'type': 'maze_moveForward'}],
       [{'test': 'for', 'type': 'controls_repeat'}],
@@ -481,6 +487,9 @@ module.exports = {
     'instructions': 'instructions2_11',
     'toolbox': toolbox(2, 11),
     'ideal': 5,
+    'scale': {
+      'stepSpeed': 3
+    },
     'requiredBlocks': [
       [{'test': 'moveForward', 'type': 'maze_moveForward'}],
       [{'test': 'while', 'type': 'maze_forever'}],
@@ -507,6 +516,9 @@ module.exports = {
     'instructions': 'instructions2_12',
     'toolbox': toolbox(2, 12),
     'ideal': 5,
+    'scale': {
+      'stepSpeed': 3
+    },
     'requiredBlocks': [
       [{'test': 'moveForward', 'type': 'maze_moveForward'}],
       [{'test': 'while', 'type': 'maze_forever'}],
@@ -559,6 +571,9 @@ module.exports = {
     'instructions': 'instructions2_14',
     'toolbox': toolbox(2, 14),
     'ideal': 4,
+    'scale': {
+      'stepSpeed': 3
+    },
     'requiredBlocks': [
       [{'test': 'moveForward', 'type': 'maze_moveForward'}],
       [{'test': 'turnRight',
@@ -585,6 +600,9 @@ module.exports = {
     'instructions': 'instructions2_15',
     'toolbox': toolbox(2, 15),
     'ideal': 4,
+    'scale': {
+      'stepSpeed': 3
+    },
     'requiredBlocks': [
       [{'test': 'moveForward', 'type': 'maze_moveForward'}],
       [{'test': 'turnRight',
@@ -611,6 +629,9 @@ module.exports = {
     'instructions': 'instructions2_16',
     'toolbox': toolbox(2, 16),
     'ideal': 4,
+    'scale': {
+      'stepSpeed': 3
+    },
     'requiredBlocks': [
       [{'test': 'moveForward', 'type': 'maze_moveForward'}],
       [{'test': 'turnRight',
@@ -637,6 +658,9 @@ module.exports = {
     'instructions': 'instructions2_17',
     'toolbox': toolbox(2, 17),
     'ideal': 4,
+    'scale': {
+      'stepSpeed': 3
+    },
     'requiredBlocks': [
       [{'test': 'moveForward', 'type': 'maze_moveForward'}],
       [{'test': 'isPathForward',
@@ -663,6 +687,9 @@ module.exports = {
     'instructions': 'instructions2_18',
     'toolbox': toolbox(2, 18),
     'ideal': 4,
+    'scale': {
+      'stepSpeed': 3
+    },
     'requiredBlocks': [
       [{'test': 'moveForward', 'type': 'maze_moveForward'}],
       [{'test': 'isPathForward',
