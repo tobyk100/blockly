@@ -50,7 +50,7 @@ exports.install = function(blockly, skin) {
     // Block for moving forward or backward the internal number of pixels.
     helpUrl: 'http://www.example.com/',
     init: function() {
-      this.setColour(160);
+      this.setHSV(184, 1.00, 0.74);
       this.appendDummyInput()
           .appendTitle(new blockly.FieldDropdown(
               blockly.Blocks.draw_move.DIRECTIONS), 'DIR');
@@ -78,7 +78,7 @@ exports.install = function(blockly, skin) {
     // Block for turning either left or right from among a fixed set of angles.
     helpUrl: '',
     init: function() {
-      this.setColour(160);
+      this.setHSV(184, 1.00, 0.74);
       this.appendDummyInput()
           .appendTitle(new blockly.FieldDropdown(
               blockly.Blocks.draw_turn.DIRECTIONS), 'DIR');
@@ -108,7 +108,7 @@ exports.install = function(blockly, skin) {
     // Block for turning left or right any number of degrees.
     helpUrl: '',
     init: function() {
-      this.setColour(160);
+      this.setHSV(184, 1.00, 0.74);
       this.appendDummyInput()
           .appendTitle(new blockly.FieldDropdown(
               blockly.Blocks.draw_turn.DIRECTIONS), 'DIR');
@@ -143,7 +143,7 @@ exports.install = function(blockly, skin) {
     // Block for turning either left or right from among a fixed set of angles.
     helpUrl: '',
     init: function() {
-      this.setColour(160);
+      this.setHSV(184, 1.00, 0.74);
       this.appendDummyInput()
           .appendTitle(new blockly.FieldDropdown(
               blockly.Blocks.draw_turn.DIRECTIONS), 'DIR');
@@ -173,7 +173,7 @@ exports.install = function(blockly, skin) {
     // Block for turning left or right any number of degrees.
     helpUrl: '',
     init: function() {
-      this.setColour(160);
+      this.setHSV(184, 1.00, 0.74);
       this.appendDummyInput()
           .appendTitle(new blockly.FieldDropdown(
               blockly.Blocks.draw_turn.DIRECTIONS), 'DIR');
@@ -425,7 +425,7 @@ exports.install = function(blockly, skin) {
     // Block for moving forward or backwards.
     helpUrl: '',
     init: function() {
-      this.setColour(160);
+      this.setHSV(184, 1.00, 0.74);
       this.appendValueInput('VALUE')
           .setCheck('Number')
           .appendTitle(new blockly.FieldDropdown(
@@ -455,7 +455,7 @@ exports.install = function(blockly, skin) {
     // Block for moving forward or backwards.
     helpUrl: '',
     init: function() {
-      this.setColour(160);
+      this.setHSV(184, 1.00, 0.74);
       this.appendValueInput('VALUE')
           .setCheck('Number')
           .appendTitle(new blockly.FieldDropdown(
@@ -485,7 +485,7 @@ exports.install = function(blockly, skin) {
     // Block for turning left or right.
     helpUrl: '',
     init: function() {
-      this.setColour(160);
+      this.setHSV(184, 1.00, 0.74);
       this.appendValueInput('VALUE')
           .setCheck('Number')
           .appendTitle(new blockly.FieldDropdown(
@@ -515,7 +515,7 @@ exports.install = function(blockly, skin) {
     // Block for setting the pen width.
     helpUrl: '',
     init: function() {
-      this.setColour(160);
+      this.setHSV(184, 1.00, 0.74);
       this.appendValueInput('WIDTH')
           .setCheck('Number')
           .appendTitle(msg.setWidth());
@@ -536,7 +536,7 @@ exports.install = function(blockly, skin) {
     // Block for pen up/down.
     helpUrl: '',
     init: function() {
-      this.setColour(160);
+      this.setHSV(184, 1.00, 0.74);
       this.appendDummyInput()
           .appendTitle(new blockly.FieldDropdown(this.STATE), 'PEN');
       this.setPreviousStatement(true);
@@ -582,7 +582,7 @@ exports.install = function(blockly, skin) {
     // Block for changing turtle visiblity.
     helpUrl: '',
     init: function() {
-      this.setColour(160);
+      this.setHSV(184, 1.00, 0.74);
       this.setPreviousStatement(true, null);
       this.setNextStatement(true, null);
       this.appendDummyInput()

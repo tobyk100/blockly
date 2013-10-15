@@ -36,7 +36,7 @@ exports.install = function(blockly, skin) {
     // Block for moving forward.
     helpUrl: 'http://code.google.com/p/blockly/wiki/Move',
     init: function() {
-      this.setColour(290);
+      this.setHSV(184, 1.00, 0.74);
       this.appendDummyInput()
           .appendTitle(msg.moveForward());
       this.setPreviousStatement(true);
@@ -54,7 +54,7 @@ exports.install = function(blockly, skin) {
     // Block for putting dirt on to a tile.
     helpUrl: 'http://code.google.com/p/blockly/wiki/PutDown',
     init: function() {
-      this.setColour(290);
+      this.setHSV(184, 1.00, 0.74);
       this.appendDummyInput()
           .appendTitle(msg.fill());
       this.setPreviousStatement(true);
@@ -72,7 +72,7 @@ exports.install = function(blockly, skin) {
     // Block for putting for removing dirt from a tile.
     helpUrl: 'http://code.google.com/p/blockly/wiki/PickUp',
     init: function() {
-      this.setColour(290);
+      this.setHSV(184, 1.00, 0.74);
       this.appendDummyInput()
           .appendTitle(msg.dig());
       this.setPreviousStatement(true);
@@ -90,7 +90,7 @@ exports.install = function(blockly, skin) {
     // Block for turning left or right.
     helpUrl: 'http://code.google.com/p/blockly/wiki/Turn',
     init: function() {
-      this.setColour(290);
+      this.setHSV(184, 1.00, 0.74);
       this.appendDummyInput()
           .appendTitle(new blockly.FieldDropdown(this.DIRECTIONS), 'DIR');
       this.setPreviousStatement(true);
