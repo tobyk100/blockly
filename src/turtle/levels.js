@@ -682,5 +682,13 @@ module.exports = {
     freePlay: true,
     toolbox: toolbox(4, 4),
     startBlocks: startBlocks(4, 4)
+  },
+  // Formerly Page 5.
+  // Level 1: playground.
+  '5_1': {
+    answer: answer(5, 1),
+    freePlay: true,
+    toolbox: toolbox(5, 1),
+    startBlocks: startBlocks(5, 1)
   }
 };
