@@ -432,6 +432,8 @@ BlocklyApps.TestResults = {
   ALL_PASS: 100               // 3 stars.
 };
 
+BlocklyApps.LINES_OF_CODE = 'blockly_lines_of_code';
+
 /**
  * Updates the document's 'capacity' element's innerHTML with a message
  * indicating how many more blocks are permitted.  The capacity
@@ -464,11 +466,22 @@ BlocklyApps.updateCapacity = function() {
  *     BlocklyApps.TestResults).
  */
 BlocklyApps.displayFeedback = function(options) {
+  var lines = options.lineInfo = BlocklyApps.countLinesOfCode();
+  sessionStorage.setItem(BlocklyApps.LINES_OF_CODE, lines.totalLines);
+
   BlocklyApps.hideFeedback();
   BlocklyApps.setLevelFeedback(options);
   BlocklyApps.prepareFeedback(options);
   BlocklyApps.displayCloseDialogButtons(options.feedbackType);
   BlocklyApps.showHelp(options.feedbackType);
+};
+
+BlocklyApps.countLinesOfCode = function() {
+  var lines = BlocklyApps.getNumBlocksUsed();
+  var totalLines = sessionStorage.getItem(BlocklyApps.LINES_OF_CODE) ||
+                   0;
+  totalLines = parseInt(totalLines, 10) + lines
+  return { 'lines': lines, 'totalLines': totalLines };
 };
 
 /**
@@ -758,7 +771,10 @@ BlocklyApps.setLevelFeedback = function(options) {
   if (BlocklyApps.canContinueToNextLevel(options.feedbackType)) {
     BlocklyApps.resetGeneratedCodeInFeedback(document.getElementById('showLinesOfCodeLink'));
     document.getElementById('generatedCodeInfoContainer').style.display = 'inline';
-    BlocklyApps.setTextForElement('linesOfCodeFeedbackMsg', msg.numLinesOfCodeWritten({numLines: BlocklyApps.getNumBlocksUsed()}));
+    BlocklyApps.setTextForElement('totalLinesOfCodeFeedbackMsg',
+        msg.totalNumLinesOfCodeWritten({ numLines: options.lineInfo.totalLines }));
+    BlocklyApps.setTextForElement('linesOfCodeFeedbackMsg',
+        msg.numLinesOfCodeWritten({ numLines: options.lineInfo.lines }));
     BlocklyApps.setTextForElement('showLinesOfCodeLink', msg.showGeneratedCode());
     BlocklyApps.setTextForElement('generatedCodeInfoMsg', BlocklyApps.editCode ?
         "" : msg.generatedCodeInfo());
