@@ -769,7 +769,6 @@ BlocklyApps.setLevelFeedback = function(options) {
       break;
   }
   if (BlocklyApps.canContinueToNextLevel(options.feedbackType)) {
-    console.log(options.lineInfo);
     BlocklyApps.resetGeneratedCodeInFeedback(document.getElementById('showLinesOfCodeLink'));
     document.getElementById('generatedCodeInfoContainer').style.display = 'inline';
     BlocklyApps.setTextForElement('totalLinesOfCodeFeedbackMsg',
