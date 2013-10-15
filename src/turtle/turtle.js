@@ -106,7 +106,6 @@ Turtle.init = function(config) {
     });
   window.addEventListener('resize', onresize);
   onresize();
-  Blockly.fireUiEvent(window, 'resize');
 
   // Show the instructions.
   var instructions = config.level.instructions || '';
@@ -140,6 +139,9 @@ Turtle.init = function(config) {
       Turtle.updateBlockCount();
     });
   }
+
+  // We may have changed divs but Blockly on reacts based on the window.
+  Blockly.fireUiEvent(window, 'resize');
 };
 
 /**
