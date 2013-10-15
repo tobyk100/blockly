@@ -281,6 +281,8 @@ BlocklyApps.getGeneratedCodeElement = function() {
   *     DOM element.  If null, don't show any animations for opening or closing.
   */
 BlocklyApps.showGeneratedCode = function(origin) {
+  BlocklyApps.setTextForElement('generatedCodeInfoMsg2', BlocklyApps.editCode ?
+      "" : msg.generatedCodeInfo());
   BlocklyApps.setTextForElement('containerCode',
                                 BlocklyApps.getGeneratedCodeString());
   var content = document.getElementById('dialogCode');
