@@ -105,18 +105,27 @@ BlocklyApps.forceLandscape = function() {
   var reg = /Mobile|iP(hone|od|ad)|Android|BlackBerry|IEMobile/;
   var mobile = reg.test(navigator.userAgent);
   if (mobile) {
-    var img = document.createElement('img');
-    img.src = BlocklyApps.BASE_URL + 'media/iphone_rotate.png';
-    img.style.width = '100%';
-    img.style.height = '100%';
-    var modalStyle = {
-      position: 'absolute',
-      left: '5%',
-      top: '5%',
-      width: '90%',
-      height: '90%'
+    // set up event listeners to show/hide dialog based on orientation change.
+    var orientationChange = function() {
+      if (window.orientation % 180 === 0) {  // portrait
+        var img = document.createElement('img');
+        img.src = BlocklyApps.BASE_URL + 'media/iphone_rotate.png';
+        img.style.width = '100%';
+        img.style.height = '100%';
+        var modalStyle = {
+          position: 'absolute',
+          left: '5%',
+          top: '5%',
+          width: '90%',
+          height: '90%'
+        };
+        dialog.show(img, null, true, true, modalStyle);
+      } else {  // landscape.
+        dialog.hide();
+      }
     };
-    dialog.show(img, null, true, true, modalStyle);
+    window.addEventListener('orientationchange', orientationChange);
+    orientationChange();
   }
 };
 
