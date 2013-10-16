@@ -94,7 +94,7 @@ BlocklyApps.init = function(config) {
   }
 
   var showCode = document.getElementById('show-code-header');
-  showCode.addEventListener('click', BlocklyApps.showGeneratedCode, false);
+  showCode.addEventListener('touchend', BlocklyApps.showGeneratedCode, false);
 
   // Add events for touch devices when the window is done loading.
   addReadyListener(BlocklyApps.addTouchEvents);
@@ -301,10 +301,11 @@ BlocklyApps.showGeneratedCode = function(origin) {
                                 BlocklyApps.getGeneratedCodeString());
   var content = document.getElementById('dialogCode');
   content.style.display = 'block';
+  var offset = window.scrollY;
   var style = {
     width: '40%',
     left: '30%',
-    top: '5em'
+    top: (offset + 50) + 'px'
   };
   dialog.show(content, origin, true, true, style);
 };
