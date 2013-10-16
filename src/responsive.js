@@ -1,11 +1,6 @@
 var dialog = require('./dialog');
 
-exports.initMobile = function() {
-  exports.forceLandscape();
-  exports.scrollMobile();
-};
-
-exports.scrollMobile = function() {
+exports.scrollPastHeader = function() {
   var bubble = document.getElementById('bubble');
   var y = bubble.getBoundingClientRect().top;
   window.scroll(0, y);

@@ -29,7 +29,7 @@ var parseXmlElement = require('./xml').parseElement;
 var codegen = require('./codegen');
 var readonly = require('./readonly.html');
 var addReadyListener = require('./dom').addReadyListener;
-var mobile = require('./mobile');
+var responsive = require('./responsive');
 
 //TODO: These should be members of a BlocklyApp instance.
 var onAttempt;
@@ -99,10 +99,18 @@ BlocklyApps.init = function(config) {
   // Add events for touch devices when the window is done loading.
   addReadyListener(BlocklyApps.addTouchEvents);
 
+  exports.responsiveChecks();
+};
+
+exports.responsiveChecks = function() {
   var reg = /Mobile|iP(hone|od|ad)|Android|BlackBerry|IEMobile/;
-  if (reg.test(navigator.userAgent)) {  // mobile
-    mobile.initMobile();
+  if (reg.test(navigator.userAgent)) {  // we are mobile
+    responsive.forceLandscape();
   }
+  var pageHeight = document.documentElement.getBoundingClientRect().height;
+  if (window.innerHeight < pageHeight) {
+    responsive.scrollPastHeader();
+  };
 };
 
 /**
