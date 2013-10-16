@@ -286,6 +286,7 @@ BlocklyApps.showGeneratedCode = function(origin) {
   BlocklyApps.setTextForElement('containerCode',
                                 BlocklyApps.getGeneratedCodeString());
   var content = document.getElementById('dialogCode');
+  content.style.display = 'block';
   var style = {
     width: '40%',
     left: '30%',
