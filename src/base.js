@@ -99,6 +99,13 @@ BlocklyApps.init = function(config) {
   addReadyListener(BlocklyApps.addTouchEvents);
 
   BlocklyApps.forceLandscape();
+  BlocklyApps.scrollMobile();
+};
+
+BlocklyApps.scrollMobile = function() {
+  var bubble = document.getElementById('bubble');
+  var y = bubble.getBoundingClientRect().top;
+  window.scroll(0, y);
 };
 
 BlocklyApps.forceLandscape = function() {
@@ -108,10 +115,7 @@ BlocklyApps.forceLandscape = function() {
     // set up event listeners to show/hide dialog based on orientation change.
     var orientationChange = function() {
       if (window.orientation % 180 === 0) {  // portrait
-        var img = document.createElement('img');
-        img.src = BlocklyApps.BASE_URL + 'media/iphone_rotate.png';
-        img.style.width = '100%';
-        img.style.height = '100%';
+        var img = document.getElementById('rotateMobile')
         var modalStyle = {
           position: 'absolute',
           left: '5%',
@@ -953,10 +957,11 @@ BlocklyApps.showHelp = function(feedbackType) {
       feedbackType : BlocklyApps.NO_TESTS_RUN;
   var help = document.getElementById('help');
 
+  var offset = window.scrollY;
   var style = {
     width: '50%',
     right: '25%',
-    top: '3em'
+    top: (offset + 20) + 'px'
   };
   if (document.getElementById('reinfMsg')) {
     var reinfMSG = document.getElementById('reinfMsg').innerHTML.match(/\S/);
