@@ -29,6 +29,7 @@ var parseXmlElement = require('./xml').parseElement;
 var codegen = require('./codegen');
 var readonly = require('./readonly.html');
 var addReadyListener = require('./dom').addReadyListener;
+var mobile = require('./mobile');
 
 //TODO: These should be members of a BlocklyApp instance.
 var onAttempt;
@@ -98,38 +99,9 @@ BlocklyApps.init = function(config) {
   // Add events for touch devices when the window is done loading.
   addReadyListener(BlocklyApps.addTouchEvents);
 
-  BlocklyApps.forceLandscape();
-  BlocklyApps.scrollMobile();
-};
-
-BlocklyApps.scrollMobile = function() {
-  var bubble = document.getElementById('bubble');
-  var y = bubble.getBoundingClientRect().top;
-  window.scroll(0, y);
-};
-
-BlocklyApps.forceLandscape = function() {
   var reg = /Mobile|iP(hone|od|ad)|Android|BlackBerry|IEMobile/;
-  var mobile = reg.test(navigator.userAgent);
-  if (mobile) {
-    // set up event listeners to show/hide dialog based on orientation change.
-    var orientationChange = function() {
-      if (window.orientation % 180 === 0) {  // portrait
-        var img = document.getElementById('rotateMobile')
-        var modalStyle = {
-          position: 'absolute',
-          left: '5%',
-          top: '5%',
-          width: '90%',
-          height: '90%'
-        };
-        dialog.show(img, null, true, true, modalStyle);
-      } else {  // landscape.
-        dialog.hide();
-      }
-    };
-    window.addEventListener('orientationchange', orientationChange);
-    orientationChange();
+  if (reg.test(navigator.userAgent)) {  // mobile
+    mobile.initMobile();
   }
 };
 
