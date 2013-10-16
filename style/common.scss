@@ -209,6 +209,7 @@ input[type="radio"] {
     border-right: 1px solid gray;
   }
   #show-code-header {
+    cursor: pointer;
     width: 150px;
     border-left: 1px solid gray;
     &:hover {
