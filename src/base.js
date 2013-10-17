@@ -94,7 +94,9 @@ BlocklyApps.init = function(config) {
   }
 
   var showCode = document.getElementById('show-code-header');
-  showCode.addEventListener('touchend', BlocklyApps.showGeneratedCode, false);
+  var eventType = ('ontouchend' in document.documentElement) ?
+      'touchend' : 'click';
+  showCode.addEventListener(eventType, BlocklyApps.showGeneratedCode, false);
 
   // Add events for touch devices when the window is done loading.
   addReadyListener(BlocklyApps.addTouchEvents);
