@@ -306,6 +306,7 @@ BlocklyApps.showGeneratedCode = function(origin) {
   var offset = window.scrollY;
   var style = {
     width: '40%',
+    height: 'auto',
     left: '30%',
     top: (offset + 50) + 'px'
   };
@@ -943,6 +944,7 @@ BlocklyApps.showHelp = function(feedbackType) {
   var offset = window.scrollY;
   var style = {
     width: '50%',
+    height: 'auto',
     right: '25%',
     top: (offset + 20) + 'px'
   };
