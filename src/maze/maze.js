@@ -554,8 +554,8 @@ var displayFeedback = function() {
  * @param {object} JSON response (if available)
  */
 Maze.onReportComplete = function(response) {
-  Maze.waitingForReport = false;
   Maze.response = response;
+  Maze.waitingForReport = false;
   displayFeedback();
 };
 
