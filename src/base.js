@@ -112,7 +112,7 @@ exports.responsiveChecks = function() {
   var pageHeight = document.documentElement.getBoundingClientRect().height;
   if (window.innerHeight < pageHeight) {  // Viewport is shorter than content.
     responsive.scrollPastHeader();
-  };
+  }
 };
 
 /**

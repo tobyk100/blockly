@@ -10,7 +10,7 @@ exports.forceLandscape = function() {
   // set up event listeners to show/hide dialog based on orientation change.
   var orientationChange = function() {
     if (window.orientation % 180 === 0) {  // portrait
-      var img = document.getElementById('rotateMobile')
+      var img = document.getElementById('rotateMobile');
         var modalStyle = {
           position: 'absolute',
           left: '5%',
