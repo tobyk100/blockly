@@ -100,8 +100,8 @@ exports.install = function(blockly, skin) {
   };
 
   blockly.Blocks.maze_turn.DIRECTIONS =
-      [[msg.turnLeft() + ' \u27F2', 'turnLeft'],
-       [msg.turnRight() + ' \u27F3', 'turnRight']];
+      [[msg.turnLeft() + ' \u21BA', 'turnLeft'],
+       [msg.turnRight() + ' \u21BB', 'turnRight']];
 
   generator.maze_turn = function() {
     // Generate JavaScript for turning left or right.
@@ -123,8 +123,8 @@ exports.install = function(blockly, skin) {
 
   blockly.Blocks.maze_isPath.DIRECTIONS =
       [[msg.ifPathAhead(), 'isPathForward'],
-       [msg.pathLeft() + ' \u27F2', 'isPathLeft'],
-       [msg.pathRight() + ' \u27F3', 'isPathRight']];
+       [msg.pathLeft() + ' \u21BA', 'isPathLeft'],
+       [msg.pathRight() + ' \u21BB', 'isPathRight']];
 
   generator.maze_isPath = function() {
     // Generate JavaScript for checking if there is a path.
