@@ -61,6 +61,10 @@ BlocklyApps.init = function(config) {
   onAttempt = config.onAttempt || function(report) {
     console.log('Attempt!');
     console.log(report);
+    var response;
+    if (report.onComplete) {
+      report.onComplete(response);
+    }
   };
   onContinue = config.onContinue || function() {
     console.log('Continue!');
@@ -808,8 +812,10 @@ BlocklyApps.canContinueToNextLevel = function(feedbackType) {
  * @param {number} result An indicator of the success of the code.
  * @param {number} testResult More specific data on success or failure of code.
  * @param {string} program The user program, which will get URL-encoded.
+ * @param {function} onComplete Function to be called upon completion.
  */
-BlocklyApps.report = function(app, levelId, result, testResult, program) {
+BlocklyApps.report =
+    function(app, levelId, result, testResult, program, onComplete) {
   var report = {
     app: app,
     level: levelId,
@@ -817,7 +823,8 @@ BlocklyApps.report = function(app, levelId, result, testResult, program) {
     testResult: testResult,
     program: encodeURIComponent(program),
     attempt: BlocklyApps.attempts,
-    time: ((new Date().getTime()) - BlocklyApps.initTime)
+    time: ((new Date().getTime()) - BlocklyApps.initTime),
+    onComplete: onComplete
   };
   onAttempt(report);
 };
