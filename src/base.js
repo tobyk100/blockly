@@ -61,9 +61,8 @@ BlocklyApps.init = function(config) {
   onAttempt = config.onAttempt || function(report) {
     console.log('Attempt!');
     console.log(report);
-    var response;
     if (report.onComplete) {
-      report.onComplete(response);
+      report.onComplete();
     }
   };
   onContinue = config.onContinue || function() {
@@ -775,7 +774,7 @@ BlocklyApps.setLevelFeedback = function(options) {
       document.getElementById('reinfFeedbackMsg').style.display = 'block';
       break;
   }
-  
+
   var nextLevelNewText;
   var finalLevel = (options.response &&
       options.response.message == "no more levels");
@@ -797,7 +796,7 @@ BlocklyApps.setLevelFeedback = function(options) {
           options.response.trophy_updates[i][0] + "</div>";
     }
     document.getElementById('trophies').innerHTML = html;
-    document.getElementById('trophies').style.display = 'block';    
+    document.getElementById('trophies').style.display = 'block';
   }
   else {
     nextLevelNewText = finalLevel ? msg.finalLevel() : msg.nextLevel();
