@@ -1,5 +1,9 @@
 $cyan: #0094ca;
 $purple: #7665a0;
+@mixin fill-container {
+  height: 100%;
+  width: 100%;
+}
 body {
   background-color: #fff;
   font-family: 'Gotham A', 'Gotham B', sans-serif;
@@ -121,12 +125,11 @@ input[type="radio"] {
   box-shadow: 5px 5px 5px #888;
 }
 #dialogShadow {
+  @include fill-container;
   visibility: hidden;
   position: fixed;
   top: 0;
   left: 0;
-  height: 100%;
-  width: 100%;
   background-color: #000;
   opacity: 0.3;
   z-index: 1;
@@ -209,6 +212,7 @@ input[type="radio"] {
     border-right: 1px solid gray;
   }
   #show-code-header {
+    cursor: pointer;
     width: 150px;
     border-left: 1px solid gray;
     &:hover {
@@ -231,4 +235,8 @@ input[type="radio"] {
   border-radius: 8px;
   box-shadow: 5px 5px 5px #888;
   padding: 10px;
+}
+
+#rotateMobile {
+  @include fill-container;
 }

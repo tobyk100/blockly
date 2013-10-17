@@ -29,6 +29,7 @@ var parseXmlElement = require('./xml').parseElement;
 var codegen = require('./codegen');
 var readonly = require('./readonly.html');
 var addReadyListener = require('./dom').addReadyListener;
+var responsive = require('./responsive');
 
 //TODO: These should be members of a BlocklyApp instance.
 var onAttempt;
@@ -93,10 +94,25 @@ BlocklyApps.init = function(config) {
   }
 
   var showCode = document.getElementById('show-code-header');
-  showCode.addEventListener('click', BlocklyApps.showGeneratedCode, false);
+  var eventType = ('ontouchend' in document.documentElement) ?
+      'touchend' : 'click';
+  showCode.addEventListener(eventType, BlocklyApps.showGeneratedCode, false);
 
   // Add events for touch devices when the window is done loading.
   addReadyListener(BlocklyApps.addTouchEvents);
+
+  exports.responsiveChecks();
+};
+
+exports.responsiveChecks = function() {
+  var reg = /Mobile|iP(hone|od|ad)|Android|BlackBerry|IEMobile/;
+  if (reg.test(navigator.userAgent)) {  // we are mobile
+    responsive.forceLandscape();
+  }
+  var pageHeight = document.documentElement.getBoundingClientRect().height;
+  if (window.innerHeight < pageHeight) {  // Viewport is shorter than content.
+    responsive.scrollPastHeader();
+  }
 };
 
 /**
@@ -287,10 +303,12 @@ BlocklyApps.showGeneratedCode = function(origin) {
                                 BlocklyApps.getGeneratedCodeString());
   var content = document.getElementById('dialogCode');
   content.style.display = 'block';
+  var offset = window.scrollY;
   var style = {
     width: '40%',
+    height: 'auto',
     left: '30%',
-    top: '5em'
+    top: (offset + 50) + 'px'
   };
   dialog.show(content, origin, true, true, style);
 };
@@ -923,10 +941,12 @@ BlocklyApps.showHelp = function(feedbackType) {
       feedbackType : BlocklyApps.NO_TESTS_RUN;
   var help = document.getElementById('help');
 
+  var offset = window.scrollY;
   var style = {
     width: '50%',
+    height: 'auto',
     right: '25%',
-    top: '3em'
+    top: (offset + 20) + 'px'
   };
   if (document.getElementById('reinfMsg')) {
     var reinfMSG = document.getElementById('reinfMsg').innerHTML.match(/\S/);
