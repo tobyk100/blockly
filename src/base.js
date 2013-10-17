@@ -110,7 +110,7 @@ exports.responsiveChecks = function() {
     responsive.forceLandscape();
   }
   var pageHeight = document.documentElement.getBoundingClientRect().height;
-  if (window.innerHeight < pageHeight) {
+  if (window.innerHeight < pageHeight) {  // Viewport is shorter than content.
     responsive.scrollPastHeader();
   };
 };
