@@ -543,8 +543,7 @@ var displayFeedback = function() {
       app: 'maze', //XXX
       skin: skin.id,
       feedbackType: Maze.testResults,
-      finalLevel: (Maze.response && Maze.response.message &&
-          Maze.response.message == "no more levels")
+      response: Maze.response
     });
   }
 };

@@ -529,8 +529,7 @@ var displayFeedback = function() {
   BlocklyApps.displayFeedback({
     app: 'turtle', //XXX
     feedbackType: Turtle.testResults,
-    finalLevel: (Turtle.response && Turtle.response.message &&
-                 Turtle.response.message == "no more levels")
+    response: Turtle.response
     });
 };
 

@@ -775,6 +775,36 @@ BlocklyApps.setLevelFeedback = function(options) {
       document.getElementById('reinfFeedbackMsg').style.display = 'block';
       break;
   }
+  
+  var nextLevelNewText;
+  var finalLevel = (options.response &&
+      options.response.message == "no more levels");
+  var earnedTrophies = (options.response && options.response.trophy_updates &&
+      options.response.trophy_updates.length);
+  if (earnedTrophies) {
+    var arrayLength = options.response.trophy_updates.length;
+    var msgParams = { numTrophies: arrayLength };
+    nextLevelNewText = finalLevel ?
+        msg.finalLevelTrophies(msgParams) : msg.nextLevelTrophies(msgParams);
+
+    var html = "";
+    for (var i = 0; i < arrayLength; i++) { // TODO: proper URL path
+      html = html +
+          "<div style='min-width:100px;text-align:center;" +
+          "vertical-align:top;display:inline-block;max-width:100px;'>" +
+          "<img width=80 height=80 src='" +
+          options.response.trophy_updates[i][2] + "'><br>" +
+          options.response.trophy_updates[i][0] + "</div>";
+    }
+    document.getElementById('trophies').innerHTML = html;
+    document.getElementById('trophies').style.display = 'block';    
+  }
+  else {
+    nextLevelNewText = finalLevel ? msg.finalLevel() : msg.nextLevel();
+    document.getElementById('trophies').style.display = 'none';
+  }
+  BlocklyApps.setTextForElement('nextLevelMsg', nextLevelNewText);
+
   if (BlocklyApps.canContinueToNextLevel(options.feedbackType)) {
     BlocklyApps.resetGeneratedCodeInFeedback(document.getElementById('showLinesOfCodeLink'));
     document.getElementById('generatedCodeInfoContainer').style.display = 'inline';
@@ -842,11 +872,7 @@ BlocklyApps.prepareFeedback = function(options) {
   // Determine buttons.
   if (options.feedbackType == BlocklyApps.TestResults.ALL_PASS) {
     document.getElementById('hintTitle').style.display = 'none';
-    if (options.finalLevel) {
-      document.getElementById('finalLevelMsg').style.display = 'block';
-    } else {
-      document.getElementById('nextLevelMsg').style.display = 'block';
-    }
+    document.getElementById('nextLevelMsg').style.display = 'block';
   } else {
     document.getElementById('hintTitle').style.display = 'inline';
   }
