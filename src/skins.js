@@ -20,6 +20,10 @@ var CONFIGS = {
     look: '#000'
   },
 
+  farmer_night: {
+    look: '#FFF'
+  },
+
   pvz: {
     look: '#FFF'
   },
