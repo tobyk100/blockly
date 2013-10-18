@@ -31,6 +31,7 @@ var readonly = require('./readonly.html');
 var trophy = require('./trophy.html');
 var addReadyListener = require('./dom').addReadyListener;
 var responsive = require('./responsive');
+var utils = require('./utils');
 
 //TODO: These should be members of a BlocklyApp instance.
 var onAttempt;
@@ -145,20 +146,13 @@ exports.isPageShort = function() {
  * @param {DomElement} div The parent div in which to insert Blockly.
  */
 exports.inject = function(div, options) {
-  if (!options) {
-    options = {};
-  }
-
-  var finalOptions = {  // Defaults, to be overriden.
+  var defaults = {
     path: BlocklyApps.BASE_URL,
     rtl: BlocklyApps.isRtl(),
     toolbox: document.getElementById('toolbox'),
     trashcan: true
   };
-  for (var key in options) {
-    finalOptions[key] = options[key];  // Override anything passed in.
-  }
-  Blockly.inject(div, finalOptions);
+  Blockly.inject(div, utils.extend(defaults, options));
 };
 
 /**

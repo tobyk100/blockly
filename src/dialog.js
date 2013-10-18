@@ -1,3 +1,5 @@
+var utils = require('./utils');
+
 /**
  * Is the dialog currently onscreen?
  */
@@ -134,24 +136,23 @@ var matchBorder = function(element, animate, opacity) {
  *   - {Function} disposeFunc A function to call when the dialog closes.
  */
 exports.show = function(options) {
-  var finalConfig = {
+  var defaults = {
     animate: true,
     modal: true,
     origin: null
   };
-  for (var key in options) {
-    finalConfig[key] = options[key];
-  }
+
+  options = utils.extend(defaults, options);
 
   if (isDialogVisible) {
     exports.hide(false);
   }
   isDialogVisible = true;
-  dialogOrigin = finalConfig.origin;
+  dialogOrigin = options.origin;
   dialogDispose = function() {
     stopDialogKeyDown();
-    if (finalConfig.disposeFunc) {
-      finalConfig.disposeFunc();
+    if (options.disposeFunc) {
+      options.disposeFunc();
     }
   };
   var dialog = document.getElementById('dialog');
@@ -159,14 +160,14 @@ exports.show = function(options) {
   var border = document.getElementById('dialogBorder');
 
   // Copy all the specified styles to the dialog.
-  for (var name in finalConfig.style) {
-    dialog.style[name] = finalConfig.style[name];
+  for (var name in options.style) {
+    dialog.style[name] = options.style[name];
   }
-  dialog.appendChild(finalConfig.content);
-  finalConfig.content.className =
-      finalConfig.content.className.replace('dialogHiddenContent', '');
+  dialog.appendChild(options.content);
+  options.content.className =
+      options.content.className.replace('dialogHiddenContent', '');
 
-  if (finalConfig.modal) {
+  if (options.modal) {
     shadow.style.visibility = 'visible';
     shadow.style.opacity = 0.3;
   }
@@ -175,9 +176,9 @@ exports.show = function(options) {
     dialog.style.zIndex = 1;
     border.style.visibility = 'hidden';
   }
-  if (finalConfig.animate && finalConfig.origin) {
-    matchBorder(finalConfig.origin, false, 0.2);
-    matchBorder(finalConfig.dialog, true, 0.8);
+  if (options.animate && options.origin) {
+    matchBorder(options.origin, false, 0.2);
+    matchBorder(options.dialog, true, 0.8);
     // In 175ms show the dialog and hide the animated border.
     window.setTimeout(endResult, 175);
   } else {
