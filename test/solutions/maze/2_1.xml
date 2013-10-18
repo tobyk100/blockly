@@ -2,6 +2,9 @@
   <block type="maze_moveForward" x="70" y="70">
     <next>
       <block type="maze_moveForward"/>
+        <next>
+          <block type="maze_moveForward"/>
+        </next>
     </next>
   </block>
 </xml>
