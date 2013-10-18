@@ -328,7 +328,7 @@ exports.install = function(blockly, skin) {
     // Generate JavaScript for do forever loop.
     var branch = generator.statementToCode(this, 'DO');
     branch = codegen.loopTrap(this.id) + branch;
-    return 'while (true) {\n' + branch + '}\n';
+    return 'while (Maze.notFinished()) {\n' + branch + '}\n';
   };
 
   blockly.Blocks.maze_untilBlockedOrNotClear = {
