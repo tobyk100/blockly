@@ -4,9 +4,13 @@ $purple: #7665a0;
   height: 100%;
   width: 100%;
 }
-body {
-  background-color: #fff;
+@mixin font {
   font-family: 'Gotham A', 'Gotham B', sans-serif;
+}
+
+body {
+  @include font;
+  background-color: #fff;
   font-weight: 400;
   margin-top: 0;
 }
@@ -250,4 +254,8 @@ input[type="radio"] {
 
 #rotateMobile {
   @include fill-container;
+}
+
+.blocklyText {
+  @include font;
 }
