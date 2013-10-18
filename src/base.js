@@ -117,7 +117,7 @@ exports.addClickTouchEvent = function(element, handler) {
     element.addEventListener('touchend', handler, false);
   }
   element.addEventListener('click', handler, false);
-}
+};
 
 exports.isMobile = function() {
   var reg = /Mobile|iP(hone|od|ad)|Android|BlackBerry|IEMobile/;
@@ -131,7 +131,7 @@ exports.isMobile = function() {
 exports.isPageShort = function() {
   var pageHeight = document.documentElement.getBoundingClientRect().height;
   return (window.innerHeight < pageHeight);
-}
+};
 
 /**
  * @param {Object} options Configuration parameters for Blockly. Parameters are
