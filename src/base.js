@@ -314,7 +314,10 @@ BlocklyApps.showGeneratedCode = function(origin) {
     left: '30%',
     top: (offset + 50) + 'px'
   };
-  dialog.show(content, origin, true, true, style);
+  dialog.show({
+    content: content,
+    sytle: style
+  });
 };
 
 /**
@@ -987,7 +990,11 @@ BlocklyApps.showHelp = function(feedbackType) {
     }
   }
   BlocklyApps.displayCloseDialogButtons(feedbackType);
-  dialog.show(help, null, false, true, style);
+  dialog.show({
+    content: help,
+    animtae: false,
+    style: style
+  });
 };
 
 /**
