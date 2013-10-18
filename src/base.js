@@ -105,19 +105,27 @@ BlocklyApps.init = function(config) {
   // Add events for touch devices when the window is done loading.
   addReadyListener(BlocklyApps.addTouchEvents);
 
-  exports.responsiveChecks();
-};
-
-exports.responsiveChecks = function() {
-  var reg = /Mobile|iP(hone|od|ad)|Android|BlackBerry|IEMobile/;
-  if (reg.test(navigator.userAgent)) {  // we are mobile
+  if (exports.isMobile()) {
     responsive.forceLandscape();
   }
-  var pageHeight = document.documentElement.getBoundingClientRect().height;
-  if (window.innerHeight < pageHeight) {  // Viewport is shorter than content.
+  if (exports.isPageShort()) {
     responsive.scrollPastHeader();
   }
 };
+
+exports.isMobile = function() {
+  var reg = /Mobile|iP(hone|od|ad)|Android|BlackBerry|IEMobile/;
+  return reg.test(navigator.userAgent);
+};
+
+/**
+ * Returns true if viewport is shorter than documentElement height.
+ * False otherwise.
+ */
+exports.isPageShort = function() {
+  var pageHeight = document.documentElement.getBoundingClientRect().height;
+  return (window.innerHeight < pageHeight);
+}
 
 /**
  * @param {Object} options Configuration parameters for Blockly. Parameters are
