@@ -18,8 +18,13 @@ exports.forceLandscape = function() {
       var img = document.getElementById('rotateMobile');
       dialog.show({
         content: img,
-        style: { position: 'absolute', left: '5%', top: '5%', width: '90%',
-                 height: '90%' }
+        style: {
+          position: 'absolute',
+          left: '5%',
+          top: '5%',
+          width: '90%',
+          height: '90%'
+        }
       });
     } else if (orientation === 'landscape') {
       dialog.hide();
