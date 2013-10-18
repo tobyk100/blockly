@@ -121,7 +121,7 @@ exports.addClickTouchEvent = function(element, handler) {
 
 exports.isMobile = function() {
   var reg = /Mobile|iP(hone|od|ad)|Android|BlackBerry|IEMobile/;
-  return reg.test(navigator.userAgent);
+  return reg.test(window.navigator.userAgent);
 };
 
 /**
