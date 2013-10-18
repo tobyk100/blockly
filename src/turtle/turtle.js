@@ -587,8 +587,9 @@ Turtle.checkAnswer = function() {
     // TODO: Add more helpful error message.
     Turtle.testResults = BlocklyApps.TestResults.OTHER_1_STAR_FAIL;
 
-  } else if (Turtle.testResults == BlocklyApps.TestResults.TOO_MANY_BLOCKS_FAIL
-      || Turtle.testResults == BlocklyApps.TestResults.ALL_PASS) {
+  } else if ((Turtle.testResults ==
+      BlocklyApps.TestResults.TOO_MANY_BLOCKS_FAIL) ||
+      (Turtle.testResults == BlocklyApps.TestResults.ALL_PASS)) {
     // Check that they didn't use a crazy large repeat value when drawing a
     // circle.  This complains if the limit doesn't start with 3.
     // Note that this level does not use colour, so no need to check for that.

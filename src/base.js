@@ -28,6 +28,7 @@ var dialog = require('./dialog');
 var parseXmlElement = require('./xml').parseElement;
 var codegen = require('./codegen');
 var readonly = require('./readonly.html');
+var trophy = require('./trophy.html');
 var addReadyListener = require('./dom').addReadyListener;
 
 //TODO: These should be members of a BlocklyApp instance.
@@ -777,7 +778,7 @@ BlocklyApps.setLevelFeedback = function(options) {
 
   var nextLevelNewText;
   var finalLevel = (options.response &&
-      options.response.message == "no more levels");
+      (options.response.message == "no more levels"));
   var earnedTrophies = (options.response && options.response.trophy_updates &&
       options.response.trophy_updates.length);
   if (earnedTrophies) {
@@ -787,13 +788,11 @@ BlocklyApps.setLevelFeedback = function(options) {
         msg.finalLevelTrophies(msgParams) : msg.nextLevelTrophies(msgParams);
 
     var html = "";
-    for (var i = 0; i < arrayLength; i++) { // TODO: proper URL path
-      html = html +
-          "<div style='min-width:100px;text-align:center;" +
-          "vertical-align:top;display:inline-block;max-width:100px;'>" +
-          "<img width=80 height=80 src='" +
-          options.response.trophy_updates[i][2] + "'><br>" +
-          options.response.trophy_updates[i][0] + "</div>";
+    for (var i = 0; i < arrayLength; i++) {
+      html = html + trophy({
+          img_url: options.response.trophy_updates[i][2],
+          concept_name: options.response.trophy_updates[i][0]
+          });
     }
     document.getElementById('trophies').innerHTML = html;
     document.getElementById('trophies').style.display = 'block';
