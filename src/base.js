@@ -1006,7 +1006,7 @@ BlocklyApps.showHelp = function(feedbackType) {
   BlocklyApps.displayCloseDialogButtons(feedbackType);
   dialog.show({
     content: help,
-    animtae: false,
+    animate: false,
     style: style
   });
 };
