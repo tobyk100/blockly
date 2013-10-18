@@ -3,6 +3,8 @@ exports.shallowCopy = function(source) {
   for (var prop in source) {
     result[prop] = source[prop];
   }
+
+  return result;
 };
 /**
  * Returns a new object with the properties from defaults overriden by any
