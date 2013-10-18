@@ -28,6 +28,7 @@ var dialog = require('./dialog');
 var parseXmlElement = require('./xml').parseElement;
 var codegen = require('./codegen');
 var readonly = require('./readonly.html');
+var trophy = require('./trophy.html');
 var addReadyListener = require('./dom').addReadyListener;
 var responsive = require('./responsive');
 
@@ -62,6 +63,9 @@ BlocklyApps.init = function(config) {
   onAttempt = config.onAttempt || function(report) {
     console.log('Attempt!');
     console.log(report);
+    if (report.onComplete) {
+      report.onComplete();
+    }
   };
   onContinue = config.onContinue || function() {
     console.log('Continue!');
@@ -789,6 +793,34 @@ BlocklyApps.setLevelFeedback = function(options) {
       document.getElementById('reinfFeedbackMsg').style.display = 'block';
       break;
   }
+
+  var nextLevelNewText;
+  var finalLevel = (options.response &&
+      (options.response.message == "no more levels"));
+  var earnedTrophies = (options.response && options.response.trophy_updates &&
+      options.response.trophy_updates.length);
+  if (earnedTrophies) {
+    var arrayLength = options.response.trophy_updates.length;
+    var msgParams = { numTrophies: arrayLength };
+    nextLevelNewText = finalLevel ?
+        msg.finalLevelTrophies(msgParams) : msg.nextLevelTrophies(msgParams);
+
+    var html = "";
+    for (var i = 0; i < arrayLength; i++) {
+      html = html + trophy({
+          img_url: options.response.trophy_updates[i][2],
+          concept_name: options.response.trophy_updates[i][0]
+          });
+    }
+    document.getElementById('trophies').innerHTML = html;
+    document.getElementById('trophies').style.display = 'block';
+  }
+  else {
+    nextLevelNewText = finalLevel ? msg.finalLevel() : msg.nextLevel();
+    document.getElementById('trophies').style.display = 'none';
+  }
+  BlocklyApps.setTextForElement('nextLevelMsg', nextLevelNewText);
+
   if (BlocklyApps.canContinueToNextLevel(options.feedbackType)) {
     BlocklyApps.resetGeneratedCodeInFeedback(document.getElementById('showLinesOfCodeLink'));
     document.getElementById('generatedCodeInfoContainer').style.display = 'inline';
@@ -826,8 +858,10 @@ BlocklyApps.canContinueToNextLevel = function(feedbackType) {
  * @param {number} result An indicator of the success of the code.
  * @param {number} testResult More specific data on success or failure of code.
  * @param {string} program The user program, which will get URL-encoded.
+ * @param {function} onComplete Function to be called upon completion.
  */
-BlocklyApps.report = function(app, levelId, result, testResult, program) {
+BlocklyApps.report =
+    function(app, levelId, result, testResult, program, onComplete) {
   var report = {
     app: app,
     level: levelId,
@@ -835,7 +869,8 @@ BlocklyApps.report = function(app, levelId, result, testResult, program) {
     testResult: testResult,
     program: encodeURIComponent(program),
     attempt: BlocklyApps.attempts,
-    time: ((new Date().getTime()) - BlocklyApps.initTime)
+    time: ((new Date().getTime()) - BlocklyApps.initTime),
+    onComplete: onComplete
   };
   onAttempt(report);
 };
@@ -853,11 +888,7 @@ BlocklyApps.prepareFeedback = function(options) {
   // Determine buttons.
   if (options.feedbackType == BlocklyApps.TestResults.ALL_PASS) {
     document.getElementById('hintTitle').style.display = 'none';
-    if (options.finalLevel) {
-      document.getElementById('finalLevelMsg').style.display = 'block';
-    } else {
-      document.getElementById('nextLevelMsg').style.display = 'block';
-    }
+    document.getElementById('nextLevelMsg').style.display = 'block';
   } else {
     document.getElementById('hintTitle').style.display = 'inline';
   }

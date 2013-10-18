@@ -69,8 +69,8 @@ var helpArea = function(html) { -%>
 var feedback = function(appSpecific) { -%>
   <span id="levelFeedbackText">
     <span id="hintTitle" class="feedback"><%= msg.hintTitle() %></span>
-    <div id="nextLevelMsg" class="feedback" style="display: none;"><%= msg.nextLevel() %></div>
-    <div id="finalLevelMsg" class="feedback" style="display: none;"><%= msg.finalLevelMsg() %></div>
+    <div id="nextLevelMsg" class="feedback" style="display: none;"></div>
+    <div id="trophies" style="display: none;margin-bottom: 20px;"></div>
     <li id="levelIncompleteError" class="feedback" style="display: none">
       <%= msg.levelIncompleteError() %>
     </li>

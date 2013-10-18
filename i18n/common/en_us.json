@@ -78,11 +78,6 @@
     "string": "Remove empty blocks.",
     "description": "alert - This error message is displayed when the user has added blocks with nothing nested inside them (e.g. repeat or if blocks)."
   },
-  "finalLevelMsg": {
-    "id": "1144995744314074379",
-    "string": "Congratulations! You have solved the final level.",
-    "description": "alert - This is displayed when the user solves the most difficult level."
-  },
   "hashError": {
     "id": "2570539532822249158",
     "string": "Sorry, '%1' doesn't correspond with any saved program.",
@@ -117,6 +112,19 @@
     "id": "6946125796492579884",
     "string": "Congratulations! You completed this level.",
     "description": "alert - This is displayed when the user solves the level, inviting them to precede to the next level of difficulty."
+  },
+  "finalLevel": {
+    "id": "1144995744314074379",
+    "string": "Congratulations! You have solved the final level.",
+    "description": "alert - This is displayed when the user solves the most difficult level."
+  },
+  "nextLevelTrophies": {
+    "string": "Congratulations! You completed this level and won {numTrophies, plural, one {a trophy} other {# trophies}}.",
+    "description": "alert - This is displayed when the user solves the level and won one or more trophies."
+  },
+  "finalLevelTrophies": {
+    "string": "Congratulations! You have solved the final level and won {numTrophies, plural, one {a trophy} other {# trophies}}.",
+    "description": "alert - This is displayed when the user solves the most difficult level and won one or more trophies."
   },
   "numBlocksNeeded": {
     "id": "857707012901609467",
