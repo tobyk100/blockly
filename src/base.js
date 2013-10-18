@@ -98,9 +98,7 @@ BlocklyApps.init = function(config) {
   }
 
   var showCode = document.getElementById('show-code-header');
-  var eventType = ('ontouchend' in document.documentElement) ?
-      'touchend' : 'click';
-  showCode.addEventListener(eventType, BlocklyApps.showGeneratedCode, false);
+  exports.addClickTouchEvent(showCode, BlocklyApps.showGeneratedCode);
 
   // Add events for touch devices when the window is done loading.
   addReadyListener(BlocklyApps.addTouchEvents);
@@ -112,6 +110,13 @@ BlocklyApps.init = function(config) {
     responsive.scrollPastHeader();
   }
 };
+
+exports.addClickTouchEvent = function(element, handler) {
+  if ('ontouchend' in document.documentElement) {
+    element.addEventListener('touchend', handler, false);
+  }
+  element.addEventListener('click', handler, false);
+}
 
 exports.isMobile = function() {
   var reg = /Mobile|iP(hone|od|ad)|Android|BlackBerry|IEMobile/;
