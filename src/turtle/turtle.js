@@ -522,6 +522,27 @@ var isCorrect = function(pixelErrors, permittedErrors) {
 };
 
 /**
+ * App specific displayFeedback function that calls into
+ * BlocklyApps.displayFeedback when appropriate
+ */
+var displayFeedback = function() {
+  BlocklyApps.displayFeedback({
+    app: 'turtle', //XXX
+    feedbackType: Turtle.testResults,
+    response: Turtle.response
+    });
+};
+
+/**
+ * Function to be called when the service report call is complete
+ * @param {object} JSON response (if available)
+ */
+Turtle.onReportComplete = function(response) {
+  Turtle.response = response;
+  displayFeedback();
+};
+
+/**
  * Verify if the answer is correct.
  * If so, move on to next level.
  */
@@ -554,32 +575,28 @@ Turtle.checkAnswer = function() {
   // been completed
   BlocklyApps.levelComplete =
       level.freePlay || isCorrect(delta, permittedErrors);
-  var feedbackType = BlocklyApps.getTestResults();
+  Turtle.testResults = BlocklyApps.getTestResults();
 
   var xml = Blockly.Xml.workspaceToDom(Blockly.mainWorkspace);
   var textBlocks = Blockly.Xml.domToText(xml);
 
-  BlocklyApps.report('turtle', level.id,
-                     BlocklyApps.levelComplete,
-                     feedbackType,
-                     textBlocks);
-
   // For levels where using too many blocks would allow students
   // to miss the point, convert that feedback to a failure.
   if (level.failForTooManyBlocks &&
-      feedbackType == BlocklyApps.TestResults.TOO_MANY_BLOCKS_FAIL) {
+      Turtle.testResults == BlocklyApps.TestResults.TOO_MANY_BLOCKS_FAIL) {
     // TODO: Add more helpful error message.
-    feedbackType = BlocklyApps.TestResults.OTHER_1_STAR_FAIL;
+    Turtle.testResults = BlocklyApps.TestResults.OTHER_1_STAR_FAIL;
 
-  } else if (feedbackType == BlocklyApps.TestResults.TOO_MANY_BLOCKS_FAIL ||
-      feedbackType == BlocklyApps.TestResults.ALL_PASS) {
+  } else if ((Turtle.testResults ==
+      BlocklyApps.TestResults.TOO_MANY_BLOCKS_FAIL) ||
+      (Turtle.testResults == BlocklyApps.TestResults.ALL_PASS)) {
     // Check that they didn't use a crazy large repeat value when drawing a
     // circle.  This complains if the limit doesn't start with 3.
     // Note that this level does not use colour, so no need to check for that.
     if (level.failForCircleRepeatValue) {
       var code = Blockly.Generator.workspaceToCode('JavaScript');
       if (code.indexOf('count < 3') == -1) {
-          feedbackType = BlocklyApps.TestResults.OTHER_2_STAR_FAIL;
+          Turtle.testResults = BlocklyApps.TestResults.OTHER_2_STAR_FAIL;
       }
     } else {
       // Only check and mention colour if there is no more serious problem.
@@ -587,7 +604,7 @@ Turtle.checkAnswer = function() {
       if (colourResult != Turtle.ColourResults.OK &&
         colourResult != Turtle.ColourResults.EXTRA) {
         var message = '';
-        feedbackType = BlocklyApps.TestResults.OTHER_1_STAR_FAIL;
+        Turtle.testResults = BlocklyApps.TestResults.OTHER_1_STAR_FAIL;
         if (colourResult == Turtle.ColourResults.FORBIDDEN_DEFAULT) {
           message = msg.notBlackColour();
         } else if (colourResult == Turtle.ColourResults.TOO_FEW) {
@@ -605,11 +622,14 @@ Turtle.checkAnswer = function() {
   // If the current level is a free play, always return the free play
   // result type
   if (level.freePlay) {
-    feedbackType = BlocklyApps.TestResults.FREE_PLAY;
+    Turtle.testResults = BlocklyApps.TestResults.FREE_PLAY;
   }
 
-  BlocklyApps.displayFeedback({
-    app: 'turtle',
-    feedbackType: feedbackType
-  });
+  BlocklyApps.report('turtle', level.id,
+                     BlocklyApps.levelComplete,
+                     Turtle.testResults,
+                     textBlocks,
+                     Turtle.onReportComplete);
+
+  // The call to displayFeedback() will happen later in onReportComplete()
 };

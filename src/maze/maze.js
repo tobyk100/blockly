@@ -533,13 +533,29 @@ var ResultType = {
   ERROR: -2
 };
 
+/**
+ * App specific displayFeedback function that calls into
+ * BlocklyApps.displayFeedback when appropriate
+ */
 var displayFeedback = function() {
-  BlocklyApps.displayFeedback({
-    app: 'maze', //XXX
-    skin: skin.id,
-    feedbackType: Maze.testResults,
-    finalLevel: false //TODO: Get from server or otherwise parameterize
-  });
+  if (!Maze.waitingForReport && !Maze.waitingForAnimate) {
+    BlocklyApps.displayFeedback({
+      app: 'maze', //XXX
+      skin: skin.id,
+      feedbackType: Maze.testResults,
+      response: Maze.response
+    });
+  }
+};
+
+/**
+ * Function to be called when the service report call is complete
+ * @param {object} JSON response (if available)
+ */
+Maze.onReportComplete = function(response) {
+  Maze.response = response;
+  Maze.waitingForReport = false;
+  displayFeedback();
 };
 
 /**
@@ -551,6 +567,9 @@ Maze.execute = function() {
   var code = Blockly.Generator.workspaceToCode('JavaScript');
   Maze.result = ResultType.UNSET;
   Maze.testResults = BlocklyApps.TestResults.NO_TESTS_RUN;
+  Maze.waitingForReport = false;
+  Maze.waitingForAnimate = false;
+  Maze.response = null;
 
   // Check for empty top level blocks to warn user about bugs,
   // especially ones that lead to infinite loops.
@@ -627,13 +646,17 @@ Maze.execute = function() {
   var xml = Blockly.Xml.workspaceToDom(Blockly.mainWorkspace);
   var textBlocks = Blockly.Xml.domToText(xml);
 
+  Maze.waitingForReport = true;
+  Maze.waitingForAnimate = true;
+
   // Report result to server.
   BlocklyApps.report(
     'maze',
     level.id,
     Maze.result === ResultType.SUCCESS,
     Maze.testResults,
-    textBlocks);
+    textBlocks,
+    Maze.onReportComplete);
 
   // BlocklyApps.log now contains a transcript of all the user's actions.
   // Reset the maze and animate the transcript.
@@ -654,9 +677,11 @@ Maze.animate = function() {
   if (!action) {
     BlocklyApps.highlight(null);
     if (Maze.result == ResultType.TIMEOUT) {
+      Maze.waitingForAnimate = false;
       displayFeedback();
     } else {
       window.setTimeout(function() {
+        Maze.waitingForAnimate = false;
         displayFeedback();
       }, 1000);
     }

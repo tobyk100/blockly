@@ -1,3 +1,5 @@
+var utils = require('./utils');
+
 /**
  * Is the dialog currently onscreen?
  */
@@ -124,25 +126,33 @@ var matchBorder = function(element, animate, opacity) {
 
 /**
  * Show the dialog pop-up.
- * @param {!Element} content DOM element to display in the dialog.
- * @param {Element} origin Animate the dialog opening/closing from/to this
- *     DOM element.  If null, don't show any animations for opening or closing.
- * @param {boolean} animate Animate the dialog opening (if origin not null).
- * @param {boolean} modal If true, grey out background and prevent interaction.
- * @param {!Object} style A dictionary of style rules for the dialog.
- * @param {Function} disposeFunc An optional function to call when the dialog
- *     closes.  Normally used for unhooking events.
+ * @param {!Object} options Configuration options, detailed below.
+ *   - {!Element} content DOM element to display in the dialog.
+ *   - @param {Element} origin Animate the dialog opening/closing from/to this
+ *         DOM element.
+ *   - {boolean} animate Animate the dialog opening, defaults to true.
+ *   - {boolean} modal Makes dialog modal, defaults to true.
+ *   - {!Object} style A dictionary of style rules for the dialog.
+ *   - {Function} disposeFunc A function to call when the dialog closes.
  */
-exports.show = function(content, origin, animate, modal, style, disposeFunc) {
+exports.show = function(options) {
+  var defaults = {
+    animate: true,
+    modal: true,
+    origin: null
+  };
+
+  options = utils.extend(defaults, options);
+
   if (isDialogVisible) {
     exports.hide(false);
   }
   isDialogVisible = true;
-  dialogOrigin = origin;
+  dialogOrigin = options.origin;
   dialogDispose = function() {
     stopDialogKeyDown();
-    if (disposeFunc) {
-      disposeFunc();
+    if (options.disposeFunc) {
+      options.disposeFunc();
     }
   };
   var dialog = document.getElementById('dialog');
@@ -150,13 +160,14 @@ exports.show = function(content, origin, animate, modal, style, disposeFunc) {
   var border = document.getElementById('dialogBorder');
 
   // Copy all the specified styles to the dialog.
-  for (var name in style) {
-    dialog.style[name] = style[name];
+  for (var name in options.style) {
+    dialog.style[name] = options.style[name];
   }
-  dialog.appendChild(content);
-  content.className = content.className.replace('dialogHiddenContent', '');
+  dialog.appendChild(options.content);
+  options.content.className =
+      options.content.className.replace('dialogHiddenContent', '');
 
-  if (modal) {
+  if (options.modal) {
     shadow.style.visibility = 'visible';
     shadow.style.opacity = 0.3;
   }
@@ -165,9 +176,9 @@ exports.show = function(content, origin, animate, modal, style, disposeFunc) {
     dialog.style.zIndex = 1;
     border.style.visibility = 'hidden';
   }
-  if (animate && origin) {
-    matchBorder(origin, false, 0.2);
-    matchBorder(dialog, true, 0.8);
+  if (options.animate && options.origin) {
+    matchBorder(options.origin, false, 0.2);
+    matchBorder(options.dialog, true, 0.8);
     // In 175ms show the dialog and hide the animated border.
     window.setTimeout(endResult, 175);
   } else {

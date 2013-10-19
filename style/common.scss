@@ -4,9 +4,13 @@ $purple: #7665a0;
   height: 100%;
   width: 100%;
 }
-body {
-  background-color: #fff;
+@mixin font {
   font-family: 'Gotham A', 'Gotham B', sans-serif;
+}
+
+body {
+  @include font;
+  background-color: #fff;
   font-weight: 400;
   margin-top: 0;
 }
@@ -146,6 +150,17 @@ input[type="radio"] {
   left: 0;
   z-index: -1;
 }
+.trophy {
+  min-width:100px;
+  text-align:center;
+  vertical-align:top;
+  display:inline-block;
+  max-width:100px;
+}
+.trophyimg {
+  width:80px;
+  height:80px;
+}
 #dialog button {
   min-width: 4em;
 }
@@ -239,4 +254,8 @@ input[type="radio"] {
 
 #rotateMobile {
   @include fill-container;
+}
+
+.blocklyText {
+  @include font;
 }
