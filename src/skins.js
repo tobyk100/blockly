@@ -76,3 +76,15 @@ exports.load = function(baseUrl, id) {
   }
   return skin;
 };
+
+exports.loadTurtleSkin = function(baseUrl, id) {
+  var path = 'media/skins/' + id + '/';
+  var root = baseUrl + path;
+  var config = CONFIGS[id];
+  var skin = {
+    id: id,
+    // Images
+    avatar: root + 'avatar.png'
+  }
+  return skin;
+};

@@ -32,6 +32,7 @@ var BlocklyApps = require('../base');
 var Turtle = module.exports;
 var Slider = require('../slider');
 var msg = require('../../en_us/i18n/turtle');
+var skins = require('../skins');
 var levels = require('./levels');
 var Colours = require('./core').Colours;
 var codegen = require('../codegen');
@@ -39,6 +40,7 @@ var api = require('./api');
 var page = require('../page.html');
 
 var level;
+var skin;
 
 BlocklyApps.CHECK_FOR_EMPTY_BLOCKS = false;
 BlocklyApps.NUM_REQUIRED_BLOCKS_TO_FLAG = 1;
@@ -73,7 +75,11 @@ Turtle.avatar_image = new Image();
  */
 Turtle.init = function(config) {
 
+  skin = config.skin;
   level = config.level;
+
+  Turtle.AVATAR_HEIGHT = 51;
+  Turtle.AVATAR_WIDTH = 49;
 
   BlocklyApps.IDEAL_BLOCK_NUM = level.ideal || Infinity;
   BlocklyApps.REQUIRED_BLOCKS = level.requiredBlocks || [];
@@ -212,10 +218,9 @@ Turtle.loadTurtle = function() {
   Turtle.avatar_image.onload = function() {
     Turtle.display();
   };
-  Turtle.avatar_image.src =
-      BlocklyApps.BASE_URL + 'media/skins/artist_zombie/avatar.png';
-  Turtle.avatar_image.height = 51;
-  Turtle.avatar_image.width = 49;
+  Turtle.avatar_image.src = skin.avatar;
+  Turtle.avatar_image.height = Turtle.AVATAR_HEIGHT;
+  Turtle.avatar_image.width = Turtle.AVATAR_WIDTH;
 };
 
 /**
@@ -569,6 +574,7 @@ var isCorrect = function(pixelErrors, permittedErrors) {
 var displayFeedback = function() {
   BlocklyApps.displayFeedback({
     app: 'turtle', //XXX
+    skin: skin.id,
     feedbackType: Turtle.testResults,
     response: Turtle.response
     });
