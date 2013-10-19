@@ -64,6 +64,11 @@ Turtle.coloursUsed = [];
 Turtle.visible = true;
 
 /**
+ * The avatar image
+ */
+Turtle.avatar_image = new Image();
+
+/**
  * Initialize Blockly and the turtle.  Called on page load.
  */
 Turtle.init = function(config) {
@@ -124,6 +129,7 @@ Turtle.init = function(config) {
   Turtle.ctxAnswer = document.getElementById('answer').getContext('2d');
   Turtle.ctxImages = document.getElementById('images').getContext('2d');
   Turtle.ctxScratch = document.getElementById('scratch').getContext('2d');
+  Turtle.loadTurtle();
   Turtle.drawImages();
   Turtle.drawAnswer();
   BlocklyApps.reset();
@@ -200,6 +206,39 @@ Turtle.drawImages = function() {
 };
 
 /**
+ * Initial the turtle image on load.
+ */
+Turtle.loadTurtle = function() {
+  Turtle.avatar_image.onload = function() {
+    Turtle.display();
+  };
+  Turtle.avatar_image.src =
+      BlocklyApps.BASE_URL + 'media/skins/artist_zombie/avatar.png';
+  Turtle.avatar_image.height = 51;
+  Turtle.avatar_image.width = 49;
+};
+
+/**
+ * Draw the turtle image based on Turtle.x, Turtle.y, and Turtle.heading.
+ */
+Turtle.drawTurtle = function() {
+  // Computes the index of the image in the sprite.
+  var index = Math.floor(Turtle.heading * 16 / 360);
+  var sourceX = Turtle.avatar_image.width * index;
+  var sourceY = 0;
+  var sourceWidth = Turtle.avatar_image.width;
+  var sourceHeight = Turtle.avatar_image.height;
+  var destWidth = Turtle.avatar_image.width;
+  var destHeight = Turtle.avatar_image.height;
+  var destX = Turtle.x - destWidth / 2;
+  var destY = Turtle.y - destHeight;
+
+  Turtle.ctxDisplay.drawImage(Turtle.avatar_image, sourceX, sourceY,
+                              sourceWidth, sourceHeight, destX, destY,
+                              destWidth, destHeight);
+};
+
+/**
  * Reset the turtle to the start position, clear the display, and kill any
  * pending tasks.
  * @param {boolean} ignore Required by the API but ignored by this
@@ -257,19 +296,21 @@ Turtle.display = function() {
 
   // Draw the turtle.
   if (Turtle.visible) {
+    Turtle.drawTurtle();
+
     // Make the turtle the colour of the pen.
-    Turtle.ctxDisplay.strokeStyle = Turtle.ctxScratch.strokeStyle;
-    Turtle.ctxDisplay.fillStyle = Turtle.ctxScratch.fillStyle;
+    // Turtle.ctxDisplay.strokeStyle = Turtle.ctxScratch.strokeStyle;
+    // Turtle.ctxDisplay.fillStyle = Turtle.ctxScratch.fillStyle;
 
     // Draw the turtle body.
-    var radius = Turtle.ctxScratch.lineWidth / 2 + 10;
+    /*var radius = Turtle.ctxScratch.lineWidth / 2 + 10;
     Turtle.ctxDisplay.beginPath();
     Turtle.ctxDisplay.arc(Turtle.x, Turtle.y, radius, 0, 2 * Math.PI, false);
     Turtle.ctxDisplay.lineWidth = 3;
-    Turtle.ctxDisplay.stroke();
+    Turtle.ctxDisplay.stroke();*/
 
     // Draw the turtle head.
-    var WIDTH = 0.3;
+    /* var WIDTH = 0.3;
     var HEAD_TIP = 10;
     var ARROW_TIP = 4;
     var BEND = 6;
@@ -294,7 +335,7 @@ Turtle.display = function() {
     Turtle.ctxDisplay.bezierCurveTo(leftControlX, leftControlY,
         rightControlX, rightControlY, rightX, rightY);
     Turtle.ctxDisplay.closePath();
-    Turtle.ctxDisplay.fill();
+    Turtle.ctxDisplay.fill(); */
   }
 };
 
