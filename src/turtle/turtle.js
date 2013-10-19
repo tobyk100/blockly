@@ -302,45 +302,6 @@ Turtle.display = function() {
   // Draw the turtle.
   if (Turtle.visible) {
     Turtle.drawTurtle();
-
-    // Make the turtle the colour of the pen.
-    // Turtle.ctxDisplay.strokeStyle = Turtle.ctxScratch.strokeStyle;
-    // Turtle.ctxDisplay.fillStyle = Turtle.ctxScratch.fillStyle;
-
-    // Draw the turtle body.
-    /*var radius = Turtle.ctxScratch.lineWidth / 2 + 10;
-    Turtle.ctxDisplay.beginPath();
-    Turtle.ctxDisplay.arc(Turtle.x, Turtle.y, radius, 0, 2 * Math.PI, false);
-    Turtle.ctxDisplay.lineWidth = 3;
-    Turtle.ctxDisplay.stroke();*/
-
-    // Draw the turtle head.
-    /* var WIDTH = 0.3;
-    var HEAD_TIP = 10;
-    var ARROW_TIP = 4;
-    var BEND = 6;
-    var radians = 2 * Math.PI * Turtle.heading / 360;
-    var tipX = Turtle.x + (radius + HEAD_TIP) * Math.sin(radians);
-    var tipY = Turtle.y - (radius + HEAD_TIP) * Math.cos(radians);
-    radians -= WIDTH;
-    var leftX = Turtle.x + (radius + ARROW_TIP) * Math.sin(radians);
-    var leftY = Turtle.y - (radius + ARROW_TIP) * Math.cos(radians);
-    radians += WIDTH / 2;
-    var leftControlX = Turtle.x + (radius + BEND) * Math.sin(radians);
-    var leftControlY = Turtle.y - (radius + BEND) * Math.cos(radians);
-    radians += WIDTH;
-    var rightControlX = Turtle.x + (radius + BEND) * Math.sin(radians);
-    var rightControlY = Turtle.y - (radius + BEND) * Math.cos(radians);
-    radians += WIDTH / 2;
-    var rightX = Turtle.x + (radius + ARROW_TIP) * Math.sin(radians);
-    var rightY = Turtle.y - (radius + ARROW_TIP) * Math.cos(radians);
-    Turtle.ctxDisplay.beginPath();
-    Turtle.ctxDisplay.moveTo(tipX, tipY);
-    Turtle.ctxDisplay.lineTo(leftX, leftY);
-    Turtle.ctxDisplay.bezierCurveTo(leftControlX, leftControlY,
-        rightControlX, rightControlY, rightX, rightY);
-    Turtle.ctxDisplay.closePath();
-    Turtle.ctxDisplay.fill(); */
   }
 };
 
