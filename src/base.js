@@ -31,6 +31,7 @@ var readonly = require('./readonly.html');
 var trophy = require('./trophy.html');
 var addReadyListener = require('./dom').addReadyListener;
 var responsive = require('./responsive');
+var utils = require('./utils');
 
 //TODO: These should be members of a BlocklyApp instance.
 var onAttempt;
@@ -98,25 +99,38 @@ BlocklyApps.init = function(config) {
   }
 
   var showCode = document.getElementById('show-code-header');
-  var eventType = ('ontouchend' in document.documentElement) ?
-      'touchend' : 'click';
-  showCode.addEventListener(eventType, BlocklyApps.showGeneratedCode, false);
+  exports.addClickTouchEvent(showCode, BlocklyApps.showGeneratedCode);
 
   // Add events for touch devices when the window is done loading.
   addReadyListener(BlocklyApps.addTouchEvents);
 
-  exports.responsiveChecks();
-};
-
-exports.responsiveChecks = function() {
-  var reg = /Mobile|iP(hone|od|ad)|Android|BlackBerry|IEMobile/;
-  if (reg.test(navigator.userAgent)) {  // we are mobile
+  if (exports.isMobile()) {
     responsive.forceLandscape();
   }
-  var pageHeight = document.documentElement.getBoundingClientRect().height;
-  if (window.innerHeight < pageHeight) {  // Viewport is shorter than content.
+  if (exports.isPageShort()) {
     responsive.scrollPastHeader();
   }
+};
+
+exports.addClickTouchEvent = function(element, handler) {
+  if ('ontouchend' in document.documentElement) {
+    element.addEventListener('touchend', handler, false);
+  }
+  element.addEventListener('click', handler, false);
+};
+
+exports.isMobile = function() {
+  var reg = /Mobile|iP(hone|od|ad)|Android|BlackBerry|IEMobile/;
+  return reg.test(window.navigator.userAgent);
+};
+
+/**
+ * Returns true if viewport is shorter than documentElement height.
+ * False otherwise.
+ */
+exports.isPageShort = function() {
+  var pageHeight = document.documentElement.getBoundingClientRect().height;
+  return (window.innerHeight < pageHeight);
 };
 
 /**
@@ -132,20 +146,13 @@ exports.responsiveChecks = function() {
  * @param {DomElement} div The parent div in which to insert Blockly.
  */
 exports.inject = function(div, options) {
-  if (!options) {
-    options = {};
-  }
-
-  var finalOptions = {  // Defaults, to be overriden.
+  var defaults = {
     path: BlocklyApps.BASE_URL,
     rtl: BlocklyApps.isRtl(),
     toolbox: document.getElementById('toolbox'),
     trashcan: true
   };
-  for (var key in options) {
-    finalOptions[key] = options[key];  // Override anything passed in.
-  }
-  Blockly.inject(div, finalOptions);
+  Blockly.inject(div, utils.extend(defaults, options));
 };
 
 /**
@@ -216,7 +223,7 @@ BlocklyApps.resizeHeaders = function() {
   var categoriesWidth = 0;
   var categories = Blockly.Toolbox.HtmlDiv;
   if (categories) {
-    categoriesWidth = parseInt(getComputedStyle(categories).width, 10);
+    categoriesWidth = parseInt(window.getComputedStyle(categories).width, 10);
   }
 
   var workspaceWidth = Blockly.getWorkspaceWidth();
@@ -226,7 +233,8 @@ BlocklyApps.resizeHeaders = function() {
   var toolboxHeader = document.getElementById('toolbox-header');
   var showCodeHeader = document.getElementById('show-code-header');
 
-  var showCodeWidth = parseInt(getComputedStyle(showCodeHeader).width, 10);
+  var showCodeWidth = parseInt(window.getComputedStyle(showCodeHeader).width,
+                               10);
 
   toolboxHeader.style.width = (categoriesWidth + toolboxWidth) + 'px';
   workspaceHeader.style.width = (workspaceWidth -
@@ -309,12 +317,16 @@ BlocklyApps.showGeneratedCode = function(origin) {
   content.style.display = 'block';
   var offset = window.scrollY;
   var style = {
+    position: 'absolute',
     width: '40%',
     height: 'auto',
     left: '30%',
     top: (offset + 50) + 'px'
   };
-  dialog.show(content, origin, true, true, style);
+  dialog.show({
+    content: content,
+    style: style
+  });
 };
 
 /**
@@ -987,7 +999,11 @@ BlocklyApps.showHelp = function(feedbackType) {
     }
   }
   BlocklyApps.displayCloseDialogButtons(feedbackType);
-  dialog.show(help, null, false, true, style);
+  dialog.show({
+    content: help,
+    animate: false,
+    style: style
+  });
 };
 
 /**
