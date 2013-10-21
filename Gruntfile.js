@@ -64,11 +64,23 @@ APPS.forEach(function(app) {
   config.sass.all.files[dest] = src;
 });
 
+config.pseudoloc = {
+  all: {
+    srcBase: 'i18n',
+    srcLocale: 'en_us',
+    destBase: 'build/i18n',
+    pseudoLocale: 'en_ploc'
+  }
+};
+
 config.messages = {
   all: {
-    locales: ['en_us'],
-    srcBase: 'i18n',
-    destBase: 'build'
+    locales: [
+      'en_us',
+      'en_ploc'
+    ],
+    srcBases: ['i18n', 'build/i18n'],
+    destBase: 'build/locale'
   }
 };
 
@@ -136,7 +148,7 @@ config.watch = {
   },
   messages: {
     files: ['i18n/**/*.json'],
-    tasks: ['messages', 'browserify', 'copy:browserified']
+    tasks: ['pseudoloc', 'messages', 'browserify', 'copy:browserified']
   },
   dist: {
     files: ['dist/**/*'],
@@ -200,6 +212,7 @@ module.exports = function(grunt) {
   grunt.loadTasks('tasks');
 
   grunt.registerTask('build', [
+    'pseudoloc',
     'messages',
     'copy:src',
     'ejs',
