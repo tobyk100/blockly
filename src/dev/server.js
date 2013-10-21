@@ -43,6 +43,7 @@ app.get('/turtle', function(req, res) {
       options: {
         containerId: 'blocklyApp',
         levelId: req.query.level,
+        skinId: req.query.skin,
         baseUrl: baseUrl(req)
       }
     });
