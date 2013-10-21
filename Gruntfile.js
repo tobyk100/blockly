@@ -117,17 +117,18 @@ APPS.forEach(function(app) {
   });
 });
 
-config.concat = {
-  vendor: {
+config.concat = {};
+LOCALES.forEach(function(locale) {
+  config.concat['vendor_' + locale] = {
     src: [
       'lib/blockly/blockly_compressed.js',
       'lib/blockly/blocks_compressed.js',
       'lib/blockly/javascript_compressed.js',
-      'lib/blockly/en.js'
+      'lib/blockly/' + locale + '.js'
     ],
-    dest: 'dist/js/vendor.js'
-  }
-};
+    dest: 'dist/js/' + locale + '/vendor.js'
+  };
+});
 
 config.express = {
   server: {
@@ -155,7 +156,7 @@ config.watch = {
   },
   vendor_js: {
     files: ['lib/**/*.js'],
-    tasks: ['concat:vendor']
+    tasks: ['concat']
   },
   ejs: {
     files: ['src/**/*.ejs'],
