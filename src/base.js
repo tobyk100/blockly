@@ -121,7 +121,7 @@ exports.addClickTouchEvent = function(element, handler) {
 
 exports.isMobile = function() {
   var reg = /Mobile|iP(hone|od|ad)|Android|BlackBerry|IEMobile/;
-  return reg.test(navigator.userAgent);
+  return reg.test(window.navigator.userAgent);
 };
 
 /**
@@ -223,7 +223,7 @@ BlocklyApps.resizeHeaders = function() {
   var categoriesWidth = 0;
   var categories = Blockly.Toolbox.HtmlDiv;
   if (categories) {
-    categoriesWidth = parseInt(getComputedStyle(categories).width, 10);
+    categoriesWidth = parseInt(window.getComputedStyle(categories).width, 10);
   }
 
   var workspaceWidth = Blockly.getWorkspaceWidth();
@@ -233,7 +233,8 @@ BlocklyApps.resizeHeaders = function() {
   var toolboxHeader = document.getElementById('toolbox-header');
   var showCodeHeader = document.getElementById('show-code-header');
 
-  var showCodeWidth = parseInt(getComputedStyle(showCodeHeader).width, 10);
+  var showCodeWidth = parseInt(window.getComputedStyle(showCodeHeader).width,
+                               10);
 
   toolboxHeader.style.width = (categoriesWidth + toolboxWidth) + 'px';
   workspaceHeader.style.width = (workspaceWidth -
