@@ -610,6 +610,7 @@ Maze.execute = function() {
       BlocklyApps: BlocklyApps,
       Maze: api
     });
+    Maze.checkSuccess();
     Maze.result = ResultType.FAILURE;
     stepSpeed = 150;
   } catch (e) {
@@ -1080,6 +1081,7 @@ Maze.checkSuccess = function() {
     BlocklyApps.log.push(['finish', null]);
     throw true;
   }
+  return false;
 };
 
 /**

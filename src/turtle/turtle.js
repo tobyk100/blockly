@@ -32,6 +32,7 @@ var BlocklyApps = require('../base');
 var Turtle = module.exports;
 var Slider = require('../slider');
 var msg = require('../../en_us/i18n/turtle');
+var skins = require('../skins');
 var levels = require('./levels');
 var Colours = require('./core').Colours;
 var codegen = require('../codegen');
@@ -39,6 +40,7 @@ var api = require('./api');
 var page = require('../page.html');
 
 var level;
+var skin;
 
 BlocklyApps.CHECK_FOR_EMPTY_BLOCKS = false;
 BlocklyApps.NUM_REQUIRED_BLOCKS_TO_FLAG = 1;
@@ -64,11 +66,21 @@ Turtle.coloursUsed = [];
 Turtle.visible = true;
 
 /**
+ * The avatar image
+ */
+Turtle.avatarImage = new Image();
+Turtle.numberAvatarHeadings = undefined;
+
+/**
  * Initialize Blockly and the turtle.  Called on page load.
  */
 Turtle.init = function(config) {
 
+  skin = config.skin;
   level = config.level;
+
+  Turtle.AVATAR_HEIGHT = 51;
+  Turtle.AVATAR_WIDTH = 49;
 
   BlocklyApps.IDEAL_BLOCK_NUM = level.ideal || Infinity;
   BlocklyApps.REQUIRED_BLOCKS = level.requiredBlocks || [];
@@ -124,6 +136,7 @@ Turtle.init = function(config) {
   Turtle.ctxAnswer = document.getElementById('answer').getContext('2d');
   Turtle.ctxImages = document.getElementById('images').getContext('2d');
   Turtle.ctxScratch = document.getElementById('scratch').getContext('2d');
+  Turtle.loadTurtle();
   Turtle.drawImages();
   Turtle.drawAnswer();
   BlocklyApps.reset();
@@ -200,6 +213,39 @@ Turtle.drawImages = function() {
 };
 
 /**
+ * Initial the turtle image on load.
+ */
+Turtle.loadTurtle = function() {
+  Turtle.avatarImage.onload = function() {
+    Turtle.display();
+  };
+  Turtle.avatarImage.src = skin.avatar;
+  Turtle.numberAvatarHeadings = 16;
+  Turtle.avatarImage.height = Turtle.AVATAR_HEIGHT;
+  Turtle.avatarImage.width = Turtle.AVATAR_WIDTH;
+};
+
+/**
+ * Draw the turtle image based on Turtle.x, Turtle.y, and Turtle.heading.
+ */
+Turtle.drawTurtle = function() {
+  // Computes the index of the image in the sprite.
+  var index = Math.floor(Turtle.heading * Turtle.numberAvatarHeadings / 360);
+  var sourceX = Turtle.avatarImage.width * index;
+  var sourceY = 0;
+  var sourceWidth = Turtle.avatarImage.width;
+  var sourceHeight = Turtle.avatarImage.height;
+  var destWidth = Turtle.avatarImage.width;
+  var destHeight = Turtle.avatarImage.height;
+  var destX = Turtle.x - destWidth / 2;
+  var destY = Turtle.y - destHeight;
+
+  Turtle.ctxDisplay.drawImage(Turtle.avatarImage, sourceX, sourceY,
+                              sourceWidth, sourceHeight, destX, destY,
+                              destWidth, destHeight);
+};
+
+/**
  * Reset the turtle to the start position, clear the display, and kill any
  * pending tasks.
  * @param {boolean} ignore Required by the API but ignored by this
@@ -257,44 +303,7 @@ Turtle.display = function() {
 
   // Draw the turtle.
   if (Turtle.visible) {
-    // Make the turtle the colour of the pen.
-    Turtle.ctxDisplay.strokeStyle = Turtle.ctxScratch.strokeStyle;
-    Turtle.ctxDisplay.fillStyle = Turtle.ctxScratch.fillStyle;
-
-    // Draw the turtle body.
-    var radius = Turtle.ctxScratch.lineWidth / 2 + 10;
-    Turtle.ctxDisplay.beginPath();
-    Turtle.ctxDisplay.arc(Turtle.x, Turtle.y, radius, 0, 2 * Math.PI, false);
-    Turtle.ctxDisplay.lineWidth = 3;
-    Turtle.ctxDisplay.stroke();
-
-    // Draw the turtle head.
-    var WIDTH = 0.3;
-    var HEAD_TIP = 10;
-    var ARROW_TIP = 4;
-    var BEND = 6;
-    var radians = 2 * Math.PI * Turtle.heading / 360;
-    var tipX = Turtle.x + (radius + HEAD_TIP) * Math.sin(radians);
-    var tipY = Turtle.y - (radius + HEAD_TIP) * Math.cos(radians);
-    radians -= WIDTH;
-    var leftX = Turtle.x + (radius + ARROW_TIP) * Math.sin(radians);
-    var leftY = Turtle.y - (radius + ARROW_TIP) * Math.cos(radians);
-    radians += WIDTH / 2;
-    var leftControlX = Turtle.x + (radius + BEND) * Math.sin(radians);
-    var leftControlY = Turtle.y - (radius + BEND) * Math.cos(radians);
-    radians += WIDTH;
-    var rightControlX = Turtle.x + (radius + BEND) * Math.sin(radians);
-    var rightControlY = Turtle.y - (radius + BEND) * Math.cos(radians);
-    radians += WIDTH / 2;
-    var rightX = Turtle.x + (radius + ARROW_TIP) * Math.sin(radians);
-    var rightY = Turtle.y - (radius + ARROW_TIP) * Math.cos(radians);
-    Turtle.ctxDisplay.beginPath();
-    Turtle.ctxDisplay.moveTo(tipX, tipY);
-    Turtle.ctxDisplay.lineTo(leftX, leftY);
-    Turtle.ctxDisplay.bezierCurveTo(leftControlX, leftControlY,
-        rightControlX, rightControlY, rightX, rightY);
-    Turtle.ctxDisplay.closePath();
-    Turtle.ctxDisplay.fill();
+    Turtle.drawTurtle();
   }
 };
 
@@ -528,6 +537,7 @@ var isCorrect = function(pixelErrors, permittedErrors) {
 var displayFeedback = function() {
   BlocklyApps.displayFeedback({
     app: 'turtle', //XXX
+    skin: skin.id,
     feedbackType: Turtle.testResults,
     response: Turtle.response
     });

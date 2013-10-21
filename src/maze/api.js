@@ -79,7 +79,6 @@ var move = function(direction, id) {
       break;
   }
   BlocklyApps.log.push([command, id]);
-  Maze.checkSuccess(id);
 };
 
 /**
@@ -158,7 +157,6 @@ exports.fill = function(id) {
   var x = Maze.pegmanX;
   var y = Maze.pegmanY;
   Maze.dirt_[y][x] = Maze.dirt_[y][x] + 1;
-  Maze.checkSuccess(id);
 };
 
 exports.dig = function(id) {
@@ -166,5 +164,8 @@ exports.dig = function(id) {
   var x = Maze.pegmanX;
   var y = Maze.pegmanY;
   Maze.dirt_[y][x] = Maze.dirt_[y][x] - 1;
-  Maze.checkSuccess(id);
+};
+
+exports.notFinished = function() {
+  return !Maze.checkSuccess();
 };
