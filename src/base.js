@@ -23,7 +23,7 @@
  */
 "use strict";
 var BlocklyApps = module.exports;
-var msg = require('../locale/en_us/common');
+var msg = require('../locale/current/common');
 var dialog = require('./dialog');
 var parseXmlElement = require('./xml').parseElement;
 var codegen = require('./codegen');

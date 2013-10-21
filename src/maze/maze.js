@@ -24,8 +24,8 @@
 'use strict';
 
 var BlocklyApps = require('../base');
-var commonMsg = require('../../locale/en_us/common');
-var mazeMsg = require('../../locale/en_us/maze');
+var commonMsg = require('../../locale/current/common');
+var mazeMsg = require('../../locale/current/maze');
 var skins = require('../skins');
 var tiles = require('./tiles');
 var codegen = require('../codegen');

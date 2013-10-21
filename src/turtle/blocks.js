@@ -24,7 +24,7 @@
 'use strict';
 
 var Colours = require('./core').Colours;
-var msg = require('../../locale/en_us/turtle');
+var msg = require('../../locale/current/turtle');
 
 // Install extensions to Blockly's language and JavaScript generator.
 exports.install = function(blockly, skin) {

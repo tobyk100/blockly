@@ -84,6 +84,13 @@ config.messages = {
   }
 };
 
+config.symlink = {
+  locale: {
+    src: 'build/locale/en_us',
+    dest: 'build/locale/current'
+  }
+};
+
 config.ejs = {
   all: {
     srcBase: 'src',
@@ -201,6 +208,7 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-contrib-clean');
   grunt.loadNpmTasks('grunt-contrib-copy');
+  grunt.loadNpmTasks('grunt-contrib-symlink');
   grunt.loadNpmTasks('grunt-contrib-concat');
   grunt.loadNpmTasks('grunt-contrib-jshint');
   grunt.loadNpmTasks('grunt-express');
@@ -214,6 +222,7 @@ module.exports = function(grunt) {
   grunt.registerTask('build', [
     'pseudoloc',
     'messages',
+    'symlink:locale',
     'copy:src',
     'ejs',
     'browserify',

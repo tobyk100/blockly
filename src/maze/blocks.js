@@ -23,7 +23,7 @@
  */
 'use strict';
 
-var msg = require('../../locale/en_us/maze');
+var msg = require('../../locale/current/maze');
 var codegen = require('../codegen');
 
 // Install extensions to Blockly's language and JavaScript generator.
