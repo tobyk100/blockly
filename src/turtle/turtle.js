@@ -68,7 +68,8 @@ Turtle.visible = true;
 /**
  * The avatar image
  */
-Turtle.avatar_image = new Image();
+Turtle.avatarImage = new Image();
+Turtle.numberAvatarHeadings = undefined;
 
 /**
  * Initialize Blockly and the turtle.  Called on page load.
@@ -215,12 +216,13 @@ Turtle.drawImages = function() {
  * Initial the turtle image on load.
  */
 Turtle.loadTurtle = function() {
-  Turtle.avatar_image.onload = function() {
+  Turtle.avatarImage.onload = function() {
     Turtle.display();
   };
-  Turtle.avatar_image.src = skin.avatar;
-  Turtle.avatar_image.height = Turtle.AVATAR_HEIGHT;
-  Turtle.avatar_image.width = Turtle.AVATAR_WIDTH;
+  Turtle.avatarImage.src = skin.avatar;
+  Turtle.numberAvatarHeadings = 16;
+  Turtle.avatarImage.height = Turtle.AVATAR_HEIGHT;
+  Turtle.avatarImage.width = Turtle.AVATAR_WIDTH;
 };
 
 /**
@@ -228,17 +230,17 @@ Turtle.loadTurtle = function() {
  */
 Turtle.drawTurtle = function() {
   // Computes the index of the image in the sprite.
-  var index = Math.floor(Turtle.heading * 16 / 360);
-  var sourceX = Turtle.avatar_image.width * index;
+  var index = Math.floor(Turtle.heading * Turtle.numberAvatarHeadings / 360);
+  var sourceX = Turtle.avatarImage.width * index;
   var sourceY = 0;
-  var sourceWidth = Turtle.avatar_image.width;
-  var sourceHeight = Turtle.avatar_image.height;
-  var destWidth = Turtle.avatar_image.width;
-  var destHeight = Turtle.avatar_image.height;
+  var sourceWidth = Turtle.avatarImage.width;
+  var sourceHeight = Turtle.avatarImage.height;
+  var destWidth = Turtle.avatarImage.width;
+  var destHeight = Turtle.avatarImage.height;
   var destX = Turtle.x - destWidth / 2;
   var destY = Turtle.y - destHeight;
 
-  Turtle.ctxDisplay.drawImage(Turtle.avatar_image, sourceX, sourceY,
+  Turtle.ctxDisplay.drawImage(Turtle.avatarImage, sourceX, sourceY,
                               sourceWidth, sourceHeight, destX, destY,
                               destWidth, destHeight);
 };
