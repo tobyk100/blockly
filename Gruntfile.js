@@ -1,10 +1,16 @@
 var path = require('path');
+var localify = require('./src/dev/localify');
 
 var config = {};
 
 var APPS = [
   'maze',
   'turtle'
+];
+
+var LOCALES = [
+  'en_us',
+  'en_ploc'
 ];
 
 config.clean = {
@@ -75,10 +81,7 @@ config.pseudoloc = {
 
 config.messages = {
   all: {
-    locales: [
-      'en_us',
-      'en_ploc'
-    ],
+    locales: LOCALES,
     srcBases: ['i18n', 'build/i18n'],
     destBase: 'build/locale'
   }
@@ -100,13 +103,18 @@ config.ejs = {
 
 config.browserify = {};
 APPS.forEach(function(app) {
-  var src = 'build/js/' + app + '/main.js';
-  var dest = 'build/browserified/' + app + '.js';
-  var files = {};
-  files[dest] = [src];
-  config.browserify[app] = {
-    files: files
-  };
+  LOCALES.forEach(function(locale) {
+    var src = 'build/js/' + app + '/main.js';
+    var dest = 'build/browserified/' + locale + '/' + app + '.js';
+    var files = {};
+    files[dest] = [src];
+    config.browserify[app + '_' + locale] = {
+      files: files,
+      options: {
+        transform: [localify(locale)]
+      }
+    };
+  });
 });
 
 config.concat = {
