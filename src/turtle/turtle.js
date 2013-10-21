@@ -107,10 +107,6 @@ Turtle.init = function(config) {
   window.addEventListener('resize', onresize);
   onresize();
 
-  // Show the instructions.
-  var instructions = config.level.instructions || '';
-  document.getElementById('prompt').innerHTML = instructions;
-
   // Initialize the slider.
   var sliderSvg = document.getElementById('slider');
   Turtle.speedSlider = new Slider(10, 35, 130, sliderSvg);
