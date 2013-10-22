@@ -255,7 +255,7 @@ BlocklyApps.reset = function(ignore) {
   // Standard starting location and heading of the turtle.
   Turtle.x = Turtle.HEIGHT / 2;
   Turtle.y = Turtle.WIDTH / 2;
-  Turtle.heading = 0;
+  Turtle.heading = level.startDirection ? level.startDirection : 0;
   Turtle.penDownValue = true;
   Turtle.visible = true;
 

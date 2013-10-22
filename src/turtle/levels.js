@@ -183,7 +183,8 @@ module.exports = {
     toolbox: toolbox(1, 1),
     startBlocks: startBlocks(1, 1),
     requiredBlocks: [[MOVE_FORWARD_INLINE], [turnRightRestricted(90)]],
-    freePlay: false
+    freePlay: false,
+    startDirection: 90
   },
   // Level 2: Square (without repeat).
   '1_2': {
@@ -197,7 +198,8 @@ module.exports = {
       [SET_COLOUR_PICKER]
     ],
     requiredColours: 4,
-    freePlay: false
+    freePlay: false,
+    startDirection: 90
   },
   // Level 3: Square (with repeat).
   '1_3': {
