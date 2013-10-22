@@ -13,8 +13,7 @@ exports.load = function(baseUrl, id) {
     //TODO: Blockly should accept absolute sound paths.
     start_sound: [path + 'start.mp3', path + 'start.ogg'],
     win_sound: [path + 'win.mp3', path + 'win.ogg'],
-    failure_sound: [path + 'failure.mp3', path + 'failure.ogg',
-                    path + 'whack.mp3', path + 'whack.ogg']
+    failure_sound: [path + 'failure.mp3', path + 'failure.ogg']
   };
   return skin;
 };
