@@ -150,12 +150,6 @@ var drawMap = function() {
   var buttonTable = document.getElementById('gameButtons');
   buttonTable.style.width = Maze.MAZE_WIDTH + 'px';
 
-  // Size and fill-in hint bubble.
-  var hintBubble = document.getElementById('bubble');
-  hintBubble.style.width = (Maze.MAZE_WIDTH - 20) + 'px';
-  var hint = document.getElementById('prompt');
-  hint.innerHTML = level.instructions;
-
   if (skin.background) {
     tile = document.createElementNS(Blockly.SVG_NS, 'image');
     tile.setAttributeNS('http://www.w3.org/1999/xlink', 'xlink:href',
