@@ -290,10 +290,12 @@ var drawMap = function() {
   }
 
   // Add obstacles.
+  var obsId = 0;
   for (y = 0; y < Maze.ROWS; y++) {
     for (x = 0; x < Maze.COLS; x++) {
       if (Maze.map[y][x] == SquareType.OBSTACLE) {
         var obsIcon = document.createElementNS(Blockly.SVG_NS, 'image');
+        obsIcon.setAttribute('id', 'obstacle' + obsId);
         obsIcon.setAttribute('height', Maze.MARKER_HEIGHT);
         obsIcon.setAttribute('width', Maze.MARKER_WIDTH);
         obsIcon.setAttributeNS(
@@ -302,10 +304,11 @@ var drawMap = function() {
                              Maze.SQUARE_SIZE * (x + 0.5) -
                              obsIcon.getAttribute('width') / 2);
         obsIcon.setAttribute('y',
-                             Maze.SQUARE_SIZE * (y + 0.6) -
+                             Maze.SQUARE_SIZE * (y + 0.8) -
                              obsIcon.getAttribute('height'));
         svg.appendChild(obsIcon);
       }
+      ++obsId;
     }
   }
 };
@@ -357,8 +360,10 @@ Maze.init = function(config) {
     toolbox: level.toolbox
   });
 
-  Blockly.loadAudio_(skin.win, 'win');
-  Blockly.loadAudio_(skin.whack, 'whack');
+  Blockly.loadAudio_(skin.start_sound, 'start');
+  Blockly.loadAudio_(skin.failure_sound, 'failure');
+  Blockly.loadAudio_(skin.obstacle_sound, 'obstacle');
+  Blockly.loadAudio_(skin.wall_sound, 'wall');
   Blockly.SNAP_RADIUS *= Maze.scale.snapRadius;
 
   // Locate the start and finish squares.
@@ -453,8 +458,10 @@ BlocklyApps.reset = function(first) {
     var finishIcon = document.getElementById('finish');
     finishIcon.setAttribute('x', Maze.SQUARE_SIZE * (Maze.finish_.x + 0.5) -
         finishIcon.getAttribute('width') / 2);
-    finishIcon.setAttribute('y', Maze.SQUARE_SIZE * (Maze.finish_.y + 0.6) -
+    finishIcon.setAttribute('y', Maze.SQUARE_SIZE * (Maze.finish_.y + 0.8) -
         finishIcon.getAttribute('height'));
+    finishIcon.setAttributeNS('http://www.w3.org/1999/xlink', 'xlink:href',
+                              skin.goal);
   }
 
   // Make 'look' icon invisible and promote to top.
@@ -467,9 +474,12 @@ BlocklyApps.reset = function(first) {
     path.setAttribute('stroke', skin.look);
   }
 
+  // Reset pegman to be visible again.
+  var pegmanIcon = document.getElementById('pegman');
+  pegmanIcon.setAttribute('visibility', 'visible');
+
   // Move the init dirt marker icons into position.
   var dirtId = 0;
-  var pegmanIcon = document.getElementById('pegman');
   resetDirt();
   for (var y = 0; y < Maze.ROWS; y++) {
     for (var x = 0; x < Maze.COLS; x++) {
@@ -496,6 +506,20 @@ BlocklyApps.reset = function(first) {
       ++dirtId;
     }
   }
+
+  // Reset the obstacle image.
+  var obsId = 0;
+  for (var y = 0; y < Maze.ROWS; y++) {
+    for (var x = 0; x < Maze.COLS; x++) {
+      var obsIcon = document.getElementById('obstacle' + obsId);
+      if (obsIcon != null) {
+        obsIcon.setAttributeNS('http://www.w3.org/1999/xlink', 'xlink:href',
+                               skin.obstacle);
+      }
+      ++obsId;
+    }
+  }
+
 };
 
 /**
@@ -605,12 +629,15 @@ Maze.execute = function() {
   //    no error or exception is thrown.
   // The animation should be fast if execution was successful, slow otherwise
   // to help the user see the mistake.
+  Blockly.playAudio('start', 0.5);
   try {
     codegen.evalWith(code, {
       BlocklyApps: BlocklyApps,
       Maze: api
     });
     Maze.checkSuccess();
+    // If did not finish, shedule a failure.
+    BlocklyApps.log.push(['finish', null]);
     Maze.result = ResultType.FAILURE;
     stepSpeed = 150;
   } catch (e) {
@@ -750,6 +777,9 @@ Maze.animate = function() {
           Maze.scheduleFinish(true);
           break;
         default:
+          Maze.pidList.push(window.setTimeout(function() {
+            Blockly.playAudio('failure', 0.5);
+          }, stepSpeed));
           break;
       }
       break;
@@ -806,41 +836,72 @@ Maze.scheduleFail = function(forward) {
   var deltaY = 0;
   switch (Maze.pegmanD) {
     case Direction.NORTH:
-      deltaY = -0.25;
+      deltaY = -1;
       break;
     case Direction.EAST:
-      deltaX = 0.25;
+      deltaX = 1;
       break;
     case Direction.SOUTH:
-      deltaY = 0.25;
+      deltaY = 1;
       break;
     case Direction.WEST:
-      deltaX = -0.25;
+      deltaX = -1;
       break;
   }
   if (!forward) {
     deltaX = -deltaX;
     deltaY = -deltaY;
   }
+
+  var targetX = Maze.pegmanX + deltaX;
+  var targetY = Maze.pegmanY + deltaY;
   var direction16 = Maze.constrainDirection16(Maze.pegmanD * 4);
-  Maze.displayPegman(Maze.pegmanX + deltaX,
-                     Maze.pegmanY + deltaY,
+  Maze.displayPegman(Maze.pegmanX + deltaX / 4,
+                     Maze.pegmanY + deltaY / 4,
                      direction16);
-  Blockly.playAudio('whack', 0.5);
-  Maze.pidList.push(window.setTimeout(function() {
-    Maze.displayPegman(Maze.pegmanX,
-                       Maze.pegmanY,
-                       direction16);
+  // Play sound and animation for hitting wall or obstacle
+  var squareType = Maze.map[targetY][targetX];
+  if (squareType === SquareType.WALL) {
+    Blockly.playAudio('wall', 0.5);
+
+    // Play the animation of hitting the wall
+    Maze.pidList.push(window.setTimeout(function() {
+      Maze.displayPegman(Maze.pegmanX,
+                         Maze.pegmanY,
+                         direction16);
     }, stepSpeed));
-  Maze.pidList.push(window.setTimeout(function() {
-    Maze.displayPegman(Maze.pegmanX + deltaX,
-                       Maze.pegmanY + deltaY,
-                       direction16);
-    Blockly.playAudio('whack', 0.5);
-  }, stepSpeed * 2));
-  Maze.pidList.push(window.setTimeout(function() {
+    Maze.pidList.push(window.setTimeout(function() {
+      Maze.displayPegman(Maze.pegmanX + deltaX / 4,
+                         Maze.pegmanY + deltaY / 4,
+                         direction16);
+      Blockly.playAudio('failure', 0.5);
+    }, stepSpeed * 2));
+    Maze.pidList.push(window.setTimeout(function() {
       Maze.displayPegman(Maze.pegmanX, Maze.pegmanY, direction16);
     }, stepSpeed * 3));
+  } else if (squareType == SquareType.OBSTACLE) {
+    Blockly.playAudio('obstacle', 0.5);
+    var obsId = targetX + Maze.COLS * targetY;
+    var obsIcon = document.getElementById('obstacle' + obsId);
+    obsIcon.setAttributeNS(
+        'http://www.w3.org/1999/xlink', 'xlink:href',
+        skin.obstacle_animation);
+    Maze.pidList.push(window.setTimeout(function() {
+      Maze.displayPegman(targetX, targetY, direction16);
+    }, stepSpeed));
+
+    // Remove pegman
+    var svgMaze = document.getElementById('svgMaze');
+    var pegmanIcon = document.getElementById('pegman');
+
+    Maze.pidList.push(window.setTimeout(function() {
+      pegmanIcon.setAttribute('visibility', 'hidden');
+    }, stepSpeed));
+  }
+
+  Maze.pidList.push(window.setTimeout(function() {
+    Blockly.playAudio('failure', 0.5);
+  }, stepSpeed));
 };
 
 /**
@@ -851,18 +912,27 @@ Maze.scheduleFinish = function(sound) {
   var direction16 = Maze.constrainDirection16(Maze.pegmanD * 4);
   Maze.displayPegman(Maze.pegmanX, Maze.pegmanY, 16);
   if (sound) {
+    Blockly.loadAudio_(skin.win_sound, 'win');
     Blockly.playAudio('win', 0.5);
   }
+
   stepSpeed = 150;  // Slow down victory animation a bit.
   Maze.pidList.push(window.setTimeout(function() {
     Maze.displayPegman(Maze.pegmanX, Maze.pegmanY, 18);
-    }, stepSpeed));
+  }, stepSpeed));
   Maze.pidList.push(window.setTimeout(function() {
     Maze.displayPegman(Maze.pegmanX, Maze.pegmanY, 16);
-    }, stepSpeed * 2));
+  }, stepSpeed * 2));
   Maze.pidList.push(window.setTimeout(function() {
-      Maze.displayPegman(Maze.pegmanX, Maze.pegmanY, direction16);
-    }, stepSpeed * 3));
+    Maze.displayPegman(Maze.pegmanX, Maze.pegmanY, direction16);
+  }, stepSpeed * 3));
+
+  // If sound == true, play the goal animation, else reset it
+  var finishIcon = document.getElementById('finish');
+  if (sound && finishIcon != null) {
+    finishIcon.setAttributeNS('http://www.w3.org/1999/xlink', 'xlink:href',
+                              skin.goal_animation);
+  }
 };
 
 /**
