@@ -520,6 +520,17 @@ BlocklyApps.reset = function(first) {
     }
   }
 
+  // Reset the tiles
+  var tileId = 0;
+  for (y = 0; y < Maze.ROWS; y++) {
+    for (x = 0; x < Maze.COLS; x++) {
+      // Tile's clipPath element.
+      var tileClip = document.getElementById('tileClipPath' + tileId);
+      tileClip.setAttribute('visibility', 'visible');
+      tileId++;
+    }
+  }
+
 };
 
 /**
@@ -828,46 +839,23 @@ Maze.schedule = function(startPos, endPos) {
 };
 
 /**
- * Get the type of the square pegman is heading to.
- * @param {number} direction Direction to look
- *     (0 = forward, 1 = right, 2 = backward, 3 = left).
- * @return {SquareType} the type of square.
- */
-var getSquareType = function(direction) {
-  var effectiveDirection = Maze.pegmanD + direction;
-  var square;
-  switch (Maze.constrainDirection4(effectiveDirection)) {
-    case Direction.NORTH:
-      square = Maze.map[Maze.pegmanY - 1] &&
-          Maze.map[Maze.pegmanY - 1][Maze.pegmanX];
-      break;
-    case Direction.EAST:
-      square = Maze.map[Maze.pegmanY][Maze.pegmanX + 1];
-      break;
-    case Direction.SOUTH:
-      square = Maze.map[Maze.pegmanY + 1] &&
-          Maze.map[Maze.pegmanY + 1][Maze.pegmanX];
-      break;
-    case Direction.WEST:
-      square = Maze.map[Maze.pegmanY][Maze.pegmanX - 1];
-      break;
-  }
-  return square;
-}
-
-/**
  * Remove the tiles surronding the obstacle.
  */
 Maze.removeSurroundingTiles = function(obstacleY, obstacleX) {
   var tileCoords = [
-    [obstacleY, obstacleX + 1],
+    [obstacleY - 1, obstacleX - 1],
+    [obstacleY - 1, obstacleX],
+    [obstacleY - 1, obstacleX + 1],
     [obstacleY, obstacleX - 1],
+    [obstacleY, obstacleX],
+    [obstacleY, obstacleX + 1],
+    [obstacleY + 1, obstacleX - 1],
     [obstacleY + 1, obstacleX],
-    [obstacleY - 1, obstacleX]
+    [obstacleY + 1, obstacleX + 1]
   ];
   for (var idx = 0; idx < tileCoords.length; ++idx) {
     var tileIdx = tileCoords[idx][1] + Maze.COLS * tileCoords[idx][0];
-    var tileClip = document.getElementById('tileClipPath20');
+    var tileClip = document.getElementById('tileClipPath' + tileIdx);
     if (tileClip != null) {
       tileClip.setAttribute('visibility', 'hidden');
     }
@@ -883,28 +871,31 @@ Maze.scheduleFail = function(forward) {
   var deltaY = 0;
   switch (Maze.pegmanD) {
     case Direction.NORTH:
-      deltaY = -0.25;
+      deltaY = -1;
       break;
     case Direction.EAST:
-      deltaX = 0.25;
+      deltaX = 1;
       break;
     case Direction.SOUTH:
-      deltaY = 0.25;
+      deltaY = 1;
       break;
     case Direction.WEST:
-      deltaX = -0.25;
+      deltaX = -1;
       break;
   }
   if (!forward) {
     deltaX = -deltaX;
     deltaY = -deltaY;
   }
+
+  var targetX = Maze.pegmanX + deltaX;
+  var targetY = Maze.pegmanY + deltaY;
   var direction16 = Maze.constrainDirection16(Maze.pegmanD * 4);
-  Maze.displayPegman(Maze.pegmanX + deltaX,
-                     Maze.pegmanY + deltaY,
+  Maze.displayPegman(Maze.pegmanX + deltaX / 4,
+                     Maze.pegmanY + deltaY / 4,
                      direction16);
   // Play sound and animation for hitting wall or obstacle
-  var squareType = getSquareType(forward ? 0 : 2);
+  var squareType = Maze.map[targetY][targetX];
   if (squareType === SquareType.WALL) {
     // Play the sound
     Blockly.playAudio('wall', 0.5);
@@ -916,8 +907,8 @@ Maze.scheduleFail = function(forward) {
                          direction16);
     }, stepSpeed));
     Maze.pidList.push(window.setTimeout(function() {
-      Maze.displayPegman(Maze.pegmanX + deltaX,
-                         Maze.pegmanY + deltaY,
+      Maze.displayPegman(Maze.pegmanX + deltaX / 4,
+                         Maze.pegmanY + deltaY / 4,
                          direction16);
       Blockly.playAudio('failure', 0.5);
     }, stepSpeed * 2));
@@ -929,20 +920,18 @@ Maze.scheduleFail = function(forward) {
     Blockly.playAudio('obstacle', 0.5);
 
     // Play the animation
-    var target_x = Maze.pegmanX + deltaX * 4;
-    var target_y = Maze.pegmanY + deltaY * 4;
-    var obsId = target_x + Maze.COLS * target_y;
+    var obsId = targetX + Maze.COLS * targetY;
     var obsIcon = document.getElementById('obstacle' + obsId);
     obsIcon.setAttributeNS(
         'http://www.w3.org/1999/xlink', 'xlink:href',
         skin.obstacle_animation);
     Maze.pidList.push(window.setTimeout(function() {
-      Maze.displayPegman(x, y, direction16);
+      Maze.displayPegman(targetX, targetY, direction16);
     }, stepSpeed));
 
     // Remove the objects around obstacles
     if (skin.larger_obstacle_animation_area) {
-      Maze.removeSurroundingTiles(target_y, target_x);
+      Maze.removeSurroundingTiles(targetY, targetX);
     }
 
     // Remove pegman
