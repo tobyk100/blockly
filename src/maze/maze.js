@@ -438,7 +438,6 @@ BlocklyApps.reset = function(first) {
     Maze.pegmanD = Maze.startDirection + 1;
     Maze.scheduleFinish(false);
     Maze.pidList.push(window.setTimeout(function() {
-      Blockly.playAudio('start', 0.5);
       stepSpeed = 100;
       Maze.schedule([Maze.pegmanX, Maze.pegmanY, Maze.pegmanD * 4],
                     [Maze.pegmanX, Maze.pegmanY, Maze.pegmanD * 4 - 4]);
@@ -608,6 +607,7 @@ Maze.execute = function() {
   //    no error or exception is thrown.
   // The animation should be fast if execution was successful, slow otherwise
   // to help the user see the mistake.
+  Blockly.playAudio('start', 0.5);
   try {
     codegen.evalWith(code, {
       BlocklyApps: BlocklyApps,
