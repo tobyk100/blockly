@@ -856,6 +856,25 @@ var getSquareType = function(direction) {
 }
 
 /**
+ * Remove the tiles surronding the obstacle.
+ */
+Maze.removeSurroundingTiles = function(obstacleY, obstacleX) {
+  var tileCoords = [
+    [obstacleY, obstacleX + 1],
+    [obstacleY, obstacleX - 1],
+    [obstacleY + 1, obstacleX],
+    [obstacleY - 1, obstacleX]
+  ];
+  for (var idx = 0; idx < tileCoords.length; ++idx) {
+    var tileIdx = tileCoords[idx][1] + Maze.COLS * tileCoords[idx][0];
+    var tileClip = document.getElementById('tileClipPath20');
+    if (tileClip != null) {
+      tileClip.setAttribute('visibility', 'hidden');
+    }
+  }
+};
+
+/**
  * Schedule the animations and sounds for a failed move.
  * @param {boolean} forward True if forward, false if backward.
  */
@@ -887,6 +906,7 @@ Maze.scheduleFail = function(forward) {
   // Play sound and animation for hitting wall or obstacle
   var squareType = getSquareType(forward ? 0 : 2);
   if (squareType === SquareType.WALL) {
+    // Play the sound
     Blockly.playAudio('wall', 0.5);
 
     // Play the animation of hitting the wall
@@ -905,10 +925,13 @@ Maze.scheduleFail = function(forward) {
       Maze.displayPegman(Maze.pegmanX, Maze.pegmanY, direction16);
     }, stepSpeed * 3));
   } else if (squareType == SquareType.OBSTACLE) {
+    // Play the sound
     Blockly.playAudio('obstacle', 0.5);
+
+    // Play the animation
     var target_x = Maze.pegmanX + deltaX * 4;
     var target_y = Maze.pegmanY + deltaY * 4;
-    var obsId = target_x + Maze.ROWS * target_y;
+    var obsId = target_x + Maze.COLS * target_y;
     var obsIcon = document.getElementById('obstacle' + obsId);
     obsIcon.setAttributeNS(
         'http://www.w3.org/1999/xlink', 'xlink:href',
@@ -916,6 +939,11 @@ Maze.scheduleFail = function(forward) {
     Maze.pidList.push(window.setTimeout(function() {
       Maze.displayPegman(x, y, direction16);
     }, stepSpeed));
+
+    // Remove the objects around obstacles
+    if (skin.larger_obstacle_animation_area) {
+      Maze.removeSurroundingTiles(target_y, target_x);
+    }
 
     // Remove pegman
     var svgMaze = document.getElementById('svgMaze');
