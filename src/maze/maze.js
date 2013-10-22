@@ -475,8 +475,9 @@ BlocklyApps.reset = function(first) {
   // Move the init dirt marker icons into position.
   var dirtId = 0;
   resetDirt();
-  for (var y = 0; y < Maze.ROWS; y++) {
-    for (var x = 0; x < Maze.COLS; x++) {
+  var x, y;
+  for (y = 0; y < Maze.ROWS; y++) {
+    for (x = 0; x < Maze.COLS; x++) {
       // Remove all dirt from svg element, less efficient than checking if we
       // need to remove, but much easier to code.
       var dirtIcon = document.getElementById('dirt' + dirtId);
@@ -503,10 +504,10 @@ BlocklyApps.reset = function(first) {
 
   // Reset the obstacle image.
   var obsId = 0;
-  for (var y = 0; y < Maze.ROWS; y++) {
-    for (var x = 0; x < Maze.COLS; x++) {
+  for (y = 0; y < Maze.ROWS; y++) {
+    for (x = 0; x < Maze.COLS; x++) {
       var obsIcon = document.getElementById('obstacle' + obsId);
-      if (obsIcon != null) {
+      if (obsIcon !== null) {
         obsIcon.setAttributeNS('http://www.w3.org/1999/xlink', 'xlink:href',
                                skin.obstacle);
       }
@@ -850,7 +851,7 @@ Maze.removeSurroundingTiles = function(obstacleY, obstacleX) {
   for (var idx = 0; idx < tileCoords.length; ++idx) {
     var tileIdx = tileCoords[idx][1] + Maze.COLS * tileCoords[idx][0];
     var tileClip = document.getElementById('tileClipPath' + tileIdx);
-    if (tileClip != null) {
+    if (tileClip !== null) {
       tileClip.setAttribute('visibility', 'hidden');
     }
   }
@@ -967,7 +968,7 @@ Maze.scheduleFinish = function(sound) {
 
   // If sound == true, play the goal animation, else reset it
   var finishIcon = document.getElementById('finish');
-  if (sound && finishIcon != null) {
+  if (sound && finishIcon !== null) {
     finishIcon.setAttributeNS('http://www.w3.org/1999/xlink', 'xlink:href',
                               skin.goal_animation);
   }
