@@ -53,6 +53,7 @@ exports.load = function(skin) {
   // Images
   skin.tiles = skin.root + 'tiles.png';
   skin.goal = skin.root + 'goal.png';
+  skin.goal_animation = skin.root + 'goal.gif';
   skin.obstacle = skin.root + 'obstacle.png';
   skin.obstacle_animation = skin.root + 'obstacle.gif';
   // Sounds

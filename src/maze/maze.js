@@ -460,6 +460,8 @@ BlocklyApps.reset = function(first) {
         finishIcon.getAttribute('width') / 2);
     finishIcon.setAttribute('y', Maze.SQUARE_SIZE * (Maze.finish_.y + 0.6) -
         finishIcon.getAttribute('height'));
+    finishIcon.setAttributeNS('http://www.w3.org/1999/xlink', 'xlink:href',
+                              skin.goal);
   }
 
   // Make 'look' icon invisible and promote to top.
@@ -924,6 +926,7 @@ Maze.scheduleFinish = function(sound) {
     Blockly.loadAudio_(skin.win_sound, 'win');
     Blockly.playAudio('win', 0.5);
   }
+
   stepSpeed = 150;  // Slow down victory animation a bit.
   Maze.pidList.push(window.setTimeout(function() {
     Maze.displayPegman(Maze.pegmanX, Maze.pegmanY, 18);
@@ -934,6 +937,13 @@ Maze.scheduleFinish = function(sound) {
   Maze.pidList.push(window.setTimeout(function() {
     Maze.displayPegman(Maze.pegmanX, Maze.pegmanY, direction16);
   }, stepSpeed * 3));
+
+  // If sound == true, play the goal animation, else reset it
+  var finishIcon = document.getElementById('finish');
+  if (sound && finishIcon != null) {
+    finishIcon.setAttributeNS('http://www.w3.org/1999/xlink', 'xlink:href',
+                              skin.goal_animation);
+  }
 };
 
 /**
