@@ -304,7 +304,7 @@ var drawMap = function() {
                              Maze.SQUARE_SIZE * (x + 0.5) -
                              obsIcon.getAttribute('width') / 2);
         obsIcon.setAttribute('y',
-                             Maze.SQUARE_SIZE * (y + 0.6) -
+                             Maze.SQUARE_SIZE * (y + 0.8) -
                              obsIcon.getAttribute('height'));
         svg.appendChild(obsIcon);
       }
@@ -458,7 +458,7 @@ BlocklyApps.reset = function(first) {
     var finishIcon = document.getElementById('finish');
     finishIcon.setAttribute('x', Maze.SQUARE_SIZE * (Maze.finish_.x + 0.5) -
         finishIcon.getAttribute('width') / 2);
-    finishIcon.setAttribute('y', Maze.SQUARE_SIZE * (Maze.finish_.y + 0.6) -
+    finishIcon.setAttribute('y', Maze.SQUARE_SIZE * (Maze.finish_.y + 0.8) -
         finishIcon.getAttribute('height'));
     finishIcon.setAttributeNS('http://www.w3.org/1999/xlink', 'xlink:href',
                               skin.goal);
