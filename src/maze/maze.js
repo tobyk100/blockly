@@ -357,8 +357,10 @@ Maze.init = function(config) {
     toolbox: level.toolbox
   });
 
-  Blockly.loadAudio_(skin.win, 'win');
-  Blockly.loadAudio_(skin.whack, 'whack');
+  Blockly.loadAudio_(skin.start_sound, 'start');
+  Blockly.loadAudio_(skin.failure_sound, 'failure');
+  Blockly.loadAudio_(skin.obstacle_sound, 'obstacle');
+  Blockly.loadAudio_(skin.wall_sound, 'wall');
   Blockly.SNAP_RADIUS *= Maze.scale.snapRadius;
 
   // Locate the start and finish squares.
@@ -436,6 +438,7 @@ BlocklyApps.reset = function(first) {
     Maze.pegmanD = Maze.startDirection + 1;
     Maze.scheduleFinish(false);
     Maze.pidList.push(window.setTimeout(function() {
+      Blockly.playAudio('start', 0.5);
       stepSpeed = 100;
       Maze.schedule([Maze.pegmanX, Maze.pegmanY, Maze.pegmanD * 4],
                     [Maze.pegmanX, Maze.pegmanY, Maze.pegmanD * 4 - 4]);
@@ -798,6 +801,34 @@ Maze.schedule = function(startPos, endPos) {
 };
 
 /**
+ * Get the type of the square pegman is heading to.
+ * @param {number} direction Direction to look
+ *     (0 = forward, 1 = right, 2 = backward, 3 = left).
+ * @return {SquareType} the type of square.
+ */
+var getSquareType = function(direction) {
+  var effectiveDirection = Maze.pegmanD + direction;
+  var square;
+  switch (Maze.constrainDirection4(effectiveDirection)) {
+    case Direction.NORTH:
+      square = Maze.map[Maze.pegmanY - 1] &&
+          Maze.map[Maze.pegmanY - 1][Maze.pegmanX];
+      break;
+    case Direction.EAST:
+      square = Maze.map[Maze.pegmanY][Maze.pegmanX + 1];
+      break;
+    case Direction.SOUTH:
+      square = Maze.map[Maze.pegmanY + 1] &&
+          Maze.map[Maze.pegmanY + 1][Maze.pegmanX];
+      break;
+    case Direction.WEST:
+      square = Maze.map[Maze.pegmanY][Maze.pegmanX - 1];
+      break;
+  }
+  return square;
+}
+
+/**
  * Schedule the animations and sounds for a failed move.
  * @param {boolean} forward True if forward, false if backward.
  */
@@ -826,7 +857,17 @@ Maze.scheduleFail = function(forward) {
   Maze.displayPegman(Maze.pegmanX + deltaX,
                      Maze.pegmanY + deltaY,
                      direction16);
-  Blockly.playAudio('whack', 0.5);
+  // Play sound for hitting wall or obstacle
+  var squareType = getSquareType(forward ? 0 : 2);
+  if (squareType === SquareType.WALL) {
+    Blockly.playAudio('wall', 0.5);
+  } else if (squareType == SquareType.OBSTACLE) {
+    Blockly.playAudio('obstacle', 0.5);
+  }
+
+  Maze.pidList.push(window.setTimeout(function() {
+      Blockly.playAudio('failure', 0.5);
+    }, stepSpeed));
   Maze.pidList.push(window.setTimeout(function() {
     Maze.displayPegman(Maze.pegmanX,
                        Maze.pegmanY,
@@ -836,8 +877,8 @@ Maze.scheduleFail = function(forward) {
     Maze.displayPegman(Maze.pegmanX + deltaX,
                        Maze.pegmanY + deltaY,
                        direction16);
-    Blockly.playAudio('whack', 0.5);
-  }, stepSpeed * 2));
+    Blockly.playAudio('failure', 0.5);
+    }, stepSpeed * 2));
   Maze.pidList.push(window.setTimeout(function() {
       Maze.displayPegman(Maze.pegmanX, Maze.pegmanY, direction16);
     }, stepSpeed * 3));
@@ -851,6 +892,7 @@ Maze.scheduleFinish = function(sound) {
   var direction16 = Maze.constrainDirection16(Maze.pegmanD * 4);
   Maze.displayPegman(Maze.pegmanX, Maze.pegmanY, 16);
   if (sound) {
+    Blockly.loadAudio_(skin.win_sound, 'win');
     Blockly.playAudio('win', 0.5);
   }
   stepSpeed = 150;  // Slow down victory animation a bit.
