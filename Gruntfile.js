@@ -210,9 +210,10 @@ module.exports = function(grunt) {
     'sass'
   ]);
 
+  grunt.registerTask('rebuild', ['clean', 'build']);
   grunt.registerTask('dev', ['express:server', 'watch']);
   grunt.registerTask('test', ['jshint', 'mochaTest']);
 
-  grunt.registerTask('default', ['clean', 'build', 'test']);
+  grunt.registerTask('default', ['rebuild', 'test']);
 
 };
