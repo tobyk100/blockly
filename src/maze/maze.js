@@ -474,9 +474,12 @@ BlocklyApps.reset = function(first) {
     path.setAttribute('stroke', skin.look);
   }
 
+  // Reset pegman to be visible again.
+  var pegmanIcon = document.getElementById('pegman');
+  pegmanIcon.setAttribute('visibility', 'visible');
+
   // Move the init dirt marker icons into position.
   var dirtId = 0;
-  var pegmanIcon = document.getElementById('pegman');
   resetDirt();
   for (var y = 0; y < Maze.ROWS; y++) {
     for (var x = 0; x < Maze.COLS; x++) {
@@ -885,34 +888,47 @@ Maze.scheduleFail = function(forward) {
   var squareType = getSquareType(forward ? 0 : 2);
   if (squareType === SquareType.WALL) {
     Blockly.playAudio('wall', 0.5);
+
+    // Play the animation of hitting the wall
+    Maze.pidList.push(window.setTimeout(function() {
+      Maze.displayPegman(Maze.pegmanX,
+                         Maze.pegmanY,
+                         direction16);
+    }, stepSpeed));
+    Maze.pidList.push(window.setTimeout(function() {
+      Maze.displayPegman(Maze.pegmanX + deltaX,
+                         Maze.pegmanY + deltaY,
+                         direction16);
+      Blockly.playAudio('failure', 0.5);
+    }, stepSpeed * 2));
+    Maze.pidList.push(window.setTimeout(function() {
+      Maze.displayPegman(Maze.pegmanX, Maze.pegmanY, direction16);
+    }, stepSpeed * 3));
   } else if (squareType == SquareType.OBSTACLE) {
     Blockly.playAudio('obstacle', 0.5);
-    var x = Maze.pegmanX + deltaX * 4;
-    var y = Maze.pegmanY + deltaY * 4;
-    var obsId = x + Maze.ROWS * y;
+    var target_x = Maze.pegmanX + deltaX * 4;
+    var target_y = Maze.pegmanY + deltaY * 4;
+    var obsId = target_x + Maze.ROWS * target_y;
     var obsIcon = document.getElementById('obstacle' + obsId);
     obsIcon.setAttributeNS(
         'http://www.w3.org/1999/xlink', 'xlink:href',
         skin.obstacle_animation);
+    Maze.pidList.push(window.setTimeout(function() {
+      Maze.displayPegman(x, y, direction16);
+    }, stepSpeed));
+
+    // Remove pegman
+    var svgMaze = document.getElementById('svgMaze');
+    var pegmanIcon = document.getElementById('pegman');
+
+    Maze.pidList.push(window.setTimeout(function() {
+      pegmanIcon.setAttribute('visibility', 'hidden');
+    }, stepSpeed));
   }
 
   Maze.pidList.push(window.setTimeout(function() {
     Blockly.playAudio('failure', 0.5);
   }, stepSpeed));
-  Maze.pidList.push(window.setTimeout(function() {
-    Maze.displayPegman(Maze.pegmanX,
-                       Maze.pegmanY,
-                       direction16);
-  }, stepSpeed));
-  Maze.pidList.push(window.setTimeout(function() {
-    Maze.displayPegman(Maze.pegmanX + deltaX,
-                       Maze.pegmanY + deltaY,
-                       direction16);
-    Blockly.playAudio('failure', 0.5);
-  }, stepSpeed * 2));
-  Maze.pidList.push(window.setTimeout(function() {
-    Maze.displayPegman(Maze.pegmanX, Maze.pegmanY, direction16);
-  }, stepSpeed * 3));
 };
 
 /**
