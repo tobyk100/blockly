@@ -35,7 +35,8 @@ var CONFIGS = {
   },
 
   birds: {
-    look: '#FFF'
+    look: '#FFF',
+    larger_obstacle_animation_area: true
   },
 
   mouse: {
@@ -56,6 +57,11 @@ exports.load = function(skin) {
   skin.goal_animation = skin.root + 'goal.gif';
   skin.obstacle = skin.root + 'obstacle.png';
   skin.obstacle_animation = skin.root + 'obstacle.gif';
+  if (config.larger_obstacle_animation_area) {
+    skin.larger_obstacle_animation_area = true;
+  } else {
+    skin.larger_obstacle_animation_area = false;
+  }
   // Sounds
   skin.obstacle_sound =
       [skin.path + 'obstacle.mp3', skin.path + 'obstacle.ogg'];

@@ -514,6 +514,17 @@ BlocklyApps.reset = function(first) {
     }
   }
 
+  // Reset the tiles
+  var tileId = 0;
+  for (y = 0; y < Maze.ROWS; y++) {
+    for (x = 0; x < Maze.COLS; x++) {
+      // Tile's clipPath element.
+      var tileClip = document.getElementById('tileClipPath' + tileId);
+      tileClip.setAttribute('visibility', 'visible');
+      tileId++;
+    }
+  }
+
 };
 
 /**
@@ -822,6 +833,30 @@ Maze.schedule = function(startPos, endPos) {
 };
 
 /**
+ * Remove the tiles surronding the obstacle.
+ */
+Maze.removeSurroundingTiles = function(obstacleY, obstacleX) {
+  var tileCoords = [
+    [obstacleY - 1, obstacleX - 1],
+    [obstacleY - 1, obstacleX],
+    [obstacleY - 1, obstacleX + 1],
+    [obstacleY, obstacleX - 1],
+    [obstacleY, obstacleX],
+    [obstacleY, obstacleX + 1],
+    [obstacleY + 1, obstacleX - 1],
+    [obstacleY + 1, obstacleX],
+    [obstacleY + 1, obstacleX + 1]
+  ];
+  for (var idx = 0; idx < tileCoords.length; ++idx) {
+    var tileIdx = tileCoords[idx][1] + Maze.COLS * tileCoords[idx][0];
+    var tileClip = document.getElementById('tileClipPath' + tileIdx);
+    if (tileClip != null) {
+      tileClip.setAttribute('visibility', 'hidden');
+    }
+  }
+};
+
+/**
  * Schedule the animations and sounds for a failed move.
  * @param {boolean} forward True if forward, false if backward.
  */
@@ -856,6 +891,7 @@ Maze.scheduleFail = function(forward) {
   // Play sound and animation for hitting wall or obstacle
   var squareType = Maze.map[targetY][targetX];
   if (squareType === SquareType.WALL) {
+    // Play the sound
     Blockly.playAudio('wall', 0.5);
 
     // Play the animation of hitting the wall
@@ -874,7 +910,10 @@ Maze.scheduleFail = function(forward) {
       Maze.displayPegman(Maze.pegmanX, Maze.pegmanY, direction16);
     }, stepSpeed * 3));
   } else if (squareType == SquareType.OBSTACLE) {
+    // Play the sound
     Blockly.playAudio('obstacle', 0.5);
+
+    // Play the animation
     var obsId = targetX + Maze.COLS * targetY;
     var obsIcon = document.getElementById('obstacle' + obsId);
     obsIcon.setAttributeNS(
@@ -883,6 +922,11 @@ Maze.scheduleFail = function(forward) {
     Maze.pidList.push(window.setTimeout(function() {
       Maze.displayPegman(targetX, targetY, direction16);
     }, stepSpeed));
+
+    // Remove the objects around obstacles
+    if (skin.larger_obstacle_animation_area) {
+      Maze.removeSurroundingTiles(targetY, targetX);
+    }
 
     // Remove pegman
     var svgMaze = document.getElementById('svgMaze');

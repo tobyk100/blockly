@@ -326,7 +326,7 @@ module.exports = {
   '2_4': {
     'instructions': 'instructions2_4',
     'toolbox': toolbox(2, 4),
-    'ideal': 7,
+    'ideal': 8,
     'requiredBlocks': [
       [{'test': 'moveForward', 'type': 'maze_moveForward'}],
       [{'test': 'turnLeft',
