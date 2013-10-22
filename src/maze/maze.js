@@ -908,13 +908,13 @@ Maze.scheduleFail = function(forward) {
     Blockly.playAudio('obstacle', 0.5);
     var target_x = Maze.pegmanX + deltaX * 4;
     var target_y = Maze.pegmanY + deltaY * 4;
-    var obsId = target_x + Maze.ROWS * target_y;
+    var obsId = target_x + Maze.COLS * target_y;
     var obsIcon = document.getElementById('obstacle' + obsId);
     obsIcon.setAttributeNS(
         'http://www.w3.org/1999/xlink', 'xlink:href',
         skin.obstacle_animation);
     Maze.pidList.push(window.setTimeout(function() {
-      Maze.displayPegman(x, y, direction16);
+      Maze.displayPegman(target_x, target_y, direction16);
     }, stepSpeed));
 
     // Remove pegman
