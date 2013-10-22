@@ -51,12 +51,12 @@ var CONFIGS = {
 exports.load = function(skin) {
   var config = CONFIGS[skin.id];
   // Images
-  skin.tiles = skin.root + 'tiles.png',
-  skin.goal = skin.root + 'goal.png',
-  skin.obstacle = skin.root + 'obstacle.png',
+  skin.tiles = skin.root + 'tiles.png';
+  skin.goal = skin.root + 'goal.png';
+  skin.obstacle = skin.root + 'obstacle.png';
   // Settings
-  skin.graph = config.graph,
-  skin.look = config.look,
+  skin.graph = config.graph;
+  skin.look = config.look;
   skin.dirt = function(n) {
     var MAX = 10;
     var MIN = -MAX;
@@ -70,7 +70,7 @@ exports.load = function(skin) {
     }
     //TODO: This really should be a dirt sprite sheet.
     return skin.root + prefix + 'check.png';
-  }
+  };
   if (config.background !== false) {
     skin.background = skin.root + 'background.png';
   }
