@@ -614,6 +614,8 @@ Maze.execute = function() {
       Maze: api
     });
     Maze.checkSuccess();
+    // If did not finish, shedule a failure.
+    BlocklyApps.log.push(['finish', null]);
     Maze.result = ResultType.FAILURE;
     stepSpeed = 150;
   } catch (e) {
@@ -753,6 +755,9 @@ Maze.animate = function() {
           Maze.scheduleFinish(true);
           break;
         default:
+          Maze.pidList.push(window.setTimeout(function() {
+            Blockly.playAudio('failure', 0.5);
+          }, stepSpeed));
           break;
       }
       break;
@@ -866,22 +871,22 @@ Maze.scheduleFail = function(forward) {
   }
 
   Maze.pidList.push(window.setTimeout(function() {
-      Blockly.playAudio('failure', 0.5);
-    }, stepSpeed));
+    Blockly.playAudio('failure', 0.5);
+  }, stepSpeed));
   Maze.pidList.push(window.setTimeout(function() {
     Maze.displayPegman(Maze.pegmanX,
                        Maze.pegmanY,
                        direction16);
-    }, stepSpeed));
+  }, stepSpeed));
   Maze.pidList.push(window.setTimeout(function() {
     Maze.displayPegman(Maze.pegmanX + deltaX,
                        Maze.pegmanY + deltaY,
                        direction16);
     Blockly.playAudio('failure', 0.5);
-    }, stepSpeed * 2));
+  }, stepSpeed * 2));
   Maze.pidList.push(window.setTimeout(function() {
-      Maze.displayPegman(Maze.pegmanX, Maze.pegmanY, direction16);
-    }, stepSpeed * 3));
+    Maze.displayPegman(Maze.pegmanX, Maze.pegmanY, direction16);
+  }, stepSpeed * 3));
 };
 
 /**
@@ -898,13 +903,13 @@ Maze.scheduleFinish = function(sound) {
   stepSpeed = 150;  // Slow down victory animation a bit.
   Maze.pidList.push(window.setTimeout(function() {
     Maze.displayPegman(Maze.pegmanX, Maze.pegmanY, 18);
-    }, stepSpeed));
+  }, stepSpeed));
   Maze.pidList.push(window.setTimeout(function() {
     Maze.displayPegman(Maze.pegmanX, Maze.pegmanY, 16);
-    }, stepSpeed * 2));
+  }, stepSpeed * 2));
   Maze.pidList.push(window.setTimeout(function() {
-      Maze.displayPegman(Maze.pegmanX, Maze.pegmanY, direction16);
-    }, stepSpeed * 3));
+    Maze.displayPegman(Maze.pegmanX, Maze.pegmanY, direction16);
+  }, stepSpeed * 3));
 };
 
 /**
