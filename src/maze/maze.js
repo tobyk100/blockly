@@ -935,7 +935,7 @@ Maze.scheduleFail = function(forward) {
 
     Maze.pidList.push(window.setTimeout(function() {
       pegmanIcon.setAttribute('visibility', 'hidden');
-    }, stepSpeed));
+    }, stepSpeed * 1.5));
   }
 
   Maze.pidList.push(window.setTimeout(function() {
