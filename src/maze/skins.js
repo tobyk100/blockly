@@ -54,6 +54,7 @@ exports.load = function(skin) {
   skin.tiles = skin.root + 'tiles.png';
   skin.goal = skin.root + 'goal.png';
   skin.obstacle = skin.root + 'obstacle.png';
+  skin.obstacle_animation = skin.root + 'obstacle.gif';
   // Sounds
   skin.obstacle_sound =
       [skin.path + 'obstacle.mp3', skin.path + 'obstacle.ogg'];

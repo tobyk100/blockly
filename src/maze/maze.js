@@ -290,10 +290,12 @@ var drawMap = function() {
   }
 
   // Add obstacles.
+  var obsId = 0;
   for (y = 0; y < Maze.ROWS; y++) {
     for (x = 0; x < Maze.COLS; x++) {
       if (Maze.map[y][x] == SquareType.OBSTACLE) {
         var obsIcon = document.createElementNS(Blockly.SVG_NS, 'image');
+        obsIcon.setAttribute('id', 'obstacle' + obsId);
         obsIcon.setAttribute('height', Maze.MARKER_HEIGHT);
         obsIcon.setAttribute('width', Maze.MARKER_WIDTH);
         obsIcon.setAttributeNS(
@@ -306,6 +308,7 @@ var drawMap = function() {
                              obsIcon.getAttribute('height'));
         svg.appendChild(obsIcon);
       }
+      ++obsId;
     }
   }
 };
@@ -498,6 +501,20 @@ BlocklyApps.reset = function(first) {
       ++dirtId;
     }
   }
+
+  // Reset the obstacle image.
+  var obsId = 0;
+  for (var y = 0; y < Maze.ROWS; y++) {
+    for (var x = 0; x < Maze.COLS; x++) {
+      var obsIcon = document.getElementById('obstacle' + obsId);
+      if (obsIcon != null) {
+        obsIcon.setAttributeNS('http://www.w3.org/1999/xlink', 'xlink:href',
+                               skin.obstacle);
+      }
+      ++obsId;
+    }
+  }
+
 };
 
 /**
@@ -862,12 +879,19 @@ Maze.scheduleFail = function(forward) {
   Maze.displayPegman(Maze.pegmanX + deltaX,
                      Maze.pegmanY + deltaY,
                      direction16);
-  // Play sound for hitting wall or obstacle
+  // Play sound and animation for hitting wall or obstacle
   var squareType = getSquareType(forward ? 0 : 2);
   if (squareType === SquareType.WALL) {
     Blockly.playAudio('wall', 0.5);
   } else if (squareType == SquareType.OBSTACLE) {
     Blockly.playAudio('obstacle', 0.5);
+    var x = Maze.pegmanX + deltaX * 4;
+    var y = Maze.pegmanY + deltaY * 4;
+    var obsId = x + Maze.ROWS * y;
+    var obsIcon = document.getElementById('obstacle' + obsId);
+    obsIcon.setAttributeNS(
+        'http://www.w3.org/1999/xlink', 'xlink:href',
+        skin.obstacle_animation);
   }
 
   Maze.pidList.push(window.setTimeout(function() {
