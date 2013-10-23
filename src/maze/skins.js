@@ -64,7 +64,7 @@ exports.load = function(skin) {
   } else {
     skin.largerObstacleAnimationArea = false;
   }
-  skin.obstacleScale = config.obstacleScale ? config.obstacleScale : 1.0;
+  skin.obstacleScale = config.obstacleScale || 1.0;
   // Sounds
   skin.obstacleSound =
       [skin.path + 'obstacle.mp3', skin.path + 'obstacle.ogg'];
