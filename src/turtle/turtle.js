@@ -31,7 +31,7 @@ window.Turtle = module.exports;
 var BlocklyApps = require('../base');
 var Turtle = module.exports;
 var Slider = require('../slider');
-var msg = require('../../en_us/i18n/turtle');
+var msg = require('../../locale/current/turtle');
 var skins = require('../skins');
 var levels = require('./levels');
 var Colours = require('./core').Colours;
@@ -118,10 +118,6 @@ Turtle.init = function(config) {
     });
   window.addEventListener('resize', onresize);
   onresize();
-
-  // Show the instructions.
-  var instructions = config.level.instructions || '';
-  document.getElementById('prompt').innerHTML = instructions;
 
   // Initialize the slider.
   var sliderSvg = document.getElementById('slider');

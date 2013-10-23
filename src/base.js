@@ -23,7 +23,7 @@
  */
 "use strict";
 var BlocklyApps = module.exports;
-var msg = require('../en_us/i18n/common');
+var msg = require('../locale/current/common');
 var dialog = require('./dialog');
 var parseXmlElement = require('./xml').parseElement;
 var codegen = require('./codegen');
@@ -100,6 +100,8 @@ BlocklyApps.init = function(config) {
 
   var showCode = document.getElementById('show-code-header');
   exports.addClickTouchEvent(showCode, BlocklyApps.showGeneratedCode);
+
+  exports.showInstructions(config.level.instructions);
 
   // Add events for touch devices when the window is done loading.
   addReadyListener(BlocklyApps.addTouchEvents);
@@ -189,6 +191,11 @@ BlocklyApps.initReadonly = function(options) {
 BlocklyApps.loadBlocks = function(blocksXml) {
   var xml = parseXmlElement(blocksXml);
   Blockly.Xml.domToWorkspace(Blockly.mainWorkspace, xml);
+};
+
+exports.showInstructions = function(instructions) {
+  var instructionsDiv = document.getElementById('prompt');
+  instructionsDiv.innerHTML = instructions;
 };
 
 /**
