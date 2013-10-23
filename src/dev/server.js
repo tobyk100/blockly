@@ -16,15 +16,16 @@ app.get('/', function(req, res) {
   res.render('index');
 });
 
-app.get('/maze', function(req, res) {
-  ['level', 'skin'].forEach(function(key) {
+var renderApp = function(app, req, res) {
+  ['locale', 'level', 'skin'].forEach(function(key) {
     if (!req.query[key]) {
       res.end('Expected ' + key + ' query parameter');
       return;
     }
   });
   res.render('app', {
-    app: 'maze',
+    app: app,
+    locale: req.query.locale,
     options: {
       containerId: 'blocklyApp',
       levelId: req.query.level,
@@ -32,22 +33,14 @@ app.get('/maze', function(req, res) {
       baseUrl: baseUrl(req)
     }
   });
+};
+
+app.get('/maze', function(req, res) {
+  renderApp('maze', req, res);
 });
 
 app.get('/turtle', function(req, res) {
-  if (!req.query.level) {
-    res.end('Expected level query parameter');
-  } else {
-    res.render('app', {
-      app: 'turtle',
-      options: {
-        containerId: 'blocklyApp',
-        levelId: req.query.level,
-        skinId: req.query.skin,
-        baseUrl: baseUrl(req)
-      }
-    });
-  }
+  renderApp('turtle', req, res);
 });
 
 module.exports = app;
