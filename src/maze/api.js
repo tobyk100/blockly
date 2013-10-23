@@ -79,6 +79,7 @@ var move = function(direction, id) {
       break;
   }
   BlocklyApps.log.push([command, id]);
+  Maze.checkSuccess();
 };
 
 /**
