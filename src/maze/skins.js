@@ -19,7 +19,8 @@ var CONFIGS = {
   },
 
   farmer: {
-    look: '#000'
+    look: '#000',
+    transparent_tile_ending: true
   },
 
   farmer_minecraft: {
@@ -31,12 +32,12 @@ var CONFIGS = {
   },
 
   pvz: {
-    look: '#FFF'
+    look: '#FFF',
+    transparent_tile_ending: true
   },
 
   birds: {
     look: '#FFF',
-    larger_obstacle_animation_area: true
   },
 
   mouse: {
@@ -61,6 +62,11 @@ exports.load = function(skin) {
     skin.larger_obstacle_animation_area = true;
   } else {
     skin.larger_obstacle_animation_area = false;
+  }
+  if (config.transparent_tile_ending) {
+    skin.transparent_tile_ending = true;
+  } else {
+    skin.transparent_tile_ending = false;
   }
   // Sounds
   skin.obstacle_sound =
