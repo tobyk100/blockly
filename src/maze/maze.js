@@ -496,7 +496,7 @@ BlocklyApps.reset = function(first) {
         dirtIcon.setAttribute('x',
             Maze.SQUARE_SIZE * (x + 0.5) - dirtIcon.getAttribute('width') / 2);
         dirtIcon.setAttribute('y',
-            Maze.SQUARE_SIZE * (y + 0.6) - dirtIcon.getAttribute('height'));
+            Maze.SQUARE_SIZE * (y + 1.0) - dirtIcon.getAttribute('height'));
       }
       ++dirtId;
     }
@@ -1008,7 +1008,7 @@ Maze.scheduleFill = function() {
     Maze.setDirtImage(dirtIcon, x, y);
     dirtIcon.setAttribute('x', Maze.SQUARE_SIZE * (x + 0.5) -
                           dirtIcon.getAttribute('width') / 2);
-    dirtIcon.setAttribute('y', Maze.SQUARE_SIZE * (y + 0.6) -
+    dirtIcon.setAttribute('y', Maze.SQUARE_SIZE * (y + 1.0) -
                           dirtIcon.getAttribute('height'));
   } else {
     var svgMaze = document.getElementById('svgMaze');
@@ -1024,7 +1024,7 @@ Maze.scheduleFill = function() {
       Maze.setDirtImage(dirtIcon, x, y);
       dirtIcon.setAttribute('x', Maze.SQUARE_SIZE * (x + 0.5) -
                             dirtIcon.getAttribute('width') / 2);
-      dirtIcon.setAttribute('y', Maze.SQUARE_SIZE * (y + 0.6) -
+      dirtIcon.setAttribute('y', Maze.SQUARE_SIZE * (y + 1.0) -
                             dirtIcon.getAttribute('height'));
     } else if (Maze.dirt_[y][x] == -1) {
       // Remove the dirtIcon
@@ -1075,7 +1075,7 @@ Maze.scheduleDig = function() {
       Maze.setDirtImage(dirtIcon, x, y);
       dirtIcon.setAttribute('x', Maze.SQUARE_SIZE * (x + 0.5) -
                             dirtIcon.getAttribute('width') / 2);
-      dirtIcon.setAttribute('y', Maze.SQUARE_SIZE * (y + 0.6) -
+      dirtIcon.setAttribute('y', Maze.SQUARE_SIZE * (y + 1.0) -
                             dirtIcon.getAttribute('height'));
     } else if (Maze.dirt_[y][x] == 1) {
       // Need to remove this dirtIcon
