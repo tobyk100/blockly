@@ -11,9 +11,9 @@ exports.load = function(baseUrl, id) {
     avatar: root + 'avatar.png',
     // Sounds
     //TODO: Blockly should accept absolute sound paths.
-    start_sound: [path + 'start.mp3', path + 'start.ogg'],
-    win_sound: [path + 'win.mp3', path + 'win.ogg'],
-    failure_sound: [path + 'failure.mp3', path + 'failure.ogg']
+    startSound: [path + 'start.mp3', path + 'start.ogg'],
+    winSound: [path + 'win.mp3', path + 'win.ogg'],
+    failureSound: [path + 'failure.mp3', path + 'failure.ogg']
   };
   return skin;
 };

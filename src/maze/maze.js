@@ -280,7 +280,7 @@ var drawMap = function() {
                                 skin.goal);
     finishMarker.setAttribute('height', Maze.MARKER_HEIGHT);
     finishMarker.setAttribute('width', Maze.MARKER_WIDTH);
-    svg.insertBefore(finishMarker, pegmanIcon);
+    svg.appendChild(finishMarker);
   }
 
   // Add obstacles.
@@ -290,15 +290,15 @@ var drawMap = function() {
       if (Maze.map[y][x] == SquareType.OBSTACLE) {
         var obsIcon = document.createElementNS(Blockly.SVG_NS, 'image');
         obsIcon.setAttribute('id', 'obstacle' + obsId);
-        obsIcon.setAttribute('height', Maze.MARKER_HEIGHT);
-        obsIcon.setAttribute('width', Maze.MARKER_WIDTH);
+        obsIcon.setAttribute('height', Maze.MARKER_HEIGHT * skin.obstacleScale);
+        obsIcon.setAttribute('width', Maze.MARKER_WIDTH * skin.obstacleScale);
         obsIcon.setAttributeNS(
           'http://www.w3.org/1999/xlink', 'xlink:href', skin.obstacle);
         obsIcon.setAttribute('x',
                              Maze.SQUARE_SIZE * (x + 0.5) -
                              obsIcon.getAttribute('width') / 2);
         obsIcon.setAttribute('y',
-                             Maze.SQUARE_SIZE * (y + 0.8) -
+                             Maze.SQUARE_SIZE * (y + 0.9) -
                              obsIcon.getAttribute('height'));
         svg.appendChild(obsIcon);
       }
@@ -354,10 +354,10 @@ Maze.init = function(config) {
     toolbox: level.toolbox
   });
 
-  Blockly.loadAudio_(skin.start_sound, 'start');
-  Blockly.loadAudio_(skin.failure_sound, 'failure');
-  Blockly.loadAudio_(skin.obstacle_sound, 'obstacle');
-  Blockly.loadAudio_(skin.wall_sound, 'wall');
+  Blockly.loadAudio_(skin.startSound, 'start');
+  Blockly.loadAudio_(skin.failureSound, 'failure');
+  Blockly.loadAudio_(skin.obstacleSound, 'obstacle');
+  Blockly.loadAudio_(skin.wallSound, 'wall');
   Blockly.SNAP_RADIUS *= Maze.scale.snapRadius;
 
   // Locate the start and finish squares.
@@ -919,13 +919,15 @@ Maze.scheduleFail = function(forward) {
     var obsIcon = document.getElementById('obstacle' + obsId);
     obsIcon.setAttributeNS(
         'http://www.w3.org/1999/xlink', 'xlink:href',
-        skin.obstacle_animation);
+        skin.obstacleAnimation);
     Maze.pidList.push(window.setTimeout(function() {
-      Maze.displayPegman(targetX, targetY, direction16);
+      Maze.displayPegman(Maze.pegmanX + deltaX / 2,
+                         Maze.pegmanY + deltaY / 2,
+                         direction16);
     }, stepSpeed));
 
     // Remove the objects around obstacles
-    if (skin.larger_obstacle_animation_area) {
+    if (skin.largerObstacleAnimationArea) {
       Maze.removeSurroundingTiles(targetY, targetX);
     }
 
@@ -935,7 +937,7 @@ Maze.scheduleFail = function(forward) {
 
     Maze.pidList.push(window.setTimeout(function() {
       pegmanIcon.setAttribute('visibility', 'hidden');
-    }, stepSpeed));
+    }, stepSpeed * 2));
   }
 
   Maze.pidList.push(window.setTimeout(function() {
@@ -951,7 +953,7 @@ Maze.scheduleFinish = function(sound) {
   var direction16 = Maze.constrainDirection16(Maze.pegmanD * 4);
   Maze.displayPegman(Maze.pegmanX, Maze.pegmanY, 16);
   if (sound) {
-    Blockly.loadAudio_(skin.win_sound, 'win');
+    Blockly.loadAudio_(skin.winSound, 'win');
     Blockly.playAudio('win', 0.5);
   }
 
@@ -970,7 +972,7 @@ Maze.scheduleFinish = function(sound) {
   var finishIcon = document.getElementById('finish');
   if (sound && finishIcon !== null) {
     finishIcon.setAttributeNS('http://www.w3.org/1999/xlink', 'xlink:href',
-                              skin.goal_animation);
+                              skin.goalAnimation);
   }
 };
 
