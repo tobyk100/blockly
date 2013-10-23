@@ -1,10 +1,16 @@
 var path = require('path');
+var localify = require('./src/dev/localify');
 
 var config = {};
 
 var APPS = [
   'maze',
   'turtle'
+];
+
+var LOCALES = [
+  'en_us',
+  'en_ploc'
 ];
 
 config.clean = {
@@ -64,11 +70,27 @@ APPS.forEach(function(app) {
   config.sass.all.files[dest] = src;
 });
 
+config.pseudoloc = {
+  all: {
+    srcBase: 'i18n',
+    srcLocale: 'en_us',
+    destBase: 'build/i18n',
+    pseudoLocale: 'en_ploc'
+  }
+};
+
 config.messages = {
   all: {
-    locales: ['en_us'],
-    srcBase: 'i18n',
-    destBase: 'build'
+    locales: LOCALES,
+    srcBases: ['i18n', 'build/i18n'],
+    destBase: 'build/locale'
+  }
+};
+
+config.symlink = {
+  locale: {
+    src: 'build/locale/en_us',
+    dest: 'build/locale/current'
   }
 };
 
@@ -81,26 +103,32 @@ config.ejs = {
 
 config.browserify = {};
 APPS.forEach(function(app) {
-  var src = 'build/js/' + app + '/main.js';
-  var dest = 'build/browserified/' + app + '.js';
-  var files = {};
-  files[dest] = [src];
-  config.browserify[app] = {
-    files: files
-  };
+  LOCALES.forEach(function(locale) {
+    var src = 'build/js/' + app + '/main.js';
+    var dest = 'build/browserified/' + locale + '/' + app + '.js';
+    var files = {};
+    files[dest] = [src];
+    config.browserify[app + '_' + locale] = {
+      files: files,
+      options: {
+        transform: [localify(locale)]
+      }
+    };
+  });
 });
 
-config.concat = {
-  vendor: {
+config.concat = {};
+LOCALES.forEach(function(locale) {
+  config.concat['vendor_' + locale] = {
     src: [
       'lib/blockly/blockly_compressed.js',
       'lib/blockly/blocks_compressed.js',
       'lib/blockly/javascript_compressed.js',
-      'lib/blockly/en.js'
+      'lib/blockly/' + locale + '.js'
     ],
-    dest: 'dist/js/vendor.js'
-  }
-};
+    dest: 'dist/js/' + locale + '/vendor.js'
+  };
+});
 
 config.express = {
   server: {
@@ -128,7 +156,7 @@ config.watch = {
   },
   vendor_js: {
     files: ['lib/**/*.js'],
-    tasks: ['concat:vendor']
+    tasks: ['concat']
   },
   ejs: {
     files: ['src/**/*.ejs'],
@@ -136,7 +164,7 @@ config.watch = {
   },
   messages: {
     files: ['i18n/**/*.json'],
-    tasks: ['messages', 'browserify', 'copy:browserified']
+    tasks: ['pseudoloc', 'messages', 'browserify', 'copy:browserified']
   },
   dist: {
     files: ['dist/**/*'],
@@ -189,6 +217,7 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-contrib-clean');
   grunt.loadNpmTasks('grunt-contrib-copy');
+  grunt.loadNpmTasks('grunt-contrib-symlink');
   grunt.loadNpmTasks('grunt-contrib-concat');
   grunt.loadNpmTasks('grunt-contrib-jshint');
   grunt.loadNpmTasks('grunt-express');
@@ -200,7 +229,9 @@ module.exports = function(grunt) {
   grunt.loadTasks('tasks');
 
   grunt.registerTask('build', [
+    'pseudoloc',
     'messages',
+    'symlink:locale',
     'copy:src',
     'ejs',
     'browserify',

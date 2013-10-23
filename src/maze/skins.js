@@ -20,7 +20,7 @@ var CONFIGS = {
 
   farmer: {
     look: '#000',
-    transparent_tile_ending: true
+    transparentTileEnding: true
   },
 
   farmer_minecraft: {
@@ -33,11 +33,14 @@ var CONFIGS = {
 
   pvz: {
     look: '#FFF',
-    transparent_tile_ending: true
+    transparentTileEnding: true,
+    obstacleScale: 1.4
   },
 
   birds: {
     look: '#FFF',
+    largerObstacleAnimationArea: true,
+    obstacleScale: 1.2
   },
 
   mouse: {
@@ -55,23 +58,24 @@ exports.load = function(skin) {
   // Images
   skin.tiles = skin.root + 'tiles.png';
   skin.goal = skin.root + 'goal.png';
-  skin.goal_animation = skin.root + 'goal.gif';
+  skin.goalAnimation = skin.root + 'goal.gif';
   skin.obstacle = skin.root + 'obstacle.png';
-  skin.obstacle_animation = skin.root + 'obstacle.gif';
-  if (config.larger_obstacle_animation_area) {
-    skin.larger_obstacle_animation_area = true;
+  skin.obstacleAnimation = skin.root + 'obstacle.gif';
+  if (config.largerObstacleAnimationArea) {
+    skin.largerObstacleAnimationArea = true;
   } else {
-    skin.larger_obstacle_animation_area = false;
+    skin.largerObstacleAnimationArea = false;
   }
-  if (config.transparent_tile_ending) {
-    skin.transparent_tile_ending = true;
+  if (config.transparentTileEnding) {
+    skin.transparentTileEnding = true;
   } else {
-    skin.transparent_tile_ending = false;
+    skin.transparentTileEnding = false;
   }
+  skin.obstacleScale = config.obstacleScale || 1.0;
   // Sounds
-  skin.obstacle_sound =
+  skin.obstacleSound =
       [skin.path + 'obstacle.mp3', skin.path + 'obstacle.ogg'];
-  skin.wall_sound = [skin.path + 'wall.mp3', skin.path + 'wall.ogg'];
+  skin.wallSound = [skin.path + 'wall.mp3', skin.path + 'wall.ogg'];
   // Settings
   skin.graph = config.graph;
   skin.look = config.look;
