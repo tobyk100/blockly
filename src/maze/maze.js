@@ -280,7 +280,7 @@ var drawMap = function() {
                                 skin.goal);
     finishMarker.setAttribute('height', Maze.MARKER_HEIGHT);
     finishMarker.setAttribute('width', Maze.MARKER_WIDTH);
-    svg.insertBefore(finishMarker, pegmanIcon);
+    svg.appendChild(finishMarker);
   }
 
   // Add obstacles.
@@ -921,7 +921,9 @@ Maze.scheduleFail = function(forward) {
         'http://www.w3.org/1999/xlink', 'xlink:href',
         skin.obstacleAnimation);
     Maze.pidList.push(window.setTimeout(function() {
-      Maze.displayPegman(Maze.pegmanX + deltaX / 2, targetY, direction16);
+      Maze.displayPegman(Maze.pegmanX + deltaX / 2,
+                         Maze.pegmanY + deltaY / 2,
+                         direction16);
     }, stepSpeed));
 
     // Remove the objects around obstacles
