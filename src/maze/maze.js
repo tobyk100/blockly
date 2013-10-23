@@ -974,7 +974,7 @@ Maze.setTileTransparent = function() {
       // Tile sprite.
       var tileElement = document.getElementById('tileElement' + tileId);
       var tileAnimation = document.getElementById('tileAnimation' + tileId);
-      if (tileElement != null) {
+      if (tileElement !== null) {
         tileElement.setAttribute('opacity', 0);
       }
       if (tileAnimation !== null) {
