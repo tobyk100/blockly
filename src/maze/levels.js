@@ -9,6 +9,15 @@ var toolbox = function(page, level) {
   });
 };
 
+//TODO: Fix hacky level-number-dependent startBlocks.
+var startBlocks = function(page, level) {
+  return require('./startBlocks.xml')({
+    page: page,
+    level: level
+  });
+};
+
+
 /*
  * Configuration for all levels.
  */
@@ -712,6 +721,26 @@ module.exports = {
       [0, 0, 0, 0, 0, 0, 0, 0]
     ]
   },
+  '2_19': {
+    'instructions': 'instructions2_19',
+    'toolbox': toolbox(2, 19),
+    'idea': 4,
+    'scale': {
+      'stepSpeed': 3
+    },
+    'startDirection': Direction.NORTH,
+    'map': [
+      [1, 1, 1, 1, 1, 1, 1, 1],
+      [1, 0, 0, 0, 0, 0, 0, 1],
+      [1, 0, 1, 1, 1, 1, 1, 1],
+      [1, 0, 1, 0, 0, 0, 0, 0],
+      [1, 0, 1, 0, 1, 1, 1, 1],
+      [1, 0, 1, 0, 3, 0, 0, 1],
+      [1, 0, 1, 0, 0, 0, 0, 1],
+      [2, 0, 1, 1, 1, 1, 1, 1]
+     ],
+    'startBlocks': startBlocks(2, 19)
+   },
 
   // Copied levels with editCode enabled
   '3_1': {

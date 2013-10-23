@@ -1,0 +1,19 @@
+<% if (page == 2) { -%>
+  <% if (level == 19) { -%>
+    <block type="maze_forever" x="70" y="70" editable="false" deletable="false"
+      movable="false">
+      <statement name="DO">
+        <block type="maze_ifElse" editable="false" deletable="false"
+          movable="false">
+          <title name="DIR">isPathForward</title>
+          <statement name="ELSE">
+            <block type="maze_ifElse" editable="false" deletable="false"
+              movable="false">
+              <title name="DIR">isPathLeft</title>
+            </block>
+          </statement>
+        </block>
+      </statement>
+    </block>
+  <% } -%>
+<% } -%>
