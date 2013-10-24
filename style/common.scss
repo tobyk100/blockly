@@ -1,5 +1,8 @@
 $cyan: #0094ca;
+$charcoal: #5b6770;
+$orange: #ffa400;
 $purple: #7665a0;
+$green: #b9bf15;
 @mixin fill-container {
   height: 100%;
   width: 100%;
@@ -49,7 +52,6 @@ html[dir="RTL"] .farSide {
 }
 #visualization {
   position: relative;
-  top: 10px;
 }
 
 /* Buttons */
@@ -108,6 +110,7 @@ input[type="radio"] {
 /* Dialogs */
 #help {
   padding: 0 10px;
+  display: none;
 }
 #dialog {
   visibility: hidden;
@@ -176,12 +179,6 @@ input[type="radio"] {
   color: #5A6A73;
   margin-top: 35px;
 }
-.generatedCode {
-  color: #7E5BA0;
-  background-color: white;
-  border: none;
-  font-size: 14px
-}
 #hintBubble {
   position: absolute;
   left: 10px;
@@ -198,14 +195,15 @@ input[type="radio"] {
 
 /* Instructions. */
 #bubble {
-  color: white;
+  color: black;
   width: 385px;
-  padding: 7px;
-  margin-bottom: 15px;
-  border: 1px solid #CCB;
-  border-radius: 6px;
-  background-color: $cyan;
-  text-align: center;
+}
+
+#prompt-icon {
+  width: 30px;
+  margin-right: 5px;
+  height: auto;
+  float: left;
 }
 
 #headers {
@@ -258,4 +256,71 @@ input[type="radio"] {
 
 .blocklyText {
   @include font;
+}
+
+.generated-code-container {
+  margin-top: 10px;
+  .generatedCodeMessage {
+    font-size: 14px;
+    color: $charcoal;
+  }
+  .generatedCode {
+    font-size: 14px;
+  }
+}
+
+$modal-image-width: 100px;
+
+.modal {
+  top: 30%;
+}
+
+.modal-content {
+  margin-left: $modal-image-width;
+  p, pre {
+    line-height: 24px;
+    font-size: 24px;
+    color: $purple;
+  }
+  .congrats {
+    font-size: 30px;
+    line-height: 30px;
+  }
+}
+
+#ok-button {
+  background-color: $orange;
+  color: white;
+}
+
+#again-button {
+  background-color: $green;
+  color: white;
+}
+
+#continue-button {
+  background-color: $orange;
+  color: white;
+}
+
+.modal-image {
+  width: $modal-image-width;
+  height: auto;
+  margin-top: -60px;
+  float: left;
+}
+.modal-header {
+  border: none;
+  height: 20px;
+}
+.modal-body {
+  overflow: visible;
+}
+#feedbackBlocks {
+  margin-left: 50px;
+  height: 80px;
+  border: none;
+}
+.video-backdrop {
+  z-index: 1100;
 }

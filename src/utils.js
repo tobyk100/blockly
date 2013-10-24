@@ -18,3 +18,10 @@ exports.extend = function(defaults, options) {
 
   return finalOptions;
 };
+
+exports.addClickTouchEvent = function(element, handler) {
+  if ('ontouchend' in document.documentElement) {
+    element.addEventListener('touchend', handler, false);
+  }
+  element.addEventListener('click', handler, false);
+};

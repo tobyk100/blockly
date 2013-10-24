@@ -1,0 +1,21 @@
+<% var msg = require('../../locale/current/common'); %>
+
+<% if (data.ok) { -%>
+  <div class="farSide" style="padding: 1ex 3ex 0">
+    <button id="ok-button" class="secondary">
+      <%= msg.dialogOK() %>
+    </button>
+  </div>
+<% }; -%>
+
+<% if (data.tryAgain) { -%>
+  <button id="again-button" class="launch">
+    <%= msg.tryAgain() %>
+  </button>
+<% }; -%>
+
+<% if (data.nextLevel) { -%>
+  <button id="continue-button" class="launch">
+    <%= msg.continue() %>
+  </button>
+<% }; -%>
