@@ -9,6 +9,10 @@ exports.load = function(baseUrl, id) {
     root: root,
     // Images
     avatar: root + 'avatar.png',
+    tiles: root + 'tiles.png',
+    goal: root + 'goal.png',
+    obstacle: root + 'obstacle.png',
+    icon: root + 'avatar_high.png',
     // Sounds
     //TODO: Blockly should accept absolute sound paths.
     startSound: [path + 'start.mp3', path + 'start.ogg'],

@@ -142,24 +142,8 @@ Turtle.init = function(config) {
     Turtle.speedSlider.setValue(level.sliderSpeed);
   }
 
-  // Add display of blocks used unless free play.
-  if (!level.freePlay) {
-    Blockly.addChangeListener(function() {
-      Turtle.updateBlockCount();
-    });
-  }
-
   // We may have changed divs but Blockly on reacts based on the window.
   Blockly.fireUiEvent(window, 'resize');
-};
-
-/**
- * Add count of blocks used, not counting colour blocks.
- */
-Turtle.updateBlockCount = function() {
-  BlocklyApps.setTextForElement(
-      'blockCount',
-      msg.blocksUsed().replace('%1', BlocklyApps.getNumBlocksUsed()));
 };
 
 /**

@@ -1,8 +1,8 @@
 var dialog = require('./dialog');
 
 exports.scrollPastHeader = function() {
-  var bubble = document.getElementById('bubble');
-  var y = bubble.getBoundingClientRect().top;
+  var blockly = document.getElementById('blockly');
+  var y = blockly.getBoundingClientRect().top;
   window.scroll(0, y);
 };
 

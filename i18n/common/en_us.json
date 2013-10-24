@@ -128,7 +128,7 @@
   },
   "numBlocksNeeded": {
     "id": "857707012901609467",
-    "string": "This level can be solved with %1 blocks.",
+    "string": "This level can be solved with {numBlocks, plural, one {1 block} other {# blocks}}.",
     "description": "alert - This is displayed when the user has used more blocks than is necessary."
   },
   "projectMessage": {
