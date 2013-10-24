@@ -150,6 +150,9 @@ var drawMap = function() {
   var buttonTable = document.getElementById('gameButtons');
   buttonTable.style.width = Maze.MAZE_WIDTH + 'px';
 
+  var hintBubble = document.getElementById('bubble');
+  hintBubble.style.width = Maze.MAZE_WIDTH + 'px';
+
   if (skin.background) {
     tile = document.createElementNS(Blockly.SVG_NS, 'image');
     tile.setAttributeNS('http://www.w3.org/1999/xlink', 'xlink:href',
