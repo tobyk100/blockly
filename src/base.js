@@ -616,8 +616,7 @@ BlocklyApps.getMissingRequiredBlocks = function() {
 
 /**
  * Counts the number of blocks used.  Blocks are only counted if they are
- * not disabled, are deletable, and match BlocklyApps.FREE_BLOCKS_FILTER,
- * if defined.
+ * not disabled and are deletable.
  * @return {number} Number of blocks used.
  */
 BlocklyApps.getNumBlocksUsed = function() {
@@ -633,17 +632,7 @@ BlocklyApps.getNumBlocksUsed = function() {
     }
     return codeLines;
   }
-  var blocks = BlocklyApps.getUserBlocks_();
-  if (!BlocklyApps.FREE_BLOCKS) {
-    return blocks.length;
-  }
-  var count = 0;
-  for (i = 0; i < blocks.length; i++) {
-    if (!blocks[i].type.match(BlocklyApps.FREE_BLOCKS)) {
-      count++;
-    }
-  }
-  return count;
+  return BlocklyApps.getUserBlocks_().length;
 };
 
 /**
