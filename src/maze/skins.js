@@ -59,6 +59,7 @@ exports.load = function(skin) {
   skin.goalAnimation = skin.root + 'goal.gif';
   skin.obstacle = skin.root + 'obstacle.png';
   skin.obstacleAnimation = skin.root + 'obstacle.gif';
+  skin.maze_forever = skin.root + 'maze_forever.png';
   if (config.largerObstacleAnimationArea) {
     skin.largerObstacleAnimationArea = true;
   } else {
