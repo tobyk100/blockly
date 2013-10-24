@@ -210,14 +210,14 @@ exports.showInstructions = function(instructions) {
 
   var dialog = feedback.createModalDialogWithIcon(BlocklyApps.Dialog,
                                                   instructionsDiv);
-  dialog.show();
-
-  var okayButton = document.getElementById('ok-button');
+  var okayButton = buttons.querySelector('#ok-button');
   if (okayButton) {
     utils.addClickTouchEvent(okayButton, function() {
       dialog.hide();
     });
   }
+
+  dialog.show();
 
   var promptDiv = document.getElementById('prompt');
   promptDiv.innerHTML = instructions;
