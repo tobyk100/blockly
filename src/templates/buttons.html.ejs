@@ -1,6 +1,6 @@
 <% var msg = require('../../locale/current/common'); %>
 
-<% var okButton = function() { -%>
+<% if (data.ok) { -%>
   <div class="farSide" style="padding: 1ex 3ex 0">
     <button id="ok-button" class="secondary">
       <%= msg.dialogOK() %>
@@ -8,27 +8,14 @@
   </div>
 <% }; -%>
 
-<% var tryAgainButton = function() { -%>
-    <button id="again-button" class="launch">
-      <%= msg.tryAgain() %>
-    </button>
+<% if (data.tryAgain) { -%>
+  <button id="again-button" class="launch">
+    <%= msg.tryAgain() %>
+  </button>
 <% }; -%>
 
-<% var continueButton = function() { -%>
+<% if (data.nextLevel) { -%>
   <button id="continue-button" class="launch">
     <%= msg.continue() %>
   </button>
 <% }; -%>
-
-
-<% if (data.ok) {
-  okButton();
-}; %>
-
-<% if (data.tryAgain) {
-  tryAgainButton();
-}; %>
-
-<% if (data.nextLevel) {
-  continueButton();
-}; %>

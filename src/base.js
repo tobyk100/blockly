@@ -104,7 +104,7 @@ BlocklyApps.init = function(config) {
     });
   }
 
-  BlocklyApps.ICON = config.skin.icon;
+  BlocklyApps.ICON = config.skin.staticAvatar;
 
   if (BlocklyApps.Dialog) {
     exports.showInstructions(config.level.instructions);
@@ -456,15 +456,14 @@ BlocklyApps.updateCapacity = function() {
  *     BlocklyApps.TestResults).
  */
 BlocklyApps.displayFeedback = function(options) {
-  feedback.displayFeedback(options, BlocklyApps.Dialog, onContinue);
+  options.Dialog = BlocklyApps.Dialog;
+  options.onContinue = onContinue;
+
+  feedback.displayFeedback(options);
 };
 
 BlocklyApps.getTestResults = function() {
   return feedback.getTestResults();
-};
-
-BlocklyApps.hasEmptyTopLevelBlocks = function() {
-  return feedback.hasEmptyTopLevelBlocks();
 };
 
 /**

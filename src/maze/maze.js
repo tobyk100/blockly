@@ -31,6 +31,7 @@ var tiles = require('./tiles');
 var codegen = require('../codegen');
 var api = require('./api');
 var page = require('../templates/page.html');
+var feedback = require('../feedback.js');
 
 var Direction = tiles.Direction;
 var SquareType = tiles.SquareType;
@@ -607,7 +608,7 @@ Maze.execute = function() {
 
   // Check for empty top level blocks to warn user about bugs,
   // especially ones that lead to infinite loops.
-  if (BlocklyApps.hasEmptyTopLevelBlocks()) {
+  if (feedback.hasEmptyTopLevelBlocks()) {
     Maze.testResults = BlocklyApps.TestResults.EMPTY_BLOCK_FAIL;
     displayFeedback();
     return;

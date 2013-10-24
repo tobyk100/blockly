@@ -4,24 +4,24 @@ var readonly = require('./templates/readonly.html');
 var codegen = require('./codegen');
 var msg = require('../locale/current/common');
 
-exports.LINES_OF_CODE = 'blockly_lines_of_code';
+var COUNT_LINES_OF_CODE_SESSION_KEY = 'blockly_lines_of_code';
 
-exports.displayFeedback = function(options, Dialog, onContinue) {
+exports.displayFeedback = function(options) {
   var lines = options.lineInfo = countLinesOfCode();
-  sessionStorage.setItem(exports.LINES_OF_CODE, lines.totalLines);
+  sessionStorage.setItem(COUNT_LINES_OF_CODE_SESSION_KEY, lines.totalLines);
 
-  var numTrophies = numTrophiesEarned(options);
+  options.numTrophies = numTrophiesEarned(options);
 
   var feedback = document.createElement('div');
-  var feedbackMessage = getFeedbackMessage(options, numTophies);
+  var feedbackMessage = getFeedbackMessage(options);
   var showCode = getShowCodeElement(options);
   var feedbackBlocks = new FeedbackBlocks(options);
 
   if (feedbackMessage) {
     feedback.appendChild(feedbackMessage);
   }
-  if (numTrophies) {
-    var trophies = getTrophiesElement(options, numTrophies);
+  if (options.numTrophies) {
+    var trophies = getTrophiesElement(options);
     feedback.appendChild(trophies);
   }
   if (feedbackBlocks.div) {
@@ -33,8 +33,8 @@ exports.displayFeedback = function(options, Dialog, onContinue) {
   var canContinue = canContinueToNextLevel(options.feedbackType);
   feedback.appendChild(getFeedbackButtons(canContinue));
 
-  var feedbackDialog = exports.createModalDialogWithIcon(Dialog, feedback);
-
+  var feedbackDialog = exports.createModalDialogWithIcon(options.Dialog,
+                                                         feedback);
   var againButton = feedback.querySelector('#again-button');
   if (againButton) {
     utils.addClickTouchEvent(againButton, function() {
@@ -46,7 +46,7 @@ exports.displayFeedback = function(options, Dialog, onContinue) {
   if (continueButton) {
     utils.addClickTouchEvent(continueButton, function() {
       feedbackDialog.hide();
-      onContinue();
+      options.onContinue();
     });
   }
 
@@ -63,7 +63,7 @@ exports.displayFeedback = function(options, Dialog, onContinue) {
  * if defined.
  * @return {number} Number of blocks used.
  */
-exports.getNumBlocksUsed = function() {
+var getNumBlocksUsed = function() {
   var i;
   if (BlocklyApps.editCode) {
     var codeLines = 0;
@@ -101,7 +101,7 @@ var getFeedbackButtons = function(canContinue) {
   return buttons;
 };
 
-var getFeedbackMessage = function(options, numTrophies) {
+var getFeedbackMessage = function(options) {
   var feedback = document.createElement('p');
   feedback.className = 'congrats';
   var message;
@@ -133,8 +133,8 @@ var getFeedbackMessage = function(options, numTrophies) {
     case BlocklyApps.TestResults.ALL_PASS:
       var finalLevel = (options.response &&
           (options.response.message == "no more levels"));
-      if (numTrophies > 0) {
-        var msgParams = { numTrophies: numTrophies };
+      if (options.numTrophies > 0) {
+        var msgParams = { numTrophies: options.numTrophies };
         message = finalLevel ? msg.finalLevelTrophies(msgParams) :
                                msg.nextLevelTrophies(msgParams);
       } else {
@@ -158,7 +158,7 @@ var numTrophiesEarned = function(options) {
   }
 };
 
-var getTrophiesElement = function(options, numTrophies) {
+var getTrophiesElement = function(options) {
   var html = "";
   for (var i = 0; i < numTrophies; i++) {
     html += trophy({
@@ -176,14 +176,14 @@ var getShowCodeElement = function(options) {
     var showCodeDiv = document.createElement('div');
     var lines = document.createElement('span');
     lines.className = 'linesOfCodeMsg';
-      lines.innerHTML = msg.totalNumLinesOfCodeWritten({
-        numLines: options.lineInfo.totalLines
+    lines.innerHTML = msg.totalNumLinesOfCodeWritten({
+      numLines: options.lineInfo.totalLines
+    });
+    if (options.lineInfo.totalLines === options.lineInfo.lines) {
+      lines.innerHTML += msg.numLinesOfCodeWritten({
+        numLines: options.lineInfo.lines
       });
-      if (options.lineInfo.totalLines === options.lineInfo.lines) {
-        lines.innerHTML += msg.numLinesOfCodeWritten({
-          numLines: options.lineInfo.lines
-        });
-      }
+    }
 
     var showCodeLink = document.createElement('div');
     showCodeLink.innerHTML = require('./templates/showCode.html')();
@@ -215,8 +215,8 @@ var canContinueToNextLevel = function(feedbackType) {
 };
 
 var countLinesOfCode = function() {
-  var lines = exports.getNumBlocksUsed();
-  var totalLines = sessionStorage.getItem(exports.LINES_OF_CODE) ||
+  var lines = getNumBlocksUsed();
+  var totalLines = sessionStorage.getItem(COUNT_LINES_OF_CODE_SESSION_KEY) ||
                    0;
   totalLines = parseInt(totalLines, 10) + lines;
   return { 'lines': lines, 'totalLines': totalLines };
@@ -325,10 +325,9 @@ var hasAllRequiredBlocks = function() {
  */
 var getUserBlocks = function() {
   var allBlocks = Blockly.mainWorkspace.getAllBlocks();
-  var blocks = allBlocks.filter(
-      function(block) {
-        return !block.disabled && block.isDeletable();
-      });
+  var blocks = allBlocks.filter(function(block) {
+    return !block.disabled && block.isDeletable();
+  });
   return blocks;
 };
 
@@ -402,7 +401,7 @@ exports.getTestResults = function() {
       return BlocklyApps.TestResults.MISSING_BLOCK_UNFINISHED;
     }
   }
-  var numBlocksUsed = exports.getNumBlocksUsed();
+  var numBlocksUsed = getNumBlocksUsed();
   if (!BlocklyApps.levelComplete) {
     if (BlocklyApps.IDEAL_BLOCK_NUM &&
         numBlocksUsed < BlocklyApps.IDEAL_BLOCK_NUM) {
