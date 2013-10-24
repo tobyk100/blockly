@@ -31,7 +31,7 @@ exports.displayFeedback = function(options) {
     feedback.appendChild(showCode);
   }
   var canContinue = canContinueToNextLevel(options.feedbackType);
-  feedback.appendChild(getFeedbackButtons(canContinue));
+  feedback.appendChild(getFeedbackButtons(options.feedbackType));
 
   var feedbackDialog = exports.createModalDialogWithIcon(options.Dialog,
                                                          feedback);
@@ -89,12 +89,12 @@ var getNumBlocksUsed = function() {
   return count;
 };
 
-var getFeedbackButtons = function(canContinue) {
+var getFeedbackButtons = function(feedbackType) {
   var buttons = document.createElement('div');
   buttons.innerHTML = require('./templates/buttons.html')({
     data: {
-      tryAgain: true,
-      nextLevel: canContinue
+      tryAgain: feedbackType !== BlocklyApps.TestResults.ALL_PASS,
+      nextLevel: canContinueToNextLevel(feedbackType)
     }
   });
 
