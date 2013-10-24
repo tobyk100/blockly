@@ -169,10 +169,6 @@
     "string": "You need to use at least %1 different colors on this level.  You used only %2.",
     "description": "TODO"
   },
-  "tooMuchWork": {
-    "string": "You made me do a lot of work!  Could you try repeating fewer times?",
-    "description": "TODO"
-  },
   "turnLeft": {
     "id": "6078028329780496695",
     "string": "turn left by",
