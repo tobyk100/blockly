@@ -179,7 +179,7 @@ var getShowCodeElement = function(options) {
     lines.innerHTML = msg.totalNumLinesOfCodeWritten({
       numLines: options.lineInfo.totalLines
     });
-    if (options.lineInfo.totalLines === options.lineInfo.lines) {
+    if (options.lineInfo.totalLines !== options.lineInfo.lines) {
       lines.innerHTML += msg.numLinesOfCodeWritten({
         numLines: options.lineInfo.lines
       });
