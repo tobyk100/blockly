@@ -472,24 +472,21 @@ module.exports = {
   '2_10': {
     'instructions': 'instructions2_10',
     'toolbox': toolbox(2, 10),
-    'ideal': 3,
+    'ideal': 2,
     'requiredBlocks': [
-      [{'test': 'turnRight',
-        'type': 'maze_turn',
-        'titles': {'DIR': 'turnRight'}}],
       [{'test': 'moveForward', 'type': 'maze_moveForward'}],
       [{'test': 'while', 'type': 'maze_forever'}]
     ],
-    'startDirection': Direction.EAST,
+    'startDirection': Direction.NORTH,
     'map': [
       [0, 0, 0, 0, 0, 0, 0, 0],
       [0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 3, 0, 0, 0],
+      [0, 0, 0, 0, 1, 0, 0, 0],
+      [0, 0, 0, 0, 1, 0, 0, 0],
+      [0, 0, 0, 0, 1, 0, 0, 0],
       [0, 0, 0, 0, 2, 0, 0, 0],
-      [0, 0, 0, 0, 1, 0, 0, 0],
-      [0, 0, 0, 0, 1, 0, 0, 0],
-      [0, 0, 0, 0, 1, 0, 0, 0],
-      [0, 0, 0, 0, 1, 0, 0, 0],
-      [0, 0, 0, 0, 3, 0, 0, 0]
+      [0, 0, 0, 0, 0, 0, 0, 0]
     ]
   },
   '2_11': {
@@ -512,13 +509,13 @@ module.exports = {
     'startDirection': Direction.EAST,
     'map': [
       [0, 0, 0, 0, 0, 0, 0, 1],
-      [0, 0, 0, 0, 0, 0, 1, 1],
-      [0, 0, 0, 0, 0, 1, 3, 0],
+      [0, 0, 0, 0, 0, 0, 3, 1],
+      [0, 0, 0, 0, 0, 1, 1, 0],
       [0, 0, 0, 0, 1, 1, 0, 0],
       [0, 0, 0, 1, 1, 0, 0, 0],
       [0, 0, 1, 1, 0, 0, 0, 0],
       [0, 1, 1, 0, 0, 0, 0, 0],
-      [1, 2, 0, 0, 0, 0, 0, 0]
+      [2, 1, 0, 0, 0, 0, 0, 0]
     ]
   },
   '2_12': {
@@ -610,24 +607,24 @@ module.exports = {
     },
     'requiredBlocks': [
       [{'test': 'moveForward', 'type': 'maze_moveForward'}],
-      [{'test': 'turnRight',
+      [{'test': 'turnLeft',
         'type': 'maze_turn',
-        'titles': {'DIR': 'turnRight'}}],
-      [{'test': 'isPathRight',
+        'titles': {'DIR': 'turnLeft'}}],
+      [{'test': 'isPathLeft',
         'type': 'maze_if',
-        'titles': {'DIR': 'isPathRight'}}],
+        'titles': {'DIR': 'isPathLeft'}}],
       [{'test': 'while', 'type': 'maze_forever'}]
     ],
-    'startDirection': Direction.EAST,
+    'startDirection': Direction.NORTH,
     'map': [
       [0, 0, 0, 0, 0, 0, 0, 0],
       [0, 0, 0, 0, 0, 0, 0, 0],
-      [0, 2, 1, 1, 1, 1, 0, 0],
-      [0, 0, 0, 0, 0, 1, 0, 0],
-      [0, 1, 1, 3, 0, 1, 0, 0],
-      [0, 1, 0, 0, 0, 1, 0, 0],
       [0, 1, 1, 1, 1, 1, 0, 0],
-      [0, 0, 0, 0, 4, 0, 0, 0]
+      [0, 1, 0, 0, 0, 1, 0, 0],
+      [0, 1, 0, 3, 0, 1, 0, 0],
+      [0, 1, 0, 1, 0, 1, 4, 0],
+      [0, 1, 1, 1, 0, 2, 0, 0],
+      [0, 0, 0, 4, 0, 0, 0, 0]
     ]
   },
   '2_16': {
@@ -647,11 +644,11 @@ module.exports = {
         'titles': {'DIR': 'isPathRight'}}],
       [{'test': 'while', 'type': 'maze_forever'}]
     ],
-    'startDirection': Direction.EAST,
+    'startDirection': Direction.SOUTH,
     'map': [
       [0, 0, 0, 0, 0, 0, 0, 0],
       [0, 0, 0, 4, 0, 0, 0, 0],
-      [0, 2, 1, 1, 1, 1, 0, 0],
+      [0, 0, 1, 1, 1, 2, 0, 0],
       [0, 0, 0, 0, 0, 1, 4, 0],
       [0, 1, 1, 3, 0, 1, 1, 0],
       [0, 1, 0, 0, 0, 1, 0, 0],
