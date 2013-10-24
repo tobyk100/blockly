@@ -261,10 +261,13 @@ var FeedbackBlocks = function(options) {
 };
 
 FeedbackBlocks.prototype.show = function() {
-  var doc = this.iframe.contentDocument || this.iframe.contentWindow.document;
-  doc.open();
-  doc.write(this.html);
-  doc.close();
+  var iframe = document.getElementById('feedbackBlocks');
+  if (iframe) {
+    var doc = iframe.contentDocument || iframe.contentWindow.document;
+    doc.open();
+    doc.write(this.html);
+    doc.close();
+  }
 };
 
 var getGeneratedCodeElement = function() {
