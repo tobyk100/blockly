@@ -108,6 +108,10 @@
     "string": "Try one or more of the blocks below to solve this level.",
     "description": "TODO"
   },
+  "reinfFeedbackMsg": {
+    "string": "Does this look like what you want? Hint: You can press the space key to see your drawing.",
+    "description": "TODO"
+  },
   "nextLevel": {
     "id": "6946125796492579884",
     "string": "Congratulations! You completed this level.",

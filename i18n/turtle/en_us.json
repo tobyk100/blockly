@@ -144,10 +144,6 @@
     "string": "set color",
     "description": "TODO"
   },
-  "reinfFeedbackMsg": {
-    "string": "Does this look like what you want? Hint: You can press the space key to see your drawing.",
-    "description": "TODO"
-  },
   "setWidth": {
     "id": "8037633027892627134",
     "string": "set width",
