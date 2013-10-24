@@ -250,6 +250,7 @@ var FeedbackBlocks = function(options) {
     app: options.app,
     options: {
       readonly: true,
+      locale: BlocklyApps.LOCALE,
       baseUrl: BlocklyApps.BASE_URL,
       skinId: options.skin,
       blocks: generateXMLForBlocks(missingBlocks)

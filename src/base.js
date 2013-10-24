@@ -40,6 +40,11 @@ var onContinue;
 BlocklyApps.BASE_URL = undefined;
 
 /**
+ * The current locale code.
+ */
+BlocklyApps.LOCALE = 'en_us';
+
+/**
  * If the user presses backspace, stop propagation - this prevents blockly
  * from eating the backspace key
  * @param {!Event} e Keyboard event.

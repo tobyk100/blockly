@@ -37,6 +37,7 @@ module.exports = function(app, levels, options) {
   options.Dialog = options.Dialog || StubDialog;
 
   BlocklyApps.BASE_URL = options.baseUrl;
+  BlocklyApps.LOCALE = options.locale || BlocklyApps.LOCALE;
 
   options.blocksModule.install(Blockly, options.skin);
 
