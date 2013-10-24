@@ -405,8 +405,7 @@ Maze.init = function(config) {
   }
 
   // Add the starting block(s).
-  var startBlocks = level.startBlocks ||
-      '<block type="maze_moveForward" x="70" y="70"></block>';
+  var startBlocks = level.startBlocks || '';
   // If config.level.startBlocks is passed in, it overrides level.startBlocks
   BlocklyApps.loadBlocks(startBlocks);
 
