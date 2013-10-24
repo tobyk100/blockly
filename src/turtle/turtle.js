@@ -90,7 +90,6 @@ Turtle.init = function(config) {
     data: {
       appInstance: 'Turtle',
       visualization: require('./visualization.html')(),
-      appFeedback: require('./appFeedback.html')(),
       controls: require('./controls.html')({baseUrl: config.baseUrl})
     }
   });
