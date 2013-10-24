@@ -59,8 +59,7 @@ exports.displayFeedback = function(options) {
 
 /**
  * Counts the number of blocks used.  Blocks are only counted if they are
- * not disabled, are deletable, and match BlocklyApps.FREE_BLOCKS_FILTER,
- * if defined.
+ * not disabled, are deletable.
  * @return {number} Number of blocks used.
  */
 var getNumBlocksUsed = function() {
@@ -76,17 +75,7 @@ var getNumBlocksUsed = function() {
     }
     return codeLines;
   }
-  var blocks = getUserBlocks();
-  if (!BlocklyApps.FREE_BLOCKS) {
-    return blocks.length;
-  }
-  var count = 0;
-  for (i = 0; i < blocks.length; i++) {
-    if (!blocks[i].type.match(BlocklyApps.FREE_BLOCKS)) {
-      count++;
-    }
-  }
-  return count;
+  return getUserBlocks().length;
 };
 
 var getFeedbackButtons = function(feedbackType) {
