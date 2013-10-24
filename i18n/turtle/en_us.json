@@ -144,10 +144,6 @@
     "string": "set color",
     "description": "TODO"
   },
-  "reinfFeedbackMsg": {
-    "string": "Does this look like what you want? Hint: You can press the space key to see your drawing.",
-    "description": "TODO"
-  },
   "setWidth": {
     "id": "8037633027892627134",
     "string": "set width",
@@ -171,10 +167,6 @@
   "tooFewColours": {
     "id": "1757525824513667617",
     "string": "You need to use at least %1 different colors on this level.  You used only %2.",
-    "description": "TODO"
-  },
-  "tooMuchWork": {
-    "string": "You made me do a lot of work!  Could you try repeating fewer times?",
     "description": "TODO"
   },
   "turnLeft": {
