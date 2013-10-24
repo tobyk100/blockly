@@ -192,6 +192,10 @@ exports.answer = function(page, level) {
           api.turnRight(90);
         }
         break;
+      case 7.5:
+        drawSnowman(250);
+        drawSnowman(100);
+        break;
       case 8:
         // Same-height snowmen.
         for (var i = 0; i < 3; i++) {

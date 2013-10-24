@@ -390,6 +390,20 @@ module.exports = {
     ],
     freePlay: false
   },
+  // Prep for Level 8: Two snowmen.
+  '2_7_5': {
+    answer: answer(2, 7.5),
+    initialY: 300,
+    ideal: 4,
+    toolbox: toolbox(2, 8),
+    startBlocks: startBlocks(2, 7.5),
+    requiredBlocks: [
+      [drawASnowman(250)],
+      [drawASnowman(100)]
+    ],
+    freePlay: false,
+    sliderSpeed: 0.9
+  },
   // Level 8: Three snowmen.
   '2_8': {
     answer: answer(2, 8),
