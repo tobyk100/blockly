@@ -431,7 +431,7 @@ exports.createModalDialogWithIcon = function(Dialog, contentDiv) {
   contentDiv.className += ' modal-content';
   modalBody.appendChild(contentDiv);
 
-  return new Dialog(modalBody);
+  return new Dialog({ body: modalBody });
 };
 
 /**
