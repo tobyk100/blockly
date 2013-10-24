@@ -1,11 +1,5 @@
 var dialog = require('./dialog');
 
-exports.scrollPastHeader = function() {
-  var blockly = document.getElementById('blockly');
-  var y = blockly.getBoundingClientRect().top;
-  window.scroll(0, y);
-};
-
 var getOrientation = function() {
   return (window.orientation % 180 === 0 ? 'portrait' : 'landscape');
 };

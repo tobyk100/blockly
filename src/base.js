@@ -121,9 +121,6 @@ BlocklyApps.init = function(config) {
   if (exports.isMobile()) {
     responsive.forceLandscape();
   }
-  if (exports.isPageShort()) {
-    responsive.scrollPastHeader();
-  }
 };
 
 exports.isMobile = function() {
