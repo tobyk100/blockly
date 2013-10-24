@@ -107,6 +107,10 @@ input[type="radio"] {
   margin-right: 10px;
 }
 
+#gameButtons {
+  margin-bottom: 10px;
+}
+
 /* Dialogs */
 #help {
   padding: 0 10px;
@@ -270,13 +274,14 @@ input[type="radio"] {
 }
 
 $modal-image-width: 100px;
+$modal-image-margin-gap: 10px;
 
 .modal {
   top: 20%;
 }
 
 .modal-content {
-  margin-left: $modal-image-width;
+  margin-left: $modal-image-width + $modal-image-margin-gap;
   p, pre {
     line-height: 24px;
     font-size: 24px;
@@ -286,6 +291,10 @@ $modal-image-width: 100px;
     font-size: 30px;
     line-height: 30px;
   }
+}
+
+.dialog-title {
+  font-weight: bold;
 }
 
 #ok-button {
