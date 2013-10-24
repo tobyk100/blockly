@@ -541,7 +541,7 @@ module.exports = {
     'startDirection': Direction.EAST,
     'map': [
       [1, 0, 0, 0, 0, 0, 0, 0],
-      [1, 2, 0, 0, 0, 0, 0, 0],
+      [1, 2, 4, 0, 0, 0, 0, 0],
       [0, 1, 1, 0, 0, 0, 0, 0],
       [0, 0, 1, 1, 0, 0, 0, 0],
       [0, 0, 0, 1, 1, 0, 0, 0],
@@ -553,16 +553,11 @@ module.exports = {
   '2_13': {
     'instructions': 'instructions2_13',
     'toolbox': toolbox(2, 13),
-    'ideal': 4,
+    'ideal': 1,
     'requiredBlocks': [
-      [{'test': 'moveForward', 'type': 'maze_moveForward'}],
       [{'test': 'turnLeft',
         'type': 'maze_turn',
-        'titles': {'DIR': 'turnLeft'}}],
-      [{'test': 'isPathLeft',
-        'type': 'maze_if',
-        'titles': {'DIR': 'isPathLeft'}}],
-      [{'test': 'while', 'type': 'maze_forever'}]
+        'titles': {'DIR': 'turnLeft'}}]
     ],
     'startDirection': Direction.EAST,
     'map': [
@@ -574,7 +569,8 @@ module.exports = {
       [0, 0, 0, 0, 0, 1, 0, 0],
       [0, 0, 0, 2, 1, 1, 0, 0],
       [0, 0, 0, 0, 0, 4, 0, 0]
-    ]
+    ],
+    'startBlocks': startBlocks(2, 13)
   },
   '2_14': {
     'instructions': 'instructions2_14',
@@ -724,10 +720,19 @@ module.exports = {
   '2_19': {
     'instructions': 'instructions2_19',
     'toolbox': toolbox(2, 19),
-    'idea': 4,
+    'idea': 3,
     'scale': {
       'stepSpeed': 3
     },
+    'requiredBlocks': [
+      [{'test': 'moveForward', 'type': 'maze_moveForward'}],
+      [{'test': 'turnLeft',
+        'type': 'maze_turn',
+        'titles': {'DIR': 'turnLeft'}}],
+      [{'test': 'turnRight',
+        'type': 'maze_turn',
+        'titles': {'DIR': 'turnRight'}}]
+    ],
     'startDirection': Direction.NORTH,
     'map': [
       [1, 1, 1, 1, 1, 1, 1, 1],
