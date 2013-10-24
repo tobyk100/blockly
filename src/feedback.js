@@ -10,16 +10,18 @@ exports.displayFeedback = function(options, Dialog, onContinue) {
   var lines = options.lineInfo = countLinesOfCode();
   sessionStorage.setItem(exports.LINES_OF_CODE, lines.totalLines);
 
+  var numTrophies = numTrophiesEarned(options);
+
   var feedback = document.createElement('div');
-  var feedbackMessage = getFeedbackMessage(options);
-  var trophies = getTrophiesElement(options);
+  var feedbackMessage = getFeedbackMessage(options, numTophies);
   var showCode = getShowCodeElement(options);
   var feedbackBlocks = new FeedbackBlocks(options);
 
   if (feedbackMessage) {
     feedback.appendChild(feedbackMessage);
   }
-  if (trophies) {
+  if (numTrophies) {
+    var trophies = getTrophiesElement(options, numTrophies);
     feedback.appendChild(trophies);
   }
   if (feedbackBlocks.div) {
@@ -99,7 +101,7 @@ var getFeedbackButtons = function(canContinue) {
   return buttons;
 };
 
-var getFeedbackMessage = function(options) {
+var getFeedbackMessage = function(options, numTrophies) {
   var feedback = document.createElement('p');
   feedback.className = 'congrats';
   var message;
@@ -131,7 +133,13 @@ var getFeedbackMessage = function(options) {
     case BlocklyApps.TestResults.ALL_PASS:
       var finalLevel = (options.response &&
           (options.response.message == "no more levels"));
-      message = finalLevel ? msg.finalLevel() : msg.nextLevel();
+      if (numTrophies > 0) {
+        var msgParams = { numTrophies: numTrophies };
+        message = finalLevel ? msg.finalLevelTrophies(msgParams) :
+                               msg.nextLevelTrophies(msgParams);
+      } else {
+        message = finalLevel ? msg.finalLevel() : msg.nextLevel();
+      }
       break;
     // Free plays
     case BlocklyApps.TestResults.FREE_PLAY:
@@ -142,25 +150,25 @@ var getFeedbackMessage = function(options) {
   return feedback;
 };
 
-var getTrophiesElement = function(options) {
-  var nextLevelNewText;
-  var earnedTrophies = (options.response && options.response.trophy_updates &&
-      options.response.trophy_updates.length);
-  if (earnedTrophies) {
-    var arrayLength = options.response.trophy_updates.length;
-    var msgParams = { numTrophies: arrayLength };
-
-    var html = "";
-    for (var i = 0; i < arrayLength; i++) {
-      html += trophy({
-        img_url: options.response.trophy_updates[i][2],
-        concept_name: options.response.trophy_updates[i][0]
-      });
-    }
-    var trophies = document.createElement('div');
-    trophies.innerHTML = html;
-    return trophies;
+var numTrophiesEarned = function(options) {
+  if (options.response && options.response.trophy_updates) {
+    return options.response.trophy_updates.length;
+  } else {
+    return 0;
   }
+};
+
+var getTrophiesElement = function(options, numTrophies) {
+  var html = "";
+  for (var i = 0; i < numTrophies; i++) {
+    html += trophy({
+      img_url: options.response.trophy_updates[i][2],
+      concept_name: options.response.trophy_updates[i][0]
+    });
+  }
+  var trophies = document.createElement('div');
+  trophies.innerHTML = html;
+  return trophies;
 };
 
 var getShowCodeElement = function(options) {
