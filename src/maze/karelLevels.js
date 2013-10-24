@@ -304,7 +304,6 @@ module.exports = {
   '1_4': {
     'instructions': 'instructions1_4',
     'toolbox': toolbox(1, 4),
-    'startBlocks': startBlocks(1, 4),
     'ideal': 4,
     'requiredBlocks': [
       [MOVE_FORWARD], [DIG], [TURN_LEFT], [REPEAT]
@@ -389,7 +388,6 @@ module.exports = {
   '1_6': {
     'instructions': 'instructions1_6',
     'toolbox': toolbox(1, 6),
-    'startBlocks': startBlocks(1, 6),
     'ideal': 3,
     'requiredBlocks': [
       [MOVE_FORWARD],
@@ -479,7 +477,6 @@ module.exports = {
   '1_8': {
     'instructions': 'instructions1_8',
     'toolbox': toolbox(1, 8),
-    'startBlocks': startBlocks(1, 8),
     'ideal': 3,
     'requiredBlocks': [
       [MOVE_FORWARD],
@@ -522,7 +519,6 @@ module.exports = {
   '1_9': {
     'instructions': 'instructions1_9',
     'toolbox': toolbox(1, 9),
-    'startBlocks': startBlocks(1, 9),
     'ideal': 9,
     'requiredBlocks': [
       [MOVE_FORWARD],

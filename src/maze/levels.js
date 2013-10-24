@@ -286,7 +286,8 @@ module.exports = {
       [0, 0, 0, 0, 0, 0, 0, 0],
       [0, 0, 0, 0, 0, 0, 0, 0],
       [0, 0, 0, 0, 0, 0, 0, 0]
-    ]
+    ],
+    'startBlocks': startBlocks(2, 1)
   },
   '2_2': {
     'instructions': 'instructions2_2',
@@ -305,7 +306,8 @@ module.exports = {
       [0, 0, 0, 0, 0, 0, 0, 0],
       [0, 0, 0, 0, 0, 0, 0, 0],
       [0, 0, 0, 0, 0, 0, 0, 0]
-    ]
+    ],
+    'startBlocks': startBlocks(2, 2)
   },
   '2_3': {
     'instructions': 'instructions2_3',
@@ -330,7 +332,8 @@ module.exports = {
       [0, 0, 0, 0, 0, 0, 0, 0],
       [0, 0, 0, 0, 0, 0, 0, 0],
       [0, 0, 0, 0, 0, 0, 0, 0]
-    ]
+    ],
+    'startBlocks': startBlocks(2, 3)
   },
   '2_4': {
     'instructions': 'instructions2_4',
