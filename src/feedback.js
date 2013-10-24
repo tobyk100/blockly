@@ -76,17 +76,7 @@ var getNumBlocksUsed = function() {
     }
     return codeLines;
   }
-  var blocks = getUserBlocks();
-  if (!BlocklyApps.FREE_BLOCKS) {
-    return blocks.length;
-  }
-  var count = 0;
-  for (i = 0; i < blocks.length; i++) {
-    if (!blocks[i].type.match(BlocklyApps.FREE_BLOCKS)) {
-      count++;
-    }
-  }
-  return count;
+  return getUserBlocks().length;
 };
 
 var getFeedbackButtons = function(feedbackType) {
