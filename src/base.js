@@ -129,15 +129,6 @@ exports.isMobile = function() {
 };
 
 /**
- * Returns true if viewport is shorter than documentElement height.
- * False otherwise.
- */
-exports.isPageShort = function() {
-  var pageHeight = document.documentElement.getBoundingClientRect().height;
-  return (window.innerHeight < pageHeight);
-};
-
-/**
  * @param {Object} options Configuration parameters for Blockly. Parameters are
  * optional and include:
  *  - {string} path The root path to the /blockly directory, defaults to the
