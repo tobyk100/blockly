@@ -118,25 +118,29 @@
   },
   "nextLevel": {
     "id": "6946125796492579884",
-    "string": "Congratulations! You completed this level.",
+    "string": "Congratulations! You completed this puzzle.",
     "description": "alert - This is displayed when the user solves the level, inviting them to precede to the next level of difficulty."
   },
-  "finalLevel": {
+  "finalStage": {
     "id": "1144995744314074379",
-    "string": "Congratulations! You have solved the final level.",
+    "string": "Congratulations! You have completed the final stage.",
     "description": "alert - This is displayed when the user solves the most difficult level."
   },
   "nextLevelTrophies": {
-    "string": "Congratulations! You completed this level and won {numTrophies, plural, one {a trophy} other {# trophies}}.",
+    "string": "Congratulations! You completed this puzzle and won {numTrophies, plural, one {a trophy} other {# trophies}}.",
     "description": "alert - This is displayed when the user solves the level and won one or more trophies."
   },
-  "finalLevelTrophies": {
-    "string": "Congratulations! You have solved the final level and won {numTrophies, plural, one {a trophy} other {# trophies}}.",
+  "finalStageTrophies": {
+    "string": "Congratulations! You have completed the final stage and won {numTrophies, plural, one {a trophy} other {# trophies}}.",
     "description": "alert - This is displayed when the user solves the most difficult level and won one or more trophies."
   },
-  "puzzleTitle": {
-    "string": "Puzzle {puzzle_number} of {stage_total}",
-    "description": "title - This is displayed as the title of the dialog when a new level appears."
+  "nextStage": {
+    "string": "Congratulations! You completed Stage {stageNumber}.",
+    "description": "alert - This is displayed when the user completes the stage, inviting them to precede to the next stage."
+  },
+  "nextStageTrophies": {
+    "string": "Congratulations! You completed Stage {stageNumber} and won {numTrophies, plural, one {a trophy} other {# trophies}}.",
+    "description": "alert - This is displayed when the user completes the stage and won one or more trophies."
   },
   "numBlocksNeeded": {
     "id": "857707012901609467",
@@ -147,6 +151,10 @@
     "id": "8682553848590484654",
     "string": "CS First",
     "description": "The project name. 'CS' is an abbreviation for Computer Science. 'First' refers to the project's goal of introducing students to programming as early as possible in their life."
+  },
+  "puzzleTitle": {
+    "string": "Puzzle {puzzle_number} of {stage_total}",
+    "description": "title - This is displayed as the title of the dialog when a new level appears."
   },
   "resetProgram": {
     "id": "6533409555866489852",
