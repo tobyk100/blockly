@@ -59,8 +59,7 @@ exports.displayFeedback = function(options) {
 
 /**
  * Counts the number of blocks used.  Blocks are only counted if they are
- * not disabled, are deletable, and match BlocklyApps.FREE_BLOCKS_FILTER,
- * if defined.
+ * not disabled, are deletable.
  * @return {number} Number of blocks used.
  */
 var getNumBlocksUsed = function() {
