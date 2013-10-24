@@ -472,24 +472,21 @@ module.exports = {
   '2_10': {
     'instructions': 'instructions2_10',
     'toolbox': toolbox(2, 10),
-    'ideal': 3,
+    'ideal': 2,
     'requiredBlocks': [
-      [{'test': 'turnRight',
-        'type': 'maze_turn',
-        'titles': {'DIR': 'turnRight'}}],
       [{'test': 'moveForward', 'type': 'maze_moveForward'}],
       [{'test': 'while', 'type': 'maze_forever'}]
     ],
-    'startDirection': Direction.EAST,
+    'startDirection': Direction.NORTH,
     'map': [
       [0, 0, 0, 0, 0, 0, 0, 0],
       [0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 3, 0, 0, 0],
+      [0, 0, 0, 0, 1, 0, 0, 0],
+      [0, 0, 0, 0, 1, 0, 0, 0],
+      [0, 0, 0, 0, 1, 0, 0, 0],
       [0, 0, 0, 0, 2, 0, 0, 0],
-      [0, 0, 0, 0, 1, 0, 0, 0],
-      [0, 0, 0, 0, 1, 0, 0, 0],
-      [0, 0, 0, 0, 1, 0, 0, 0],
-      [0, 0, 0, 0, 1, 0, 0, 0],
-      [0, 0, 0, 0, 3, 0, 0, 0]
+      [0, 0, 0, 0, 0, 0, 0, 0]
     ]
   },
   '2_11': {
