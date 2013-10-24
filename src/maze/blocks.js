@@ -316,7 +316,7 @@ exports.install = function(blockly, skin) {
       this.setHSV(322, 0.90, 0.95);
       this.appendDummyInput()
           .appendTitle(msg.repeatUntil())
-          .appendTitle(new blockly.FieldImage(skin.goal, 12, 16));
+          .appendTitle(new blockly.FieldImage(skin.goal, 25, 25));
       this.appendStatementInput('DO')
           .appendTitle(msg.doCode());
       this.setPreviousStatement(true);
