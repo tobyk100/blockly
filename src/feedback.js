@@ -160,7 +160,7 @@ var numTrophiesEarned = function(options) {
 
 var getTrophiesElement = function(options) {
   var html = "";
-  for (var i = 0; i < numTrophies; i++) {
+  for (var i = 0; i < options.numTrophies; i++) {
     html += trophy({
       img_url: options.response.trophy_updates[i][2],
       concept_name: options.response.trophy_updates[i][0]
