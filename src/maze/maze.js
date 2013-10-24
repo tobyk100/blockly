@@ -30,7 +30,7 @@ var skins = require('../skins');
 var tiles = require('./tiles');
 var codegen = require('../codegen');
 var api = require('./api');
-var page = require('../page.html');
+var page = require('../templates/page.html');
 
 var Direction = tiles.Direction;
 var SquareType = tiles.SquareType;

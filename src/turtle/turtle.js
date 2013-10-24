@@ -37,7 +37,7 @@ var levels = require('./levels');
 var Colours = require('./core').Colours;
 var codegen = require('../codegen');
 var api = require('./api');
-var page = require('../page.html');
+var page = require('../templates/page.html');
 
 var level;
 var skin;
