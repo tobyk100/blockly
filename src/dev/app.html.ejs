@@ -6,8 +6,8 @@
   <title>Mooc - <%= app %>: <%= options.levelId %></title>
   <link rel="stylesheet" type="text/css" href="../css/common.css">
   <link rel="stylesheet" type="text/css" href="../css/<%= app %>.css">
-  <script type="text/javascript" src="../js/<%= locale %>/vendor.js"></script>
-  <script type="text/javascript" src="../js/<%= locale %>/<%= app %>.js"></script>
+  <script type="text/javascript" src="../js/<%= options.locale %>/vendor.js"></script>
+  <script type="text/javascript" src="../js/<%= options.locale %>/<%= app %>.js"></script>
   <script type="text/javascript">
     <%= app %>Main(<%-: options | json %>);
   </script>

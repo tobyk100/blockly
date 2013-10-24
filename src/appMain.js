@@ -6,6 +6,20 @@ if (typeof global !== 'undefined') {
 
 var addReadyListener = require('./dom').addReadyListener;
 
+function StubDialog() {
+  for (var argument in arguments) {
+    console.log(argument);
+  }
+}
+StubDialog.prototype.show = function() {
+  console.log("Showing Dialog");
+  console.log(this);
+};
+StubDialog.prototype.hide = function() {
+  console.log("Hiding Dialog");
+  console.log(this);
+};
+
 module.exports = function(app, levels, options) {
 
   // If a levelId is not provided, then options.level is specified in full.
@@ -20,7 +34,10 @@ module.exports = function(app, levels, options) {
     options.level = level;
   }
 
+  options.Dialog = options.Dialog || StubDialog;
+
   BlocklyApps.BASE_URL = options.baseUrl;
+  BlocklyApps.LOCALE = options.locale || BlocklyApps.LOCALE;
 
   options.blocksModule.install(Blockly, options.skin);
 

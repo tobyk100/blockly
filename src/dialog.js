@@ -126,20 +126,24 @@ var matchBorder = function(element, animate, opacity) {
 
 /**
  * Show the dialog pop-up.
- * @param {!Object} options Configuration options, detailed below.
- *   - {!Element} content DOM element to display in the dialog.
- *   - @param {Element} origin Animate the dialog opening/closing from/to this
+ * options Configuration options, detailed below.
+ *   - content DOM element to display in the dialog.
+ *   - origin Animate the dialog opening/closing from/to this
  *         DOM element.
- *   - {boolean} animate Animate the dialog opening, defaults to true.
- *   - {boolean} modal Makes dialog modal, defaults to true.
- *   - {!Object} style A dictionary of style rules for the dialog.
- *   - {Function} disposeFunc A function to call when the dialog closes.
+ *   - animate Animate the dialog opening, defaults to true.
+ *   - modal Makes dialog modal, defaults to true.
+ *   - style A dictionary of style rules for the dialog.
+ *   - disposeFunc A function to call when the dialog closes.
+ *   - icon A url to an icon to show in the corner of the dialog.
+ *   - dismissible A boolean which indicates whether or not a small x should
+ *        be displayed in the top right.
  */
 exports.show = function(options) {
   var defaults = {
     animate: true,
     modal: true,
-    origin: null
+    origin: null,
+    dismissible: false
   };
 
   options = utils.extend(defaults, options);
@@ -158,6 +162,22 @@ exports.show = function(options) {
   var dialog = document.getElementById('dialog');
   var shadow = document.getElementById('dialogShadow');
   var border = document.getElementById('dialogBorder');
+
+  if (options.icon) {
+    var image = document.createElement('img');
+    image.src = options.icon;
+    image.style.width = '150px';
+    image.style.height = 'auto';
+    image.style.float = 'left';
+    dialog.appendChild(image);
+  }
+
+  if (options.dismissible) {
+    var close = document.createElement('a');
+    close.className = 'close';
+    close.innerHTML = '&#X2297';
+    dialog.appendChild(close);
+  }
 
   // Copy all the specified styles to the dialog.
   for (var name in options.style) {

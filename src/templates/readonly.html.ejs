@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8">
   <title>Blockly</title>
-  <script type="text/javascript" src="<%= options.baseUrl %>/js/en_us/vendor.js"></script>
-  <script type="text/javascript" src="<%= options.baseUrl %>/js/en_us/<%= app %>.js"></script>
+  <script type="text/javascript" src="<%= options.baseUrl %>js/<%= options.locale %>/vendor.js"></script>
+  <script type="text/javascript" src="<%= options.baseUrl %>js/<%= options.locale %>/<%= app %>.js"></script>
   <script type="text/javascript">
     <%= app %>Main(<%-: options | json %>);
   </script>
