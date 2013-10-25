@@ -276,10 +276,6 @@ input[type="radio"] {
 $modal-image-width: 100px;
 $modal-image-margin-gap: 10px;
 
-.modal {
-  top: 20%;
-}
-
 .modal-content {
   margin-left: $modal-image-width + $modal-image-margin-gap;
   p, pre {
