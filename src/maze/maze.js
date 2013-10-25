@@ -93,6 +93,9 @@ var loadLevel = function() {
   // Height and width of the goal and obstacles.
   Maze.MARKER_HEIGHT = 43;
   Maze.MARKER_WIDTH = 50;
+  // Height and width of the dirt piles/holes.
+  Maze.DIRT_HEIGHT = 50;
+  Maze.DIRT_WIDTH = 50;
 
   Maze.MAZE_WIDTH = Maze.SQUARE_SIZE * Maze.COLS;
   Maze.MAZE_HEIGHT = Maze.SQUARE_SIZE * Maze.ROWS;
@@ -506,13 +509,13 @@ BlocklyApps.reset = function(first) {
         dirtIcon = document.createElementNS(Blockly.SVG_NS, 'image');
         dirtIcon.setAttribute('id', 'dirt' + dirtId);
         Maze.setDirtImage(dirtIcon, x, y);
-        dirtIcon.setAttribute('height', 50);
-        dirtIcon.setAttribute('width', 42);
+        dirtIcon.setAttribute('height', Maze.DIRT_HEIGHT);
+        dirtIcon.setAttribute('width', Maze.DIRT_WIDTH);
         svg.insertBefore(dirtIcon, pegmanIcon);
         dirtIcon.setAttribute('x',
             Maze.SQUARE_SIZE * (x + 0.5) - dirtIcon.getAttribute('width') / 2);
         dirtIcon.setAttribute('y',
-            Maze.SQUARE_SIZE * (y + 1.0) - dirtIcon.getAttribute('height'));
+            Maze.SQUARE_SIZE * (y + 0.5) - dirtIcon.getAttribute('height') / 2);
       }
       ++dirtId;
     }
@@ -1058,24 +1061,24 @@ Maze.scheduleFill = function() {
     Maze.setDirtImage(dirtIcon, x, y);
     dirtIcon.setAttribute('x', Maze.SQUARE_SIZE * (x + 0.5) -
                           dirtIcon.getAttribute('width') / 2);
-    dirtIcon.setAttribute('y', Maze.SQUARE_SIZE * (y + 1.0) -
-                          dirtIcon.getAttribute('height'));
+    dirtIcon.setAttribute('y', Maze.SQUARE_SIZE * (y + 0.5) -
+                          dirtIcon.getAttribute('height') / 2);
   } else {
     var svgMaze = document.getElementById('svgMaze');
     if (Maze.dirt_[y][x] === 0) {
       // If not, create a new dirtIcon for the current location
       dirtIcon = document.createElementNS(Blockly.SVG_NS, 'image');
       dirtIcon.setAttribute('id', 'dirt' + dirtId);
-      dirtIcon.setAttribute('height', 50);
-      dirtIcon.setAttribute('width', 42);
+      dirtIcon.setAttribute('height', Maze.DIRT_HEIGHT);
+      dirtIcon.setAttribute('width', Maze.DIRT_WIDTH);
       svgMaze.insertBefore(dirtIcon, pegmanIcon);
 
       ++Maze.dirt_[y][x];
       Maze.setDirtImage(dirtIcon, x, y);
       dirtIcon.setAttribute('x', Maze.SQUARE_SIZE * (x + 0.5) -
                             dirtIcon.getAttribute('width') / 2);
-      dirtIcon.setAttribute('y', Maze.SQUARE_SIZE * (y + 1.0) -
-                            dirtIcon.getAttribute('height'));
+      dirtIcon.setAttribute('y', Maze.SQUARE_SIZE * (y + 0.5) -
+                            dirtIcon.getAttribute('height') / 2);
     } else if (Maze.dirt_[y][x] == -1) {
       // Remove the dirtIcon
       dirtIcon = document.getElementById('dirt' + dirtId);
@@ -1118,15 +1121,15 @@ Maze.scheduleDig = function() {
       Maze.dirt_[y][x] = Maze.dirt_[y][x] - 1;
       dirtIcon = document.createElementNS(Blockly.SVG_NS, 'image');
       dirtIcon.setAttribute('id', 'dirt' + dirtId);
-      dirtIcon.setAttribute('height', 50);
-      dirtIcon.setAttribute('width', 42);
+      dirtIcon.setAttribute('height', Maze.DIRT_HEIGHT);
+      dirtIcon.setAttribute('width', Maze.DIRT_WIDTH);
       svg.insertBefore(dirtIcon, pegmanIcon);
 
       Maze.setDirtImage(dirtIcon, x, y);
       dirtIcon.setAttribute('x', Maze.SQUARE_SIZE * (x + 0.5) -
                             dirtIcon.getAttribute('width') / 2);
-      dirtIcon.setAttribute('y', Maze.SQUARE_SIZE * (y + 1.0) -
-                            dirtIcon.getAttribute('height'));
+      dirtIcon.setAttribute('y', Maze.SQUARE_SIZE * (y + 0.5) -
+                            dirtIcon.getAttribute('height') / 2);
     } else if (Maze.dirt_[y][x] == 1) {
       // Need to remove this dirtIcon
       dirtIcon = document.getElementById('dirt' + dirtId);
