@@ -5,7 +5,7 @@ var jsdom = require('jsdom').jsdom;
 var xmldom = require('xmldom');
 
 var VENDOR_CODE =
-  fs.readFileSync(path.join(__dirname, '../dist/js/vendor.js'));
+  fs.readFileSync(path.join(__dirname, '../dist/js/en_us/vendor.js'));
 
 var initBlockly = function(window_) {
   /* jshint -W054 */

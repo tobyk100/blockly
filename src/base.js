@@ -24,11 +24,8 @@
 "use strict";
 var BlocklyApps = module.exports;
 var msg = require('../locale/current/common');
-var dialog = require('./dialog');
 var parseXmlElement = require('./xml').parseElement;
-var codegen = require('./codegen');
-var readonly = require('./readonly.html');
-var trophy = require('./trophy.html');
+var feedback = require('./feedback.js');
 var addReadyListener = require('./dom').addReadyListener;
 var responsive = require('./responsive');
 var utils = require('./utils');
@@ -41,6 +38,11 @@ var onContinue;
  * The parent directory of the apps. Contains common.js.
  */
 BlocklyApps.BASE_URL = undefined;
+
+/**
+ * The current locale code.
+ */
+BlocklyApps.LOCALE = 'en_us';
 
 /**
  * If the user presses backspace, stop propagation - this prevents blockly
@@ -98,10 +100,20 @@ BlocklyApps.init = function(config) {
     codeTextbox.addEventListener('keydown', codeKeyDown, true);
   }
 
-  var showCode = document.getElementById('show-code-header');
-  exports.addClickTouchEvent(showCode, BlocklyApps.showGeneratedCode);
+  BlocklyApps.Dialog = config.Dialog;
 
-  exports.showInstructions(config.level.instructions);
+  var showCode = document.getElementById('show-code-header');
+  if (showCode) {
+    utils.addClickTouchEvent(showCode, function() {
+      feedback.showGeneratedCode(BlocklyApps.Dialog);
+    });
+  }
+
+  BlocklyApps.ICON = config.skin.staticAvatar;
+
+  if (BlocklyApps.Dialog) {
+    showInstructions(config.level);
+  }
 
   // Add events for touch devices when the window is done loading.
   addReadyListener(BlocklyApps.addTouchEvents);
@@ -109,30 +121,11 @@ BlocklyApps.init = function(config) {
   if (exports.isMobile()) {
     responsive.forceLandscape();
   }
-  if (exports.isPageShort()) {
-    responsive.scrollPastHeader();
-  }
-};
-
-exports.addClickTouchEvent = function(element, handler) {
-  if ('ontouchend' in document.documentElement) {
-    element.addEventListener('touchend', handler, false);
-  }
-  element.addEventListener('click', handler, false);
 };
 
 exports.isMobile = function() {
   var reg = /Mobile|iP(hone|od|ad)|Android|BlackBerry|IEMobile/;
   return reg.test(window.navigator.userAgent);
-};
-
-/**
- * Returns true if viewport is shorter than documentElement height.
- * False otherwise.
- */
-exports.isPageShort = function() {
-  var pageHeight = document.documentElement.getBoundingClientRect().height;
-  return (window.innerHeight < pageHeight);
 };
 
 /**
@@ -193,9 +186,40 @@ BlocklyApps.loadBlocks = function(blocksXml) {
   Blockly.Xml.domToWorkspace(Blockly.mainWorkspace, xml);
 };
 
-exports.showInstructions = function(instructions) {
-  var instructionsDiv = document.getElementById('prompt');
-  instructionsDiv.innerHTML = instructions;
+var showInstructions = function(level) {
+  var instructionsDiv = document.createElement('div');
+  instructionsDiv.innerHTML = require('./templates/instructions.html')(level);
+
+  var buttons = document.createElement('div');
+  buttons.innerHTML = require('./templates/buttons.html')({
+    data: {
+      ok: true
+    }
+  });
+
+  instructionsDiv.appendChild(buttons);
+
+  var dialog = feedback.createModalDialogWithIcon(BlocklyApps.Dialog,
+                                                  instructionsDiv);
+  var okayButton = buttons.querySelector('#ok-button');
+  if (okayButton) {
+    utils.addClickTouchEvent(okayButton, function() {
+      dialog.hide();
+    });
+  }
+
+  addReadyListener(function() {
+    var offset = {
+      top: document.getElementById('headers').getBoundingClientRect().bottom
+    };
+    dialog.show(offset);
+  });
+
+  var promptDiv = document.getElementById('prompt');
+  promptDiv.innerHTML = level.instructions;
+
+  var promptIcon = document.getElementById('prompt-icon');
+  promptIcon.src = BlocklyApps.ICON;
 };
 
 /**
@@ -276,86 +300,6 @@ BlocklyApps.checkTimeout = function(opt_id) {
   if (BlocklyApps.ticks-- < 0) {
     throw Infinity;
   }
-};
-
-/**
- * Hide the dialog pop-up.
- * @param {boolean} opt_animate Animate the dialog closing.  Defaults to true.
- *     Requires that origin was not null when dialog was opened.
- */
-BlocklyApps.hideDialog = function(opt_animate) {
-  dialog.hide(opt_animate);
-};
-
-/**
- * Retrieve a string containing the user's generated Javascript code.
- */
-BlocklyApps.getGeneratedCodeString = function() {
-  if (BlocklyApps.editCode) {
-    var codeTextbox = document.getElementById('codeTextbox');
-    return (codeTextbox.innerText || codeTextbox.textContent);
-  }
-  else {
-    return codegen.workspaceCode(Blockly);
-  }
-};
-
-/**
- * Retrieve a DOM text node containing the user's generated Javascript code.
- */
-BlocklyApps.getGeneratedCodeElement = function() {
-  // Inject the code as a textNode, then extract with innerHTML, thus escaping.
-  var unescapedCodeString = BlocklyApps.getGeneratedCodeString();
-  var codeNode = document.createTextNode(unescapedCodeString);
-  return codeNode;
-};
-
- /**
-  * Show the user's code in raw JavaScript in its own modal popup.
-  * @param {Element} origin Animate the dialog opening/closing from/to this
-  *     DOM element.  If null, don't show any animations for opening or closing.
-  */
-BlocklyApps.showGeneratedCode = function(origin) {
-  BlocklyApps.setTextForElement('generatedCodeInfoMsg2', BlocklyApps.editCode ?
-      "" : msg.generatedCodeInfo());
-  BlocklyApps.setTextForElement('containerCode',
-                                BlocklyApps.getGeneratedCodeString());
-  var content = document.getElementById('dialogCode');
-  content.style.display = 'block';
-  var offset = window.scrollY;
-  var style = {
-    position: 'absolute',
-    width: '40%',
-    height: 'auto',
-    left: '30%',
-    top: (offset + 50) + 'px'
-  };
-  dialog.show({
-    content: content,
-    style: style
-  });
-};
-
-/**
- * Show the user's code in raw JavaScript in the feedback modal popup.
- * @param {Element} showLinkElement The link element from which the code display is triggered.
- */
-BlocklyApps.showGeneratedCodeInFeedback = function(showLinkElement) {
-  var pre = document.getElementById('generatedCodeContainer');
-  pre.appendChild(BlocklyApps.getGeneratedCodeElement());
-  pre.parentNode.style.display = 'block';
-  showLinkElement.style.display = 'none';
-};
-
-/**
- * Reset the link to show generated code in the feedback modal popup.
- * @param {Element} showLinkElement The link element from which the code display is triggered.
- */
-BlocklyApps.resetGeneratedCodeInFeedback = function(showLinkElement) {
-  var pre = document.getElementById('generatedCodeContainer');
-  pre.innerHTML = "";
-  pre.parentNode.style.display = 'none';
-  showLinkElement.style.display = 'block';
 };
 
 /**
@@ -476,8 +420,6 @@ BlocklyApps.TestResults = {
   ALL_PASS: 100               // 3 stars.
 };
 
-BlocklyApps.LINES_OF_CODE = 'blockly_lines_of_code';
-
 /**
  * Updates the document's 'capacity' element's innerHTML with a message
  * indicating how many more blocks are permitted.  The capacity
@@ -510,363 +452,14 @@ BlocklyApps.updateCapacity = function() {
  *     BlocklyApps.TestResults).
  */
 BlocklyApps.displayFeedback = function(options) {
-  var lines = options.lineInfo = BlocklyApps.countLinesOfCode();
-  sessionStorage.setItem(BlocklyApps.LINES_OF_CODE, lines.totalLines);
+  options.Dialog = BlocklyApps.Dialog;
+  options.onContinue = onContinue;
 
-  BlocklyApps.hideFeedback();
-  BlocklyApps.setLevelFeedback(options);
-  BlocklyApps.prepareFeedback(options);
-  BlocklyApps.displayCloseDialogButtons(options.feedbackType);
-  BlocklyApps.showHelp(options.feedbackType);
+  feedback.displayFeedback(options);
 };
 
-BlocklyApps.countLinesOfCode = function() {
-  var lines = BlocklyApps.getNumBlocksUsed();
-  var totalLines = sessionStorage.getItem(BlocklyApps.LINES_OF_CODE) ||
-                   0;
-  totalLines = parseInt(totalLines, 10) + lines;
-  return { 'lines': lines, 'totalLines': totalLines };
-};
-
-/**
- * Check user's code for empty top-level blocks e.g. 'repeat'.
- * @return {boolean} true if block is empty (no blocks are nested inside).
- */
-BlocklyApps.hasEmptyTopLevelBlocks = function() {
-  var code = codegen.workspaceCode(Blockly);
-  return (/\{\s*\}/).test(code);
-};
-
-/**
- * Check whether the user code has all the blocks required for the level.
- * @return {boolean} true if all blocks are present, false otherwise.
- */
-BlocklyApps.hasAllRequiredBlocks = function() {
-  return BlocklyApps.getMissingRequiredBlocks().length === 0;
-};
-
-/**
- * Get blocks that the user intends in the program, namely any that
- * are not disabled and can be deleted.
- * @return {Array<Object>} The blocks.
- */
-BlocklyApps.getUserBlocks_ = function() {
-  var allBlocks = Blockly.mainWorkspace.getAllBlocks();
-  var blocks = allBlocks.filter(
-      function(block) {
-        return !block.disabled && block.isDeletable();
-      });
-  return blocks;
-};
-
-/**
- * Check to see if the user's code contains the required blocks for a level.
- * This never returns more than BlocklyApps.NUM_REQUIRED_BLOCKS_TO_FLAG.
- * @return {!Array} array of array of strings where each array of strings is
- * a set of blocks that at least one of them should be used. Each block is
- * represented as the prefix of an id in the corresponding template.soy.
- */
-BlocklyApps.getMissingRequiredBlocks = function() {
-  var missingBlocks = [];
-  var code = null;  // JavaScript code, which is initalized lazily.
-  if (BlocklyApps.REQUIRED_BLOCKS && BlocklyApps.REQUIRED_BLOCKS.length) {
-    var blocks = BlocklyApps.getUserBlocks_();
-    // For each list of required blocks
-    // Keep track of the number of the missing block lists. It should not be
-    // bigger than BlocklyApps.NUM_REQUIRED_BLOCKS_TO_FLAG
-    var missingBlockNum = 0;
-    for (var i = 0;
-         i < BlocklyApps.REQUIRED_BLOCKS.length &&
-             missingBlockNum < BlocklyApps.NUM_REQUIRED_BLOCKS_TO_FLAG;
-         i++) {
-      var tests = BlocklyApps.REQUIRED_BLOCKS[i];
-      // For each of the test
-      // If at least one of the tests succeeded, we consider the required block
-      // is used
-      var usedRequiredBlock = false;
-      for (var testId = 0; testId < tests.length; testId++) {
-        var test = tests[testId].test;
-        if (typeof test === 'string') {
-          if (!code) {
-            code = Blockly.Generator.workspaceToCode('JavaScript');
-          }
-          if (code.indexOf(test) !== -1) {
-            // Succeeded, moving to the next list of tests
-            usedRequiredBlock = true;
-            break;
-          }
-        } else if (typeof test === 'function') {
-          if (blocks.some(test)) {
-            // Succeeded, moving to the next list of tests
-            usedRequiredBlock = true;
-            break;
-          }
-        } else {
-          window.alert('Bad test: ' + test);
-        }
-      }
-      if (!usedRequiredBlock) {
-        missingBlockNum++;
-        missingBlocks = missingBlocks.concat(BlocklyApps.REQUIRED_BLOCKS[i]);
-      }
-    }
-  }
-  return missingBlocks;
-};
-
-/**
- * Counts the number of blocks used.  Blocks are only counted if they are
- * not disabled, are deletable, and match BlocklyApps.FREE_BLOCKS_FILTER,
- * if defined.
- * @return {number} Number of blocks used.
- */
-BlocklyApps.getNumBlocksUsed = function() {
-  var i;
-  if (BlocklyApps.editCode) {
-    var codeLines = 0;
-    // quick and dirty method to count non-blank lines that don't start with //
-    var lines = BlocklyApps.getGeneratedCodeString().split("\n");
-    for (i = 0; i < lines.length; i++) {
-      if ((lines[i].length > 1) && (lines[i][0] != '/' || lines[i][1] != '/')) {
-        codeLines++;
-      }
-    }
-    return codeLines;
-  }
-  var blocks = BlocklyApps.getUserBlocks_();
-  if (!BlocklyApps.FREE_BLOCKS) {
-    return blocks.length;
-  }
-  var count = 0;
-  for (i = 0; i < blocks.length; i++) {
-    if (!blocks[i].type.match(BlocklyApps.FREE_BLOCKS)) {
-      count++;
-    }
-  }
-  return count;
-};
-
-/**
- * Runs the tests and returns results.
- * @return {number} The appropriate property of BlocklyApps.TestResults.
- */
 BlocklyApps.getTestResults = function() {
-  if (BlocklyApps.CHECK_FOR_EMPTY_BLOCKS &&
-      BlocklyApps.hasEmptyTopLevelBlocks()) {
-    return BlocklyApps.TestResults.EMPTY_BLOCK_FAIL;
-  }
-  if (!BlocklyApps.hasAllRequiredBlocks()) {
-    if (BlocklyApps.levelComplete) {
-      return BlocklyApps.TestResults.MISSING_BLOCK_FINISHED;
-    } else {
-      return BlocklyApps.TestResults.MISSING_BLOCK_UNFINISHED;
-    }
-  }
-  var numBlocksUsed = BlocklyApps.getNumBlocksUsed();
-  if (!BlocklyApps.levelComplete) {
-    if (BlocklyApps.IDEAL_BLOCK_NUM &&
-        numBlocksUsed < BlocklyApps.IDEAL_BLOCK_NUM) {
-      return BlocklyApps.TestResults.TOO_FEW_BLOCKS_FAIL;
-    }
-    return BlocklyApps.TestResults.LEVEL_INCOMPLETE_FAIL;
-  }
-  if (BlocklyApps.IDEAL_BLOCK_NUM &&
-      numBlocksUsed > BlocklyApps.IDEAL_BLOCK_NUM) {
-    return BlocklyApps.TestResults.TOO_MANY_BLOCKS_FAIL;
-  } else {
-    return BlocklyApps.TestResults.ALL_PASS;
-  }
-};
-
-/**
- * Creates the XML for blocks to be displayed in a read-only frame.
- * @param {Array} blocks An array of blocks to display (with optional args).
- * @return {string} The generated string of XML.
- */
-var generateXMLForBlocks = function(blocks) {
-  var blockXMLStrings = [];
-  var blockX = 10;  // Prevent left output plugs from being cut off.
-  var blockY = 0;
-  var blockXPadding = 200;
-  var blockYPadding = 120;
-  var blocksPerLine = 2;
-  var iframeHeight = parseInt(document.getElementById('feedbackBlocks')
-          .style.height, 10);
-  var k, name;
-  for (var i = 0; i < blocks.length; i++) {
-    var block = blocks[i];
-    blockXMLStrings.push('<block', ' type="', block.type, '" x="',
-                        blockX.toString(), '" y="', blockY, '">');
-    if (block.titles) {
-      var titleNames = Object.keys(block.titles);
-      for (k = 0; k < titleNames.length; k++) {
-        name = titleNames[k];
-        blockXMLStrings.push('<title name="', name, '">',
-                            block.titles[name], '</title>');
-      }
-    }
-    if (block.values) {
-      var valueNames = Object.keys(block.values);
-      for (k = 0; k < valueNames.length; k++) {
-        name = valueNames[k];
-        blockXMLStrings.push('<value name="', name, '">',
-                            block.values[name], '</value>');
-      }
-    }
-    if (block.extra) {
-      blockXMLStrings.push(block.extra);
-    }
-    blockXMLStrings.push('</block>');
-    if ((i + 1) % blocksPerLine === 0) {
-      blockY += blockYPadding;
-      iframeHeight += blockYPadding;
-      blockX = 0;
-    } else {
-      blockX += blockXPadding;
-    }
-    document.getElementById('feedbackBlocks').style.height =
-        iframeHeight + 'px';
-  }
-  return blockXMLStrings.join('');
-};
-
-var showFeedbackBlocks = function(options) {
-  var missingBlocks = BlocklyApps.getMissingRequiredBlocks();
-  if (missingBlocks.length === 0) {
-    return;
-  }
-  document.getElementById('missingBlocksError').style.display = 'block';
-  var html = readonly({
-    app: options.app,
-    options: {
-      readonly: true,
-      baseUrl: BlocklyApps.BASE_URL,
-      skinId: options.skin,
-      blocks: generateXMLForBlocks(missingBlocks)
-    }
-  });
-  // Fill in the iframe on the next event tick.
-  window.setTimeout(function() {
-    var iframe = document.getElementById('feedbackBlocks');
-    iframe.style.display = 'block';
-    var doc = iframe.contentDocument || iframe.contentWindow.document;
-    doc.open();
-    doc.write(html);
-    doc.close();
-  }, 1);
-};
-
-/**
- * Sets appropriate feedback for when the modal dialog is displayed.
- * @param {number} feedbackType A constant property of BlocklyApps.TestResults,
- *     typically produced by BlocklyApps.getTestResults().
- */
-BlocklyApps.setLevelFeedback = function(options) {
-  switch (options.feedbackType) {
-    // Give hint, not stars, for empty block or not finishing level.
-    case BlocklyApps.TestResults.EMPTY_BLOCK_FAIL:
-      document.getElementById('emptyBlocksError').style.display = 'block';
-      break;
-    case BlocklyApps.TestResults.TOO_FEW_BLOCKS_FAIL:
-      document.getElementById('tooFewBlocksError').style.display = 'block';
-      break;
-    case BlocklyApps.TestResults.LEVEL_INCOMPLETE_FAIL:
-      document.getElementById('levelIncompleteError')
-          .style.display = 'block';
-      break;
-
-    // For completing level, user gets at least one star.
-    case BlocklyApps.TestResults.OTHER_1_STAR_FAIL:
-      document.getElementById('appSpecificOneStarFeedback')
-            .style.display = 'block';
-      break;
-    // Zero star for failing to use required blocks and not completed level.
-    case BlocklyApps.TestResults.MISSING_BLOCK_UNFINISHED:
-      showFeedbackBlocks(options);
-      break;
-    // One star for failing to use required blocks but only if level completed.
-    case BlocklyApps.TestResults.MISSING_BLOCK_FINISHED:
-      showFeedbackBlocks(options);
-      break;
-
-    // Two stars for using too many blocks.
-    case BlocklyApps.TestResults.TOO_MANY_BLOCKS_FAIL:
-      BlocklyApps.setTextForElement(
-          'tooManyBlocksError',
-          msg.numBlocksNeeded().replace(
-              '%1', BlocklyApps.IDEAL_BLOCK_NUM).replace(
-                  '%2', BlocklyApps.getNumBlocksUsed())).style.display =
-                      'block';
-      break;
-    case BlocklyApps.TestResults.OTHER_2_STAR_FAIL:
-      document.getElementById('appSpecificTwoStarFeedback')
-            .style.display = 'block';
-      break;
-
-    // Three stars!
-    case BlocklyApps.TestResults.ALL_PASS:
-      break;
-
-    // Free plays
-    case BlocklyApps.TestResults.FREE_PLAY:
-      document.getElementById('reinfFeedbackMsg').style.display = 'block';
-      break;
-  }
-
-  var nextLevelNewText;
-  var finalLevel = (options.response &&
-      (options.response.message == "no more levels"));
-  var earnedTrophies = (options.response && options.response.trophy_updates &&
-      options.response.trophy_updates.length);
-  if (earnedTrophies) {
-    var arrayLength = options.response.trophy_updates.length;
-    var msgParams = { numTrophies: arrayLength };
-    nextLevelNewText = finalLevel ?
-        msg.finalLevelTrophies(msgParams) : msg.nextLevelTrophies(msgParams);
-
-    var html = "";
-    for (var i = 0; i < arrayLength; i++) {
-      html = html + trophy({
-          img_url: options.response.trophy_updates[i][2],
-          concept_name: options.response.trophy_updates[i][0]
-          });
-    }
-    document.getElementById('trophies').innerHTML = html;
-    document.getElementById('trophies').style.display = 'block';
-  }
-  else {
-    nextLevelNewText = finalLevel ? msg.finalLevel() : msg.nextLevel();
-    document.getElementById('trophies').style.display = 'none';
-  }
-  BlocklyApps.setTextForElement('nextLevelMsg', nextLevelNewText);
-
-  if (BlocklyApps.canContinueToNextLevel(options.feedbackType)) {
-    BlocklyApps.resetGeneratedCodeInFeedback(document.getElementById('showLinesOfCodeLink'));
-    document.getElementById('generatedCodeInfoContainer').style.display = 'inline';
-    BlocklyApps.setTextForElement('totalLinesOfCodeFeedbackMsg',
-        msg.totalNumLinesOfCodeWritten({ numLines: options.lineInfo.totalLines }));
-    BlocklyApps.setTextForElement('linesOfCodeFeedbackMsg',
-        msg.numLinesOfCodeWritten({ numLines: options.lineInfo.lines }));
-    // If totalLines of code == lines of code, remove the linesOfCodeFeedbackMsg
-    if (options.lineInfo.totalLines === options.lineInfo.lines) {
-      document.getElementById('linesOfCodeFeedbackMsg').style.display = 'none';
-    }
-    BlocklyApps.setTextForElement('showLinesOfCodeLink', msg.showGeneratedCode());
-    BlocklyApps.setTextForElement('generatedCodeInfoMsg', BlocklyApps.editCode ?
-        "" : msg.generatedCodeInfo());
-  }
-};
-
-/**
- * Determines whether the user can proceed to the next level, based on the level feedback
- * @param {number} feedbackType A constant property of BlocklyApps.TestResults,
- *     typically produced by BlocklyApps.getTestResults().
- */
-BlocklyApps.canContinueToNextLevel = function(feedbackType) {
-  return (feedbackType === BlocklyApps.TestResults.ALL_PASS ||
-    feedbackType === BlocklyApps.TestResults.TOO_MANY_BLOCKS_FAIL ||
-    feedbackType ===  BlocklyApps.TestResults.OTHER_2_STAR_FAIL ||
-    feedbackType ===  BlocklyApps.TestResults.FREE_PLAY);
+  return feedback.getTestResults();
 };
 
 /**
@@ -895,84 +488,6 @@ BlocklyApps.report =
 };
 
 /**
- * Prepare feedback to display after the user's program has finished running.
- * Specifically, set colours and buttons of feedback added through
- * BlocklyApps.displayFeedback();
- * @param {number} options.feedbackType A constant property of BlocklyApps.TestResults.
- */
-BlocklyApps.prepareFeedback = function(options) {
-  if (!options) {
-    options = {};
-  }
-  // Determine buttons.
-  if (options.feedbackType == BlocklyApps.TestResults.ALL_PASS) {
-    document.getElementById('hintTitle').style.display = 'none';
-    document.getElementById('nextLevelMsg').style.display = 'block';
-  } else {
-    document.getElementById('hintTitle').style.display = 'inline';
-  }
-  document.getElementById('levelFeedbackText').style.display = 'inline';
-};
-
-/**
- * Hide end of level feedback.
- */
-BlocklyApps.hideFeedback = function() {
-  document.getElementById('levelFeedbackText').style.display = 'none';
-  var feedbackArray = document.querySelectorAll('.feedback');
-  for (var i = 0; i < feedbackArray.length; i++) {
-    var feedback = feedbackArray[i];
-    feedback.style.display = 'none';
-  }
-  document.getElementById('tryAgainButton').style.display = 'none';
-  document.getElementById('continueButton').style.display = 'none';
-};
-
-/**
- * Hide the feedback dialog and raise the continue event.
- */
-BlocklyApps.continueClicked = function() {
-  BlocklyApps.hideDialog(false);
-  onContinue();
-};
-
-/**
- * Close the dialog so the user can try again.
- */
-BlocklyApps.tryAgainClicked = function() {
-  BlocklyApps.hideDialog(true);
-};
-
-/**
- * Show the close dialog buttons depending on the state of the level.
- * @param {number} feedbackType The results of block tests.
- */
-BlocklyApps.displayCloseDialogButtons = function(feedbackType) {
-  var continueButton = document.getElementById('continueButton');
-  var tryAgainButton = document.getElementById('tryAgainButton');
-  var returnToLevelButton = document.getElementById('returnToLevelButton');
-  if (BlocklyApps.canContinueToNextLevel(feedbackType)) {
-    continueButton.style.display = 'inline';
-    returnToLevelButton.style.display = 'none';
-    if (feedbackType === BlocklyApps.TestResults.ALL_PASS) {
-      tryAgainButton.style.display = 'none';
-    } else {
-      tryAgainButton.style.display = 'inline';
-    }
-  } else {
-    continueButton.style.display = 'none';
-    if (feedbackType === BlocklyApps.TestResults.MISSING_BLOCK_FINISHED ||
-      feedbackType === BlocklyApps.TestResults.OTHER_1_STAR_FAIL) {
-      tryAgainButton.style.display = 'inline';
-      returnToLevelButton.style.display = 'none';
-    } else {
-      returnToLevelButton.style.display = 'block';
-      tryAgainButton.style.display = 'none';
-    }
-  }
-};
-
-/**
  * Click the reset button.  Reset the application.
  */
 BlocklyApps.resetButtonClick = function() {
@@ -980,51 +495,4 @@ BlocklyApps.resetButtonClick = function() {
   document.getElementById('resetButton').style.display = 'none';
   Blockly.mainWorkspace.traceOn(false);
   BlocklyApps.reset(false);
-};
-
-/**
- * Show the help pop-up.
- * @param {number} feedbackType If defined, the results of end of level tests.
- */
-BlocklyApps.showHelp = function(feedbackType) {
-  feedbackType = typeof feedbackType !== 'undefined' ?
-      feedbackType : BlocklyApps.NO_TESTS_RUN;
-  var help = document.getElementById('help');
-
-  var offset = window.scrollY;
-  var style = {
-    width: '50%',
-    height: 'auto',
-    right: '25%',
-    top: (offset + 20) + 'px'
-  };
-  if (document.getElementById('reinfMsg')) {
-    var reinfMSG = document.getElementById('reinfMsg').innerHTML.match(/\S/);
-    var interstitial = document.getElementById('interstitial').style.display;
-    if (reinfMSG && interstitial == 'none') {
-      BlocklyApps.showInterstitial();
-    }
-  }
-  BlocklyApps.displayCloseDialogButtons(feedbackType);
-  dialog.show({
-    content: help,
-    animate: false,
-    style: style
-  });
-};
-
-/**
- * Place text in the specified element, if found.  This eliminates
- * any other children of the element and creates a child text node.
- * @param {string} id The identifier of the element.
- * @param {string} text The text to display.
- * @return {Object} The element.
- */
-BlocklyApps.setTextForElement = function(id, text) {
-  var element = document.getElementById(id);
-  if (element) {
-    element.innerHTML = '';  // Remove existing children or text.
-    element.appendChild(document.createTextNode(text));
-  }
-  return element;
 };

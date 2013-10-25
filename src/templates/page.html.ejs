@@ -1,0 +1,85 @@
+<% var msg = require('../../locale/current/common'); %>
+
+<img id="rotateMobile" class="dialogHiddenContent" src="<%= baseUrl %>media/iphone_rotate.png">
+
+<% var dialog = function() { -%>
+  <div id="dialogShadow" class="dialogAnimate"></div>
+  <div id="dialogBorder"></div>
+  <div id="dialog"></div>
+<% }; -%>
+
+<% var instructions = function() { -%>
+  <div id="bubble">
+    <img id="prompt-icon">
+    <div id="prompt">
+    </div>
+  </div>
+<% }; -%>
+
+<%
+/**
+ * @param appInstance The name of the App object to run.
+ */
+var gameButtons = function(appInstance) { -%>
+  <table id="gameButtons">
+    <tr>
+      <td>
+        <button id="runButton" class="launch" onclick="<%= appInstance %>.runButtonClick();">
+          <img src="<%= baseUrl %>media/1x1.gif" class="run icon21">
+          <%= msg.runProgram() %>
+        </button>
+        <button id="resetButton" class="launch"
+          onclick="BlocklyApps.resetButtonClick();" style="display: none">
+          <img src="<%= baseUrl %>media/1x1.gif" class="stop icon21">
+            <%= msg.resetProgram() %>
+        </button>
+      </td>
+    </tr>
+  </table>
+<% }; -%>
+
+<% // A spot for the server to inject some HTML for help content.
+var helpArea = function(html) { -%>
+  <% if (html) { -%>
+    <div id="helpArea">
+      <%- html %>
+    </div>
+  <% } -%>
+<% }; -%>
+
+<% var codeArea = function() { -%>
+  <div id="codeTextbox" contenteditable spellcheck=false>
+    <%= msg.typeCode() %>
+    <br>
+    <%= msg.typeHint() %>
+    <br>
+  </div>
+<% }; %>
+
+
+<div id="blockCount"></div>
+
+<div id="visualization">
+  <%- data.visualization %>
+</div>
+
+<% gameButtons(data.appInstance) %>
+<% if (data.controls) { %>
+  <%- data.controls %>
+<% } %>
+<% codeArea() %>
+<% helpArea(data.helpHtml) %>
+
+<div id="blockly">
+  <div id="headers">
+    <div id="toolbox-header" class="blockly-header"><span><%= msg.toolboxHeader() %></span></div>
+    <div id="workspace-header" class="blockly-header"><span><%= msg.workspaceHeader() %></span></div>
+    <div id="show-code-header" class="blockly-header"><span><%= msg.showCodeHeader() %></span></div>
+  </div>
+</div>
+
+<%
+  dialog()
+%>
+
+<% instructions() %>

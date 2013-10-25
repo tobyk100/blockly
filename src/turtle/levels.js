@@ -183,12 +183,13 @@ module.exports = {
     toolbox: toolbox(1, 1),
     startBlocks: startBlocks(1, 1),
     requiredBlocks: [[MOVE_FORWARD_INLINE], [turnRightRestricted(90)]],
-    freePlay: false
+    freePlay: false,
+    startDirection: 90
   },
   // Level 2: Square (without repeat).
   '1_2': {
     answer: answer(1, 2),
-    ideal: 7,
+    ideal: 15,
     toolbox: toolbox(1, 2),
     startBlocks: startBlocks(1, 2),
     requiredBlocks: [
@@ -197,7 +198,8 @@ module.exports = {
       [SET_COLOUR_PICKER]
     ],
     requiredColours: 4,
-    freePlay: false
+    freePlay: false,
+    startDirection: 90
   },
   // Level 3: Square (with repeat).
   '1_3': {
@@ -215,7 +217,7 @@ module.exports = {
   // Level 4: Triangle.
   '1_4': {
     answer: answer(1, 4),
-    ideal: 3,
+    ideal: 5,
     toolbox: toolbox(1, 4),
     startBlocks: startBlocks(1, 4),
     requiredBlocks: [
@@ -261,7 +263,7 @@ module.exports = {
   // Level 7: glasses.
   '1_7': {
     answer: answer(1, 7),
-    ideal: 8,
+    ideal: 10,
     toolbox: toolbox(1, 7),
     startBlocks: startBlocks(1, 7),
     requiredBlocks: [
@@ -277,7 +279,7 @@ module.exports = {
   // Level 8: spikes.
   '1_8': {
     answer: answer(1, 8),
-    ideal: 4,
+    ideal: 6,
     toolbox: toolbox(1, 8),
     startBlocks: startBlocks(1, 8),
     requiredBlocks: [[repeat(8)]],
@@ -306,7 +308,7 @@ module.exports = {
   // Level 1: Square.
   '2_1': {
     answer: answer(2, 1),
-    ideal: 5,
+    ideal: 7,
     toolbox: toolbox(2, 1),
     startBlocks: startBlocks(2, 1),
     requiredBlocks: [
@@ -321,7 +323,7 @@ module.exports = {
   // Level 2: Small green square.
   '2_2': {
     answer: answer(2, 2),
-    ideal: 2,
+    ideal: 4,
     toolbox: toolbox(2, 2),
     startBlocks: startBlocks(2, 2),
     requiredBlocks: [
@@ -334,7 +336,7 @@ module.exports = {
   // Level 3: Three squares.
   '2_3': {
     answer: answer(2, 3),
-    ideal: 5,
+    ideal: 7,
     toolbox: toolbox(2, 3),
     startBlocks: startBlocks(2, 3),
     requiredBlocks: [
@@ -348,7 +350,7 @@ module.exports = {
   // Level 4: 36 squares.
   '2_4': {
     answer: answer(2, 4),
-    ideal: 5,
+    ideal: 7,
     toolbox: toolbox(2, 4),
     startBlocks: startBlocks(2, 4),
     freePlay: false
@@ -388,11 +390,25 @@ module.exports = {
     ],
     freePlay: false
   },
+  // Prep for Level 8: Two snowmen.
+  '2_7_5': {
+    answer: answer(2, 7.5),
+    initialY: 300,
+    ideal: 4,
+    toolbox: toolbox(2, 8),
+    startBlocks: startBlocks(2, 7.5),
+    requiredBlocks: [
+      [drawASnowman(250)],
+      [drawASnowman(100)]
+    ],
+    freePlay: false,
+    sliderSpeed: 0.9
+  },
   // Level 8: Three snowmen.
   '2_8': {
     answer: answer(2, 8),
     initialX: 100,
-    ideal: 9,
+    ideal: 11,
     toolbox: toolbox(2, 8),
     startBlocks: startBlocks(2, 8),
     requiredBlocks: [
@@ -545,7 +561,7 @@ module.exports = {
   '3_6': {
     answer: answer(3, 6),
     initialY: 350,
-    ideal: 13,
+    ideal: 17,
     toolbox: toolbox(3, 6),
     startBlocks: startBlocks(3, 6),
     requiredBlocks: [
@@ -621,7 +637,7 @@ module.exports = {
     answer: answer(3, 9),
     initialX: 20,
     initialY: 350,
-    ideal: 27,
+    ideal: 29,
     toolbox: toolbox(3, 9),
     startBlocks: startBlocks(3, 9),
     requiredBlocks: [

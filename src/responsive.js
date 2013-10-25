@@ -1,11 +1,5 @@
 var dialog = require('./dialog');
 
-exports.scrollPastHeader = function() {
-  var bubble = document.getElementById('bubble');
-  var y = bubble.getBoundingClientRect().top;
-  window.scroll(0, y);
-};
-
 var getOrientation = function() {
   return (window.orientation % 180 === 0 ? 'portrait' : 'landscape');
 };

@@ -217,8 +217,16 @@ var spiral = function(i) {
     </block>
   <% } else if (level == 7) { -%>
     <% spiral(25) -%>
+  <% } else if (level == 7.5) { -%>
+    <block type="draw_a_snowman" x="20" y="20" inline="true">
+      <value name="VALUE">
+        <block type="math_number">
+          <title name="NUM">250</title>
+        </block>
+      </value>
+    </block>
   <% } else if (level == 8 || level == 9) { -%>
-    <block type="draw_a_snowman" x="20" y="20">
+    <block type="draw_a_snowman" x="20" y="20" inline="true">
       <value name="VALUE">
         <block type="math_number">
           <title name="NUM">150</title>

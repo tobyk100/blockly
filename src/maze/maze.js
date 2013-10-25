@@ -30,7 +30,8 @@ var skins = require('../skins');
 var tiles = require('./tiles');
 var codegen = require('../codegen');
 var api = require('./api');
-var page = require('../page.html');
+var page = require('../templates/page.html');
+var feedback = require('../feedback.js');
 
 var Direction = tiles.Direction;
 var SquareType = tiles.SquareType;
@@ -149,6 +150,9 @@ var drawMap = function() {
   // Adjust button table width.
   var buttonTable = document.getElementById('gameButtons');
   buttonTable.style.width = Maze.MAZE_WIDTH + 'px';
+
+  var hintBubble = document.getElementById('bubble');
+  hintBubble.style.width = Maze.MAZE_WIDTH + 'px';
 
   if (skin.background) {
     tile = document.createElementNS(Blockly.SVG_NS, 'image');
@@ -414,8 +418,7 @@ Maze.init = function(config) {
   }
 
   // Add the starting block(s).
-  var startBlocks = level.startBlocks ||
-      '<block type="maze_moveForward" x="70" y="70"></block>';
+  var startBlocks = level.startBlocks || '';
   // If config.level.startBlocks is passed in, it overrides level.startBlocks
   BlocklyApps.loadBlocks(startBlocks);
 
@@ -610,7 +613,7 @@ Maze.onReportComplete = function(response) {
  */
 Maze.execute = function() {
   BlocklyApps.log = [];
-  BlocklyApps.ticks = 50; //TODO: Set higher for some levels
+  BlocklyApps.ticks = 100; //TODO: Set higher for some levels
   var code = Blockly.Generator.workspaceToCode('JavaScript');
   Maze.result = ResultType.UNSET;
   Maze.testResults = BlocklyApps.TestResults.NO_TESTS_RUN;
@@ -620,7 +623,7 @@ Maze.execute = function() {
 
   // Check for empty top level blocks to warn user about bugs,
   // especially ones that lead to infinite loops.
-  if (BlocklyApps.hasEmptyTopLevelBlocks()) {
+  if (feedback.hasEmptyTopLevelBlocks()) {
     Maze.testResults = BlocklyApps.TestResults.EMPTY_BLOCK_FAIL;
     displayFeedback();
     return;

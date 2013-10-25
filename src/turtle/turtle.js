@@ -37,14 +37,13 @@ var levels = require('./levels');
 var Colours = require('./core').Colours;
 var codegen = require('../codegen');
 var api = require('./api');
-var page = require('../page.html');
+var page = require('../templates/page.html');
 
 var level;
 var skin;
 
 BlocklyApps.CHECK_FOR_EMPTY_BLOCKS = false;
 BlocklyApps.NUM_REQUIRED_BLOCKS_TO_FLAG = 1;
-BlocklyApps.FREE_BLOCKS = 'colour';
 
 Turtle.HEIGHT = 400;
 Turtle.WIDTH = 400;
@@ -90,7 +89,6 @@ Turtle.init = function(config) {
     data: {
       appInstance: 'Turtle',
       visualization: require('./visualization.html')(),
-      appFeedback: require('./appFeedback.html')(),
       controls: require('./controls.html')({baseUrl: config.baseUrl})
     }
   });
@@ -142,24 +140,8 @@ Turtle.init = function(config) {
     Turtle.speedSlider.setValue(level.sliderSpeed);
   }
 
-  // Add display of blocks used unless free play.
-  if (!level.freePlay) {
-    Blockly.addChangeListener(function() {
-      Turtle.updateBlockCount();
-    });
-  }
-
   // We may have changed divs but Blockly on reacts based on the window.
   Blockly.fireUiEvent(window, 'resize');
-};
-
-/**
- * Add count of blocks used, not counting colour blocks.
- */
-Turtle.updateBlockCount = function() {
-  BlocklyApps.setTextForElement(
-      'blockCount',
-      msg.blocksUsed().replace('%1', BlocklyApps.getNumBlocksUsed()));
 };
 
 /**
@@ -251,7 +233,7 @@ BlocklyApps.reset = function(ignore) {
   // Standard starting location and heading of the turtle.
   Turtle.x = Turtle.HEIGHT / 2;
   Turtle.y = Turtle.WIDTH / 2;
-  Turtle.heading = 0;
+  Turtle.heading = level.startDirection ? level.startDirection : 0;
   Turtle.penDownValue = true;
   Turtle.visible = true;
 
