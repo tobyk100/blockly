@@ -122,12 +122,24 @@ var getFeedbackMessage = function(options) {
     case BlocklyApps.TestResults.ALL_PASS:
       var finalLevel = (options.response &&
           (options.response.message == "no more levels"));
+      var stageCompleted = 0;
+      if (options.response && options.response.stage_changing) {
+        stageCompleted = options.response.stage_changing.previous.number;
+      }
+      var msgParams = {
+        numTrophies: options.numTrophies,
+        stageNumber: stageCompleted
+      };
       if (options.numTrophies > 0) {
-        var msgParams = { numTrophies: options.numTrophies };
-        message = finalLevel ? msg.finalLevelTrophies(msgParams) :
-                               msg.nextLevelTrophies(msgParams);
+        message = finalLevel ? msg.finalStageTrophies(msgParams) :
+                               stageCompleted ?
+                                  msg.nextStageTrophies(msgParams) :
+                                  msg.nextLevelTrophies(msgParams);
       } else {
-        message = finalLevel ? msg.finalLevel() : msg.nextLevel();
+        message = finalLevel ? msg.finalStage() :
+                               stageCompleted ?
+                                   msg.nextStage(msgParams) :
+                                   msg.nextLevel();
       }
       break;
     // Free plays
@@ -165,12 +177,12 @@ var getShowCodeElement = function(options) {
     var showCodeDiv = document.createElement('div');
     var lines = document.createElement('span');
     lines.className = 'linesOfCodeMsg';
-    lines.innerHTML = msg.totalNumLinesOfCodeWritten({
-      numLines: options.lineInfo.totalLines
+    lines.innerHTML = msg.numLinesOfCodeWritten({
+      numLines: options.lineInfo.lines
     });
     if (options.lineInfo.totalLines !== options.lineInfo.lines) {
-      lines.innerHTML += msg.numLinesOfCodeWritten({
-        numLines: options.lineInfo.lines
+      lines.innerHTML += '<br>' + msg.totalNumLinesOfCodeWritten({
+        numLines: options.lineInfo.totalLines
       });
     }
 
