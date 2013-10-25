@@ -177,12 +177,12 @@ var getShowCodeElement = function(options) {
     var showCodeDiv = document.createElement('div');
     var lines = document.createElement('span');
     lines.className = 'linesOfCodeMsg';
-    lines.innerHTML = msg.totalNumLinesOfCodeWritten({
-      numLines: options.lineInfo.totalLines
+    lines.innerHTML = msg.numLinesOfCodeWritten({
+      numLines: options.lineInfo.lines
     });
     if (options.lineInfo.totalLines !== options.lineInfo.lines) {
-      lines.innerHTML += msg.numLinesOfCodeWritten({
-        numLines: options.lineInfo.lines
+      lines.innerHTML += '<br>' + msg.totalNumLinesOfCodeWritten({
+        numLines: options.lineInfo.totalLines
       });
     }
 
