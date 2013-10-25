@@ -112,7 +112,7 @@ BlocklyApps.init = function(config) {
   BlocklyApps.ICON = config.skin.staticAvatar;
 
   if (BlocklyApps.Dialog) {
-    exports.showInstructions(config.level);
+    showInstructions(config.level);
   }
 
   // Add events for touch devices when the window is done loading.
@@ -186,7 +186,7 @@ BlocklyApps.loadBlocks = function(blocksXml) {
   Blockly.Xml.domToWorkspace(Blockly.mainWorkspace, xml);
 };
 
-exports.showInstructions = function(level) {
+var showInstructions = function(level) {
   var instructionsDiv = document.createElement('div');
   instructionsDiv.innerHTML = require('./templates/instructions.html')(level);
 
@@ -208,7 +208,12 @@ exports.showInstructions = function(level) {
     });
   }
 
-  dialog.show();
+  addReadyListener(function() {
+    var offset = {
+      top: document.getElementById('headers').getBoundingClientRect().bottom
+    };
+    dialog.show(offset);
+  });
 
   var promptDiv = document.getElementById('prompt');
   promptDiv.innerHTML = level.instructions;
