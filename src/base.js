@@ -208,12 +208,7 @@ var showInstructions = function(level) {
     });
   }
 
-  addReadyListener(function() {
-    var offset = {
-      top: document.getElementById('headers').getBoundingClientRect().bottom
-    };
-    dialog.show(offset);
-  });
+  dialog.show();
 
   var promptDiv = document.getElementById('prompt');
   promptDiv.innerHTML = level.instructions;
