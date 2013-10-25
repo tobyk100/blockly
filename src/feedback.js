@@ -7,7 +7,7 @@ var msg = require('../locale/current/common');
 var COUNT_LINES_OF_CODE_SESSION_KEY = 'blockly_lines_of_code';
 
 exports.displayFeedback = function(options) {
-  var lines = options.lineInfo = countLinesOfCode();
+  var lines = options.lineInfo = countLinesOfCode(options.feedbackType);
   sessionStorage.setItem(COUNT_LINES_OF_CODE_SESSION_KEY, lines.totalLines);
 
   options.numTrophies = numTrophiesEarned(options);
@@ -203,8 +203,9 @@ var canContinueToNextLevel = function(feedbackType) {
     feedbackType ===  BlocklyApps.TestResults.FREE_PLAY);
 };
 
-var countLinesOfCode = function() {
-  var lines = getNumBlocksUsed();
+var countLinesOfCode = function(feedbackType) {
+  var lines = feedbackType >= BlocklyApps.TestResults.TOO_MANY_BLOCKS_FAIL ?
+      getNumBlocksUsed() : 0;
   var totalLines = sessionStorage.getItem(COUNT_LINES_OF_CODE_SESSION_KEY) ||
                    0;
   totalLines = parseInt(totalLines, 10) + lines;
