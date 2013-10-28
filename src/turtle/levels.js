@@ -183,8 +183,7 @@ module.exports = {
     toolbox: toolbox(1, 1),
     startBlocks: startBlocks(1, 1),
     requiredBlocks: [[MOVE_FORWARD_INLINE], [turnRightRestricted(90)]],
-    freePlay: false,
-    startDirection: 90
+    freePlay: false
   },
   // Level 2: Square (without repeat).
   '1_2': {
@@ -198,8 +197,7 @@ module.exports = {
       [SET_COLOUR_PICKER]
     ],
     requiredColours: 4,
-    freePlay: false,
-    startDirection: 90
+    freePlay: false
   },
   // Level 3: Square (with repeat).
   '1_3': {
@@ -274,7 +272,8 @@ module.exports = {
       [MOVE_BACKWARD_INLINE, MOVE_FORWARD_INLINE]
     ],
     requiredColors: Colours.GREEN,
-    freePlay: false
+    freePlay: false,
+    startDirection: 0
   },
   // Level 8: spikes.
   '1_8': {
@@ -402,7 +401,8 @@ module.exports = {
       [drawASnowman(100)]
     ],
     freePlay: false,
-    sliderSpeed: 0.9
+    sliderSpeed: 0.9,
+    startDirection: 0
   },
   // Level 8: Three snowmen.
   '2_8': {
@@ -426,7 +426,8 @@ module.exports = {
     ],
     requiredColors: 3,
     freePlay: false,
-    sliderSpeed: 0.9
+    sliderSpeed: 0.9,
+    startDirection: 0
   },
   // Level 9: Snowman family.
   '2_9': {
@@ -448,7 +449,8 @@ module.exports = {
       }]
     ],
     freePlay: false,
-    sliderSpeed: 0.9
+    sliderSpeed: 0.9,
+    startDirection: 0
   },
   // Level 10: playground.
   '2_10': {
@@ -509,7 +511,8 @@ module.exports = {
         filename: 'cow.svg',
         position: [182, 147]
       }
-    ]
+    ],
+    startDirection: 0
   },
   // Level 4: House the lion.
   '3_4': {
@@ -529,7 +532,8 @@ module.exports = {
         filename: 'cow.svg',
         position: [187, 97]
       }
-    ]
+    ],
+    startDirection: 0
   },
   // Level 5: Create "draw a house".
   '3_5': {
@@ -555,7 +559,8 @@ module.exports = {
         filename: 'cat.svg',
         position: [222, 90]
       }
-    ]
+    ],
+    startDirection: 0
   },
   // Level 6: Add parameter to "draw a triangle".
   '3_6': {
@@ -580,7 +585,8 @@ module.exports = {
         filename: 'cat.svg',
         position: [175, 248]
       }
-    ]
+    ],
+    startDirection: 0
   },
   // Level 7: Add parameter to "draw a house".
   '3_7': {
@@ -602,7 +608,8 @@ module.exports = {
         filename: 'elephant.svg',
         position: [205, 220]
       }
-    ]
+    ],
+    startDirection: 0
   },
   // Level 8: Draw houses.
   '3_8': {
@@ -630,7 +637,8 @@ module.exports = {
         filename: 'cow.svg',
         position: [255, 250]
       }
-    ]
+    ],
+    startDirection: 0
   },
   // Level 9: Draw houses with for loop.
   '3_9': {
@@ -661,7 +669,8 @@ module.exports = {
         position: [175, 220]
       }
     ],
-    failForTooManyBlocks: true
+    failForTooManyBlocks: true,
+    startDirection: 0
   },
   // Level 10: playground.
   '3_10': {

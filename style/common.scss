@@ -276,10 +276,6 @@ input[type="radio"] {
 $modal-image-width: 100px;
 $modal-image-margin-gap: 10px;
 
-.modal {
-  top: 20%;
-}
-
 .modal-content {
   margin-left: $modal-image-width + $modal-image-margin-gap;
   p, pre {
@@ -327,7 +323,7 @@ $modal-image-margin-gap: 10px;
 }
 #feedbackBlocks {
   margin-left: 50px;
-  height: 80px;
+  height: 100px;
   border: none;
 }
 .video-backdrop {

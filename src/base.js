@@ -128,6 +128,12 @@ exports.isMobile = function() {
   return reg.test(window.navigator.userAgent);
 };
 
+exports.playNonMobileAudio = function(name, opt_volume) {
+  if (!exports.isMobile()) {
+    Blockly.playAudio(name, opt_volume);
+  }
+};
+
 /**
  * @param {Object} options Configuration parameters for Blockly. Parameters are
  * optional and include:
@@ -208,12 +214,7 @@ var showInstructions = function(level) {
     });
   }
 
-  addReadyListener(function() {
-    var offset = {
-      top: document.getElementById('headers').getBoundingClientRect().bottom
-    };
-    dialog.show(offset);
-  });
+  dialog.show();
 
   var promptDiv = document.getElementById('prompt');
   promptDiv.innerHTML = level.instructions;
