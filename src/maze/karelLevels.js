@@ -176,7 +176,6 @@ module.exports = {
 
   // Formerly page 1
   '1_1': {
-    'instructions': 'instructions1_1',
     'toolbox': toolbox(1, 1),
     'startBlocks': startBlocks(1, 1),
     'ideal': 5,
@@ -220,7 +219,6 @@ module.exports = {
   },
 
   '1_2': {
-    'instructions': 'instructions1_2',
     'toolbox': toolbox(1, 2),
     'startBlocks': startBlocks(1, 2),
     'ideal': 3,
@@ -261,7 +259,6 @@ module.exports = {
   },
 
   '1_3': {
-    'instructions': 'instructions1_3',
     'toolbox': toolbox(1, 3),
     'startBlocks': startBlocks(1, 3),
     'ideal': 3,
@@ -302,7 +299,6 @@ module.exports = {
   },
 
   '1_4': {
-    'instructions': 'instructions1_4',
     'toolbox': toolbox(1, 4),
     'ideal': 4,
     'requiredBlocks': [
@@ -342,7 +338,6 @@ module.exports = {
   },
 
   '1_5': {
-    'instructions': 'instructions1_5',
     'toolbox': toolbox(1, 5),
     'startBlocks': startBlocks(1, 5),
     'ideal': 5,
@@ -386,7 +381,6 @@ module.exports = {
   },
 
   '1_6': {
-    'instructions': 'instructions1_6',
     'toolbox': toolbox(1, 6),
     'ideal': 3,
     'requiredBlocks': [
@@ -428,7 +422,6 @@ module.exports = {
   },
 
   '1_7': {
-    'instructions': 'instructions1_7',
     'toolbox': toolbox(1, 7),
     'startBlocks': startBlocks(1, 7),
     'ideal': 4,
@@ -475,7 +468,6 @@ module.exports = {
   },
 
   '1_8': {
-    'instructions': 'instructions1_8',
     'toolbox': toolbox(1, 8),
     'ideal': 3,
     'requiredBlocks': [
@@ -517,7 +509,6 @@ module.exports = {
   },
 
   '1_9': {
-    'instructions': 'instructions1_9',
     'toolbox': toolbox(1, 9),
     'ideal': 9,
     'requiredBlocks': [
@@ -560,7 +551,6 @@ module.exports = {
   },
 
   '1_10': {
-    'instructions': 'instructions1_10',
     'toolbox': toolbox(1, 10),
     'startBlocks': startBlocks(1, 10),
     'ideal': 4,
@@ -604,7 +594,6 @@ module.exports = {
   },
 
   '1_11': {
-    'instructions': 'instructions1_11',
     'toolbox': toolbox(1, 11),
     'startBlocks': startBlocks(1, 11),
     'ideal': 6,
@@ -652,7 +641,6 @@ module.exports = {
   // Formerly page 2
 
   '2_1': {
-    'instructions': 'instructions2_1',
     'toolbox': toolbox(2, 1),
     'startBlocks': startBlocks(2, 1),
     'ideal': null,
@@ -696,7 +684,6 @@ module.exports = {
   },
 
   '2_2': {
-    'instructions': 'instructions2_2',
     'toolbox': toolbox(2, 2),
     'startBlocks': startBlocks(2, 2),
     'ideal': 2,
@@ -737,7 +724,6 @@ module.exports = {
   },
 
   '2_3': {
-    'instructions': 'instructions2_3',
     'toolbox': toolbox(2, 3),
     'startBlocks': startBlocks(2, 3),
     'ideal': 4,
@@ -781,7 +767,6 @@ module.exports = {
   },
 
   '2_4': {
-    'instructions': 'instructions2_4',
     'toolbox': toolbox(2, 4),
     'startBlocks': startBlocks(2, 4),
     'ideal': 8,
@@ -830,7 +815,6 @@ module.exports = {
   },
 
   '2_5': {
-    'instructions': 'instructions2_5',
     'toolbox': toolbox(2, 5),
     'startBlocks': startBlocks(2, 5),
     'ideal': 6,
@@ -874,7 +858,6 @@ module.exports = {
   },
 
   '2_6': {
-    'instructions': 'instructions2_6',
     'toolbox': toolbox(2, 6),
     'startBlocks': startBlocks(2, 6),
     'ideal': 4,
@@ -915,7 +898,6 @@ module.exports = {
   },
 
   '2_7': {
-    'instructions': 'instructions2_7',
     'toolbox': toolbox(2, 7),
     'startBlocks': startBlocks(2, 7),
     'ideal': 8,
@@ -956,7 +938,6 @@ module.exports = {
   },
 
   '2_8': {
-    'instructions': 'instructions2_8',
     'toolbox': toolbox(2, 8),
     'startBlocks': startBlocks(2, 8),
     'ideal': 2,
@@ -1000,7 +981,6 @@ module.exports = {
   },
 
   '2_9': {
-    'instructions': 'instructions2_9',
     'toolbox': toolbox(2, 9),
     'startBlocks': startBlocks(2, 9),
     'ideal': 4,
@@ -1047,7 +1027,6 @@ module.exports = {
   },
 
   '2_10': {
-    'instructions': 'instructions2_10',
     'toolbox': toolbox(2, 10),
     'startBlocks': startBlocks(2, 10),
     'ideal': 6,
@@ -1096,7 +1075,6 @@ module.exports = {
   },
 
   '2_11': {
-    'instructions': 'instructions2_11',
     'toolbox': toolbox(2, 11),
     'startBlocks': startBlocks(2, 11),
     'ideal': 15,
@@ -1139,7 +1117,6 @@ module.exports = {
   // Page 3 to Debug
 
   'debug_seq_1': {
-    'instructions': 'instructions3_1',
     'toolbox': toolbox(3, 1),
     'startBlocks': startBlocks(3, 1),
     'ideal': 7,
@@ -1180,7 +1157,6 @@ module.exports = {
   },
 
   'debug_seq_2': {
-    'instructions': 'instructions3_2',
     'toolbox': toolbox(3, 2),
     'startBlocks': startBlocks(3, 2),
     'ideal': 7,
@@ -1221,7 +1197,6 @@ module.exports = {
   },
 
   'debug_repeat': {
-    'instructions': 'instructions3_3',
     'toolbox': toolbox(3, 3),
     'startBlocks': startBlocks(3, 3),
     'ideal': 11,
@@ -1262,7 +1237,6 @@ module.exports = {
   },
 
   'debug_while': {
-    'instructions': 'instructions3_4',
     'toolbox': toolbox(3, 4),
     'startBlocks': startBlocks(3, 4),
     'ideal': 4,
@@ -1306,7 +1280,6 @@ module.exports = {
   },
 
   'debug_if': {
-    'instructions': 'instructions3_5',
     'toolbox': toolbox(3, 5),
     'startBlocks': startBlocks(3, 5),
     'ideal': 7,
@@ -1348,7 +1321,6 @@ module.exports = {
   },
 
   'debug_if_else': {
-    'instructions': 'instructions3_6',
     'toolbox': toolbox(3, 6),
     'startBlocks': startBlocks(3, 6),
     'ideal': 8,
@@ -1390,7 +1362,6 @@ module.exports = {
   },
 
   'debug_function_1': {
-    'instructions': 'instructions3_7',
     'toolbox': toolbox(3, 7),
     'startBlocks': startBlocks(3, 7),
     'ideal': 7,
@@ -1431,7 +1402,6 @@ module.exports = {
   },
 
   'debug_function_2': {
-    'instructions': 'instructions3_8',
     'toolbox': toolbox(3, 8),
     'startBlocks': startBlocks(3, 8),
     'ideal': 14,
@@ -1477,7 +1447,6 @@ module.exports = {
   },
 
   'debug_function_3': {
-    'instructions': 'instructions3_9',
     'toolbox': toolbox(3, 9),
     'startBlocks': startBlocks(3, 9),
     'ideal': 10,
