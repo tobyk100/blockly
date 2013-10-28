@@ -25,3 +25,8 @@ exports.addClickTouchEvent = function(element, handler) {
   }
   element.addEventListener('click', handler, false);
 };
+
+exports.isMobile = function() {
+  var reg = /Mobile|iP(hone|od|ad)|Android|BlackBerry|IEMobile/;
+  return reg.test(window.navigator.userAgent);
+};
