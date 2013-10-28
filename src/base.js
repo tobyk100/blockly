@@ -217,7 +217,7 @@ var showInstructions = function(level) {
   dialog.show();
 
   var promptDiv = document.getElementById('prompt');
-  promptDiv.innerHTML = level.instructions;
+  promptDiv.textContent = (level.instructions || '');
 
   var promptIcon = document.getElementById('prompt-icon');
   promptIcon.src = BlocklyApps.ICON;
