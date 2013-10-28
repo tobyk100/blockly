@@ -79,7 +79,7 @@ Turtle.init = function(config) {
   level = config.level;
 
   Turtle.AVATAR_HEIGHT = 51;
-  Turtle.AVATAR_WIDTH = 49;
+  Turtle.AVATAR_WIDTH = 70;
 
   BlocklyApps.IDEAL_BLOCK_NUM = level.ideal || Infinity;
   BlocklyApps.REQUIRED_BLOCKS = level.requiredBlocks || [];
@@ -216,7 +216,7 @@ Turtle.drawTurtle = function() {
   var destWidth = Turtle.avatarImage.width;
   var destHeight = Turtle.avatarImage.height;
   var destX = Turtle.x - destWidth / 2;
-  var destY = Turtle.y - destHeight;
+  var destY = Turtle.y - destHeight + 7;
 
   Turtle.ctxDisplay.drawImage(Turtle.avatarImage, sourceX, sourceY,
                               sourceWidth, sourceHeight, destX, destY,
