@@ -603,7 +603,8 @@ Turtle.checkAnswer = function() {
         } else if (typeof colourResult == 'string') {
           message = msg.wrongColour().replace('%1', colourResult);
         }
-        BlocklyApps.setTextForElement('appSpecificOneStarFeedback', message);
+        var div = document.getElementById('appSpecificOneStarFeedback');
+        div.textContent = message;
       }
     }
   }
