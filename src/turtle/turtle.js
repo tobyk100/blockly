@@ -198,7 +198,7 @@ Turtle.loadTurtle = function() {
     Turtle.display();
   };
   Turtle.avatarImage.src = skin.avatar;
-  Turtle.numberAvatarHeadings = 16;
+  Turtle.numberAvatarHeadings = 180;
   Turtle.avatarImage.height = Turtle.AVATAR_HEIGHT;
   Turtle.avatarImage.width = Turtle.AVATAR_WIDTH;
 };
