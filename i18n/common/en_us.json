@@ -75,7 +75,7 @@
   },
   "emptyBlocksErrorMsg": {
     "id": "4352395945928742108",
-    "string": "Remove empty blocks.",
+    "string": "The &quot;Repeat&quot; or &quot;If&quot; block needs to have other blocks inside it to work. Make sure the inner block fits properly inside the containing block.",
     "description": "alert - This error message is displayed when the user has added blocks with nothing nested inside them (e.g. repeat or if blocks)."
   },
   "hashError": {

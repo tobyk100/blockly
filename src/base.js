@@ -128,6 +128,12 @@ exports.isMobile = function() {
   return reg.test(window.navigator.userAgent);
 };
 
+exports.playNonMobileAudio = function(name, opt_volume) {
+  if (!exports.isMobile()) {
+    Blockly.playAudio(name, opt_volume);
+  }
+};
+
 /**
  * @param {Object} options Configuration parameters for Blockly. Parameters are
  * optional and include:
