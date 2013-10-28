@@ -118,18 +118,13 @@ BlocklyApps.init = function(config) {
   // Add events for touch devices when the window is done loading.
   addReadyListener(BlocklyApps.addTouchEvents);
 
-  if (exports.isMobile()) {
+  if (utils.isMobile()) {
     responsive.forceLandscape();
   }
 };
 
-exports.isMobile = function() {
-  var reg = /Mobile|iP(hone|od|ad)|Android|BlackBerry|IEMobile/;
-  return reg.test(window.navigator.userAgent);
-};
-
 exports.playNonMobileAudio = function(name, opt_volume) {
-  if (!exports.isMobile()) {
+  if (!utils.isMobile()) {
     Blockly.playAudio(name, opt_volume);
   }
 };

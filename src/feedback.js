@@ -173,6 +173,9 @@ var getTrophiesElement = function(options) {
 };
 
 var getShowCodeElement = function(options) {
+  if (utils.isMobile()) {
+    return;
+  }
   if (canContinueToNextLevel(options.feedbackType)) {
     var showCodeDiv = document.createElement('div');
     var lines = document.createElement('span');
