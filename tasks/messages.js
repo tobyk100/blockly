@@ -37,7 +37,7 @@ module.exports = function(grunt) {
         var code = 'var MessageFormat = require("messageformat");';
         Object.keys(messages).forEach(function(key) {
           code += ';\n\n';
-          var string = messages[key].string;
+          var string = messages[key];
           code += 'exports.' + key + ' = ';
           code += mf.precompile(mf.parse(string));
         });

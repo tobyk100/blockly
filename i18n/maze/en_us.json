@@ -1,217 +1,46 @@
 {
-  "pilePresent": {
-    "id": "4050999966626457535",
-    "string": "there is a pile",
-    "description": "Indicates the presence of a dirt pile at least one unit high. As in 'he put dirt on the group, there is now a pile present'"
-  },
-  "capacity0": {
-    "id": "7083250244318947033",
-    "string": "You have<x id='START_SPAN'/>0<x id='END_SPAN'/> blocks left.",
-    "description": "warning - No more blocks may be added until some are removed.  Do not alter the portions between pointy brackets (< and >), although you may move them within the phrase and replace 0 with one or more words."
-  },
-  "capacity1": {
-    "id": "1740099458630159531",
-    "string": "You have <x id='START_SPAN'/>1<x id='END_SPAN'/> block left.",
-    "description": "warning - Only one more block may be added.  Do not alter the portions between pointy brackets (< and >), although you may move them within the phrase and replace 1 with one or more words."
-  },
-  "capacity2": {
-    "id": "2458774950568686759",
-    "string": "You have <x id='START_SPAN'/>%1<x id='END_SPAN'/>blocks left.",
-    "description": "warning - Only %1 more blocks may be used, where %1 is an integer greater than 1.  Do not alter the portions between pointy brackets (< and >), although you may move them within the phrase."
-  },
-  "continue": {
-    "id": "7849089032479822046",
-    "string": "Continue",
-    "description": "button - Closes the dialog and continues to the next level"
-  },
-  "dirE": {
-    "id": "5618588968868147351",
-    "string": "E",
-    "description": "An abbreviation of the direction East"
-  },
-  "dirN": {
-    "id": "33394202388558275",
-    "string": "N",
-    "description": "An abbreviation of the direction North"
-  },
-  "dirS": {
-    "id": "8800042076697933710",
-    "string": "S",
-    "description": "An abbreviation of the direction North"
-  },
-  "dirW": {
-    "id": "2417017472983826220",
-    "string": "W",
-    "description": "An abbreviation of the direction West"
-  },
-  "doCode": {
-    "id": "5922351303839855212",
-    "string": "do",
-    "description": "verb - imperative or infinitive preceding one or more commands to a person."
-  },
-  "elseCode": {
-    "id": "9137982570247930589",
-    "string": "else",
-    "description": "conjunction - 'otherwise', introducing commands to be performed if a previous condition was not true, as in 'if x>3, do this, else do that'."
-  },
-  "finalLevel": {
-    "id": "7149849676690329496",
-    "string": "Congratulations! You have solved the final level.",
-    "description": "alert - This is displayed when the user solves the most difficult level."
-  },
-  "holePresent": {
-    "id": "4787297942415818764",
-    "string": "there is a hole",
-    "description": "Indicates a dirt hole at least one unit deep. As in 'he dig a hole, there is now a hole present'."
-  },
-  "ifTooltip": {
-    "id": "4874525273235336318",
-    "string": "If there is a path in the specified direction, then do some actions.",
-    "description": "tooltip (pop-up help) - 'path' refers to a path through a maze. "
-  },
-  "ifelseTooltip": {
-    "id": "6175401358049603739",
-    "string": "If there is a path in the specified direction, then do the first block of actions. Otherwise, do the second block of actions.",
-    "description": "tooltip (pop-up help) - 'path' refers to a path through a maze."
-  },
-  "linkTooltip": {
-    "id": "2194902007208446636",
-    "string": "Save and link to blocks.",
-    "description": "tooltip (pop-up help) for button; pressing the button causes the user's program to be saved and for a URL to be provided for retrieving it.  The word 'blocks' is as in children's toy blocks."
-  },
-  "moveForward": {
-    "id": "4138774728570944645",
-    "string": "move forward",
-    "description": "verb - imperative or infinitive for a person moving (walking) in the direction he/she is facing."
-  },
-  "moveForwardTooltip": {
-    "id": "5077043002380185422",
-    "string": "Move me forward one space.",
-    "description": "tooltip (pop-up help) - Pegman is the humanoid icon used in Google Maps. See picture at http://goo.gl/9I64i (http://maps.google.com/intl/en/help/maps/streetview/learn/pegman.html). The term 'space' refers to a single square within a maze."
-  },
-  "nextLevel": {
-    "id": "475166420037717394",
-    "string": "Congratulations! You have completed this level.",
-    "description": "alert - This is displayed when the user solves the maze, inviting them to precede to the next level of difficulty."
-  },
-  "no": {
-    "id": "7828848175932035894",
-    "string": "No",
-    "description": "No indicates that this option is incorrect."
-  },
-  "noPathAhead": {
-    "id": "3929450303285114841",
-    "string": "path is blocked",
-    "description": "condensed form of 'if there is a no path ahead', as in: 'if no path ahead, go forward'."
-  },
-  "noPathLeft": {
-    "id": "3597718516419494722",
-    "string": "no path to the left",
-    "description": "condensed form of 'if there is a no path to the left', as in: 'if no path to the left, turn left'."
-  },
-  "noPathRight": {
-    "id": "144914298205682744",
-    "string": "no path to the right",
-    "description": "condensed form of 'if there is a no path to the right', as in: 'if no path to the right, turn right'."
-  },
-  "numBlocksNeeded": {
-    "id": "857707012901609467",
-    "string": "This level can be solved with %1 blocks.",
-    "description": "alert - This is displayed when the user has used more blocks than is necessary."
-  },
-  "oneTopBlock": {
-    "id": "4051416073809352347",
-    "string": "On this level, you need to stack together all of the blocks in the white workspace.",
-    "description": "alert - This is displayed if a user attempts to run a program composed of multiple stacks of blocks, letting them know they need to create a single stack."
-  },
-  "pathAhead": {
-    "id": "3293197141663117591",
-    "string": "path ahead",
-    "description": "condensed form of 'if there is a path ahead', as in: 'if path ahead, go forward'."
-  },
-  "ifPathAhead": {
-    "string": "if path ahead",
-    "description": "condensed form of 'if there is a path ahead', as in: 'if path ahead, go forward'."
-  },
-  "pathLeft": {
-    "id": "2149839397262503913",
-    "string": "if path to the left",
-    "description": "condensed form of 'if there is a path to the left', as in: 'if path to the left, turn left'."
-  },
-  "pathRight": {
-    "id": "8496210457380227143",
-    "string": "if path to the right",
-    "description": "condensed form of 'if there is a path to the right', as in: 'if path to the right, turn right'."
-  },
-  "dig": {
-    "id": "5268364470656255036",
-    "string": "remove 1",
-    "description": "verb - imperative or infinitive for a person digging a hole."
-  },
-  "digTooltip": {
-    "string": "remove 1 unit of dirt"
-  },
-  "fill": {
-    "id": "820940435620302045",
-    "string": "fill 1",
-    "description": "verb - imperative or infinitive for a person filling a hole."
-  },
-  "fillTooltip": {
-    "string": "place 1 unit of dirt"
-  },
-  "putdownTower": {
-    "id": "471029618522690538",
-    "string": "put down tower",
-    "description": "Place a tower on the ground"
-  },
-  "repeatUntil": {
-    "id": "5000330788075193694",
-    "string": "repeat until",
-    "description": "verb - imperative or infinitive to repeat the following commands.  The phrase is followed by the symbol denoting the end of the maze."
-  },
-  "repeatUntilBlocked": {
-    "id": "5669566230124297065",
-    "string": "while path ahead",
-    "description": "verb - imperative or infinitive to repeat the following commands.  The phrase is followed by the symbol denoting the end of the maze."
-  },
-  "repeatUntilFinish": {
-    "id": "1290859655665631564",
-    "string": "repeat until finish",
-    "description": "verb - imperative or infinitive to repeat the following commands.  The phrase is followed by the symbol denoting the end of the maze."
-  },
-  "repeatWhileCurrentNotClear": {
-    "id": "1129624636896695060",
-    "string": "while",
-    "description": "verb - imperative or infinitive to repeat the following commands.  The phrase is followed by the symbol denoting the end of the maze."
-  },
-  "turnLeft": {
-    "id": "6082253890512898845",
-    "string": "turn left",
-    "description": "verb - imperative or infinitive for a person turning his head and body one quarter rotation counter-clockwise.  Prefer a translation that has text in common with the translation of 'turn right'.  See [[Translating:Blockly#Drop-Down_Menus]]."
-  },
-  "turnRight": {
-    "id": "2801052495540198573",
-    "string": "turn right",
-    "description": "verb - imperative or infinitive for a person turning his head and body one quarter rotation clockwise. Prefer a translation that has text in common with the translation of 'turn left'.  See [[Translating:Blockly#Drop-Down_Menus]]."
-  },
-  "turnTooltip": {
-    "id": "2672041123505998510",
-    "string": "Turns me left or right by 90 degrees.",
-    "description": "tooltip (pop-up help) - Pegman is the humanoid icon used in Google Maps. See picture at http://goo.gl/9I64i (http://maps.google.com/intl/en/help/maps/streetview/learn/pegman.html). The term 'space' refers to a single square within a maze."
-  },
-  "while": {
-    "id": "3456647281718039043",
-    "string": "while",
-    "description": "condensed form of 'while something is true'"
-  },
-  "whileTooltip": {
-    "id": "1190064103412776740",
-    "string": "Repeat the enclosed actions until finish point is reached.",
-    "description": "tooltip (pop-up help) - Repeat the enclosed commands until the maze has been successfully completed (the end point reached)."
-  },
-  "yes": {
-    "id": "6437740372218953759",
-    "string": "Yes",
-    "description": "Yes indicates that this option is correct."
-  }
+  "capacity0": "You have<x id='START_SPAN'/>0<x id='END_SPAN'/> blocks left.",
+  "capacity1": "You have <x id='START_SPAN'/>1<x id='END_SPAN'/> block left.",
+  "capacity2": "You have <x id='START_SPAN'/>%1<x id='END_SPAN'/>blocks left.",
+  "continue": "Continue",
+  "dig": "remove 1",
+  "digTooltip": "remove 1 unit of dirt",
+  "dirE": "E",
+  "dirN": "N",
+  "dirS": "S",
+  "dirW": "W",
+  "doCode": "do",
+  "elseCode": "else",
+  "fill": "fill 1",
+  "fillTooltip": "place 1 unit of dirt",
+  "finalLevel": "Congratulations! You have solved the final level.",
+  "holePresent": "there is a hole",
+  "ifPathAhead": "if path ahead",
+  "ifTooltip": "If there is a path in the specified direction, then do some actions.",
+  "ifelseTooltip": "If there is a path in the specified direction, then do the first block of actions. Otherwise, do the second block of actions.",
+  "linkTooltip": "Save and link to blocks.",
+  "moveForward": "move forward",
+  "moveForwardTooltip": "Move me forward one space.",
+  "nextLevel": "Congratulations! You have completed this level.",
+  "no": "No",
+  "noPathAhead": "path is blocked",
+  "noPathLeft": "no path to the left",
+  "noPathRight": "no path to the right",
+  "numBlocksNeeded": "This level can be solved with %1 blocks.",
+  "oneTopBlock": "On this level, you need to stack together all of the blocks in the white workspace.",
+  "pathAhead": "path ahead",
+  "pathLeft": "if path to the left",
+  "pathRight": "if path to the right",
+  "pilePresent": "there is a pile",
+  "putdownTower": "put down tower",
+  "repeatUntil": "repeat until",
+  "repeatUntilBlocked": "while path ahead",
+  "repeatUntilFinish": "repeat until finish",
+  "repeatWhileCurrentNotClear": "while",
+  "turnLeft": "turn left",
+  "turnRight": "turn right",
+  "turnTooltip": "Turns me left or right by 90 degrees.",
+  "while": "while",
+  "whileTooltip": "Repeat the enclosed actions until finish point is reached.",
+  "yes": "Yes"
 }
