@@ -345,7 +345,7 @@ module.exports = {
       [MOVE_FORWARD], [FILL], [REPEAT], [UNTIL_BLOCKED]
     ],
     'scale': {
-      'stepSpeed': 5
+      'stepSpeed': 2
     },
     'map': [
       [ 1, 1, 1, 1, 1, 1, 1, 1 ],
@@ -432,7 +432,7 @@ module.exports = {
       [WHILE_OPT_HOLE_PRESENT]
     ],
     'scale': {
-      'stepSpeed': 3
+      'stepSpeed': 2
     },
     'map': [
       [ 1, 1, 1, 1, 1, 1, 1, 1 ],
@@ -648,7 +648,7 @@ module.exports = {
       [TURN_LEFT], [MOVE_FORWARD], [DIG], [FILL], [TURN_RIGHT]
     ],
     'scale': {
-      'stepSpeed': 3
+      'stepSpeed': 2
     },
     'map': [
       [ 1, 1, 1, 1, 1, 1, 1, 1 ],
@@ -731,7 +731,7 @@ module.exports = {
       [MOVE_FORWARD], [fill(5)], [UNTIL_BLOCKED, REPEAT]
     ],
     'scale': {
-      'stepSpeed': 3
+      'stepSpeed': 2
     },
     'map': [
       [ 1, 1, 1, 1, 1, 1, 1, 1 ],
@@ -779,7 +779,7 @@ module.exports = {
       [TURN_RIGHT]
     ],
     'scale': {
-      'stepSpeed': 3
+      'stepSpeed': 2
     },
     'map': [
       [ 1, 1, 1, 1, 1, 1, 1, 1 ],
@@ -945,7 +945,7 @@ module.exports = {
       [REPEAT], [AVOID_OBSTACLE_AND_REMOVE]
     ],
     'scale': {
-      'stepSpeed': 3
+      'stepSpeed': 2
     },
     'map': [
       [ 1, 1, 1, 1, 1, 1, 1, 1 ],
@@ -990,7 +990,7 @@ module.exports = {
       [UNTIL_BLOCKED, REPEAT]
     ],
     'scale': {
-      'stepSpeed': 3
+      'stepSpeed': 2
     },
     'map': [
       [ 1, 1, 1, 1, 1, 1, 1, 1 ],
@@ -1038,7 +1038,7 @@ module.exports = {
       [UNTIL_BLOCKED, REPEAT]
     ],
     'scale': {
-      'stepSpeed': 3
+      'stepSpeed': 2
     },
     'map': [
       [ 1, 1, 1, 1, 1, 1, 1, 1 ],
@@ -1078,7 +1078,7 @@ module.exports = {
     'startBlocks': startBlocks(2, 11),
     'ideal': 15,
     'scale': {
-      'stepSpeed': 3
+      'stepSpeed': 2
     },
     'map': [
       [ 1, 1, 1, 1, 1, 1, 1, 1 ],
@@ -1243,7 +1243,7 @@ module.exports = {
       [MOVE_FORWARD], [REPEAT], [FILL], [WHILE_OPT_HOLE_PRESENT]
     ],
     'scale': {
-      'stepSpeed': 3
+      'stepSpeed': 2
     },
     'map': [
       [ 1, 1, 1, 1, 1, 1, 1, 1 ],
@@ -1410,7 +1410,7 @@ module.exports = {
       [levelBase.call('remove square')]
     ],
     'scale': {
-      'stepSpeed': 3
+      'stepSpeed': 2
     },
     'map': [
       [ 1, 1, 1, 1, 1, 1, 1, 1 ],
@@ -1454,7 +1454,7 @@ module.exports = {
       [levelBase.callWithArg('remove pile', 'height')], [VARIABLES_GET]
     ],
     'scale': {
-      'stepSpeed': 3
+      'stepSpeed': 2
     },
     'map': [
       [ 1, 1, 1, 1, 1, 1, 1, 1 ],
