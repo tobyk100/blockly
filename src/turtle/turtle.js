@@ -79,7 +79,7 @@ Turtle.init = function(config) {
   level = config.level;
 
   Turtle.AVATAR_HEIGHT = 51;
-  Turtle.AVATAR_WIDTH = 49;
+  Turtle.AVATAR_WIDTH = 70;
 
   BlocklyApps.IDEAL_BLOCK_NUM = level.ideal || Infinity;
   BlocklyApps.REQUIRED_BLOCKS = level.requiredBlocks || [];
@@ -198,7 +198,7 @@ Turtle.loadTurtle = function() {
     Turtle.display();
   };
   Turtle.avatarImage.src = skin.avatar;
-  Turtle.numberAvatarHeadings = 16;
+  Turtle.numberAvatarHeadings = 180;
   Turtle.avatarImage.height = Turtle.AVATAR_HEIGHT;
   Turtle.avatarImage.width = Turtle.AVATAR_WIDTH;
 };
@@ -216,7 +216,7 @@ Turtle.drawTurtle = function() {
   var destWidth = Turtle.avatarImage.width;
   var destHeight = Turtle.avatarImage.height;
   var destX = Turtle.x - destWidth / 2;
-  var destY = Turtle.y - destHeight;
+  var destY = Turtle.y - destHeight + 7;
 
   Turtle.ctxDisplay.drawImage(Turtle.avatarImage, sourceX, sourceY,
                               sourceWidth, sourceHeight, destX, destY,
@@ -603,7 +603,8 @@ Turtle.checkAnswer = function() {
         } else if (typeof colourResult == 'string') {
           message = msg.wrongColour().replace('%1', colourResult);
         }
-        BlocklyApps.setTextForElement('appSpecificOneStarFeedback', message);
+        var div = document.getElementById('appSpecificOneStarFeedback');
+        div.textContent = message;
       }
     }
   }

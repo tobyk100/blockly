@@ -1,239 +1,53 @@
 {
-  "blocklyMessage": {
-    "id": "6650354588969822092",
-    "string": "Blockly",
-    "description": "The project name.  If readers of your language would know approximately how to pronounce 'Blockly', leave unchanged.  Otherwise, include a transliteration in parentheses, such as the Russian: 'Blockly (Блoкли)'."
-  },
-  "catActions": {
-    "string": "Actions",
-    "description": "category - Blocks related to moving the avatar."
-  },
-  "catColour": {
-    "id": "5532942470899034153",
-    "string": "Colour",
-    "description": "category - Blocks related to [https://code.google.com/p/blockly/wiki/Colour colour]."
-  },
-  "catCondition": {
-    "id": "5532942470899034153",
-    "string": "Conditionals",
-    "description": "category - Blocks related to conditionals."
-  },
-  "catLists": {
-    "id": "7880221162350996120",
-    "string": "Lists",
-    "description": "category - Blocks related to [https://code.google.com/p/blockly/wiki/Lists lists]."
-  },
-  "catLogic": {
-    "id": "1686883036031489642",
-    "string": "Logic",
-    "description": "category - Blocks related to [https://code.google.com/p/blockly/wiki/Logic logic]."
-  },
-  "catLoops": {
-    "id": "8514812131842527965",
-    "string": "Loops",
-    "description": "category - Blocks related to [http://en.wikipedia.org/wiki/Control_flow#Loops loops]."
-  },
-  "catMath": {
-    "id": "8504064665960111059",
-    "string": "Math",
-    "description": "category - Blocks related to mathematics."
-  },
-  "catProcedures": {
-    "id": "5803514418162480510",
-    "string": "Functions",
-    "description": "category - Blocks related to [http://en.wikipedia.org/wiki/Subroutine defining or using procedures/functions]."
-  },
-  "catText": {
-    "id": "2561306449483326985",
-    "string": "Text",
-    "description": "category - Blocks related to [https://code.google.com/p/blockly/wiki/Text text processing]."
-  },
-  "catVariables": {
-    "id": "3279501947911403228",
-    "string": "Variables",
-    "description": "category - Blocks related to [https://code.google.com/p/blockly/wiki/Variables variables]."
-  },
-  "codeTooltip": {
-    "id": "5838195295317713027",
-    "string": "See generated JavaScript code.",
-    "description": "tooltip (pop-up help) for button; pressing the button causes a program in the JavaScript computer language to be displayed, based on the program created by the user."
-  },
-  "continue": {
-    "id": "4025711230282642462",
-    "string": "Continue",
-    "description": "button - Closes the dialog and continues to the next level"
-  },
-  "dialogCancel": {
-    "id": "8605819299263106886",
-    "string": "Cancel",
-    "description": "Label on button for user to press when not wanting to proceed.\n{{Identical|Cancel}}"
-  },
-  "dialogOK": {
-    "id": "3964361619617826429",
-    "string": "OK",
-    "description": "Label on button for user to press when done reading help information.\n{{Identical|OK}}"
-  },
-  "emptyBlocksErrorMsg": {
-    "id": "4352395945928742108",
-    "string": "The &quot;Repeat&quot; or &quot;If&quot; block needs to have other blocks inside it to work. Make sure the inner block fits properly inside the containing block.",
-    "description": "alert - This error message is displayed when the user has added blocks with nothing nested inside them (e.g. repeat or if blocks)."
-  },
-  "hashError": {
-    "id": "2570539532822249158",
-    "string": "Sorry, '%1' doesn't correspond with any saved program.",
-    "description": "alert - A request to retrieve a stored program does not have a valid URL. %1 is the invalid portion of the URL."
-  },
-  "help": {
-    "id": "1662703848705955943",
-    "string": "Help",
-    "description": "The label on a button the user can press for help.\n{{Identical|Help}}"
-  },
-  "hintTitle": {
-    "id": "6671914256511678537",
-    "string": "Hint:",
-    "description": "title - this indicates to the user that what follows are ways to improve and/or fix their code."
-  },
-  "levelIncompleteError": {
-    "id": "2245055276599312776",
-    "string": "You are using all of the necessary types of blocks but not in the right way.",
-    "description": "TODO"
-  },
-  "listVariable": {
-    "id": "7314181232693154293",
-    "string": "list",
-    "description": "variable name - Default [https://code.google.com/p/blockly/wiki/Variables variable] representing a [https://code.google.com/p/blockly/wiki/Lists list].  This should be a single word, preferably short."
-  },
-  "missingBlocksErrorMsg": {
-    "id": "7738506862343583229",
-    "string": "Try one or more of the blocks below to solve this level.",
-    "description": "TODO"
-  },
-  "reinfFeedbackMsg": {
-    "string": "Does this look like what you want? You can press the space key to see your drawing.",
-    "description": "TODO"
-  },
-  "tooMuchWork": {
-    "string": "You made me do a lot of work!  Could you try repeating fewer times?",
-    "description": "TODO"
-  },
-  "nextLevel": {
-    "id": "6946125796492579884",
-    "string": "Congratulations! You completed this puzzle.",
-    "description": "alert - This is displayed when the user solves the level, inviting them to precede to the next level of difficulty."
-  },
-  "finalStage": {
-    "id": "1144995744314074379",
-    "string": "Congratulations! You have completed the final stage.",
-    "description": "alert - This is displayed when the user solves the most difficult level."
-  },
-  "nextLevelTrophies": {
-    "string": "Congratulations! You completed this puzzle and won {numTrophies, plural, one {a trophy} other {# trophies}}.",
-    "description": "alert - This is displayed when the user solves the level and won one or more trophies."
-  },
-  "finalStageTrophies": {
-    "string": "Congratulations! You have completed the final stage and won {numTrophies, plural, one {a trophy} other {# trophies}}.",
-    "description": "alert - This is displayed when the user solves the most difficult level and won one or more trophies."
-  },
-  "nextStage": {
-    "string": "Congratulations! You completed Stage {stageNumber}.",
-    "description": "alert - This is displayed when the user completes the stage, inviting them to precede to the next stage."
-  },
-  "nextStageTrophies": {
-    "string": "Congratulations! You completed Stage {stageNumber} and won {numTrophies, plural, one {a trophy} other {# trophies}}.",
-    "description": "alert - This is displayed when the user completes the stage and won one or more trophies."
-  },
-  "numBlocksNeeded": {
-    "id": "857707012901609467",
-    "string": "This puzzle can be solved with {numBlocks, plural, one {1 block} other {# blocks}}.",
-    "description": "alert - This is displayed when the user has used more blocks than is necessary."
-  },
-  "projectMessage": {
-    "id": "8682553848590484654",
-    "string": "CS First",
-    "description": "The project name. 'CS' is an abbreviation for Computer Science. 'First' refers to the project's goal of introducing students to programming as early as possible in their life."
-  },
-  "puzzleTitle": {
-    "string": "Puzzle {puzzle_number} of {stage_total}",
-    "description": "title - This is displayed as the title of the dialog when a new level appears."
-  },
-  "resetProgram": {
-    "id": "6533409555866489852",
-    "string": "Reset",
-    "description": "button label - Pressing the button causes the output of the program to be erased but does not delete the user's program)."
-  },
-  "runProgram": {
-    "id": "6189808175540281396",
-    "string": "Run Program",
-    "description": "button label - Pressing the button runs the computer program the user has written."
-  },
-  "runTooltip": {
-    "id": "6316320629891574281",
-    "string": "Run the program defined by the blocks in the workspace.",
-    "description": "tooltip - Pressing this button runs the computer program the user has written."
-  },
-  "subtitle": {
-    "id": "9151382257658567281",
-    "string": "a visual programming environment",
-    "description": "A short description of Blockly."
-  },
-  "textVariable": {
-    "id": "768570576516576913",
-    "string": "text",
-    "description": "variable name - Default [https://code.google.com/p/blockly/wiki/Variables variable] representing a [https://code.google.com/p/blockly/wiki/Text piece of text].  This should be a single word, preferably short."
-  },
-  "tryAgain": {
-    "id": "8285768475184396675",
-    "string": "Try again",
-    "description": "button - Closes the dialog and stays on the current level"
-  },
-  "tooFewBlocksMsg": {
-    "id": "1974981833802480926",
-    "string": "You are using all of the necessary types of blocks, but try using more  of these types of blocks to complete this puzzle.",
-    "description": "alert - The user has not completed the level, is using all of the necessary types of blocks, but needs more of these types of blocks to complete the level."
-  },
-  "tooManyBlocksMsg": {
-    "id": "1502277686681186601",
-    "string": "This puzzle can be solved with <x id='START_SPAN'/><x id='END_SPAN'/> blocks.",
-    "description": "alert - This is displayed when the user has used more blocks than is necessary."
-  },
-  "numLinesOfCodeWritten": {
-    "string": "You just wrote {numLines, plural, one {1 line} other {# lines}} of code!",
-    "description": "Message displayed to user upon level completion informing them of the number of lines of Javascript code generated by their program."
-  },
-  "totalNumLinesOfCodeWritten": {
-    "string": "All-time total: {numLines, plural, one {1 line} other {# lines}} of code.",
-    "description": "Message displayed to user upon level completion informing them of the number of lines of Javascript code generated by their program."
-  },
-  "showGeneratedCode": {
-    "string": "Show code",
-    "description": "Link label for displaying the user's generated code"
-  },
-  "generatedCodeInfo": {
-    "string": "The blocks for your program can also be represented in Javascript, the world's most widely adopted programming language:",
-    "description": "Informational message about user's generated Javascript code"
-  },
-  "typeCode": {
-    "string": "// Type your JavaScript code below these instructions.",
-    "description": "hint text - type code here"
-  },
-  "typeHint": {
-    "string": "// Note that the parentheses and semicolons are required.",
-    "description": "hint text - parens and semicolon needed"
-  },
-  "typeFuncs": {
-    "string": "// Available functions:%1<br><br><br>",
-    "description": "Hint text to describe functions that can be typed into the JS code editor"
-  },
-  "toolboxHeader": {
-    "string": "Blocks",
-    "description": "A label for the toolbox"
-  },
-  "workspaceHeader": {
-    "string": "Assemble your blocks here.",
-    "description": "A label for the workspace"
-  },
-  "showCodeHeader": {
-    "string": "Show Code",
-    "description": "A label for a button which shows the user's code."
-  }
+  "blocklyMessage": "Blockly",
+  "catActions": "Actions",
+  "catColour": "Colour",
+  "catCondition": "Conditionals",
+  "catLists": "Lists",
+  "catLogic": "Logic",
+  "catLoops": "Loops",
+  "catMath": "Math",
+  "catProcedures": "Functions",
+  "catText": "Text",
+  "catVariables": "Variables",
+  "codeTooltip": "See generated JavaScript code.",
+  "continue": "Continue",
+  "dialogCancel": "Cancel",
+  "dialogOK": "OK",
+  "emptyBlocksErrorMsg": "The &quot;Repeat&quot; or &quot;If&quot; block needs to have other blocks inside it to work. Make sure the inner block fits properly inside the containing block.",
+  "finalStage": "Congratulations! You have completed the final stage.",
+  "finalStageTrophies": "Congratulations! You have completed the final stage and won {numTrophies, plural, one {a trophy} other {# trophies}}.",
+  "generatedCodeInfo": "The blocks for your program can also be represented in Javascript, the world's most widely adopted programming language:",
+  "hashError": "Sorry, '%1' doesn't correspond with any saved program.",
+  "help": "Help",
+  "hintTitle": "Hint:",
+  "levelIncompleteError": "You are using all of the necessary types of blocks but not in the right way.",
+  "listVariable": "list",
+  "missingBlocksErrorMsg": "Try one or more of the blocks below to solve this level.",
+  "nextLevel": "Congratulations! You completed this puzzle.",
+  "nextLevelTrophies": "Congratulations! You completed this puzzle and won {numTrophies, plural, one {a trophy} other {# trophies}}.",
+  "nextStage": "Congratulations! You completed Stage {stageNumber}.",
+  "nextStageTrophies": "Congratulations! You completed Stage {stageNumber} and won {numTrophies, plural, one {a trophy} other {# trophies}}.",
+  "numBlocksNeeded": "Congratulations! You completed this puzzle. (However, you could have used only {numBlocks, plural, one {1 block} other {# blocks}}.)",
+  "numLinesOfCodeWritten": "You just wrote {numLines, plural, one {1 line} other {# lines}} of code!",
+  "projectMessage": "CS First",
+  "puzzleTitle": "Puzzle {puzzle_number} of {stage_total}",
+  "reinfFeedbackMsg": "Does this look like what you want? You can press the space key to see your drawing.",
+  "resetProgram": "Reset",
+  "runProgram": "Run Program",
+  "runTooltip": "Run the program defined by the blocks in the workspace.",
+  "showCodeHeader": "Show Code",
+  "showGeneratedCode": "Show code",
+  "subtitle": "a visual programming environment",
+  "textVariable": "text",
+  "tooFewBlocksMsg": "You are using all of the necessary types of blocks, but try using more  of these types of blocks to complete this puzzle.",
+  "tooManyBlocksMsg": "This puzzle can be solved with <x id='START_SPAN'/><x id='END_SPAN'/> blocks.",
+  "tooMuchWork": "You made me do a lot of work!  Could you try repeating fewer times?",
+  "toolboxHeader": "Blocks",
+  "totalNumLinesOfCodeWritten": "All-time total: {numLines, plural, one {1 line} other {# lines}} of code.",
+  "tryAgain": "Try again",
+  "typeCode": "// Type your JavaScript code below these instructions.",
+  "typeFuncs": "// Available functions:%1<br><br><br>",
+  "typeHint": "// Note that the parentheses and semicolons are required.",
+  "workspaceHeader": "Assemble your blocks here."
 }

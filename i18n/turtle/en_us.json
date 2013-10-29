@@ -1,207 +1,43 @@
 {
-  "blocksUsed": {
-    "id": "6192414251393604148",
-    "string": "Blocks used: %1",
-    "description": "TODO"
-  },
-  "catColour": {
-    "id": "1759106504444276359",
-    "string": "Color",
-    "description": "TODO"
-  },
-  "catControl": {
-    "id": "4536361039378989928",
-    "string": "Loops",
-    "description": "TODO"
-  },
-  "catMath": {
-    "id": "8552911449139168297",
-    "string": "Math",
-    "description": "TODO"
-  },
-  "catProcedures": {
-    "id": "8555382107213594291",
-    "string": "Functions",
-    "description": "TODO"
-  },
-  "catTurtle": {
-    "id": "5148447119737439401",
-    "string": "Actions",
-    "description": "TODO"
-  },
-  "catVariables": {
-    "id": "5457454918800758856",
-    "string": "Variables",
-    "description": "TODO"
-  },
-  "colourTooltip": {
-    "id": "3919378580309876148",
-    "string": "Changes the color of the pen.",
-    "description": "TODO"
-  },
-  "degrees": {
-    "id": "893046754428386132",
-    "string": "degrees",
-    "description": "TODO"
-  },
-  "dots": {
-    "id": "5277007024015341462",
-    "string": "dots",
-    "description": "TODO"
-  },
-  "drawASnowman": {
-    "id": "3552165757021173739",
-    "string": "draw a snowman",
-    "description": "TODO"
-  },
-  "drawASquare": {
-    "id": "3072368140058022895",
-    "string": "draw a square",
-    "description": "TODO"
-  },
-  "heightParameter": {
-    "id": "250839010734163446",
-    "string": "height",
-    "description": "TODO"
-  },
-  "hideTurtle": {
-    "id": "1146327621590900127",
-    "string": "hide turtle",
-    "description": "TODO"
-  },
-  "jumpBackward": {
-    "id": "4466869966303893630",
-    "string": "jump backward by",
-    "description": "TODO"
-  },
-  "jumpForward": {
-    "id": "5069046536746700962",
-    "string": "jump forward by",
-    "description": "TODO"
-  },
-  "jumpTooltip": {
-    "id": "7563511320497497010",
-    "string": "Moves the turtle without leaving any marks.",
-    "description": "TODO"
-  },
-  "lengthParameter": {
-    "id": "7975813070692811697",
-    "string": "length",
-    "description": "TODO"
-  },
-  "loopVariable": {
-    "id": "4975881527969825929",
-    "string": "counter",
-    "description": "TODO"
-  },
-  "moveBackward": {
-    "id": "4294783477990312138",
-    "string": "move backward by",
-    "description": "TODO"
-  },
-  "moveForward": {
-    "id": "1013045213595604872",
-    "string": "move forward by",
-    "description": "TODO"
-  },
-  "moveForwardTooltip": {
-    "id": "3518504260884370609",
-    "string": "Moves the turtle forward.",
-    "description": "TODO"
-  },
-  "moveTooltip": {
-    "id": "552526916301133670",
-    "string": "Moves the turtle forward or backward by the specified amount.",
-    "description": "TODO"
-  },
-  "notBlackColour": {
-    "id": "8349021672644911810",
-    "string": "You need to set a color other than black for this level.",
-    "description": "TODO"
-  },
-  "numBlocksNeeded": {
-    "id": "320660831584776468",
-    "string": "This level can be solved with %1 blocks.  You used %2.",
-    "description": "TODO"
-  },
-  "penDown": {
-    "id": "295126337553066153",
-    "string": "pen down",
-    "description": "TODO"
-  },
-  "penTooltip": {
-    "id": "968123423114261681",
-    "string": "Lifts or lowers the pen, to start or stop drawing.",
-    "description": "TODO"
-  },
-  "penUp": {
-    "id": "196845303311122428",
-    "string": "pen up",
-    "description": "TODO"
-  },
-  "setColour": {
-    "id": "8582408810273452213",
-    "string": "set color",
-    "description": "TODO"
-  },
-  "setWidth": {
-    "id": "8037633027892627134",
-    "string": "set width",
-    "description": "TODO"
-  },
-  "showMe": {
-    "id": "514758953227426343",
-    "string": "Show me",
-    "description": "TODO"
-  },
-  "showTurtle": {
-    "id": "8598935855828958714",
-    "string": "show turtle",
-    "description": "TODO"
-  },
-  "title": {
-    "id": "1735010517448028234",
-    "string": "CS First: Turtle Graphics %1",
-    "description": "TODO"
-  },
-  "tooFewColours": {
-    "id": "1757525824513667617",
-    "string": "You need to use at least %1 different colors on this level.  You used only %2.",
-    "description": "TODO"
-  },
-  "turnLeft": {
-    "id": "6078028329780496695",
-    "string": "turn left by",
-    "description": "TODO"
-  },
-  "turnRight": {
-    "id": "6889946611851664425",
-    "string": "turn right by",
-    "description": "TODO"
-  },
-  "turnRightTooltip": {
-    "id": "3642603709514258121",
-    "string": "Turns the turtle right by the specified angle.",
-    "description": "TODO"
-  },
-  "turnTooltip": {
-    "id": "7089740218907481322",
-    "string": "Turns the turtle left or right by the specified number of degrees.",
-    "description": "TODO"
-  },
-  "turtleVisibilityTooltip": {
-    "id": "9016285072881975083",
-    "string": "Makes the turtle (green circle and arrow) visible or invisible.",
-    "description": "TODO"
-  },
-  "widthTooltip": {
-    "id": "1359456544648181295",
-    "string": "Changes the width of the pen.",
-    "description": "TODO"
-  },
-  "wrongColour": {
-    "id": "7740915719993711156",
-    "string": "Your picture is the wrong color.  For this level, it needs to be %1.",
-    "description": "TODO"
-  }
+  "blocksUsed": "Blocks used: %1",
+  "catColour": "Color",
+  "catControl": "Loops",
+  "catMath": "Math",
+  "catProcedures": "Functions",
+  "catTurtle": "Actions",
+  "catVariables": "Variables",
+  "colourTooltip": "Changes the color of the pen.",
+  "degrees": "degrees",
+  "dots": "dots",
+  "drawASnowman": "draw a snowman",
+  "drawASquare": "draw a square",
+  "heightParameter": "height",
+  "hideTurtle": "hide turtle",
+  "jumpBackward": "jump backward by",
+  "jumpForward": "jump forward by",
+  "jumpTooltip": "Moves the turtle without leaving any marks.",
+  "lengthParameter": "length",
+  "loopVariable": "counter",
+  "moveBackward": "move backward by",
+  "moveForward": "move forward by",
+  "moveForwardTooltip": "Moves the turtle forward.",
+  "moveTooltip": "Moves the turtle forward or backward by the specified amount.",
+  "notBlackColour": "You need to set a color other than black for this level.",
+  "numBlocksNeeded": "This level can be solved with %1 blocks.  You used %2.",
+  "penDown": "pen down",
+  "penTooltip": "Lifts or lowers the pen, to start or stop drawing.",
+  "penUp": "pen up",
+  "setColour": "set color",
+  "setWidth": "set width",
+  "showMe": "Show me",
+  "showTurtle": "show turtle",
+  "title": "CS First: Turtle Graphics %1",
+  "tooFewColours": "You need to use at least %1 different colors on this level.  You used only %2.",
+  "turnLeft": "turn left by",
+  "turnRight": "turn right by",
+  "turnRightTooltip": "Turns the turtle right by the specified angle.",
+  "turnTooltip": "Turns the turtle left or right by the specified number of degrees.",
+  "turtleVisibilityTooltip": "Makes the turtle (green circle and arrow) visible or invisible.",
+  "widthTooltip": "Changes the width of the pen.",
+  "wrongColour": "Your picture is the wrong color.  For this level, it needs to be %1."
 }

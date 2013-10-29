@@ -26,7 +26,6 @@ module.exports = {
   // Formerly page 1
 
   '1_1': {
-    'instructions': 'instructions1_1',
     'toolbox': toolbox(1, 1),
     'ideal': 2,
     'requiredBlocks': [
@@ -50,7 +49,6 @@ module.exports = {
     'singleTopBlock': true
   },
   '1_2': {
-    'instructions': 'instructions1_2',
     'toolbox': toolbox(1, 2),
     'ideal': 5,
     'requiredBlocks': [
@@ -75,7 +73,6 @@ module.exports = {
     'singleTopBlock': true
   },
   '1_3': {
-    'instructions': 'instructions1_3',
     'toolbox': toolbox(1, 3),
     'ideal': 2,
     'requiredBlocks': [
@@ -98,7 +95,6 @@ module.exports = {
     ]
   },
   '1_4': {
-    'instructions': 'instructions1_4',
     'toolbox': toolbox(1, 4),
     'ideal': 5,
     'requiredBlocks': [
@@ -129,7 +125,6 @@ module.exports = {
     ]
   },
   '1_5': {
-    'instructions': 'instructions1_5',
     'toolbox': toolbox(1, 5),
     'ideal': 4,
     'requiredBlocks': [
@@ -154,7 +149,6 @@ module.exports = {
     ]
   },
   '1_6': {
-    'instructions': 'instructions1_6',
     'toolbox': toolbox(1, 6),
     'ideal': 4,
     'requiredBlocks': [
@@ -176,7 +170,6 @@ module.exports = {
     ]
   },
   '1_7': {
-    'instructions': 'instructions1_7',
     'toolbox': toolbox(1, 7),
     'ideal': 4,
     'requiredBlocks': [
@@ -197,7 +190,6 @@ module.exports = {
     ]
   },
   '1_8': {
-    'instructions': 'instructions1_8',
     'toolbox': toolbox(1, 8),
     'ideal': 6,
     'requiredBlocks': [
@@ -221,7 +213,6 @@ module.exports = {
     ]
   },
   '1_9': {
-    'instructions': 'instructions1_9',
     'toolbox': toolbox(1, 9),
     'ideal': 6,
     'requiredBlocks': [
@@ -244,7 +235,6 @@ module.exports = {
     ]
   },
   '1_10': {
-    'instructions': 'instructions1_10',
     'toolbox': toolbox(1, 10),
     'ideal': 5,
     'requiredBlocks': [
@@ -270,7 +260,6 @@ module.exports = {
   // Formerly Page 2
 
   '2_1': {
-    'instructions': 'instructions2_1',
     'toolbox': toolbox(2, 1),
     'ideal': 3,
     'requiredBlocks': [
@@ -290,7 +279,6 @@ module.exports = {
     'startBlocks': startBlocks(2, 1)
   },
   '2_2': {
-    'instructions': 'instructions2_2',
     'toolbox': toolbox(2, 2),
     'ideal': 2,
     'requiredBlocks': [
@@ -310,7 +298,6 @@ module.exports = {
     'startBlocks': startBlocks(2, 2)
   },
   '2_3': {
-    'instructions': 'instructions2_3',
     'toolbox': toolbox(2, 3),
     'ideal': 5,
     'requiredBlocks': [
@@ -336,7 +323,6 @@ module.exports = {
     'startBlocks': startBlocks(2, 3)
   },
   '2_4': {
-    'instructions': 'instructions2_4',
     'toolbox': toolbox(2, 4),
     'ideal': 8,
     'requiredBlocks': [
@@ -358,7 +344,6 @@ module.exports = {
     ]
   },
   '2_5': {
-    'instructions': 'instructions2_5',
     'toolbox': toolbox(2, 5),
     'ideal': 2,
     'requiredBlocks': [
@@ -378,7 +363,6 @@ module.exports = {
     ]
   },
   '2_6': {
-    'instructions': 'instructions2_6',
     'toolbox': toolbox(2, 6),
     'ideal': 3,
     'requiredBlocks': [
@@ -401,7 +385,6 @@ module.exports = {
     ]
   },
   '2_7': {
-    'instructions': 'instructions2_7',
     'toolbox': toolbox(2, 7),
     'ideal': 5,
     'scale': {
@@ -427,7 +410,6 @@ module.exports = {
     ]
   },
   '2_8': {
-    'instructions': 'instructions2_8',
     'toolbox': toolbox(2, 8),
     'ideal': 5,
     'scale': {
@@ -453,7 +435,6 @@ module.exports = {
     ]
   },
   '2_9': {
-    'instructions': 'instructions2_9',
     'toolbox': toolbox(2, 9),
     'ideal': 2,
     'requiredBlocks': [
@@ -473,7 +454,6 @@ module.exports = {
     ]
   },
   '2_10': {
-    'instructions': 'instructions2_10',
     'toolbox': toolbox(2, 10),
     'ideal': 2,
     'requiredBlocks': [
@@ -493,7 +473,6 @@ module.exports = {
     ]
   },
   '2_11': {
-    'instructions': 'instructions2_11',
     'toolbox': toolbox(2, 11),
     'ideal': 5,
     'scale': {
@@ -522,7 +501,6 @@ module.exports = {
     ]
   },
   '2_12': {
-    'instructions': 'instructions2_12',
     'toolbox': toolbox(2, 12),
     'ideal': 5,
     'scale': {
@@ -551,7 +529,6 @@ module.exports = {
     ]
   },
   '2_13': {
-    'instructions': 'instructions2_13',
     'toolbox': toolbox(2, 13),
     'ideal': 1,
     'requiredBlocks': [
@@ -573,7 +550,6 @@ module.exports = {
     'startBlocks': startBlocks(2, 13)
   },
   '2_14': {
-    'instructions': 'instructions2_14',
     'toolbox': toolbox(2, 14),
     'ideal': 4,
     'scale': {
@@ -602,7 +578,6 @@ module.exports = {
     ]
   },
   '2_15': {
-    'instructions': 'instructions2_15',
     'toolbox': toolbox(2, 15),
     'ideal': 4,
     'scale': {
@@ -631,7 +606,6 @@ module.exports = {
     ]
   },
   '2_16': {
-    'instructions': 'instructions2_16',
     'toolbox': toolbox(2, 16),
     'ideal': 4,
     'scale': {
@@ -660,7 +634,6 @@ module.exports = {
     ]
   },
   '2_17': {
-    'instructions': 'instructions2_17',
     'toolbox': toolbox(2, 17),
     'ideal': 4,
     'scale': {
@@ -689,7 +662,6 @@ module.exports = {
     ]
   },
   '2_18': {
-    'instructions': 'instructions2_18',
     'toolbox': toolbox(2, 18),
     'ideal': 4,
     'scale': {
@@ -718,7 +690,6 @@ module.exports = {
     ]
   },
   '2_19': {
-    'instructions': 'instructions2_19',
     'toolbox': toolbox(2, 19),
     'idea': 3,
     'scale': {
@@ -749,7 +720,6 @@ module.exports = {
 
   // Copied levels with editCode enabled
   '3_1': {
-    'instructions': 'instructions3_1',
     'toolbox': toolbox(3, 1),
     'ideal': 2,
     'editCode': true,
@@ -774,7 +744,6 @@ module.exports = {
     ]
   },
   '3_2': {
-    'instructions': 'instructions3_2',
     'toolbox': toolbox(3, 2),
     'ideal': 3,
     'editCode': true,
@@ -799,7 +768,6 @@ module.exports = {
     ]
   },
   '3_3': {
-    'instructions': 'instructions3_3',
     'toolbox': toolbox(3, 3),
     'ideal': 5,
     'editCode': true,
@@ -830,7 +798,6 @@ module.exports = {
     ]
   },
   '3_4': {
-    'instructions': 'instructions3_4',
     'toolbox': toolbox(3, 4),
     'ideal': 7,
     'editCode': true,

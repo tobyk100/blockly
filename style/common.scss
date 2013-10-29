@@ -5,7 +5,7 @@ $purple: #7665a0;
 $green: #b9bf15;
 @mixin fill-container {
   height: 100%;
-  width: 100%;
+  width: auto;
 }
 @mixin font {
   font-family: 'Gotham A', 'Gotham B', sans-serif;
@@ -125,7 +125,7 @@ input[type="radio"] {
   border-radius: 8px;
   box-shadow: 5px 5px 5px #888;
   padding: 10px;
-  z-index: 2;
+  z-index: 20000;
 }
 #dialogBorder {
   visibility: hidden;
@@ -255,6 +255,9 @@ input[type="radio"] {
 }
 
 #rotateMobile {
+  margin-right: auto;
+  margin-left: auto;
+  display: block;
   @include fill-container;
 }
 

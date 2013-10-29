@@ -193,7 +193,6 @@ exports.show = function(options) {
   }
   function endResult() {
     dialog.style.visibility = 'visible';
-    dialog.style.zIndex = 1;
     border.style.visibility = 'hidden';
   }
   if (options.animate && options.origin) {
@@ -243,7 +242,6 @@ exports.hide = function(opt_animate) {
     endResult();
   }
   dialog.style.visibility = 'hidden';
-  dialog.style.zIndex = -1;
   while (dialog.firstChild) {
     var content = dialog.firstChild;
     content.className += ' dialogHiddenContent';

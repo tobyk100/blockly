@@ -118,18 +118,13 @@ BlocklyApps.init = function(config) {
   // Add events for touch devices when the window is done loading.
   addReadyListener(BlocklyApps.addTouchEvents);
 
-  if (exports.isMobile()) {
+  if (utils.isMobile()) {
     responsive.forceLandscape();
   }
 };
 
-exports.isMobile = function() {
-  var reg = /Mobile|iP(hone|od|ad)|Android|BlackBerry|IEMobile/;
-  return reg.test(window.navigator.userAgent);
-};
-
 exports.playNonMobileAudio = function(name, opt_volume) {
-  if (!exports.isMobile()) {
+  if (!utils.isMobile()) {
     Blockly.playAudio(name, opt_volume);
   }
 };
@@ -193,6 +188,8 @@ BlocklyApps.loadBlocks = function(blocksXml) {
 };
 
 var showInstructions = function(level) {
+  level.instructions = level.instructions || '';
+
   var instructionsDiv = document.createElement('div');
   instructionsDiv.innerHTML = require('./templates/instructions.html')(level);
 
@@ -217,7 +214,7 @@ var showInstructions = function(level) {
   dialog.show();
 
   var promptDiv = document.getElementById('prompt');
-  promptDiv.innerHTML = level.instructions;
+  promptDiv.textContent = level.instructions;
 
   var promptIcon = document.getElementById('prompt-icon');
   promptIcon.src = BlocklyApps.ICON;
