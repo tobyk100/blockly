@@ -20,7 +20,8 @@ var CONFIGS = {
 
   farmer: {
     look: '#000',
-    transparentTileEnding: true
+    transparentTileEnding: true,
+    nonDisappearingPegmanHittingObstacle: true
   },
 
   farmer_minecraft: {
@@ -71,6 +72,11 @@ exports.load = function(skin) {
     skin.transparentTileEnding = true;
   } else {
     skin.transparentTileEnding = false;
+  }
+  if (config.nonDisappearingPegmanHittingObstacle) {
+    skin.nonDisappearingPegmanHittingObstacle = true;
+  } else {
+    skin.nonDisappearingPegmanHittingObstacle = false;
   }
   skin.obstacleScale = config.obstacleScale || 1.0;
   // Sounds

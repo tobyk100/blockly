@@ -958,12 +958,14 @@ Maze.scheduleFail = function(forward) {
     }
 
     // Remove pegman
-    var svgMaze = document.getElementById('svgMaze');
-    var pegmanIcon = document.getElementById('pegman');
+    if (!skin.nonDisappearingPegmanHittingObstacle) {
+      var svgMaze = document.getElementById('svgMaze');
+      var pegmanIcon = document.getElementById('pegman');
 
-    Maze.pidList.push(window.setTimeout(function() {
-      pegmanIcon.setAttribute('visibility', 'hidden');
-    }, stepSpeed * 2));
+      Maze.pidList.push(window.setTimeout(function() {
+        pegmanIcon.setAttribute('visibility', 'hidden');
+      }, stepSpeed * 2));
+    }
   }
 
   Maze.pidList.push(window.setTimeout(function() {
