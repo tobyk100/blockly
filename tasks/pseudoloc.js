@@ -30,8 +30,7 @@ module.exports = function(grunt) {
     files.forEach(function(file) {
       var messages = grunt.file.readJSON(file.src[0]);
       Object.keys(messages).forEach(function(id) {
-        var message = messages[id];
-        message.string = pseudolocString(message.string);
+        messages[id] = pseudolocString(messages[id]);
       });
       grunt.file.write(file.dest, JSON.stringify(messages, null, 2));
     });
