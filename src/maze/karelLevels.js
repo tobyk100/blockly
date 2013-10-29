@@ -160,16 +160,16 @@ var REMOVE_AND_AVOID_OBSTACLE = {
 
 // This tests for and creates the "remove piles" block.
 var REMOVE_PILES = {
-  'test': 'remove_piles();',
+  'test': 'remove_stack_of_4_piles();',
   'type': 'procedures_callnoreturn',
-  'titles': {'NAME': 'remove piles'}
+  'titles': {'NAME': 'remove stack of 4 piles'}
 };
 
 // This tests for and creates the "fill holes" block.
 var FILL_HOLES = {
-  'test': 'fill_holes();',
+  'test': 'fill_stack_of_2_holes();',
   'type': 'procedures_callnoreturn',
-  'titles': {'NAME': 'fill holes'}
+  'titles': {'NAME': 'fill stack of 2 holes'}
 };
 
 module.exports = {
@@ -983,11 +983,10 @@ module.exports = {
   '2_9': {
     'toolbox': toolbox(2, 9),
     'startBlocks': startBlocks(2, 9),
-    'ideal': 4,
+    'ideal': 3,
     'requiredBlocks': [
       [REMOVE_PILES],
       [MOVE_FORWARD],
-      [IF_OPT_PILE_PRESENT],
       [UNTIL_BLOCKED, REPEAT]
     ],
     'scale': {
@@ -1009,10 +1008,10 @@ module.exports = {
       [ 0, 0, 0, 0, 0, 0, 0, 0 ],
       [ 0, 0, 0, 0, 0, 0, 0, 0 ],
       [ 0, 0, 0, 0, 0, 0, 0, 0 ],
-      [ 1, 0, 1, 1, 0, 1, 1, 0 ],
-      [ 1, 0, 1, 1, 0, 1, 1, 0 ],
-      [ 1, 0, 1, 1, 0, 1, 1, 0 ],
-      [ 1, 0, 1, 1, 0, 1, 1, 0 ]
+      [ 1, 1, 1, 1, 1, 1, 0, 0 ],
+      [ 1, 1, 1, 1, 1, 1, 0, 0 ],
+      [ 1, 1, 1, 1, 1, 1, 0, 0 ],
+      [ 1, 1, 1, 1, 1, 1, 0, 0 ]
     ],
     'finalDirt': [
       [ 0, 0, 0, 0, 0, 0, 0, 0 ],
