@@ -188,6 +188,8 @@ BlocklyApps.loadBlocks = function(blocksXml) {
 };
 
 var showInstructions = function(level) {
+  level.instructions = level.instructions || '';
+
   var instructionsDiv = document.createElement('div');
   instructionsDiv.innerHTML = require('./templates/instructions.html')(level);
 
@@ -212,7 +214,7 @@ var showInstructions = function(level) {
   dialog.show();
 
   var promptDiv = document.getElementById('prompt');
-  promptDiv.textContent = (level.instructions || '');
+  promptDiv.textContent = level.instructions;
 
   var promptIcon = document.getElementById('prompt-icon');
   promptIcon.src = BlocklyApps.ICON;
