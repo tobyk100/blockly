@@ -140,8 +140,7 @@ var removeShovelfuls = function(n) { -%>
                                         <block type="maze_turn"
                                           editable="false" deletable="false"
                                           movable="false">
-                                          <title name="DIR">turnLeft
-                                          </title>
+                                          <title name="DIR">turnLeft</title>
                                         </block>
                                       </next>
                                     </block>
@@ -162,13 +161,10 @@ var removeShovelfuls = function(n) { -%>
       </statement>
     </block>
   <% } else if (level == 9) { -%>
-    <block type="karel_if" x="20" y="70">
-      <title name="DIR">pilePresent</title>
-    </block>
     <block type="procedures_defnoreturn" x="20" y="200" editable="false"
       deletable="false">
       <mutation></mutation>
-      <title name="NAME">remove piles</title>
+      <title name="NAME">remove stack of 4 piles</title>
       <statement name="STACK">
         <block type="maze_turn" editable="false" deletable="false"
           movable="false">
@@ -198,60 +194,6 @@ var removeShovelfuls = function(n) { -%>
                         <block type="controls_repeat" editable="false"
                           deletable="false" movable="false">
                           <title name="TIMES">4</title>
-                          <statement name="DO">
-                            <block type="maze_moveForward" editable="false"
-                              deletable="false" movable="false"></block>
-                          </statement>
-                          <next>
-                            <block type="maze_turn" editable="false"
-                              deletable="false" movable="false">
-                              <title name="DIR">turnLeft</title>
-                            </block>
-                          </next>
-                        </block>
-                      </next>
-                    </block>
-                  </next>
-                </block>
-              </next>
-            </block>
-          </next>
-        </block>
-      </statement>
-    </block>
-    <block type="procedures_defnoreturn" x="300" y="200" editable="false"
-      deletable="false">
-      <mutation></mutation>
-      <title name="NAME">fill holes</title>
-      <statement name="STACK">
-        <block type="maze_turn" editable="false" deletable="false"
-          movable="false">
-          <title name="DIR">turnLeft</title>
-          <next>
-            <block type="controls_repeat" editable="false" deletable="false"
-              movable="false">
-              <title name="TIMES">2</title>
-              <statement name="DO">
-                <block type="maze_fill" editable="false"
-                  deletable="false" movable="false">
-                  <next>
-                    <block type="maze_moveForward" editable="false"
-                      deletable="false" movable="false"></block>
-                  </next>
-                </block>
-              </statement>
-              <next>
-                <block type="maze_turn" editable="false" deletable="false"
-                  movable="false">
-                  <title name="DIR">turnRight</title>
-                  <next>
-                    <block type="maze_turn" editable="false" deletable="false"
-                      movable="false">
-                      <title name="DIR">turnRight</title>
-                      <next>
-                        <block type="controls_repeat" editable="false"
-                          deletable="false" movable="false">
-                          <title name="TIMES">2</title>
                           <statement name="DO">
                             <block type="maze_moveForward" editable="false"
                               deletable="false" movable="false"></block>
@@ -277,7 +219,7 @@ var removeShovelfuls = function(n) { -%>
     <block type="procedures_defnoreturn" x="20" y="200" editable="false"
       deletable="false">
       <mutation></mutation>
-      <title name="NAME">remove piles</title>
+      <title name="NAME">remove stack of 4 piles</title>
       <statement name="STACK">
         <block type="maze_turn" editable="false" deletable="false"
           movable="false">
@@ -331,7 +273,7 @@ var removeShovelfuls = function(n) { -%>
     <block type="procedures_defnoreturn" x="300" y="200" editable="false"
       deletable="false">
       <mutation></mutation>
-      <title name="NAME">fill holes</title>
+      <title name="NAME">fill stack of 2 holes</title>
       <statement name="STACK">
         <block type="maze_turn" editable="false" deletable="false"
           movable="false">
