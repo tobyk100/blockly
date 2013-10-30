@@ -779,7 +779,7 @@ module.exports = {
       [TURN_RIGHT]
     ],
     'scale': {
-      'stepSpeed': 2
+      'stepSpeed': 3
     },
     'map': [
       [ 1, 1, 1, 1, 1, 1, 1, 1 ],

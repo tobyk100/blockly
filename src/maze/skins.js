@@ -3,7 +3,8 @@
  */
 // tiles: A 250x200 set of 20 map images.
 // goal: A 20x34 goal image.
-// background: An optional 400x450 background image, or false.
+// background: Number of 400x400 background images. Randomly select one if
+// specified, otherwise, use background.png.
 // graph: Colour of optional grid lines, or false.
 // look: Colour of sonar-like look icon.
 
@@ -14,20 +15,21 @@ var CONFIGS = {
   },
 
   pegman: {
-    background: false,
     look: '#000'
   },
 
   farmer: {
     look: '#000',
     transparentTileEnding: true,
-    nonDisappearingPegmanHittingObstacle: true
+    nonDisappearingPegmanHittingObstacle: true,
+    background: 4
   },
 
   farmer_night: {
     look: '#FFF',
     transparentTileEnding: true,
-    nonDisappearingPegmanHittingObstacle: true
+    nonDisappearingPegmanHittingObstacle: true,
+    background: 4
   },
 
   pvz: {
@@ -100,7 +102,10 @@ exports.load = function(skin) {
     //TODO: This really should be a dirt sprite sheet.
     return skin.root + prefix + 'check.png';
   };
-  if (config.background !== false) {
+  if (config.background !== undefined) {
+    var index = Math.floor(Math.random() * config.background);
+    skin.background = skin.root + 'background' + index + '.png';
+  } else {
     skin.background = skin.root + 'background.png';
   }
   return skin;
