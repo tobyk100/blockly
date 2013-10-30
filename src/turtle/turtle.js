@@ -264,6 +264,9 @@ BlocklyApps.reset = function(ignore) {
   }
   Turtle.pid = 0;
   Turtle.coloursUsed = [];
+
+  // Stop the looping sound.
+  BlocklyApps.stopNonMobileLoopingAudio('start');
 };
 
 /**
