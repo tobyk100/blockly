@@ -312,7 +312,6 @@ Turtle.execute = function() {
   BlocklyApps.log = [];
   BlocklyApps.ticks = 1000000;
 
-  BlocklyApps.playNonMobileAudioRepeatedly('start', 0.5);
   Turtle.code = Blockly.Generator.workspaceToCode('JavaScript');
   try {
     codegen.evalWith(Turtle.code, {
@@ -330,6 +329,7 @@ Turtle.execute = function() {
   // BlocklyApps.log now contains a transcript of all the user's actions.
   // Reset the graphic and animate the transcript.
   BlocklyApps.reset();
+  BlocklyApps.playNonMobileAudioRepeatedly('start', 0.5);
   Turtle.pid = window.setTimeout(Turtle.animate, 100);
 };
 
