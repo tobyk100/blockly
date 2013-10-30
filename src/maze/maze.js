@@ -689,13 +689,12 @@ Maze.execute = function() {
   Maze.waitingForAnimate = true;
 
   // Report result to server.
-  BlocklyApps.report(
-    'maze',
-    level.id,
-    Maze.result === ResultType.SUCCESS,
-    Maze.testResults,
-    textBlocks,
-    Maze.onReportComplete);
+  BlocklyApps.report({app: 'maze',
+                      level: level.id,
+                      result: Maze.result === ResultType.SUCCESS,
+                      testResult: Maze.testResults,
+                      program: encodeURIComponent(textBlocks),
+                      onComplete: Maze.onReportComplete});
 
   // BlocklyApps.log now contains a transcript of all the user's actions.
   // Reset the maze and animate the transcript.
