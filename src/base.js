@@ -129,6 +129,18 @@ exports.playNonMobileAudio = function(name, opt_volume) {
   }
 };
 
+exports.playNonMobileAudioRepeatedly = function(name, opt_volume) {
+  if (!utils.isMobile()) {
+    Blockly.playAudioRepeatedly(name, opt_volume);
+  }
+};
+
+exports.stopNonMobileLoopingAudio = function(name) {
+  if (!utils.isMobile()) {
+    Blockly.stopLoopingAudio(name);
+  }
+};
+
 /**
  * @param {Object} options Configuration parameters for Blockly. Parameters are
  * optional and include:

@@ -309,7 +309,7 @@ Turtle.execute = function() {
   BlocklyApps.log = [];
   BlocklyApps.ticks = 1000000;
 
-  BlocklyApps.playNonMobileAudio('start', 0.5);
+  BlocklyApps.playNonMobileAudioRepeatedly('start', 0.5);
   Turtle.code = Blockly.Generator.workspaceToCode('JavaScript');
   try {
     codegen.evalWith(Turtle.code, {
@@ -621,6 +621,7 @@ Turtle.checkAnswer = function() {
   }
 
   // Play sound
+  BlocklyApps.stopNonMobileLoopingAudio('start');
   if (Turtle.testResults === BlocklyApps.TestResults.FREE_PLAY ||
       Turtle.testResults >= BlocklyApps.TestResults.TOO_MANY_BLOCKS_FAIL) {
     BlocklyApps.playNonMobileAudio('win', 0.5);
