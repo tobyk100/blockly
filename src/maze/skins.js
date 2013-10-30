@@ -83,6 +83,8 @@ exports.load = function(skin) {
   skin.obstacleSound =
       [skin.path + 'obstacle.mp3', skin.path + 'obstacle.ogg'];
   skin.wallSound = [skin.path + 'wall.mp3', skin.path + 'wall.ogg'];
+  skin.fillSound = [skin.path + 'fill.mp3', skin.path + 'fill.ogg'];
+  skin.digSound = [skin.path + 'dig.mp3', skin.path + 'dig.ogg'];
   // Settings
   skin.graph = config.graph;
   skin.look = config.look;

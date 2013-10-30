@@ -379,6 +379,8 @@ Maze.init = function(config) {
   Blockly.loadAudio_(skin.failureSound, 'failure');
   Blockly.loadAudio_(skin.obstacleSound, 'obstacle');
   Blockly.loadAudio_(skin.wallSound, 'wall');
+  Blockly.loadAudio_(skin.fillSound, 'fill');
+  Blockly.loadAudio_(skin.digSound, 'dig');
   Blockly.SNAP_RADIUS *= Maze.scale.snapRadius;
 
   // Locate the start and finish squares.
@@ -1088,6 +1090,7 @@ Maze.scheduleFill = function() {
        ++Maze.dirt_[y][x];
     }
   }
+  BlocklyApps.playNonMobileAudio('fill', 0.5);
 };
 
 /**
@@ -1139,6 +1142,8 @@ Maze.scheduleDig = function() {
       Maze.dirt_[y][x] = Maze.dirt_[y][x] - 1;
     }
   }
+  console.log("play dig");
+  BlocklyApps.playNonMobileAudio('dig', 0.5);
 };
 
 /**
