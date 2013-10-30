@@ -1142,7 +1142,6 @@ Maze.scheduleDig = function() {
       Maze.dirt_[y][x] = Maze.dirt_[y][x] - 1;
     }
   }
-  console.log("play dig");
   BlocklyApps.playNonMobileAudio('dig', 0.5);
 };
 

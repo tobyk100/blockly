@@ -24,12 +24,10 @@ var CONFIGS = {
     nonDisappearingPegmanHittingObstacle: true
   },
 
-  farmer_minecraft: {
-    look: '#000'
-  },
-
   farmer_night: {
-    look: '#FFF'
+    look: '#FFF',
+    transparentTileEnding: true,
+    nonDisappearingPegmanHittingObstacle: true
   },
 
   pvz: {
