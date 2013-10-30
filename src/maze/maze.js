@@ -893,8 +893,8 @@ Maze.scheduleFail = function(forward) {
                      Maze.pegmanY + deltaY / 4,
                      direction16);
   // Play sound and animation for hitting wall or obstacle
-  var squareType = Maze.map[targetY][targetX];
-  if (squareType === SquareType.WALL) {
+  var squareType = Maze.map[targetY] && Maze.map[targetY][targetX];
+  if (squareType === SquareType.WALL || squareType === undefined) {
     // Play the sound
     BlocklyApps.playNonMobileAudio('wall', 0.5);
 
