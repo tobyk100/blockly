@@ -945,7 +945,7 @@ module.exports = {
       [REPEAT], [AVOID_OBSTACLE_AND_REMOVE]
     ],
     'scale': {
-      'stepSpeed': 2
+      'stepSpeed': 3
     },
     'map': [
       [ 1, 1, 1, 1, 1, 1, 1, 1 ],
@@ -990,7 +990,7 @@ module.exports = {
       [UNTIL_BLOCKED, REPEAT]
     ],
     'scale': {
-      'stepSpeed': 2
+      'stepSpeed': 3
     },
     'map': [
       [ 1, 1, 1, 1, 1, 1, 1, 1 ],
@@ -1038,7 +1038,7 @@ module.exports = {
       [UNTIL_BLOCKED, REPEAT]
     ],
     'scale': {
-      'stepSpeed': 2
+      'stepSpeed': 3
     },
     'map': [
       [ 1, 1, 1, 1, 1, 1, 1, 1 ],
@@ -1078,7 +1078,7 @@ module.exports = {
     'startBlocks': startBlocks(2, 11),
     'ideal': 15,
     'scale': {
-      'stepSpeed': 2
+      'stepSpeed': 3
     },
     'map': [
       [ 1, 1, 1, 1, 1, 1, 1, 1 ],
@@ -1243,7 +1243,7 @@ module.exports = {
       [MOVE_FORWARD], [REPEAT], [FILL], [WHILE_OPT_HOLE_PRESENT]
     ],
     'scale': {
-      'stepSpeed': 2
+      'stepSpeed': 3
     },
     'map': [
       [ 1, 1, 1, 1, 1, 1, 1, 1 ],
@@ -1367,6 +1367,9 @@ module.exports = {
     'requiredBlocks': [
       [MOVE_FORWARD], [TURN_LEFT], [REPEAT], [DIG]
     ],
+    'scale': {
+      'stepSpeed': 3
+    },
     'map': [
       [ 1, 1, 1, 1, 1, 1, 1, 1 ],
       [ 1, 1, 1, 1, 1, 1, 1, 1 ],
@@ -1410,7 +1413,7 @@ module.exports = {
       [levelBase.call('remove square')]
     ],
     'scale': {
-      'stepSpeed': 2
+      'stepSpeed': 3
     },
     'map': [
       [ 1, 1, 1, 1, 1, 1, 1, 1 ],
