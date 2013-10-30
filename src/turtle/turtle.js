@@ -632,11 +632,14 @@ Turtle.checkAnswer = function() {
     BlocklyApps.playNonMobileAudio('failure', 0.5);
   }
 
-  BlocklyApps.report('turtle', level.id,
-                     BlocklyApps.levelComplete,
-                     Turtle.testResults,
-                     textBlocks,
-                     Turtle.onReportComplete);
+  BlocklyApps.report({
+    app: 'turtle',
+    level: level.id,
+    result: BlocklyApps.levelComplete,
+    testResult: Turtle.testResults,
+    program: encodeURIComponent(textBlocks),
+    onComplete: Turtle.onReportComplete
+  });
 
   // The call to displayFeedback() will happen later in onReportComplete()
 };
