@@ -503,7 +503,7 @@ BlocklyApps.reset = function(first) {
       // Remove all dirt from svg element, less efficient than checking if we
       // need to remove, but much easier to code.
       var dirtIcon = document.getElementById('dirt' + dirtId);
-      if (dirtIcon !== null) {
+      if (dirtIcon) {
         svg.removeChild(dirtIcon);
       }
       // Place dirt if one exists in cell.
@@ -529,7 +529,7 @@ BlocklyApps.reset = function(first) {
   for (y = 0; y < Maze.ROWS; y++) {
     for (x = 0; x < Maze.COLS; x++) {
       var obsIcon = document.getElementById('obstacle' + obsId);
-      if (obsIcon !== null) {
+      if (obsIcon) {
         obsIcon.setAttributeNS('http://www.w3.org/1999/xlink', 'xlink:href',
                                skin.obstacle);
       }
@@ -879,7 +879,7 @@ Maze.removeSurroundingTiles = function(obstacleY, obstacleX) {
   for (var idx = 0; idx < tileCoords.length; ++idx) {
     var tileIdx = tileCoords[idx][1] + Maze.COLS * tileCoords[idx][0];
     var tileClip = document.getElementById('tileClipPath' + tileIdx);
-    if (tileClip !== null) {
+    if (tileClip) {
       tileClip.setAttribute('visibility', 'hidden');
     }
   }
@@ -985,10 +985,10 @@ Maze.setTileTransparent = function() {
       // Tile sprite.
       var tileElement = document.getElementById('tileElement' + tileId);
       var tileAnimation = document.getElementById('tileAnimation' + tileId);
-      if (tileElement !== null) {
+      if (tileElement) {
         tileElement.setAttribute('opacity', 0);
       }
-      if (tileAnimation !== null) {
+      if (tileAnimation) {
         tileAnimation.beginElement();
       }
       tileId++;
@@ -1025,7 +1025,7 @@ Maze.scheduleFinish = function(sound) {
 
   // If sound == true, play the goal animation, else reset it
   var finishIcon = document.getElementById('finish');
-  if (sound && finishIcon !== null) {
+  if (sound && finishIcon) {
     finishIcon.setAttributeNS('http://www.w3.org/1999/xlink', 'xlink:href',
                               skin.goalAnimation);
   }
