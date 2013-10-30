@@ -615,12 +615,14 @@ Turtle.checkAnswer = function() {
     Turtle.testResults = BlocklyApps.TestResults.FREE_PLAY;
   }
 
-  BlocklyApps.report({app: 'turtle',
-                     level: level.id,
-                     result: BlocklyApps.levelComplete,
-                     testResult: Turtle.testResults,
-                     program: encodeURIComponent(textBlocks),
-                     onComplete: Turtle.onReportComplete});
+  BlocklyApps.report({
+    app: 'turtle',
+    level: level.id,
+    result: BlocklyApps.levelComplete,
+    testResult: Turtle.testResults,
+    program: encodeURIComponent(textBlocks),
+    onComplete: Turtle.onReportComplete
+  });
 
   // The call to displayFeedback() will happen later in onReportComplete()
 };
