@@ -261,7 +261,7 @@ module.exports = {
   // Level 7: glasses.
   '1_7': {
     answer: answer(1, 7),
-    ideal: 10,
+    ideal: 12,
     toolbox: toolbox(1, 7),
     startBlocks: startBlocks(1, 7),
     requiredBlocks: [
