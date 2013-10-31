@@ -40,6 +40,11 @@ var onContinue;
 BlocklyApps.BASE_URL = undefined;
 
 /**
+ * If truthy, a version number to be appended to asset urls.
+ */
+BlocklyApps.CACHE_BUST = undefined;
+
+/**
  * The current locale code.
  */
 BlocklyApps.LOCALE = 'en_us';
@@ -149,7 +154,7 @@ exports.stopLoopingAudio = function(name) {
  */
 exports.inject = function(div, options) {
   var defaults = {
-    path: BlocklyApps.BASE_URL,
+    assetUrl: BlocklyApps.assetUrl,
     rtl: BlocklyApps.isRtl(),
     toolbox: document.getElementById('toolbox'),
     trashcan: true
@@ -176,7 +181,7 @@ BlocklyApps.isRtl = function() {
  */
 BlocklyApps.initReadonly = function(options) {
   Blockly.inject(document.getElementById('blockly'), {
-    path: options.baseUrl,
+    assetUrl: BlocklyApps.assetUrl,
     readOnly: true,
     rtl: BlocklyApps.isRtl(),
     scrollbars: false

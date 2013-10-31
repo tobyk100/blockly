@@ -85,11 +85,11 @@ Turtle.init = function(config) {
   BlocklyApps.REQUIRED_BLOCKS = level.requiredBlocks || [];
 
   var html = page({
-    baseUrl: config.baseUrl,
+    assetUrl: BlocklyApps.assetUrl,
     data: {
       appInstance: 'Turtle',
       visualization: require('./visualization.html')(),
-      controls: require('./controls.html')({baseUrl: config.baseUrl})
+      controls: require('./controls.html')({assetUrl: BlocklyApps.assetUrl})
     }
   });
   document.getElementById(config.containerId).innerHTML = html;
@@ -175,7 +175,7 @@ Turtle.placeImage = function(filename, position) {
     Turtle.ctxImages.drawImage(img, position[0], position[1]);
     Turtle.display();
   };
-  img.src = BlocklyApps.BASE_URL + 'media/turtle/' + filename;
+  img.src = BlocklyApps.assetUrl('media/turtle/' + filename);
 };
 
 /**

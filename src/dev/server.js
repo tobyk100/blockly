@@ -30,7 +30,8 @@ var renderApp = function(app, req, res) {
       containerId: 'blocklyApp',
       levelId: req.query.level,
       skinId: req.query.skin,
-      baseUrl: baseUrl(req)
+      baseUrl: baseUrl(req),
+      cacheBust: false // or 'test-string'
     }
   });
 };

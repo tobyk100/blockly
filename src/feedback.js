@@ -241,10 +241,12 @@ var FeedbackBlocks = function(options) {
   this.div = document.createElement('div');
   this.html = readonly({
     app: options.app,
+    assetUrl: BlocklyApps.assetUrl,
     options: {
       readonly: true,
       locale: BlocklyApps.LOCALE,
       baseUrl: BlocklyApps.BASE_URL,
+      cacheBust: BlocklyApps.CACHE_BUST,
       skinId: options.skin,
       blocks: generateXMLForBlocks(missingBlocks)
     }

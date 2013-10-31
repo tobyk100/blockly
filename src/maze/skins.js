@@ -8,6 +8,8 @@
 // graph: Colour of optional grid lines, or false.
 // look: Colour of sonar-like look icon.
 
+var skinsBase = require('../skins');
+
 var CONFIGS = {
 
   astro: {
@@ -54,15 +56,16 @@ var CONFIGS = {
 
 };
 
-exports.load = function(skin) {
+exports.load = function(assetUrl, id) {
+  var skin = skinsBase.load(assetUrl, id);
   var config = CONFIGS[skin.id];
   // Images
-  skin.tiles = skin.root + 'tiles.png';
-  skin.goal = skin.root + 'goal.png';
-  skin.goalAnimation = skin.root + 'goal.gif';
-  skin.obstacle = skin.root + 'obstacle.png';
-  skin.obstacleAnimation = skin.root + 'obstacle.gif';
-  skin.maze_forever = skin.root + 'maze_forever.png';
+  skin.tiles = skin.assetUrl('tiles.png');
+  skin.goal = skin.assetUrl('goal.png');
+  skin.goalAnimation = skin.assetUrl('goal.gif');
+  skin.obstacle = skin.assetUrl('obstacle.png');
+  skin.obstacleAnimation = skin.assetUrl('obstacle.gif');
+  skin.maze_forever = skin.assetUrl('maze_forever.png');
   if (config.largerObstacleAnimationArea) {
     skin.largerObstacleAnimationArea = true;
   } else {
@@ -81,10 +84,10 @@ exports.load = function(skin) {
   skin.obstacleScale = config.obstacleScale || 1.0;
   // Sounds
   skin.obstacleSound =
-      [skin.path + 'obstacle.mp3', skin.path + 'obstacle.ogg'];
-  skin.wallSound = [skin.path + 'wall.mp3', skin.path + 'wall.ogg'];
-  skin.fillSound = [skin.path + 'fill.mp3', skin.path + 'fill.ogg'];
-  skin.digSound = [skin.path + 'dig.mp3', skin.path + 'dig.ogg'];
+      [skin.assetUrl('obstacle.mp3'), skin.assetUrl('obstacle.ogg')];
+  skin.wallSound = [skin.assetUrl('wall.mp3'), skin.assetUrl('wall.ogg')];
+  skin.fillSound = [skin.assetUrl('fill.mp3'), skin.assetUrl('fill.ogg')];
+  skin.digSound = [skin.assetUrl('dig.mp3'), skin.assetUrl('dig.ogg')];
   // Settings
   skin.graph = config.graph;
   skin.look = config.look;
@@ -100,13 +103,13 @@ exports.load = function(skin) {
       prefix = '' + n;
     }
     //TODO: This really should be a dirt sprite sheet.
-    return skin.root + prefix + 'check.png';
+    return skin.assetUrl(prefix + 'check.png');
   };
   if (config.background !== undefined) {
     var index = Math.floor(Math.random() * config.background);
-    skin.background = skin.root + 'background' + index + '.png';
+    skin.background = skin.assetUrl('background' + index + '.png');
   } else {
-    skin.background = skin.root + 'background.png';
+    skin.background = skin.assetUrl('background.png');
   }
   return skin;
 };
