@@ -3,7 +3,8 @@
  */
 // tiles: A 250x200 set of 20 map images.
 // goal: A 20x34 goal image.
-// background: An optional 400x450 background image, or false.
+// background: Number of 400x400 background images. Randomly select one if
+// specified, otherwise, use background.png.
 // graph: Colour of optional grid lines, or false.
 // look: Colour of sonar-like look icon.
 
@@ -14,24 +15,26 @@ var CONFIGS = {
   },
 
   pegman: {
-    background: false,
     look: '#000'
   },
 
   farmer: {
-    look: '#000'
-  },
-
-  farmer_minecraft: {
-    look: '#000'
+    look: '#000',
+    transparentTileEnding: true,
+    nonDisappearingPegmanHittingObstacle: true,
+    background: 4
   },
 
   farmer_night: {
-    look: '#FFF'
+    look: '#FFF',
+    transparentTileEnding: true,
+    nonDisappearingPegmanHittingObstacle: true,
+    background: 4
   },
 
   pvz: {
     look: '#FFF',
+    transparentTileEnding: true,
     obstacleScale: 1.4
   },
 
@@ -65,11 +68,23 @@ exports.load = function(skin) {
   } else {
     skin.largerObstacleAnimationArea = false;
   }
+  if (config.transparentTileEnding) {
+    skin.transparentTileEnding = true;
+  } else {
+    skin.transparentTileEnding = false;
+  }
+  if (config.nonDisappearingPegmanHittingObstacle) {
+    skin.nonDisappearingPegmanHittingObstacle = true;
+  } else {
+    skin.nonDisappearingPegmanHittingObstacle = false;
+  }
   skin.obstacleScale = config.obstacleScale || 1.0;
   // Sounds
   skin.obstacleSound =
       [skin.path + 'obstacle.mp3', skin.path + 'obstacle.ogg'];
   skin.wallSound = [skin.path + 'wall.mp3', skin.path + 'wall.ogg'];
+  skin.fillSound = [skin.path + 'fill.mp3', skin.path + 'fill.ogg'];
+  skin.digSound = [skin.path + 'dig.mp3', skin.path + 'dig.ogg'];
   // Settings
   skin.graph = config.graph;
   skin.look = config.look;
@@ -87,7 +102,10 @@ exports.load = function(skin) {
     //TODO: This really should be a dirt sprite sheet.
     return skin.root + prefix + 'check.png';
   };
-  if (config.background !== false) {
+  if (config.background !== undefined) {
+    var index = Math.floor(Math.random() * config.background);
+    skin.background = skin.root + 'background' + index + '.png';
+  } else {
     skin.background = skin.root + 'background.png';
   }
   return skin;
