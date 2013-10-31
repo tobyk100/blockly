@@ -101,6 +101,10 @@ Turtle.init = function(config) {
     toolbox: level.toolbox
   });
 
+  Blockly.loadAudio_(skin.winSound, 'win');
+  Blockly.loadAudio_(skin.startSound, 'start');
+  Blockly.loadAudio_(skin.failureSound, 'failure');
+
   // Add to reserved word list: API, local variables in execution evironment
   // (execute) and the infinite loop detection function.
   Blockly.JavaScript.addReservedWords('Turtle,code');
@@ -260,6 +264,9 @@ BlocklyApps.reset = function(ignore) {
   }
   Turtle.pid = 0;
   Turtle.coloursUsed = [];
+
+  // Stop the looping sound.
+  BlocklyApps.stopLoopingAudio('start');
 };
 
 /**
@@ -322,6 +329,7 @@ Turtle.execute = function() {
   // BlocklyApps.log now contains a transcript of all the user's actions.
   // Reset the graphic and animate the transcript.
   BlocklyApps.reset();
+  BlocklyApps.playAudio('start', {volume : 0.5, loop : true});
   Turtle.pid = window.setTimeout(Turtle.animate, 100);
 };
 
@@ -613,6 +621,15 @@ Turtle.checkAnswer = function() {
   // result type
   if (level.freePlay) {
     Turtle.testResults = BlocklyApps.TestResults.FREE_PLAY;
+  }
+
+  // Play sound
+  BlocklyApps.stopLoopingAudio('start');
+  if (Turtle.testResults === BlocklyApps.TestResults.FREE_PLAY ||
+      Turtle.testResults >= BlocklyApps.TestResults.TOO_MANY_BLOCKS_FAIL) {
+    BlocklyApps.playAudio('win', {volume : 0.5});
+  } else {
+    BlocklyApps.playAudio('failure', {volume : 0.5});
   }
 
   BlocklyApps.report({

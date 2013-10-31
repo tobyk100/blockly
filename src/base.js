@@ -123,9 +123,15 @@ BlocklyApps.init = function(config) {
   }
 };
 
-exports.playNonMobileAudio = function(name, opt_volume) {
+exports.playAudio = function(name, options) {
   if (!utils.isMobile()) {
-    Blockly.playAudio(name, opt_volume);
+    Blockly.playAudio(name, options);
+  }
+};
+
+exports.stopLoopingAudio = function(name) {
+  if (!utils.isMobile()) {
+    Blockly.stopLoopingAudio(name);
   }
 };
 
