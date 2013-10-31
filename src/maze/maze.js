@@ -1091,7 +1091,7 @@ Maze.scheduleFill = function() {
        ++Maze.dirt_[y][x];
     }
   }
-  BlocklyApps.playNonMobileAudio('fill', 0.5);
+  BlocklyApps.playAudio('fill', {volume : 0.5});
 };
 
 /**
@@ -1143,7 +1143,7 @@ Maze.scheduleDig = function() {
       Maze.dirt_[y][x] = Maze.dirt_[y][x] - 1;
     }
   }
-  BlocklyApps.playNonMobileAudio('dig', 0.5);
+  BlocklyApps.playAudio('dig', {volume : 0.5});
 };
 
 /**
