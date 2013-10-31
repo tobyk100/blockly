@@ -1,6 +1,6 @@
 <% var msg = require('../../locale/current/common'); %>
 
-<img id="rotateMobile" class="dialogHiddenContent" src="<%= baseUrl %>media/mobile_tutorial_turnphone.png">
+<img id="rotateMobile" class="dialogHiddenContent" src="<%= assetUrl('media/mobile_tutorial_turnphone.png') %>">
 
 <% var dialog = function() { -%>
   <div id="dialogShadow" class="dialogAnimate"></div>
@@ -25,12 +25,12 @@ var gameButtons = function(appInstance) { -%>
     <tr>
       <td>
         <button id="runButton" class="launch" onclick="<%= appInstance %>.runButtonClick();">
-          <img src="<%= baseUrl %>media/1x1.gif" class="run icon21">
+          <img src="<%= assetUrl('media/1x1.gif') %>" class="run icon21">
           <%= msg.runProgram() %>
         </button>
         <button id="resetButton" class="launch"
           onclick="BlocklyApps.resetButtonClick();" style="display: none">
-          <img src="<%= baseUrl %>media/1x1.gif" class="stop icon21">
+          <img src="<%= assetUrl('media/1x1.gif') %>" class="stop icon21">
             <%= msg.resetProgram() %>
         </button>
       </td>

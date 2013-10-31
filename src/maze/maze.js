@@ -350,7 +350,7 @@ Maze.init = function(config) {
   loadLevel();
 
   var html = page({
-    baseUrl: config.baseUrl,
+    assetUrl: BlocklyApps.assetUrl,
     data: {
       appInstance: 'Maze',
       visualization: require('./visualization.html')()

@@ -37,8 +37,19 @@ module.exports = function(app, levels, options) {
   options.Dialog = options.Dialog || StubDialog;
 
   BlocklyApps.BASE_URL = options.baseUrl;
+  BlocklyApps.CACHE_BUST = options.cacheBust;
   BlocklyApps.LOCALE = options.locale || BlocklyApps.LOCALE;
 
+  BlocklyApps.assetUrl = function(path) {
+    var url = options.baseUrl + path;
+    if (BlocklyApps.CACHE_BUST) {
+      return url + '?v=' + options.cacheBust;
+    } else {
+      return url;
+    }
+  };
+
+  options.skin = options.skinsModule.load(BlocklyApps.assetUrl, options.skinId);
   options.blocksModule.install(Blockly, options.skin);
 
   addReadyListener(function() {

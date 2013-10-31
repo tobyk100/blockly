@@ -4,13 +4,11 @@ if (typeof global !== 'undefined') {
   global.Maze = window.Maze;
 }
 var blocks = require('./blocks');
-var skins = require('../skins');
 var levels = require('./levels');
-var mazeSkin = require('./skins');
+var skins = require('./skins');
 
 window.mazeMain = function(options) {
-  options.skin = skins.load(options.baseUrl, options.skinId);
-  options.skin = mazeSkin.load(options.skin);
+  options.skinsModule = skins;
   options.blocksModule = blocks;
   appMain(window.Maze, levels, options);
 };

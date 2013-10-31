@@ -1,23 +1,22 @@
 // avatar: A 1029x51 set of 21 avatar images.
 
-exports.load = function(baseUrl, id) {
-  var path = 'media/skins/' + id + '/';
-  var root = baseUrl + path;
+exports.load = function(assetUrl, id) {
+  var skinUrl = function(path) {
+    return assetUrl('media/skins/' + id + '/' + path);
+  };
   var skin = {
     id: id,
-    path: path,
-    root: root,
+    assetUrl: skinUrl,
     // Images
-    avatar: root + 'avatar.png',
-    tiles: root + 'tiles.png',
-    goal: root + 'goal.png',
-    obstacle: root + 'obstacle.png',
-    staticAvatar: root + 'static_avatar.png',
+    avatar: skinUrl('avatar.png'),
+    tiles: skinUrl('tiles.png'),
+    goal: skinUrl('goal.png'),
+    obstacle: skinUrl('obstacle.png'),
+    staticAvatar: skinUrl('static_avatar.png'),
     // Sounds
-    //TODO: Blockly should accept absolute sound paths.
-    startSound: [path + 'start.mp3', path + 'start.ogg'],
-    winSound: [path + 'win.mp3', path + 'win.ogg'],
-    failureSound: [path + 'failure.mp3', path + 'failure.ogg']
+    startSound: [skinUrl('start.mp3'), skinUrl('start.ogg')],
+    winSound: [skinUrl('win.mp3'), skinUrl('win.ogg')],
+    failureSound: [skinUrl('failure.mp3'), skinUrl('failure.ogg')]
   };
   return skin;
 };
