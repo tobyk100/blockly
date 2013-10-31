@@ -101,6 +101,7 @@ var getFeedbackMessage = function(options) {
       break;
     // For completing level, user gets at least one star.
     case BlocklyApps.TestResults.OTHER_1_STAR_FAIL:
+      message = options.message;
       break;
     // Two stars for using too many blocks.
     case BlocklyApps.TestResults.TOO_MANY_BLOCKS_FAIL:
