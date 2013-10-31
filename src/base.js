@@ -123,9 +123,15 @@ BlocklyApps.init = function(config) {
   }
 };
 
-exports.playNonMobileAudio = function(name, opt_volume) {
+exports.playAudio = function(name, options) {
   if (!utils.isMobile()) {
-    Blockly.playAudio(name, opt_volume);
+    Blockly.playAudio(name, options);
+  }
+};
+
+exports.stopLoopingAudio = function(name) {
+  if (!utils.isMobile()) {
+    Blockly.stopLoopingAudio(name);
   }
 };
 
@@ -462,26 +468,22 @@ BlocklyApps.getTestResults = function() {
 
 /**
  * Report back to the server, if available.
- * @param {string} app The name of the application.
- * @param {number} id A unique identifier generated when the page was loaded.
- * @param {string} levelId The ID of the current level.
- * @param {number} result An indicator of the success of the code.
- * @param {number} testResult More specific data on success or failure of code.
- * @param {string} program The user program, which will get URL-encoded.
- * @param {function} onComplete Function to be called upon completion.
+ * @param {object} options - parameter block which includes:
+ * {string} app The name of the application.
+ * {number} id A unique identifier generated when the page was loaded.
+ * {string} level The ID of the current level.
+ * {number} result An indicator of the success of the code.
+ * {number} testResult More specific data on success or failure of code.
+ * {string} program The user program, which will get URL-encoded.
+ * {function} onComplete Function to be called upon completion.
  */
-BlocklyApps.report =
-    function(app, levelId, result, testResult, program, onComplete) {
-  var report = {
-    app: app,
-    level: levelId,
-    result: result,
-    testResult: testResult,
-    program: encodeURIComponent(program),
-    attempt: BlocklyApps.attempts,
-    time: ((new Date().getTime()) - BlocklyApps.initTime),
-    onComplete: onComplete
-  };
+BlocklyApps.report = function(options) {
+  // copy from options: app, level, result, testResult, program, onComplete
+  var report = options;
+  report.time = ((new Date().getTime()) - BlocklyApps.initTime);
+  report.attempt = BlocklyApps.attempts;
+  report.lines = feedback.getNumBlocksUsed();
+
   onAttempt(report);
 };
 

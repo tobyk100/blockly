@@ -660,7 +660,7 @@ Maze.execute = function() {
   //    no error or exception is thrown.
   // The animation should be fast if execution was successful, slow otherwise
   // to help the user see the mistake.
-  BlocklyApps.playNonMobileAudio('start', 0.5);
+  BlocklyApps.playAudio('start', {volume : 0.5});
   try {
     codegen.evalWith(code, {
       BlocklyApps: BlocklyApps,
@@ -710,13 +710,14 @@ Maze.execute = function() {
   Maze.waitingForAnimate = true;
 
   // Report result to server.
-  BlocklyApps.report(
-    'maze',
-    level.id,
-    Maze.result === ResultType.SUCCESS,
-    Maze.testResults,
-    textBlocks,
-    Maze.onReportComplete);
+  BlocklyApps.report({
+    app: 'maze',
+    level: level.id,
+    result: Maze.result === ResultType.SUCCESS,
+    testResult: Maze.testResults,
+    program: encodeURIComponent(textBlocks),
+    onComplete: Maze.onReportComplete
+  });
 
   // BlocklyApps.log now contains a transcript of all the user's actions.
   // Reset the maze and animate the transcript.
@@ -809,7 +810,7 @@ Maze.animate = function() {
           break;
         default:
           Maze.pidList.push(window.setTimeout(function() {
-            BlocklyApps.playNonMobileAudio('failure', 0.5);
+            BlocklyApps.playAudio('failure', {volume: 0.5});
           }, stepSpeed));
           break;
       }
@@ -921,7 +922,7 @@ Maze.scheduleFail = function(forward) {
   var squareType = Maze.map[targetY] && Maze.map[targetY][targetX];
   if (squareType === SquareType.WALL || squareType === undefined) {
     // Play the sound
-    BlocklyApps.playNonMobileAudio('wall', 0.5);
+    BlocklyApps.playAudio('wall', {volume : 0.5});
 
     // Play the animation of hitting the wall
     Maze.pidList.push(window.setTimeout(function() {
@@ -933,14 +934,14 @@ Maze.scheduleFail = function(forward) {
       Maze.displayPegman(Maze.pegmanX + deltaX / 4,
                          Maze.pegmanY + deltaY / 4,
                          direction16);
-      BlocklyApps.playNonMobileAudio('failure', 0.5);
+      BlocklyApps.playAudio('failure', {volume : 0.5});
     }, stepSpeed * 2));
     Maze.pidList.push(window.setTimeout(function() {
       Maze.displayPegman(Maze.pegmanX, Maze.pegmanY, direction16);
     }, stepSpeed * 3));
   } else if (squareType == SquareType.OBSTACLE) {
     // Play the sound
-    BlocklyApps.playNonMobileAudio('obstacle', 0.5);
+    BlocklyApps.playAudio('obstacle', {volume : 0.5});
 
     // Play the animation
     var obsId = targetX + Maze.COLS * targetY;
@@ -971,7 +972,7 @@ Maze.scheduleFail = function(forward) {
   }
 
   Maze.pidList.push(window.setTimeout(function() {
-    BlocklyApps.playNonMobileAudio('failure', 0.5);
+    BlocklyApps.playAudio('failure', {volume : 0.5});
   }, stepSpeed));
 };
 
@@ -1004,7 +1005,7 @@ Maze.scheduleFinish = function(sound) {
   var direction16 = Maze.constrainDirection16(Maze.pegmanD * 4);
   Maze.displayPegman(Maze.pegmanX, Maze.pegmanY, 16);
   if (sound) {
-    BlocklyApps.playNonMobileAudio('win', 0.5);
+    BlocklyApps.playAudio('win', {volume : 0.5});
   }
 
   // Setting the tiles to be transparent

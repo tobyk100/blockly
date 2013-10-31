@@ -4,12 +4,7 @@ var readonly = require('./templates/readonly.html');
 var codegen = require('./codegen');
 var msg = require('../locale/current/common');
 
-var COUNT_LINES_OF_CODE_SESSION_KEY = 'blockly_lines_of_code';
-
 exports.displayFeedback = function(options) {
-  var lines = options.lineInfo = countLinesOfCode(options.feedbackType);
-  sessionStorage.setItem(COUNT_LINES_OF_CODE_SESSION_KEY, lines.totalLines);
-
   options.numTrophies = numTrophiesEarned(options);
 
   var feedback = document.createElement('div');
@@ -62,7 +57,7 @@ exports.displayFeedback = function(options) {
  * not disabled, are deletable.
  * @return {number} Number of blocks used.
  */
-var getNumBlocksUsed = function() {
+exports.getNumBlocksUsed = function() {
   var i;
   if (BlocklyApps.editCode) {
     var codeLines = 0;
@@ -177,15 +172,17 @@ var getShowCodeElement = function(options) {
     return;
   }
   if (canContinueToNextLevel(options.feedbackType)) {
+    var linesWritten = exports.getNumBlocksUsed();
     var showCodeDiv = document.createElement('div');
     var lines = document.createElement('span');
     lines.className = 'linesOfCodeMsg';
     lines.innerHTML = msg.numLinesOfCodeWritten({
-      numLines: options.lineInfo.lines
+      numLines: linesWritten
     });
-    if (options.lineInfo.totalLines !== options.lineInfo.lines) {
+    if (options.response.total_lines &&
+        (options.response.total_lines !== linesWritten)) {
       lines.innerHTML += '<br>' + msg.totalNumLinesOfCodeWritten({
-        numLines: options.lineInfo.totalLines
+        numLines: options.response.total_lines
       });
     }
 
@@ -216,15 +213,6 @@ var canContinueToNextLevel = function(feedbackType) {
     feedbackType === BlocklyApps.TestResults.TOO_MANY_BLOCKS_FAIL ||
     feedbackType ===  BlocklyApps.TestResults.OTHER_2_STAR_FAIL ||
     feedbackType ===  BlocklyApps.TestResults.FREE_PLAY);
-};
-
-var countLinesOfCode = function(feedbackType) {
-  var lines = feedbackType >= BlocklyApps.TestResults.TOO_MANY_BLOCKS_FAIL ?
-      getNumBlocksUsed() : 0;
-  var totalLines = sessionStorage.getItem(COUNT_LINES_OF_CODE_SESSION_KEY) ||
-                   0;
-  totalLines = parseInt(totalLines, 10) + lines;
-  return { 'lines': lines, 'totalLines': totalLines };
 };
 
 /**
@@ -410,7 +398,7 @@ exports.getTestResults = function() {
       return BlocklyApps.TestResults.MISSING_BLOCK_UNFINISHED;
     }
   }
-  var numBlocksUsed = getNumBlocksUsed();
+  var numBlocksUsed = exports.getNumBlocksUsed();
   if (!BlocklyApps.levelComplete) {
     if (BlocklyApps.IDEAL_BLOCK_NUM &&
         numBlocksUsed < BlocklyApps.IDEAL_BLOCK_NUM) {
