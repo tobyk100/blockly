@@ -645,15 +645,13 @@ module.exports = {
     answer: answer(3, 9),
     initialX: 20,
     initialY: 350,
-    ideal: 29,
+    ideal: 27,
     toolbox: toolbox(3, 9),
     startBlocks: startBlocks(3, 9),
     requiredBlocks: [
       [simpleBlock('controls_for_counter')],
-      [simpleBlock('variables_get_counter')],
-      [SET_COLOUR_RANDOM]
+      [simpleBlock('variables_get_counter')]
     ],
-    requiredColors: 3,
     freePlay: false,
     images: [
       {
