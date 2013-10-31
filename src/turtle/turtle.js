@@ -526,6 +526,7 @@ var displayFeedback = function() {
     app: 'turtle', //XXX
     skin: skin.id,
     feedbackType: Turtle.testResults,
+    message: Turtle.message,
     response: Turtle.response
     });
 };
@@ -582,7 +583,7 @@ Turtle.checkAnswer = function() {
   if (level.failForTooManyBlocks &&
       Turtle.testResults == BlocklyApps.TestResults.TOO_MANY_BLOCKS_FAIL) {
     // TODO: Add more helpful error message.
-    Turtle.testResults = BlocklyApps.TestResults.OTHER_1_STAR_FAIL;
+    Turtle.testResults = BlocklyApps.TestResults.TOO_MANY_BLOCKS_FAIL;
 
   } else if ((Turtle.testResults ==
       BlocklyApps.TestResults.TOO_MANY_BLOCKS_FAIL) ||
@@ -611,8 +612,7 @@ Turtle.checkAnswer = function() {
         } else if (typeof colourResult == 'string') {
           message = msg.wrongColour().replace('%1', colourResult);
         }
-        var div = document.getElementById('appSpecificOneStarFeedback');
-        div.textContent = message;
+        Turtle.message = message;
       }
     }
   }
