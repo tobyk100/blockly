@@ -414,7 +414,7 @@ module.exports = {
   },
   '2_8': {
     'toolbox': toolbox(2, 8),
-    'ideal': 5,
+    'ideal': 4,
     'scale': {
       'stepSpeed': 3
     },
@@ -428,12 +428,12 @@ module.exports = {
     'startDirection': Direction.EAST,
     'map': [
       [0, 0, 0, 0, 0, 0, 0, 0],
-      [2, 1, 1, 1, 1, 1, 1, 0],
-      [0, 0, 0, 0, 0, 0, 1, 0],
-      [0, 0, 0, 0, 0, 0, 1, 0],
-      [0, 0, 0, 0, 0, 0, 1, 0],
-      [0, 0, 0, 0, 0, 0, 1, 0],
-      [0, 0, 0, 0, 0, 0, 3, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 2, 1, 1, 0, 0, 0],
+      [0, 0, 0, 0, 1, 0, 0, 0],
+      [0, 0, 3, 1, 1, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0],
       [0, 0, 0, 0, 0, 0, 0, 0]
     ]
   },
@@ -458,20 +458,26 @@ module.exports = {
   },
   '2_10': {
     'toolbox': toolbox(2, 10),
-    'ideal': 2,
+    'ideal': 4,
+    'scale': {
+      'stepSpeed': 3
+    },
     'requiredBlocks': [
       [{'test': 'moveForward', 'type': 'maze_moveForward'}],
+      [{'test': 'turnLeft',
+        'type': 'maze_turn',
+        'titles': {'DIR': 'turnLeft'}}],
       [{'test': 'while', 'type': 'maze_forever'}]
     ],
-    'startDirection': Direction.NORTH,
+    'startDirection': Direction.EAST,
     'map': [
       [0, 0, 0, 0, 0, 0, 0, 0],
       [0, 0, 0, 0, 0, 0, 0, 0],
-      [0, 0, 0, 0, 3, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 3, 1, 1, 0, 0, 0],
       [0, 0, 0, 0, 1, 0, 0, 0],
-      [0, 0, 0, 0, 1, 0, 0, 0],
-      [0, 0, 0, 0, 1, 0, 0, 0],
-      [0, 0, 0, 0, 2, 0, 0, 0],
+      [0, 0, 2, 1, 1, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0],
       [0, 0, 0, 0, 0, 0, 0, 0]
     ]
   },
