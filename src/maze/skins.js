@@ -36,7 +36,6 @@ var CONFIGS = {
 
   pvz: {
     look: '#FFF',
-    transparentTileEnding: true,
     obstacleScale: 1.4
   },
 
