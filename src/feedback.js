@@ -180,7 +180,7 @@ var getShowCodeElement = function(options) {
     lines.innerHTML = msg.numLinesOfCodeWritten({
       numLines: linesWritten
     });
-    if (options.response.total_lines &&
+    if (options.response && options.response.total_lines &&
         (options.response.total_lines !== linesWritten)) {
       lines.innerHTML += '<br>' + msg.totalNumLinesOfCodeWritten({
         numLines: options.response.total_lines
