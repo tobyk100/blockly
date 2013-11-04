@@ -2,6 +2,8 @@ module.exports = function(grunt) {
   'use strict';
 
   var path = require('path');
+  var fs = require('fs');
+  var vm = require('vm');
   var MessageFormat = require('messageformat');
 
   grunt.registerMultiTask('messages', 'Compile messages', function() {
@@ -30,8 +32,14 @@ module.exports = function(grunt) {
         }
       });
 
+      // Initialize MessageFormat.
+      var language = locale.split('_')[0];
+      var backend = fs.readFileSync(
+          './node_modules/messageformat/locale/' + language + '.js', 'utf8');
+      vm.runInNewContext(backend, {MessageFormat: MessageFormat})
+      var mf = new MessageFormat(language);
+
       // Generate javascript message functions.
-      var mf = new MessageFormat(locale);
       files.forEach(function(file) {
         var messages = grunt.file.readJSON(file.src[0]);
         var code = 'var MessageFormat = require("messageformat");';
