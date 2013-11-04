@@ -10,7 +10,8 @@ var APPS = [
 
 var LOCALES = [
   'en_us',
-  'en_ploc'
+  'en_ploc',
+  'es_es'
 ];
 
 config.clean = {
