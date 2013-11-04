@@ -8,12 +8,16 @@ exports.displayFeedback = function(options) {
   options.numTrophies = numTrophiesEarned(options);
 
   var feedback = document.createElement('div');
+  var feedbackImage = getFeedbackImage(options);
   var feedbackMessage = getFeedbackMessage(options);
   var showCode = getShowCodeElement(options);
   var feedbackBlocks = new FeedbackBlocks(options);
 
   if (feedbackMessage) {
     feedback.appendChild(feedbackMessage);
+  }
+  if (feedbackImage) {
+    feedback.appendChild(feedbackImage);
   }
   if (options.numTrophies) {
     var trophies = getTrophiesElement(options);
@@ -145,6 +149,16 @@ var getFeedbackMessage = function(options) {
   }
   feedback.innerHTML = message;
   return feedback;
+};
+
+var getFeedbackImage = function(options) {
+  var feedbackImage;
+  if (options.instructionImageUrl) {
+    var feedbackImage = document.createElement('img');
+    feedbackImage.className = 'feedback-image';
+    feedbackImage.src = options.instructionImageUrl;
+  }
+  return feedbackImage;
 };
 
 var numTrophiesEarned = function(options) {
