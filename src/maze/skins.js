@@ -12,14 +12,6 @@ var skinsBase = require('../skins');
 
 var CONFIGS = {
 
-  astro: {
-    look: '#FFF'
-  },
-
-  pegman: {
-    look: '#000'
-  },
-
   farmer: {
     look: '#000',
     transparentTileEnding: true,
@@ -43,14 +35,6 @@ var CONFIGS = {
     look: '#FFF',
     largerObstacleAnimationArea: true,
     obstacleScale: 1.2
-  },
-
-  mouse: {
-    look: '#FFF'
-  },
-
-  panda: {
-    look: '#000'
   }
 
 };
