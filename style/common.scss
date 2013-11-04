@@ -290,6 +290,16 @@ $modal-image-margin-gap: 10px;
     font-size: 30px;
     line-height: 30px;
   }
+
+  .instruction-image {
+    width: 40%;
+    height: auto;
+    float: left;
+  }
+
+  .instruction-with-image {
+    padding-left: 42%
+  }
 }
 
 .dialog-title {

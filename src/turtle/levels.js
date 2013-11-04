@@ -683,28 +683,32 @@ module.exports = {
     answer: answer(4, 1),
     freePlay: true,
     toolbox: toolbox(4, 1),
-    startBlocks: startBlocks(4, 1)
+    startBlocks: startBlocks(4, 1),
+    instructionWithImage: true
   },
   // Level 2: playground.
   '4_2': {
     answer: answer(4, 2),
     freePlay: true,
     toolbox: toolbox(4, 2),
-    startBlocks: startBlocks(4, 2)
+    startBlocks: startBlocks(4, 2),
+    instructionWithImage: true
   },
   // Level 3: playground.
   '4_3': {
     answer: answer(4, 3),
     freePlay: true,
     toolbox: toolbox(4, 3),
-    startBlocks: startBlocks(4, 3)
+    startBlocks: startBlocks(4, 3),
+    instructionWithImage: true
   },
   // Level 4: playground.
   '4_4': {
     answer: answer(4, 4),
     freePlay: true,
     toolbox: toolbox(4, 4),
-    startBlocks: startBlocks(4, 4)
+    startBlocks: startBlocks(4, 4),
+    instructionWithImage: true
   },
   // Formerly Page 5.
   // Level 1: playground.
