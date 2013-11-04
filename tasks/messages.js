@@ -43,6 +43,7 @@ module.exports = function(grunt) {
       files.forEach(function(file) {
         var messages = grunt.file.readJSON(file.src[0]);
         var code = 'var MessageFormat = require("messageformat");';
+        code += backend;
         Object.keys(messages).forEach(function(key) {
           code += ';\n\n';
           var string = messages[key];
