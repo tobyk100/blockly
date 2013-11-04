@@ -1,0 +1,3 @@
+#!/bin/bash
+
+MOOC_LOCALIZE=1 grunt rebuild release

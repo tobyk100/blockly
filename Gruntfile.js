@@ -8,11 +8,46 @@ var APPS = [
   'turtle'
 ];
 
-var LOCALES = [
+var LOCALIZE = (process.env.MOOC_LOCALIZE == '1');
+
+var LOCALES = (LOCALIZE ? [
+  'es_es',
+  'af_za',
+  'ar_sa',
+  'ca_es',
+  'cs_cz',
+  'da_dk',
+  'de_de',
+  'el_gr',
   'en_us',
   'en_ploc',
-  'es_es'
-];
+  'es_es',
+  'fa_ir',
+  'fi_fi',
+  'fr_fr',
+  'he_il',
+  'hi_in',
+  'hu_hu',
+  'it_it',
+  'ja_jp',
+  'ko_kr',
+  'nl_nl',
+  'pl_pl',
+  'pt_br',
+  'pt_pt',
+  'ro_ro',
+  'ru_ru',
+  'sr_sp',
+  'sv_se',
+  'tr_tr',
+  'uk_ua',
+  'vi_vn',
+  'zh_cn',
+  'zh_tw'
+] : [
+  'en_us',
+  'en_ploc'
+]);
 
 config.clean = {
   all: ['build', 'dist']

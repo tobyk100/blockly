@@ -106,3 +106,24 @@ Both of these tutorials are found on code.org/learn or csedweek.org/learn. At th
     pull request. 
   - To use a global gitignore file read these
     [instructions](http://robots.thoughtbot.com/post/18739402579/global-gitignore).
+
+### Localization
+
+Since localizing in to many languages dramatically slows down the build, the
+default target locales are `en_us` and `en_ploc` (pseudolocalized). To build
+all available locales, specify `MOOC_LOCALIZE=1` in your environment:
+
+```bash
+MOOC_LOCALIZE=1 grunt rebuild
+```
+
+See [cdo-i18n](https://github.com/code-dot-org/cdo-i18n) for more information
+about the localization of Code.org projects.
+
+### Releases
+
+Compiled distrubutions are published in the Node module repository. See
+`./package.json` and `npm --help` for details. Run `grunt release` to stamp
+a git tag to GitHub and publish the contents of the `./dist` directory. Use
+`./script/release` to ensure a full, localized build is produced with your
+release.
