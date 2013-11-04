@@ -527,7 +527,8 @@ var displayFeedback = function() {
     skin: skin.id,
     feedbackType: Turtle.testResults,
     message: Turtle.message,
-    response: Turtle.response
+    response: Turtle.response,
+    levelIncompleteError: level.levelIncompleteError
     });
 };
 

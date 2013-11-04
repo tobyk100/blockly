@@ -599,7 +599,8 @@ var displayFeedback = function() {
       app: 'maze', //XXX
       skin: skin.id,
       feedbackType: Maze.testResults,
-      response: Maze.response
+      response: Maze.response,
+      levelIncompleteError: level.levelIncompleteError
     });
   }
 };
