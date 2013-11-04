@@ -154,7 +154,7 @@ var getFeedbackMessage = function(options) {
 var getFeedbackImage = function(options) {
   var feedbackImage;
   if (options.instructionImageUrl) {
-    var feedbackImage = document.createElement('img');
+    feedbackImage = document.createElement('img');
     feedbackImage.className = 'feedback-image';
     feedbackImage.src = options.instructionImageUrl;
   }
