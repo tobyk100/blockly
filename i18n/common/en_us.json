@@ -23,7 +23,7 @@
   "hintTitle": "Hint:",
   "levelIncompleteError": "You are using all of the necessary types of blocks but not in the right way.",
   "listVariable": "list",
-  "missingBlocksErrorMsg": "Try one or more of the blocks below to solve this level.",
+  "missingBlocksErrorMsg": "Try one or more of the blocks below to solve this puzzle.",
   "nextLevel": "Congratulations! You completed this puzzle.",
   "nextLevelTrophies": "Congratulations! You completed this puzzle and won {numTrophies, plural, one {a trophy} other {# trophies}}.",
   "nextStage": "Congratulations! You completed Stage {stageNumber}.",
