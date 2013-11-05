@@ -600,7 +600,7 @@ var displayFeedback = function() {
       skin: skin.id,
       feedbackType: Maze.testResults,
       response: Maze.response,
-      level: level
+      level: level,
     });
   }
 };
