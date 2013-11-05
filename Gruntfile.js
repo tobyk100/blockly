@@ -63,16 +63,6 @@ config.copy = {
       }
     ]
   },
-  browserified: {
-    files: [
-      {
-        expand: true,
-        cwd: 'build/browserified',
-        src: ['**/*.js'],
-        dest: 'dist/js'
-      }
-    ]
-  },
   static: {
     files: [
       {
@@ -177,10 +167,25 @@ config.express = {
   }
 };
 
+var uglifiedFiles = {};
+APPS.forEach(function(app) {
+  LOCALES.forEach(function(locale) {
+    var relname = locale + '/' + app + '.js';
+    var src = 'build/browserified/' + relname;
+    var dest = 'dist/js/' + relname;
+    uglifiedFiles[dest] = [src];
+  });
+});
+config.uglify = {
+  browserified: {
+    files: uglifiedFiles
+  }
+};
+
 config.watch = {
   js: {
     files: ['src/**/*.js'],
-    tasks: ['copy:src', 'browserify', 'copy:browserified']
+    tasks: ['copy:src', 'browserify', 'uglify:browserified']
   },
   style: {
     files: ['style/**/*.scss', 'style/**/*.sass'],
@@ -196,11 +201,11 @@ config.watch = {
   },
   ejs: {
     files: ['src/**/*.ejs'],
-    tasks: ['ejs', 'browserify', 'copy:browserified']
+    tasks: ['ejs', 'browserify', 'uglify:browserified']
   },
   messages: {
     files: ['i18n/**/*.json'],
-    tasks: ['pseudoloc', 'messages', 'browserify', 'copy:browserified']
+    tasks: ['pseudoloc', 'messages', 'browserify', 'uglify:browserified']
   },
   dist: {
     files: ['dist/**/*'],
@@ -256,6 +261,7 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-symlink');
   grunt.loadNpmTasks('grunt-contrib-concat');
   grunt.loadNpmTasks('grunt-contrib-jshint');
+  grunt.loadNpmTasks('grunt-contrib-uglify');
   grunt.loadNpmTasks('grunt-express');
   grunt.loadNpmTasks('grunt-browserify');
   grunt.loadNpmTasks('grunt-sass');
