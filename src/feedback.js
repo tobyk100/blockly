@@ -30,8 +30,9 @@ exports.displayFeedback = function(options) {
     feedback.appendChild(showCode);
   }
   var canContinue = canContinueToNextLevel(options.feedbackType);
-  feedback.appendChild(getFeedbackButtons(options.feedbackType,
-                                          options.showPreviousLevelButton));
+  feedback.appendChild(getFeedbackButtons(
+      options.feedbackType,
+      options.level ? options.level.showPreviousLevelButton : undefined));
 
   var feedbackDialog = exports.createModalDialogWithIcon(options.Dialog,
                                                          feedback);
@@ -113,7 +114,9 @@ var getFeedbackMessage = function(options) {
       message = msg.tooFewBlocksMsg();
       break;
     case BlocklyApps.TestResults.LEVEL_INCOMPLETE_FAIL:
-      message = options.levelIncompleteError || msg.levelIncompleteError();
+      message =
+          (options.level ? options.level.levelIncompleteError : undefined) ||
+          msg.levelIncompleteError();
       break;
     // For completing level, user gets at least one star.
     case BlocklyApps.TestResults.OTHER_1_STAR_FAIL:
@@ -169,10 +172,10 @@ var getFeedbackMessage = function(options) {
 
 var createFeedbackImage = function(options) {
   var feedbackImage;
-  if (options.instructionImageUrl) {
+  if (options.level && options.level.instructionImageUrl) {
     feedbackImage = document.createElement('img');
     feedbackImage.className = 'feedback-image';
-    feedbackImage.src = options.instructionImageUrl;
+    feedbackImage.src = options.level.instructionImageUrl;
   }
   return feedbackImage;
 };
