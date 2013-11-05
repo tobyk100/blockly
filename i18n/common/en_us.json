@@ -45,6 +45,7 @@
   "toolboxHeader": "Blocks",
   "totalNumLinesOfCodeWritten": "All-time total: {numLines, plural, one {1 line} other {# lines}} of code.",
   "tryAgain": "Try again",
+  "backToPreviousLevel": "Back to previous level",
   "typeCode": "// Type your JavaScript code below these instructions.",
   "typeFuncs": "// Available functions:%1<br><br><br>",
   "typeHint": "// Note that the parentheses and semicolons are required.",

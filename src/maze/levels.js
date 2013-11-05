@@ -584,7 +584,8 @@ module.exports = {
       [0, 0, 0, 0, 0, 1, 0, 0],
       [0, 3, 1, 1, 1, 1, 0, 0],
       [0, 0, 0, 0, 0, 0, 0, 0]
-    ]
+    ],
+    'showPreviousLevelButton': true
   },
   '2_15': {
     'toolbox': toolbox(2, 15),
