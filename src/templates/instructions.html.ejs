@@ -1,4 +1,9 @@
 <% var msg = require('../../locale/current/common'); %>
 
 <p class='dialog-title'><%= msg.puzzleTitle(locals) %></p>
-<p><%= instructions %></p>
+<% if (locals.instructionImageUrl) { -%>
+  <img class='instruction-image' src='<%= locals.instructionImageUrl %>'>
+  <p class='instruction-with-image'><%= instructions %></p>
+<% } else { -%>
+  <p><%= instructions %></p>
+<% }; -%>

@@ -8,12 +8,16 @@ exports.displayFeedback = function(options) {
   options.numTrophies = numTrophiesEarned(options);
 
   var feedback = document.createElement('div');
+  var feedbackImage = createFeedbackImage(options);
   var feedbackMessage = getFeedbackMessage(options);
   var showCode = getShowCodeElement(options);
   var feedbackBlocks = new FeedbackBlocks(options);
 
   if (feedbackMessage) {
     feedback.appendChild(feedbackMessage);
+  }
+  if (feedbackImage) {
+    feedback.appendChild(feedbackImage);
   }
   if (options.numTrophies) {
     var trophies = getTrophiesElement(options);
@@ -26,7 +30,8 @@ exports.displayFeedback = function(options) {
     feedback.appendChild(showCode);
   }
   var canContinue = canContinueToNextLevel(options.feedbackType);
-  feedback.appendChild(getFeedbackButtons(options.feedbackType));
+  feedback.appendChild(getFeedbackButtons(options.feedbackType,
+                                          options.showPreviousLevelButton));
 
   var againButton = feedback.querySelector('#again-button');
   var previousLevelButton = feedback.querySelector('#back-button');
@@ -88,10 +93,13 @@ exports.getNumBlocksUsed = function() {
   return getUserBlocks().length;
 };
 
-var getFeedbackButtons = function(feedbackType) {
+var getFeedbackButtons = function(feedbackType, showPreviousLevelButton) {
   var buttons = document.createElement('div');
   buttons.innerHTML = require('./templates/buttons.html')({
     data: {
+      previousLevel:
+        (feedbackType === BlocklyApps.TestResults.LEVEL_INCOMPLETE_FAIL) &&
+        showPreviousLevelButton,
       tryAgain: feedbackType !== BlocklyApps.TestResults.ALL_PASS,
       nextLevel: canContinueToNextLevel(feedbackType)
     }
@@ -112,7 +120,7 @@ var getFeedbackMessage = function(options) {
       message = msg.tooFewBlocksMsg();
       break;
     case BlocklyApps.TestResults.LEVEL_INCOMPLETE_FAIL:
-      message = msg.levelIncompleteError();
+      message = options.levelIncompleteError || msg.levelIncompleteError();
       break;
     // For completing level, user gets at least one star.
     case BlocklyApps.TestResults.OTHER_1_STAR_FAIL:
@@ -120,7 +128,10 @@ var getFeedbackMessage = function(options) {
       break;
     // Two stars for using too many blocks.
     case BlocklyApps.TestResults.TOO_MANY_BLOCKS_FAIL:
-      message = msg.numBlocksNeeded({ numBlocks: BlocklyApps.IDEAL_BLOCK_NUM });
+      message = msg.numBlocksNeeded({
+          numBlocks: BlocklyApps.IDEAL_BLOCK_NUM,
+          puzzleNumber: options.level ? options.level.puzzle_number : 0
+          });
       break;
     case BlocklyApps.TestResults.OTHER_2_STAR_FAIL:
       message = msg.tooMuchWork();
@@ -139,7 +150,8 @@ var getFeedbackMessage = function(options) {
       }
       var msgParams = {
         numTrophies: options.numTrophies,
-        stageNumber: stageCompleted
+        stageNumber: stageCompleted,
+        puzzleNumber: options.level ? options.level.puzzle_number : 0
       };
       if (options.numTrophies > 0) {
         message = finalLevel ? msg.finalStageTrophies(msgParams) :
@@ -147,10 +159,10 @@ var getFeedbackMessage = function(options) {
                                   msg.nextStageTrophies(msgParams) :
                                   msg.nextLevelTrophies(msgParams);
       } else {
-        message = finalLevel ? msg.finalStage() :
+        message = finalLevel ? msg.finalStage(msgParams) :
                                stageCompleted ?
                                    msg.nextStage(msgParams) :
-                                   msg.nextLevel();
+                                   msg.nextLevel(msgParams);
       }
       break;
     // Free plays
@@ -160,6 +172,16 @@ var getFeedbackMessage = function(options) {
   }
   feedback.innerHTML = message;
   return feedback;
+};
+
+var createFeedbackImage = function(options) {
+  var feedbackImage;
+  if (options.instructionImageUrl) {
+    feedbackImage = document.createElement('img');
+    feedbackImage.className = 'feedback-image';
+    feedbackImage.src = options.instructionImageUrl;
+  }
+  return feedbackImage;
 };
 
 var numTrophiesEarned = function(options) {

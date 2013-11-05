@@ -155,6 +155,7 @@ APPS.forEach(function(app) {
 config.concat = {};
 LOCALES.forEach(function(locale) {
   config.concat['vendor_' + locale] = {
+    nonull: true,
     src: [
       'lib/blockly/blockly_compressed.js',
       'lib/blockly/blocks_compressed.js',

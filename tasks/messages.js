@@ -36,7 +36,7 @@ module.exports = function(grunt) {
       var language = locale.split('_')[0];
       var backend = fs.readFileSync(
           './node_modules/messageformat/locale/' + language + '.js', 'utf8');
-      vm.runInNewContext(backend, {MessageFormat: MessageFormat})
+      vm.runInNewContext(backend, {MessageFormat: MessageFormat});
       var mf = new MessageFormat(language);
 
       // Generate javascript message functions.

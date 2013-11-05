@@ -210,6 +210,10 @@ input[type="radio"] {
   float: left;
 }
 
+#prompt {
+  display: table-cell;
+}
+
 #headers {
   $height: 40px;
   background-color: $purple;
@@ -291,6 +295,23 @@ $modal-image-margin-gap: 10px;
   .congrats {
     font-size: 30px;
     line-height: 30px;
+  }
+
+  .instruction-image {
+    width: 40%;
+    height: auto;
+    float: left;
+  }
+
+  .instruction-with-image {
+    padding-left: 42%
+  }
+
+  .feedback-image {
+    width: 40%;
+    height: auto;
+    padding-left: 20%;
+    padding-bottom: 5px
   }
 }
 
