@@ -79,8 +79,7 @@ BlocklyApps.init = function(config) {
   onContinue = config.onContinue || function() {
     console.log('Continue!');
   };
-  backToPreviousLevel = config.backToPreviousLevel || function() {
-  };
+  backToPreviousLevel = config.backToPreviousLevel || function() {};
 
   // Record time at initialization.
   BlocklyApps.initTime = new Date().getTime();

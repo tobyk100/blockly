@@ -87,9 +87,8 @@ var getFeedbackButtons = function(feedbackType, showPreviousLevelButton) {
   buttons.innerHTML = require('./templates/buttons.html')({
     data: {
       previousLevel:
-        feedbackType ===
-            BlocklyApps.TestResults.LEVEL_INCOMPLETE_FAIL &&
-            showPreviousLevelButton,
+        (feedbackType === BlocklyApps.TestResults.LEVEL_INCOMPLETE_FAIL) &&
+        showPreviousLevelButton,
       tryAgain: feedbackType !== BlocklyApps.TestResults.ALL_PASS,
       nextLevel: canContinueToNextLevel(feedbackType)
     }
@@ -110,8 +109,7 @@ var getFeedbackMessage = function(options) {
       message = msg.tooFewBlocksMsg();
       break;
     case BlocklyApps.TestResults.LEVEL_INCOMPLETE_FAIL:
-      message = options.levelIncompleteError ||
-          msg.levelIncompleteError();
+      message = options.levelIncompleteError || msg.levelIncompleteError();
       break;
     // For completing level, user gets at least one star.
     case BlocklyApps.TestResults.OTHER_1_STAR_FAIL:
