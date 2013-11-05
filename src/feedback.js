@@ -5,9 +5,7 @@ var codegen = require('./codegen');
 var msg = require('../locale/current/common');
 
 exports.displayFeedback = function(options) {
-  if (options.level === undefined) {
-    options.level = {};
-  }
+  options.level = options.level || {};
   options.numTrophies = numTrophiesEarned(options);
 
   var feedback = document.createElement('div');
