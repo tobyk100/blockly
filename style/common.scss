@@ -210,6 +210,10 @@ input[type="radio"] {
   float: left;
 }
 
+#prompt {
+  display: table-cell;
+}
+
 #headers {
   $height: 40px;
   background-color: $purple;

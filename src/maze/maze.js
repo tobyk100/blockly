@@ -600,6 +600,7 @@ var displayFeedback = function() {
       skin: skin.id,
       feedbackType: Maze.testResults,
       response: Maze.response,
+      level: level,
       levelIncompleteError: level.levelIncompleteError,
       showPreviousLevelButton: level.showPreviousLevelButton,
       instructionImageUrl: level.instructionImageUrl
