@@ -160,7 +160,8 @@ var getFeedbackMessage = function(options) {
       break;
     // Free plays
     case BlocklyApps.TestResults.FREE_PLAY:
-      message = msg.reinfFeedbackMsg();
+      message = options.instructionImageUrl ?
+          msg.reinfFeedbackMsgWithImage() : msg.reinfFeedbackMsg();
       break;
   }
   feedback.innerHTML = message;
