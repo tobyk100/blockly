@@ -535,6 +535,8 @@ var displayFeedback = function() {
     message: Turtle.message,
     response: Turtle.response,
     level: level,
+    levelIncompleteError: level.levelIncompleteError,
+    showPreviousLevelButton: level.showPreviousLevelButton,
     instructionImageUrl: level.instructionImageUrl
     });
 };

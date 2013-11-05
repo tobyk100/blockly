@@ -33,6 +33,7 @@ var utils = require('./utils');
 //TODO: These should be members of a BlocklyApp instance.
 var onAttempt;
 var onContinue;
+var backToPreviousLevel;
 
 /**
  * The parent directory of the apps. Contains common.js.
@@ -78,6 +79,7 @@ BlocklyApps.init = function(config) {
   onContinue = config.onContinue || function() {
     console.log('Continue!');
   };
+  backToPreviousLevel = config.backToPreviousLevel || function() {};
 
   // Record time at initialization.
   BlocklyApps.initTime = new Date().getTime();
@@ -463,6 +465,7 @@ BlocklyApps.updateCapacity = function() {
 BlocklyApps.displayFeedback = function(options) {
   options.Dialog = BlocklyApps.Dialog;
   options.onContinue = onContinue;
+  options.backToPreviousLevel = backToPreviousLevel;
 
   feedback.displayFeedback(options);
 };

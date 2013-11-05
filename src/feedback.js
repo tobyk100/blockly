@@ -30,7 +30,8 @@ exports.displayFeedback = function(options) {
     feedback.appendChild(showCode);
   }
   var canContinue = canContinueToNextLevel(options.feedbackType);
-  feedback.appendChild(getFeedbackButtons(options.feedbackType));
+  feedback.appendChild(getFeedbackButtons(options.feedbackType,
+                                          options.showPreviousLevelButton));
 
   var feedbackDialog = exports.createModalDialogWithIcon(options.Dialog,
                                                          feedback);
@@ -38,6 +39,14 @@ exports.displayFeedback = function(options) {
   if (againButton) {
     utils.addClickTouchEvent(againButton, function() {
       feedbackDialog.hide();
+    });
+  }
+
+  var previousLevelButton = feedback.querySelector('#back-button');
+  if (previousLevelButton) {
+    utils.addClickTouchEvent(previousLevelButton, function() {
+      feedbackDialog.hide();
+      options.backToPreviousLevel();
     });
   }
 
@@ -77,10 +86,13 @@ exports.getNumBlocksUsed = function() {
   return getUserBlocks().length;
 };
 
-var getFeedbackButtons = function(feedbackType) {
+var getFeedbackButtons = function(feedbackType, showPreviousLevelButton) {
   var buttons = document.createElement('div');
   buttons.innerHTML = require('./templates/buttons.html')({
     data: {
+      previousLevel:
+        (feedbackType === BlocklyApps.TestResults.LEVEL_INCOMPLETE_FAIL) &&
+        showPreviousLevelButton,
       tryAgain: feedbackType !== BlocklyApps.TestResults.ALL_PASS,
       nextLevel: canContinueToNextLevel(feedbackType)
     }
@@ -101,7 +113,7 @@ var getFeedbackMessage = function(options) {
       message = msg.tooFewBlocksMsg();
       break;
     case BlocklyApps.TestResults.LEVEL_INCOMPLETE_FAIL:
-      message = msg.levelIncompleteError();
+      message = options.levelIncompleteError || msg.levelIncompleteError();
       break;
     // For completing level, user gets at least one star.
     case BlocklyApps.TestResults.OTHER_1_STAR_FAIL:
