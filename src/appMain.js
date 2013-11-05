@@ -31,6 +31,7 @@ module.exports = function(app, levels, options) {
     for (var prop in options.level) {
       level[prop] = options.level[prop];
     }
+
     options.level = level;
   }
 

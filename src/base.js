@@ -254,7 +254,7 @@ BlocklyApps.onResize = function(gameWidth) {
   var parentHeight = parseInt(parentStyle.height, 10);
 
   div.style.top = blocklyDivParent.offsetTop + 'px';
-  div.style.width = Math.min(1200, (parentWidth - gameWidth - 40)) + 'px';
+  div.style.width = Math.min(1200, (parentWidth - (gameWidth + 15))) + 'px';
   div.style.marginLeft = (gameWidth + 15) + 'px';
   div.style.height = parentHeight + 'px';
 
