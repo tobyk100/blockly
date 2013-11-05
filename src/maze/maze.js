@@ -600,6 +600,8 @@ var displayFeedback = function() {
       skin: skin.id,
       feedbackType: Maze.testResults,
       response: Maze.response,
+      levelIncompleteError: level.levelIncompleteError,
+      showPreviousLevelButton: level.showPreviousLevelButton,
       instructionImageUrl: level.instructionImageUrl
     });
   }
