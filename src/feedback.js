@@ -37,7 +37,9 @@ exports.displayFeedback = function(options) {
   var previousLevelButton = feedback.querySelector('#back-button');
   var continueButton = feedback.querySelector('#continue-button');
   
-  var onHidden = (continueButton && !againButton) ? options.onContinue : null;
+  var onlyContinue = continueButton && !againButton && !previousLevelButton;
+  
+  var onHidden = onlyContinue ? options.onContinue : null;
   
   var feedbackDialog = exports.createModalDialogWithIcon(options.Dialog,
                                                          feedback,
@@ -59,7 +61,7 @@ exports.displayFeedback = function(options) {
     utils.addClickTouchEvent(continueButton, function() {
       feedbackDialog.hide();
       // onContinue will fire already if there was only a continue button
-      if (againButton) {
+      if (!onlyContinue) {
         options.onContinue();
       }
     });
