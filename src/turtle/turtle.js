@@ -78,6 +78,12 @@ Turtle.init = function(config) {
   skin = config.skin;
   level = config.level;
 
+  // Record instruction image url if it needs to be shown.
+  if (level.instructionImage) {
+    level.instructionImageUrl =
+        BlocklyApps.assetUrl('media/' + level.instructionImage);
+  }
+
   Turtle.AVATAR_HEIGHT = 51;
   Turtle.AVATAR_WIDTH = 70;
 
@@ -527,7 +533,8 @@ var displayFeedback = function() {
     skin: skin.id,
     feedbackType: Turtle.testResults,
     message: Turtle.message,
-    response: Turtle.response
+    response: Turtle.response,
+    instructionImageUrl: level.instructionImageUrl
     });
 };
 
