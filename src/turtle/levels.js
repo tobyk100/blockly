@@ -684,7 +684,7 @@ module.exports = {
     freePlay: true,
     toolbox: toolbox(4, 1),
     startBlocks: startBlocks(4, 1),
-    instructionWithImage: true
+    instructionImage: 'turtle/4_1.png'
   },
   // Level 2: playground.
   '4_2': {
@@ -692,7 +692,7 @@ module.exports = {
     freePlay: true,
     toolbox: toolbox(4, 2),
     startBlocks: startBlocks(4, 2),
-    instructionWithImage: true
+    instructionImage: 'turtle/4_2.png'
   },
   // Level 3: playground.
   '4_3': {
@@ -700,7 +700,7 @@ module.exports = {
     freePlay: true,
     toolbox: toolbox(4, 3),
     startBlocks: startBlocks(4, 3),
-    instructionWithImage: true
+    instructionImage: 'turtle/4_3.png'
   },
   // Level 4: playground.
   '4_4': {
@@ -708,7 +708,7 @@ module.exports = {
     freePlay: true,
     toolbox: toolbox(4, 4),
     startBlocks: startBlocks(4, 4),
-    instructionWithImage: true
+    instructionImage: 'turtle/4_4.png'
   },
   // Formerly Page 5.
   // Level 1: playground.

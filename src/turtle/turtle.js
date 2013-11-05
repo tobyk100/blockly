@@ -79,9 +79,9 @@ Turtle.init = function(config) {
   level = config.level;
 
   // Record instruction image url if it needs to be shown.
-  if (level.instructionWithImage) {
+  if (level.instructionImage) {
     level.instructionImageUrl =
-        BlocklyApps.assetUrl('media/turtle/' + level.id + '.png');
+        BlocklyApps.assetUrl('media/' + level.instructionImage);
   }
 
   Turtle.AVATAR_HEIGHT = 51;

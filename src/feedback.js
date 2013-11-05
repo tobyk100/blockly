@@ -8,7 +8,7 @@ exports.displayFeedback = function(options) {
   options.numTrophies = numTrophiesEarned(options);
 
   var feedback = document.createElement('div');
-  var feedbackImage = getFeedbackImage(options);
+  var feedbackImage = createFeedbackImage(options);
   var feedbackMessage = getFeedbackMessage(options);
   var showCode = getShowCodeElement(options);
   var feedbackBlocks = new FeedbackBlocks(options);
@@ -151,7 +151,7 @@ var getFeedbackMessage = function(options) {
   return feedback;
 };
 
-var getFeedbackImage = function(options) {
+var createFeedbackImage = function(options) {
   var feedbackImage;
   if (options.instructionImageUrl) {
     feedbackImage = document.createElement('img');

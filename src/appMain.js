@@ -31,8 +31,6 @@ module.exports = function(app, levels, options) {
     for (var prop in options.level) {
       level[prop] = options.level[prop];
     }
-    // By default, leve.instructionImageUrl is false.
-    level.instructionImageUrl = false;
 
     options.level = level;
   }
