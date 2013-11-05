@@ -28,20 +28,35 @@ exports.displayFeedback = function(options) {
   var canContinue = canContinueToNextLevel(options.feedbackType);
   feedback.appendChild(getFeedbackButtons(options.feedbackType));
 
-  var feedbackDialog = exports.createModalDialogWithIcon(options.Dialog,
-                                                         feedback);
   var againButton = feedback.querySelector('#again-button');
+  var previousLevelButton = feedback.querySelector('#back-button');
+  var continueButton = feedback.querySelector('#continue-button');
+  
+  var onHidden = (continueButton && !againButton) ? options.onContinue : null;
+  
+  var feedbackDialog = exports.createModalDialogWithIcon(options.Dialog,
+                                                         feedback,
+                                                         onHidden);
   if (againButton) {
     utils.addClickTouchEvent(againButton, function() {
       feedbackDialog.hide();
     });
   }
 
-  var continueButton = feedback.querySelector('#continue-button');
+  if (previousLevelButton) {
+    utils.addClickTouchEvent(previousLevelButton, function() {
+      feedbackDialog.hide();
+      options.backToPreviousLevel();
+    });
+  }
+
   if (continueButton) {
     utils.addClickTouchEvent(continueButton, function() {
       feedbackDialog.hide();
-      options.onContinue();
+      // onContinue will fire already if there was only a continue button
+      if (againButton) {
+        options.onContinue();
+      }
     });
   }
 
@@ -417,7 +432,7 @@ exports.getTestResults = function() {
   }
 };
 
-exports.createModalDialogWithIcon = function(Dialog, contentDiv) {
+exports.createModalDialogWithIcon = function(Dialog, contentDiv, onHidden) {
   var imageDiv = document.createElement('img');
   imageDiv.className = "modal-image";
   imageDiv.src = BlocklyApps.ICON;
@@ -427,7 +442,7 @@ exports.createModalDialogWithIcon = function(Dialog, contentDiv) {
   contentDiv.className += ' modal-content';
   modalBody.appendChild(contentDiv);
 
-  return new Dialog({ body: modalBody });
+  return new Dialog({ body: modalBody, onHidden: onHidden });
 };
 
 /**
