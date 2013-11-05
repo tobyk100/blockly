@@ -5,6 +5,9 @@ var codegen = require('./codegen');
 var msg = require('../locale/current/common');
 
 exports.displayFeedback = function(options) {
+  if (options.level === undefined) {
+    options.level = {};
+  }
   options.numTrophies = numTrophiesEarned(options);
 
   var feedback = document.createElement('div');
@@ -31,8 +34,7 @@ exports.displayFeedback = function(options) {
   }
   var canContinue = canContinueToNextLevel(options.feedbackType);
   feedback.appendChild(getFeedbackButtons(
-      options.feedbackType,
-      options.level ? options.level.showPreviousLevelButton : undefined));
+    options.feedbackType, options.level.showPreviousLevelButton));
 
   var feedbackDialog = exports.createModalDialogWithIcon(options.Dialog,
                                                          feedback);
@@ -114,8 +116,7 @@ var getFeedbackMessage = function(options) {
       message = msg.tooFewBlocksMsg();
       break;
     case BlocklyApps.TestResults.LEVEL_INCOMPLETE_FAIL:
-      message =
-          (options.level ? options.level.levelIncompleteError : undefined) ||
+      message = options.level.levelIncompleteError ||
           msg.levelIncompleteError();
       break;
     // For completing level, user gets at least one star.
@@ -126,7 +127,7 @@ var getFeedbackMessage = function(options) {
     case BlocklyApps.TestResults.TOO_MANY_BLOCKS_FAIL:
       message = msg.numBlocksNeeded({
           numBlocks: BlocklyApps.IDEAL_BLOCK_NUM,
-          puzzleNumber: options.level ? options.level.puzzle_number : 0
+          puzzleNumber: options.level.puzzle_number || 0
           });
       break;
     case BlocklyApps.TestResults.OTHER_2_STAR_FAIL:
@@ -147,7 +148,7 @@ var getFeedbackMessage = function(options) {
       var msgParams = {
         numTrophies: options.numTrophies,
         stageNumber: stageCompleted,
-        puzzleNumber: options.level ? options.level.puzzle_number : 0
+        puzzleNumber: options.level.puzzle_number || 0
       };
       if (options.numTrophies > 0) {
         message = finalLevel ? msg.finalStageTrophies(msgParams) :
@@ -172,7 +173,7 @@ var getFeedbackMessage = function(options) {
 
 var createFeedbackImage = function(options) {
   var feedbackImage;
-  if (options.level && options.level.instructionImageUrl) {
+  if (options.level.instructionImageUrl) {
     feedbackImage = document.createElement('img');
     feedbackImage.className = 'feedback-image';
     feedbackImage.src = options.level.instructionImageUrl;
