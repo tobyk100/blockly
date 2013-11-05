@@ -34,16 +34,23 @@ exports.displayFeedback = function(options) {
   feedback.appendChild(getFeedbackButtons(
     options.feedbackType, options.level.showPreviousLevelButton));
 
-  var feedbackDialog = exports.createModalDialogWithIcon(options.Dialog,
-                                                         feedback);
   var againButton = feedback.querySelector('#again-button');
+  var previousLevelButton = feedback.querySelector('#back-button');
+  var continueButton = feedback.querySelector('#continue-button');
+  
+  var onlyContinue = continueButton && !againButton && !previousLevelButton;
+  
+  var onHidden = onlyContinue ? options.onContinue : null;
+  
+  var feedbackDialog = exports.createModalDialogWithIcon(options.Dialog,
+                                                         feedback,
+                                                         onHidden);
   if (againButton) {
     utils.addClickTouchEvent(againButton, function() {
       feedbackDialog.hide();
     });
   }
 
-  var previousLevelButton = feedback.querySelector('#back-button');
   if (previousLevelButton) {
     utils.addClickTouchEvent(previousLevelButton, function() {
       feedbackDialog.hide();
@@ -51,11 +58,13 @@ exports.displayFeedback = function(options) {
     });
   }
 
-  var continueButton = feedback.querySelector('#continue-button');
   if (continueButton) {
     utils.addClickTouchEvent(continueButton, function() {
       feedbackDialog.hide();
-      options.onContinue();
+      // onContinue will fire already if there was only a continue button
+      if (!onlyContinue) {
+        options.onContinue();
+      }
     });
   }
 
@@ -450,7 +459,7 @@ exports.getTestResults = function() {
   }
 };
 
-exports.createModalDialogWithIcon = function(Dialog, contentDiv) {
+exports.createModalDialogWithIcon = function(Dialog, contentDiv, onHidden) {
   var imageDiv = document.createElement('img');
   imageDiv.className = "modal-image";
   imageDiv.src = BlocklyApps.ICON;
@@ -460,7 +469,7 @@ exports.createModalDialogWithIcon = function(Dialog, contentDiv) {
   contentDiv.className += ' modal-content';
   modalBody.appendChild(contentDiv);
 
-  return new Dialog({ body: modalBody });
+  return new Dialog({ body: modalBody, onHidden: onHidden });
 };
 
 /**
