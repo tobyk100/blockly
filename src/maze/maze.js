@@ -601,6 +601,7 @@ var displayFeedback = function() {
       feedbackType: Maze.testResults,
       response: Maze.response,
       level: level,
+      instructionImageUrl: level.instructionImageUrl
     });
   }
 };
