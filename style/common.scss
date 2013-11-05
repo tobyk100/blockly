@@ -219,6 +219,8 @@ input[type="radio"] {
   }
   .blockly-header {
     text-align: center;
+    white-space: nowrap;
+    overflow-x: hidden;
     height: $height;
     span {
       color: white;
