@@ -105,7 +105,10 @@ var getFeedbackMessage = function(options) {
       break;
     // Two stars for using too many blocks.
     case BlocklyApps.TestResults.TOO_MANY_BLOCKS_FAIL:
-      message = msg.numBlocksNeeded({ numBlocks: BlocklyApps.IDEAL_BLOCK_NUM });
+      message = msg.numBlocksNeeded({
+          numBlocks: BlocklyApps.IDEAL_BLOCK_NUM,
+          puzzleNumber: options.level ? options.level.puzzle_number : 0
+          });
       break;
     case BlocklyApps.TestResults.OTHER_2_STAR_FAIL:
       message = msg.tooMuchWork();
@@ -124,7 +127,8 @@ var getFeedbackMessage = function(options) {
       }
       var msgParams = {
         numTrophies: options.numTrophies,
-        stageNumber: stageCompleted
+        stageNumber: stageCompleted,
+        puzzleNumber: options.level ? options.level.puzzle_number : 0
       };
       if (options.numTrophies > 0) {
         message = finalLevel ? msg.finalStageTrophies(msgParams) :
@@ -132,10 +136,10 @@ var getFeedbackMessage = function(options) {
                                   msg.nextStageTrophies(msgParams) :
                                   msg.nextLevelTrophies(msgParams);
       } else {
-        message = finalLevel ? msg.finalStage() :
+        message = finalLevel ? msg.finalStage(msgParams) :
                                stageCompleted ?
                                    msg.nextStage(msgParams) :
-                                   msg.nextLevel();
+                                   msg.nextLevel(msgParams);
       }
       break;
     // Free plays
