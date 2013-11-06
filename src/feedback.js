@@ -120,7 +120,7 @@ var getFeedbackMessage = function(options) {
       message = msg.emptyBlocksErrorMsg();
       break;
     case BlocklyApps.TestResults.TOO_FEW_BLOCKS_FAIL:
-      message = msg.tooFewBlocksMsg();
+      message = options.level.tooFewBlocksMsg || msg.tooFewBlocksMsg();
       break;
     case BlocklyApps.TestResults.LEVEL_INCOMPLETE_FAIL:
       message = options.level.levelIncompleteError ||
