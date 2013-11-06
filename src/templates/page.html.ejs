@@ -1,12 +1,6 @@
 <% var msg = require('../../locale/current/common'); %>
 
-<img id="rotateMobile" class="dialogHiddenContent" src="<%= assetUrl('media/mobile_tutorial_turnphone.png') %>">
-
-<% var dialog = function() { -%>
-  <div id="dialogShadow" class="dialogAnimate"></div>
-  <div id="dialogBorder"></div>
-  <div id="dialog"></div>
-<% }; -%>
+<img id="rotateMobile" src="<%= assetUrl('media/mobile_tutorial_turnphone.png') %>">
 
 <% var instructions = function() { -%>
   <div id="bubble">
@@ -77,9 +71,5 @@ var helpArea = function(html) { -%>
     <div id="show-code-header" class="blockly-header"><span><%= msg.showCodeHeader() %></span></div>
   </div>
 </div>
-
-<%
-  dialog()
-%>
 
 <% instructions() %>

@@ -27,7 +27,6 @@ var msg = require('../locale/current/common');
 var parseXmlElement = require('./xml').parseElement;
 var feedback = require('./feedback.js');
 var addReadyListener = require('./dom').addReadyListener;
-var responsive = require('./responsive');
 var utils = require('./utils');
 
 //TODO: These should be members of a BlocklyApp instance.
@@ -124,10 +123,6 @@ BlocklyApps.init = function(config) {
 
   // Add events for touch devices when the window is done loading.
   addReadyListener(BlocklyApps.addTouchEvents);
-
-  if (utils.isMobile()) {
-    responsive.forceLandscape();
-  }
 };
 
 exports.playAudio = function(name, options) {

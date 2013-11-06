@@ -261,10 +261,14 @@ input[type="radio"] {
 }
 
 #rotateMobile {
-  margin-right: auto;
-  margin-left: auto;
-  display: block;
+  position: absolute;
+  z-index: 10001;
+  background-color: white;
   @include fill-container;
+
+  @media screen and (orientation: landscape) {
+    display: none;
+  }
 }
 
 .blocklyText {
