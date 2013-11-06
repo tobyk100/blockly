@@ -297,6 +297,28 @@ module.exports = {
     ],
     'startBlocks': startBlocks(2, 2)
   },
+  '2_2_5': {
+    'toolbox': toolbox(2, 3),
+    'ideal': 4,
+    'requiredBlocks': [
+      [{'test': 'moveForward', 'type': 'maze_moveForward'}],
+      [{'test': 'turnRight',
+        'type': 'maze_turn',
+        'titles': {'DIR': 'turnRight'}}]
+    ],
+    'startDirection': Direction.EAST,
+    'map': [
+      [0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 2, 1, 1, 0, 0, 0],
+      [0, 0, 0, 4, 3, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0]
+    ],
+    'startBlocks': startBlocks(2, 3)
+  },
   '2_3': {
     'toolbox': toolbox(2, 3),
     'ideal': 5,
@@ -414,7 +436,7 @@ module.exports = {
   },
   '2_8': {
     'toolbox': toolbox(2, 8),
-    'ideal': 4,
+    'ideal': 3,
     'scale': {
       'stepSpeed': 3
     },
