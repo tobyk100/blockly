@@ -98,6 +98,9 @@ var loadLevel = function() {
   // Height and width of the dirt piles/holes.
   Maze.DIRT_HEIGHT = 50;
   Maze.DIRT_WIDTH = 50;
+  // The number line is [-inf, min, min+1, ... no zero ..., max-1, max, +inf]
+  Maze.DIRT_MAX = 10;
+  Maze.DIRT_COUNT = Maze.DIRT_MAX * 2 + 2;
 
   Maze.MAZE_WIDTH = Maze.SQUARE_SIZE * Maze.COLS;
   Maze.MAZE_HEIGHT = Maze.SQUARE_SIZE * Maze.ROWS;
@@ -462,6 +465,77 @@ Maze.init = function(config) {
   Blockly.fireUiEvent(window, 'resize');
 };
 
+var dirtPositionToIndex = function(row, col) {
+  return Maze.COLS * row + col;
+};
+
+var createDirt = function(row, col) {
+  var pegmanIcon = document.getElementById('pegman');
+  var svg = document.getElementById('svgMaze');
+  var index = dirtPositionToIndex(row, col);
+  // Create clip path.
+  var clip = document.createElementNS(Blockly.SVG_NS, 'clipPath');
+  clip.setAttribute('id', 'dirtClip' + index);
+  var rect = document.createElementNS(Blockly.SVG_NS, 'rect');
+  rect.setAttribute('x', col * Maze.DIRT_WIDTH);
+  rect.setAttribute('y', row * Maze.DIRT_HEIGHT);
+  rect.setAttribute('width', Maze.DIRT_WIDTH);
+  rect.setAttribute('height', Maze.DIRT_HEIGHT);
+  clip.appendChild(rect);
+  svg.insertBefore(clip, pegmanIcon);
+  // Create image.
+  var img = document.createElementNS(Blockly.SVG_NS, 'image');
+  img.setAttributeNS(
+      'http://www.w3.org/1999/xlink', 'xlink:href', skin.dirt);
+  img.setAttribute('height', Maze.DIRT_HEIGHT);
+  img.setAttribute('width', Maze.DIRT_WIDTH * Maze.DIRT_COUNT);
+  img.setAttribute('clip-path', 'url(#dirtClip' + index + ')');
+  img.setAttribute('id', 'dirt' + index);
+  svg.insertBefore(img, pegmanIcon);
+};
+
+/**
+ * Set the image based on the amount of dirt at the location.
+ * @param {number} row Row index.
+ * @param {number} col Column index.
+ */
+var updateDirt = function(row, col) {
+  // Calculate spritesheet index.
+  var n = Maze.dirt_[row][col];
+  var spriteIndex;
+  if (n < -Maze.DIRT_MAX) {
+    spriteIndex = 0;
+  } else if (n < 0) {
+    spriteIndex = Maze.DIRT_MAX + n + 1;
+  } else if (n > Maze.DIRT_MAX) {
+    spriteIndex = Maze.DIRT_COUNT - 1;
+  } else if (n > 0) {
+    spriteIndex = Maze.DIRT_MAX + n;
+  } else {
+    throw new Error('Expected non-zero dirt.');
+  }
+  // Update dirt icon & clip path.
+  var dirtIndex = dirtPositionToIndex(row, col);
+  var img = document.getElementById('dirt' + dirtIndex);
+  var x = Maze.SQUARE_SIZE * (col - spriteIndex + 0.5) - Maze.DIRT_HEIGHT / 2;
+  var y = Maze.SQUARE_SIZE * (row + 0.5) - Maze.DIRT_WIDTH / 2;
+  img.setAttribute('x', x);
+  img.setAttribute('y', y);
+};
+
+var removeDirt = function(row, col) {
+  var svg = document.getElementById('svgMaze');
+  var index = dirtPositionToIndex(row, col);
+  var img = document.getElementById('dirt' + index);
+  if (img) {
+    svg.removeChild(img);
+  }
+  var clip = document.getElementById('dirtClip' + index);
+  if (clip) {
+    svg.removeChild(clip);
+  }
+};
+
 /**
  * Reset the maze to the start position and kill any pending animation tasks.
  * @param {boolean} first True if an opening animation is to be played.
@@ -520,37 +594,21 @@ BlocklyApps.reset = function(first) {
   pegmanIcon.setAttribute('visibility', 'visible');
 
   // Move the init dirt marker icons into position.
-  var dirtId = 0;
   resetDirt();
-  var x, y;
-  for (y = 0; y < Maze.ROWS; y++) {
-    for (x = 0; x < Maze.COLS; x++) {
-      // Remove all dirt from svg element, less efficient than checking if we
-      // need to remove, but much easier to code.
-      var dirtIcon = document.getElementById('dirt' + dirtId);
-      if (dirtIcon) {
-        svg.removeChild(dirtIcon);
+  for (var row = 0; row < Maze.ROWS; row++) {
+    for (var col = 0; col < Maze.COLS; col++) {
+      removeDirt(row, col);
+      if (getTile(Maze.dirt_, col, row) !== 0 &&
+          getTile(Maze.dirt_, col, row) !== undefined) {
+        createDirt(row, col);
+        updateDirt(row, col);
       }
-      // Place dirt if one exists in cell.
-      if (getTile(Maze.dirt_, x, y) !== 0 &&
-          getTile(Maze.dirt_, x, y) !== undefined) {
-        dirtIcon = document.createElementNS(Blockly.SVG_NS, 'image');
-        dirtIcon.setAttribute('id', 'dirt' + dirtId);
-        Maze.setDirtImage(dirtIcon, x, y);
-        dirtIcon.setAttribute('height', Maze.DIRT_HEIGHT);
-        dirtIcon.setAttribute('width', Maze.DIRT_WIDTH);
-        svg.insertBefore(dirtIcon, pegmanIcon);
-        dirtIcon.setAttribute('x',
-            Maze.SQUARE_SIZE * (x + 0.5) - dirtIcon.getAttribute('width') / 2);
-        dirtIcon.setAttribute('y',
-            Maze.SQUARE_SIZE * (y + 0.5) - dirtIcon.getAttribute('height') / 2);
-      }
-      ++dirtId;
     }
   }
 
   // Reset the obstacle image.
   var obsId = 0;
+  var x, y;
   for (y = 0; y < Maze.ROWS; y++) {
     for (x = 0; x < Maze.COLS; x++) {
       var obsIcon = document.getElementById('obstacle' + obsId);
@@ -1090,100 +1148,41 @@ Maze.displayPegman = function(x, y, d) {
   clipRect.setAttribute('y', pegmanIcon.getAttribute('y'));
 };
 
+var scheduleDirtChange = function(options) {
+  var col = Maze.pegmanX;
+  var row = Maze.pegmanY;
+  var previous = Maze.dirt_[row][col];
+  var current = previous + options.amount;
+  Maze.dirt_[row][col] = current;
+  if (previous === 0 && current !== 0) {
+    createDirt(row, col);
+  }
+  if (current === 0) {
+    removeDirt(row, col);
+  } else {
+    updateDirt(row, col);
+  }
+  BlocklyApps.playAudio(options.sound, {volume: 0.5});
+};
+
 /**
  * Schedule to add dirt at pegman's current position.
  */
 Maze.scheduleFill = function() {
-  var x = Maze.pegmanX;
-  var y = Maze.pegmanY;
-  var dirtId = x + Maze.COLS * y;
-  var dirtIcon;
-  var pegmanIcon = document.getElementById('pegman');
-  if (Maze.dirt_[y][x] < -1 || Maze.dirt_[y][x] > 0) {
-    // There is already a dirt icon at the position
-    dirtIcon = document.getElementById('dirt' + dirtId);
-    ++Maze.dirt_[y][x];
-    Maze.setDirtImage(dirtIcon, x, y);
-    dirtIcon.setAttribute('x', Maze.SQUARE_SIZE * (x + 0.5) -
-                          dirtIcon.getAttribute('width') / 2);
-    dirtIcon.setAttribute('y', Maze.SQUARE_SIZE * (y + 0.5) -
-                          dirtIcon.getAttribute('height') / 2);
-  } else {
-    var svgMaze = document.getElementById('svgMaze');
-    if (Maze.dirt_[y][x] === 0) {
-      // If not, create a new dirtIcon for the current location
-      dirtIcon = document.createElementNS(Blockly.SVG_NS, 'image');
-      dirtIcon.setAttribute('id', 'dirt' + dirtId);
-      dirtIcon.setAttribute('height', Maze.DIRT_HEIGHT);
-      dirtIcon.setAttribute('width', Maze.DIRT_WIDTH);
-      svgMaze.insertBefore(dirtIcon, pegmanIcon);
-
-      ++Maze.dirt_[y][x];
-      Maze.setDirtImage(dirtIcon, x, y);
-      dirtIcon.setAttribute('x', Maze.SQUARE_SIZE * (x + 0.5) -
-                            dirtIcon.getAttribute('width') / 2);
-      dirtIcon.setAttribute('y', Maze.SQUARE_SIZE * (y + 0.5) -
-                            dirtIcon.getAttribute('height') / 2);
-    } else if (Maze.dirt_[y][x] == -1) {
-      // Remove the dirtIcon
-      dirtIcon = document.getElementById('dirt' + dirtId);
-      svgMaze.removeChild(dirtIcon);
-       ++Maze.dirt_[y][x];
-    }
-  }
-  BlocklyApps.playAudio('fill', {volume : 0.5});
-};
-
-/**
- * Set the image based on the amount of dirt at the location.
- * @param dirtIcon Dirt icon that shows the amount of dirt at location [y,x].
- * @param {number} x Horizontal grid (or fraction thereof).
- * @param {number} y Vertical grid (or fraction thereof).
- */
-Maze.setDirtImage = function(dirtIcon, x, y) {
-  dirtIcon.setAttributeNS(
-    'http://www.w3.org/1999/xlink', 'xlink:href',
-    skin.dirt(Maze.dirt_[y][x]));
+  scheduleDirtChange({
+    amount: 1,
+    sound: 'fill'
+  });
 };
 
 /**
  * Schedule to remove dirt at pegman's current location.
  */
 Maze.scheduleDig = function() {
-  var x = Maze.pegmanX;
-  var y = Maze.pegmanY;
-  var dirtId = x + Maze.COLS * y;
-  var dirtIcon;
-  var pegmanIcon = document.getElementById('pegman');
-  if (Maze.dirt_[y][x] > 1 || Maze.dirt_[y][x] < 0) {
-    // The dirtIcon should still exist after removing dirt
-    Maze.dirt_[y][x] = Maze.dirt_[y][x] - 1;
-    dirtIcon = document.getElementById('dirt' + dirtId);
-    Maze.setDirtImage(dirtIcon, x, y);
-  } else {
-    var svg = document.getElementById('svgMaze');
-    if (Maze.dirt_[y][x] === 0) {
-      // Create dirtIcon
-      Maze.dirt_[y][x] = Maze.dirt_[y][x] - 1;
-      dirtIcon = document.createElementNS(Blockly.SVG_NS, 'image');
-      dirtIcon.setAttribute('id', 'dirt' + dirtId);
-      dirtIcon.setAttribute('height', Maze.DIRT_HEIGHT);
-      dirtIcon.setAttribute('width', Maze.DIRT_WIDTH);
-      svg.insertBefore(dirtIcon, pegmanIcon);
-
-      Maze.setDirtImage(dirtIcon, x, y);
-      dirtIcon.setAttribute('x', Maze.SQUARE_SIZE * (x + 0.5) -
-                            dirtIcon.getAttribute('width') / 2);
-      dirtIcon.setAttribute('y', Maze.SQUARE_SIZE * (y + 0.5) -
-                            dirtIcon.getAttribute('height') / 2);
-    } else if (Maze.dirt_[y][x] == 1) {
-      // Need to remove this dirtIcon
-      dirtIcon = document.getElementById('dirt' + dirtId);
-      svg.removeChild(dirtIcon);
-      Maze.dirt_[y][x] = Maze.dirt_[y][x] - 1;
-    }
-  }
-  BlocklyApps.playAudio('dig', {volume : 0.5});
+  scheduleDirtChange({
+    amount: -1,
+    sound: 'dig'
+  });
 };
 
 /**
