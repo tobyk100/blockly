@@ -42,10 +42,16 @@ exports.displayFeedback = function(options) {
 
   var onHidden = onlyContinue ? options.onContinue : null;
   var icon = canContinue ? BlocklyApps.WIN_ICON : BlocklyApps.FAILURE_ICON;
-  var feedbackDialog = exports.createModalDialogWithIcon(options.Dialog,
-                                                         feedback,
-                                                         icon,
-                                                         onHidden);
+  var defaultBtnSelector = onlyContinue ? '#continue-button' : '#again-button';
+  
+  var feedbackDialog = exports.createModalDialogWithIcon({
+      Dialog: options.Dialog,
+      contentDiv: feedback,
+      icon: icon,
+      defaultBtnSelector: defaultBtnSelector,
+      onHidden: onHidden
+      });
+
   if (againButton) {
     utils.addClickTouchEvent(againButton, function() {
       feedbackDialog.hide();
@@ -334,8 +340,12 @@ exports.showGeneratedCode = function(Dialog) {
   });
   codeDiv.appendChild(buttons);
 
-  var dialog = exports.createModalDialogWithIcon(
-      Dialog, codeDiv, BlocklyApps.ICON);
+  var dialog = exports.createModalDialogWithIcon({
+      Dialog: Dialog,
+      contentDiv: codeDiv,
+      icon: BlocklyApps.ICON,
+      defaultBtnSelector: '#ok-button'
+      });
 
   var okayButton = buttons.querySelector('#ok-button');
   okayButton.addEventListener('click', function() {
@@ -461,18 +471,35 @@ exports.getTestResults = function() {
   }
 };
 
-exports.createModalDialogWithIcon = function(
-    Dialog, contentDiv, icon, onHidden) {
+Keycodes = {
+  ENTER: 13,
+  SPACE: 32
+};
+
+exports.createModalDialogWithIcon = function(options) {
   var imageDiv = document.createElement('img');
   imageDiv.className = "modal-image";
-  imageDiv.src = icon;
+  imageDiv.src = options.icon;
 
   var modalBody = document.createElement('div');
   modalBody.appendChild(imageDiv);
-  contentDiv.className += ' modal-content';
-  modalBody.appendChild(contentDiv);
+  options.contentDiv.className += ' modal-content';
+  modalBody.appendChild(options.contentDiv);
+  
+  var btn = options.contentDiv.querySelector(options.defaultBtnSelector);
+  var keydownHandler = function(e) {
+    if (e.keyCode == Keycodes.ENTER || e.keyCode == Keycodes.SPACE) {
+      Blockly.fireUiEvent(btn, 'click');
+      e.stopPropagation();
+      e.preventDefault();
+    }
+  };
 
-  return new Dialog({ body: modalBody, onHidden: onHidden });
+  return new options.Dialog({
+    body: modalBody,
+    onHidden: options.onHidden,
+    onKeydown: btn ? keydownHandler : undefined
+  });
 };
 
 /**
