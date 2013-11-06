@@ -435,7 +435,8 @@ module.exports = {
       [0, 0, 3, 1, 1, 0, 0, 0],
       [0, 0, 0, 0, 0, 0, 0, 0],
       [0, 0, 0, 0, 0, 0, 0, 0]
-    ]
+    ],
+    'startBlocks': startBlocks(2, 8)
   },
   '2_9': {
     'toolbox': toolbox(2, 9),
