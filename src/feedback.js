@@ -37,15 +37,17 @@ exports.displayFeedback = function(options) {
   var againButton = feedback.querySelector('#again-button');
   var previousLevelButton = feedback.querySelector('#back-button');
   var continueButton = feedback.querySelector('#continue-button');
-  
+
   var onlyContinue = continueButton && !againButton && !previousLevelButton;
-  
+
   var onHidden = onlyContinue ? options.onContinue : null;
+  var icon = canContinue ? BlocklyApps.WIN_ICON : BlocklyApps.FAILURE_ICON;
   var defaultBtnSelector = onlyContinue ? '#continue-button' : '#again-button';
   
   var feedbackDialog = exports.createModalDialogWithIcon({
       Dialog: options.Dialog,
       contentDiv: feedback,
+      icon: icon,
       defaultBtnSelector: defaultBtnSelector,
       onHidden: onHidden
       });
@@ -341,6 +343,7 @@ exports.showGeneratedCode = function(Dialog) {
   var dialog = exports.createModalDialogWithIcon({
       Dialog: Dialog,
       contentDiv: codeDiv,
+      icon: BlocklyApps.ICON,
       defaultBtnSelector: '#ok-button'
       });
 
@@ -476,7 +479,7 @@ Keycodes = {
 exports.createModalDialogWithIcon = function(options) {
   var imageDiv = document.createElement('img');
   imageDiv.className = "modal-image";
-  imageDiv.src = BlocklyApps.ICON;
+  imageDiv.src = options.icon;
 
   var modalBody = document.createElement('div');
   modalBody.appendChild(imageDiv);
