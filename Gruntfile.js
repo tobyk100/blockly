@@ -8,7 +8,11 @@ var APPS = [
   'turtle'
 ];
 
-var LOCALIZE = (process.env.MOOC_LOCALIZE == '1');
+// Parse options from environment.
+var MINIFY = (process.env.MOOC_MINIFY === '1');
+var LOCALIZE = (process.env.MOOC_LOCALIZE === '1');
+
+var DIST_BROWSERIFIED = (MINIFY ? 'uglify:browserified' : 'copy:browserified');
 
 var LOCALES = (LOCALIZE ? [
 //  'af_za',
@@ -177,10 +181,25 @@ config.express = {
   }
 };
 
+var uglifiedFiles = {};
+APPS.forEach(function(app) {
+  LOCALES.forEach(function(locale) {
+    var relname = locale + '/' + app + '.js';
+    var src = 'build/browserified/' + relname;
+    var dest = 'dist/js/' + relname;
+    uglifiedFiles[dest] = [src];
+  });
+});
+config.uglify = {
+  browserified: {
+    files: uglifiedFiles
+  }
+};
+
 config.watch = {
   js: {
     files: ['src/**/*.js'],
-    tasks: ['copy:src', 'browserify', 'copy:browserified']
+    tasks: ['copy:src', 'browserify', DIST_BROWSERIFIED]
   },
   style: {
     files: ['style/**/*.scss', 'style/**/*.sass'],
@@ -196,11 +215,11 @@ config.watch = {
   },
   ejs: {
     files: ['src/**/*.ejs'],
-    tasks: ['ejs', 'browserify', 'copy:browserified']
+    tasks: ['ejs', 'browserify', DIST_BROWSERIFIED]
   },
   messages: {
     files: ['i18n/**/*.json'],
-    tasks: ['pseudoloc', 'messages', 'browserify', 'copy:browserified']
+    tasks: ['pseudoloc', 'messages', 'browserify', DIST_BROWSERIFIED]
   },
   dist: {
     files: ['dist/**/*'],
@@ -256,6 +275,7 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-symlink');
   grunt.loadNpmTasks('grunt-contrib-concat');
   grunt.loadNpmTasks('grunt-contrib-jshint');
+  grunt.loadNpmTasks('grunt-contrib-uglify');
   grunt.loadNpmTasks('grunt-express');
   grunt.loadNpmTasks('grunt-browserify');
   grunt.loadNpmTasks('grunt-sass');
@@ -271,7 +291,7 @@ module.exports = function(grunt) {
     'copy:src',
     'ejs',
     'browserify',
-    'copy:browserified',
+    DIST_BROWSERIFIED,
     'copy:static',
     'concat',
     'sass'
