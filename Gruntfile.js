@@ -98,6 +98,9 @@ config.copy = {
 
 config.sass = {
   all: {
+    options: {
+      outputStyle: (MINIFY ? 'compressed' : 'nested')
+    },
     files: {
       'dist/css/common.css': 'style/common.scss'
     }
