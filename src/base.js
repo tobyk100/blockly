@@ -116,6 +116,8 @@ BlocklyApps.init = function(config) {
   }
 
   BlocklyApps.ICON = config.skin.staticAvatar;
+  BlocklyApps.WIN_ICON = config.skin.winAvatar;
+  BlocklyApps.FAILURE_ICON = config.skin.failureAvatar;
 
   if (BlocklyApps.Dialog) {
     showInstructions(config.level);
@@ -211,7 +213,8 @@ var showInstructions = function(level) {
   instructionsDiv.appendChild(buttons);
 
   var dialog = feedback.createModalDialogWithIcon(BlocklyApps.Dialog,
-                                                  instructionsDiv);
+                                                  instructionsDiv,
+                                                  BlocklyApps.ICON);
   var okayButton = buttons.querySelector('#ok-button');
   if (okayButton) {
     utils.addClickTouchEvent(okayButton, function() {

@@ -37,13 +37,14 @@ exports.displayFeedback = function(options) {
   var againButton = feedback.querySelector('#again-button');
   var previousLevelButton = feedback.querySelector('#back-button');
   var continueButton = feedback.querySelector('#continue-button');
-  
+
   var onlyContinue = continueButton && !againButton && !previousLevelButton;
-  
+
   var onHidden = onlyContinue ? options.onContinue : null;
-  
+  var icon = canContinue ? BlocklyApps.WIN_ICON : BlocklyApps.FAILURE_ICON;
   var feedbackDialog = exports.createModalDialogWithIcon(options.Dialog,
                                                          feedback,
+                                                         icon,
                                                          onHidden);
   if (againButton) {
     utils.addClickTouchEvent(againButton, function() {
@@ -333,7 +334,8 @@ exports.showGeneratedCode = function(Dialog) {
   });
   codeDiv.appendChild(buttons);
 
-  var dialog = exports.createModalDialogWithIcon(Dialog, codeDiv);
+  var dialog = exports.createModalDialogWithIcon(
+      Dialog, codeDiv, BlocklyApps.ICON);
 
   var okayButton = buttons.querySelector('#ok-button');
   okayButton.addEventListener('click', function() {
@@ -459,10 +461,11 @@ exports.getTestResults = function() {
   }
 };
 
-exports.createModalDialogWithIcon = function(Dialog, contentDiv, onHidden) {
+exports.createModalDialogWithIcon = function(
+    Dialog, contentDiv, icon, onHidden) {
   var imageDiv = document.createElement('img');
   imageDiv.className = "modal-image";
-  imageDiv.src = BlocklyApps.ICON;
+  imageDiv.src = icon;
 
   var modalBody = document.createElement('div');
   modalBody.appendChild(imageDiv);
