@@ -988,7 +988,9 @@ Maze.scheduleFail = function(forward) {
 
     // Remove the objects around obstacles
     if (skin.largerObstacleAnimationArea) {
-      Maze.removeSurroundingTiles(targetY, targetX);
+      Maze.pidList.push(window.setTimeout(function() {
+        Maze.removeSurroundingTiles(targetY, targetX);
+      }, stepSpeed));
     }
 
     // Remove pegman
