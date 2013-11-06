@@ -210,10 +210,11 @@ var showInstructions = function(level) {
 
   instructionsDiv.appendChild(buttons);
 
-  var dialog = feedback.createModalDialogWithIcon(
-      BlocklyApps.Dialog,
-      instructionsDiv,
-      '#ok-button');
+  var dialog = feedback.createModalDialogWithIcon({
+      Dialog: BlocklyApps.Dialog,
+      contentDiv: instructionsDiv,
+      defaultBtnSelector: '#ok-button'
+      });
   var okayButton = buttons.querySelector('#ok-button');
   if (okayButton) {
     utils.addClickTouchEvent(okayButton, function() {
