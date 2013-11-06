@@ -41,9 +41,11 @@ exports.displayFeedback = function(options) {
   var onlyContinue = continueButton && !againButton && !previousLevelButton;
   
   var onHidden = onlyContinue ? options.onContinue : null;
+  var defaultBtnSelector = onlyContinue ? '#continue-button' : '#again-button';
   
   var feedbackDialog = exports.createModalDialogWithIcon(options.Dialog,
                                                          feedback,
+                                                         defaultBtnSelector,
                                                          onHidden);
   if (againButton) {
     utils.addClickTouchEvent(againButton, function() {
@@ -333,7 +335,7 @@ exports.showGeneratedCode = function(Dialog) {
   });
   codeDiv.appendChild(buttons);
 
-  var dialog = exports.createModalDialogWithIcon(Dialog, codeDiv);
+  var dialog = exports.createModalDialogWithIcon(Dialog, codeDiv, '#ok-button');
 
   var okayButton = buttons.querySelector('#ok-button');
   okayButton.addEventListener('click', function() {
@@ -459,7 +461,10 @@ exports.getTestResults = function() {
   }
 };
 
-exports.createModalDialogWithIcon = function(Dialog, contentDiv, onHidden) {
+exports.createModalDialogWithIcon = function(Dialog,
+                                             contentDiv,
+                                             defaultBtnSelector,
+                                             onHidden) {
   var imageDiv = document.createElement('img');
   imageDiv.className = "modal-image";
   imageDiv.src = BlocklyApps.ICON;
@@ -468,8 +473,22 @@ exports.createModalDialogWithIcon = function(Dialog, contentDiv, onHidden) {
   modalBody.appendChild(imageDiv);
   contentDiv.className += ' modal-content';
   modalBody.appendChild(contentDiv);
+  
+  var btn = contentDiv.querySelector(defaultBtnSelector);
+  var keydownHandler = function(e) {
+    if (e.keyCode == 13 || e.keyCode == 32) {
+      Blockly.fireUiEvent(btn, 'click');
+      e.stopPropagation();
+      e.preventDefault();
+      return false;
+    }
+  };
 
-  return new Dialog({ body: modalBody, onHidden: onHidden });
+  return new Dialog({
+    body: modalBody,
+    onHidden: onHidden,
+    onKeydown: btn ? keydownHandler : undefined
+  });
 };
 
 /**
