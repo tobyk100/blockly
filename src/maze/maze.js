@@ -394,12 +394,13 @@ Maze.init = function(config) {
   Blockly.loadAudio_(skin.obstacleSound, 'obstacle');
   // Load wall sounds.
   Blockly.loadAudio_(skin.wallSound, 'wall');
-  if (skin.additionalWallSound) {
+  if (skin.additionalSound) {
     Blockly.loadAudio_(skin.wall0Sound, 'wall0');
     Blockly.loadAudio_(skin.wall1Sound, 'wall1');
     Blockly.loadAudio_(skin.wall2Sound, 'wall2');
     Blockly.loadAudio_(skin.wall3Sound, 'wall3');
     Blockly.loadAudio_(skin.wall4Sound, 'wall4');
+    Blockly.loadAudio_(skin.winGoalSound, 'winGoal');
   }
   if (skin.dirtSound) {
     Blockly.loadAudio_(skin.fillSound, 'fill');
@@ -1034,9 +1035,6 @@ Maze.setTileTransparent = function() {
 Maze.scheduleFinish = function(sound) {
   var direction16 = Maze.constrainDirection16(Maze.pegmanD * 4);
   Maze.displayPegman(Maze.pegmanX, Maze.pegmanY, 16);
-  if (sound) {
-    BlocklyApps.playAudio('win', {volume : 0.5});
-  }
 
   // Setting the tiles to be transparent
   if (sound && skin.transparentTileEnding) {
@@ -1046,10 +1044,14 @@ Maze.scheduleFinish = function(sound) {
   // If sound == true, play the goal animation, else reset it
   var finishIcon = document.getElementById('finish');
   if (sound && finishIcon) {
+    BlocklyApps.playAudio('winGoal', {volumne : 0.5});
     finishIcon.setAttributeNS('http://www.w3.org/1999/xlink', 'xlink:href',
                               skin.goalAnimation);
   }
 
+  if (sound) {
+    BlocklyApps.playAudio('win', {volume : 0.5});
+  }
   stepSpeed = 150;  // Slow down victory animation a bit.
   Maze.pidList.push(window.setTimeout(function() {
     Maze.displayPegman(Maze.pegmanX, Maze.pegmanY, 18);

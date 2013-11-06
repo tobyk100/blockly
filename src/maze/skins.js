@@ -37,7 +37,7 @@ var CONFIGS = {
     look: '#FFF',
     largerObstacleAnimationArea: true,
     obstacleScale: 1.2,
-    additionalWallSound: true
+    additionalSound: true
   }
 
 };
@@ -72,6 +72,8 @@ exports.load = function(assetUrl, id) {
   skin.obstacleSound =
       [skin.assetUrl('obstacle.mp3'), skin.assetUrl('obstacle.ogg')];
   skin.wallSound = [skin.assetUrl('wall.mp3'), skin.assetUrl('wall.ogg')];
+  skin.winGoalSound = [skin.assetUrl('win_goal.mp3'),
+                       skin.assetUrl('win_goal.ogg')];
   skin.wall0Sound = [skin.assetUrl('wall0.mp3'), skin.assetUrl('wall0.ogg')];
   skin.wall1Sound = [skin.assetUrl('wall1.mp3'), skin.assetUrl('wall1.ogg')];
   skin.wall2Sound = [skin.assetUrl('wall2.mp3'), skin.assetUrl('wall2.ogg')];
@@ -79,8 +81,8 @@ exports.load = function(assetUrl, id) {
   skin.wall4Sound = [skin.assetUrl('wall4.mp3'), skin.assetUrl('wall4.ogg')];
   skin.fillSound = [skin.assetUrl('fill.mp3'), skin.assetUrl('fill.ogg')];
   skin.digSound = [skin.assetUrl('dig.mp3'), skin.assetUrl('dig.ogg')];
-  skin.additionalWallSound = config.additionalWallSound ? true : false;
-  skin.dirtSound = config.dirtSound ? true : false;
+  skin.additionalSound = config.additionalSound;
+  skin.dirtSound = config.dirtSound;
   // Settings
   skin.graph = config.graph;
   skin.look = config.look;
