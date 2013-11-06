@@ -86,6 +86,8 @@ var loadLevel = function() {
   Maze.ROWS = Maze.map.length;
   // COLS: Number of tiles across.
   Maze.COLS = Maze.map[0].length;
+  // Initialize the wallMap.
+  initWallMap();
   // Pixel height and width of each maze square (i.e. tile).
   Maze.SQUARE_SIZE = 50;
   Maze.PEGMAN_HEIGHT = 52;
@@ -100,6 +102,14 @@ var loadLevel = function() {
   Maze.MAZE_WIDTH = Maze.SQUARE_SIZE * Maze.COLS;
   Maze.MAZE_HEIGHT = Maze.SQUARE_SIZE * Maze.ROWS;
   Maze.PATH_WIDTH = Maze.SQUARE_SIZE / 3;
+};
+
+
+var initWallMap = function() {
+  Maze.wallMap = new Array(Maze.ROWS);
+  for (var y = 0; y < Maze.ROWS; y++) {
+    Maze.wallMap[y] = new Array(Maze.COLS);
+  }
 };
 
 /**
@@ -219,13 +229,17 @@ var drawMap = function() {
       if (!TILE_SHAPES[tile]) {
         // Empty square.  Use null0 for large areas, with null1-4 for borders.
         if (tile == '00000' && Math.random() > 0.3) {
+          Maze.wallMap[y][x] = 0;
           tile = 'null0';
         } else {
-          tile = 'null' + Math.floor(1 + Math.random() * 4);
+          var wallIdx = Math.floor(1 + Math.random() * 4);
+          Maze.wallMap[y][x] = wallIdx;
+          tile = 'null' + wallIdx;
         }
 
         // For the first 3 levels in maze, only show the null0 image.
         if (level.id == '2_1' || level.id == '2_2' || level.id == '2_3') {
+          Maze.wallMap[y][x] = 0;
           tile = 'null0';
         }
       }
@@ -378,9 +392,20 @@ Maze.init = function(config) {
   Blockly.loadAudio_(skin.startSound, 'start');
   Blockly.loadAudio_(skin.failureSound, 'failure');
   Blockly.loadAudio_(skin.obstacleSound, 'obstacle');
+  // Load wall sounds.
   Blockly.loadAudio_(skin.wallSound, 'wall');
-  Blockly.loadAudio_(skin.fillSound, 'fill');
-  Blockly.loadAudio_(skin.digSound, 'dig');
+  if (skin.additionalSound) {
+    Blockly.loadAudio_(skin.wall0Sound, 'wall0');
+    Blockly.loadAudio_(skin.wall1Sound, 'wall1');
+    Blockly.loadAudio_(skin.wall2Sound, 'wall2');
+    Blockly.loadAudio_(skin.wall3Sound, 'wall3');
+    Blockly.loadAudio_(skin.wall4Sound, 'wall4');
+    Blockly.loadAudio_(skin.winGoalSound, 'winGoal');
+  }
+  if (skin.dirtSound) {
+    Blockly.loadAudio_(skin.fillSound, 'fill');
+    Blockly.loadAudio_(skin.digSound, 'dig');
+  }
   Blockly.SNAP_RADIUS *= Maze.scale.snapRadius;
 
   // Locate the start and finish squares.
@@ -924,6 +949,11 @@ Maze.scheduleFail = function(forward) {
   if (squareType === SquareType.WALL || squareType === undefined) {
     // Play the sound
     BlocklyApps.playAudio('wall', {volume : 0.5});
+    if (squareType !== undefined) {
+      // Check which type of wall pegman is hitting
+      BlocklyApps.playAudio('wall' + Maze.wallMap[targetY][targetX],
+                            {volume : 0.5});
+    }
 
     // Play the animation of hitting the wall
     Maze.pidList.push(window.setTimeout(function() {
@@ -1005,9 +1035,6 @@ Maze.setTileTransparent = function() {
 Maze.scheduleFinish = function(sound) {
   var direction16 = Maze.constrainDirection16(Maze.pegmanD * 4);
   Maze.displayPegman(Maze.pegmanX, Maze.pegmanY, 16);
-  if (sound) {
-    BlocklyApps.playAudio('win', {volume : 0.5});
-  }
 
   // Setting the tiles to be transparent
   if (sound && skin.transparentTileEnding) {
@@ -1017,10 +1044,14 @@ Maze.scheduleFinish = function(sound) {
   // If sound == true, play the goal animation, else reset it
   var finishIcon = document.getElementById('finish');
   if (sound && finishIcon) {
+    BlocklyApps.playAudio('winGoal', {volumne : 0.5});
     finishIcon.setAttributeNS('http://www.w3.org/1999/xlink', 'xlink:href',
                               skin.goalAnimation);
   }
 
+  if (sound) {
+    BlocklyApps.playAudio('win', {volume : 0.5});
+  }
   stepSpeed = 150;  // Slow down victory animation a bit.
   Maze.pidList.push(window.setTimeout(function() {
     Maze.displayPegman(Maze.pegmanX, Maze.pegmanY, 18);
