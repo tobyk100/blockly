@@ -86,20 +86,7 @@ exports.load = function(assetUrl, id) {
   // Settings
   skin.graph = config.graph;
   skin.look = config.look;
-  skin.dirt = function(n) {
-    var MAX = 10;
-    var MIN = -MAX;
-    var prefix;
-    if (n < MIN) {
-      prefix = '-';
-    } else if (n > MAX) {
-      prefix = '';
-    } else {
-      prefix = '' + n;
-    }
-    //TODO: This really should be a dirt sprite sheet.
-    return skin.assetUrl(prefix + 'check.png');
-  };
+  skin.dirt = skin.assetUrl('dirt.png');
   if (config.background !== undefined) {
     var index = Math.floor(Math.random() * config.background);
     skin.background = skin.assetUrl('background' + index + '.png');
