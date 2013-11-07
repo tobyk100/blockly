@@ -111,7 +111,8 @@ BlocklyApps.init = function(config) {
       for (var i = 0; i < codeFunctions.length; i++) {
         hintText = hintText + " " + codeFunctions[i].func + "();";
       }
-      codeTextbox.innerHTML += msg.typeFuncs().replace('%1', hintText);
+      var html = utils.escapeHtml(msg.typeFuncs()).replace('%1', hintText);
+      codeTextbox.innerHTML += '// ' + html + '<br><br><br>';
     }
     // Needed to prevent blockly from swallowing up the backspace key
     codeTextbox.addEventListener('keydown', codeKeyDown, true);
