@@ -3,6 +3,7 @@ var utils = require('./utils');
 var readonly = require('./templates/readonly.html');
 var codegen = require('./codegen');
 var msg = require('../locale/current/common');
+var dom = require('./dom');
 
 exports.displayFeedback = function(options) {
   options.level = options.level || {};
@@ -43,30 +44,30 @@ exports.displayFeedback = function(options) {
   var onHidden = onlyContinue ? options.onContinue : null;
   var icon = canContinue ? BlocklyApps.WIN_ICON : BlocklyApps.FAILURE_ICON;
   var defaultBtnSelector = onlyContinue ? '#continue-button' : '#again-button';
-  
+
   var feedbackDialog = exports.createModalDialogWithIcon({
-      Dialog: options.Dialog,
-      contentDiv: feedback,
-      icon: icon,
-      defaultBtnSelector: defaultBtnSelector,
-      onHidden: onHidden
-      });
+    Dialog: options.Dialog,
+    contentDiv: feedback,
+    icon: icon,
+    defaultBtnSelector: defaultBtnSelector,
+    onHidden: onHidden
+  });
 
   if (againButton) {
-    utils.addClickTouchEvent(againButton, function() {
+    dom.addClickTouchEvent(againButton, function() {
       feedbackDialog.hide();
     });
   }
 
   if (previousLevelButton) {
-    utils.addClickTouchEvent(previousLevelButton, function() {
+    dom.addClickTouchEvent(previousLevelButton, function() {
       feedbackDialog.hide();
       options.backToPreviousLevel();
     });
   }
 
   if (continueButton) {
-    utils.addClickTouchEvent(continueButton, function() {
+    dom.addClickTouchEvent(continueButton, function() {
       feedbackDialog.hide();
       // onContinue will fire already if there was only a continue button
       if (!onlyContinue) {
@@ -140,9 +141,9 @@ var getFeedbackMessage = function(options) {
     // Two stars for using too many blocks.
     case BlocklyApps.TestResults.TOO_MANY_BLOCKS_FAIL:
       message = msg.numBlocksNeeded({
-          numBlocks: BlocklyApps.IDEAL_BLOCK_NUM,
-          puzzleNumber: options.level.puzzle_number || 0
-          });
+        numBlocks: BlocklyApps.IDEAL_BLOCK_NUM,
+        puzzleNumber: options.level.puzzle_number || 0
+      });
       break;
     case BlocklyApps.TestResults.OTHER_2_STAR_FAIL:
       message = msg.tooMuchWork();
@@ -182,7 +183,7 @@ var getFeedbackMessage = function(options) {
           msg.reinfFeedbackMsgWithImage() : msg.reinfFeedbackMsg();
       break;
   }
-  feedback.innerHTML = message;
+  dom.setText(feedback, message);
   return feedback;
 };
 
@@ -218,7 +219,7 @@ var getTrophiesElement = function(options) {
 };
 
 var getShowCodeElement = function(options) {
-  if (utils.isMobile()) {
+  if (dom.isMobile()) {
     return;
   }
   if (canContinueToNextLevel(options.feedbackType)) {
@@ -271,7 +272,7 @@ var canContinueToNextLevel = function(feedbackType) {
 var getGeneratedCodeString = function() {
   if (BlocklyApps.editCode) {
     var codeTextbox = document.getElementById('codeTextbox');
-    return (codeTextbox.innerText || codeTextbox.textContent);
+    return dom.getText(codeTextbox);
   }
   else {
     return codegen.workspaceCode(Blockly);

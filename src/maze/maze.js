@@ -32,6 +32,7 @@ var codegen = require('../codegen');
 var api = require('./api');
 var page = require('../templates/page.html');
 var feedback = require('../feedback.js');
+var dom = require('../dom');
 
 var Direction = tiles.Direction;
 var SquareType = tiles.SquareType;
@@ -457,9 +458,6 @@ Maze.init = function(config) {
   BlocklyApps.loadBlocks(startBlocks);
 
   BlocklyApps.reset(true);
-  Blockly.addChangeListener(function() {
-    BlocklyApps.updateCapacity();
-  });
 
   // We may have changed divs but Blockly on reacts based on the window.
   Blockly.fireUiEvent(window, 'resize');
@@ -720,9 +718,8 @@ Maze.execute = function() {
   }
 
   if (level.editCode) {
-    // Check for innerText && textContent (for IE compat).
     var codeTextbox = document.getElementById('codeTextbox');
-    code = codeTextbox.innerText || codeTextbox.textContent;
+    code = dom.getText(codeTextbox);
     // Insert aliases from level codeBlocks into code
     if (level.codeFunctions) {
       for (var i = 0; i < level.codeFunctions.length; i++) {
@@ -1290,14 +1287,4 @@ Maze.checkSuccess = function() {
     throw true;
   }
   return false;
-};
-
-/**
- * Updates the tooManyBlocksError message with the ideal number of blocks so
- * the student can better understand how to improve their code.
- */
-Maze.setIdealBlockMessage = function() {
-  var idealNumMsg = document.getElementById('idealNumberMessage');
-  var idealNumText = document.createTextNode(Maze.IDEAL_BLOCK_NUM);
-  idealNumMsg.appendChild(idealNumText);
 };
