@@ -608,6 +608,7 @@ module.exports = {
       [0, 3, 1, 1, 1, 1, 0, 0],
       [0, 0, 0, 0, 0, 0, 0, 0]
     ],
+    'failForOther1Star': true,
     'showPreviousLevelButton': true
   },
   '2_15': {
