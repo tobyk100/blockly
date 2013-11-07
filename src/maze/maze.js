@@ -457,9 +457,6 @@ Maze.init = function(config) {
   BlocklyApps.loadBlocks(startBlocks);
 
   BlocklyApps.reset(true);
-  Blockly.addChangeListener(function() {
-    BlocklyApps.updateCapacity();
-  });
 
   // We may have changed divs but Blockly on reacts based on the window.
   Blockly.fireUiEvent(window, 'resize');
