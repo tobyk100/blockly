@@ -266,9 +266,10 @@ input[type="radio"] {
   background-color: white;
   top: 0;
   left: 0;
+  display: none;
 
-  @media screen and (orientation: landscape) {
-    display: none;
+  @media screen and (orientation: portrait) and (max-device-width: 900) {
+    display: block;
   }
 }
 
