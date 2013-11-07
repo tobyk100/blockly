@@ -784,6 +784,10 @@ Maze.execute = function() {
       BlocklyApps.TestResults.TOO_FEW_BLOCKS_FAIL;
   }
 
+  if (level.failForOther1Star && !BlocklyApps.levelComplete) {
+    Maze.testResults = BlocklyApps.TestResults.OTHER_1_STAR_FAIL;
+  }
+
   var xml = Blockly.Xml.workspaceToDom(Blockly.mainWorkspace);
   var textBlocks = Blockly.Xml.domToText(xml);
 
