@@ -44,30 +44,30 @@ exports.displayFeedback = function(options) {
   var onHidden = onlyContinue ? options.onContinue : null;
   var icon = canContinue ? BlocklyApps.WIN_ICON : BlocklyApps.FAILURE_ICON;
   var defaultBtnSelector = onlyContinue ? '#continue-button' : '#again-button';
-  
+
   var feedbackDialog = exports.createModalDialogWithIcon({
-      Dialog: options.Dialog,
-      contentDiv: feedback,
-      icon: icon,
-      defaultBtnSelector: defaultBtnSelector,
-      onHidden: onHidden
-      });
+    Dialog: options.Dialog,
+    contentDiv: feedback,
+    icon: icon,
+    defaultBtnSelector: defaultBtnSelector,
+    onHidden: onHidden
+  });
 
   if (againButton) {
-    utils.addClickTouchEvent(againButton, function() {
+    dom.addClickTouchEvent(againButton, function() {
       feedbackDialog.hide();
     });
   }
 
   if (previousLevelButton) {
-    utils.addClickTouchEvent(previousLevelButton, function() {
+    dom.addClickTouchEvent(previousLevelButton, function() {
       feedbackDialog.hide();
       options.backToPreviousLevel();
     });
   }
 
   if (continueButton) {
-    utils.addClickTouchEvent(continueButton, function() {
+    dom.addClickTouchEvent(continueButton, function() {
       feedbackDialog.hide();
       // onContinue will fire already if there was only a continue button
       if (!onlyContinue) {
@@ -219,7 +219,7 @@ var getTrophiesElement = function(options) {
 };
 
 var getShowCodeElement = function(options) {
-  if (utils.isMobile()) {
+  if (dom.isMobile()) {
     return;
   }
   if (canContinueToNextLevel(options.feedbackType)) {

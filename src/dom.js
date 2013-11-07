@@ -17,3 +17,15 @@ exports.setText = function(node, string) {
     node.textContent = string;
   }
 };
+
+exports.addClickTouchEvent = function(element, handler) {
+  if ('ontouchend' in document.documentElement) {
+    element.addEventListener('touchend', handler, false);
+  }
+  element.addEventListener('click', handler, false);
+};
+
+exports.isMobile = function() {
+  var reg = /Mobile|iP(hone|od|ad)|Android|BlackBerry|IEMobile/;
+  return reg.test(window.navigator.userAgent);
+};

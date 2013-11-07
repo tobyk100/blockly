@@ -122,7 +122,7 @@ BlocklyApps.init = function(config) {
 
   var showCode = document.getElementById('show-code-header');
   if (showCode) {
-    utils.addClickTouchEvent(showCode, function() {
+    dom.addClickTouchEvent(showCode, function() {
       feedback.showGeneratedCode(BlocklyApps.Dialog);
     });
   }
@@ -148,13 +148,13 @@ BlocklyApps.init = function(config) {
 };
 
 exports.playAudio = function(name, options) {
-  if (!utils.isMobile()) {
+  if (!dom.isMobile()) {
     Blockly.playAudio(name, options);
   }
 };
 
 exports.stopLoopingAudio = function(name) {
-  if (!utils.isMobile()) {
+  if (!dom.isMobile()) {
     Blockly.stopLoopingAudio(name);
   }
 };
@@ -240,7 +240,7 @@ var showInstructions = function(level) {
       });
   var okayButton = buttons.querySelector('#ok-button');
   if (okayButton) {
-    utils.addClickTouchEvent(okayButton, function() {
+    dom.addClickTouchEvent(okayButton, function() {
       dialog.hide();
     });
   }
