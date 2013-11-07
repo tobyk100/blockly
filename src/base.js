@@ -50,6 +50,11 @@ BlocklyApps.CACHE_BUST = undefined;
 BlocklyApps.LOCALE = 'en_us';
 
 /**
+ * The minimum width of a playable whole blockly game.
+ */
+BlocklyApps.MIN_WIDTH = 900;
+
+/**
  * If the user presses backspace, stop propagation - this prevents blockly
  * from eating the backspace key
  * @param {!Event} e Keyboard event.
@@ -85,9 +90,15 @@ BlocklyApps.init = function(config) {
 
   // Fixes viewport for small screens.
   var viewport = document.querySelector('meta[name="viewport"]');
-  if (viewport && screen.availWidth < 725) {
-    viewport.setAttribute('content',
-        'width=725, initial-scale=.35, user-scalable=no');
+  if (viewport) {
+    var longDimension = Math.max(screen.width, screen.height);
+    var scale = longDimension / BlocklyApps.MIN_WIDTH;
+    var content = ['width=' + BlocklyApps.MIN_WIDTH,
+                   'initial-scale=' + scale,
+                   'maximum-scale=' + scale,
+                   'minimum-scale=' + scale,
+                   'user-scalable=no'];
+    viewport.setAttribute('content', content.join(', '));
   }
 
   if (config.level.editCode) {
@@ -122,6 +133,14 @@ BlocklyApps.init = function(config) {
   if (BlocklyApps.Dialog) {
     showInstructions(config.level);
   }
+
+  var orientationHandler = function() {
+    window.scrollTo(0, 0);  // Browsers like to mess with scroll on rotate.
+    var rotateImage = document.getElementById('rotateMobile');
+    rotateImage.style.width = window.innerWidth;
+  };
+  window.addEventListener('orientationchange', orientationHandler);
+  orientationHandler();
 
   // Add events for touch devices when the window is done loading.
   addReadyListener(BlocklyApps.addTouchEvents);
