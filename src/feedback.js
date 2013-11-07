@@ -349,9 +349,11 @@ exports.showGeneratedCode = function(Dialog) {
       });
 
   var okayButton = buttons.querySelector('#ok-button');
-  okayButton.addEventListener('click', function() {
-    dialog.hide();
-  });
+  if (okayButton) {
+    dom.addClickTouchEvent(okayButton, function() {
+      dialog.hide();
+    });
+  }
 
   dialog.show();
 };
@@ -486,7 +488,7 @@ exports.createModalDialogWithIcon = function(options) {
   modalBody.appendChild(imageDiv);
   options.contentDiv.className += ' modal-content';
   modalBody.appendChild(options.contentDiv);
-  
+
   var btn = options.contentDiv.querySelector(options.defaultBtnSelector);
   var keydownHandler = function(e) {
     if (e.keyCode == Keycodes.ENTER || e.keyCode == Keycodes.SPACE) {
