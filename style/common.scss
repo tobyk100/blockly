@@ -264,7 +264,8 @@ input[type="radio"] {
   position: absolute;
   z-index: 10001;
   background-color: white;
-  @include fill-container;
+  top: 0;
+  left: 0;
 
   @media screen and (orientation: landscape) {
     display: none;
