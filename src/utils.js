@@ -30,3 +30,12 @@ exports.isMobile = function() {
   var reg = /Mobile|iP(hone|od|ad)|Android|BlackBerry|IEMobile/;
   return reg.test(window.navigator.userAgent);
 };
+
+exports.escapeHtml = function(unsafe) {
+  return unsafe
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#039;");
+};
