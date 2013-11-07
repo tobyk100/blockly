@@ -26,7 +26,7 @@ var BlocklyApps = module.exports;
 var msg = require('../locale/current/common');
 var parseXmlElement = require('./xml').parseElement;
 var feedback = require('./feedback.js');
-var addReadyListener = require('./dom').addReadyListener;
+var dom = require('./dom');
 var utils = require('./utils');
 
 //TODO: These should be members of a BlocklyApp instance.
@@ -143,7 +143,7 @@ BlocklyApps.init = function(config) {
   orientationHandler();
 
   // Add events for touch devices when the window is done loading.
-  addReadyListener(BlocklyApps.addTouchEvents);
+  dom.addReadyListener(BlocklyApps.addTouchEvents);
 };
 
 exports.playAudio = function(name, options) {
@@ -247,7 +247,7 @@ var showInstructions = function(level) {
   dialog.show();
 
   var promptDiv = document.getElementById('prompt');
-  promptDiv.textContent = level.instructions;
+  dom.setText(promptDiv, level.instructions);
 
   var promptIcon = document.getElementById('prompt-icon');
   promptIcon.src = BlocklyApps.ICON;

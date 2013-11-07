@@ -3,6 +3,7 @@ var utils = require('./utils');
 var readonly = require('./templates/readonly.html');
 var codegen = require('./codegen');
 var msg = require('../locale/current/common');
+var dom = require('./dom');
 
 exports.displayFeedback = function(options) {
   options.level = options.level || {};
@@ -140,9 +141,9 @@ var getFeedbackMessage = function(options) {
     // Two stars for using too many blocks.
     case BlocklyApps.TestResults.TOO_MANY_BLOCKS_FAIL:
       message = msg.numBlocksNeeded({
-          numBlocks: BlocklyApps.IDEAL_BLOCK_NUM,
-          puzzleNumber: options.level.puzzle_number || 0
-          });
+        numBlocks: BlocklyApps.IDEAL_BLOCK_NUM,
+        puzzleNumber: options.level.puzzle_number || 0
+      });
       break;
     case BlocklyApps.TestResults.OTHER_2_STAR_FAIL:
       message = msg.tooMuchWork();
@@ -182,7 +183,7 @@ var getFeedbackMessage = function(options) {
           msg.reinfFeedbackMsgWithImage() : msg.reinfFeedbackMsg();
       break;
   }
-  feedback.innerHTML = message;
+  dom.setText(feedback, message);
   return feedback;
 };
 
@@ -271,7 +272,7 @@ var canContinueToNextLevel = function(feedbackType) {
 var getGeneratedCodeString = function() {
   if (BlocklyApps.editCode) {
     var codeTextbox = document.getElementById('codeTextbox');
-    return (codeTextbox.innerText || codeTextbox.textContent);
+    return dom.getText(codeTextbox);
   }
   else {
     return codegen.workspaceCode(Blockly);
