@@ -25,7 +25,7 @@ var LOCALES = (LOCALIZE ? [
   'en_us',
   'en_ploc',
   'es_es',
-  'fa_ir',
+//'fa_ir',
 //'fi_fi',
   'fr_fr',
 //'he_il',
