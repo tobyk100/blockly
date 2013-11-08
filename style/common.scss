@@ -274,7 +274,7 @@ input[type="radio"] {
   left: 0;
   display: none;
 
-  @media screen and (orientation: portrait) and (max-device-width: 900) {
+  @media screen and (orientation: portrait) and (max-device-width: 900px) {
     display: block;
   }
 }
