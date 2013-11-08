@@ -371,7 +371,10 @@ Maze.init = function(config) {
     assetUrl: BlocklyApps.assetUrl,
     data: {
       appInstance: 'Maze',
-      visualization: require('./visualization.html')()
+      visualization: require('./visualization.html')(),
+      blockUsed : 0,
+      idealBlockNumber : BlocklyApps.IDEAL_BLOCK_NUM,
+      blockCounterClass : 'block-counter-default'
     }
   });
   document.getElementById(config.containerId).innerHTML = html;
@@ -458,6 +461,11 @@ Maze.init = function(config) {
   BlocklyApps.loadBlocks(startBlocks);
 
   BlocklyApps.reset(true);
+
+  // Add display of blocks used.
+  Blockly.addChangeListener(function() {
+    BlocklyApps.updateBlockCount();
+  });
 
   // We may have changed divs but Blockly on reacts based on the window.
   Blockly.fireUiEvent(window, 'resize');

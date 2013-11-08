@@ -502,3 +502,23 @@ BlocklyApps.resetButtonClick = function() {
   Blockly.mainWorkspace.traceOn(false);
   BlocklyApps.reset(false);
 };
+
+/**
+ * Add count of blocks used.
+ */
+exports.updateBlockCount = function() {
+  // If the number of block used is bigger than the ideal number of blocks,
+  // set it to be yellow, otherwise, keep it as black.
+  var element = document.getElementById('blockUsed');
+  if (BlocklyApps.IDEAL_BLOCK_NUM < feedback.getNumBlocksUsed()) {
+    element.className = "block-counter-overflow";
+  } else {
+    element.className = "block-counter-default";
+  }
+
+  // Update number of blocks used.
+  if (element) {
+    element.innerHTML = '';  // Remove existing children or text.
+    element.appendChild(document.createTextNode(feedback.getNumBlocksUsed()));
+  }
+};

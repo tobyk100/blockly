@@ -242,6 +242,12 @@ input[type="radio"] {
       background-color: $cyan;
     }
   }
+  .block-counter-default {
+    color: white;
+  }
+  .block-counter-overflow {
+    color: #ffb81d;
+  }
 }
 
 .qtip-content {
