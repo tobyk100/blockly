@@ -340,21 +340,11 @@ BlocklyApps.checkTimeout = function(opt_id) {
  * markup. For example, ontouchend is treated as equivalent to onclick.
  */
 BlocklyApps.addTouchEvents = function() {
-  var touchSupported = 'ontouchstart' in document.documentElement ||
-                        (window.navigator.msMaxTouchPoints &&
-                         window.navidator.msMaxTouchPoints > 1);
-  if (touchSupported) {
-    // Treat ontouchend as equivalent to onclick for buttons.
+  if (dom.isTouchSupported()) {
     var buttons = document.getElementsByTagName('button');
     for (var i = 0; i < buttons.length; i++) {
       var button = buttons[i];
-      if (window.navigator.pointerEnabled && !button.onpointerup) {
-        button.onpointerup = button.onclick;
-      } else if (window.navigator.msPointerEnabled && !button.onmspointerup) {
-        button.onmspointerup = button.onclick;
-      } else (!button.ontouchend) {
-        button.ontouchend = button.onclick;
-      }
+      dom.aliasTouchToMouse(button, 'ontouchend');
     }
   }
 };
