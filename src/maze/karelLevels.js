@@ -1349,10 +1349,10 @@ module.exports = {
   'debug_if_else': {
     'toolbox': toolbox(3, 6),
     'startBlocks': startBlocks(3, 6),
-    'ideal': 8,
+    'ideal': 9,
     'requiredBlocks': [
       [MOVE_FORWARD], [TURN_LEFT], [TURN_RIGHT],
-      [REPEAT], [DIG], [FILL], [IF_ELSE]
+      [REPEAT], [DIG], [FILL], [IF_ELSE, IF_OPT_HOLE_PRESENT]
     ],
     'scale': {
       'stepSpeed': 3
