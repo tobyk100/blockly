@@ -32,7 +32,7 @@ var runLevel = function(app, level, done) {
     containerId: 'app',
     onInitialize: function() {
       // Click the run button!
-      window_.Maze.runButtonClick();
+      window_.BlocklyApps.runButtonClick();
     },
     onAttempt: function(report) {
       // Validate successful solution.

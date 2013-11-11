@@ -370,16 +370,15 @@ Maze.init = function(config) {
   var html = page({
     assetUrl: BlocklyApps.assetUrl,
     data: {
-      appInstance: 'Maze',
       visualization: require('./visualization.html')(),
       blockUsed : 0,
       idealBlockNumber : BlocklyApps.IDEAL_BLOCK_NUM,
       blockCounterClass : 'block-counter-default'
     }
   });
-  document.getElementById(config.containerId).innerHTML = html;
 
   config.level = level;
+  config.html = html;
   BlocklyApps.init(config);
 
   /**
@@ -646,7 +645,7 @@ BlocklyApps.reset = function(first) {
  * Click the run button.  Start the program.
  */
 // XXX This is the only method used by the templates!
-Maze.runButtonClick = function() {
+BlocklyApps.runButtonClick = function() {
   // Only allow a single top block on some levels.
   if (level.singleTopBlock &&
       Blockly.mainWorkspace.getTopBlocks().length > 1) {

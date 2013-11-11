@@ -12,18 +12,16 @@
 
 <%
 /**
- * @param appInstance The name of the App object to run.
  */
-var gameButtons = function(appInstance) { -%>
+var gameButtons = function() { -%>
   <table id="gameButtons">
     <tr>
       <td>
-        <button id="runButton" class="launch" onclick="<%= appInstance %>.runButtonClick();">
+        <button id="runButton" class="launch">
           <img src="<%= assetUrl('media/1x1.gif') %>" class="run icon21">
           <%= msg.runProgram() %>
         </button>
-        <button id="resetButton" class="launch"
-          onclick="BlocklyApps.resetButtonClick();" style="display: none">
+        <button id="resetButton" class="launch" style="display: none">
           <img src="<%= assetUrl('media/1x1.gif') %>" class="stop icon21">
             <%= msg.resetProgram() %>
         </button>
@@ -54,7 +52,7 @@ var helpArea = function(html) { -%>
   <%- data.visualization %>
 </div>
 
-<% gameButtons(data.appInstance) %>
+<% gameButtons() %>
 <% if (data.controls) { %>
   <%- data.controls %>
 <% } %>

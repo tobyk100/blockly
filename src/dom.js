@@ -19,31 +19,7 @@ exports.setText = function(node, string) {
 };
 
 exports.addClickTouchEvent = function(element, handler) {
-  if ('ontouchend' in document.documentElement) {
-    element.addEventListener('touchend', handler, false);
-  }
   element.addEventListener('click', handler, false);
-};
-
-// A map from standard touch events to various aliases.
-var TOUCH_MAP = {
-  //  Incomplete list, add as needed.
-  onmouseup: {
-    standard: 'ontouchend',
-    ie10: 'onmspointerup',
-    ie11: 'onpointerup'
-  },
-  onmousedown: {
-    standard: 'ontouchstart',
-    ie10: 'onmspointerdown',
-    ie11: 'onpointerdown'
-  }
-};
-
-// For the given element, extend the current mouse handler to handle touch
-// events. This should be handled automatically by browser but Blockly captures
-// certain touch events and keeps them from bubbling.
-exports.aliasTouchToMouse = function(element, mouseEvent) {
 
   var isIE11Touch = window.navigator.pointerEnabled;
   var isIE10Touch = window.navigator.msPointerEnabled;
@@ -58,8 +34,23 @@ exports.aliasTouchToMouse = function(element, mouseEvent) {
     key = "standard";
   }
   if (key) {
-    var touchEvent = TOUCH_MAP[mouseEvent][key];
-    element[touchEvent] = element[mouseEvent];
+    var touchEvent = TOUCH_MAP.click[key];
+    element.addEventListener(touchEvent, handler, false);
+  }
+};
+
+// A map from standard touch events to various aliases.
+var TOUCH_MAP = {
+  //  Incomplete list, add as needed.
+  click: {
+    standard: 'touchend',
+    ie10: 'mspointerup',
+    ie11: 'pointerup'
+  },
+  mousedown: {
+    standard: 'touchstart',
+    ie10: 'mspointerdown',
+    ie11: 'pointerdown'
   }
 };
 
