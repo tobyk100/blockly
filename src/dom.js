@@ -28,13 +28,13 @@ exports.addClickTouchEvent = function(element, handler) {
 // A map from standard touch events to various aliases.
 var TOUCH_MAP = {
   //  Incomplete list, add as needed.
-  'ontouchend': {
-    'mouse': 'onmouseup',
+  'onmouseup': {
+    'standard': 'ontouchend',
     'ie10': 'onmspointerup',
     'ie11': 'onpointerup'
   },
-  'ontouchstart': {
-    'mouse': 'onmousedown',
+  'onmousedown': {
+    'standard': 'ontouchstart',
     'ie10': 'onmspointerdown',
     'ie11': 'onpointerdown'
   }
@@ -50,8 +50,8 @@ exports.isTouchSupported = function() {
 // For the given element, extend the current mouse handler to handle touch
 // events. This should be handled automatically by browser but Blockly captures
 // certain touch events and keeps them from bubbling.
-exports.aliasTouchToMouse = function(element, standardTouchEvent) {
-  var aliases = TOUCH_MAP[standardTouchEvent];
+exports.aliasTouchToMouse = function(element, mouseEvent) {
+  var aliases = TOUCH_MAP[mouseEvent];
 
   var isIE11Touch = window.navigator.pointerEnabled;
   var ie11TouchEvent = aliases.ie11;
@@ -59,13 +59,14 @@ exports.aliasTouchToMouse = function(element, standardTouchEvent) {
   var isIE10Touch = window.navigator.msPointerEnabled;
   var ie10TouchEvent = aliases.ie10;
 
-  var mouseEvent = aliases.mouse;
+  var isStandardTouch = 'ontouchend' in document.documentElement;
+  var standardTouchEvent = aliases.standard;
 
-  if (isIE11Touch & !element[ie11TouchEvent]) {
+  if (isIE11Touch && !element[ie11TouchEvent]) {
     element[ie11TouchEvent] = element[mouseEvent];
-  } else if (isIE10Touch & !element[ie10TouchEvent]) {
+  } else if (isIE10Touch && !element[ie10TouchEvent]) {
     element[ie10TouchEvent] = element[mouseEvent];
-  } else if (!element[standardTouchEvent]) {
+  } else if (isStandardTouch && !element[standardTouchEvent]) {
     element[standardTouchEvent] = element[mouseEvent];
   }
 };

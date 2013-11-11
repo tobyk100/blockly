@@ -344,7 +344,7 @@ BlocklyApps.addTouchEvents = function() {
     var buttons = document.getElementsByTagName('button');
     for (var i = 0; i < buttons.length; i++) {
       var button = buttons[i];
-      dom.aliasTouchToMouse(button, 'ontouchend');
+      dom.aliasTouchToMouse(button, 'onmouseup');
     }
   }
 };
