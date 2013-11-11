@@ -14,6 +14,8 @@ module.exports = function(grunt) {
 
     locales.forEach(function(locale) {
 
+      grunt.log.write('Generating ' + locale + ' messages\n');
+
       // Resolve mapping from locale strings to generated code files.
       var patterns = srcBases.map(function(srcBase) {
         return srcBase + '/**/' + locale + '.json';

@@ -26,8 +26,7 @@ var BlocklyApps = module.exports;
 var msg = require('../locale/current/common');
 var parseXmlElement = require('./xml').parseElement;
 var feedback = require('./feedback.js');
-var addReadyListener = require('./dom').addReadyListener;
-var responsive = require('./responsive');
+var dom = require('./dom');
 var utils = require('./utils');
 
 //TODO: These should be members of a BlocklyApp instance.
@@ -49,6 +48,11 @@ BlocklyApps.CACHE_BUST = undefined;
  * The current locale code.
  */
 BlocklyApps.LOCALE = 'en_us';
+
+/**
+ * The minimum width of a playable whole blockly game.
+ */
+BlocklyApps.MIN_WIDTH = 900;
 
 /**
  * If the user presses backspace, stop propagation - this prevents blockly
@@ -86,9 +90,15 @@ BlocklyApps.init = function(config) {
 
   // Fixes viewport for small screens.
   var viewport = document.querySelector('meta[name="viewport"]');
-  if (viewport && screen.availWidth < 725) {
-    viewport.setAttribute('content',
-        'width=725, initial-scale=.35, user-scalable=no');
+  if (viewport) {
+    var longDimension = Math.max(screen.width, screen.height);
+    var scale = longDimension / BlocklyApps.MIN_WIDTH;
+    var content = ['width=' + BlocklyApps.MIN_WIDTH,
+                   'initial-scale=' + scale,
+                   'maximum-scale=' + scale,
+                   'minimum-scale=' + scale,
+                   'user-scalable=no'];
+    viewport.setAttribute('content', content.join(', '));
   }
 
   if (config.level.editCode) {
@@ -101,7 +111,8 @@ BlocklyApps.init = function(config) {
       for (var i = 0; i < codeFunctions.length; i++) {
         hintText = hintText + " " + codeFunctions[i].func + "();";
       }
-      codeTextbox.innerHTML += msg.typeFuncs().replace('%1', hintText);
+      var html = utils.escapeHtml(msg.typeFuncs()).replace('%1', hintText);
+      codeTextbox.innerHTML += '// ' + html + '<br><br><br>';
     }
     // Needed to prevent blockly from swallowing up the backspace key
     codeTextbox.addEventListener('keydown', codeKeyDown, true);
@@ -111,33 +122,39 @@ BlocklyApps.init = function(config) {
 
   var showCode = document.getElementById('show-code-header');
   if (showCode) {
-    utils.addClickTouchEvent(showCode, function() {
+    dom.addClickTouchEvent(showCode, function() {
       feedback.showGeneratedCode(BlocklyApps.Dialog);
     });
   }
 
   BlocklyApps.ICON = config.skin.staticAvatar;
+  BlocklyApps.WIN_ICON = config.skin.winAvatar;
+  BlocklyApps.FAILURE_ICON = config.skin.failureAvatar;
 
   if (BlocklyApps.Dialog) {
     showInstructions(config.level);
   }
 
-  // Add events for touch devices when the window is done loading.
-  addReadyListener(BlocklyApps.addTouchEvents);
+  var orientationHandler = function() {
+    window.scrollTo(0, 0);  // Browsers like to mess with scroll on rotate.
+    var rotateImage = document.getElementById('rotateMobile');
+    rotateImage.style.width = window.innerWidth + "px";
+  };
+  window.addEventListener('orientationchange', orientationHandler);
+  orientationHandler();
 
-  if (utils.isMobile()) {
-    responsive.forceLandscape();
-  }
+  // Add events for touch devices when the window is done loading.
+  dom.addReadyListener(BlocklyApps.addTouchEvents);
 };
 
 exports.playAudio = function(name, options) {
-  if (!utils.isMobile()) {
+  if (!dom.isMobile()) {
     Blockly.playAudio(name, options);
   }
 };
 
 exports.stopLoopingAudio = function(name) {
-  if (!utils.isMobile()) {
+  if (!dom.isMobile()) {
     Blockly.stopLoopingAudio(name);
   }
 };
@@ -215,11 +232,15 @@ var showInstructions = function(level) {
 
   instructionsDiv.appendChild(buttons);
 
-  var dialog = feedback.createModalDialogWithIcon(BlocklyApps.Dialog,
-                                                  instructionsDiv);
+  var dialog = feedback.createModalDialogWithIcon({
+      Dialog: BlocklyApps.Dialog,
+      contentDiv: instructionsDiv,
+      icon: BlocklyApps.ICON,
+      defaultBtnSelector: '#ok-button'
+      });
   var okayButton = buttons.querySelector('#ok-button');
   if (okayButton) {
-    utils.addClickTouchEvent(okayButton, function() {
+    dom.addClickTouchEvent(okayButton, function() {
       dialog.hide();
     });
   }
@@ -227,7 +248,7 @@ var showInstructions = function(level) {
   dialog.show();
 
   var promptDiv = document.getElementById('prompt');
-  promptDiv.textContent = level.instructions;
+  dom.setText(promptDiv, level.instructions);
 
   var promptIcon = document.getElementById('prompt-icon');
   promptIcon.src = BlocklyApps.ICON;
@@ -431,29 +452,6 @@ BlocklyApps.TestResults = {
   ALL_PASS: 100               // 3 stars.
 };
 
-/**
- * Updates the document's 'capacity' element's innerHTML with a message
- * indicating how many more blocks are permitted.  The capacity
- * is retrieved from Blockly.mainWorkspace.remainingCapacity().
- */
-BlocklyApps.updateCapacity = function() {
-  var cap = Blockly.mainWorkspace.remainingCapacity();
-  var p = document.getElementById('capacity');
-  if (cap == Infinity) {
-    p.style.display = 'none';
-  } else {
-    p.style.display = 'inline';
-    if (cap === 0) {
-      p.innerHTML = msg.capacity0();
-    } else if (cap === 1) {
-      p.innerHTML = msg.capacity1();
-    } else {
-      cap = Number(cap);
-      p.innerHTML = msg.capacity2().replace('%1', cap);
-    }
-  }
-};
-
 // Methods for determining and displaying feedback.
 
 /**
@@ -503,4 +501,24 @@ BlocklyApps.resetButtonClick = function() {
   document.getElementById('resetButton').style.display = 'none';
   Blockly.mainWorkspace.traceOn(false);
   BlocklyApps.reset(false);
+};
+
+/**
+ * Add count of blocks used.
+ */
+exports.updateBlockCount = function() {
+  // If the number of block used is bigger than the ideal number of blocks,
+  // set it to be yellow, otherwise, keep it as black.
+  var element = document.getElementById('blockUsed');
+  if (BlocklyApps.IDEAL_BLOCK_NUM < feedback.getNumBlocksUsed()) {
+    element.className = "block-counter-overflow";
+  } else {
+    element.className = "block-counter-default";
+  }
+
+  // Update number of blocks used.
+  if (element) {
+    element.innerHTML = '';  // Remove existing children or text.
+    element.appendChild(document.createTextNode(feedback.getNumBlocksUsed()));
+  }
 };

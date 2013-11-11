@@ -32,6 +32,7 @@ var codegen = require('../codegen');
 var api = require('./api');
 var page = require('../templates/page.html');
 var feedback = require('../feedback.js');
+var dom = require('../dom');
 
 var Direction = tiles.Direction;
 var SquareType = tiles.SquareType;
@@ -86,6 +87,8 @@ var loadLevel = function() {
   Maze.ROWS = Maze.map.length;
   // COLS: Number of tiles across.
   Maze.COLS = Maze.map[0].length;
+  // Initialize the wallMap.
+  initWallMap();
   // Pixel height and width of each maze square (i.e. tile).
   Maze.SQUARE_SIZE = 50;
   Maze.PEGMAN_HEIGHT = 52;
@@ -96,10 +99,21 @@ var loadLevel = function() {
   // Height and width of the dirt piles/holes.
   Maze.DIRT_HEIGHT = 50;
   Maze.DIRT_WIDTH = 50;
+  // The number line is [-inf, min, min+1, ... no zero ..., max-1, max, +inf]
+  Maze.DIRT_MAX = 10;
+  Maze.DIRT_COUNT = Maze.DIRT_MAX * 2 + 2;
 
   Maze.MAZE_WIDTH = Maze.SQUARE_SIZE * Maze.COLS;
   Maze.MAZE_HEIGHT = Maze.SQUARE_SIZE * Maze.ROWS;
   Maze.PATH_WIDTH = Maze.SQUARE_SIZE / 3;
+};
+
+
+var initWallMap = function() {
+  Maze.wallMap = new Array(Maze.ROWS);
+  for (var y = 0; y < Maze.ROWS; y++) {
+    Maze.wallMap[y] = new Array(Maze.COLS);
+  }
 };
 
 /**
@@ -219,13 +233,17 @@ var drawMap = function() {
       if (!TILE_SHAPES[tile]) {
         // Empty square.  Use null0 for large areas, with null1-4 for borders.
         if (tile == '00000' && Math.random() > 0.3) {
+          Maze.wallMap[y][x] = 0;
           tile = 'null0';
         } else {
-          tile = 'null' + Math.floor(1 + Math.random() * 4);
+          var wallIdx = Math.floor(1 + Math.random() * 4);
+          Maze.wallMap[y][x] = wallIdx;
+          tile = 'null' + wallIdx;
         }
 
         // For the first 3 levels in maze, only show the null0 image.
         if (level.id == '2_1' || level.id == '2_2' || level.id == '2_3') {
+          Maze.wallMap[y][x] = 0;
           tile = 'null0';
         }
       }
@@ -353,7 +371,10 @@ Maze.init = function(config) {
     assetUrl: BlocklyApps.assetUrl,
     data: {
       appInstance: 'Maze',
-      visualization: require('./visualization.html')()
+      visualization: require('./visualization.html')(),
+      blockUsed : 0,
+      idealBlockNumber : BlocklyApps.IDEAL_BLOCK_NUM,
+      blockCounterClass : 'block-counter-default'
     }
   });
   document.getElementById(config.containerId).innerHTML = html;
@@ -378,9 +399,20 @@ Maze.init = function(config) {
   Blockly.loadAudio_(skin.startSound, 'start');
   Blockly.loadAudio_(skin.failureSound, 'failure');
   Blockly.loadAudio_(skin.obstacleSound, 'obstacle');
+  // Load wall sounds.
   Blockly.loadAudio_(skin.wallSound, 'wall');
-  Blockly.loadAudio_(skin.fillSound, 'fill');
-  Blockly.loadAudio_(skin.digSound, 'dig');
+  if (skin.additionalSound) {
+    Blockly.loadAudio_(skin.wall0Sound, 'wall0');
+    Blockly.loadAudio_(skin.wall1Sound, 'wall1');
+    Blockly.loadAudio_(skin.wall2Sound, 'wall2');
+    Blockly.loadAudio_(skin.wall3Sound, 'wall3');
+    Blockly.loadAudio_(skin.wall4Sound, 'wall4');
+    Blockly.loadAudio_(skin.winGoalSound, 'winGoal');
+  }
+  if (skin.dirtSound) {
+    Blockly.loadAudio_(skin.fillSound, 'fill');
+    Blockly.loadAudio_(skin.digSound, 'dig');
+  }
   Blockly.SNAP_RADIUS *= Maze.scale.snapRadius;
 
   // Locate the start and finish squares.
@@ -429,12 +461,85 @@ Maze.init = function(config) {
   BlocklyApps.loadBlocks(startBlocks);
 
   BlocklyApps.reset(true);
+
+  // Add display of blocks used.
   Blockly.addChangeListener(function() {
-    BlocklyApps.updateCapacity();
+    BlocklyApps.updateBlockCount();
   });
 
   // We may have changed divs but Blockly on reacts based on the window.
   Blockly.fireUiEvent(window, 'resize');
+};
+
+var dirtPositionToIndex = function(row, col) {
+  return Maze.COLS * row + col;
+};
+
+var createDirt = function(row, col) {
+  var pegmanIcon = document.getElementById('pegman');
+  var svg = document.getElementById('svgMaze');
+  var index = dirtPositionToIndex(row, col);
+  // Create clip path.
+  var clip = document.createElementNS(Blockly.SVG_NS, 'clipPath');
+  clip.setAttribute('id', 'dirtClip' + index);
+  var rect = document.createElementNS(Blockly.SVG_NS, 'rect');
+  rect.setAttribute('x', col * Maze.DIRT_WIDTH);
+  rect.setAttribute('y', row * Maze.DIRT_HEIGHT);
+  rect.setAttribute('width', Maze.DIRT_WIDTH);
+  rect.setAttribute('height', Maze.DIRT_HEIGHT);
+  clip.appendChild(rect);
+  svg.insertBefore(clip, pegmanIcon);
+  // Create image.
+  var img = document.createElementNS(Blockly.SVG_NS, 'image');
+  img.setAttributeNS(
+      'http://www.w3.org/1999/xlink', 'xlink:href', skin.dirt);
+  img.setAttribute('height', Maze.DIRT_HEIGHT);
+  img.setAttribute('width', Maze.DIRT_WIDTH * Maze.DIRT_COUNT);
+  img.setAttribute('clip-path', 'url(#dirtClip' + index + ')');
+  img.setAttribute('id', 'dirt' + index);
+  svg.insertBefore(img, pegmanIcon);
+};
+
+/**
+ * Set the image based on the amount of dirt at the location.
+ * @param {number} row Row index.
+ * @param {number} col Column index.
+ */
+var updateDirt = function(row, col) {
+  // Calculate spritesheet index.
+  var n = Maze.dirt_[row][col];
+  var spriteIndex;
+  if (n < -Maze.DIRT_MAX) {
+    spriteIndex = 0;
+  } else if (n < 0) {
+    spriteIndex = Maze.DIRT_MAX + n + 1;
+  } else if (n > Maze.DIRT_MAX) {
+    spriteIndex = Maze.DIRT_COUNT - 1;
+  } else if (n > 0) {
+    spriteIndex = Maze.DIRT_MAX + n;
+  } else {
+    throw new Error('Expected non-zero dirt.');
+  }
+  // Update dirt icon & clip path.
+  var dirtIndex = dirtPositionToIndex(row, col);
+  var img = document.getElementById('dirt' + dirtIndex);
+  var x = Maze.SQUARE_SIZE * (col - spriteIndex + 0.5) - Maze.DIRT_HEIGHT / 2;
+  var y = Maze.SQUARE_SIZE * (row + 0.5) - Maze.DIRT_WIDTH / 2;
+  img.setAttribute('x', x);
+  img.setAttribute('y', y);
+};
+
+var removeDirt = function(row, col) {
+  var svg = document.getElementById('svgMaze');
+  var index = dirtPositionToIndex(row, col);
+  var img = document.getElementById('dirt' + index);
+  if (img) {
+    svg.removeChild(img);
+  }
+  var clip = document.getElementById('dirtClip' + index);
+  if (clip) {
+    svg.removeChild(clip);
+  }
 };
 
 /**
@@ -495,37 +600,21 @@ BlocklyApps.reset = function(first) {
   pegmanIcon.setAttribute('visibility', 'visible');
 
   // Move the init dirt marker icons into position.
-  var dirtId = 0;
   resetDirt();
-  var x, y;
-  for (y = 0; y < Maze.ROWS; y++) {
-    for (x = 0; x < Maze.COLS; x++) {
-      // Remove all dirt from svg element, less efficient than checking if we
-      // need to remove, but much easier to code.
-      var dirtIcon = document.getElementById('dirt' + dirtId);
-      if (dirtIcon) {
-        svg.removeChild(dirtIcon);
+  for (var row = 0; row < Maze.ROWS; row++) {
+    for (var col = 0; col < Maze.COLS; col++) {
+      removeDirt(row, col);
+      if (getTile(Maze.dirt_, col, row) !== 0 &&
+          getTile(Maze.dirt_, col, row) !== undefined) {
+        createDirt(row, col);
+        updateDirt(row, col);
       }
-      // Place dirt if one exists in cell.
-      if (getTile(Maze.dirt_, x, y) !== 0 &&
-          getTile(Maze.dirt_, x, y) !== undefined) {
-        dirtIcon = document.createElementNS(Blockly.SVG_NS, 'image');
-        dirtIcon.setAttribute('id', 'dirt' + dirtId);
-        Maze.setDirtImage(dirtIcon, x, y);
-        dirtIcon.setAttribute('height', Maze.DIRT_HEIGHT);
-        dirtIcon.setAttribute('width', Maze.DIRT_WIDTH);
-        svg.insertBefore(dirtIcon, pegmanIcon);
-        dirtIcon.setAttribute('x',
-            Maze.SQUARE_SIZE * (x + 0.5) - dirtIcon.getAttribute('width') / 2);
-        dirtIcon.setAttribute('y',
-            Maze.SQUARE_SIZE * (y + 0.5) - dirtIcon.getAttribute('height') / 2);
-      }
-      ++dirtId;
     }
   }
 
   // Reset the obstacle image.
   var obsId = 0;
+  var x, y;
   for (y = 0; y < Maze.ROWS; y++) {
     for (x = 0; x < Maze.COLS; x++) {
       var obsIcon = document.getElementById('obstacle' + obsId);
@@ -637,9 +726,8 @@ Maze.execute = function() {
   }
 
   if (level.editCode) {
-    // Check for innerText && textContent (for IE compat).
     var codeTextbox = document.getElementById('codeTextbox');
-    code = codeTextbox.innerText || codeTextbox.textContent;
+    code = dom.getText(codeTextbox);
     // Insert aliases from level codeBlocks into code
     if (level.codeFunctions) {
       for (var i = 0; i < level.codeFunctions.length; i++) {
@@ -702,6 +790,10 @@ Maze.execute = function() {
     Maze.testResults = BlocklyApps.levelComplete ?
       BlocklyApps.TestResults.ALL_PASS :
       BlocklyApps.TestResults.TOO_FEW_BLOCKS_FAIL;
+  }
+
+  if (level.failForOther1Star && !BlocklyApps.levelComplete) {
+    Maze.testResults = BlocklyApps.TestResults.OTHER_1_STAR_FAIL;
   }
 
   var xml = Blockly.Xml.workspaceToDom(Blockly.mainWorkspace);
@@ -924,6 +1016,11 @@ Maze.scheduleFail = function(forward) {
   if (squareType === SquareType.WALL || squareType === undefined) {
     // Play the sound
     BlocklyApps.playAudio('wall', {volume : 0.5});
+    if (squareType !== undefined) {
+      // Check which type of wall pegman is hitting
+      BlocklyApps.playAudio('wall' + Maze.wallMap[targetY][targetX],
+                            {volume : 0.5});
+    }
 
     // Play the animation of hitting the wall
     Maze.pidList.push(window.setTimeout(function() {
@@ -958,7 +1055,9 @@ Maze.scheduleFail = function(forward) {
 
     // Remove the objects around obstacles
     if (skin.largerObstacleAnimationArea) {
-      Maze.removeSurroundingTiles(targetY, targetX);
+      Maze.pidList.push(window.setTimeout(function() {
+        Maze.removeSurroundingTiles(targetY, targetX);
+      }, stepSpeed));
     }
 
     // Remove pegman
@@ -1005,9 +1104,6 @@ Maze.setTileTransparent = function() {
 Maze.scheduleFinish = function(sound) {
   var direction16 = Maze.constrainDirection16(Maze.pegmanD * 4);
   Maze.displayPegman(Maze.pegmanX, Maze.pegmanY, 16);
-  if (sound) {
-    BlocklyApps.playAudio('win', {volume : 0.5});
-  }
 
   // Setting the tiles to be transparent
   if (sound && skin.transparentTileEnding) {
@@ -1017,10 +1113,14 @@ Maze.scheduleFinish = function(sound) {
   // If sound == true, play the goal animation, else reset it
   var finishIcon = document.getElementById('finish');
   if (sound && finishIcon) {
+    BlocklyApps.playAudio('winGoal', {volumne : 0.5});
     finishIcon.setAttributeNS('http://www.w3.org/1999/xlink', 'xlink:href',
                               skin.goalAnimation);
   }
 
+  if (sound) {
+    BlocklyApps.playAudio('win', {volume : 0.5});
+  }
   stepSpeed = 150;  // Slow down victory animation a bit.
   Maze.pidList.push(window.setTimeout(function() {
     Maze.displayPegman(Maze.pegmanX, Maze.pegmanY, 18);
@@ -1057,100 +1157,41 @@ Maze.displayPegman = function(x, y, d) {
   clipRect.setAttribute('y', pegmanIcon.getAttribute('y'));
 };
 
+var scheduleDirtChange = function(options) {
+  var col = Maze.pegmanX;
+  var row = Maze.pegmanY;
+  var previous = Maze.dirt_[row][col];
+  var current = previous + options.amount;
+  Maze.dirt_[row][col] = current;
+  if (previous === 0 && current !== 0) {
+    createDirt(row, col);
+  }
+  if (current === 0) {
+    removeDirt(row, col);
+  } else {
+    updateDirt(row, col);
+  }
+  BlocklyApps.playAudio(options.sound, {volume: 0.5});
+};
+
 /**
  * Schedule to add dirt at pegman's current position.
  */
 Maze.scheduleFill = function() {
-  var x = Maze.pegmanX;
-  var y = Maze.pegmanY;
-  var dirtId = x + Maze.COLS * y;
-  var dirtIcon;
-  var pegmanIcon = document.getElementById('pegman');
-  if (Maze.dirt_[y][x] < -1 || Maze.dirt_[y][x] > 0) {
-    // There is already a dirt icon at the position
-    dirtIcon = document.getElementById('dirt' + dirtId);
-    ++Maze.dirt_[y][x];
-    Maze.setDirtImage(dirtIcon, x, y);
-    dirtIcon.setAttribute('x', Maze.SQUARE_SIZE * (x + 0.5) -
-                          dirtIcon.getAttribute('width') / 2);
-    dirtIcon.setAttribute('y', Maze.SQUARE_SIZE * (y + 0.5) -
-                          dirtIcon.getAttribute('height') / 2);
-  } else {
-    var svgMaze = document.getElementById('svgMaze');
-    if (Maze.dirt_[y][x] === 0) {
-      // If not, create a new dirtIcon for the current location
-      dirtIcon = document.createElementNS(Blockly.SVG_NS, 'image');
-      dirtIcon.setAttribute('id', 'dirt' + dirtId);
-      dirtIcon.setAttribute('height', Maze.DIRT_HEIGHT);
-      dirtIcon.setAttribute('width', Maze.DIRT_WIDTH);
-      svgMaze.insertBefore(dirtIcon, pegmanIcon);
-
-      ++Maze.dirt_[y][x];
-      Maze.setDirtImage(dirtIcon, x, y);
-      dirtIcon.setAttribute('x', Maze.SQUARE_SIZE * (x + 0.5) -
-                            dirtIcon.getAttribute('width') / 2);
-      dirtIcon.setAttribute('y', Maze.SQUARE_SIZE * (y + 0.5) -
-                            dirtIcon.getAttribute('height') / 2);
-    } else if (Maze.dirt_[y][x] == -1) {
-      // Remove the dirtIcon
-      dirtIcon = document.getElementById('dirt' + dirtId);
-      svgMaze.removeChild(dirtIcon);
-       ++Maze.dirt_[y][x];
-    }
-  }
-  BlocklyApps.playAudio('fill', {volume : 0.5});
-};
-
-/**
- * Set the image based on the amount of dirt at the location.
- * @param dirtIcon Dirt icon that shows the amount of dirt at location [y,x].
- * @param {number} x Horizontal grid (or fraction thereof).
- * @param {number} y Vertical grid (or fraction thereof).
- */
-Maze.setDirtImage = function(dirtIcon, x, y) {
-  dirtIcon.setAttributeNS(
-    'http://www.w3.org/1999/xlink', 'xlink:href',
-    skin.dirt(Maze.dirt_[y][x]));
+  scheduleDirtChange({
+    amount: 1,
+    sound: 'fill'
+  });
 };
 
 /**
  * Schedule to remove dirt at pegman's current location.
  */
 Maze.scheduleDig = function() {
-  var x = Maze.pegmanX;
-  var y = Maze.pegmanY;
-  var dirtId = x + Maze.COLS * y;
-  var dirtIcon;
-  var pegmanIcon = document.getElementById('pegman');
-  if (Maze.dirt_[y][x] > 1 || Maze.dirt_[y][x] < 0) {
-    // The dirtIcon should still exist after removing dirt
-    Maze.dirt_[y][x] = Maze.dirt_[y][x] - 1;
-    dirtIcon = document.getElementById('dirt' + dirtId);
-    Maze.setDirtImage(dirtIcon, x, y);
-  } else {
-    var svg = document.getElementById('svgMaze');
-    if (Maze.dirt_[y][x] === 0) {
-      // Create dirtIcon
-      Maze.dirt_[y][x] = Maze.dirt_[y][x] - 1;
-      dirtIcon = document.createElementNS(Blockly.SVG_NS, 'image');
-      dirtIcon.setAttribute('id', 'dirt' + dirtId);
-      dirtIcon.setAttribute('height', Maze.DIRT_HEIGHT);
-      dirtIcon.setAttribute('width', Maze.DIRT_WIDTH);
-      svg.insertBefore(dirtIcon, pegmanIcon);
-
-      Maze.setDirtImage(dirtIcon, x, y);
-      dirtIcon.setAttribute('x', Maze.SQUARE_SIZE * (x + 0.5) -
-                            dirtIcon.getAttribute('width') / 2);
-      dirtIcon.setAttribute('y', Maze.SQUARE_SIZE * (y + 0.5) -
-                            dirtIcon.getAttribute('height') / 2);
-    } else if (Maze.dirt_[y][x] == 1) {
-      // Need to remove this dirtIcon
-      dirtIcon = document.getElementById('dirt' + dirtId);
-      svg.removeChild(dirtIcon);
-      Maze.dirt_[y][x] = Maze.dirt_[y][x] - 1;
-    }
-  }
-  BlocklyApps.playAudio('dig', {volume : 0.5});
+  scheduleDirtChange({
+    amount: -1,
+    sound: 'dig'
+  });
 };
 
 /**
@@ -1258,14 +1299,4 @@ Maze.checkSuccess = function() {
     throw true;
   }
   return false;
-};
-
-/**
- * Updates the tooManyBlocksError message with the ideal number of blocks so
- * the student can better understand how to improve their code.
- */
-Maze.setIdealBlockMessage = function() {
-  var idealNumMsg = document.getElementById('idealNumberMessage');
-  var idealNumText = document.createTextNode(Maze.IDEAL_BLOCK_NUM);
-  idealNumMsg.appendChild(idealNumText);
 };

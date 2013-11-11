@@ -16,14 +16,16 @@ var CONFIGS = {
     look: '#000',
     transparentTileEnding: true,
     nonDisappearingPegmanHittingObstacle: true,
-    background: 4
+    background: 4,
+    dirtSound: true
   },
 
   farmer_night: {
     look: '#FFF',
     transparentTileEnding: true,
     nonDisappearingPegmanHittingObstacle: true,
-    background: 4
+    background: 4,
+    dirtSound: true
   },
 
   pvz: {
@@ -34,7 +36,8 @@ var CONFIGS = {
   birds: {
     look: '#FFF',
     largerObstacleAnimationArea: true,
-    obstacleScale: 1.2
+    obstacleScale: 1.2,
+    additionalSound: true
   }
 
 };
@@ -69,25 +72,21 @@ exports.load = function(assetUrl, id) {
   skin.obstacleSound =
       [skin.assetUrl('obstacle.mp3'), skin.assetUrl('obstacle.ogg')];
   skin.wallSound = [skin.assetUrl('wall.mp3'), skin.assetUrl('wall.ogg')];
+  skin.winGoalSound = [skin.assetUrl('win_goal.mp3'),
+                       skin.assetUrl('win_goal.ogg')];
+  skin.wall0Sound = [skin.assetUrl('wall0.mp3'), skin.assetUrl('wall0.ogg')];
+  skin.wall1Sound = [skin.assetUrl('wall1.mp3'), skin.assetUrl('wall1.ogg')];
+  skin.wall2Sound = [skin.assetUrl('wall2.mp3'), skin.assetUrl('wall2.ogg')];
+  skin.wall3Sound = [skin.assetUrl('wall3.mp3'), skin.assetUrl('wall3.ogg')];
+  skin.wall4Sound = [skin.assetUrl('wall4.mp3'), skin.assetUrl('wall4.ogg')];
   skin.fillSound = [skin.assetUrl('fill.mp3'), skin.assetUrl('fill.ogg')];
   skin.digSound = [skin.assetUrl('dig.mp3'), skin.assetUrl('dig.ogg')];
+  skin.additionalSound = config.additionalSound;
+  skin.dirtSound = config.dirtSound;
   // Settings
   skin.graph = config.graph;
   skin.look = config.look;
-  skin.dirt = function(n) {
-    var MAX = 10;
-    var MIN = -MAX;
-    var prefix;
-    if (n < MIN) {
-      prefix = '-';
-    } else if (n > MAX) {
-      prefix = '';
-    } else {
-      prefix = '' + n;
-    }
-    //TODO: This really should be a dirt sprite sheet.
-    return skin.assetUrl(prefix + 'check.png');
-  };
+  skin.dirt = skin.assetUrl('dirt.png');
   if (config.background !== undefined) {
     var index = Math.floor(Math.random() * config.background);
     skin.background = skin.assetUrl('background' + index + '.png');

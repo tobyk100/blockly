@@ -95,7 +95,10 @@ Turtle.init = function(config) {
     data: {
       appInstance: 'Turtle',
       visualization: require('./visualization.html')(),
-      controls: require('./controls.html')({assetUrl: BlocklyApps.assetUrl})
+      controls: require('./controls.html')({assetUrl: BlocklyApps.assetUrl}),
+      blockUsed : 0,
+      idealBlockNumber : BlocklyApps.IDEAL_BLOCK_NUM,
+      blockCounterClass : 'block-counter-default'
     }
   });
   document.getElementById(config.containerId).innerHTML = html;
@@ -130,6 +133,11 @@ Turtle.init = function(config) {
   // Initialize the slider.
   var sliderSvg = document.getElementById('slider');
   Turtle.speedSlider = new Slider(10, 35, 130, sliderSvg);
+
+  // Add display of blocks used.
+  Blockly.addChangeListener(function() {
+    BlocklyApps.updateBlockCount();
+  });
 
   // Add the starting block(s).
   // If config.level.startBlocks is passed in, it overrides level.startBlocks

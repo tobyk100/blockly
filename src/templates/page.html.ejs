@@ -1,18 +1,12 @@
 <% var msg = require('../../locale/current/common'); %>
 
-<img id="rotateMobile" class="dialogHiddenContent" src="<%= assetUrl('media/mobile_tutorial_turnphone.png') %>">
-
-<% var dialog = function() { -%>
-  <div id="dialogShadow" class="dialogAnimate"></div>
-  <div id="dialogBorder"></div>
-  <div id="dialog"></div>
-<% }; -%>
+<img id="rotateMobile" src="<%= assetUrl('media/mobile_tutorial_turnphone.png') %>">
 
 <% var instructions = function() { -%>
   <div id="bubble">
     <img id="prompt-icon">
-    <div id="prompt">
-    </div>
+    <p id="prompt">
+    </p>
   </div>
 <% }; -%>
 
@@ -49,15 +43,12 @@ var helpArea = function(html) { -%>
 
 <% var codeArea = function() { -%>
   <div id="codeTextbox" contenteditable spellcheck=false>
-    <%= msg.typeCode() %>
+    // <%= msg.typeCode() %>
     <br>
-    <%= msg.typeHint() %>
+    // <%= msg.typeHint() %>
     <br>
   </div>
 <% }; %>
-
-
-<div id="blockCount"></div>
 
 <div id="visualization">
   <%- data.visualization %>
@@ -73,13 +64,16 @@ var helpArea = function(html) { -%>
 <div id="blockly">
   <div id="headers">
     <div id="toolbox-header" class="blockly-header"><span><%= msg.toolboxHeader() %></span></div>
-    <div id="workspace-header" class="blockly-header"><span><%= msg.workspaceHeader() %></span></div>
+    <div id="workspace-header" class="blockly-header">
+      <span id="blockCounter"><%= msg.workspaceHeader() %></span>
+      <div id="blockUsed" class=<%= data.blockCounterClass %>>
+        <%= data.blockUsed %>
+      </div>
+      <span>&nbsp;/</span>
+      <span id="idealBlockNumber"><%= data.idealBlockNumber %></span>
+    </div>
     <div id="show-code-header" class="blockly-header"><span><%= msg.showCodeHeader() %></span></div>
   </div>
 </div>
-
-<%
-  dialog()
-%>
 
 <% instructions() %>

@@ -13,6 +13,8 @@ exports.load = function(assetUrl, id) {
     goal: skinUrl('goal.png'),
     obstacle: skinUrl('obstacle.png'),
     staticAvatar: skinUrl('static_avatar.png'),
+    winAvatar: skinUrl('win_avatar.png'),
+    failureAvatar: skinUrl('failure_avatar.png'),
     // Sounds
     startSound: [skinUrl('start.mp3'), skinUrl('start.ogg')],
     winSound: [skinUrl('win.mp3'), skinUrl('win.ogg')],

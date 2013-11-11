@@ -3,6 +3,7 @@ var utils = require('./utils');
 var readonly = require('./templates/readonly.html');
 var codegen = require('./codegen');
 var msg = require('../locale/current/common');
+var dom = require('./dom');
 
 exports.displayFeedback = function(options) {
   options.level = options.level || {};
@@ -37,29 +38,36 @@ exports.displayFeedback = function(options) {
   var againButton = feedback.querySelector('#again-button');
   var previousLevelButton = feedback.querySelector('#back-button');
   var continueButton = feedback.querySelector('#continue-button');
-  
+
   var onlyContinue = continueButton && !againButton && !previousLevelButton;
-  
+
   var onHidden = onlyContinue ? options.onContinue : null;
-  
-  var feedbackDialog = exports.createModalDialogWithIcon(options.Dialog,
-                                                         feedback,
-                                                         onHidden);
+  var icon = canContinue ? BlocklyApps.WIN_ICON : BlocklyApps.FAILURE_ICON;
+  var defaultBtnSelector = onlyContinue ? '#continue-button' : '#again-button';
+
+  var feedbackDialog = exports.createModalDialogWithIcon({
+    Dialog: options.Dialog,
+    contentDiv: feedback,
+    icon: icon,
+    defaultBtnSelector: defaultBtnSelector,
+    onHidden: onHidden
+  });
+
   if (againButton) {
-    utils.addClickTouchEvent(againButton, function() {
+    dom.addClickTouchEvent(againButton, function() {
       feedbackDialog.hide();
     });
   }
 
   if (previousLevelButton) {
-    utils.addClickTouchEvent(previousLevelButton, function() {
+    dom.addClickTouchEvent(previousLevelButton, function() {
       feedbackDialog.hide();
       options.backToPreviousLevel();
     });
   }
 
   if (continueButton) {
-    utils.addClickTouchEvent(continueButton, function() {
+    dom.addClickTouchEvent(continueButton, function() {
       feedbackDialog.hide();
       // onContinue will fire already if there was only a continue button
       if (!onlyContinue) {
@@ -101,7 +109,7 @@ var getFeedbackButtons = function(feedbackType, showPreviousLevelButton) {
   buttons.innerHTML = require('./templates/buttons.html')({
     data: {
       previousLevel:
-        (feedbackType === BlocklyApps.TestResults.LEVEL_INCOMPLETE_FAIL) &&
+        !canContinueToNextLevel(feedbackType) &&
         showPreviousLevelButton,
       tryAgain: feedbackType !== BlocklyApps.TestResults.ALL_PASS,
       nextLevel: canContinueToNextLevel(feedbackType)
@@ -128,14 +136,14 @@ var getFeedbackMessage = function(options) {
       break;
     // For completing level, user gets at least one star.
     case BlocklyApps.TestResults.OTHER_1_STAR_FAIL:
-      message = options.message;
+      message = options.level.other1StarError || options.message;
       break;
     // Two stars for using too many blocks.
     case BlocklyApps.TestResults.TOO_MANY_BLOCKS_FAIL:
       message = msg.numBlocksNeeded({
-          numBlocks: BlocklyApps.IDEAL_BLOCK_NUM,
-          puzzleNumber: options.level.puzzle_number || 0
-          });
+        numBlocks: BlocklyApps.IDEAL_BLOCK_NUM,
+        puzzleNumber: options.level.puzzle_number || 0
+      });
       break;
     case BlocklyApps.TestResults.OTHER_2_STAR_FAIL:
       message = msg.tooMuchWork();
@@ -175,7 +183,7 @@ var getFeedbackMessage = function(options) {
           msg.reinfFeedbackMsgWithImage() : msg.reinfFeedbackMsg();
       break;
   }
-  feedback.innerHTML = message;
+  dom.setText(feedback, message);
   return feedback;
 };
 
@@ -211,7 +219,7 @@ var getTrophiesElement = function(options) {
 };
 
 var getShowCodeElement = function(options) {
-  if (utils.isMobile()) {
+  if (dom.isMobile()) {
     return;
   }
   if (canContinueToNextLevel(options.feedbackType)) {
@@ -264,7 +272,7 @@ var canContinueToNextLevel = function(feedbackType) {
 var getGeneratedCodeString = function() {
   if (BlocklyApps.editCode) {
     var codeTextbox = document.getElementById('codeTextbox');
-    return (codeTextbox.innerText || codeTextbox.textContent);
+    return dom.getText(codeTextbox);
   }
   else {
     return codegen.workspaceCode(Blockly);
@@ -333,12 +341,19 @@ exports.showGeneratedCode = function(Dialog) {
   });
   codeDiv.appendChild(buttons);
 
-  var dialog = exports.createModalDialogWithIcon(Dialog, codeDiv);
+  var dialog = exports.createModalDialogWithIcon({
+      Dialog: Dialog,
+      contentDiv: codeDiv,
+      icon: BlocklyApps.ICON,
+      defaultBtnSelector: '#ok-button'
+      });
 
   var okayButton = buttons.querySelector('#ok-button');
-  okayButton.addEventListener('click', function() {
-    dialog.hide();
-  });
+  if (okayButton) {
+    dom.addClickTouchEvent(okayButton, function() {
+      dialog.hide();
+    });
+  }
 
   dialog.show();
 };
@@ -459,17 +474,35 @@ exports.getTestResults = function() {
   }
 };
 
-exports.createModalDialogWithIcon = function(Dialog, contentDiv, onHidden) {
+Keycodes = {
+  ENTER: 13,
+  SPACE: 32
+};
+
+exports.createModalDialogWithIcon = function(options) {
   var imageDiv = document.createElement('img');
   imageDiv.className = "modal-image";
-  imageDiv.src = BlocklyApps.ICON;
+  imageDiv.src = options.icon;
 
   var modalBody = document.createElement('div');
   modalBody.appendChild(imageDiv);
-  contentDiv.className += ' modal-content';
-  modalBody.appendChild(contentDiv);
+  options.contentDiv.className += ' modal-content';
+  modalBody.appendChild(options.contentDiv);
 
-  return new Dialog({ body: modalBody, onHidden: onHidden });
+  var btn = options.contentDiv.querySelector(options.defaultBtnSelector);
+  var keydownHandler = function(e) {
+    if (e.keyCode == Keycodes.ENTER || e.keyCode == Keycodes.SPACE) {
+      Blockly.fireUiEvent(btn, 'click');
+      e.stopPropagation();
+      e.preventDefault();
+    }
+  };
+
+  return new options.Dialog({
+    body: modalBody,
+    onHidden: options.onHidden,
+    onKeydown: btn ? keydownHandler : undefined
+  });
 };
 
 /**

@@ -242,6 +242,12 @@ input[type="radio"] {
       background-color: $cyan;
     }
   }
+  .block-counter-default {
+    color: white;
+  }
+  .block-counter-overflow {
+    color: #ffb81d;
+  }
 }
 
 .qtip-content {
@@ -261,10 +267,16 @@ input[type="radio"] {
 }
 
 #rotateMobile {
-  margin-right: auto;
-  margin-left: auto;
-  display: block;
-  @include fill-container;
+  position: absolute;
+  z-index: 10001;
+  background-color: white;
+  top: 0;
+  left: 0;
+  display: none;
+
+  @media screen and (orientation: portrait) and (max-device-width: 900px) {
+    display: block;
+  }
 }
 
 .blocklyText {
