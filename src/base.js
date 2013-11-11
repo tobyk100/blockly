@@ -85,6 +85,13 @@ BlocklyApps.init = function(config) {
   };
   backToPreviousLevel = config.backToPreviousLevel || function() {};
 
+  var container = document.getElementById(config.containerId);
+  container.innerHTML = config.html;
+  var runButton = container.querySelector('#runButton');
+  var resetButton = container.querySelector('#resetButton');
+  dom.addClickTouchEvent(runButton, BlocklyApps.runButtonClick);
+  dom.addClickTouchEvent(resetButton, BlocklyApps.resetButtonClick);
+
   // Record time at initialization.
   BlocklyApps.initTime = new Date().getTime();
 
@@ -142,9 +149,6 @@ BlocklyApps.init = function(config) {
   };
   window.addEventListener('orientationchange', orientationHandler);
   orientationHandler();
-
-  // Add events for touch devices when the window is done loading.
-  dom.addReadyListener(BlocklyApps.addTouchEvents);
 };
 
 exports.playAudio = function(name, options) {
@@ -334,26 +338,6 @@ BlocklyApps.checkTimeout = function(opt_id) {
   }
 };
 
-/**
- * On touch enabled browsers, add touch-friendly variants of event handlers
- * for elements such as buttons whose event handlers are specified in the
- * markup. For example, ontouchend is treated as equivalent to onclick.
- */
-BlocklyApps.addTouchEvents = function() {
-  // Do nothing if the browser doesn't support touch.
-  if (!('ontouchstart' in document.documentElement)) {
-    return;
-  }
-  // Treat ontouchend as equivalent to onclick for buttons.
-  var buttons = document.getElementsByTagName('button');
-  for (var i = 0; i < buttons.length; i++) {
-    var button = buttons[i];
-    if (!button.ontouchend) {
-      button.ontouchend = button.onclick;
-    }
-  }
-};
-
 // The following properties get their non-default values set by the application.
 
 /**
@@ -432,6 +416,9 @@ BlocklyApps.initTime = undefined;
  * @param {boolean} first True if an opening animation is to be played.
  */
 BlocklyApps.reset = function(first) {};
+
+// Override to change run behavior.
+BlocklyApps.runButtonClick = function() {};
 
 /**
  * Enumeration of test results.
