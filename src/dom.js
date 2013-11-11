@@ -58,8 +58,8 @@ exports.aliasTouchToMouse = function(element, mouseEvent) {
     key = "standard";
   }
   if (key) {
-    var touchEvent = TOUCH_MAP.mouseEvent.key;
-    element.touchEvent = element.mouseEvent;
+    var touchEvent = TOUCH_MAP[mouseEvent][key];
+    element[touchEvent] = element[mouseEvent];
   }
 };
 
