@@ -263,11 +263,9 @@ module.exports = {
     requiredBlocks: [
       [turnRightRestricted(90)],
       [MOVE_FORWARD_INLINE],
-      [SET_COLOUR_PICKER],
       [repeat(4)],
       [MOVE_BACKWARD_INLINE, MOVE_FORWARD_INLINE]
     ],
-    requiredColors: Colours.GREEN,
     freePlay: false,
     startDirection: 0
   },
@@ -278,7 +276,6 @@ module.exports = {
     toolbox: toolbox(1, 8),
     startBlocks: startBlocks(1, 8),
     requiredBlocks: [[repeat(8)]],
-    requiredColors: 8,
     freePlay: false
   },
   // Level 9: circle.
@@ -309,10 +306,8 @@ module.exports = {
     requiredBlocks: [
       [repeat(4)],
       [turnRight(90)],
-      [move(100)],
-      [SET_COLOUR_PICKER]
+      [move(100)]
     ],
-    requiredColors: 1,
     freePlay: false
   },
   // Level 2: Small green square.
@@ -322,10 +317,8 @@ module.exports = {
     toolbox: toolbox(2, 2),
     startBlocks: startBlocks(2, 2),
     requiredBlocks: [
-      [drawASquare('??')],
-      [SET_COLOUR_PICKER]
+      [drawASquare('??')]
     ],
-    requiredColors: Colours.GREEN,
     freePlay: false
   },
   // Level 3: Three squares.
@@ -337,8 +330,7 @@ module.exports = {
     requiredBlocks: [
       [repeat(3)],
       [drawASquare(100)],
-      [turnRight(120)],
-      [SET_COLOUR_RANDOM]
+      [turnRight(120)]
     ],
     freePlay: false
   },
@@ -417,10 +409,8 @@ module.exports = {
         values: {'VALUE': makeMathNumber(100)}
       }],
       [simpleBlock('jump')],
-      [repeat(3)],
-      [simpleBlock('draw_colour')]
+      [repeat(3)]
     ],
-    requiredColors: 3,
     freePlay: false,
     sliderSpeed: 0.9,
     startDirection: 0
@@ -570,7 +560,6 @@ module.exports = {
       [simpleBlock('variables_get_length')],
       [levelBase.callWithArg('draw a triangle', 'length')]
     ],
-    requiredColors: 2,
     freePlay: false,
     images: [
       {
