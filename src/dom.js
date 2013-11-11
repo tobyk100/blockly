@@ -28,15 +28,15 @@ exports.addClickTouchEvent = function(element, handler) {
 // A map from standard touch events to various aliases.
 var TOUCH_MAP = {
   //  Incomplete list, add as needed.
-  'onmouseup': {
-    'standard': 'ontouchend',
-    'ie10': 'onmspointerup',
-    'ie11': 'onpointerup'
+  onmouseup: {
+    standard: 'ontouchend',
+    ie10: 'onmspointerup',
+    ie11: 'onpointerup'
   },
-  'onmousedown': {
-    'standard': 'ontouchstart',
-    'ie10': 'onmspointerdown',
-    'ie11': 'onpointerdown'
+  onmousedown: {
+    standard: 'ontouchstart',
+    ie10: 'onmspointerdown',
+    ie11: 'onpointerdown'
   }
 };
 
@@ -57,8 +57,10 @@ exports.aliasTouchToMouse = function(element, mouseEvent) {
   } else if (isStandardTouch) {
     key = "standard";
   }
-  var touchEvent = TOUCH_MAP.mouseEvent.key;
-  element.touchEvent = element.mouseEvent;
+  if (key) {
+    var touchEvent = TOUCH_MAP.mouseEvent.key;
+    element.touchEvent = element.mouseEvent;
+  }
 };
 
 exports.isMobile = function() {
