@@ -340,12 +340,10 @@ BlocklyApps.checkTimeout = function(opt_id) {
  * markup. For example, ontouchend is treated as equivalent to onclick.
  */
 BlocklyApps.addTouchEvents = function() {
-  if (dom.isTouchSupported()) {
-    var buttons = document.getElementsByTagName('button');
-    for (var i = 0; i < buttons.length; i++) {
-      var button = buttons[i];
-      dom.aliasTouchToMouse(button, 'onmouseup');
-    }
+  var buttons = document.getElementsByTagName('button');
+  for (var i = 0; i < buttons.length; i++) {
+    var button = buttons[i];
+    dom.aliasTouchToMouse(button, 'onmouseup');
   }
 };
 

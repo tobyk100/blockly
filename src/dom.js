@@ -40,13 +40,6 @@ var TOUCH_MAP = {
   }
 };
 
-exports.isTouchSupported = function() {
-  var touchSupported = 'ontouchstart' in document.documentElement ||
-                        (window.navigator.msMaxTouchPoints &&
-                         window.navigator.msMaxTouchPoints > 1);
-  return touchSupported;
-};
-
 // For the given element, extend the current mouse handler to handle touch
 // events. This should be handled automatically by browser but Blockly captures
 // certain touch events and keeps them from bubbling.
