@@ -188,15 +188,13 @@ module.exports = {
   // Level 2: Square (without repeat).
   '1_2': {
     answer: answer(1, 2),
-    ideal: 15,
+    ideal: 16,
     toolbox: toolbox(1, 2),
     startBlocks: startBlocks(1, 2),
     requiredBlocks: [
       [MOVE_FORWARD_INLINE],
-      [turnRightRestricted(90)],
-      [SET_COLOUR_PICKER]
+      [turnRightRestricted(90)]
     ],
-    requiredColours: 4,
     freePlay: false
   },
   // Level 3: Square (with repeat).
@@ -225,10 +223,8 @@ module.exports = {
         test: 'turnRight',
         type: 'draw_turn_by_constant',
         titles: {VALUE: '???'}
-      }],
-      [SET_COLOUR_RANDOM]
+      }]
     ],
-    requiredColors: 3,
     freePlay: false
   },
   // Level 5: Envelope.

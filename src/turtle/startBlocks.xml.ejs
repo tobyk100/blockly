@@ -87,9 +87,31 @@ var spiral = function(i) {
  */
 %>
 <% if (page == 1) { -%>
-  <% if (level == 1 || level == 2) { -%>
+  <% if (level == 1) { -%>
     <block type="draw_move_by_constant" x="20" y="20"></block>
-  <% } else if (level == 3 || level == 4 || level == 5 || level == 6) { -%>
+  <% } else if (level == 2) { -%>
+    <block type="draw_colour" inline="true" x="20" y="20">
+      <value name="COLOUR">
+        <block type="colour_picker">
+          <title name="COLOUR">#ff0000</title>
+        </block>
+      </value>
+      <next>
+        <block type="draw_move_by_constant"></block>
+      </next>
+    </block>
+  <% } else if (level == 4) { -%>
+    <block type="controls_repeat" x="20" y="20">
+      <title name="TIMES">3</title>
+      <statement name="DO">
+        <block type="draw_colour" inline="true">
+          <value name="COLOUR">
+            <block type="colour_random"></block>
+          </value>
+        </block>
+      </statement>
+    </block>
+  <% } else if (level == 3 || level == 5 || level == 6) { -%>
     <block type="controls_repeat" x="20" y="20">
       <title name="TIMES"><% if (level == 3) { %>4<% } else { %>3<% } %></title>
     </block>
