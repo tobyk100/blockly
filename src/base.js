@@ -338,7 +338,6 @@ BlocklyApps.checkTimeout = function(opt_id) {
   }
 };
 
-/*
 // The following properties get their non-default values set by the application.
 
 /**
@@ -418,6 +417,7 @@ BlocklyApps.initTime = undefined;
  */
 BlocklyApps.reset = function(first) {};
 
+// Override to change run behavior.
 BlocklyApps.runButtonClick = function() {};
 
 /**
