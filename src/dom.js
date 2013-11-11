@@ -44,24 +44,21 @@ var TOUCH_MAP = {
 // events. This should be handled automatically by browser but Blockly captures
 // certain touch events and keeps them from bubbling.
 exports.aliasTouchToMouse = function(element, mouseEvent) {
-  var aliases = TOUCH_MAP[mouseEvent];
 
   var isIE11Touch = window.navigator.pointerEnabled;
-  var ie11TouchEvent = aliases.ie11;
-
   var isIE10Touch = window.navigator.msPointerEnabled;
-  var ie10TouchEvent = aliases.ie10;
-
   var isStandardTouch = 'ontouchend' in document.documentElement;
-  var standardTouchEvent = aliases.standard;
 
-  if (isIE11Touch && !element[ie11TouchEvent]) {
-    element[ie11TouchEvent] = element[mouseEvent];
-  } else if (isIE10Touch && !element[ie10TouchEvent]) {
-    element[ie10TouchEvent] = element[mouseEvent];
-  } else if (isStandardTouch && !element[standardTouchEvent]) {
-    element[standardTouchEvent] = element[mouseEvent];
+  var key;
+  if (isIE11Touch) {
+    key = "ie11";
+  } else if (isIE10Touch) {
+    key = "ie10";
+  } else if (isStandardTouch) {
+    key = "standard";
   }
+  var touchEvent = TOUCH_MAP.mouseEvent.key;
+  element.touchEvent = element.mouseEvent;
 };
 
 exports.isMobile = function() {
