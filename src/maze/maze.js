@@ -373,8 +373,7 @@ Maze.init = function(config) {
       appInstance: 'Maze',
       visualization: require('./visualization.html')(),
       blockUsed : 0,
-      idealBlockNumber : BlocklyApps.IDEAL_BLOCK_NUM !== Infinity ?
-          BlocklyApps.IDEAL_BLOCK_NUM : commonMsg.infinity(),
+      idealBlockNumber : BlocklyApps.getIdealBlockNumberMsg(),
       blockCounterClass : 'block-counter-default'
     }
   });

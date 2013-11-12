@@ -98,8 +98,7 @@ Turtle.init = function(config) {
       visualization: require('./visualization.html')(),
       controls: require('./controls.html')({assetUrl: BlocklyApps.assetUrl}),
       blockUsed : 0,
-      idealBlockNumber : BlocklyApps.IDEAL_BLOCK_NUM !== Infinity ?
-          BlocklyApps.IDEAL_BLOCK_NUM : commonMsg.infinity(),
+      idealBlockNumber : BlocklyApps.getIdealBlockNumberMsg(),
       blockCounterClass : 'block-counter-default'
     }
   });

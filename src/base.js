@@ -522,3 +522,8 @@ exports.updateBlockCount = function() {
     element.appendChild(document.createTextNode(feedback.getNumBlocksUsed()));
   }
 };
+
+exports.getIdealBlockNumberMsg = function() {
+  return BlocklyApps.IDEAL_BLOCK_NUM === Infinity ?
+      msg.infinity() : BlocklyApps.IDEAL_BLOCK_NUM;
+};
