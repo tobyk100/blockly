@@ -30,7 +30,6 @@ window.Turtle = module.exports;
  */
 var BlocklyApps = require('../base');
 var Turtle = module.exports;
-var Slider = require('../slider');
 var msg = require('../../locale/current/turtle');
 var skins = require('../skins');
 var levels = require('./levels');
@@ -90,7 +89,7 @@ Turtle.init = function(config) {
   BlocklyApps.IDEAL_BLOCK_NUM = level.ideal || Infinity;
   BlocklyApps.REQUIRED_BLOCKS = level.requiredBlocks || [];
 
-  var html = page({
+  config.html = page({
     assetUrl: BlocklyApps.assetUrl,
     data: {
       visualization: require('./visualization.html')(),
@@ -101,64 +100,33 @@ Turtle.init = function(config) {
     }
   });
 
-  config.html = html;
-  BlocklyApps.init(config);
-
-  var div = document.getElementById('blockly');
-  BlocklyApps.inject(div, {
-    toolbox: level.toolbox
-  });
-
-  Blockly.loadAudio_(skin.winSound, 'win');
-  Blockly.loadAudio_(skin.startSound, 'start');
-  Blockly.loadAudio_(skin.failureSound, 'failure');
-
-  // Add to reserved word list: API, local variables in execution evironment
-  // (execute) and the infinite loop detection function.
-  Blockly.JavaScript.addReservedWords('Turtle,code');
-
-  var onresize = function() {
-    var width = document.getElementById('display').width;
-    BlocklyApps.onResize(width);
+  config.loadAudio = function() {
+    Blockly.loadAudio_(skin.winSound, 'win');
+    Blockly.loadAudio_(skin.startSound, 'start');
+    Blockly.loadAudio_(skin.failureSound, 'failure');
   };
 
-  window.addEventListener('scroll', function() {
-      onresize();
-      Blockly.fireUiEvent(window, 'resize');
-    });
-  window.addEventListener('resize', onresize);
-  onresize();
+  config.afterInject = function() {
+    // Add to reserved word list: API, local variables in execution evironment
+    // (execute) and the infinite loop detection function.
+    //XXX Not sure if this is still right.
+    Blockly.JavaScript.addReservedWords('Turtle,code');
 
-  // Initialize the slider.
-  var sliderSvg = document.getElementById('slider');
-  Turtle.speedSlider = new Slider(10, 35, 130, sliderSvg);
-
-  // Add display of blocks used.
-  Blockly.addChangeListener(function() {
-    BlocklyApps.updateBlockCount();
-  });
-
-  // Add the starting block(s).
-  // If config.level.startBlocks is passed in, it overrides level.startBlocks
-  BlocklyApps.loadBlocks(level.startBlocks);
-
-  // Get the canvases and set their initial contents.
-  Turtle.ctxDisplay = document.getElementById('display').getContext('2d');
-  Turtle.ctxAnswer = document.getElementById('answer').getContext('2d');
-  Turtle.ctxImages = document.getElementById('images').getContext('2d');
-  Turtle.ctxScratch = document.getElementById('scratch').getContext('2d');
-  Turtle.loadTurtle();
-  Turtle.drawImages();
-  Turtle.drawAnswer();
-  BlocklyApps.reset();
-
-  // Change default speed (eg Speed up levels that have lots of steps).
-  if (level.sliderSpeed) {
-    Turtle.speedSlider.setValue(level.sliderSpeed);
+    // Get the canvases and set their initial contents.
+    Turtle.ctxDisplay = document.getElementById('display').getContext('2d');
+    Turtle.ctxAnswer = document.getElementById('answer').getContext('2d');
+    Turtle.ctxImages = document.getElementById('images').getContext('2d');
+    Turtle.ctxScratch = document.getElementById('scratch').getContext('2d');
+    Turtle.loadTurtle();
+    Turtle.drawImages();
+    Turtle.drawAnswer();
   }
 
-  // We may have changed divs but Blockly on reacts based on the window.
-  Blockly.fireUiEvent(window, 'resize');
+  config.getDisplayWidth = function() {
+    return document.getElementById('display').width;
+  };
+
+  BlocklyApps.init(config);
 };
 
 /**

@@ -367,7 +367,7 @@ Maze.init = function(config) {
   level = config.level;
   loadLevel();
 
-  var html = page({
+  config.html = page({
     assetUrl: BlocklyApps.assetUrl,
     data: {
       visualization: require('./visualization.html')(),
@@ -377,97 +377,63 @@ Maze.init = function(config) {
     }
   });
 
-  config.level = level;
-  config.html = html;
-  BlocklyApps.init(config);
-
-  /**
-   * The richness of block colours, regardless of the hue.
-   * MOOC blocks should be brighter (target audience is younger).
-   * Must be in the range of 0 (inclusive) to 1 (exclusive).
-   * Blockly's default is 0.45.
-   */
-  Blockly.HSV_SATURATION = 0.6;
-
-  var div = document.getElementById('blockly');
-  BlocklyApps.inject(div, {
-    toolbox: level.toolbox
-  });
-
-  Blockly.loadAudio_(skin.winSound, 'win');
-  Blockly.loadAudio_(skin.startSound, 'start');
-  Blockly.loadAudio_(skin.failureSound, 'failure');
-  Blockly.loadAudio_(skin.obstacleSound, 'obstacle');
-  // Load wall sounds.
-  Blockly.loadAudio_(skin.wallSound, 'wall');
-  if (skin.additionalSound) {
-    Blockly.loadAudio_(skin.wall0Sound, 'wall0');
-    Blockly.loadAudio_(skin.wall1Sound, 'wall1');
-    Blockly.loadAudio_(skin.wall2Sound, 'wall2');
-    Blockly.loadAudio_(skin.wall3Sound, 'wall3');
-    Blockly.loadAudio_(skin.wall4Sound, 'wall4');
-    Blockly.loadAudio_(skin.winGoalSound, 'winGoal');
-  }
-  if (skin.dirtSound) {
-    Blockly.loadAudio_(skin.fillSound, 'fill');
-    Blockly.loadAudio_(skin.digSound, 'dig');
-  }
-  Blockly.SNAP_RADIUS *= Maze.scale.snapRadius;
-
-  // Locate the start and finish squares.
-  for (var y = 0; y < Maze.ROWS; y++) {
-    for (var x = 0; x < Maze.COLS; x++) {
-      if (Maze.map[y][x] == SquareType.START) {
-        Maze.start_ = {x: x, y: y};
-      } else if (Maze.map[y][x] == SquareType.FINISH) {
-        Maze.finish_ = {x: x, y: y};
-      } else if (Maze.map[y][x] == SquareType.STARTANDFINISH) {
-        Maze.start_ = {x: x, y: y};
-        Maze.finish_ = {x: x, y: y};
-      }
+  config.loadAudio = function() {
+    Blockly.loadAudio_(skin.winSound, 'win');
+    Blockly.loadAudio_(skin.startSound, 'start');
+    Blockly.loadAudio_(skin.failureSound, 'failure');
+    Blockly.loadAudio_(skin.obstacleSound, 'obstacle');
+    // Load wall sounds.
+    Blockly.loadAudio_(skin.wallSound, 'wall');
+    if (skin.additionalSound) {
+      Blockly.loadAudio_(skin.wall0Sound, 'wall0');
+      Blockly.loadAudio_(skin.wall1Sound, 'wall1');
+      Blockly.loadAudio_(skin.wall2Sound, 'wall2');
+      Blockly.loadAudio_(skin.wall3Sound, 'wall3');
+      Blockly.loadAudio_(skin.wall4Sound, 'wall4');
+      Blockly.loadAudio_(skin.winGoalSound, 'winGoal');
     }
-  }
-
-  resetDirt();
-
-  drawMap();
-
-  if (level.editCode) {
-    document.getElementById('codeTextbox').style.display = 'block';
-    div.style.display = 'none';
-  }
-
-  var onresize = function() {
-    var maze = document.getElementById('visualization');
-    var width = maze.getBoundingClientRect().width;
-    BlocklyApps.onResize(width);
+    if (skin.dirtSound) {
+      Blockly.loadAudio_(skin.fillSound, 'fill');
+      Blockly.loadAudio_(skin.digSound, 'dig');
+    }
   };
 
-  window.addEventListener('scroll', function() {
-    onresize();
-    Blockly.fireUiEvent(window, 'resize');
-  });
-  window.addEventListener('resize', onresize);
-  onresize();
+  config.afterInject = function() {
+    /**
+     * The richness of block colours, regardless of the hue.
+     * MOOC blocks should be brighter (target audience is younger).
+     * Must be in the range of 0 (inclusive) to 1 (exclusive).
+     * Blockly's default is 0.45.
+     */
+    Blockly.HSV_SATURATION = 0.6;
 
-  if (!level.editCode) {
-    Blockly.svgResize();
-  }
+    Blockly.SNAP_RADIUS *= Maze.scale.snapRadius;
 
-  // Add the starting block(s).
-  var startBlocks = level.startBlocks || '';
-  // If config.level.startBlocks is passed in, it overrides level.startBlocks
-  BlocklyApps.loadBlocks(startBlocks);
+    // Locate the start and finish squares.
+    for (var y = 0; y < Maze.ROWS; y++) {
+      for (var x = 0; x < Maze.COLS; x++) {
+        if (Maze.map[y][x] == SquareType.START) {
+          Maze.start_ = {x: x, y: y};
+        } else if (Maze.map[y][x] == SquareType.FINISH) {
+          Maze.finish_ = {x: x, y: y};
+        } else if (Maze.map[y][x] == SquareType.STARTANDFINISH) {
+          Maze.start_ = {x: x, y: y};
+          Maze.finish_ = {x: x, y: y};
+        }
+      }
+    }
 
-  BlocklyApps.reset(true);
+    resetDirt();
 
-  // Add display of blocks used.
-  Blockly.addChangeListener(function() {
-    BlocklyApps.updateBlockCount();
-  });
+    drawMap();
+  };
 
-  // We may have changed divs but Blockly on reacts based on the window.
-  Blockly.fireUiEvent(window, 'resize');
+  config.getDisplayWidth = function() {
+    var visualization = document.getElementById('visualization');
+    return visualization.getBoundingClientRect().width;
+  };
+
+  BlocklyApps.init(config);
 };
 
 var dirtPositionToIndex = function(row, col) {
