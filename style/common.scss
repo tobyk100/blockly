@@ -277,16 +277,16 @@ input[type="radio"] {
   background-size: contain;
   background-repeat: no-repeat;
 
-  #rotationText {
-    position: absolute;
+  #rotateText {
+    position: relative;
     top: 50%;
+    left: -50%;
+    margin-left: 50px;
+    margin-right: -50px;
   }
 
   p {
     text-align: center;
-    margin-right: 150px;
-    margin-left: -150px;
-    display: inline-block;
     font-size: 26px;
     line-height: 26px;
     transform: rotate(90deg);
