@@ -28,6 +28,7 @@ var parseXmlElement = require('./xml').parseElement;
 var feedback = require('./feedback.js');
 var dom = require('./dom');
 var utils = require('./utils');
+var Slider = require('./slider');
 
 //TODO: These should be members of a BlocklyApp instance.
 var onAttempt;
@@ -151,6 +152,64 @@ BlocklyApps.init = function(config) {
   };
   window.addEventListener('orientationchange', orientationHandler);
   orientationHandler();
+
+  if (config.loadAudio) {
+    config.loadAudio();
+  }
+
+  var div = document.getElementById('blockly');
+  BlocklyApps.inject(div, {
+    toolbox: config.level.toolbox
+  });
+
+  if (config.afterInject) {
+    config.afterInject();
+  }
+
+  // Initialize the slider.
+  var slider = document.getElementById('slider');
+  if (slider) {
+    Turtle.speedSlider = new Slider(10, 35, 130, slider);
+
+    // Change default speed (eg Speed up levels that have lots of steps).
+    if (config.level.sliderSpeed) {
+      Turtle.speedSlider.setValue(config.level.sliderSpeed);
+    }
+  }
+
+  if (config.level.editCode) {
+    document.getElementById('codeTextbox').style.display = 'block';
+    div.style.display = 'none';
+  }
+
+  // Add the starting block(s).
+  var startBlocks = config.level.startBlocks || '';
+  BlocklyApps.loadBlocks(startBlocks);
+
+  var onResize = function() {
+    BlocklyApps.onResize(config.getDisplayWidth());
+  };
+
+  window.addEventListener('scroll', function() {
+    onResize();
+    Blockly.fireUiEvent(window, 'resize');
+  });
+  window.addEventListener('resize', onResize);
+  onResize();
+
+  if (!config.level.editCode) {
+    Blockly.svgResize();
+  }
+
+  BlocklyApps.reset(true);
+
+  // Add display of blocks used.
+  Blockly.addChangeListener(function() {
+    BlocklyApps.updateBlockCount();
+  });
+
+  // We may have changed divs but Blockly on reacts based on the window.
+  Blockly.fireUiEvent(window, 'resize');
 };
 
 exports.playAudio = function(name, options) {
