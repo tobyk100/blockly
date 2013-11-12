@@ -94,7 +94,6 @@ Turtle.init = function(config) {
   var html = page({
     assetUrl: BlocklyApps.assetUrl,
     data: {
-      appInstance: 'Turtle',
       visualization: require('./visualization.html')(),
       controls: require('./controls.html')({assetUrl: BlocklyApps.assetUrl}),
       blockUsed : 0,
@@ -102,8 +101,8 @@ Turtle.init = function(config) {
       blockCounterClass : 'block-counter-default'
     }
   });
-  document.getElementById(config.containerId).innerHTML = html;
 
+  config.html = html;
   BlocklyApps.init(config);
 
   var div = document.getElementById('blockly');
@@ -311,7 +310,7 @@ Turtle.display = function() {
 /**
  * Click the run button.  Start the program.
  */
-Turtle.runButtonClick = function() {
+BlocklyApps.runButtonClick = function() {
   document.getElementById('runButton').style.display = 'none';
   document.getElementById('resetButton').style.display = 'inline';
   document.getElementById('spinner').style.visibility = 'visible';

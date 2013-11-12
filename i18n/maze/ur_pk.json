@@ -1,5 +1,5 @@
 {
-  "continue":"Devam Et",
+  "continue":"Continue",
   "dig":"remove 1",
   "digTooltip":"remove 1 unit of dirt",
   "dirE":"E",
@@ -17,8 +17,8 @@
   "ifelseTooltip":"If there is a path in the specified direction, then do the first block of actions. Otherwise, do the second block of actions.",
   "moveForward":"move forward",
   "moveForwardTooltip":"Move me forward one space.",
-  "nextLevel":"Tebrikler! Bu bulmacayı tamamladınız.",
-  "no":"Hayır",
+  "nextLevel":"Congratulations! You have completed this puzzle.",
+  "no":"No",
   "noPathAhead":"path is blocked",
   "noPathLeft":"no path to the left",
   "noPathRight":"no path to the right",
@@ -32,10 +32,10 @@
   "repeatUntil":"repeat until",
   "repeatUntilBlocked":"while path ahead",
   "repeatUntilFinish":"repeat until finish",
-  "turnLeft":"sola dön",
-  "turnRight":"sağa dön",
+  "turnLeft":"turn left",
+  "turnRight":"turn right",
   "turnTooltip":"Turns me left or right by 90 degrees.",
   "while":"while",
   "whileTooltip":"Repeat the enclosed actions until finish point is reached.",
-  "yes":"Evet"
+  "yes":"Yes"
 }

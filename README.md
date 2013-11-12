@@ -80,10 +80,9 @@ MOOC_LOCALIZE=1 grunt rebuild
 See [cdo-i18n](https://github.com/code-dot-org/cdo-i18n) for more information
 about the localization of Code.org projects.
 
-### Releases
+## Releases
 
 Compiled distrubutions are published in the Node module repository. See
-`./package.json` and `npm --help` for details. Run `grunt release` to stamp
-a git tag to GitHub and publish the contents of the `./dist` directory. Use
-`./script/release` to ensure a full, localized build is produced with your
-release.
+`./package.json` and `npm --help` for details. Run `./script/release` to run a
+fullly-localized build, stamp a git tag to GitHub and publish the contents of
+the `./dist` directory.
