@@ -40,27 +40,36 @@ grunt test
 ```
 
 ## Project Specification
-Both of these tutorials are found on code.org/learn or csedweek.org/learn. At the end of 1-hour, you’re sent to a Drupal thank you page that leads you back to code.org/learn
+
+Both of these tutorials are found on code.org/learn or csedweek.org/learn. At
+the end of 1-hour, you’re sent to a Drupal thank you page that leads you back
+to code.org/learn
+
 
 ### 1 hour tutorial
+
 - 18 Maze puzzles + 6 videos, with celeb videos and licensed skins
 - No auth/identity/login, no state
 - Works on touch-screens, cross-browser (IE9+ required. IE8 highly desired)
 - Looks good on smartphones / small screens
 - Translated into at least spanish, and other non-bidi languages
 
+
 ### 20-hour curriculum
+
 - X stages, Y puzzles, Z videos
 - HAS student auth, teacher auth.
 - Student can see a map of where they are. Earn “trophies”
 - Teacher can see dashboard of student progress
-- Both students and teachers earn real-world rewards upon completion. 
+- Both students and teachers earn real-world rewards upon completion.
 - Works on touch-screens, cross-browser (IE9+ required. IE8 highly desired)
 - NOT optimized for smartphones / small screens. NOT translated
+
 
 ## Contributing
 
 ### Style Guide
+
 - In general follow google's javascript style [guide](http://google-styleguide.googlecode.com/svn/trunk/javascriptguide.xml).
 - 80 character line length.
 - 2 space indent.
@@ -79,6 +88,7 @@ MOOC_LOCALIZE=1 grunt rebuild
 
 See [cdo-i18n](https://github.com/code-dot-org/cdo-i18n) for more information
 about the localization of Code.org projects.
+
 
 ## Releases
 
