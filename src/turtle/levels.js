@@ -135,6 +135,27 @@ var move = function(distance) {
           values: {'VALUE': makeMathNumber(distance)}};
 };
 
+// This tests for and creates a draw_turn_by_constant_restricted block.
+var drawTurnRestricted = function(degrees) {
+  return {
+    test: function(block) {
+      return block.type == 'draw_turn_by_constant_restricted';
+    },
+    type: 'draw_turn_by_constant_restricted',
+    titles: {'VALUE': degrees}
+  };
+};
+
+// This tests for and creates a draw_turn block.
+var drawTurn = function() {
+  return {
+    test: function(block) {
+      return block.type == 'draw_turn';
+    },
+    type: 'draw_turn'
+  };
+};
+
 // This tests for and creates a "set colour" block with a colour picker
 // as its input.
 var SET_COLOUR_PICKER = {test: 'penColour(\'#',
@@ -261,7 +282,7 @@ module.exports = {
     toolbox: toolbox(1, 7),
     startBlocks: startBlocks(1, 7),
     requiredBlocks: [
-      [turnRightRestricted(90)],
+      [drawTurnRestricted(90)],
       [MOVE_FORWARD_INLINE],
       [repeat(4)],
       [MOVE_BACKWARD_INLINE, MOVE_FORWARD_INLINE]
