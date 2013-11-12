@@ -31,7 +31,6 @@ window.Turtle = module.exports;
 var BlocklyApps = require('../base');
 var Turtle = module.exports;
 var Slider = require('../slider');
-var commonMsg = require('../../locale/current/common');
 var msg = require('../../locale/current/turtle');
 var skins = require('../skins');
 var levels = require('./levels');
