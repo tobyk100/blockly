@@ -386,7 +386,7 @@ module.exports = {
     'requiredBlocks': [
       [MOVE_FORWARD],
       [DIG],
-      [WHILE_OPT_PILE_PRESENT, REPEAT]
+      [WHILE_OPT_PILE_PRESENT, REPEAT, WHILE_OPT_PATH_AHEAD]
     ],
     'scale': {
       'stepSpeed': 3
@@ -404,13 +404,13 @@ module.exports = {
     'startDirection': Direction.SOUTH,
     'initialDirt': [
       [ 0, 0, 0, 0, 0, 0, 0, 0 ],
+      [ 0, 0, 0, 1, 0, 0, 0, 0 ],
+      [ 0, 0, 0, 1, 0, 0, 0, 0 ],
+      [ 0, 0, 0, 1, 0, 0, 0, 0 ],
+      [ 0, 0, 0, 1, 0, 0, 0, 0 ],
+      [ 0, 0, 0, 1, 0, 0, 0, 0 ],
       [ 0, 0, 0, 0, 0, 0, 0, 0 ],
-      [ 0, 0, 0, 1, 0, 0, 0, 0 ],
-      [ 0, 0, 0, 1, 0, 0, 0, 0 ],
-      [ 0, 0, 0, 1, 0, 0, 0, 0 ],
-      [ 0, 0, 0, 1, 0, 0, 0, 0 ],
-      [ 0, 0, 0, 1, 0, 0, 0, 0 ],
-      [ 0, 0, 0, 1, 0, 0, 0, 0 ]
+      [ 0, 0, 0, 0, 0, 0, 0, 0 ]
     ],
     'finalDirt': [
       [ 0, 0, 0, 0, 0, 0, 0, 0 ],
