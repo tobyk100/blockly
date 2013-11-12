@@ -147,8 +147,9 @@ BlocklyApps.init = function(config) {
 
   var orientationHandler = function() {
     window.scrollTo(0, 0);  // Browsers like to mess with scroll on rotate.
-    var rotateImage = document.getElementById('rotateMobile');
-    rotateImage.style.width = window.innerWidth + "px";
+    var rotateContainer = document.getElementById('rotateContainer');
+    rotateContainer.style.width = window.innerWidth + 'px';
+    rotateContainer.style.height = window.innerHeight + 'px';
   };
   window.addEventListener('orientationchange', orientationHandler);
   orientationHandler();
