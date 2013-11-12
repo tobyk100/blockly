@@ -266,13 +266,32 @@ input[type="radio"] {
   padding: 10px;
 }
 
-#rotateMobile {
-  position: absolute;
+#rotateContainer {
+  position: fixed;
   z-index: 10001;
   background-color: white;
   top: 0;
   left: 0;
   display: none;
+  background-position: 50% 50%;
+  background-size: contain;
+  background-repeat: no-repeat;
+
+  #rotationText {
+    position: absolute;
+    top: 50%;
+  }
+
+  p {
+    text-align: center;
+    margin-right: 150px;
+    margin-left: -150px;
+    display: inline-block;
+    font-size: 26px;
+    line-height: 26px;
+    transform: rotate(90deg);
+    -webkit-transform: rotate(90deg);
+  }
 
   @media screen and (orientation: portrait) and (max-device-width: 900px) {
     display: block;
