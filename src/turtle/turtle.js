@@ -31,6 +31,7 @@ window.Turtle = module.exports;
 var BlocklyApps = require('../base');
 var Turtle = module.exports;
 var Slider = require('../slider');
+var commonMsg = require('../../locale/current/common');
 var msg = require('../../locale/current/turtle');
 var skins = require('../skins');
 var levels = require('./levels');
@@ -97,7 +98,8 @@ Turtle.init = function(config) {
       visualization: require('./visualization.html')(),
       controls: require('./controls.html')({assetUrl: BlocklyApps.assetUrl}),
       blockUsed : 0,
-      idealBlockNumber : BlocklyApps.IDEAL_BLOCK_NUM,
+      idealBlockNumber : BlocklyApps.IDEAL_BLOCK_NUM !== Infinity ?
+          BlocklyApps.IDEAL_BLOCK_NUM : commonMsg.infinity(),
       blockCounterClass : 'block-counter-default'
     }
   });

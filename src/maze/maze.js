@@ -71,7 +71,7 @@ Maze.scale = {
 var loadLevel = function() {
   // Load maps.
   Maze.map = level.map;
-  BlocklyApps.IDEAL_BLOCK_NUM = level.ideal;
+  BlocklyApps.IDEAL_BLOCK_NUM = level.ideal || Infinity;
   Maze.initialDirtMap = level.initialDirt;
   Maze.finalDirtMap = level.finalDirt;
   Maze.startDirection = level.startDirection;
@@ -373,7 +373,8 @@ Maze.init = function(config) {
       appInstance: 'Maze',
       visualization: require('./visualization.html')(),
       blockUsed : 0,
-      idealBlockNumber : BlocklyApps.IDEAL_BLOCK_NUM,
+      idealBlockNumber : BlocklyApps.IDEAL_BLOCK_NUM !== Infinity ?
+          BlocklyApps.IDEAL_BLOCK_NUM : commonMsg.infinity(),
       blockCounterClass : 'block-counter-default'
     }
   });
