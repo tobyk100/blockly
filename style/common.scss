@@ -38,6 +38,11 @@ html[dir="RTL"] .farSide {
   bottom: 10px;
   margin-left: 415px;
 }
+#show-code {
+  @media screen and (max-device-width: 540px) {
+    display: none;
+  }
+}
 #codeTextbox {
   position: absolute;
   bottom: 10px;
