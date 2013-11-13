@@ -219,12 +219,10 @@ var getTrophiesElement = function(options) {
 };
 
 var getShowCodeElement = function(options) {
-  if (dom.isMobile()) {
-    return;
-  }
   if (canContinueToNextLevel(options.feedbackType)) {
     var linesWritten = exports.getNumBlocksUsed();
     var showCodeDiv = document.createElement('div');
+    showCodeDiv.setAttribute('id', 'show-code');
     var lines = document.createElement('span');
     lines.className = 'linesOfCodeMsg';
     lines.innerHTML = msg.numLinesOfCodeWritten({
