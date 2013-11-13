@@ -15,36 +15,47 @@ var LOCALIZE = (process.env.MOOC_LOCALIZE === '1');
 var DIST_BROWSERIFIED = (MINIFY ? 'uglify:browserified' : 'copy:browserified');
 
 var LOCALES = (LOCALIZE ? [
-//'af_za',
-//'ar_sa',
-//'ca_es',
-//'cs_cz',
-//'da_dk',
+  'af_za',
+  'ar_sa',
+//'az_az', // Needs messageformat
+//'bn-BD', // Needs messageformat
+  'ca_es',
+  'cs_cz',
+  'da_dk',
   'de_de',
   'el_gr',
   'en_us',
   'en_ploc',
   'es_es',
-//'fa_ir',
-//'fi_fi',
+//'fa_ir', // messageformat issue
+  'fi_fi',
+  'fil_ph',
   'fr_fr',
-//'he_il',
-//'hi_in',
-//'hu_hu',
-//'id_id', // Needs Blockly-Core
+  'he_il',
+  'hi_in',
+  'hu_hu',
+  'id_id',
+  'is_is',
   'it_it',
-//'ja_jp',
-//'ko_kr',
+  'ja_jp',
+  'ko_kr',
+//'ms_my', // messageformat issue
+//'my_mm', // Needs MessageFormat
   'nl_nl',
-//'pl_pl',
+  'no_no',
+  'pl_pl',
   'pt_br',
-//'pt_pt',
+//'pt_pt', // messageformat issue
   'ro_ro',
   'ru_ru',
-//'sr_sp',
+  'sq_al',
+  'sr_sp',
   'sv_se',
-//'tr_tr',
+  'ta_in',
+  'th_th',
+//'tr_tr', // messageformat issue
   'uk_ua',
+  'ur_pk',
   'vi_vn',
   'zh_cn',
   'zh_tw'
