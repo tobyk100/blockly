@@ -373,7 +373,7 @@ module.exports = {
     'ideal': 2,
     'requiredBlocks': [
       [{'test': 'moveForward', 'type': 'maze_moveForward'}],
-      [{'test': 'for', 'type': 'controls_repeat'}]
+      [{'test': 'for', 'type': 'controls_repeat', titles: {TIMES: '???'}}]
     ],
     'startDirection': Direction.EAST,
     'map': [
@@ -395,7 +395,7 @@ module.exports = {
         'type': 'maze_turn',
         'titles': {'DIR': 'turnRight'}}],
       [{'test': 'moveForward', 'type': 'maze_moveForward'}],
-      [{'test': 'for', 'type': 'controls_repeat'}]
+      [{'test': 'for', 'type': 'controls_repeat', titles: {TIMES: '???'}}]
     ],
     'startDirection': Direction.EAST,
     'map': [
@@ -417,7 +417,7 @@ module.exports = {
     },
     'requiredBlocks': [
       [{'test': 'moveForward', 'type': 'maze_moveForward'}],
-      [{'test': 'for', 'type': 'controls_repeat'}],
+      [{'test': 'for', 'type': 'controls_repeat', titles: {TIMES: '???'}}],
       [{'test': 'turnLeft',
         'type': 'maze_turn',
         'titles': {'DIR': 'turnLeft'}}]
@@ -442,7 +442,7 @@ module.exports = {
     },
     'requiredBlocks': [
       [{'test': 'moveForward', 'type': 'maze_moveForward'}],
-      [{'test': 'for', 'type': 'controls_repeat'}],
+      [{'test': 'for', 'type': 'controls_repeat', titles: {TIMES: '???'}}],
       [{'test': 'turnRight',
         'type': 'maze_turn',
         'titles': {'DIR': 'turnRight'}}]
