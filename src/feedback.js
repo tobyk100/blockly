@@ -112,15 +112,9 @@ exports.getNumBlocksUsed = function() {
 exports.getNumGivenBlocks = function() {
   var i;
   if (BlocklyApps.editCode) {
-    var codeLines = 0;
-    // quick and dirty method to count blank lines that start with //
-    var lines = getGeneratedCodeString().split("\n");
-    for (i = 0; i < lines.length; i++) {
-      if ((lines[i].length > 1) && lines[i][0] == '/' && lines[i][1] == '/') {
-        codeLines++;
-      }
-    }
-    return codeLines;
+    // When we are in edit mode, we can no longer tell which lines are given,
+    // and which lines are edited. Returning zero here.
+    return 0;
   }
   return getGivenBlocks().length;
 };

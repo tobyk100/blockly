@@ -573,7 +573,6 @@ exports.updateBlockCount = function() {
   }
 
   element = document.getElementById('idealBlockNumber');
-  console.log(element);
 
   // Update idealBlockNumber
   if (element) {
