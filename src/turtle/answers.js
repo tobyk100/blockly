@@ -93,7 +93,7 @@ var drawHouse = function(length) {
 exports.answer = function(page, level) {
   BlocklyApps.log = [];
   BlocklyApps.ticks = Infinity;
-  var count, len;
+  var count, sideIdx, len;
   if (page == 1) {
     switch (level) {
       case 1:
@@ -264,6 +264,83 @@ exports.answer = function(page, level) {
           drawHouse(count);
         }
         break;
+    }
+  } else if (page == 4) {
+    switch (level) {
+      case 1:
+        // Draw an equilateral triangle.
+        drawTriangle(100);
+        break;
+      case 2:
+        // Draw two equilateral triangles.
+        for (count = 0; count < 2; count++) {
+          setRandomVisibleColour();
+          drawTriangle(100);
+          api.turnRight(180);
+        }
+        break;
+      case 3:
+        // Draw four equilateral triangles.
+        for (count = 0; count < 4; count++) {
+          setRandomVisibleColour();
+          drawTriangle(100);
+          api.turnRight(90);
+        }
+        break;
+      case 4:
+        for (count = 0; count < 10; count++) {
+          setRandomVisibleColour();
+          drawTriangle(100);
+          api.turnRight(36);
+        }
+        break;
+      case 5:
+        for (count = 0; count < 36; count++) {
+          setRandomVisibleColour();
+          drawTriangle(100);
+          api.turnRight(10);
+        }
+        break;
+      case 6:
+        drawSquare(20);
+        break;
+      case 7:
+        for (count = 0; count < 10; count++) {
+          setRandomVisibleColour();
+          drawSquare(20);
+          api.moveForward(20);
+        }
+      break;
+      case 8:
+        for (sideIdx = 0; sideIdx < 4; sideIdx++) {
+          for (count = 0; count < 10; count++) {
+            setRandomVisibleColour();
+            drawSquare(20);
+            api.moveForward(20);
+          }
+          api.turnRight(90);
+        }
+      break;
+      case 9:
+        for (sideIdx = 0; sideIdx < 4; sideIdx++) {
+          for (count = 0; count < 10; count++) {
+            setRandomVisibleColour();
+            drawSquare(20);
+            api.moveForward(20);
+          }
+          api.turnRight(80);
+        }
+      break;
+      case 10:
+        for (sideIdx = 0; sideIdx < 9; sideIdx++) {
+          for (count = 0; count < 10; count++) {
+            setRandomVisibleColour();
+            drawSquare(20);
+            api.moveForward(20);
+          }
+          api.turnRight(80);
+        }
+      break;
     }
   }
   BlocklyApps.reset();

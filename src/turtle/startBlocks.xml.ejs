@@ -385,4 +385,334 @@ var spiral = function(i) {
       </statement>
     </block>
   <% } // End of region in which "draw a square" is defined. -%>
+<% } else if (page == 4) { -%>
+  <% if (level == 2) { -%>
+    <block type="draw_colour" inline="true" x="70" y="70">
+      <value name="COLOUR">
+        <block type="colour_random"></block>
+      </value>
+      <next>
+        <block type="controls_repeat">
+          <title name="TIMES">3</title>
+          <statement name="DO">
+            <block type="draw_move_by_constant">
+              <title name="DIR">moveForward</title>
+              <title name="VALUE">100</title>
+              <next>
+                <block type="draw_turn_by_constant">
+                  <title name="DIR">turnRight</title>
+                  <title name="VALUE">120</title>
+                </block>
+              </next>
+            </block>
+          </statement>
+        </block>
+      </next>
+    </block>
+    <block type="draw_colour" inline="true" x="70" y="230">
+      <value name="COLOUR">
+        <block type="colour_random"></block>
+      </value>
+      <next>
+        <block type="controls_repeat">
+          <title name="TIMES">3</title>
+          <statement name="DO">
+            <block type="draw_move_by_constant">
+              <title name="DIR">moveForward</title>
+              <title name="VALUE">100</title>
+              <next>
+                <block type="draw_turn_by_constant">
+                  <title name="DIR">turnRight</title>
+                  <title name="VALUE">120</title>
+                </block>
+              </next>
+            </block>
+          </statement>
+        </block>
+      </next>
+    </block>
+  <% } else if (level == 3) { -%>
+    <block type="draw_colour" inline="true" x="70" y="70">
+      <value name="COLOUR">
+        <block type="colour_random"></block>
+      </value>
+      <next>
+        <block type="controls_repeat">
+          <title name="TIMES">3</title>
+          <statement name="DO">
+            <block type="draw_move_by_constant">
+              <title name="DIR">moveForward</title>
+              <title name="VALUE">100</title>
+              <next>
+                <block type="draw_turn_by_constant">
+                  <title name="DIR">turnRight</title>
+                  <title name="VALUE">120</title>
+                </block>
+              </next>
+            </block>
+          </statement>
+        </block>
+      </next>
+    </block>
+  <% } else if (level == 4) { -%>
+    <block type="controls_repeat" x="70" y="70">
+      <title name="TIMES">???</title>
+      <statement name="DO">
+        <block type="draw_colour" inline="true">
+          <value name="COLOUR">
+            <block type="colour_random"></block>
+          </value>
+          <next>
+            <block type="controls_repeat">
+              <title name="TIMES">3</title>
+              <statement name="DO">
+                <block type="draw_move_by_constant">
+                  <title name="DIR">moveForward</title>
+                  <title name="VALUE">100</title>
+                  <next>
+                    <block type="draw_turn_by_constant">
+                      <title name="DIR">turnRight</title>
+                      <title name="VALUE">120</title>
+                    </block>
+                  </next>
+                </block>
+              </statement>
+              <next>
+                <block type="draw_turn_by_constant">
+                  <title name="DIR">turnRight</title>
+                  <title name="VALUE">36</title>
+                </block>
+              </next>
+            </block>
+          </next>
+        </block>
+      </statement>
+    </block>
+  <% } else if (level == 5) { -%>
+    <block type="controls_repeat" x="70" y="70">
+      <title name="TIMES">36</title>
+      <statement name="DO">
+        <block type="draw_colour" inline="true">
+          <value name="COLOUR">
+            <block type="colour_random"></block>
+          </value>
+          <next>
+            <block type="controls_repeat">
+              <title name="TIMES">3</title>
+              <statement name="DO">
+                <block type="draw_move_by_constant">
+                  <title name="DIR">moveForward</title>
+                  <title name="VALUE">100</title>
+                  <next>
+                    <block type="draw_turn_by_constant">
+                      <title name="DIR">turnRight</title>
+                      <title name="VALUE">120</title>
+                    </block>
+                  </next>
+                </block>
+              </statement>
+              <next>
+                <block type="draw_turn_by_constant">
+                  <title name="DIR">turnRight</title>
+                  <title name="VALUE">???</title>
+                </block>
+              </next>
+            </block>
+          </next>
+        </block>
+      </statement>
+    </block>
+  <% } else if (level == 7) { -%>
+    <block type="draw_colour" inline="true" x="70" y="70">
+      <value name="COLOUR">
+        <block type="colour_random"></block>
+      </value>
+      <next>
+        <block type="controls_repeat">
+          <title name="TIMES">4</title>
+          <statement name="DO">
+            <block type="draw_move_by_constant">
+              <title name="DIR">moveForward</title>
+              <title name="VALUE">20</title>
+              <next>
+                <block type="draw_turn_by_constant">
+                  <title name="DIR">turnRight</title>
+                  <title name="VALUE">90</title>
+                </block>
+              </next>
+            </block>
+          </statement>
+        </block>
+      </next>
+    </block>
+  <% } else if (level == 8) { -%>
+    <block type="controls_repeat" x="70" y="70">
+      <title name="TIMES">10</title>
+      <statement name="DO">
+        <block type="draw_colour" inline="true">
+          <value name="COLOUR">
+            <block type="colour_random"></block>
+          </value>
+          <next>
+            <block type="controls_repeat">
+              <title name="TIMES">4</title>
+              <statement name="DO">
+                <block type="draw_move_by_constant">
+                  <title name="DIR">moveForward</title>
+                  <title name="VALUE">20</title>
+                  <next>
+                    <block type="draw_turn_by_constant">
+                      <title name="DIR">turnRight</title>
+                      <title name="VALUE">90</title>
+                    </block>
+                  </next>
+                </block>
+              </statement>
+              <next>
+                <block type="draw_move_by_constant">
+                  <title name="DIR">moveForward</title>
+                  <title name="VALUE">20</title>
+                </block>
+              </next>
+            </block>
+          </next>
+        </block>
+      </statement>
+    </block>
+  <% } else if (level == 9) { -%>
+    <block type="controls_repeat" x="70" y="70">
+      <title name="TIMES">4</title>
+      <statement name="DO">
+        <block type="controls_repeat">
+          <title name="TIMES">10</title>
+          <statement name="DO">
+            <block type="draw_colour" inline="true">
+              <value name="COLOUR">
+                <block type="colour_random"></block>
+              </value>
+              <next>
+                <block type="controls_repeat">
+                  <title name="TIMES">4</title>
+                  <statement name="DO">
+                    <block type="draw_move_by_constant">
+                      <title name="DIR">moveForward</title>
+                      <title name="VALUE">20</title>
+                      <next>
+                        <block type="draw_turn_by_constant">
+                          <title name="DIR">turnRight</title>
+                          <title name="VALUE">90</title>
+                        </block>
+                      </next>
+                    </block>
+                  </statement>
+                  <next>
+                    <block type="draw_move_by_constant">
+                      <title name="DIR">moveForward</title>
+                      <title name="VALUE">20</title>
+                    </block>
+                  </next>
+                </block>
+              </next>
+            </block>
+          </statement>
+          <next>
+            <block type="draw_turn_by_constant">
+              <title name="DIR">turnRight</title>
+              <title name="VALUE">???</title>
+            </block>
+          </next>
+        </block>
+      </statement>
+    </block>
+  <% } else if (level == 10) { -%>
+    <block type="controls_repeat" x="70" y="70">
+      <title name="TIMES">???</title>
+      <statement name="DO">
+        <block type="controls_repeat">
+          <title name="TIMES">10</title>
+          <statement name="DO">
+            <block type="draw_colour" inline="true">
+              <value name="COLOUR">
+                <block type="colour_random"></block>
+              </value>
+              <next>
+                <block type="controls_repeat">
+                  <title name="TIMES">4</title>
+                  <statement name="DO">
+                    <block type="draw_move_by_constant">
+                      <title name="DIR">moveForward</title>
+                      <title name="VALUE">20</title>
+                      <next>
+                        <block type="draw_turn_by_constant">
+                          <title name="DIR">turnRight</title>
+                          <title name="VALUE">90</title>
+                        </block>
+                      </next>
+                    </block>
+                  </statement>
+                  <next>
+                    <block type="draw_move_by_constant">
+                      <title name="DIR">moveForward</title>
+                      <title name="VALUE">20</title>
+                    </block>
+                  </next>
+                </block>
+              </next>
+            </block>
+          </statement>
+          <next>
+            <block type="draw_turn_by_constant">
+              <title name="DIR">turnRight</title>
+              <title name="VALUE">80</title>
+            </block>
+          </next>
+        </block>
+      </statement>
+    </block>
+  <% } else if (level == 11) { -%>
+    <block type="controls_repeat" x="70" y="70">
+      <title name="TIMES">???</title>
+      <statement name="DO">
+        <block type="controls_repeat">
+          <title name="TIMES">10</title>
+          <statement name="DO">
+            <block type="draw_colour" inline="true">
+              <value name="COLOUR">
+                <block type="colour_random"></block>
+              </value>
+              <next>
+                <block type="controls_repeat">
+                  <title name="TIMES">4</title>
+                  <statement name="DO">
+                    <block type="draw_move_by_constant">
+                      <title name="DIR">moveForward</title>
+                      <title name="VALUE">20</title>
+                      <next>
+                        <block type="draw_turn_by_constant">
+                          <title name="DIR">turnRight</title>
+                          <title name="VALUE">90</title>
+                        </block>
+                      </next>
+                    </block>
+                  </statement>
+                  <next>
+                    <block type="draw_move_by_constant">
+                      <title name="DIR">moveForward</title>
+                      <title name="VALUE">20</title>
+                    </block>
+                  </next>
+                </block>
+              </next>
+            </block>
+          </statement>
+          <next>
+            <block type="draw_turn_by_constant">
+              <title name="DIR">turnRight</title>
+              <title name="VALUE">???</title>
+            </block>
+          </next>
+        </block>
+      </statement>
+    </block>
+  <% } -%>
 <% } -%>
