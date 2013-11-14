@@ -371,8 +371,8 @@ Maze.init = function(config) {
     assetUrl: BlocklyApps.assetUrl,
     data: {
       visualization: require('./visualization.html')(),
-      blockUsed : 0,
-      idealBlockNumber : BlocklyApps.getIdealBlockNumberMsg(),
+      blockUsed : undefined,
+      idealBlockNumber : undefined,
       blockCounterClass : 'block-counter-default'
     }
   });
