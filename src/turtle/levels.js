@@ -87,6 +87,14 @@ function drawASnowman(number) {
 var MOVE_FORWARD_INLINE = {test: 'moveForward', type: 'draw_move_by_constant'};
 
 // This tests for and creates the limited "move forward" block used on the
+// earlier levels of the tutorial with the given pixel number.
+var moveForwardInline = function(pixels) {
+  return {test: 'moveForward',
+          type: 'draw_move_by_constant',
+          titles: {'VALUE': pixels}};
+};
+
+// This tests for and creates the limited "move forward" block used on the
 // earlier levels of the tutorial.
 var MOVE_BACKWARD_INLINE = {test: 'moveBackward',
                             type: 'draw_move_by_constant',
@@ -689,7 +697,16 @@ module.exports = {
     answer: answer(4, 1),
     ideal: 3,
     toolbox: toolbox(4, 1),
-    startBlocks: startBlocks(4, 1)
+    startBlocks: startBlocks(4, 1),
+    requiredBlocks: [
+      [MOVE_FORWARD_INLINE],
+      [repeat(3)],
+      [{
+        test: 'turnRight',
+        type: 'draw_turn_by_constant',
+        titles: {VALUE: '???'}
+      }]
+    ],
   },
   // Level 2: Two triangles.
   '4_2': {
@@ -766,7 +783,7 @@ module.exports = {
     toolbox: toolbox(4, 6),
     startBlocks: startBlocks(4, 6),
     requiredBlocks: [
-      [MOVE_FORWARD_INLINE],
+      [moveForwardInline(20)],
       [repeat(4)],
       [{
         test: 'turnRight',
@@ -784,7 +801,7 @@ module.exports = {
     toolbox: toolbox(4, 7),
     startBlocks: startBlocks(4, 7),
     requiredBlocks: [
-      [MOVE_FORWARD_INLINE],
+      [moveForwardInline(20)],
       [repeat(4)],
       [{
         test: 'turnRight',
@@ -804,7 +821,7 @@ module.exports = {
     toolbox: toolbox(4, 8),
     startBlocks: startBlocks(4, 8),
     requiredBlocks: [
-      [MOVE_FORWARD_INLINE],
+      [moveForwardInline(20)],
       [repeat(4)],
       [{
         test: 'turnRight',
@@ -824,7 +841,7 @@ module.exports = {
     toolbox: toolbox(4, 9),
     startBlocks: startBlocks(4, 9),
     requiredBlocks: [
-      [MOVE_FORWARD_INLINE],
+      [moveForwardInline(20)],
       [repeat(4)],
       [{
         test: 'turnRight',
@@ -844,7 +861,7 @@ module.exports = {
     toolbox: toolbox(4, 10),
     startBlocks: startBlocks(4, 10),
     requiredBlocks: [
-      [MOVE_FORWARD_INLINE],
+      [moveForwardInline(20)],
       [repeat(4)],
       [{
         test: 'turnRight',
