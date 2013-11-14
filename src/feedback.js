@@ -104,6 +104,21 @@ exports.getNumBlocksUsed = function() {
   return getUserBlocks().length;
 };
 
+/**
+ * Counts the number of given blocks.  Blocks are only counted if they are
+ * disabled or are deletable.
+ * @return {number} Number of given blocks.
+ */
+exports.getNumGivenBlocks = function() {
+  var i;
+  if (BlocklyApps.editCode) {
+    // When we are in edit mode, we can no longer tell which lines are given,
+    // and which lines are edited. Returning zero here.
+    return 0;
+  }
+  return getGivenBlocks().length;
+};
+
 var getFeedbackButtons = function(feedbackType, showPreviousLevelButton) {
   var buttons = document.createElement('div');
   buttons.innerHTML = require('./templates/buttons.html')({
@@ -382,6 +397,19 @@ var getUserBlocks = function() {
   var allBlocks = Blockly.mainWorkspace.getAllBlocks();
   var blocks = allBlocks.filter(function(block) {
     return !block.disabled && block.isDeletable();
+  });
+  return blocks;
+};
+
+/**
+ * Get blocks that were given to the user in the program, namely any that
+ * are disabled or cannot be deleted.
+ * @return {Array<Object>} The blocks.
+ */
+var getGivenBlocks = function() {
+  var allBlocks = Blockly.mainWorkspace.getAllBlocks();
+  var blocks = allBlocks.filter(function(block) {
+    return block.disabled || !block.isDeletable();
   });
   return blocks;
 };

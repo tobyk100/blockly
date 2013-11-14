@@ -568,11 +568,22 @@ exports.updateBlockCount = function() {
   // Update number of blocks used.
   if (element) {
     element.innerHTML = '';  // Remove existing children or text.
-    element.appendChild(document.createTextNode(feedback.getNumBlocksUsed()));
+    element.appendChild(document.createTextNode(
+        feedback.getNumBlocksUsed() + feedback.getNumGivenBlocks()));
+  }
+
+  element = document.getElementById('idealBlockNumber');
+
+  // Update idealBlockNumber
+  if (element) {
+    element.innerHTML = '';  // Remove existing children or text.
+    element.appendChild(document.createTextNode(
+        feedback.getNumGivenBlocks() + BlocklyApps.IDEAL_BLOCK_NUM));
   }
 };
 
 exports.getIdealBlockNumberMsg = function() {
   return BlocklyApps.IDEAL_BLOCK_NUM === Infinity ?
-      msg.infinity() : BlocklyApps.IDEAL_BLOCK_NUM;
+      msg.infinity() :
+      BlocklyApps.IDEAL_BLOCK_NUM + feedback.getNumGivenBlocks();
 };
