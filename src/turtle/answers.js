@@ -265,6 +265,20 @@ exports.answer = function(page, level) {
         }
         break;
     }
+  } else if (page == 4) {
+    switch (level) {
+      case 1:
+        // Draw an equilateral triangle.
+        drawTriangle(100);
+        break;
+      case 2:
+        // Draw four equilateral triangles.
+        for (count = 0; count <4; count++) {
+          setRandomVisibleColour();
+          drawTriangle(100);
+          api.turnRight(90);
+        }
+    }
   }
   BlocklyApps.reset();
   return BlocklyApps.log;

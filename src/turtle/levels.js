@@ -687,7 +687,7 @@ module.exports = {
   // Level 1: playground.
   '4_1': {
     answer: answer(4, 1),
-    freePlay: true,
+    ideal: 3,
     toolbox: toolbox(4, 1),
     startBlocks: startBlocks(4, 1),
     instructionImage: 'turtle/4_1.png'
@@ -695,9 +695,18 @@ module.exports = {
   // Level 2: playground.
   '4_2': {
     answer: answer(4, 2),
-    freePlay: true,
+    ideal: 7,
     toolbox: toolbox(4, 2),
     startBlocks: startBlocks(4, 2),
+    requiredBlocks: [
+      [MOVE_FORWARD_INLINE],
+      [repeat(3)],
+      [{
+        test: 'turnRight',
+        type: 'draw_turn_by_constant',
+        titles: {VALUE: '???'}
+      }]
+    ],
     instructionImage: 'turtle/4_2.png'
   },
   // Level 3: playground.

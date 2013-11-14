@@ -385,4 +385,29 @@ var spiral = function(i) {
       </statement>
     </block>
   <% } // End of region in which "draw a square" is defined. -%>
+<% } else if (page == 4) { -%>
+  <% if (level == 2) { -%>
+    <block type="draw_colour" inline="true" x="70" y="70">
+      <value name="COLOUR">
+        <block type="colour_random"></block>
+      </value>
+      <next>
+        <block type="controls_repeat">
+          <title name="TIMES">3</title>
+          <statement name="DO">
+            <block type="draw_move_by_constant">
+              <title name="DIR">moveForward</title>
+              <title name="VALUE">100</title>
+              <next>
+                <block type="draw_turn_by_constant">
+                  <title name="DIR">turnRight</title>
+                  <title name="VALUE">120</title>
+                </block>
+              </next>
+            </block>
+          </statement>
+        </block>
+      </next>
+    </block>
+  <% } -%>
 <% } -%>
