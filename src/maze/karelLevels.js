@@ -44,7 +44,8 @@ var FILL = {'test': 'fill', 'type': 'maze_fill'};
 var REPEAT = {
     'test': function(block) {
       return block.type == 'controls_repeat';},
-    'type': 'controls_repeat'
+    'type': 'controls_repeat',
+    'titles': {'TIMES': '???'}
 };
 
 // This tests for and creates the "controls_repeat_ext" block.
