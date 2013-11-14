@@ -120,7 +120,7 @@ Turtle.init = function(config) {
     Turtle.loadTurtle();
     Turtle.drawImages();
     Turtle.drawAnswer();
-  }
+  };
 
   config.getDisplayWidth = function() {
     return document.getElementById('display').width;
