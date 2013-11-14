@@ -684,18 +684,17 @@ module.exports = {
     startBlocks: startBlocks(3, 10)
   },
   // Formerly Page 4.
-  // Level 1: playground.
+  // Level 1: One triangle.
   '4_1': {
     answer: answer(4, 1),
     ideal: 3,
     toolbox: toolbox(4, 1),
-    startBlocks: startBlocks(4, 1),
-    instructionImage: 'turtle/4_1.png'
+    startBlocks: startBlocks(4, 1)
   },
-  // Level 2: playground.
+  // Level 2: Two triangles.
   '4_2': {
     answer: answer(4, 2),
-    ideal: 7,
+    ideal: 11,
     toolbox: toolbox(4, 2),
     startBlocks: startBlocks(4, 2),
     requiredBlocks: [
@@ -707,24 +706,167 @@ module.exports = {
         titles: {VALUE: '???'}
       }]
     ],
-    instructionImage: 'turtle/4_2.png'
+    sliderSpeed: 0.5
   },
-  // Level 3: playground.
+  // Level 3: Four triangles using repeat.
   '4_3': {
     answer: answer(4, 3),
-    freePlay: true,
+    ideal: 7,
     toolbox: toolbox(4, 3),
     startBlocks: startBlocks(4, 3),
-    instructionImage: 'turtle/4_3.png'
+    requiredBlocks: [
+      [MOVE_FORWARD_INLINE],
+      [repeat(3)],
+      [{
+        test: 'turnRight',
+        type: 'draw_turn_by_constant',
+        titles: {VALUE: '???'}
+      }]
+    ],
+    sliderSpeed: 0.7
   },
-  // Level 4: playground.
+  // Level 4: Ten triangles with missing repeat number.
   '4_4': {
     answer: answer(4, 4),
-    freePlay: true,
+    ideal: 7,
     toolbox: toolbox(4, 4),
     startBlocks: startBlocks(4, 4),
-    instructionImage: 'turtle/4_4.png'
+    requiredBlocks: [
+      [MOVE_FORWARD_INLINE],
+      [repeat(3)],
+      [{
+        test: 'turnRight',
+        type: 'draw_turn_by_constant',
+        titles: {VALUE: '???'}
+      }]
+    ],
+    sliderSpeed: 0.7
   },
+  // Level 5: 36 triangles with missing angle number.
+  '4_5': {
+    answer: answer(4, 5),
+    ideal: 7,
+    toolbox: toolbox(4, 5),
+    startBlocks: startBlocks(4, 5),
+    requiredBlocks: [
+      [MOVE_FORWARD_INLINE],
+      [repeat(3)],
+      [{
+        test: 'turnRight',
+        type: 'draw_turn_by_constant',
+        titles: {VALUE: '???'}
+      }]
+    ],
+    sliderSpeed: 0.9
+  },
+  // Level 6: 1 square.
+  '4_6': {
+    answer: answer(4, 6),
+    ideal: 3,
+    toolbox: toolbox(4, 6),
+    startBlocks: startBlocks(4, 6),
+    requiredBlocks: [
+      [MOVE_FORWARD_INLINE],
+      [repeat(4)],
+      [{
+        test: 'turnRight',
+        type: 'draw_turn_by_constant',
+        titles: {VALUE: '???'}
+      }]
+    ],
+    startDirection: 0
+  },
+  // Level 7: Square Ladder.
+  '4_7': {
+    answer: answer(4, 7),
+    initialY: 300,
+    ideal: 7,
+    toolbox: toolbox(4, 7),
+    startBlocks: startBlocks(4, 7),
+    requiredBlocks: [
+      [MOVE_FORWARD_INLINE],
+      [repeat(4)],
+      [{
+        test: 'turnRight',
+        type: 'draw_turn_by_constant',
+        titles: {VALUE: '???'}
+      }]
+    ],
+    startDirection: 0,
+    sliderSpeed: 0.7
+  },
+  // Level 8: Ladder square.
+  '4_8': {
+    answer: answer(4, 8),
+    initialX: 100,
+    initialY: 300,
+    ideal: 9,
+    toolbox: toolbox(4, 8),
+    startBlocks: startBlocks(4, 8),
+    requiredBlocks: [
+      [MOVE_FORWARD_INLINE],
+      [repeat(4)],
+      [{
+        test: 'turnRight',
+        type: 'draw_turn_by_constant',
+        titles: {VALUE: '???'}
+      }]
+    ],
+    startDirection: 0,
+    sliderSpeed: 0.9
+  },
+  // Level 9: Ladder square with a different angle.
+  '4_9': {
+    answer: answer(4, 9),
+    initialX: 150,
+    initialY: 350,
+    ideal: 9,
+    toolbox: toolbox(4, 9),
+    startBlocks: startBlocks(4, 9),
+    requiredBlocks: [
+      [MOVE_FORWARD_INLINE],
+      [repeat(4)],
+      [{
+        test: 'turnRight',
+        type: 'draw_turn_by_constant',
+        titles: {VALUE: '???'}
+      }]
+    ],
+    startDirection: 330,
+    sliderSpeed: 0.9
+  },
+  // Level 10: Ladder polygon.
+  '4_10': {
+    answer: answer(4, 10),
+    initialX: 75,
+    initialY: 300,
+    ideal: 9,
+    toolbox: toolbox(4, 10),
+    startBlocks: startBlocks(4, 10),
+    requiredBlocks: [
+      [MOVE_FORWARD_INLINE],
+      [repeat(4)],
+      [{
+        test: 'turnRight',
+        type: 'draw_turn_by_constant',
+        titles: {VALUE: '???'}
+      }]
+    ],
+    startDirection: 0,
+    sliderSpeed: 0.9
+  },
+  // Level 11: playground.
+  '4_11': {
+    answer: answer(4, 11),
+    freePlay: true,
+    initialX: 75,
+    initialY: 300,
+    toolbox: toolbox(4, 11),
+    startBlocks: startBlocks(4, 11),
+    startDirection: 0,
+    sliderSpeed: 0.9
+   },
+
   // Formerly Page 5.
   // Level 1: playground.
   '5_1': {
