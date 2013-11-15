@@ -214,15 +214,11 @@ BlocklyApps.init = function(config) {
 };
 
 exports.playAudio = function(name, options) {
-  if (!dom.isMobile()) {
-    Blockly.playAudio(name, options);
-  }
+  Blockly.playAudio(name, options);
 };
 
 exports.stopLoopingAudio = function(name) {
-  if (!dom.isMobile()) {
-    Blockly.stopLoopingAudio(name);
-  }
+  Blockly.stopLoopingAudio(name);
 };
 
 /**
