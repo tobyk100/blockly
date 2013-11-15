@@ -791,6 +791,7 @@ module.exports = {
         titles: {VALUE: '???'}
       }]
     ],
+    permittedErrors: 10,
     startDirection: 0
   },
   // Level 7: Square Ladder.
