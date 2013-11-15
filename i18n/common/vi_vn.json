@@ -25,7 +25,7 @@
   "listVariable":"danh sách",
   "missingBlocksErrorMsg":"Thử dùng một hoặc nhiều khối bên dưới để giải quyết trò này.",
   "nextLevel":"Chúc mừng! Bạn đã hoàn thành trò số {puzzleNumber}.",
-  "nextLevelTrophies":"Chúc mừng! Bạn đã hoàng thành Câu đố {puzzleNumber} và chiến thắng ƠnumTrophies}.",
+  "nextLevelTrophies":"Chúc mừng! Bạn đã hoàng thành Câu đố {puzzleNumber} và chiến thắng Ơ #{numTrophies}.",
   "nextStage":"Congratulations! You completed Stage {stageNumber}.",
   "nextStageTrophies":"Congratulations! You completed Stage {stageNumber} and won {numTrophies, plural, one {a trophy} other {# trophies}}.",
   "numBlocksNeeded":"Chúc mừng! Bạn đã hoàn thành câu đố {puzzleNumber}. Nhưng bạn thật sự chỉ cần {numBlocks} khối thôi .",
