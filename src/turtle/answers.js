@@ -276,7 +276,7 @@ exports.answer = function(page, level) {
         for (count = 0; count < 2; count++) {
           setRandomVisibleColour();
           drawTriangle(100);
-          api.turnRight(180);
+          api.turnRight(90);
         }
         break;
       case 3:
