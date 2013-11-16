@@ -103,6 +103,12 @@ config.copy = {
         src: ['**'],
         //TODO: Would be preferrable to separate Blockly media.
         dest: 'build/package/media'
+      },
+      {
+        expand: true,
+        cwd: 'lib/svgweb/src',
+        src: ['**'],
+        dest: 'dist/svgweb'
       }
     ]
   }
@@ -176,7 +182,7 @@ LOCALES.forEach(function(locale) {
   config.concat['vendor_' + locale] = {
     nonull: true,
     src: [
-      'lib/blockly/blockly_compressed.js',
+      'lib/blockly/blockly_debug.js',
       'lib/blockly/blocks_compressed.js',
       'lib/blockly/javascript_compressed.js',
       'lib/blockly/' + locale + '.js'
