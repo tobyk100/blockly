@@ -57,7 +57,7 @@ exports.install = function(blockly, skin) {
       this.appendDummyInput()
           .appendTitle(new blockly.FieldTextInput('100',
             blockly.FieldTextInput.numberValidator), 'VALUE')
-          .appendTitle(msg.dots());
+          .appendTitle(msg.pixels());
       this.setInputsInline(true);
       this.setPreviousStatement(true);
       this.setNextStatement(true);
@@ -431,7 +431,7 @@ exports.install = function(blockly, skin) {
           .appendTitle(new blockly.FieldDropdown(
               blockly.Blocks.draw_move.DIRECTIONS), 'DIR');
       this.appendDummyInput()
-          .appendTitle(msg.dots());
+          .appendTitle(msg.pixels());
       this.setInputsInline(true);
       this.setPreviousStatement(true);
       this.setNextStatement(true);
@@ -461,7 +461,7 @@ exports.install = function(blockly, skin) {
           .appendTitle(new blockly.FieldDropdown(
               blockly.Blocks.jump.DIRECTIONS), 'DIR');
       this.appendDummyInput()
-          .appendTitle(msg.dots());
+          .appendTitle(msg.pixels());
       this.setInputsInline(true);
       this.setPreviousStatement(true);
       this.setNextStatement(true);
