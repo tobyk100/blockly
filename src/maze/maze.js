@@ -321,6 +321,15 @@ var drawMap = function() {
     svg.appendChild(finishMarker);
   }
 
+  // Add wall hitting animation
+  if (skin.hittingWallAnimation) {
+    var wallAnimationIcon = document.createElementNS(Blockly.SVG_NS, 'image');
+    wallAnimationIcon.setAttribute('id', 'wallAnimation');
+    wallAnimationIcon.setAttribute('height', Maze.SQUARE_HEIGHT);
+    wallAnimationIcon.setAttribute('width', Maze.SQUARE_WIDTH);
+    svg.appendChild(wallAnimationIcon);
+  }
+
   // Add obstacles.
   var obsId = 0;
   for (y = 0; y < Maze.ROWS; y++) {
@@ -1038,6 +1047,22 @@ Maze.scheduleFail = function(forward) {
     }
 
     // Play the animation of hitting the wall
+    if (skin.hittingWallAnimation) {
+      Maze.pidList.push(window.setTimeout(function() {
+        var wallAnimationIcon = document.getElementById('wallAnimation');
+        wallAnimationIcon.setAttribute(
+            'x',
+            Maze.SQUARE_SIZE * (Maze.pegmanX + 0.5 + deltaX * 0.5) -
+            wallAnimationIcon.getAttribute('width') / 2);
+        wallAnimationIcon.setAttribute(
+            'y',
+            Maze.SQUARE_SIZE * (Maze.pegmanY + 1 + deltaY * 0.5) -
+            wallAnimationIcon.getAttribute('height'));
+        wallAnimationIcon.setAttributeNS(
+          'http://www.w3.org/1999/xlink', 'xlink:href',
+          skin.hittingWallAnimation);
+      }, stepSpeed / 2));
+    }
     Maze.pidList.push(window.setTimeout(function() {
       Maze.displayPegman(Maze.pegmanX,
                          Maze.pegmanY,
