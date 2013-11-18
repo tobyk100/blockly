@@ -34,7 +34,7 @@ var LOCALES = (LOCALIZE ? [
   'he_il',
   'hi_in',
   'hu_hu',
-  'id_id',
+//'id_id', // messageformat issue
   'is_is',
   'it_it',
   'ja_jp',
@@ -43,7 +43,7 @@ var LOCALES = (LOCALIZE ? [
 //'my_mm', // Needs MessageFormat
   'nl_nl',
   'no_no',
-  'pl_pl',
+//'pl_pl', // messageformat issue
   'pt_br',
 //'pt_pt', // messageformat issue
   'ro_ro',
@@ -56,7 +56,7 @@ var LOCALES = (LOCALIZE ? [
 //'tr_tr', // messageformat issue
   'uk_ua',
   'ur_pk',
-  'vi_vn',
+//'vi_vn', // messageformat issue
   'zh_cn',
   'zh_tw'
 ] : [
