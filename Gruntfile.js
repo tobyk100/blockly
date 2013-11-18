@@ -277,6 +277,7 @@ config.release = {
   options: {
     folder: 'dist',
     tagName: 'v<%= version %>',
+    remote: 'https://github.com/code-dot-org/blockly'
   }
 };
 
