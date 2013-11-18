@@ -227,7 +227,7 @@ exports.install = function(blockly, skin) {
       this.setHSV(312, 0.32, 0.62);
       this.appendDummyInput()
           .appendTitle(blockly.Msg.VARIABLES_GET_TITLE)
-          .appendTitle(new blockly.FieldLabel('length'), 'VAR');
+          .appendTitle(new blockly.FieldLabel(msg.lengthParameter()), 'VAR');
       this.setOutput(true);
       this.setTooltip(blockly.Msg.VARIABLES_GET_TOOLTIP);
     },

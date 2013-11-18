@@ -1,6 +1,7 @@
 var levelBase = require('../level_base');
 var Colours = require('./core').Colours;
 var answer = require('./answers').answer;
+var msg = require('../../locale/current/turtle');
 
 //TODO: Fix hacky level-number-dependent toolbox.
 var toolbox = function(page, level) {
@@ -482,7 +483,7 @@ module.exports = {
     toolbox: toolbox(3, 1),
     startBlocks: startBlocks(3, 1),
     requiredBlocks: [
-      [levelBase.call('draw a square')]
+      [levelBase.call(msg.drawASquare())]
     ],
     freePlay: false
   },
@@ -496,7 +497,7 @@ module.exports = {
       [repeat(3)],
       [move(100)],
       [turnRight(120)],
-      [levelBase.call('draw a triangle')]
+      [levelBase.call(msg.drawATriangle())]
     ],
     freePlay: false
   },
@@ -508,9 +509,9 @@ module.exports = {
     toolbox: toolbox(3, 3),
     startBlocks: startBlocks(3, 3),
     requiredBlocks: [
-      [levelBase.call('draw a triangle')],
+      [levelBase.call(msg.drawATriangle())],
       [move(100)],
-      [levelBase.call('draw a square')]
+      [levelBase.call(msg.drawASquare())]
     ],
     freePlay: false,
     images: [
@@ -536,10 +537,10 @@ module.exports = {
     toolbox: toolbox(3, 4),
     startBlocks: startBlocks(3, 4),
     requiredBlocks: [
-      [levelBase.call('draw a square')],
+      [levelBase.call(msg.drawASquare())],
       [move(100)],
       [turnRight(30)],
-      [levelBase.call('draw a triangle')]
+      [levelBase.call(msg.drawATriangle())]
     ],
     freePlay: false,
     images: [
@@ -557,12 +558,12 @@ module.exports = {
     toolbox: toolbox(3, 5),
     startBlocks: startBlocks(3, 5),
     requiredBlocks: [
-      [levelBase.define('draw a house')],
-      [levelBase.call('draw a square')],
+      [levelBase.define(msg.drawAHouse())],
+      [levelBase.call(msg.drawASquare())],
       [move(100)],
       [turnRight(30)],
-      [levelBase.call('draw a triangle')],
-      [levelBase.call('draw a house')]
+      [levelBase.call(msg.drawATriangle())],
+      [levelBase.call(msg.drawAHouse())]
     ],
     freePlay: false,
     images: [
@@ -585,9 +586,9 @@ module.exports = {
     toolbox: toolbox(3, 6),
     startBlocks: startBlocks(3, 6),
     requiredBlocks: [
-      [defineWithArg('draw a triangle', 'length')],
+      [defineWithArg(msg.drawATriangle(), msg.lengthParameter())],
       [simpleBlock('variables_get_length')],
-      [levelBase.callWithArg('draw a triangle', 'length')]
+      [levelBase.callWithArg(msg.drawATriangle(), msg.lengthParameter())]
     ],
     freePlay: false,
     images: [
@@ -610,11 +611,11 @@ module.exports = {
     toolbox: toolbox(3, 7),
     startBlocks: startBlocks(3, 7),
     requiredBlocks: [
-      [defineWithArg('draw a house', 'height')],
-      [levelBase.callWithArg('draw a square', 'length')],
-      [levelBase.callWithArg('draw a triangle', 'length')],
+      [defineWithArg(msg.drawAHouse(), msg.heightParameter())],
+      [levelBase.callWithArg(msg.drawASquare(), msg.lengthParameter())],
+      [levelBase.callWithArg(msg.drawATriangle(), msg.lengthParameter())],
       [simpleBlock('variables_get_height')],
-      [levelBase.callWithArg('draw a house', 'height')]
+      [levelBase.callWithArg(msg.drawAHouse(), msg.heightParameter())]
     ],
     freePlay: false,
     images: [
