@@ -35,7 +35,7 @@ var CONFIGS = {
 
   birds: {
     look: '#FFF',
-    largerObstacleAnimationArea: true,
+    largerObstacleAnimationTiles: 'tiles-broken.png',
     obstacleScale: 1.2,
     additionalSound: true,
     idlePegmanAnimation: 'idle_avatar.gif',
@@ -54,11 +54,6 @@ exports.load = function(assetUrl, id) {
   skin.obstacle = skin.assetUrl('obstacle.png');
   skin.obstacleAnimation = skin.assetUrl('obstacle.gif');
   skin.maze_forever = skin.assetUrl('maze_forever.png');
-  if (config.largerObstacleAnimationArea) {
-    skin.largerObstacleAnimationArea = true;
-  } else {
-    skin.largerObstacleAnimationArea = false;
-  }
   if (config.transparentTileEnding) {
     skin.transparentTileEnding = true;
   } else {
@@ -70,6 +65,8 @@ exports.load = function(assetUrl, id) {
     skin.nonDisappearingPegmanHittingObstacle = false;
   }
   skin.obstacleScale = config.obstacleScale || 1.0;
+  skin.largerObstacleAnimationTiles = config.largerObstacleAnimationTiles ?
+      skin.assetUrl(config.largerObstacleAnimationTiles) : null;
   skin.idlePegmanAnimation = config.idlePegmanAnimation ?
       skin.assetUrl(config.idlePegmanAnimation) : null;
   skin.hittingWallAnimation = config.hittingWallAnimation ?

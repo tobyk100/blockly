@@ -325,8 +325,8 @@ var drawMap = function() {
   if (skin.hittingWallAnimation) {
     var wallAnimationIcon = document.createElementNS(Blockly.SVG_NS, 'image');
     wallAnimationIcon.setAttribute('id', 'wallAnimation');
-    wallAnimationIcon.setAttribute('height', Maze.SQUARE_HEIGHT);
-    wallAnimationIcon.setAttribute('width', Maze.SQUARE_WIDTH);
+    wallAnimationIcon.setAttribute('height', Maze.SQUARE_SIZE);
+    wallAnimationIcon.setAttribute('width', Maze.SQUARE_SIZE);
     svg.appendChild(wallAnimationIcon);
   }
 
@@ -649,6 +649,8 @@ BlocklyApps.reset = function(first) {
       tileClip.setAttribute('visibility', 'visible');
       // Tile sprite.
       var tileElement = document.getElementById('tileElement' + tileId);
+      tileElement.setAttributeNS(
+          'http://www.w3.org/1999/xlink', 'xlink:href', skin.tiles);
       tileElement.setAttribute('opacity', 1);
       tileId++;
     }
@@ -980,9 +982,9 @@ Maze.schedule = function(startPos, endPos) {
 };
 
 /**
- * Remove the tiles surronding the obstacle.
+ * Replace the tiles surronding the obstacle with broken tiles.
  */
-Maze.removeSurroundingTiles = function(obstacleY, obstacleX) {
+Maze.updateSurroundingTiles = function(obstacleY, obstacleX, brokenTiles) {
   var tileCoords = [
     [obstacleY - 1, obstacleX - 1],
     [obstacleY - 1, obstacleX],
@@ -996,9 +998,10 @@ Maze.removeSurroundingTiles = function(obstacleY, obstacleX) {
   ];
   for (var idx = 0; idx < tileCoords.length; ++idx) {
     var tileIdx = tileCoords[idx][1] + Maze.COLS * tileCoords[idx][0];
-    var tileClip = document.getElementById('tileClipPath' + tileIdx);
-    if (tileClip) {
-      tileClip.setAttribute('visibility', 'hidden');
+    var tileElement = document.getElementById('tileElement' + tileIdx);
+    if (tileElement) {
+      tileElement.setAttributeNS(
+          'http://www.w3.org/1999/xlink', 'xlink:href', brokenTiles);
     }
   }
 };
@@ -1093,10 +1096,11 @@ Maze.scheduleFail = function(forward) {
                          direction16);
     }, stepSpeed));
 
-    // Remove the objects around obstacles
-    if (skin.largerObstacleAnimationArea) {
+    // Replace the objects around obstacles with broken objects
+    if (skin.largerObstacleAnimationTiles) {
       Maze.pidList.push(window.setTimeout(function() {
-        Maze.removeSurroundingTiles(targetY, targetX);
+        Maze.updateSurroundingTiles(
+            targetY, targetX, skin.largerObstacleAnimationTiles);
       }, stepSpeed));
     }
 
