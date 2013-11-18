@@ -27,25 +27,25 @@ var LOCALES = (LOCALIZE ? [
   'en_us',
   'en_ploc',
   'es_es',
-//'fa_ir', // messageformat issue
+  'fa_ir',
   'fi_fi',
   'fil_ph',
   'fr_fr',
   'he_il',
   'hi_in',
   'hu_hu',
-//'id_id', // messageformat issue
+  'id_id',
   'is_is',
   'it_it',
   'ja_jp',
   'ko_kr',
-//'ms_my', // messageformat issue
+  'ms_my',
 //'my_mm', // Needs MessageFormat
   'nl_nl',
   'no_no',
-//'pl_pl', // messageformat issue
+  'pl_pl',
   'pt_br',
-//'pt_pt', // messageformat issue
+  'pt_pt',
   'ro_ro',
   'ru_ru',
   'sq_al',
@@ -53,10 +53,10 @@ var LOCALES = (LOCALIZE ? [
   'sv_se',
   'ta_in',
   'th_th',
-//'tr_tr', // messageformat issue
+  'tr_tr',
   'uk_ua',
   'ur_pk',
-//'vi_vn', // messageformat issue
+  'vi_vn',
   'zh_cn',
   'zh_tw'
 ] : [

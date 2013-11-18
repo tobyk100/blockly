@@ -43,14 +43,23 @@ module.exports = function(grunt) {
 
       // Generate javascript message functions.
       files.forEach(function(file) {
-        var messages = grunt.file.readJSON(file.src[0]);
+        var translated = grunt.file.readJSON(file.src[0]);
+        //XXX Shouldn't have to re-read source strings for each locale, nor
+        // should this code be doing weird path replace munging.
+        var source = grunt.file.readJSON(
+          file.src[0].replace('build/', '').replace(locale, 'en_us'));
         var code = 'var MessageFormat = require("messageformat");';
         code += backend;
-        Object.keys(messages).forEach(function(key) {
-          code += ';\n\n';
-          var string = messages[key];
+        Object.keys(source).forEach(function(key) {
           code += 'exports.' + key + ' = ';
-          code += mf.precompile(mf.parse(string));
+          try {
+            code += mf.precompile(mf.parse(translated[key]));
+          } catch (e) {
+            // Fallback to English on failure.
+            grunt.log.warn("Failed to compile " + key + "\n" + e);
+            code += mf.precompile(mf.parse(source[key]));
+          }
+          code += ';\n\n';
         });
         grunt.file.write(file.dest, code);
       });
