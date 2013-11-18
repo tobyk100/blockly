@@ -36,18 +36,29 @@ module.exports = function(grunt) {
 
       // Initialize MessageFormat.
       var language = locale.split('_')[0];
-      var backend = fs.readFileSync(
-          './node_modules/messageformat/locale/' + language + '.js', 'utf8');
-      vm.runInNewContext(backend, {MessageFormat: MessageFormat});
-      var mf = new MessageFormat(language);
+      var backend, mf;
+      var loadBackend = function(lang) {
+        backend = fs.readFileSync(
+          './node_modules/messageformat/locale/' + lang + '.js', 'utf8');
+        vm.runInNewContext(backend, {MessageFormat: MessageFormat});
+        mf = new MessageFormat(lang);
+      };
+      try {
+        loadBackend(language);
+      } catch (e) {
+        // Fallback to English on failure.
+        grunt.log.warn('Error loading MessageFormat backend: ' + e);
+        loadBackend('en');
+      }
 
       // Generate javascript message functions.
       files.forEach(function(file) {
-        var translated = grunt.file.readJSON(file.src[0]);
+        var src = file.src[0];
+        var translated = grunt.file.readJSON(src);
         //XXX Shouldn't have to re-read source strings for each locale, nor
         // should this code be doing weird path replace munging.
         var source = grunt.file.readJSON(
-          file.src[0].replace('build/', '').replace(locale, 'en_us'));
+          src.replace('build/', '').replace(locale, 'en_us'));
         var code = 'var MessageFormat = require("messageformat");';
         code += backend;
         Object.keys(source).forEach(function(key) {
@@ -56,7 +67,7 @@ module.exports = function(grunt) {
             code += mf.precompile(mf.parse(translated[key]));
           } catch (e) {
             // Fallback to English on failure.
-            grunt.log.warn("Failed to compile " + key + "\n" + e);
+            grunt.log.warn('Failed to compile ' + src + ':' + key + '\n' + e);
             code += mf.precompile(mf.parse(source[key]));
           }
           code += ';\n\n';

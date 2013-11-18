@@ -17,8 +17,8 @@ var DIST_BROWSERIFIED = (MINIFY ? 'uglify:browserified' : 'copy:browserified');
 var LOCALES = (LOCALIZE ? [
   'af_za',
   'ar_sa',
-//'az_az', // Needs messageformat
-//'bn-BD', // Needs messageformat
+  'az_az',
+  'bn_bd',
   'ca_es',
   'cs_cz',
   'da_dk',
@@ -40,7 +40,7 @@ var LOCALES = (LOCALIZE ? [
   'ja_jp',
   'ko_kr',
   'ms_my',
-//'my_mm', // Needs MessageFormat
+  'my_mm',
   'nl_nl',
   'no_no',
   'pl_pl',
