@@ -276,8 +276,7 @@ config.mochaTest = {
 config.release = {
   options: {
     folder: 'dist',
-    tagName: 'v<%= version %>',
-    remote: '<%= repository %>'
+    tagName: 'v<%= version %>'
   }
 };
 
