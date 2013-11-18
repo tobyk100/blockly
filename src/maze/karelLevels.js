@@ -1,5 +1,6 @@
 var levelBase = require('../level_base');
 var Direction = require('./tiles').Direction;
+var msg = require('../../locale/current/maze');
 
 //TODO: Fix hacky level-number-dependent toolbox.
 var toolbox = function(page, level) {
@@ -1485,7 +1486,8 @@ module.exports = {
     'ideal': 10,
     'requiredBlocks': [
       [MOVE_FORWARD], [REPEAT_EXT], [DIG], [CONTROLS_FOR],
-      [levelBase.callWithArg('remove pile', 'height')], [VARIABLES_GET]
+      [levelBase.callWithArg(msg.removePile(), msg.heightParameter())],
+      [VARIABLES_GET]
     ],
     'scale': {
       'stepSpeed': 2
