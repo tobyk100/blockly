@@ -19,7 +19,7 @@
     "messageformat": "~0.1.6",
     "handlebars-runtime": "~1.0.12",
     "grunt-express": "~1.2.0",
-    "grunt-release-bbloom": "~0.7.1",
+    "grunt-release-bbloom": "~0.7.2",
     "express": "~3.4.0",
     "ejs": "~0.8.4",
     "through": "~2.3.4",
