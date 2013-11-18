@@ -37,7 +37,8 @@ var CONFIGS = {
     look: '#FFF',
     largerObstacleAnimationArea: true,
     obstacleScale: 1.2,
-    additionalSound: true
+    additionalSound: true,
+    idlePegmanAnimation: 'idle_avatar.gif'
   }
 
 };
@@ -68,6 +69,8 @@ exports.load = function(assetUrl, id) {
     skin.nonDisappearingPegmanHittingObstacle = false;
   }
   skin.obstacleScale = config.obstacleScale || 1.0;
+  skin.idlePegmanAnimation = config.idlePegmanAnimation ?
+      skin.assetUrl(config.idlePegmanAnimation) : null;
   // Sounds
   skin.obstacleSound =
       [skin.assetUrl('obstacle.mp3'), skin.assetUrl('obstacle.ogg')];

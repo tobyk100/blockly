@@ -507,6 +507,36 @@ var removeDirt = function(row, col) {
   }
 };
 
+var createIdlePegman = function(row, col, direction) {
+  var pegmanIcon = document.getElementById('pegman');
+  var svg = document.getElementById('svgMaze');
+  // Create clip path.
+  var clip = document.createElementNS(Blockly.SVG_NS, 'clipPath');
+  clip.setAttribute('id', 'idlePegmanClip');
+  var rect = document.createElementNS(Blockly.SVG_NS, 'rect');
+  rect.setAttribute('x', col * Maze.PEGMAN_WIDTH);
+  rect.setAttribute('y', row * Maze.PEGMAN_HEIGHT);
+  rect.setAttribute('width', Maze.PEGMAN_WIDTH);
+  rect.setAttribute('height', Maze.PEGMAN_HEIGHT);
+  clip.appendChild(rect);
+  svg.appendChild(clip);
+  // Create image.
+  var img = document.createElementNS(Blockly.SVG_NS, 'image');
+  img.setAttributeNS(
+      'http://www.w3.org/1999/xlink', 'xlink:href', skin.idlePegmanAnimation);
+  img.setAttribute('height', Maze.PEGMAN_HEIGHT);
+  img.setAttribute('width', Maze.PEGMAN_WIDTH * 4);
+  img.setAttribute('clip-path', 'url(#idlePegmanClip)');
+  img.setAttribute('id', 'idlePegman');
+  svg.appendChild(img);
+  // Update idlePegman icon & clip path.
+  img = document.getElementById('idlePegman');
+  var x = Maze.SQUARE_SIZE * (col - direction + 0.5) - Maze.DIRT_HEIGHT / 2;
+  var y = Maze.SQUARE_SIZE * (row + 0.5) - Maze.DIRT_WIDTH / 2;
+  img.setAttribute('x', x);
+  img.setAttribute('y', y);
+};
+
 /**
  * Reset the maze to the start position and kill any pending animation tasks.
  * @param {boolean} first True if an opening animation is to be played.
@@ -537,6 +567,10 @@ BlocklyApps.reset = function(first) {
     Maze.displayPegman(Maze.pegmanX, Maze.pegmanY, Maze.pegmanD * 4);
   }
 
+  if (skin.idlePegmanAnimation) {
+    createIdlePegman(Maze.pegmanY, Maze.pegmanX, Maze.startDirection);
+  }
+
   var svg = document.getElementById('svgMaze');
 
   if (Maze.finish_) {
@@ -560,9 +594,15 @@ BlocklyApps.reset = function(first) {
     path.setAttribute('stroke', skin.look);
   }
 
-  // Reset pegman to be visible again.
+  // Reset pegman's visibility.
   var pegmanIcon = document.getElementById('pegman');
-  pegmanIcon.setAttribute('visibility', 'visible');
+  if (skin.idlePegmanAnimation) {
+    pegmanIcon.setAttribute('visibility', 'hidden');
+    var idlePegmanIcon = document.getElementById('idlePegman');
+    idlePegmanIcon.setAttribute('visibility', 'visible');
+  } else {
+    pegmanIcon.setAttribute('visibility', 'visible');
+  }
 
   // Move the init dirt marker icons into position.
   resetDirt();
@@ -780,6 +820,16 @@ Maze.execute = function() {
   // BlocklyApps.log now contains a transcript of all the user's actions.
   // Reset the maze and animate the transcript.
   BlocklyApps.reset(false);
+
+
+  // Removing the idle animation and replace with pegman sprite
+  if (skin.idlePegmanAnimation) {
+    var pegmanIcon = document.getElementById('pegman');
+    var idlePegmanIcon = document.getElementById('idlePegman');
+    idlePegmanIcon.setAttribute('visibility', 'hidden');
+    pegmanIcon.setAttribute('visibility', 'visible');
+  }
+
   // Speeding up specific levels
   var scaledStepSpeed = stepSpeed * Maze.scale.stepSpeed;
   Maze.pidList.push(window.setTimeout(Maze.animate, scaledStepSpeed));
