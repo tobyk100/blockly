@@ -39,7 +39,7 @@ var CONFIGS = {
     obstacleScale: 1.2,
     additionalSound: true,
     idlePegmanAnimation: 'idle_avatar.gif',
-    wallPegmanAnimation: 'avatar_wall.png',
+    wallPegmanAnimation: 'wall_avatar.png',
     hittingWallAnimation: 'wall.gif',
     approachingGoalAnimation: 'close_goal.png'
   }
