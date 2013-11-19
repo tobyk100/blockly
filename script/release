@@ -27,6 +27,7 @@ echo $version > ./build/VERSION
 echo 'Pushing tagged version...'
 git commit package.json -m "Bump version to $version"
 git tag $tag -m "version $version"
+git push $remote master
 git push $remote $tag
 
 echo 'Packaging...'
