@@ -26,7 +26,7 @@ echo $version > ./build/VERSION
 
 echo 'Pushing tagged version...'
 git commit package.json -m "Bump version to $version"
-git tag $tag -v "version $version"
+git tag $tag -m "version $version"
 git push $remote $tag
 
 echo 'Packaging...'
@@ -36,5 +36,5 @@ mkdir -p ./dist
 
 echo "Distributing $tgz and VERSION file to S3..."
 export AWS_DEFAULT_REGION='us-east-1'
-aws s3 cp ./dist/$tgz s3://cdo-dist/blockly-mooc/$tgz
-aws s3 cp ./build/VERSION s3://cdo-dist/blockly-mooc/VERSION
+aws s3 cp --acl 'public-read' ./dist/$tgz s3://cdo-dist/blockly-mooc/$tgz
+aws s3 cp --acl 'public-read' ./build/VERSION s3://cdo-dist/blockly-mooc/VERSION
