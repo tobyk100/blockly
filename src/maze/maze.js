@@ -587,7 +587,7 @@ BlocklyApps.reset = function(first) {
     var finishIcon = document.getElementById('finish');
     finishIcon.setAttribute('x', Maze.SQUARE_SIZE * (Maze.finish_.x + 0.5) -
         finishIcon.getAttribute('width') / 2);
-    finishIcon.setAttribute('y', Maze.SQUARE_SIZE * (Maze.finish_.y + 0.8) -
+    finishIcon.setAttribute('y', Maze.SQUARE_SIZE * (Maze.finish_.y + 0.9) -
         finishIcon.getAttribute('height'));
     finishIcon.setAttributeNS('http://www.w3.org/1999/xlink', 'xlink:href',
                               skin.goal);
@@ -979,6 +979,21 @@ Maze.schedule = function(startPos, endPos) {
       Maze.displayPegman(endPos[0], endPos[1],
           Maze.constrainDirection16(endPos[2]));
     }, stepSpeed * 3));
+
+
+  if (skin.approachingGoalAnimation) {
+    var finishIcon = document.getElementById('finish');
+    // If pegman is close to the goal
+    // Replace the goal file with approachingGoalAnimation
+    if (Maze.finish_ && Math.abs(endPos[0] - Maze.finish_.x) <= 1 &&
+        Math.abs(endPos[1] - Maze.finish_.y) <= 1) {
+      finishIcon.setAttributeNS('http://www.w3.org/1999/xlink', 'xlink:href',
+                                skin.approachingGoalAnimation);
+    } else {
+      finishIcon.setAttributeNS('http://www.w3.org/1999/xlink', 'xlink:href',
+                                skin.goal);
+    }
+  }
 };
 
 /**

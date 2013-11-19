@@ -39,7 +39,8 @@ var CONFIGS = {
     obstacleScale: 1.2,
     additionalSound: true,
     idlePegmanAnimation: 'idle_avatar.gif',
-    hittingWallAnimation: 'wall.gif'
+    hittingWallAnimation: 'wall.gif',
+    approachingGoalAnimation: 'close_goal.png'
   }
 
 };
@@ -71,6 +72,8 @@ exports.load = function(assetUrl, id) {
       skin.assetUrl(config.idlePegmanAnimation) : null;
   skin.hittingWallAnimation = config.hittingWallAnimation ?
       skin.assetUrl(config.hittingWallAnimation) : null;
+  skin.approachingGoalAnimation = config.approachingGoalAnimation ?
+      skin.assetUrl(config.approachingGoalAnimation) : null;
   // Sounds
   skin.obstacleSound =
       [skin.assetUrl('obstacle.mp3'), skin.assetUrl('obstacle.ogg')];
