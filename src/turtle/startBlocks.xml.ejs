@@ -16,7 +16,7 @@ var polygon = function(options) {
 <block type="procedures_defnoreturn" <%- options.modifiers %>>
     <mutation>
       <% if (options.length == 0) { -%>
-        <arg name="length"></arg>
+        <arg name="<%= msg.lengthParameter() %>"></arg>
       <% } -%>
     </mutation>
     <title name="NAME"><%= options.title %></title>
