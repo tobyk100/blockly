@@ -1,6 +1,6 @@
 {
   "name": "blockly-mooc",
-  "version": "0.0.97",
+  "version": "0.0.103",
   "repository": "https://github.com/code-dot-org/blockly.git",
   "engines": {
     "node": "~0.10.18"
@@ -19,7 +19,6 @@
     "messageformat": "~0.1.6",
     "handlebars-runtime": "~1.0.12",
     "grunt-express": "~1.2.0",
-    "grunt-release-bbloom": "~0.7.3",
     "express": "~3.4.0",
     "ejs": "~0.8.4",
     "through": "~2.3.4",
