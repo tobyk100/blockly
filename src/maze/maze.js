@@ -536,10 +536,10 @@ var createPegmanAnimation = function(idStr, pegmanImage,
   clip.setAttribute('id', idStr + 'PegmanClip');
   var rect = document.createElementNS(Blockly.SVG_NS, 'rect');
   rect.setAttribute('id', idStr + 'PegmanClipRect');
-  if (optCol) {
+  if (optCol !== undefined) {
     rect.setAttribute('x',optCol * Maze.SQUARE_SIZE + 1);
   }
-  if (optRow) {
+  if (optRow !== undefined) {
     rect.setAttribute(
         'y',
         Maze.SQUARE_SIZE * (optRow + 0.5) - Maze.PEGMAN_HEIGHT / 2 - 8);
@@ -558,11 +558,12 @@ var createPegmanAnimation = function(idStr, pegmanImage,
   img.setAttribute('id', idStr + 'Pegman');
   svg.appendChild(img);
   // Update pegman icon & clip path.
-  if (optCol && optDirection) {
+  if (optCol !== undefined && optDirection !== undefined) {
+    console.log(optDirection);
     var x = Maze.SQUARE_SIZE * optCol - optDirection * Maze.PEGMAN_WIDTH + 1;
     img.setAttribute('x', x);
   }
-  if (optRow) {
+  if (optRow !== undefined) {
     var y = Maze.SQUARE_SIZE * (optRow + 0.5) - Maze.PEGMAN_HEIGHT / 2 - 8;
     img.setAttribute('y', y);
   }
