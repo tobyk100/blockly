@@ -352,6 +352,18 @@ var drawMap = function() {
       ++obsId;
     }
   }
+
+  // Add idle pegman.
+  if (skin.idlePegmanAnimation) {
+    createPegmanAnimation('idle', skin.idlePegmanAnimation,
+                          Maze.start_.y,  Maze.start_.x, Maze.startDirection);
+  }
+
+  // Add the hidden dazed pegman when hitting the wall.
+  if (skin.wallPegmanAnimation) {
+    createPegmanAnimation('wall', skin.wallPegmanAnimation);
+  }
+
 };
 
 var resetDirt = function() {
@@ -516,15 +528,22 @@ var removeDirt = function(row, col) {
   }
 };
 
-var createIdlePegman = function(row, col, direction) {
-  var pegmanIcon = document.getElementById('pegman');
+var createPegmanAnimation = function(idStr, pegmanImage,
+                                     optRow, optCol, optDirection) {
   var svg = document.getElementById('svgMaze');
   // Create clip path.
   var clip = document.createElementNS(Blockly.SVG_NS, 'clipPath');
-  clip.setAttribute('id', 'idlePegmanClip');
+  clip.setAttribute('id', idStr + 'PegmanClip');
   var rect = document.createElementNS(Blockly.SVG_NS, 'rect');
-  rect.setAttribute('x', col * Maze.PEGMAN_WIDTH);
-  rect.setAttribute('y', row * Maze.PEGMAN_HEIGHT);
+  rect.setAttribute('id', idStr + 'PegmanClipRect');
+  if (optCol) {
+    rect.setAttribute('x',optCol * Maze.SQUARE_SIZE + 1);
+  }
+  if (optRow) {
+    rect.setAttribute(
+        'y',
+        Maze.SQUARE_SIZE * (optRow + 0.5) - Maze.PEGMAN_HEIGHT / 2 - 8);
+  }
   rect.setAttribute('width', Maze.PEGMAN_WIDTH);
   rect.setAttribute('height', Maze.PEGMAN_HEIGHT);
   clip.appendChild(rect);
@@ -532,18 +551,35 @@ var createIdlePegman = function(row, col, direction) {
   // Create image.
   var img = document.createElementNS(Blockly.SVG_NS, 'image');
   img.setAttributeNS(
-      'http://www.w3.org/1999/xlink', 'xlink:href', skin.idlePegmanAnimation);
+      'http://www.w3.org/1999/xlink', 'xlink:href', pegmanImage);
   img.setAttribute('height', Maze.PEGMAN_HEIGHT);
   img.setAttribute('width', Maze.PEGMAN_WIDTH * 4);
-  img.setAttribute('clip-path', 'url(#idlePegmanClip)');
-  img.setAttribute('id', 'idlePegman');
+  img.setAttribute('clip-path', 'url(#' + idStr + 'PegmanClip)');
+  img.setAttribute('id', idStr + 'Pegman');
   svg.appendChild(img);
-  // Update idlePegman icon & clip path.
-  img = document.getElementById('idlePegman');
-  var x = Maze.SQUARE_SIZE * (col - direction + 0.5) - Maze.DIRT_HEIGHT / 2;
-  var y = Maze.SQUARE_SIZE * (row + 0.5) - Maze.DIRT_WIDTH / 2;
+  // Update pegman icon & clip path.
+  if (optCol && optDirection) {
+    var x = Maze.SQUARE_SIZE * optCol - optDirection * Maze.PEGMAN_WIDTH + 1;
+    img.setAttribute('x', x);
+  }
+  if (optRow) {
+    var y = Maze.SQUARE_SIZE * (optRow + 0.5) - Maze.PEGMAN_HEIGHT / 2 - 8;
+    img.setAttribute('y', y);
+  }
+};
+
+var updatePegmanAnimation = function(idStr, row, col, direction) {
+  var rect = document.getElementById(idStr + 'PegmanClipRect');
+  rect.setAttribute('x', col * Maze.SQUARE_SIZE + 1);
+  rect.setAttribute(
+      'y',
+      Maze.SQUARE_SIZE * (row + 0.5) - Maze.PEGMAN_HEIGHT / 2 - 8);
+  var img = document.getElementById(idStr + 'Pegman');
+  var x = Maze.SQUARE_SIZE * col - direction * Maze.PEGMAN_WIDTH + 1;
   img.setAttribute('x', x);
+  var y = Maze.SQUARE_SIZE * (row + 0.5) - Maze.PEGMAN_HEIGHT / 2 - 8;
   img.setAttribute('y', y);
+  img.setAttribute('visibility', 'visible');
 };
 
 /**
@@ -574,10 +610,6 @@ BlocklyApps.reset = function(first) {
   } else {
     Maze.pegmanD = Maze.startDirection;
     Maze.displayPegman(Maze.pegmanX, Maze.pegmanY, Maze.pegmanD * 4);
-  }
-
-  if (skin.idlePegmanAnimation) {
-    createIdlePegman(Maze.pegmanY, Maze.pegmanX, Maze.startDirection);
   }
 
   var svg = document.getElementById('svgMaze');
@@ -611,6 +643,11 @@ BlocklyApps.reset = function(first) {
     idlePegmanIcon.setAttribute('visibility', 'visible');
   } else {
     pegmanIcon.setAttribute('visibility', 'visible');
+  }
+
+  if (skin.wallPegmanAnimation) {
+    var wallPegmanIcon = document.getElementById('wallPegman');
+    wallPegmanIcon.setAttribute('visibility', 'hidden');
   }
 
   // Move the init dirt marker icons into position.
@@ -1095,6 +1132,13 @@ Maze.scheduleFail = function(forward) {
     Maze.pidList.push(window.setTimeout(function() {
       Maze.displayPegman(Maze.pegmanX, Maze.pegmanY, direction16);
     }, stepSpeed * 3));
+    if (skin.wallPegmanAnimation) {
+      Maze.pidList.push(window.setTimeout(function() {
+        var pegmanIcon = document.getElementById('pegman');
+        pegmanIcon.setAttribute('visibility', 'hidden');
+        updatePegmanAnimation('wall', Maze.pegmanY, Maze.pegmanX, Maze.pegmanD);
+      }, stepSpeed * 4));
+    }
   } else if (squareType == SquareType.OBSTACLE) {
     // Play the sound
     BlocklyApps.playAudio('obstacle', {volume : 0.5});
