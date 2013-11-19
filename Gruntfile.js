@@ -65,7 +65,7 @@ var LOCALES = (LOCALIZE ? [
 ]);
 
 config.clean = {
-  all: ['build', 'dist']
+  all: ['build']
 };
 
 config.copy = {
@@ -85,7 +85,7 @@ config.copy = {
         expand: true,
         cwd: 'build/browserified',
         src: ['**/*.js'],
-        dest: 'dist/js'
+        dest: 'build/package/js'
       }
     ]
   },
@@ -95,14 +95,14 @@ config.copy = {
         expand: true,
         cwd: 'static/',
         src: ['**'],
-        dest: 'dist/media'
+        dest: 'build/package/media'
       },
       {
         expand: true,
         cwd: 'lib/blockly/media',
         src: ['**'],
         //TODO: Would be preferrable to separate Blockly media.
-        dest: 'dist/media'
+        dest: 'build/package/media'
       }
     ]
   }
@@ -114,13 +114,13 @@ config.sass = {
       outputStyle: (MINIFY ? 'compressed' : 'nested')
     },
     files: {
-      'dist/css/common.css': 'style/common.scss'
+      'build/package/css/common.css': 'style/common.scss'
     }
   }
 };
 APPS.forEach(function(app) {
   var src = 'style/' + app + '/style.scss';
-  var dest = 'dist/css/' + app + '.css';
+  var dest = 'build/package/css/' + app + '.css';
   config.sass.all.files[dest] = src;
 });
 
@@ -181,7 +181,7 @@ LOCALES.forEach(function(locale) {
       'lib/blockly/javascript_compressed.js',
       'lib/blockly/' + locale + '.js'
     ],
-    dest: 'dist/js/' + locale + '/vendor.js'
+    dest: 'build/package/js/' + locale + '/vendor.js'
   };
 });
 
@@ -189,7 +189,7 @@ config.express = {
   server: {
     options: {
       port: 8000,
-      bases: path.resolve(__dirname, 'dist'),
+      bases: path.resolve(__dirname, 'build/package'),
       server: path.resolve(__dirname, './src/dev/server.js'),
       livereload: true
     }
@@ -201,7 +201,7 @@ APPS.forEach(function(app) {
   LOCALES.forEach(function(locale) {
     var relname = locale + '/' + app + '.js';
     var src = 'build/browserified/' + relname;
-    var dest = 'dist/js/' + relname;
+    var dest = 'build/package/js/' + relname;
     uglifiedFiles[dest] = [src];
   });
 });
@@ -237,7 +237,7 @@ config.watch = {
     tasks: ['pseudoloc', 'messages', 'browserify', DIST_BROWSERIFIED]
   },
   dist: {
-    files: ['dist/**/*'],
+    files: ['build/package/**/*'],
     options: {
       livereload: true
     }
@@ -273,13 +273,6 @@ config.mochaTest = {
   }
 };
 
-config.release = {
-  options: {
-    folder: 'dist',
-    tagName: 'v<%= version %>'
-  }
-};
-
 module.exports = function(grunt) {
 
   grunt.initConfig(config);
@@ -294,7 +287,6 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-express');
   grunt.loadNpmTasks('grunt-browserify');
   grunt.loadNpmTasks('grunt-sass');
-  grunt.loadNpmTasks('grunt-release-bbloom');
   grunt.loadNpmTasks('grunt-mocha-test');
 
   grunt.loadTasks('tasks');
