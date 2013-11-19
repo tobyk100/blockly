@@ -32,6 +32,11 @@ exports.install = function(blockly, skin) {
   var generator = blockly.Generator.get('JavaScript');
   blockly.JavaScript = generator;
 
+  var gensym = function(name) {
+    var NAME_TYPE = blockly.Variables.NAME_TYPE;
+    return generator.variableDB_.getDistinctName(name, NAME_TYPE);
+  };
+
   // Create a smaller palette.
   blockly.FieldColour.COLOURS = [
     // Row 1.
@@ -222,7 +227,7 @@ exports.install = function(blockly, skin) {
       this.setHSV(312, 0.32, 0.62);
       this.appendDummyInput()
           .appendTitle(blockly.Msg.VARIABLES_GET_TITLE)
-          .appendTitle(new blockly.FieldLabel('length'), 'VAR');
+          .appendTitle(new blockly.FieldLabel(msg.lengthParameter()), 'VAR');
       this.setOutput(true);
       this.setTooltip(blockly.Msg.VARIABLES_GET_TOOLTIP);
     },
@@ -294,8 +299,7 @@ exports.install = function(blockly, skin) {
     // Generate JavaScript for drawing a square.
     var value_length = generator.valueToCode(
         this, 'VALUE', generator.ORDER_ATOMIC);
-    var loopVar = generator.variableDB_.getDistinctName(
-        'count', blockly.Variables.NAME_TYPE);
+    var loopVar = gensym('count');
     return [
         // The generated comment helps detect required blocks.
         // Don't change it without changing REQUIRED_BLOCKS.
@@ -329,14 +333,10 @@ exports.install = function(blockly, skin) {
     // Generate JavaScript for drawing a snowman in front of the turtle.
     var value = generator.valueToCode(
         this, 'VALUE', generator.ORDER_ATOMIC);
-    var distancesVar = generator.variableDB_.getDistinctName(
-        'distances', blockly.Variables.NAME_TYPE);
-    var loopVar = generator.variableDB_.getDistinctName(
-        'counter', blockly.Variables.NAME_TYPE);
-    var degreeVar = generator.variableDB_.getDistinctName(
-        'degree', blockly.Variables.NAME_TYPE);
-    var distanceVar = generator.variableDB_.getDistinctName(
-        'distance', blockly.Variables.NAME_TYPE);
+    var distancesVar = gensym('distances');
+    var loopVar = gensym('counter');
+    var degreeVar = gensym('degree');
+    var distanceVar = gensym('distance');
     return [
       // The generated comment helps detect required blocks.
       // Don't change it without changing REQUIRED_BLOCKS.

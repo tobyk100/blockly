@@ -1,4 +1,7 @@
 <%
+
+var msg = require('../../locale/current/maze');
+
 /**
  * Template to create function for filling in shovels.
  */
@@ -6,7 +9,7 @@ var fillShovelfuls = function(n) { -%>
   <block type="procedures_defnoreturn" x="20" y="200" editable="false"
     deletable="false">
     <mutation></mutation>
-    <title name="NAME">fill <%= n %></title>
+    <title name="NAME"><%= msg.fillN({shovelFuls: n}) %></title>
     <statement name="STACK">
       <block type="controls_repeat" editable="false" deletable="false"
         movable="false">
@@ -95,18 +98,18 @@ var removeShovelfuls = function(n) { -%>
   <% } else if (level == 7) { -%>
     <block type="procedures_callnoreturn" x="20" y="70" editable="false"
       deletable="false">
-      <mutation name="avoid the cow and remove 1"></mutation>
+      <mutation name="<%= msg.avoidCowAndRemove() %>"></mutation>
     </block>
     <block type="procedures_defnoreturn" x="20" y="200" editable="false"
       deletable="false">
       <mutation></mutation>
-      <title name="NAME">avoid the cow and remove 1</title>
+      <title name="NAME"><%= msg.avoidCowAndRemove() %></title>
     </block>
   <% } else if (level == 8) { -%>
     <block type="procedures_defnoreturn" x="20" y="200" editable="false"
       deletable="false">
       <mutation></mutation>
-      <title name="NAME">avoid the cow and remove 1</title>
+      <title name="NAME"><%= msg.avoidCowAndRemove() %></title>
       <statement name="STACK">
         <block type="maze_turn" editable="false" deletable="false"
           movable="false">
@@ -273,7 +276,7 @@ var removeShovelfuls = function(n) { -%>
     <block type="procedures_defnoreturn" x="300" y="200" editable="false"
       deletable="false">
       <mutation></mutation>
-      <title name="NAME">fill stack of 2 holes</title>
+      <title name="NAME"><%= msg.fillStack() %></title>
       <statement name="STACK">
         <block type="maze_turn" editable="false" deletable="false"
           movable="false">
@@ -328,7 +331,7 @@ var removeShovelfuls = function(n) { -%>
     <block type="procedures_defnoreturn" x="20" y="200" editable="false"
       deletable="false">
       <mutation></mutation>
-      <title name="NAME">remove 1 and avoid the cow</title>
+      <title name="NAME"><%= msg.removeAndAvoidTheCow() %></title>
       <statement name="STACK">
         <block type="maze_dig" editable="false" deletable="false"
           movable="false">
@@ -550,12 +553,12 @@ var removeShovelfuls = function(n) { -%>
   <% } else if (level == 7) { -%>
     <block type="procedures_callnoreturn" x="20" y="70"
       editable="false" deletable="false" movable="false">
-      <mutation name="remove square"></mutation>
+      <mutation name="<%= msg.removeSquare() %>"></mutation>
     </block>
     <block type="procedures_defnoreturn" x="20" y="200"
       editable="false" deletable="false" movable="false">
       <mutation></mutation>
-      <title name="NAME">remove square</title>
+      <title name="NAME"><%= msg.removeSquare() %></title>
       <statement name="STACK">
         <block type="controls_repeat">
           <title name="TIMES">4</title>
@@ -581,7 +584,7 @@ var removeShovelfuls = function(n) { -%>
     </block>
   <% } else if (level == 8) { -%>
     <block type="procedures_callnoreturn" x="20" y="70">
-      <mutation name="fill square"></mutation>
+      <mutation name="<%= msg.fillSquare() %>"></mutation>
       <next>
         <block type="controls_repeat">
           <title name="TIMES">5</title>
@@ -590,7 +593,7 @@ var removeShovelfuls = function(n) { -%>
           </statement>
           <next>
             <block type="procedures_callnoreturn">
-              <mutation name="remove square"></mutation>
+              <mutation name="<%= msg.removeSquare() %>"></mutation>
             </block>
           </next>
         </block>
@@ -599,7 +602,7 @@ var removeShovelfuls = function(n) { -%>
     <block type="procedures_defnoreturn" deletable="false" movable="false"
       editable="false" x="20" y="250">
       <mutation></mutation>
-      <title name="NAME">remove square</title>
+      <title name="NAME"><%= msg.removeSquare() %></title>
       <statement name="STACK">
         <block type="controls_repeat">
           <title name="TIMES">4</title>
@@ -626,7 +629,7 @@ var removeShovelfuls = function(n) { -%>
     <block type="procedures_defnoreturn" deletable="false" movable="false"
       editable="false" x="350" y="250">
       <mutation></mutation>
-      <title name="NAME">fill square</title>
+      <title name="NAME"><%= msg.fillSquare() %></title>
       <statement name="STACK">
         <block type="controls_repeat">
           <title name="TIMES">4</title>
@@ -670,8 +673,8 @@ var removeShovelfuls = function(n) { -%>
       </value>
       <statement name="DO">
         <block type="procedures_callnoreturn" inline="false">
-          <mutation name="remove pile">
-            <arg name="height"></arg>
+          <mutation name="<%= msg.removePile() %>">
+            <arg name="<%= msg.heightParameter() %>"></arg>
           </mutation>
           <value name="ARG0">
             <block type="math_number">
@@ -687,9 +690,9 @@ var removeShovelfuls = function(n) { -%>
     <block type="procedures_defnoreturn" x="20" y="250" editable="false"
       deletable="false" movable="false">
       <mutation>
-        <arg name="height"></arg>
+        <arg name="<%= msg.heightParameter() %>"></arg>
       </mutation>
-      <title name="NAME">remove pile</title>
+      <title name="NAME"><%= msg.removePile() %></title>
       <statement name="STACK">
         <block type="controls_repeat_ext" inline="true">
           <value name="TIMES">
