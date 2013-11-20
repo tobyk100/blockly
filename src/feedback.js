@@ -255,7 +255,7 @@ var getShowCodeElement = function(options) {
     showCodeLink.innerHTML = require('./templates/showCode.html')();
     var button = showCodeLink.querySelector('#show-code-button');
 
-    button.addEventListener('click', function() {
+    dom.addEventListener(button, 'click', function() {
       var codeDiv = getGeneratedCodeElement();
       showCodeDiv.appendChild(codeDiv);
       button.style.display = 'none';

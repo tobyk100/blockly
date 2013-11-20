@@ -2,7 +2,7 @@ exports.addReadyListener = function(callback) {
   if (document.readyState === "complete") {
     setTimeout(callback, 1);
   } else {
-    window.addEventListener('load', callback, false);
+    dom.addEventListener(window, 'load', callback, false);
   }
 };
 
@@ -19,7 +19,7 @@ exports.setText = function(node, string) {
 };
 
 exports.addClickTouchEvent = function(element, handler) {
-  element.addEventListener('click', handler, false);
+  dom.addEventListener(element, 'click', handler, false);
 
   var isIE11Touch = window.navigator.pointerEnabled;
   var isIE10Touch = window.navigator.msPointerEnabled;
@@ -35,7 +35,7 @@ exports.addClickTouchEvent = function(element, handler) {
   }
   if (key) {
     var touchEvent = TOUCH_MAP.click[key];
-    element.addEventListener(touchEvent, handler, false);
+    dom.addEventListener(element, touchEvent, handler, false);
   }
 };
 
@@ -70,3 +70,11 @@ exports.windowMetrics = function() {
   };
 };
 
+
+exports.addEventListener = function(element, eventName, handler, useCapture) {
+  if (document.addEventListener) {
+    element.addEventListener(eventName, handler, !!useCapture);
+  } else {
+    element.attachEvent('on' + eventName, handler);
+  }
+};

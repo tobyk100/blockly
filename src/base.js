@@ -123,7 +123,7 @@ BlocklyApps.init = function(config) {
       codeTextbox.innerHTML += '// ' + html + '<br><br><br>';
     }
     // Needed to prevent blockly from swallowing up the backspace key
-    codeTextbox.addEventListener('keydown', codeKeyDown, true);
+    dom.addEventListener(codeTextbox, 'keydown', codeKeyDown, true);
   }
 
   BlocklyApps.Dialog = config.Dialog;
@@ -152,7 +152,7 @@ BlocklyApps.init = function(config) {
     rotateContainer.style.width = windowMetrics.width + 'px';
     rotateContainer.style.height = windowMetrics.height + 'px';
   };
-  window.addEventListener('orientationchange', orientationHandler);
+  dom.addEventListener(window, 'orientationchange', orientationHandler);
   orientationHandler();
 
   if (config.loadAudio) {
@@ -192,11 +192,11 @@ BlocklyApps.init = function(config) {
     BlocklyApps.onResize(config.getDisplayWidth());
   };
 
-  window.addEventListener('scroll', function() {
+  dom.addEventListener(window, 'scroll', function() {
     onResize();
     Blockly.fireUiEvent(window, 'resize');
   });
-  window.addEventListener('resize', onResize);
+  dom.addEventListener(window, 'resize', onResize);
   onResize();
 
   if (!config.level.editCode) {

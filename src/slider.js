@@ -197,7 +197,7 @@ Slider.prototype.mouseToSvg_ = function(e) {
  * @private
  */
 Slider.bindEvent_ = function(element, name, func) {
-  element.addEventListener(name, func, false);
+  dom.addEventListener(element, name, func, false);
 };
 
 module.exports = Slider;
