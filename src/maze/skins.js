@@ -41,6 +41,8 @@ var CONFIGS = {
     idlePegmanAnimation: 'idle_avatar.gif',
     wallPegmanAnimation: 'wall_avatar.png',
     movePegmanAnimation: 'move_avatar.png',
+    movePegmanAnimationSpeedScale: 1.5,
+    movePegmanAnimationFrameNumber: 9,
     hittingWallAnimation: 'wall.gif',
     approachingGoalAnimation: 'close_goal.png',
     pegmanHeight: 68,
@@ -78,6 +80,10 @@ exports.load = function(assetUrl, id) {
       skin.assetUrl(config.wallPegmanAnimation);
   skin.movePegmanAnimation =
       skin.assetUrl(config.movePegmanAnimation);
+  skin.movePegmanAnimationSpeedScale =
+      config.movePegmanAnimationSpeedScale || 1;
+  // This is required when move pegman animation is set
+  skin.movePegmanAnimationFrameNumber = config.movePegmanAnimationFrameNumber;
   skin.hittingWallAnimation =
       skin.assetUrl(config.hittingWallAnimation);
   skin.approachingGoalAnimation =
@@ -107,7 +113,7 @@ exports.load = function(assetUrl, id) {
   } else {
     skin.background = skin.assetUrl('background.png');
   }
-  skin.pegmanHeight = config.pegmanHeight;
-  skin.pegmanWidth = config.pegmanWidth;
+  skin.pegmanHeight = config.pegmanHeight || 52;
+  skin.pegmanWidth = config.pegmanWidth || 49;
   return skin;
 };

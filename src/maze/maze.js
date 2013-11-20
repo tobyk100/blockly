@@ -91,8 +91,8 @@ var loadLevel = function() {
   initWallMap();
   // Pixel height and width of each maze square (i.e. tile).
   Maze.SQUARE_SIZE = 50;
-  Maze.PEGMAN_HEIGHT = skin.pegmanHeight || 52;
-  Maze.PEGMAN_WIDTH = skin.pegmanWidth || 49;
+  Maze.PEGMAN_HEIGHT = skin.pegmanHeight;
+  Maze.PEGMAN_WIDTH = skin.pegmanWidth;
   // Height and width of the goal and obstacles.
   Maze.MARKER_HEIGHT = 43;
   Maze.MARKER_WIDTH = 50;
@@ -928,9 +928,8 @@ Maze.execute = function() {
   }
 
   // Speeding up specific levels
-  var scaledStepSpeed = stepSpeed * Maze.scale.stepSpeed;
-  // When using animation, needs more time.
-  scaledStepSpeed = scaledStepSpeed * (skin.movePegmanAnimation ? 1.5 : 1);
+  var scaledStepSpeed =
+      stepSpeed * Maze.scale.stepSpeed * skin.movePegmanAnimationSpeedScale;
   Maze.pidList.push(window.setTimeout(Maze.animate,scaledStepSpeed));
 };
 
@@ -1037,9 +1036,8 @@ Maze.animate = function() {
   }
 
   // Speeding up specific levels
-  var scaledStepSpeed = stepSpeed * Maze.scale.stepSpeed;
-  // When using animation, needs more time.
-  scaledStepSpeed = scaledStepSpeed * (skin.movePegmanAnimation ? 1.5 : 1);
+  var scaledStepSpeed =
+      stepSpeed * Maze.scale.stepSpeed * skin.movePegmanAnimationSpeedScale;
   Maze.pidList.push(window.setTimeout(Maze.animate, scaledStepSpeed));
 };
 
@@ -1054,25 +1052,25 @@ Maze.schedule = function(startPos, endPos) {
       pegmanIcon.setAttribute('visibility', 'hidden');
       updatePegmanAnimation({
         idStr: 'move',
-        col: startPos[0] + deltas[0] * frameIdx,
-        row: startPos[1] + deltas[1] * frameIdx,
+        col: startPos[0] + deltaX * frameIdx,
+        row: startPos[1] + deltaY * frameIdx,
         direction: direction,
         rowIdx: frameIdx
       });
     }, stepSpeed * 6 / numFrames * frameIdx));
   }
 
-  var deltas, numFrames;
+  var deltaX, deltaY, deltaDirection, numFrames;
   if (skin.movePegmanAnimation && endPos[2] - startPos[2] === 0) {
     // If move animation of pegman is set, and this is not a turn.
     // Show the animation.
     var pegmanIcon = document.getElementById('pegman');
     var movePegmanIcon = document.getElementById('movePegman');
 
-    numFrames = 9;
-    deltas = [(endPos[0] - startPos[0]) / numFrames,
-              (endPos[1] - startPos[1]) / numFrames,
-              (endPos[2] - startPos[2]) / numFrames];
+    numFrames = skin.movePegmanAnimationFrameNumber;
+    deltaX = (endPos[0] - startPos[0]) / numFrames;
+    deltaY = (endPos[1] - startPos[1]) / numFrames;
+    deltaDirection = (endPos[2] - startPos[2]) / numFrames;
     var direction = startPos[2] / 4;
     var frameIdx;
 
@@ -1089,23 +1087,23 @@ Maze.schedule = function(startPos, endPos) {
     }, stepSpeed * 6 / numFrames * frameIdx));
   } else {
     numFrames = 4;
-    deltas = [(endPos[0] - startPos[0]) / numFrames,
-              (endPos[1] - startPos[1]) / numFrames,
-              (endPos[2] - startPos[2]) / numFrames];
-    Maze.displayPegman(startPos[0] + deltas[0],
-                       startPos[1] + deltas[1],
-                       Maze.constrainDirection16(startPos[2] + deltas[2]));
+    deltaX = (endPos[0] - startPos[0]) / numFrames;
+    deltaY = (endPos[1] - startPos[1]) / numFrames;
+    deltaDirection = (endPos[2] - startPos[2]) / numFrames;
+    Maze.displayPegman(startPos[0] + deltaX,
+                       startPos[1] + deltaY,
+                       Maze.constrainDirection16(startPos[2] + deltaDirection));
     Maze.pidList.push(window.setTimeout(function() {
         Maze.displayPegman(
-            startPos[0] + deltas[0] * 2,
-            startPos[1] + deltas[1] * 2,
-            Maze.constrainDirection16(startPos[2] + deltas[2] * 2));
+            startPos[0] + deltaX * 2,
+            startPos[1] + deltaY * 2,
+            Maze.constrainDirection16(startPos[2] + deltaDirection * 2));
     }, stepSpeed));
     Maze.pidList.push(window.setTimeout(function() {
         Maze.displayPegman(
-            startPos[0] + deltas[0] * 3,
-            startPos[1] + deltas[1] * 3,
-            Maze.constrainDirection16(startPos[2] + deltas[2] * 3));
+            startPos[0] + deltaX * 3,
+            startPos[1] + deltaY * 3,
+            Maze.constrainDirection16(startPos[2] + deltaDirection * 3));
     }, stepSpeed * 2));
       Maze.pidList.push(window.setTimeout(function() {
           Maze.displayPegman(endPos[0], endPos[1],
