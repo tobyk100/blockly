@@ -1049,6 +1049,19 @@ Maze.animate = function() {
  * @param {!Array.<number>} endPos X, Y and direction ending points.
  */
 Maze.schedule = function(startPos, endPos) {
+  function updateMoveFrame(frameIdx) {
+    Maze.pidList.push(window.setTimeout(function() {
+      pegmanIcon.setAttribute('visibility', 'hidden');
+      updatePegmanAnimation({
+        idStr: 'move',
+        col: startPos[0] + deltas[0] * frameIdx,
+        row: startPos[1] + deltas[1] * frameIdx,
+        direction: direction,
+        rowIdx: frameIdx
+      });
+    }, stepSpeed * 6 / numFrames * frameIdx));
+  }
+
   var deltas, numFrames;
   if (skin.movePegmanAnimation && endPos[2] - startPos[2] === 0) {
     // If move animation of pegman is set, and this is not a turn.
@@ -1062,19 +1075,9 @@ Maze.schedule = function(startPos, endPos) {
               (endPos[2] - startPos[2]) / numFrames];
     var direction = startPos[2] / 4;
     var frameIdx;
+
     for (frameIdx = 0; frameIdx < numFrames; frameIdx++) {
-      (function(frameIdx) {
-        Maze.pidList.push(window.setTimeout(function() {
-          pegmanIcon.setAttribute('visibility', 'hidden');
-          updatePegmanAnimation({
-            idStr: 'move',
-            col: startPos[0] + deltas[0] * frameIdx,
-            row: startPos[1] + deltas[1] * frameIdx,
-            direction: direction,
-            rowIdx: frameIdx
-          });
-        }, stepSpeed * 6 / numFrames * frameIdx));
-      })(frameIdx);
+      updateMoveFrame(frameIdx);
     }
 
     // Hide movePegman and set pegman to the end position.
