@@ -67,16 +67,16 @@ exports.load = function(assetUrl, id) {
     skin.nonDisappearingPegmanHittingObstacle = false;
   }
   skin.obstacleScale = config.obstacleScale || 1.0;
-  skin.largerObstacleAnimationTiles = config.largerObstacleAnimationTiles ?
-      skin.assetUrl(config.largerObstacleAnimationTiles) : null;
-  skin.idlePegmanAnimation = config.idlePegmanAnimation ?
-      skin.assetUrl(config.idlePegmanAnimation) : null;
-  skin.wallPegmanAnimation = config.wallPegmanAnimation ?
-      skin.assetUrl(config.wallPegmanAnimation) : null;
-  skin.hittingWallAnimation = config.hittingWallAnimation ?
-      skin.assetUrl(config.hittingWallAnimation) : null;
-  skin.approachingGoalAnimation = config.approachingGoalAnimation ?
-      skin.assetUrl(config.approachingGoalAnimation) : null;
+  skin.largerObstacleAnimationTiles =
+      skin.assetUrl(config.largerObstacleAnimationTiles);
+  skin.idlePegmanAnimation =
+      skin.assetUrl(config.idlePegmanAnimation);
+  skin.wallPegmanAnimation =
+      skin.assetUrl(config.wallPegmanAnimation);
+  skin.hittingWallAnimation =
+      skin.assetUrl(config.hittingWallAnimation);
+  skin.approachingGoalAnimation =
+      skin.assetUrl(config.approachingGoalAnimation);
   // Sounds
   skin.obstacleSound =
       [skin.assetUrl('obstacle.mp3'), skin.assetUrl('obstacle.ogg')];

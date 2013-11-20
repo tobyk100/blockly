@@ -559,7 +559,6 @@ var createPegmanAnimation = function(idStr, pegmanImage,
   svg.appendChild(img);
   // Update pegman icon & clip path.
   if (optCol !== undefined && optDirection !== undefined) {
-    console.log(optDirection);
     var x = Maze.SQUARE_SIZE * optCol - optDirection * Maze.PEGMAN_WIDTH + 1;
     img.setAttribute('x', x);
   }
