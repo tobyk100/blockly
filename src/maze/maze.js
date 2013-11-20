@@ -1061,29 +1061,26 @@ Maze.schedule = function(startPos, endPos) {
               (endPos[1] - startPos[1]) / numFrames,
               (endPos[2] - startPos[2]) / numFrames];
     var direction = startPos[2] / 4;
-    var frameIdxArray = [];
     var frameIdx;
     for (frameIdx = 0; frameIdx < numFrames; frameIdx++) {
-      frameIdxArray.push(frameIdx);
-      Maze.pidList.push(window.setTimeout(function() {
-        frameIdx = frameIdxArray.shift();
-        pegmanIcon.setAttribute('visibility', 'hidden');
-        updatePegmanAnimation({
-          idStr: 'move',
-          col: startPos[0] + deltas[0] * frameIdx,
-          row: startPos[1] + deltas[1] * frameIdx,
-          direction: direction,
-          rowIdx: frameIdx
-        });
-      }, stepSpeed * 6 / numFrames * frameIdx));
+      (function(frameIdx) {
+        Maze.pidList.push(window.setTimeout(function() {
+          pegmanIcon.setAttribute('visibility', 'hidden');
+          updatePegmanAnimation({
+            idStr: 'move',
+            col: startPos[0] + deltas[0] * frameIdx,
+            row: startPos[1] + deltas[1] * frameIdx,
+            direction: direction,
+            rowIdx: frameIdx
+          });
+        }, stepSpeed * 6 / numFrames * frameIdx));
+      })(frameIdx);
     }
 
     // Hide movePegman and set pegman to the end position.
-    frameIdxArray.push(frameIdx);
     Maze.pidList.push(window.setTimeout(function() {
       movePegmanIcon.setAttribute('visibility', 'hidden');
       pegmanIcon.setAttribute('visibility', 'visible');
-      frameIdx = frameIdxArray.shift();
       Maze.displayPegman(endPos[0], endPos[1],
                          Maze.constrainDirection16(endPos[2]));
     }, stepSpeed * 6 / numFrames * frameIdx));
