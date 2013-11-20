@@ -1,57 +1,13 @@
 $root: '/blockly/media/turtle/'; //TODO: Parameterize for asset pipeline
 
-/* Buttons */
-// This differs from common.css.
-button {
-  margin: 5px;
-  margin-right: 12px;
-  margin-left: 0;
-  padding: 10px;
-  border-radius: 5px;
-  border: 1px solid #ddd;
-  background-color: #eee;
-  font-size: large;
-  color: #000;
-}
-button.launch {
-  border: 1px solid #0DA38A;
-  background-color: #0DA38A;
-  color: #fff;
-  min-width: 96px;
-  /* Can't use "text-align: start" due to IE. */
-  text-align: left;
-}
-html[dir="RTL"] button.launch {
-  text-align: right;
-}
-button.launch>img {
-  opacity: 1;
-  vertical-align: text-bottom;
-}
-button:active {
-  border: 1px solid blue !important;
-}
-button:hover, .buttonHover {
-  box-shadow: 2px 2px 5px #888;
-}
-button>img {
-  opacity: 0.6;
-}
-button.disabled {
-  visibility: hidden;
-}
-
-/* Block areas */
-#toolbarDiv {
-  text-align: center;
-  width: 400px;
-  padding-top: 1em;
-}
-#display {
-  border: 1px solid #ccc;
+#visualization {
+  background-color: #fff;
 }
 
 /* Slider. */
+.sliderContainer {
+  float: left
+}
 .sliderTrack {
   stroke: #aaa;
   stroke-width: 6px;

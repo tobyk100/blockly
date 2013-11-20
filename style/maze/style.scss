@@ -1,27 +1,7 @@
 $root: '/blockly/media/maze/'; //TODO: Parameterize for asset pipeline
 
-body {
-  background-color: #F2F2F2;
-  margin-top: 0;
-}
-
-#visualization {
-  position: relative;
-  float: left;
-}
-
 #svgMaze {
   border: solid 1px #DBDBDB;
-}
-#shadow {
-  display: none;
-  position: absolute;
-  top: 0;
-  left: 0;
-  height: 120%;
-  width: 100%;
-  background-color: #000;
-  opacity: 0.3;
 }
 
 /* 'Look' icon */
@@ -31,17 +11,6 @@ body {
   stroke-width: 10;
   stroke-linecap: round;
   stroke-opacity: 0.7;
-}
-
-/* Buttons */
-button.disabled, button[disabled=disabled] {
-  border: 1px solid #C7C7C7;
-  background-color: #C7C7C7;
-  box-shadow: none;
-}
-#helpButton {
-  margin: 5px 0;
-  height: 40px;
 }
 
 /* Sprited icons. */
@@ -67,7 +36,4 @@ button.disabled, button[disabled=disabled] {
 
 .hide {
   display: none;
-}
-#gameButtons {
-  clear: left;
 }

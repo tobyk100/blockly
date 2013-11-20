@@ -67,14 +67,13 @@ var helpArea = function(html) { -%>
             <%= msg.resetProgram() %>
         </button>
       </td>
+      <% if (data.controls) { %>
+        <%- data.controls %>
+      <% } %>
     </tr>
   </table>
 
   <% instructions() %>
-
-  <% if (data.controls) { %>
-    <%- data.controls %>
-  <% } %>
   <% helpArea(data.helpHtml) %>
 
 </div>
