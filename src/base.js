@@ -249,10 +249,15 @@ exports.inject = function(div, options) {
 BlocklyApps.isRtl = function() {
   var head = document.getElementsByTagName('head')[0];
   if (head && head.parentElement) {
-    return head.parentElement.getAttribute('dir').toLowerCase() == 'rtl';
+    var dir = head.parentElement.getAttribute('dir');
+    return (dir && dir.toLowerCase() == 'rtl');
   } else {
     return false;
   }
+};
+
+BlocklyApps.localeDirection = function() {
+  return (BlocklyApps.isRtl() ? 'rtl' : 'ltr');
 };
 
 /**

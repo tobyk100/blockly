@@ -310,6 +310,7 @@ var FeedbackBlocks = function(options) {
     options: {
       readonly: true,
       locale: BlocklyApps.LOCALE,
+      localeDirection: BlocklyApps.localeDirection(),
       baseUrl: BlocklyApps.BASE_URL,
       cacheBust: BlocklyApps.CACHE_BUST,
       skinId: options.skin,
