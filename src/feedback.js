@@ -251,6 +251,7 @@ var getShowCodeElement = function(options) {
     }
 
     var showCodeLink = document.createElement('div');
+    showCodeLink.className = 'show-code-div';
     showCodeLink.innerHTML = require('./templates/showCode.html')();
     var button = showCodeLink.querySelector('#show-code-button');
 

@@ -38,10 +38,12 @@ html[dir="RTL"] .farSide {
   bottom: 10px;
   margin-left: 415px;
 }
-#show-code {
+.show-code-div {
   @media screen and (max-device-width: 540px) {
     display: none;
   }
+  margin-top: 5px;
+  margin-bottom: 5px;
 }
 #codeTextbox {
   position: absolute;
@@ -168,6 +170,7 @@ input[type="radio"] {
   vertical-align:top;
   display:inline-block;
   max-width:100px;
+  margin-bottom:10px;
 }
 .trophyimg {
   width:80px;
@@ -185,8 +188,11 @@ input[type="radio"] {
 }
 .linesOfCodeMsg {
   font-size: 20px;
+  line-height: normal;
   color: #5A6A73;
-  margin-top: 35px;
+}
+#show-code {
+  margin-bottom: 5px;
 }
 #hintBubble {
   position: absolute;
@@ -311,6 +317,7 @@ input[type="radio"] {
   margin-top: 10px;
   .generatedCodeMessage {
     font-size: 14px;
+    line-height: inherit;
     color: $charcoal;
   }
   .generatedCode {
@@ -324,13 +331,14 @@ $modal-image-margin-gap: 10px;
 .modal-content {
   margin-left: $modal-image-width + $modal-image-margin-gap;
   p, pre {
-    line-height: 24px;
+    line-height: 27px;
     font-size: 24px;
     color: $purple;
   }
   .congrats {
-    font-size: 30px;
+    font-size: 27px;
     line-height: 30px;
+    margin-bottom: 15px;
   }
 
   .instruction-image {
@@ -351,6 +359,10 @@ $modal-image-margin-gap: 10px;
   }
 }
 
+.feedback-content {
+  
+}
+
 .dialog-title {
   font-weight: bold;
 }
@@ -358,16 +370,21 @@ $modal-image-margin-gap: 10px;
 #ok-button {
   background-color: $orange;
   color: white;
+  min-width: 100px;
 }
 
 #again-button {
   background-color: $green;
   color: white;
+  margin-left: 0px;
+  margin-right: 10px;
 }
 
 #continue-button {
   background-color: $orange;
   color: white;
+  margin-left: 0px;
+  margin-right: 10px;
 }
 
 .modal-image {
