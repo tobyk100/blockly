@@ -17,7 +17,7 @@ app.get('/', function(req, res) {
 });
 
 var renderApp = function(app, req, res) {
-  ['locale', 'level', 'skin'].forEach(function(key) {
+  ['locale', 'level', 'skin', 'dir'].forEach(function(key) {
     if (!req.query[key]) {
       res.end('Expected ' + key + ' query parameter');
       return;
@@ -27,6 +27,7 @@ var renderApp = function(app, req, res) {
     app: app,
     options: {
       locale: req.query.locale,
+      localeDirection: req.query.dir,
       containerId: 'blocklyApp',
       levelId: req.query.level,
       skinId: req.query.skin,

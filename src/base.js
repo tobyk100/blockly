@@ -249,7 +249,7 @@ exports.inject = function(div, options) {
 BlocklyApps.isRtl = function() {
   var head = document.getElementsByTagName('head')[0];
   if (head && head.parentElement) {
-    return head.parentElement.getAttribute('dir') == 'rtl';
+    return head.parentElement.getAttribute('dir').toLowerCase() == 'rtl';
   } else {
     return false;
   }
