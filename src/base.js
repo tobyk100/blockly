@@ -335,11 +335,14 @@ BlocklyApps.onResize = function(gameWidth) {
   var div = BlocklyApps.editCode ? codeTextbox : blocklyDiv;
 
   var blocklyDivParent = blocklyDiv.parentNode;
+  var metrics = dom.getMetrics(blocklyDivParent);
+  var height = metrics.height,
+      width = metrics.width;
 
   div.style.top = blocklyDivParent.offsetTop + 'px';
-  div.style.width = Math.min(1200, (parentWidth - (gameWidth + 15))) + 'px';
+  div.style.width = Math.min(1200, (width - (gameWidth + 15))) + 'px';
   div.style.marginLeft = (gameWidth + 15) + 'px';
-  div.style.height = parentHeight + 'px';
+  div.style.height = height + 'px';
 
   BlocklyApps.resizeHeaders();
 };
