@@ -40,6 +40,7 @@ var CONFIGS = {
     additionalSound: true,
     idlePegmanAnimation: 'idle_avatar.gif',
     wallPegmanAnimation: 'wall_avatar.png',
+    movePegmanAnimation: 'move_avatar.png',
     hittingWallAnimation: 'wall.gif',
     approachingGoalAnimation: 'close_goal.png',
     pegmanHeight: 68,
@@ -75,6 +76,8 @@ exports.load = function(assetUrl, id) {
       skin.assetUrl(config.idlePegmanAnimation);
   skin.wallPegmanAnimation =
       skin.assetUrl(config.wallPegmanAnimation);
+  skin.movePegmanAnimation =
+      skin.assetUrl(config.movePegmanAnimation);
   skin.hittingWallAnimation =
       skin.assetUrl(config.hittingWallAnimation);
   skin.approachingGoalAnimation =
