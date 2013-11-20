@@ -91,8 +91,8 @@ var loadLevel = function() {
   initWallMap();
   // Pixel height and width of each maze square (i.e. tile).
   Maze.SQUARE_SIZE = 50;
-  Maze.PEGMAN_HEIGHT = 52;
-  Maze.PEGMAN_WIDTH = 49;
+  Maze.PEGMAN_HEIGHT = skin.pegmanHeight;
+  Maze.PEGMAN_WIDTH = skin.pegmanWidth;
   // Height and width of the goal and obstacles.
   Maze.MARKER_HEIGHT = 43;
   Maze.MARKER_WIDTH = 50;
@@ -355,13 +355,31 @@ var drawMap = function() {
 
   // Add idle pegman.
   if (skin.idlePegmanAnimation) {
-    createPegmanAnimation('idle', skin.idlePegmanAnimation,
-                          Maze.start_.y,  Maze.start_.x, Maze.startDirection);
+    createPegmanAnimation({
+      idStr: 'idle',
+      pegmanImage: skin.idlePegmanAnimation,
+      row: Maze.start_.y,
+      col: Maze.start_.x,
+      direction: Maze.startDirection
+    });
   }
 
   // Add the hidden dazed pegman when hitting the wall.
   if (skin.wallPegmanAnimation) {
-    createPegmanAnimation('wall', skin.wallPegmanAnimation);
+    createPegmanAnimation({
+      idStr: 'wall',
+      pegmanImage: skin.wallPegmanAnimation
+    });
+  }
+
+  // Add the hidden moving pegman animation.
+  if (skin.movePegmanAnimation) {
+    createPegmanAnimation({
+      idStr: 'move',
+      pegmanImage: skin.movePegmanAnimation,
+      numColPegman: 4,
+      numRowPegman: 9
+    });
   }
 
 };
@@ -528,21 +546,32 @@ var removeDirt = function(row, col) {
   }
 };
 
-var createPegmanAnimation = function(idStr, pegmanImage,
-                                     optRow, optCol, optDirection) {
+/**
+  * Create sprite assets for pegman.
+  * @param options Specify different features of the pegman animation.
+  * idStr required identifier for the pegman.
+  * pegmanImage required which image to use for the animation.
+  * col which column the pegman is at.
+  * row which row the pegman is at.
+  * direction which direction the pegman is facing at.
+  * rowIdx which column of the pegman the animation needs, default is 0.
+  * numColPegman number of the pegman in each row, default is 4.
+  * numRowPegman number of the pegman in each column, default is 1.
+  */
+var createPegmanAnimation = function(options) {
   var svg = document.getElementById('svgMaze');
   // Create clip path.
   var clip = document.createElementNS(Blockly.SVG_NS, 'clipPath');
-  clip.setAttribute('id', idStr + 'PegmanClip');
+  clip.setAttribute('id', options.idStr + 'PegmanClip');
   var rect = document.createElementNS(Blockly.SVG_NS, 'rect');
-  rect.setAttribute('id', idStr + 'PegmanClipRect');
-  if (optCol !== undefined) {
-    rect.setAttribute('x',optCol * Maze.SQUARE_SIZE + 1);
+  rect.setAttribute('id', options.idStr + 'PegmanClipRect');
+  if (options.col !== undefined) {
+    rect.setAttribute('x', options.col * Maze.SQUARE_SIZE + 1);
   }
-  if (optRow !== undefined) {
+  if (options.row !== undefined) {
     rect.setAttribute(
         'y',
-        Maze.SQUARE_SIZE * (optRow + 0.5) - Maze.PEGMAN_HEIGHT / 2 - 8);
+        Maze.SQUARE_SIZE * (options.row + 0.5) - Maze.PEGMAN_HEIGHT / 2 - 8);
   }
   rect.setAttribute('width', Maze.PEGMAN_WIDTH);
   rect.setAttribute('height', Maze.PEGMAN_HEIGHT);
@@ -551,34 +580,48 @@ var createPegmanAnimation = function(idStr, pegmanImage,
   // Create image.
   var img = document.createElementNS(Blockly.SVG_NS, 'image');
   img.setAttributeNS(
-      'http://www.w3.org/1999/xlink', 'xlink:href', pegmanImage);
-  img.setAttribute('height', Maze.PEGMAN_HEIGHT);
-  img.setAttribute('width', Maze.PEGMAN_WIDTH * 4);
-  img.setAttribute('clip-path', 'url(#' + idStr + 'PegmanClip)');
-  img.setAttribute('id', idStr + 'Pegman');
+      'http://www.w3.org/1999/xlink', 'xlink:href', options.pegmanImage);
+  img.setAttribute('height', Maze.PEGMAN_HEIGHT * (options.numRowPegman || 1));
+  img.setAttribute('width', Maze.PEGMAN_WIDTH * (options.numColPegman || 4));
+  img.setAttribute('clip-path', 'url(#' + options.idStr + 'PegmanClip)');
+  img.setAttribute('id', options.idStr + 'Pegman');
   svg.appendChild(img);
   // Update pegman icon & clip path.
-  if (optCol !== undefined && optDirection !== undefined) {
-    console.log(optDirection);
-    var x = Maze.SQUARE_SIZE * optCol - optDirection * Maze.PEGMAN_WIDTH + 1;
+  if (options.col !== undefined && options.direction !== undefined) {
+    var x = Maze.SQUARE_SIZE * options.col -
+        options.direction * Maze.PEGMAN_WIDTH + 1;
     img.setAttribute('x', x);
   }
-  if (optRow !== undefined) {
-    var y = Maze.SQUARE_SIZE * (optRow + 0.5) - Maze.PEGMAN_HEIGHT / 2 - 8;
+  if (options.row !== undefined) {
+    var y = Maze.SQUARE_SIZE * (options.row + 0.5) -
+      (options.rowIdx || 0) * Maze.PEGMAN_HEIGHT -
+      Maze.PEGMAN_HEIGHT / 2 - 8;
     img.setAttribute('y', y);
   }
 };
 
-var updatePegmanAnimation = function(idStr, row, col, direction) {
-  var rect = document.getElementById(idStr + 'PegmanClipRect');
-  rect.setAttribute('x', col * Maze.SQUARE_SIZE + 1);
+/**
+  * Update sprite assets for pegman.
+  * @param options Specify different features of the pegman animation.
+  * idStr required identifier for the pegman.
+  * col required which column the pegman is at.
+  * row required which row the pegman is at.
+  * direction required which direction the pegman is facing at.
+  * rowIdx which column of the pegman the animation needs, default is 0.
+  */
+var updatePegmanAnimation = function(options) {
+  var rect = document.getElementById(options.idStr + 'PegmanClipRect');
+  rect.setAttribute('x', options.col * Maze.SQUARE_SIZE + 1);
   rect.setAttribute(
       'y',
-      Maze.SQUARE_SIZE * (row + 0.5) - Maze.PEGMAN_HEIGHT / 2 - 8);
-  var img = document.getElementById(idStr + 'Pegman');
-  var x = Maze.SQUARE_SIZE * col - direction * Maze.PEGMAN_WIDTH + 1;
+      Maze.SQUARE_SIZE * (options.row + 0.5) - Maze.PEGMAN_HEIGHT / 2 - 8);
+  var img = document.getElementById(options.idStr + 'Pegman');
+  var x = Maze.SQUARE_SIZE * options.col -
+      options.direction * Maze.PEGMAN_WIDTH + 1;
   img.setAttribute('x', x);
-  var y = Maze.SQUARE_SIZE * (row + 0.5) - Maze.PEGMAN_HEIGHT / 2 - 8;
+  var y = Maze.SQUARE_SIZE * (options.row + 0.5) -
+      (options.rowIdx || 0) * Maze.PEGMAN_HEIGHT -
+      Maze.PEGMAN_HEIGHT / 2 - 8;
   img.setAttribute('y', y);
   img.setAttribute('visibility', 'visible');
 };
@@ -649,6 +692,11 @@ BlocklyApps.reset = function(first) {
   if (skin.wallPegmanAnimation) {
     var wallPegmanIcon = document.getElementById('wallPegman');
     wallPegmanIcon.setAttribute('visibility', 'hidden');
+  }
+
+  if (skin.movePegmanAnimation) {
+    var movePegmanIcon = document.getElementById('movePegman');
+    movePegmanIcon.setAttribute('visibility', 'hidden');
   }
 
   // Move the init dirt marker icons into position.
@@ -880,8 +928,9 @@ Maze.execute = function() {
   }
 
   // Speeding up specific levels
-  var scaledStepSpeed = stepSpeed * Maze.scale.stepSpeed;
-  Maze.pidList.push(window.setTimeout(Maze.animate, scaledStepSpeed));
+  var scaledStepSpeed =
+      stepSpeed * Maze.scale.stepSpeed * skin.movePegmanAnimationSpeedScale;
+  Maze.pidList.push(window.setTimeout(Maze.animate,scaledStepSpeed));
 };
 
 /**
@@ -987,7 +1036,8 @@ Maze.animate = function() {
   }
 
   // Speeding up specific levels
-  var scaledStepSpeed = stepSpeed * Maze.scale.stepSpeed;
+  var scaledStepSpeed =
+      stepSpeed * Maze.scale.stepSpeed * skin.movePegmanAnimationSpeedScale;
   Maze.pidList.push(window.setTimeout(Maze.animate, scaledStepSpeed));
 };
 
@@ -997,27 +1047,69 @@ Maze.animate = function() {
  * @param {!Array.<number>} endPos X, Y and direction ending points.
  */
 Maze.schedule = function(startPos, endPos) {
-  var deltas = [(endPos[0] - startPos[0]) / 4,
-                (endPos[1] - startPos[1]) / 4,
-                (endPos[2] - startPos[2]) / 4];
-  Maze.displayPegman(startPos[0] + deltas[0],
-                     startPos[1] + deltas[1],
-                     Maze.constrainDirection16(startPos[2] + deltas[2]));
-  Maze.pidList.push(window.setTimeout(function() {
-      Maze.displayPegman(startPos[0] + deltas[0] * 2,
-          startPos[1] + deltas[1] * 2,
-          Maze.constrainDirection16(startPos[2] + deltas[2] * 2));
-    }, stepSpeed));
-  Maze.pidList.push(window.setTimeout(function() {
-      Maze.displayPegman(startPos[0] + deltas[0] * 3,
-          startPos[1] + deltas[1] * 3,
-          Maze.constrainDirection16(startPos[2] + deltas[2] * 3));
-    }, stepSpeed * 2));
-  Maze.pidList.push(window.setTimeout(function() {
-      Maze.displayPegman(endPos[0], endPos[1],
-          Maze.constrainDirection16(endPos[2]));
-    }, stepSpeed * 3));
+  function updateMoveFrame(frameIdx) {
+    Maze.pidList.push(window.setTimeout(function() {
+      pegmanIcon.setAttribute('visibility', 'hidden');
+      updatePegmanAnimation({
+        idStr: 'move',
+        col: startPos[0] + deltaX * frameIdx,
+        row: startPos[1] + deltaY * frameIdx,
+        direction: direction,
+        rowIdx: frameIdx
+      });
+    }, stepSpeed * 6 / numFrames * frameIdx));
+  }
 
+  var deltaX, deltaY, deltaDirection, numFrames;
+  if (skin.movePegmanAnimation && endPos[2] - startPos[2] === 0) {
+    // If move animation of pegman is set, and this is not a turn.
+    // Show the animation.
+    var pegmanIcon = document.getElementById('pegman');
+    var movePegmanIcon = document.getElementById('movePegman');
+
+    numFrames = skin.movePegmanAnimationFrameNumber;
+    deltaX = (endPos[0] - startPos[0]) / numFrames;
+    deltaY = (endPos[1] - startPos[1]) / numFrames;
+    deltaDirection = (endPos[2] - startPos[2]) / numFrames;
+    var direction = startPos[2] / 4;
+    var frameIdx;
+
+    for (frameIdx = 0; frameIdx < numFrames; frameIdx++) {
+      updateMoveFrame(frameIdx);
+    }
+
+    // Hide movePegman and set pegman to the end position.
+    Maze.pidList.push(window.setTimeout(function() {
+      movePegmanIcon.setAttribute('visibility', 'hidden');
+      pegmanIcon.setAttribute('visibility', 'visible');
+      Maze.displayPegman(endPos[0], endPos[1],
+                         Maze.constrainDirection16(endPos[2]));
+    }, stepSpeed * 6 / numFrames * frameIdx));
+  } else {
+    numFrames = 4;
+    deltaX = (endPos[0] - startPos[0]) / numFrames;
+    deltaY = (endPos[1] - startPos[1]) / numFrames;
+    deltaDirection = (endPos[2] - startPos[2]) / numFrames;
+    Maze.displayPegman(startPos[0] + deltaX,
+                       startPos[1] + deltaY,
+                       Maze.constrainDirection16(startPos[2] + deltaDirection));
+    Maze.pidList.push(window.setTimeout(function() {
+        Maze.displayPegman(
+            startPos[0] + deltaX * 2,
+            startPos[1] + deltaY * 2,
+            Maze.constrainDirection16(startPos[2] + deltaDirection * 2));
+    }, stepSpeed));
+    Maze.pidList.push(window.setTimeout(function() {
+        Maze.displayPegman(
+            startPos[0] + deltaX * 3,
+            startPos[1] + deltaY * 3,
+            Maze.constrainDirection16(startPos[2] + deltaDirection * 3));
+    }, stepSpeed * 2));
+      Maze.pidList.push(window.setTimeout(function() {
+          Maze.displayPegman(endPos[0], endPos[1],
+                             Maze.constrainDirection16(endPos[2]));
+    }, stepSpeed * 3));
+  }
 
   if (skin.approachingGoalAnimation) {
     var finishIcon = document.getElementById('finish');
@@ -1137,7 +1229,12 @@ Maze.scheduleFail = function(forward) {
       Maze.pidList.push(window.setTimeout(function() {
         var pegmanIcon = document.getElementById('pegman');
         pegmanIcon.setAttribute('visibility', 'hidden');
-        updatePegmanAnimation('wall', Maze.pegmanY, Maze.pegmanX, Maze.pegmanD);
+        updatePegmanAnimation({
+          idStr: 'wall',
+          row: Maze.pegmanY,
+          col: Maze.pegmanX,
+          direction: Maze.pegmanD
+        });
       }, stepSpeed * 4));
     }
   } else if (squareType == SquareType.OBSTACLE) {
