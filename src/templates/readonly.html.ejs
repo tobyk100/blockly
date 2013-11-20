@@ -8,6 +8,9 @@
   <script type="text/javascript">
     <%= app %>Main(<%-: options | json %>);
   </script>
+</head>
+<body>
+  <div id="blockly"></div>
   <style>
     html, body {
       background-color: #fff;
@@ -15,6 +18,11 @@
       padding:0;
       overflow: hidden;
       height: 100%;
+      font-family: 'Gotham A', 'Gotham B', sans-serif;
+    }
+    .blocklyText, .blocklyMenuText, .blocklyTreeLabel, .blocklyHtmlInput,
+        .blocklyIconMark, .blocklyTooltipText {
+      font-family: 'Gotham A', 'Gotham B', sans-serif;
     }
     #blockly>svg {
       border: none;
@@ -28,8 +36,5 @@
       width: 100%;
     }
   </style>
-</head>
-<body>
-  <div id="blockly"></div>
 </body>
 </html>
