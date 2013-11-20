@@ -71,6 +71,8 @@ html[dir="RTL"] .farSide {
 #visualization {
   position: relative;
   float: left;
+  height: 400px;
+  margin-bottom: 5px;
 }
 
 /* Buttons */
@@ -89,6 +91,8 @@ button.launch {
   color: #fff;
   font-size: large;
   min-width: 96px;
+  margin-left: 0px;
+  margin-right: 10px;
   /* Can't use "text-align: start" due to IE. */
   text-align: left;
 }
@@ -222,6 +226,7 @@ input[type="radio"] {
 #bubble {
   color: black;
   width: 385px;
+  margin-bottom: 10px;
 }
 
 #prompt-icon {
