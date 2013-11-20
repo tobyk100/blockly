@@ -309,7 +309,8 @@ input[type="radio"] {
   }
 }
 
-.blocklyText {
+.blocklyText, .blocklyMenuText, .blocklyTreeLabel, .blocklyHtmlInput,
+    .blocklyIconMark, .blocklyTooltipText {
   @include font;
 }
 
