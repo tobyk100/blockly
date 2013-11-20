@@ -91,8 +91,8 @@ var loadLevel = function() {
   initWallMap();
   // Pixel height and width of each maze square (i.e. tile).
   Maze.SQUARE_SIZE = 50;
-  Maze.PEGMAN_HEIGHT = 52;
-  Maze.PEGMAN_WIDTH = 49;
+  Maze.PEGMAN_HEIGHT = skin.pegmanHeight || 52;
+  Maze.PEGMAN_WIDTH = skin.pegmanWidth || 49;
   // Height and width of the goal and obstacles.
   Maze.MARKER_HEIGHT = 43;
   Maze.MARKER_WIDTH = 50;
@@ -544,7 +544,7 @@ var createPegmanAnimation = function(options) {
   var rect = document.createElementNS(Blockly.SVG_NS, 'rect');
   rect.setAttribute('id', options.idStr + 'PegmanClipRect');
   if (options.col !== undefined) {
-    rect.setAttribute('x',options.col * Maze.SQUARE_SIZE + 1);
+    rect.setAttribute('x', options.col * Maze.SQUARE_SIZE + 1);
   }
   if (options.row !== undefined) {
     rect.setAttribute(

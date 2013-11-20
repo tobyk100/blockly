@@ -41,7 +41,9 @@ var CONFIGS = {
     idlePegmanAnimation: 'idle_avatar.gif',
     wallPegmanAnimation: 'wall_avatar.png',
     hittingWallAnimation: 'wall.gif',
-    approachingGoalAnimation: 'close_goal.png'
+    approachingGoalAnimation: 'close_goal.png',
+    pegmanHeight: 68,
+    pegmanWidth: 51
   }
 
 };
@@ -102,5 +104,7 @@ exports.load = function(assetUrl, id) {
   } else {
     skin.background = skin.assetUrl('background.png');
   }
+  skin.pegmanHeight = config.pegmanHeight;
+  skin.pegmanWidth = config.pegmanWidth;
   return skin;
 };
