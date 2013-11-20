@@ -307,7 +307,7 @@ var spiral = function(i) {
 <% } else if (page == 3) { -%>
   <% // Define "draw a square". -%>
   <%- polygon({
-    title: 'draw a square',
+    title: msg.drawASquare(),
     modifiers: ' x="20" y="20" editable="false" deletable="false" movable="false"',
     sides: 4,
     length: (level >= 6 ? 0 : 100)
@@ -315,7 +315,7 @@ var spiral = function(i) {
   <% if (level == 1) { -%>
     <% // Define "draw a circle". -%>
     <%- polygon({
-      title: 'draw a circle',
+      title: msg.drawACircle(),
       modifiers: 'x="370" y="20" editable="false" deletable="false" movable="false"',
       sides: 360,
       length: 1
@@ -323,12 +323,12 @@ var spiral = function(i) {
   <% } -%>
   <% if (level == 2) { -%>
     <block type="procedures_defnoreturn" x="20" y="175">
-      <title name="NAME">draw a triangle</title>
+      <title name="NAME"><%= msg.drawATriangle() %></title>
     </block>
   <% } else if (level >= 3) { -%>
     <% //  Define "draw a triangle". -%>
     <%- polygon({
-      title: 'draw a triangle',
+      title: msg.drawATriangle(),
       modifiers: (level == 6 ? 'x="20" y="190"' : 'x="390" y="20" editable="false" deletable="false" movable="false"'),
       sides: 3,
       length: (level >= 7 ? 0 : 100)
@@ -340,10 +340,10 @@ var spiral = function(i) {
       <mutation>
         <% if (level == 11) { %><arg name="<%= msg.lengthParameter() %>"></arg><% } -%>
       </mutation>
-      <title name="NAME">draw a house</title>
+      <title name="NAME"><%= msg.drawAHouse() %></title>
       <statement name="STACK">
         <block type="procedures_callnoreturn" inline="false">
-          <mutation name="draw a square">
+          <mutation name="<%= msg.drawASquare() %>">
             <arg name="<%= msg.lengthParameter() %>"/>
           </mutation>
           <value name="ARG0">
@@ -369,7 +369,7 @@ var spiral = function(i) {
                   </value>
                   <next>
                     <block type="procedures_callnoreturn" inline="false">
-                      <mutation name="draw a triangle">
+                      <mutation name="<%= msg.drawATriangle() %>">
                         <arg name="<%= msg.lengthParameter() %>"></arg>
                       </mutation>
                       <value name="ARG0">

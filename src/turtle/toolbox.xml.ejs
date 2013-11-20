@@ -184,10 +184,10 @@ Level 10 [free play]
         <% // Don't use custom category yet, since it allows function definition. -%>
         <category name="<%= msg.catProcedures() %>">
           <block type="procedures_callnoreturn">
-            <mutation name="draw a circle"></mutation>
+            <mutation name="<%= msg.drawACircle() %>"></mutation>
           </block>
           <block type="procedures_callnoreturn">
-            <mutation name="draw a square"></mutation>
+            <mutation name="<%= msg.drawASquare() %>"></mutation>
           </block>
         </category>
       <% } else { %>
