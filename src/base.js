@@ -255,6 +255,10 @@ BlocklyApps.isRtl = function() {
   }
 };
 
+BlocklyApps.localeDirection = function() {
+  return (BlocklyApps.isRtl() ? 'rtl' : 'ltr');
+};
+
 /**
  * Initialize Blockly for a readonly iframe.  Called on page load.
  * XML argument may be generated from the console with:
