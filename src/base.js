@@ -335,12 +335,6 @@ BlocklyApps.onResize = function(gameWidth) {
   var div = BlocklyApps.editCode ? codeTextbox : blocklyDiv;
 
   var blocklyDivParent = blocklyDiv.parentNode;
-  var parentStyle = window.getComputedStyle ?
-                    window.getComputedStyle(blocklyDivParent) :
-                    blocklyDivParent.currentStyle.width;  // IE
-
-  var parentWidth = parseInt(parentStyle.width, 10);
-  var parentHeight = parseInt(parentStyle.height, 10);
 
   div.style.top = blocklyDivParent.offsetTop + 'px';
   div.style.width = Math.min(1200, (parentWidth - (gameWidth + 15))) + 'px';

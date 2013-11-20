@@ -106,6 +106,12 @@ config.copy = {
       },
       {
         expand: true,
+        cwd: 'lib/',
+        src: ['es5-shim.js'],
+        dest: 'dist/js'
+      },
+      {
+        expand: true,
         cwd: 'lib/svgweb/src',
         src: ['**'],
         dest: 'dist/svgweb'
@@ -241,6 +247,10 @@ config.watch = {
   messages: {
     files: ['i18n/**/*.json'],
     tasks: ['pseudoloc', 'messages', 'browserify', DIST_BROWSERIFIED]
+  },
+  svg: {
+    files: ['lib/svgweb/src/*'],
+    tasks: ['copy:static']
   },
   dist: {
     files: ['build/package/**/*'],

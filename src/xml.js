@@ -4,12 +4,21 @@ exports.serialize = function(node) {
   return serializer.serializeToString(node);
 };
 
+exports.parseFromString = function(text, type) {
+  if (typeof DOMParser !== 'undefined') {
+    return new DOMParser().parseFromString(text, type);
+  } else if (typeof ActiveXObject != 'undefined') {
+    var doc = goog.dom.xml.createMsXmlDocument_();
+    doc.loadXML(text);
+    return doc;
+  }
+};
+
 // Parses a single root element string.
 exports.parseElement = function(text) {
-  var parser = new DOMParser();
   var dom = text.indexOf('<xml>') === 0 ?
-      parser.parseFromString(text, 'text/xml') :
-      parser.parseFromString('<xml>' + text + '</xml>', 'text/xml');
+      exports.parseFromString(text, 'text/xml') :
+      exports.parseFromString('<xml>' + text + '</xml>', 'text/xml');
   var errors = dom.getElementsByTagName("parsererror");
   var element = dom.firstChild;
   if (!element) {

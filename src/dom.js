@@ -78,3 +78,18 @@ exports.addEventListener = function(element, eventName, handler, useCapture) {
     element.attachEvent('on' + eventName, handler);
   }
 };
+
+exports.getMetrics = function(element) {
+  var width,
+      height;
+  if (window.getComputedStyle) {
+    var style = window.getComputedStyle(element);
+    width = parseInt(style.width, 10);
+    height = parseInt(style.height, 10);
+  } else {  // IE 8
+    width = parseInt($(blocklyDivParent).css('width'), 10);
+    height = parseInt($(blocklyDivParent).css('height'), 10);
+  }
+
+  return { width: width, height: height };
+};
