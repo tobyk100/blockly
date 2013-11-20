@@ -2,7 +2,11 @@
 
 exports.load = function(assetUrl, id) {
   var skinUrl = function(path) {
-    return assetUrl('media/skins/' + id + '/' + path);
+    if (path !== undefined) {
+      return assetUrl('media/skins/' + id + '/' + path);
+    } else {
+      return null;
+    }
   };
   var skin = {
     id: id,
