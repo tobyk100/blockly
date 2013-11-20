@@ -355,17 +355,21 @@ var drawMap = function() {
 
   // Add idle pegman.
   if (skin.idlePegmanAnimation) {
-    createPegmanAnimation({ idStr: 'idle',
-                            pegmanImage: skin.idlePegmanAnimation,
-                            row: Maze.start_.y,
-                            col: Maze.start_.x,
-                            direction: Maze.startDirection });
+    createPegmanAnimation({
+      idStr: 'idle',
+      pegmanImage: skin.idlePegmanAnimation,
+      row: Maze.start_.y,
+      col: Maze.start_.x,
+      direction: Maze.startDirection
+    });
   }
 
   // Add the hidden dazed pegman when hitting the wall.
   if (skin.wallPegmanAnimation) {
-    createPegmanAnimation({ idStr: 'wall',
-                            pegmanImage: skin.wallPegmanAnimation });
+    createPegmanAnimation({
+      idStr: 'wall',
+      pegmanImage: skin.wallPegmanAnimation
+    });
   }
 
 };
@@ -1141,10 +1145,12 @@ Maze.scheduleFail = function(forward) {
       Maze.pidList.push(window.setTimeout(function() {
         var pegmanIcon = document.getElementById('pegman');
         pegmanIcon.setAttribute('visibility', 'hidden');
-        updatePegmanAnimation({ idStr: 'wall',
-                                row: Maze.pegmanY,
-                                col: Maze.pegmanX,
-                                direction: Maze.pegmanD });
+        updatePegmanAnimation({
+          idStr: 'wall',
+          row: Maze.pegmanY,
+          col: Maze.pegmanX,
+          direction: Maze.pegmanD
+        });
       }, stepSpeed * 4));
     }
   } else if (squareType == SquareType.OBSTACLE) {
