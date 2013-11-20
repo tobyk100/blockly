@@ -36,27 +36,6 @@ var helpArea = function(html) { -%>
   <%- data.visualization %>
 </div>
 
-<table id="gameButtons">
-  <tr>
-    <td>
-      <button id="runButton" class="launch">
-        <img src="<%= assetUrl('media/1x1.gif') %>" class="run icon21">
-        <%= msg.runProgram() %>
-      </button>
-      <button id="resetButton" class="launch" style="display: none">
-        <img src="<%= assetUrl('media/1x1.gif') %>" class="stop icon21">
-          <%= msg.resetProgram() %>
-      </button>
-    </td>
-  </tr>
-</table>
-
-<% if (data.controls) { %>
-  <%- data.controls %>
-<% } %>
-<% codeArea() %>
-<% helpArea(data.helpHtml) %>
-
 <div id="blockly">
   <div id="headers">
     <div id="toolbox-header" class="blockly-header"><span><%= msg.toolboxHeader() %></span></div>
@@ -72,4 +51,32 @@ var helpArea = function(html) { -%>
   </div>
 </div>
 
-<% instructions() %>
+<div class="clear"></div>
+
+<div id="belowVisualization">
+
+  <table id="gameButtons">
+    <tr>
+      <td>
+        <button id="runButton" class="launch">
+          <img src="<%= assetUrl('media/1x1.gif') %>" class="run icon21">
+          <%= msg.runProgram() %>
+        </button>
+        <button id="resetButton" class="launch" style="display: none">
+          <img src="<%= assetUrl('media/1x1.gif') %>" class="stop icon21">
+            <%= msg.resetProgram() %>
+        </button>
+      </td>
+    </tr>
+  </table>
+
+  <% instructions() %>
+
+  <% if (data.controls) { %>
+    <%- data.controls %>
+  <% } %>
+  <% helpArea(data.helpHtml) %>
+
+</div>
+
+<% codeArea() %>

@@ -33,6 +33,10 @@ a {
 html[dir="RTL"] .farSide {
   text-align: left;
 }
+
+.clear {
+  clear: both;
+}
 #blockly {
   position: absolute;
   bottom: 10px;
@@ -55,6 +59,12 @@ html[dir="RTL"] .farSide {
   line-height: 1.2;
   border: 4px solid #ddd;
 }
+
+#belowVisualization {
+  float: left;
+  width: 400px;
+}
+
 #visualization {
   position: relative;
 }
@@ -187,14 +197,6 @@ input[type="radio"] {
   font-size: 20px;
   color: #5A6A73;
   margin-top: 35px;
-}
-#hintBubble {
-  position: absolute;
-  left: 10px;
-  top: 10px;
-  border-radius: 15px;
-  background-color: rgba(64,64,64,0.7);
-  width: 380px;
 }
 #hint {
   color: #fff;
