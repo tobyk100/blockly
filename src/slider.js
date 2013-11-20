@@ -23,6 +23,8 @@
  */
 'use strict';
 
+var dom = require('./dom');
+
 /**
  * Object representing a horizontal slider widget.
  * @param {number} x The horizontal offset of the slider.
