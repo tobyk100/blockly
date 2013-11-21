@@ -121,6 +121,13 @@ Turtle.init = function(config) {
     Turtle.loadTurtle();
     Turtle.drawImages();
     Turtle.drawAnswer();
+    
+    // Adjust visualization and belowVisualization width.
+    var drawAreaWidth = config.getDisplayWidth();
+    var visualization = document.getElementById('visualization');
+    visualization.style.width = drawAreaWidth + 'px';
+    var belowVisualization = document.getElementById('belowVisualization');
+    belowVisualization.style.width = drawAreaWidth + 'px';
   };
 
   config.getDisplayWidth = function() {

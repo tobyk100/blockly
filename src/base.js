@@ -157,6 +157,19 @@ BlocklyApps.init = function(config) {
   if (config.loadAudio) {
     config.loadAudio();
   }
+  
+  if (config.level.instructions) {
+    var promptDiv = document.getElementById('prompt');
+    dom.setText(promptDiv, config.level.instructions);
+    
+    var promptIcon = document.getElementById('prompt-icon');
+    promptIcon.src = BlocklyApps.ICON;
+  }
+
+  if (config.referenceArea) {
+    var belowViz = document.getElementById('belowVisualization');
+    belowViz.insertAdjacentHTML('beforeend', config.referenceArea);
+  }
 
   var div = document.getElementById('blockly');
   BlocklyApps.inject(div, {
@@ -191,16 +204,18 @@ BlocklyApps.init = function(config) {
     BlocklyApps.onResize(config.getDisplayWidth());
   };
 
+  // listen for scroll and resize to ensure onResize() is called
   window.addEventListener('scroll', function() {
     onResize();
     Blockly.fireUiEvent(window, 'resize');
   });
   window.addEventListener('resize', onResize);
-  onResize();
-
-  if (!config.level.editCode) {
-    Blockly.svgResize();
-  }
+  
+  // call initial onResize() asynchronously
+  window.setTimeout(function() {
+      onResize();
+      Blockly.fireUiEvent(window, 'resize');
+  });
 
   BlocklyApps.reset(true);
 
@@ -208,9 +223,6 @@ BlocklyApps.init = function(config) {
   Blockly.addChangeListener(function() {
     BlocklyApps.updateBlockCount();
   });
-
-  // We may have changed divs but Blockly on reacts based on the window.
-  Blockly.fireUiEvent(window, 'resize');
 };
 
 exports.playAudio = function(name, options) {
@@ -313,12 +325,6 @@ var showInstructions = function(level) {
   }
 
   dialog.show();
-
-  var promptDiv = document.getElementById('prompt');
-  dom.setText(promptDiv, level.instructions);
-
-  var promptIcon = document.getElementById('prompt-icon');
-  promptIcon.src = BlocklyApps.ICON;
 };
 
 /**
@@ -327,7 +333,6 @@ var showInstructions = function(level) {
 BlocklyApps.onResize = function(gameWidth) {
   gameWidth = gameWidth || 0;
   var blocklyDiv = document.getElementById('blockly');
-  var visualization = document.getElementById('visualization');
   var codeTextbox = document.getElementById('codeTextbox');
 
   // resize either blockly or codetextbox
@@ -336,23 +341,30 @@ BlocklyApps.onResize = function(gameWidth) {
   var blocklyDivParent = blocklyDiv.parentNode;
   var parentStyle = window.getComputedStyle ?
                     window.getComputedStyle(blocklyDivParent) :
-                    blocklyDivParent.currentStyle.width;  // IE
+                    blocklyDivParent.currentStyle;  // IE
 
   var parentWidth = parseInt(parentStyle.width, 10);
   var parentHeight = parseInt(parentStyle.height, 10);
+  
+  var headers = document.getElementById('headers');
+  var headersStyle = window.getComputedStyle ?
+                       window.getComputedStyle(headers) :
+                       headers.currentStyle;  // IE
+  var headersHeight = parseInt(headersStyle.height, 10);
 
-  var divWidth = Math.min(1200, (parentWidth - (gameWidth + 15)));
   div.style.top = blocklyDivParent.offsetTop + 'px';
-  div.style.width = divWidth + 'px';
-  div.style.marginLeft = (gameWidth + 15) + 'px';
-  div.style.height = parentHeight + 'px';
+  div.style.width = Math.min(1200, (parentWidth - (gameWidth + 15))) + 'px';
+  if (BlocklyApps.isRtl()) {
+    div.style.marginRight = (gameWidth + 15) + 'px';
+  }
+  else {
+    div.style.marginLeft = (gameWidth + 15) + 'px';
+  }
+  // reduce height by headers height because blockly isn't aware of headers
+  // and will size its svg element to be too tall
+  div.style.height = (parentHeight - headersHeight) + 'px';
 
   BlocklyApps.resizeHeaders();
-
-  if (BlocklyApps.isRtl()) {
-    var belowVisualization = document.getElementById('belowVisualization');
-    belowVisualization.style.marginRight = (divWidth + 15) + 'px'
-  }
 };
 
 BlocklyApps.resizeHeaders = function() {
