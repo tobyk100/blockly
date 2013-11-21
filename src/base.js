@@ -341,12 +341,18 @@ BlocklyApps.onResize = function(gameWidth) {
   var parentWidth = parseInt(parentStyle.width, 10);
   var parentHeight = parseInt(parentStyle.height, 10);
 
+  var divWidth = Math.min(1200, (parentWidth - (gameWidth + 15)));
   div.style.top = blocklyDivParent.offsetTop + 'px';
-  div.style.width = Math.min(1200, (parentWidth - (gameWidth + 15))) + 'px';
+  div.style.width = divWidth + 'px';
   div.style.marginLeft = (gameWidth + 15) + 'px';
   div.style.height = parentHeight + 'px';
 
   BlocklyApps.resizeHeaders();
+
+  if (BlocklyApps.isRtl()) {
+    var belowVisualization = document.getElementById('belowVisualization');
+    belowVisualization.style.marginRight = (divWidth + 15) + 'px'
+  }
 };
 
 BlocklyApps.resizeHeaders = function() {
