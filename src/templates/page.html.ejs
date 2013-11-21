@@ -62,7 +62,7 @@ var helpArea = function(html) { -%>
 </div>
 
 <div id="blockly">
-  <div id="headers">
+  <div id="headers" dir="<%= data.localeDirection %>">
     <div id="toolbox-header" class="blockly-header"><span><%= msg.toolboxHeader() %></span></div>
     <div id="workspace-header" class="blockly-header">
       <span id="blockCounter"><%= msg.workspaceHeader() %></span>

@@ -92,6 +92,7 @@ Turtle.init = function(config) {
   config.html = page({
     assetUrl: BlocklyApps.assetUrl,
     data: {
+      localeDirection: BlocklyApps.localeDirection(),
       visualization: require('./visualization.html')(),
       controls: require('./controls.html')({assetUrl: BlocklyApps.assetUrl}),
       blockUsed : undefined,

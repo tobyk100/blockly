@@ -409,6 +409,7 @@ Maze.init = function(config) {
   config.html = page({
     assetUrl: BlocklyApps.assetUrl,
     data: {
+      localeDirection: BlocklyApps.localeDirection(),
       visualization: require('./visualization.html')(),
       blockUsed : undefined,
       idealBlockNumber : undefined,
