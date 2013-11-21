@@ -87,8 +87,8 @@ exports.getMetrics = function(element) {
     width = parseInt(style.width, 10);
     height = parseInt(style.height, 10);
   } else {  // IE 8
-    width = parseInt($(blocklyDivParent).css('width'), 10);
-    height = parseInt($(blocklyDivParent).css('height'), 10);
+    width = parseInt($(element).css('width'), 10);
+    height = parseInt($(element).css('height'), 10);
   }
 
   return { width: width, height: height };

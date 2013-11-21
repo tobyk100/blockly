@@ -108,13 +108,13 @@ config.copy = {
         expand: true,
         cwd: 'lib/',
         src: ['es5-shim.js'],
-        dest: 'dist/js'
+        dest: 'build/package/js'
       },
       {
         expand: true,
         cwd: 'lib/svgweb/src',
         src: ['**'],
-        dest: 'dist/svgweb'
+        dest: 'build/package/svgweb'
       }
     ]
   }

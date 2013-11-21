@@ -351,7 +351,7 @@ BlocklyApps.resizeHeaders = function() {
   var categoriesWidth = 0;
   var categories = Blockly.Toolbox.HtmlDiv;
   if (categories) {
-    categoriesWidth = parseInt(window.getComputedStyle(categories).width, 10);
+    categoriesWidth = dom.getMetrics(categories).width;
   }
 
   var workspaceWidth = Blockly.getWorkspaceWidth();
@@ -361,8 +361,7 @@ BlocklyApps.resizeHeaders = function() {
   var toolboxHeader = document.getElementById('toolbox-header');
   var showCodeHeader = document.getElementById('show-code-header');
 
-  var showCodeWidth = parseInt(window.getComputedStyle(showCodeHeader).width,
-                               10);
+  var showCodeWidth = dom.getMetrics(showCodeHeader).width;
 
   toolboxHeader.style.width = (categoriesWidth + toolboxWidth) + 'px';
   workspaceHeader.style.width = (workspaceWidth -
