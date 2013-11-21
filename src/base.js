@@ -490,15 +490,15 @@ BlocklyApps.runButtonClick = function() {};
  */
 BlocklyApps.TestResults = {
   NO_TESTS_RUN: -1,           // Default.
-  FREE_PLAY: 0,               // 0 stars, try again or continue.
   EMPTY_BLOCK_FAIL: 1,        // 0 stars.
   TOO_FEW_BLOCKS_FAIL: 2,     // 0 stars.
   LEVEL_INCOMPLETE_FAIL: 3,   // 0 stars.
   MISSING_BLOCK_UNFINISHED: 4,// 0 star.
   MISSING_BLOCK_FINISHED: 10, // 1 star.
   OTHER_1_STAR_FAIL: 11,      // Application-specific 1-star failure.
-  TOO_MANY_BLOCKS_FAIL: 20,   // 2 stars.
+  TOO_MANY_BLOCKS_FAIL: 20,   // 2 stars, try again or continue.
   OTHER_2_STAR_FAIL: 21,      // Application-specific 2-star failure.
+  FREE_PLAY: 30,              // 2 stars.
   ALL_PASS: 100               // 3 stars.
 };
 
