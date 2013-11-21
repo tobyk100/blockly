@@ -246,7 +246,7 @@ exports.install = function(blockly, skin) {
       this.setHSV(312, 0.32, 0.62);
       this.appendDummyInput()
           .appendTitle(blockly.Msg.VARIABLES_GET_TITLE)
-          .appendTitle(new blockly.FieldLabel('height'), 'VAR');
+          .appendTitle(new blockly.FieldLabel(msg.heightParameter()), 'VAR');
       this.setOutput(true);
       this.setTooltip(blockly.Msg.VARIABLES_GET_TOOLTIP);
     },
