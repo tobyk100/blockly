@@ -104,7 +104,8 @@ exports.answer = function(page, level) {
         break;
       case 2:
         // Square.
-        drawSquare(100, true);
+        setRandomVisibleColour();
+        drawSquare(100, false);
         break;
       case 3:
         // Use repeat to draw a square.

@@ -218,7 +218,7 @@ module.exports = {
   // Level 2: Square (without repeat).
   '1_2': {
     answer: answer(1, 2),
-    ideal: 16,
+    ideal: 10,
     toolbox: toolbox(1, 2),
     startBlocks: startBlocks(1, 2),
     requiredBlocks: [
