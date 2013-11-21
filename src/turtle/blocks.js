@@ -371,24 +371,13 @@ exports.install = function(blockly, skin) {
           .appendTitle(blockly.Msg.CONTROLS_FOR_INPUT_WITH)
           .appendTitle(new blockly.FieldLabel(msg.loopVariable()),
                        'VAR');
-      this.appendValueInput('FROM')
-          .setCheck('Number')
-          .setAlign(blockly.ALIGN_RIGHT)
-          .appendTitle(blockly.Msg.CONTROLS_FOR_INPUT_FROM);
-      this.appendValueInput('TO')
-          .setCheck('Number')
-          .setAlign(blockly.ALIGN_RIGHT)
-          .appendTitle(blockly.Msg.CONTROLS_FOR_INPUT_TO);
-      this.appendValueInput('BY')
-          .setCheck('Number')
-          .setAlign(blockly.ALIGN_RIGHT)
-          .appendTitle(blockly.Msg.CONTROLS_FOR_INPUT_BY);
-      if (blockly.Msg.CONTROLS_FOR_TAIL) {
-        this.appendDummyInput()
-            .appendTitle(blockly.Msg.CONTROLS_FOR_TAIL);
-      }
+      this.interpolateMsg(blockly.Msg.CONTROLS_FOR_INPUT_FROM_TO_BY,
+                        ['FROM', 'Number', blockly.ALIGN_RIGHT],
+                        ['TO', 'Number', blockly.ALIGN_RIGHT],
+                        ['BY', 'Number', blockly.ALIGN_RIGHT],
+                        blockly.ALIGN_RIGHT);
       this.appendStatementInput('DO')
-          .appendTitle(blockly.Msg.CONTROLS_FOR_INPUT_DO);
+          .appendTitle(Blockly.Msg.CONTROLS_FOR_INPUT_DO);
       this.setPreviousStatement(true);
       this.setNextStatement(true);
       this.setInputsInline(true);
