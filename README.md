@@ -92,7 +92,12 @@ about the localization of Code.org projects.
 
 ## Releases
 
-Compiled distrubutions are published in the Node module repository. See
-`./package.json` and `npm --help` for details. Run `./script/release` to run a
-fullly-localized build, stamp a git tag to GitHub and publish the contents of
-the `./dist` directory.
+Compiled distrubutions are published as tarballs to Amazon S3.  You'll need
+the [AWS CLI tool][1] and access to the [Code.org secrets][2].  Run
+`path/to/secrets/cdo-env ./script/release` to produce a fullly-localized build
+in `./build/package`, which will be tared up in to `./dist`, stampped with a
+git tag, pushed to GitHub, and publish on S3.
+
+
+[1]: http://aws.amazon.com/cli/
+[2]: https://github.com/code-dot-org/cdo-secrets
