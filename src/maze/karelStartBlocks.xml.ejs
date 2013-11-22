@@ -674,7 +674,7 @@ var removeShovelfuls = function(n) { -%>
       <statement name="DO">
         <block type="procedures_callnoreturn" inline="false">
           <mutation name="<%= msg.removePile() %>">
-            <arg name="<%= msg.lengthParameter() %>"></arg>
+            <arg name="<%= msg.heightParameter() %>"></arg>
           </mutation>
           <value name="ARG0">
             <block type="math_number">
@@ -690,7 +690,7 @@ var removeShovelfuls = function(n) { -%>
     <block type="procedures_defnoreturn" x="20" y="250" editable="false"
       deletable="false" movable="false">
       <mutation>
-        <arg name="<%= msg.lengthParameter() %>"></arg>
+        <arg name="<%= msg.heightParameter() %>"></arg>
       </mutation>
       <title name="NAME"><%= msg.removePile() %></title>
       <statement name="STACK">
