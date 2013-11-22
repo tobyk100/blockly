@@ -238,25 +238,6 @@ exports.install = function(blockly, skin) {
 
   generator.variables_get_length = generator.variables_get;
 
-  blockly.Blocks.variables_get_height = {
-    // Variable getter.
-    category: null,  // Variables are handled specially.
-    helpUrl: blockly.Msg.VARIABLES_GET_HELPURL,
-    init: function() {
-      this.setHSV(312, 0.32, 0.62);
-      this.appendDummyInput()
-          .appendTitle(blockly.Msg.VARIABLES_GET_TITLE)
-          .appendTitle(new blockly.FieldLabel(msg.heightParameter()), 'VAR');
-      this.setOutput(true);
-      this.setTooltip(blockly.Msg.VARIABLES_GET_TOOLTIP);
-    },
-    getVars: function() {
-      return [this.getTitleValue('VAR')];
-    }
-  };
-
-  generator.variables_get_height = generator.variables_get;
-
   blockly.Blocks.variables_get_sides = {
     // Variable getter.
     category: null,  // Variables are handled specially.
@@ -322,7 +303,7 @@ exports.install = function(blockly, skin) {
       this.appendValueInput('VALUE')
           .setAlign(blockly.ALIGN_RIGHT)
           .setCheck('Number')
-          .appendTitle(msg.heightParameter() + ':');
+          .appendTitle(msg.lengthParameter() + ':');
       this.setPreviousStatement(true);
       this.setNextStatement(true);
       this.setTooltip('');

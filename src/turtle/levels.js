@@ -611,11 +611,11 @@ module.exports = {
     toolbox: toolbox(3, 7),
     startBlocks: startBlocks(3, 7),
     requiredBlocks: [
-      [defineWithArg(msg.drawAHouse(), msg.heightParameter())],
+      [defineWithArg(msg.drawAHouse(), msg.lengthParameter())],
       [levelBase.callWithArg(msg.drawASquare(), msg.lengthParameter())],
       [levelBase.callWithArg(msg.drawATriangle(), msg.lengthParameter())],
-      [simpleBlock('variables_get_height')],
-      [levelBase.callWithArg(msg.drawAHouse(), msg.heightParameter())]
+      [simpleBlock('variables_get_length')],
+      [levelBase.callWithArg(msg.drawAHouse(), msg.lengthParameter())]
     ],
     freePlay: false,
     images: [
