@@ -157,11 +157,11 @@ BlocklyApps.init = function(config) {
   if (config.loadAudio) {
     config.loadAudio();
   }
-  
+
   if (config.level.instructions) {
     var promptDiv = document.getElementById('prompt');
     dom.setText(promptDiv, config.level.instructions);
-    
+
     var promptIcon = document.getElementById('prompt-icon');
     promptIcon.src = BlocklyApps.ICON;
   }
@@ -210,7 +210,7 @@ BlocklyApps.init = function(config) {
     Blockly.fireUiEvent(window, 'resize');
   });
   window.addEventListener('resize', onResize);
-  
+
   // call initial onResize() asynchronously
   window.setTimeout(function() {
       onResize();
@@ -345,7 +345,7 @@ BlocklyApps.onResize = function(gameWidth) {
 
   var parentWidth = parseInt(parentStyle.width, 10);
   var parentHeight = parseInt(parentStyle.height, 10);
-  
+
   var headers = document.getElementById('headers');
   var headersStyle = window.getComputedStyle ?
                        window.getComputedStyle(headers) :
@@ -593,8 +593,8 @@ exports.updateBlockCount = function() {
 
   element = document.getElementById('idealBlockNumber');
 
-  // Update idealBlockNumber
-  if (element) {
+  // Update idealBlockNumber for once.
+  if (element && element.innerHTML === "undefined") {
     element.innerHTML = '';  // Remove existing children or text.
     element.appendChild(document.createTextNode(
         feedback.getNumGivenBlocks() + BlocklyApps.IDEAL_BLOCK_NUM));
