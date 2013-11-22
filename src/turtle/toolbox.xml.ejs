@@ -263,30 +263,24 @@ Level 10 [free play]
     <% } -%>
   <% } else if (page == 4) { -%>
     <% // Actions: draw_move, draw_turn. -%>
-    <category name="<%= msg.catTurtle() %>">
-      <block type="draw_move_by_constant"></block>
-      <block type="draw_turn_by_constant">
-        <title name="VALUE">90</title>
-      </block>
-    </category>
+    <block type="draw_move_by_constant"></block>
+    <block type="draw_turn_by_constant">
+      <title name="VALUE">90</title>
+    </block>
     <% // Colour: draw_colour with colour_picker and colour_random. -%>
-    <category name="<%= msg.catColour() %>">
-      <block id="draw-color" type="draw_colour">
-        <value name="COLOUR">
-          <block type="colour_picker"></block>
-        </value>
-      </block>
-      <block id="draw-color" type="draw_colour">
-        <value name="COLOUR">
-          <block type="colour_random"></block>
-        </value>
-      </block>
-    </category>
-    <category name="<%= msg.catControl() %>">
-      <block type="controls_repeat">
-        <title name="TIMES">4</title>
-      </block>
-    </category>
+    <block id="draw-color" type="draw_colour">
+      <value name="COLOUR">
+        <block type="colour_picker"></block>
+      </value>
+    </block>
+    <block id="draw-color" type="draw_colour">
+      <value name="COLOUR">
+        <block type="colour_random"></block>
+      </value>
+    </block>
+    <block type="controls_repeat">
+      <title name="TIMES">4</title>
+    </block>
   <% } else if (page == 5) { -%>
     <% // Actions: draw_move, draw_turn. -%>
     <category id="actions" name="<%= msg.catTurtle() %>">
