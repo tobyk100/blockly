@@ -220,6 +220,7 @@ BlocklyApps.init = function(config) {
   BlocklyApps.reset(true);
 
   // Add display of blocks used.
+  setIdealBlockNumber();
   Blockly.addChangeListener(function() {
     BlocklyApps.updateBlockCount();
   });
@@ -572,6 +573,18 @@ BlocklyApps.resetButtonClick = function() {
 };
 
 /**
+ * Set the ideal Number of blocks.
+ */
+var setIdealBlockNumber = function() {
+  var element = document.getElementById('idealBlockNumber');
+  if (element) {
+    element.innerHTML = '';  // Remove existing children or text.
+    element.appendChild(document.createTextNode(
+        getIdealBlockNumberMsg()));
+  }
+};
+
+/**
  * Add count of blocks used.
  */
 exports.updateBlockCount = function() {
@@ -590,18 +603,9 @@ exports.updateBlockCount = function() {
     element.appendChild(document.createTextNode(
         feedback.getNumBlocksUsed() + feedback.getNumGivenBlocks()));
   }
-
-  element = document.getElementById('idealBlockNumber');
-
-  // Update idealBlockNumber for once.
-  if (element && element.innerHTML === "undefined") {
-    element.innerHTML = '';  // Remove existing children or text.
-    element.appendChild(document.createTextNode(
-        feedback.getNumGivenBlocks() + BlocklyApps.IDEAL_BLOCK_NUM));
-  }
 };
 
-exports.getIdealBlockNumberMsg = function() {
+var getIdealBlockNumberMsg = function() {
   return BlocklyApps.IDEAL_BLOCK_NUM === Infinity ?
       msg.infinity() :
       BlocklyApps.IDEAL_BLOCK_NUM + feedback.getNumGivenBlocks();
