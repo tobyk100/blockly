@@ -110,6 +110,20 @@ var turnRightRestricted = function(degrees) {
           titles: {'VALUE': degrees}};
 };
 
+// This tests for and creates a [right] draw_turn_by_constant block
+// with the specified number of degrees as its input.
+var turnRightByConstant = function(degrees) {
+  return {
+    test: function(block) {
+      return block.type == 'draw_turn_by_constant' &&
+          (degrees === '???' ||
+           Blockly.JavaScript.valueToCode(
+             block, 'VALUE', Blockly.JavaScript.ORDER_NONE) == degrees);
+    },
+    type: 'draw_turn_by_constant',
+    titles: {'VALUE': degrees}};
+};
+
 // This tests for and creates a [right] draw_turn block with the specified
 // number of degrees as its input.  For the earliest levels, the method
 // turnRightRestricted should be used instead.
@@ -712,68 +726,45 @@ module.exports = {
   // Level 2: Two triangles.
   '4_2': {
     answer: answer(4, 2),
-    ideal: 11,
+    ideal: 1,
     toolbox: toolbox(4, 2),
     startBlocks: startBlocks(4, 2),
     requiredBlocks: [
-      [MOVE_FORWARD_INLINE],
-      [repeat(3)],
-      [{
-        test: 'turnRight',
-        type: 'draw_turn_by_constant',
-        titles: {VALUE: '???'}
-      }]
+      [turnRightByConstant('???')]
     ],
     sliderSpeed: 0.5
   },
   // Level 3: Four triangles using repeat.
   '4_3': {
     answer: answer(4, 3),
-    ideal: 7,
+    ideal: 2,
     toolbox: toolbox(4, 3),
     startBlocks: startBlocks(4, 3),
     requiredBlocks: [
-      [MOVE_FORWARD_INLINE],
-      [repeat(3)],
-      [{
-        test: 'turnRight',
-        type: 'draw_turn_by_constant',
-        titles: {VALUE: '???'}
-      }]
+      [repeat(4)],
+      [turnRightByConstant('???')]
     ],
     sliderSpeed: 0.7
   },
   // Level 4: Ten triangles with missing repeat number.
   '4_4': {
     answer: answer(4, 4),
-    ideal: 7,
+    ideal: 1,
     toolbox: toolbox(4, 4),
     startBlocks: startBlocks(4, 4),
     requiredBlocks: [
-      [MOVE_FORWARD_INLINE],
-      [repeat(3)],
-      [{
-        test: 'turnRight',
-        type: 'draw_turn_by_constant',
-        titles: {VALUE: '???'}
-      }]
+      [repeat('???')],
     ],
     sliderSpeed: 0.7
   },
   // Level 5: 36 triangles with missing angle number.
   '4_5': {
     answer: answer(4, 5),
-    ideal: 7,
+    ideal: 1,
     toolbox: toolbox(4, 5),
     startBlocks: startBlocks(4, 5),
     requiredBlocks: [
-      [MOVE_FORWARD_INLINE],
-      [repeat(3)],
-      [{
-        test: 'turnRight',
-        type: 'draw_turn_by_constant',
-        titles: {VALUE: '???'}
-      }]
+      [turnRightByConstant('???')]
     ],
     sliderSpeed: 0.9
   },
@@ -799,17 +790,12 @@ module.exports = {
   '4_7': {
     answer: answer(4, 7),
     initialY: 300,
-    ideal: 7,
+    ideal: 2,
     toolbox: toolbox(4, 7),
     startBlocks: startBlocks(4, 7),
     requiredBlocks: [
       [moveForwardInline(20)],
-      [repeat(4)],
-      [{
-        test: 'turnRight',
-        type: 'draw_turn_by_constant',
-        titles: {VALUE: '???'}
-      }]
+      [repeat(10)]
     ],
     startDirection: 0,
     sliderSpeed: 0.7
@@ -819,17 +805,12 @@ module.exports = {
     answer: answer(4, 8),
     initialX: 100,
     initialY: 300,
-    ideal: 9,
+    ideal: 2,
     toolbox: toolbox(4, 8),
     startBlocks: startBlocks(4, 8),
     requiredBlocks: [
-      [moveForwardInline(20)],
       [repeat(4)],
-      [{
-        test: 'turnRight',
-        type: 'draw_turn_by_constant',
-        titles: {VALUE: '???'}
-      }]
+      [turnRightByConstant('???')]
     ],
     startDirection: 0,
     sliderSpeed: 0.9
@@ -839,17 +820,11 @@ module.exports = {
     answer: answer(4, 9),
     initialX: 150,
     initialY: 350,
-    ideal: 9,
+    ideal: 1,
     toolbox: toolbox(4, 9),
     startBlocks: startBlocks(4, 9),
     requiredBlocks: [
-      [moveForwardInline(20)],
-      [repeat(4)],
-      [{
-        test: 'turnRight',
-        type: 'draw_turn_by_constant',
-        titles: {VALUE: '???'}
-      }]
+      [turnRightByConstant('???')]
     ],
     startDirection: 330,
     sliderSpeed: 0.9
@@ -859,17 +834,11 @@ module.exports = {
     answer: answer(4, 10),
     initialX: 75,
     initialY: 300,
-    ideal: 9,
+    ideal: 1,
     toolbox: toolbox(4, 10),
     startBlocks: startBlocks(4, 10),
     requiredBlocks: [
-      [moveForwardInline(20)],
-      [repeat(4)],
-      [{
-        test: 'turnRight',
-        type: 'draw_turn_by_constant',
-        titles: {VALUE: '???'}
-      }]
+      [repeat('???')]
     ],
     startDirection: 0,
     sliderSpeed: 0.9
