@@ -1486,7 +1486,7 @@ module.exports = {
     'ideal': 10,
     'requiredBlocks': [
       [MOVE_FORWARD], [REPEAT_EXT], [DIG], [CONTROLS_FOR],
-      [levelBase.callWithArg(msg.removePile(), msg.heightParameter())],
+      [levelBase.callWithArg(msg.removePile(), msg.lengthParameter())],
       [VARIABLES_GET]
     ],
     'scale': {
