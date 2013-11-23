@@ -305,6 +305,7 @@ Level 10 [free play]
           </block>
         </value>
       </block>
+      <block type="draw_pen"></block>
     </category>
     <% // Colour: draw_colour with colour_picker and colour_random. -%>
     <category name="<%= msg.catColour() %>">
@@ -340,13 +341,27 @@ Level 10 [free play]
           </block>
         </value>
       </block>
-      <block type="controls_repeat">
-        <title name="TIMES">4</title>
-      </block>
+      <% if (level < 6) { -%>
+        <block type="controls_repeat">
+          <title name="TIMES">4</title>
+        </block>
+      <% } else { -%>
+        <block type="controls_repeat_ext"></block>
+      <% } -%>
+    </category>
+  <% // Conditionals -%>
+    <category name="<%= msg.catCondition() %>">
+      <block type="controls_if"></block>
+      <block type="logic_compare"></block>
+      <block type="logic_operation"></block>
+      <block type="logic_negate"></block>
+      <block type="logic_boolean"></block>
+      <block type="logic_null"></block>
+      <block type="logic_ternary"></block>
     </category>
     <% // Math: Just number blocks until final level. -%>
     <category name="<%= msg.catMath() %>">
-    <block type="math_number"></block>
+      <block type="math_number"></block>
       <block type="math_arithmetic" inline="true"></block>
       <block type="math_random_int">
         <value name="FROM">
