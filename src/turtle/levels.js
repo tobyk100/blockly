@@ -861,6 +861,49 @@ module.exports = {
     answer: answer(5, 1),
     freePlay: true,
     toolbox: toolbox(5, 1),
-    startBlocks: startBlocks(5, 1)
+    startBlocks: startBlocks(5, 1),
+    sliderSpeed: 0.9
+  },
+  // Level 2: playground.
+  '5_2': {
+    answer: answer(5, 2),
+    freePlay: true,
+    toolbox: toolbox(5, 2),
+    startBlocks: startBlocks(5, 2),
+    sliderSpeed: 1.0
+  },
+  // Level 3: playground.
+  '5_3': {
+    answer: answer(5, 3),
+    freePlay: true,
+    toolbox: toolbox(5, 3),
+    startBlocks: startBlocks(5, 3),
+    sliderSpeed: 1.0
+  },
+  // Level 4: playground.
+  '5_4': {
+    answer: answer(5, 4),
+    freePlay: true,
+    toolbox: toolbox(5, 4),
+    startBlocks: startBlocks(5, 4),
+    sliderSpeed: 1.0
+  },
+  // Level 5: playground.
+  '5_5': {
+    answer: answer(5, 5),
+    freePlay: true,
+    toolbox: toolbox(5, 5),
+    startBlocks: startBlocks(5, 5),
+    sliderSpeed: 1.0
+  },
+  // Level 6: playground.
+  '5_6': {
+    answer: answer(5, 6),
+    freePlay: true,
+    initialY: 300,
+    toolbox: toolbox(5, 6),
+    startBlocks: startBlocks(5, 6),
+    startDirection: 0,
+    sliderSpeed: 1.0
   }
 };
