@@ -334,7 +334,7 @@ exports.install = function(blockly, skin) {
   blockly.Blocks.maze_untilBlockedOrNotClear = {
     helpUrl: 'http://code.google.com/p/blockly/wiki/Repeat',
     init: function() {
-      this.setHSV(62, 0.89, 0.75);
+      this.setHSV(322, 0.90, 0.95);
       this.appendDummyInput()
           .appendTitle(new blockly.FieldDropdown(this.DIRECTIONS), 'DIR');
       this.appendStatementInput('DO')

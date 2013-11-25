@@ -163,7 +163,7 @@ var drawMap = function() {
   // Adjust outer element size.
   svg.setAttribute('width', Maze.MAZE_WIDTH);
   svg.setAttribute('height', Maze.MAZE_HEIGHT);
-  
+
   // Adjust visualization and belowVisualization width.
   var visualization = document.getElementById('visualization');
   visualization.style.width = Maze.MAZE_WIDTH + 'px';

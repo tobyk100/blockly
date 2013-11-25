@@ -596,7 +596,7 @@ module.exports = {
   '3_6': {
     answer: answer(3, 6),
     initialY: 350,
-    ideal: 17,
+    ideal: 16,
     toolbox: toolbox(3, 6),
     startBlocks: startBlocks(3, 6),
     requiredBlocks: [
