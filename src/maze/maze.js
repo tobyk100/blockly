@@ -333,6 +333,7 @@ var drawMap = function() {
     wallAnimationIcon.setAttribute('id', 'wallAnimation');
     wallAnimationIcon.setAttribute('height', Maze.SQUARE_SIZE);
     wallAnimationIcon.setAttribute('width', Maze.SQUARE_SIZE);
+    wallAnimationIcon.setAttribute('visibility', 'hidden');
     svg.appendChild(wallAnimationIcon);
   }
 
@@ -1213,6 +1214,7 @@ Maze.scheduleFail = function(forward) {
             'y',
             Maze.SQUARE_SIZE * (Maze.pegmanY + 1 + deltaY * 0.5) -
             wallAnimationIcon.getAttribute('height'));
+        wallAnimationIcon.setAttribute('visibility', 'visible');
         wallAnimationIcon.setAttributeNS(
           'http://www.w3.org/1999/xlink', 'xlink:href',
           skin.hittingWallAnimation);
