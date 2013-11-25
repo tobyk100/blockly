@@ -168,7 +168,7 @@ BlocklyApps.init = function(config) {
 
   if (config.referenceArea) {
     var belowViz = document.getElementById('belowVisualization');
-    belowViz.insertAdjacentHTML('beforeend', config.referenceArea);
+    belowViz.appendChild(config.referenceArea());
   }
 
   var div = document.getElementById('blockly');
