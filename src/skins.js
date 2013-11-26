@@ -16,6 +16,7 @@ exports.load = function(assetUrl, id) {
     tiles: skinUrl('tiles.png'),
     goal: skinUrl('goal.png'),
     obstacle: skinUrl('obstacle.png'),
+    smallStaticAvatar: skinUrl('small_static_avatar.png'),
     staticAvatar: skinUrl('static_avatar.png'),
     winAvatar: skinUrl('win_avatar.png'),
     failureAvatar: skinUrl('failure_avatar.png'),

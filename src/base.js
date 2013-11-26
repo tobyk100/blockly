@@ -136,6 +136,7 @@ BlocklyApps.init = function(config) {
   }
 
   BlocklyApps.ICON = config.skin.staticAvatar;
+  BlocklyApps.SMALL_ICON = config.skin.smallStaticAvatar;
   BlocklyApps.WIN_ICON = config.skin.winAvatar;
   BlocklyApps.FAILURE_ICON = config.skin.failureAvatar;
 
@@ -163,7 +164,7 @@ BlocklyApps.init = function(config) {
     dom.setText(promptDiv, config.level.instructions);
 
     var promptIcon = document.getElementById('prompt-icon');
-    promptIcon.src = BlocklyApps.ICON;
+    promptIcon.src = BlocklyApps.SMALL_ICON;
   }
 
   if (config.referenceArea) {
