@@ -211,11 +211,14 @@ BlocklyApps.init = function(config) {
   });
   window.addEventListener('resize', onResize);
 
-  // call initial onResize() asynchronously
+  // call initial onResize() asynchronously - need 100ms delay to work
+  // around relayout which changes height on the left side to the proper
+  // value
   window.setTimeout(function() {
       onResize();
       Blockly.fireUiEvent(window, 'resize');
-  });
+    },
+    100);
 
   BlocklyApps.reset(true);
 
@@ -354,7 +357,7 @@ BlocklyApps.onResize = function(gameWidth) {
   var headersHeight = parseInt(headersStyle.height, 10);
 
   div.style.top = blocklyDivParent.offsetTop + 'px';
-  div.style.width = Math.min(1200, (parentWidth - (gameWidth + 15))) + 'px';
+  div.style.width = (parentWidth - (gameWidth + 15)) + 'px';
   if (BlocklyApps.isRtl()) {
     div.style.marginRight = (gameWidth + 15) + 'px';
   }
