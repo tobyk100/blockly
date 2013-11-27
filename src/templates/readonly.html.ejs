@@ -6,7 +6,10 @@
   <script type="text/javascript" src="<%= assetUrl('js/' + options.locale + '/vendor.js') %>"></script>
   <script type="text/javascript" src="<%= assetUrl('js/' + options.locale + '/' + app + '.js') %>"></script>
   <script type="text/javascript">
-    <%= app %>Main(<%-: options | json %>);
+    <% // delay to onload to fix IE9. %>
+    window.onload = function() {
+      <%= app %>Main(<%-: options | json %>);
+    };
   </script>
 </head>
 <body>
