@@ -93,6 +93,7 @@ var loadLevel = function() {
   Maze.SQUARE_SIZE = 50;
   Maze.PEGMAN_HEIGHT = skin.pegmanHeight;
   Maze.PEGMAN_WIDTH = skin.pegmanWidth;
+  Maze.PEGMAN_Y_OFFSET = skin.pegmanYOffset;
   // Height and width of the goal and obstacles.
   Maze.MARKER_HEIGHT = 43;
   Maze.MARKER_WIDTH = 50;
@@ -579,7 +580,8 @@ var createPegmanAnimation = function(options) {
   if (options.row !== undefined) {
     rect.setAttribute(
         'y',
-        Maze.SQUARE_SIZE * (options.row + 0.5) - Maze.PEGMAN_HEIGHT / 2 - 8);
+        Maze.SQUARE_SIZE * (options.row + 0.5) -
+            Maze.PEGMAN_HEIGHT / 2 + Maze.PEGMAN_Y_OFFSET- 8);
   }
   rect.setAttribute('width', Maze.PEGMAN_WIDTH);
   rect.setAttribute('height', Maze.PEGMAN_HEIGHT);
@@ -603,7 +605,7 @@ var createPegmanAnimation = function(options) {
   if (options.row !== undefined) {
     var y = Maze.SQUARE_SIZE * (options.row + 0.5) -
       (options.rowIdx || 0) * Maze.PEGMAN_HEIGHT -
-      Maze.PEGMAN_HEIGHT / 2 - 8;
+      Maze.PEGMAN_HEIGHT / 2 + Maze.PEGMAN_Y_OFFSET - 8;
     img.setAttribute('y', y);
   }
 };
@@ -622,14 +624,15 @@ var updatePegmanAnimation = function(options) {
   rect.setAttribute('x', options.col * Maze.SQUARE_SIZE + 1);
   rect.setAttribute(
       'y',
-      Maze.SQUARE_SIZE * (options.row + 0.5) - Maze.PEGMAN_HEIGHT / 2 - 8);
+      Maze.SQUARE_SIZE * (options.row + 0.5) -
+          Maze.PEGMAN_HEIGHT / 2 + Maze.PEGMAN_Y_OFFSET - 8);
   var img = document.getElementById(options.idStr + 'Pegman');
   var x = Maze.SQUARE_SIZE * options.col -
       options.direction * Maze.PEGMAN_WIDTH + 1;
   img.setAttribute('x', x);
   var y = Maze.SQUARE_SIZE * (options.row + 0.5) -
       (options.rowIdx || 0) * Maze.PEGMAN_HEIGHT -
-      Maze.PEGMAN_HEIGHT / 2 - 8;
+      Maze.PEGMAN_HEIGHT / 2 + Maze.PEGMAN_Y_OFFSET - 8;
   img.setAttribute('y', y);
   img.setAttribute('visibility', 'visible');
 };
@@ -1360,7 +1363,8 @@ Maze.displayPegman = function(x, y, d) {
   pegmanIcon.setAttribute('x',
       x * Maze.SQUARE_SIZE - d * Maze.PEGMAN_WIDTH + 1);
   pegmanIcon.setAttribute('y',
-      Maze.SQUARE_SIZE * (y + 0.5) - Maze.PEGMAN_HEIGHT / 2 - 8);
+      Maze.SQUARE_SIZE * (y + 0.5) -
+          Maze.PEGMAN_HEIGHT / 2 + Maze.PEGMAN_Y_OFFSET - 8);
 
   var clipRect = document.getElementById('clipRect');
   clipRect.setAttribute('x', x * Maze.SQUARE_SIZE + 1);
