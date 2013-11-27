@@ -863,7 +863,7 @@ var spiral = function(i) {
           </value>
           <next>
             <block type="procedures_callnoreturn" inline="false">
-              <mutation name="draw a circle">
+              <mutation name="<%= msg.drawACircle() %>">
                 <arg name="step"></arg>
               </mutation>
               <value name="ARG0">
@@ -890,7 +890,7 @@ var spiral = function(i) {
       <mutation>
         <arg name="step"></arg>
       </mutation>
-      <title name="NAME">draw a circle</title>
+      <title name="NAME"><%= msg.drawACircle() %></title>
       <statement name="STACK">
         <block type="controls_repeat">
           <title name="TIMES">60</title>
@@ -944,7 +944,7 @@ var spiral = function(i) {
               </value>
               <next>
                 <block type="procedures_callnoreturn" inline="false">
-                  <mutation name="draw a circle">
+                  <mutation name="<%= msg.drawACircle() %>">
                     <arg name="step"></arg>
                   </mutation>
                   <value name="ARG0">
@@ -973,7 +973,7 @@ var spiral = function(i) {
       <mutation>
         <arg name="step"></arg>
       </mutation>
-      <title name="NAME">draw a circle</title>
+      <title name="NAME"><%= msg.drawACircle() %></title>
       <statement name="STACK">
         <block type="controls_repeat">
           <title name="TIMES">60</title>
@@ -1002,7 +1002,7 @@ var spiral = function(i) {
     </block>
   <% } else if (level == 6) { -%>
     <block type="procedures_callnoreturn" inline="false" x="70" y="20">
-      <mutation name="draw a tree">
+      <mutation name="<%= msg.drawATree() %>">
         <arg name="depth"></arg>
         <arg name="branches"></arg>
       </mutation>
@@ -1022,7 +1022,7 @@ var spiral = function(i) {
         <arg name="depth"></arg>
         <arg name="branches"></arg>
       </mutation>
-      <title name="NAME">draw a tree</title>
+      <title name="NAME"><%= msg.drawATree() %></title>
       <statement name="STACK">
         <block type="controls_if" inline="false">
           <value name="IF0">
@@ -1101,7 +1101,7 @@ var spiral = function(i) {
                                   </value>
                                   <next>
                                     <block type="procedures_callnoreturn" inline="false">
-                                      <mutation name="draw a tree">
+                                      <mutation name="<%= msg.drawATree() %>">
                                         <arg name="depth"></arg>
                                         <arg name="branches"></arg>
                                       </mutation>

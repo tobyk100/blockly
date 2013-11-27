@@ -8,7 +8,8 @@ module.exports = function(locale) {
     return through(function(data) {
       buffer += data;
     }, function() {
-      this.queue(buffer.replace('locale/current', 'locale/' + locale));
+      var rewritten = buffer.replace(/locale\/current/g, 'locale/' + locale);
+      this.queue(rewritten);
       this.queue(null);
     });
   };
