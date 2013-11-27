@@ -1279,11 +1279,10 @@ Maze.scheduleFail = function(forward) {
         pegmanIcon.setAttribute('visibility', 'hidden');
       }, stepSpeed * 2));
     }
+    Maze.pidList.push(window.setTimeout(function() {
+      BlocklyApps.playAudio('failure', {volume : 0.5});
+    }, stepSpeed));
   }
-
-  Maze.pidList.push(window.setTimeout(function() {
-    BlocklyApps.playAudio('failure', {volume : 0.5});
-  }, stepSpeed));
 };
 
 /**
