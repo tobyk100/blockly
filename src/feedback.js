@@ -31,7 +31,7 @@ exports.displayFeedback = function(options) {
   if (showCode) {
     feedback.appendChild(showCode);
   }
-  var canContinue = canContinueToNextLevel(options.feedbackType);
+  var canContinue = exports.canContinueToNextLevel(options.feedbackType);
   feedback.appendChild(getFeedbackButtons(
     options.feedbackType, options.level.showPreviousLevelButton));
 
@@ -124,10 +124,10 @@ var getFeedbackButtons = function(feedbackType, showPreviousLevelButton) {
   buttons.innerHTML = require('./templates/buttons.html')({
     data: {
       previousLevel:
-        !canContinueToNextLevel(feedbackType) &&
+        !exports.canContinueToNextLevel(feedbackType) &&
         showPreviousLevelButton,
       tryAgain: feedbackType !== BlocklyApps.TestResults.ALL_PASS,
-      nextLevel: canContinueToNextLevel(feedbackType)
+      nextLevel: exports.canContinueToNextLevel(feedbackType)
     }
   });
 
@@ -234,7 +234,7 @@ var getTrophiesElement = function(options) {
 };
 
 var getShowCodeElement = function(options) {
-  if (canContinueToNextLevel(options.feedbackType)) {
+  if (exports.canContinueToNextLevel(options.feedbackType)) {
     var linesWritten = exports.getNumBlocksUsed();
     var showCodeDiv = document.createElement('div');
     showCodeDiv.setAttribute('id', 'show-code');
@@ -273,7 +273,7 @@ var getShowCodeElement = function(options) {
  * @param {number} feedbackType A constant property of BlocklyApps.TestResults,
  *     typically produced by BlocklyApps.getTestResults().
  */
-var canContinueToNextLevel = function(feedbackType) {
+exports.canContinueToNextLevel = function(feedbackType) {
   return (feedbackType === BlocklyApps.TestResults.ALL_PASS ||
     feedbackType === BlocklyApps.TestResults.TOO_MANY_BLOCKS_FAIL ||
     feedbackType ===  BlocklyApps.TestResults.OTHER_2_STAR_FAIL ||
