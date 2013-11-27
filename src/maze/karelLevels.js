@@ -136,42 +136,42 @@ var IF_ELSE = {'test': '} else {', 'type': 'karel_ifElse'};
 var fill = function(num) {
   return {'test': 'fill_' + num + '();',
           'type': 'procedures_callnoreturn',
-          'titles': {'NAME': 'fill ' + num}};
+          'titles': {'NAME': msg.fillN({shovelfuls: num})}};
 };
 
 // This tests for and creates the "remove num" blcok.
 var remove = function(num) {
   return {'test': 'remove_' + num + '();',
           'type': 'procedures_callnoreturn',
-          'titles': {'NAME': 'remove ' + num}};
+          'titles': {'NAME': msg.removeN({shovelfuls: num})}};
 };
 
-// This tests for and creates the "avoid the cow and remove 1" blcok.
+// This tests for and creates the "avoid the cow and remove 1" block.
 var AVOID_OBSTACLE_AND_REMOVE = {
   'test': 'avoid_the_cow_and_remove_1();',
   'type': 'procedures_callnoreturn',
-  'titles': {'NAME': 'avoid the cow and remove 1'}
+  'titles': {'NAME': msg.avoidCowAndRemove()}
 };
 
-// This tests for and creates the "remove 1 and avoid the cow" blcok.
+// This tests for and creates the "remove 1 and avoid the cow" block.
 var REMOVE_AND_AVOID_OBSTACLE = {
   'test': 'remove_1_and_avoid_the_cow();',
   'type': 'procedures_callnoreturn',
-  'titles': {'NAME': 'avoid the cow and remove 1'}
+  'titles': {'NAME': msg.avoidCowAndRemove()}
 };
 
 // This tests for and creates the "remove piles" block.
 var REMOVE_PILES = {
   'test': 'remove_stack_of_4_piles();',
   'type': 'procedures_callnoreturn',
-  'titles': {'NAME': 'remove stack of 4 piles'}
+  'titles': {'NAME': msg.removeStack({shovelfuls: 4})}
 };
 
 // This tests for and creates the "fill holes" block.
 var FILL_HOLES = {
   'test': 'fill_stack_of_2_holes();',
   'type': 'procedures_callnoreturn',
-  'titles': {'NAME': 'fill stack of 2 holes'}
+  'titles': {'NAME': msg.fillStack()}
 };
 
 module.exports = {
@@ -1441,8 +1441,8 @@ module.exports = {
     'ideal': 14,
     'requiredBlocks': [
       [MOVE_FORWARD], [TURN_LEFT], [REPEAT], [DIG], [FILL],
-      [levelBase.call('fill square')],
-      [levelBase.call('remove square')]
+      [levelBase.call(msg.fillSquare())],
+      [levelBase.call(msg.removeSquare())]
     ],
     'scale': {
       'stepSpeed': 3

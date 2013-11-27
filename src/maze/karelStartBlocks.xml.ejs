@@ -32,7 +32,7 @@ var removeShovelfuls = function(n) { -%>
   <block type="procedures_defnoreturn" x="300" y="200" editable="false"
     deletable="false">
     <mutation></mutation>
-    <title name="NAME">remove <%= n %></title>
+    <title name="NAME"><%= msg.removeN({shovelfuls: n}) %></title>
     <statement name="STACK">
       <block type="controls_repeat" editable="false" deletable="false"
         movable="false">
@@ -84,13 +84,13 @@ var removeShovelfuls = function(n) { -%>
     <block type="procedures_defnoreturn" x="300" y="200" editable="false"
       deletable="false">
       <mutation></mutation>
-      <title name="NAME">remove 7</title>
+      <title name="NAME"><%= msg.removeN({shovelfuls: 7}) %></title>
     </block>
   <% } else if (level == 5) { -%>
     <block type="procedures_defnoreturn" x="20" y="200" editable="false"
       deletable="false">
       <mutation></mutation>
-      <title name="NAME">remove 6</title>
+      <title name="NAME"><%= msg.removeN({shovelfuls: 6}) %></title>
     </block>
   <% } else if (level == 6) { -%>
     <% fillShovelfuls(8) -%>
@@ -167,7 +167,7 @@ var removeShovelfuls = function(n) { -%>
     <block type="procedures_defnoreturn" x="20" y="200" editable="false"
       deletable="false">
       <mutation></mutation>
-      <title name="NAME">remove stack of 4 piles</title>
+      <title name="NAME"><%= msg.removeStack({shovelfuls: 4}) %></title>
       <statement name="STACK">
         <block type="maze_turn" editable="false" deletable="false"
           movable="false">
@@ -222,7 +222,7 @@ var removeShovelfuls = function(n) { -%>
     <block type="procedures_defnoreturn" x="20" y="200" editable="false"
       deletable="false">
       <mutation></mutation>
-      <title name="NAME">remove stack of 4 piles</title>
+      <title name="NAME"><%= msg.removeStack({shovelfuls: 4}) %></title>
       <statement name="STACK">
         <block type="maze_turn" editable="false" deletable="false"
           movable="false">
