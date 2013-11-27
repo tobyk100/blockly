@@ -410,9 +410,6 @@ $modal-image-margin-gap: 10px;
 .modal-body {
   height: 100%;
   overflow: visible;
-  > .ui-tabs {
-    overflow-y: scroll;
-  }
 }
 #feedbackBlocks {
   margin-left: 50px;
