@@ -581,7 +581,7 @@ var createPegmanAnimation = function(options) {
     rect.setAttribute(
         'y',
         Maze.SQUARE_SIZE * (options.row + 0.5) -
-            Maze.PEGMAN_HEIGHT / 2 + Maze.PEGMAN_Y_OFFSET- 8);
+            Maze.PEGMAN_HEIGHT / 2 + Maze.PEGMAN_Y_OFFSET - 8);
   }
   rect.setAttribute('width', Maze.PEGMAN_WIDTH);
   rect.setAttribute('height', Maze.PEGMAN_HEIGHT);
