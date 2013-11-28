@@ -93,6 +93,7 @@ var loadLevel = function() {
   Maze.SQUARE_SIZE = 50;
   Maze.PEGMAN_HEIGHT = skin.pegmanHeight;
   Maze.PEGMAN_WIDTH = skin.pegmanWidth;
+  Maze.PEGMAN_Y_OFFSET = skin.pegmanYOffset;
   // Height and width of the goal and obstacles.
   Maze.MARKER_HEIGHT = 43;
   Maze.MARKER_WIDTH = 50;
@@ -555,6 +556,14 @@ var removeDirt = function(row, col) {
 };
 
 /**
+ * Calculate the y coordinates for pegman sprite.
+ */
+var getPegmanYCoordinate = function(options) {
+  return Maze.SQUARE_SIZE * (options.mazeRow + 0.5) - Maze.PEGMAN_HEIGHT / 2 -
+      (options.pegmanRow || 0) * Maze.PEGMAN_HEIGHT + Maze.PEGMAN_Y_OFFSET - 8;
+};
+
+/**
   * Create sprite assets for pegman.
   * @param options Specify different features of the pegman animation.
   * idStr required identifier for the pegman.
@@ -577,9 +586,9 @@ var createPegmanAnimation = function(options) {
     rect.setAttribute('x', options.col * Maze.SQUARE_SIZE + 1);
   }
   if (options.row !== undefined) {
-    rect.setAttribute(
-        'y',
-        Maze.SQUARE_SIZE * (options.row + 0.5) - Maze.PEGMAN_HEIGHT / 2 - 8);
+    rect.setAttribute('y', getPegmanYCoordinate({
+      mazeRow : options.row
+    }));
   }
   rect.setAttribute('width', Maze.PEGMAN_WIDTH);
   rect.setAttribute('height', Maze.PEGMAN_HEIGHT);
@@ -601,9 +610,10 @@ var createPegmanAnimation = function(options) {
     img.setAttribute('x', x);
   }
   if (options.row !== undefined) {
-    var y = Maze.SQUARE_SIZE * (options.row + 0.5) -
-      (options.rowIdx || 0) * Maze.PEGMAN_HEIGHT -
-      Maze.PEGMAN_HEIGHT / 2 - 8;
+    var y = getPegmanYCoordinate({
+      mazeRow : options.row,
+      pegmanRow : options.rowIdx
+    });
     img.setAttribute('y', y);
   }
 };
@@ -620,16 +630,17 @@ var createPegmanAnimation = function(options) {
 var updatePegmanAnimation = function(options) {
   var rect = document.getElementById(options.idStr + 'PegmanClipRect');
   rect.setAttribute('x', options.col * Maze.SQUARE_SIZE + 1);
-  rect.setAttribute(
-      'y',
-      Maze.SQUARE_SIZE * (options.row + 0.5) - Maze.PEGMAN_HEIGHT / 2 - 8);
+  rect.setAttribute('y', getPegmanYCoordinate({
+    mazeRow : options.row
+  }));
   var img = document.getElementById(options.idStr + 'Pegman');
   var x = Maze.SQUARE_SIZE * options.col -
       options.direction * Maze.PEGMAN_WIDTH + 1;
   img.setAttribute('x', x);
-  var y = Maze.SQUARE_SIZE * (options.row + 0.5) -
-      (options.rowIdx || 0) * Maze.PEGMAN_HEIGHT -
-      Maze.PEGMAN_HEIGHT / 2 - 8;
+  var y = getPegmanYCoordinate({
+    mazeRow : options.row,
+    pegmanRow : options.rowIdx
+  });
   img.setAttribute('y', y);
   img.setAttribute('visibility', 'visible');
 };
@@ -1358,8 +1369,9 @@ Maze.displayPegman = function(x, y, d) {
   var pegmanIcon = document.getElementById('pegman');
   pegmanIcon.setAttribute('x',
       x * Maze.SQUARE_SIZE - d * Maze.PEGMAN_WIDTH + 1);
-  pegmanIcon.setAttribute('y',
-      Maze.SQUARE_SIZE * (y + 0.5) - Maze.PEGMAN_HEIGHT / 2 - 8);
+  pegmanIcon.setAttribute('y', getPegmanYCoordinate({
+    mazeRow : y
+  }));
 
   var clipRect = document.getElementById('clipRect');
   clipRect.setAttribute('x', x * Maze.SQUARE_SIZE + 1);

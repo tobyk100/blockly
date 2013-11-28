@@ -46,7 +46,8 @@ var CONFIGS = {
     hittingWallAnimation: 'wall.gif',
     approachingGoalAnimation: 'close_goal.png',
     pegmanHeight: 68,
-    pegmanWidth: 51
+    pegmanWidth: 51,
+    pegmanYOffset: -6
   }
 
 };
@@ -115,5 +116,6 @@ exports.load = function(assetUrl, id) {
   }
   skin.pegmanHeight = config.pegmanHeight || 52;
   skin.pegmanWidth = config.pegmanWidth || 49;
+  skin.pegmanYOffset = config.pegmanYOffset || 0;
   return skin;
 };
