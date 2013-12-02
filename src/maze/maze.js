@@ -559,8 +559,9 @@ var removeDirt = function(row, col) {
  * Calculate the y coordinates for pegman sprite.
  */
 var getPegmanYCoordinate = function(options) {
-  return Maze.SQUARE_SIZE * (options.mazeRow + 0.5) - Maze.PEGMAN_HEIGHT / 2 -
+  var y = Maze.SQUARE_SIZE * (options.mazeRow + 0.5) - Maze.PEGMAN_HEIGHT / 2 -
       (options.pegmanRow || 0) * Maze.PEGMAN_HEIGHT + Maze.PEGMAN_Y_OFFSET - 8;
+  return Math.floor(y);
 };
 
 /**
