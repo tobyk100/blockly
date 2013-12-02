@@ -199,6 +199,7 @@ BlocklyApps.init = function(config) {
 
   // Add the starting block(s).
   var startBlocks = config.level.startBlocks || '';
+  startBlocks = BlocklyApps.arrangeBlockPosition(startBlocks);
   BlocklyApps.loadBlocks(startBlocks);
 
   var onResize = function() {
@@ -299,6 +300,26 @@ BlocklyApps.initReadonly = function(options) {
 BlocklyApps.loadBlocks = function(blocksXml) {
   var xml = parseXmlElement(blocksXml);
   Blockly.Xml.domToWorkspace(Blockly.mainWorkspace, xml);
+};
+
+BlocklyApps.BLOCK_X_COORDINATE = 70;
+BlocklyApps.BLOCK_Y_COORDINATE = 30;
+BlocklyApps.BLOCK_Y_COORDINATE_INTERVAL = 200;
+
+/**
+ * Spreading out the top blocks in workspace if it is not already set.
+ */
+BlocklyApps.arrangeBlockPosition = function(startBlocks) {
+  var xml = parseXmlElement(startBlocks);
+  for (var x = 0, xmlChild; xmlChild = xml.children[x]; x++) {
+    xmlChild.setAttribute('x', xmlChild.getAttribute('x') ||
+                          BlocklyApps.BLOCK_X_COORDINATE);
+    xmlChild.setAttribute('y',
+                          xmlChild.getAttribute('y') ||
+                          BlocklyApps.BLOCK_Y_COORDINATE +
+                          BlocklyApps.BLOCK_Y_COORDINATE_INTERVAL * x);
+  }
+  return Blockly.Xml.domToText(xml);
 };
 
 var showInstructions = function(level) {
