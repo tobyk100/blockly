@@ -311,7 +311,8 @@ BlocklyApps.BLOCK_Y_COORDINATE_INTERVAL = 200;
  */
 BlocklyApps.arrangeBlockPosition = function(startBlocks) {
   var xml = parseXmlElement(startBlocks);
-  for (var x = 0, xmlChild; xmlChild = xml.children[x]; x++) {
+  for (var x = 0, xmlChild; xml.children && x < xml.children.length; x++) {
+    xmlChild = xml.children[x];
     xmlChild.setAttribute('x', xmlChild.getAttribute('x') ||
                           BlocklyApps.BLOCK_X_COORDINATE);
     xmlChild.setAttribute('y',
