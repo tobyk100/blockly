@@ -105,6 +105,7 @@ BlocklyApps.init = function(config) {
                    'initial-scale=' + scale,
                    'maximum-scale=' + scale,
                    'minimum-scale=' + scale,
+                   'target-densityDpi=device-dpi',
                    'user-scalable=no'];
     viewport.setAttribute('content', content.join(', '));
   }
