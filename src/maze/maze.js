@@ -596,9 +596,11 @@ var createPegmanAnimation = function(options) {
   clip.appendChild(rect);
   svg.appendChild(clip);
   // Create image.
+  // Add a random number to force it to reload everytime.
+  var imgSrc = options.pegmanImage + '&time=' + (new Date()).getTime();
   var img = document.createElementNS(Blockly.SVG_NS, 'image');
   img.setAttributeNS(
-      'http://www.w3.org/1999/xlink', 'xlink:href', options.pegmanImage);
+      'http://www.w3.org/1999/xlink', 'xlink:href', imgSrc);
   img.setAttribute('height', Maze.PEGMAN_HEIGHT * (options.numRowPegman || 1));
   img.setAttribute('width', Maze.PEGMAN_WIDTH * (options.numColPegman || 4));
   img.setAttribute('clip-path', 'url(#' + options.idStr + 'PegmanClip)');
