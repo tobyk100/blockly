@@ -790,7 +790,7 @@ BlocklyApps.runButtonClick = function() {
   BlocklyApps.attempts++;
 
   // Disable the run button until onReportComplete is called.
-  runButton.disabled = true;
+  runButton.setAttribute('disabled', 'disabled');
 
   Maze.execute();
 };
