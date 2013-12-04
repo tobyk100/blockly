@@ -587,6 +587,8 @@ BlocklyApps.report = function(options) {
   report.attempt = BlocklyApps.attempts;
   report.lines = feedback.getNumBlocksUsed();
 
+  // Disable the run button until onReportComplete is called.
+  document.getElementById('runButton').setAttribute('disabled', 'disabled');
   onAttempt(report);
 };
 

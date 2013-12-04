@@ -291,8 +291,6 @@ BlocklyApps.runButtonClick = function() {
   document.getElementById('spinner').style.visibility = 'visible';
   Blockly.mainWorkspace.traceOn(true);
   BlocklyApps.attempts++;
-  // Disable the run button until onReportComplete is called.
-  runButton.setAttribute('disabled', 'disabled');
   Turtle.execute();
 };
 
