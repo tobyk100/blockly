@@ -101,11 +101,12 @@ var MOVE_BACKWARD_INLINE = {test: 'moveBackward',
                             type: 'draw_move_by_constant',
                             titles: {'DIR': 'moveBackward'}};
 
-// This tests for and creates a [right] draw_turn_by_constant_restricted block
-// with the specified number of degrees as its input.  The restricted turn
-// is used on the earlier levels of the tutorial.
+// This tests for a [right] draw_turn_by_constant_restricted block
+// and creates the block with the specified/recommended number of degrees as
+// its input.  The restricted turn is used on the earlier levels of the
+// tutorial.
 var turnRightRestricted = function(degrees) {
-  return {test: 'turnRight(' + degrees,
+  return {test: 'turnRight(',
           type: 'draw_turn_by_constant_restricted',
           titles: {'VALUE': degrees}};
 };
