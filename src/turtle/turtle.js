@@ -291,6 +291,8 @@ BlocklyApps.runButtonClick = function() {
   document.getElementById('spinner').style.visibility = 'visible';
   Blockly.mainWorkspace.traceOn(true);
   BlocklyApps.attempts++;
+  // Disable the run button until onReportComplete is called.
+  runButton.setAttribute('disabled', 'disabled');
   Turtle.execute();
 };
 
@@ -527,6 +529,9 @@ var displayFeedback = function() {
  */
 Turtle.onReportComplete = function(response) {
   Turtle.response = response;
+  // Disable the run button until onReportComplete is called.
+  var runButton = document.getElementById('runButton');
+  runButton.disabled = false;
   displayFeedback();
 };
 
