@@ -100,8 +100,10 @@ BlocklyApps.init = function(config) {
   var viewport = document.querySelector('meta[name="viewport"]');
   if (viewport) {
     var longDimension = Math.max(screen.width, screen.height);
-    var scale = longDimension / BlocklyApps.MIN_WIDTH;
-    var content = ['width=' + BlocklyApps.MIN_WIDTH,
+    // if the longDimension is less than our MIN_WIDTH, we will adjust scale
+    var width = Math.max(BlocklyApps.MIN_WIDTH, longDimension);
+    var scale = longDimension / width;
+    var content = ['width=' + width,
                    'initial-scale=' + scale,
                    'maximum-scale=' + scale,
                    'minimum-scale=' + scale,
