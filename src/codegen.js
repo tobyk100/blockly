@@ -16,10 +16,20 @@ exports.loopTrap = function(blockId) {
  * @return {string} The code without serial numbers and timeout checks.
  */
 exports.strip = function(code) {
-  // Strip out serial numbers.
-  code = code.replace(/(,\s*)?'block_id_\d+'\)/g, ')');
-  // Remove timeouts.
-  return code.replace(INFINITE_LOOP_TRAP_RE, '');
+  return (code
+    // Strip out serial numbers.
+    .replace(/(,\s*)?'block_id_\d+'\)/g, ')')
+    // Remove timeouts.
+    .replace(INFINITE_LOOP_TRAP_RE, '')
+    // Strip out class namespaces.
+    .replace(/(BlocklyApps|Maze|Turtle)\./g, '')
+    // Strip out particular helper functions.
+    .replace(/^function (colour_random)[\s\S]*?^}/gm, '')
+    // Collapse consecutive blank lines.
+    .replace(/\n\n+/gm, '\n\n')
+    // Trim.
+    .replace(/^\s+|\s+$/g, '')
+  );
 };
 
 /**
