@@ -560,8 +560,8 @@ module.exports = {
     freePlay: false,
     images: [
       {
-        filename: 'cow.svg',
-        position: [187, 97]
+        filename: 'lion.svg',
+        position: [195, 97]
       }
     ],
     startDirection: 0
